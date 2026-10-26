@@ -16,7 +16,6 @@
   --frost:#8fbfcf;     /* 祈福與冰霜 */
   --blood:#b5432f;
   --gold:#cfab5c;
-  --moss:#7f9d5e;
   --land:#1b2622;
   --sea:#0c1215;
   --f-display:"Noto Serif TC","Songti TC","PMingLiU",serif;
@@ -35,7 +34,7 @@ button:disabled{cursor:not-allowed}
 :focus-visible{outline:2px solid var(--ember);outline-offset:2px}
 .rune{font-family:var(--f-rune);letter-spacing:.15em}
 h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;font-weight:900}
-.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--ember);margin:0 0 4px;text-transform:uppercase}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--ember);margin:0 0 4px}
 .wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 40px}
 
 /* 標題畫面 */
@@ -43,19 +42,36 @@ h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;font-weight:900
 .title-hero .rune{color:var(--ember);font-size:15px}
 .title-hero h1{font-size:clamp(44px,11vw,84px);line-height:1;letter-spacing:.06em}
 .title-hero p{max-width:34em;color:var(--muted);margin:0}
-.form{display:grid;gap:18px;margin-top:22px;max-width:720px}
-.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;letter-spacing:.08em}
+.form{display:grid;gap:22px;margin-top:22px}
+.field>label,.field>.lbl{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;letter-spacing:.08em}
 .field input{width:100%;max-width:320px;background:var(--panel);border:1px solid var(--line);color:var(--bone);padding:10px 12px;font:inherit;font-size:17px;border-radius:4px}
-.bgs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
-.bg-card{text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:12px;display:grid;gap:4px}
-.bg-card b{font-family:var(--f-display);font-size:17px}
-.bg-card small{color:var(--muted);font-size:13px;line-height:1.5}
-.bg-card .tag{color:var(--ember);font-size:12px}
-.bg-card[aria-pressed="true"]{border-color:var(--ember);background:var(--panel2);box-shadow:inset 0 0 0 1px var(--ember)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.opt{text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:12px;display:grid;gap:4px;align-content:start}
+.opt b{font-family:var(--f-display);font-size:17px}
+.opt small{color:var(--muted);font-size:13px;line-height:1.5}
+.opt .tag{color:var(--ember);font-size:12px}
+.opt[aria-pressed="true"]{border-color:var(--ember);background:var(--panel2);box-shadow:inset 0 0 0 1px var(--ember)}
+.opt:disabled{opacity:.4}
+.looks{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:18px;align-items:start}
+@media (max-width:560px){.looks{grid-template-columns:1fr}.looks .portrait{max-width:180px}}
+.looks-ctl{display:grid;gap:12px;min-width:0}
+.seg{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.seg>span{font-size:13px;color:var(--muted);min-width:3.5em}
+.seg button{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:3px 12px;font-size:14px}
+.seg button[aria-pressed="true"]{border-color:var(--ember);color:var(--ember)}
+.seg button:disabled{opacity:.35}
+.swatch{width:26px;height:26px;padding:0!important;border-radius:50%!important}
+.swatch[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--ember)}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .primary{background:var(--ember);color:#1a0f08;border:0;padding:11px 22px;border-radius:4px;font-weight:700;font-size:16px}
 .primary:disabled{opacity:.4}
 .ghost{background:transparent;border:1px solid var(--line);padding:10px 18px;border-radius:4px;color:var(--bone)}
+details.ach{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px}
+details.ach summary{cursor:pointer;font-family:var(--f-display);font-weight:600}
+.ach-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin-top:10px;font-size:13px}
+.ach-list div{background:var(--bg);border-radius:5px;padding:8px 10px;display:grid}
+.ach-list div.on b{color:var(--gold)}
+.ach-list small{color:var(--muted)}
 
 /* 遊戲主畫面 */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(15,20,23,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
@@ -79,9 +95,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .bless i.on{color:var(--frost);text-shadow:0 0 6px rgba(143,191,207,.6)}
 
 .cols{display:grid;gap:18px;margin-top:16px}
-@media (min-width:860px){.cols{grid-template-columns:280px 1fr}.tab-char{display:none!important}}
+@media (min-width:860px){.cols{grid-template-columns:290px 1fr}.tab-char{display:none!important}}
 @media (max-width:859px){.side{display:none}}
-.side{align-self:start;position:sticky;top:150px}
+.side{align-self:start}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px}
 .main{min-width:0;display:grid;gap:14px;align-content:start}
 .goal{border-left:3px solid var(--ember);padding:8px 12px;background:var(--panel);font-size:14px}
@@ -109,15 +125,17 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* 角色 */
 .char{display:grid;gap:12px}
-.portrait{width:100%;max-width:200px;margin:0 auto;display:block}
+.portrait{width:100%;max-width:220px;margin:0 auto;display:block}
 .char h2{font-size:22px;text-align:center}
 .char .who{text-align:center;color:var(--muted);font-size:13px;margin-top:-8px}
-.stats{display:grid;gap:6px}
-.stat{display:grid;grid-template-columns:28px 1fr auto auto;gap:8px;align-items:center}
-.stat .r{font-family:var(--f-rune);color:var(--ember);font-size:18px;text-align:center}
+.stats{display:grid;gap:8px}
+.stat{display:grid;grid-template-columns:26px 1fr auto auto;gap:8px;align-items:start}
+.stat .r{font-family:var(--f-rune);color:var(--ember);font-size:18px;text-align:center;line-height:1.4}
 .stat .v{font-weight:700;font-variant-numeric:tabular-nums;min-width:2ch;text-align:right}
 .stat .v.low{color:var(--blood)}
-.stat small{display:block;color:var(--muted);font-size:12px;line-height:1.3}
+.stat small{display:block;color:var(--muted);font-size:12px;line-height:1.35}
+.stat .mile{display:block;font-size:11.5px;line-height:1.4;color:#4f626c}
+.stat .mile.on{color:var(--gold)}
 .plus{width:28px;height:28px;border-radius:4px;border:1px solid var(--ember);background:transparent;color:var(--ember);font-weight:700}
 .list{display:grid;gap:6px;font-size:13px}
 .list div{display:grid;gap:1px}
@@ -127,6 +145,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .bless-big{display:flex;gap:8px;font-family:var(--f-rune);font-size:24px}
 .bless-big i{font-style:normal;color:var(--line)}
 .bless-big i.on{color:var(--frost);text-shadow:0 0 10px rgba(143,191,207,.55)}
+.bond{display:inline-block;height:5px;background:var(--bg);border-radius:3px;width:60px;vertical-align:middle;overflow:hidden;margin-left:6px}
+.bond i{display:block;height:100%;background:var(--ember)}
 
 /* 地圖 */
 .mapbox{background:var(--sea);border:1px solid var(--line);border-radius:6px;overflow:hidden}
@@ -137,19 +157,26 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:middle}
 .region{display:grid;gap:8px}
 .region h3{font-size:20px}
-.region .meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
-.region .meta b{color:var(--bone)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.meta b{color:var(--bone);font-variant-numeric:tabular-nums}
 .pill{display:inline-block;font-size:12px;padding:1px 8px;border-radius:10px;border:1px solid currentColor}
 
 /* 部落 */
-.blds{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.blds{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
 .bld{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:grid;gap:6px;align-content:start}
-.bld.done{border-color:var(--gold)}
+.bld.done{border-color:#5a4a2a}
+.bld.max{border-color:var(--gold)}
 .bld b{font-family:var(--f-display);font-size:17px}
+.bld .lv{color:var(--gold);font-size:13px;letter-spacing:.1em}
 .bld small{color:var(--muted);font-size:13px}
+.bld .now{font-size:13px}
 .bld .cost{font-size:13px;font-variant-numeric:tabular-nums}
 .bld button{justify-self:start;padding:6px 14px;font-size:14px}
-.done-tag{color:var(--gold);font-size:13px}
+.policy{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.policy button{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:8px;text-align:left;display:grid;gap:1px;font-size:14px}
+.policy button small{color:var(--muted);font-size:12px}
+.policy button[aria-pressed="true"]{border-color:var(--ember)}
+@media (max-width:480px){.policy{grid-template-columns:1fr}}
 
 /* 視窗 */
 #modal{position:fixed;inset:0;z-index:20;background:rgba(5,8,10,.78);display:grid;place-items:center;overflow-y:auto;
@@ -166,7 +193,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .choice small{color:var(--muted);font-size:12.5px}
 .choice:disabled{opacity:.45}
 .res{background:var(--panel2);border-radius:5px;padding:12px 14px;white-space:pre-line}
-.res .good{color:var(--gold)}.res .bad{color:var(--blood)}.res .blessed{color:var(--frost)}
+.good{color:var(--gold)}.bad{color:var(--blood)}.blessed{color:var(--frost)}
 
 .fighters{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .fighter{display:grid;gap:4px;font-size:13px}
@@ -177,6 +204,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .fighter .num{color:var(--muted);font-variant-numeric:tabular-nums}
 .hint{background:var(--bg);border:1px dashed var(--line);border-radius:5px;padding:10px 12px;margin:0;font-size:14px}
 .hint small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.hint .habit{color:var(--frost)}
 .moves{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .move{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:10px 12px;text-align:left;display:grid;gap:1px}
 .move b{font-family:var(--f-display);font-size:17px}
@@ -201,7 +229,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .summary b{font-size:15px}
 .talents{display:grid;gap:8px}
 .toast{position:fixed;left:50%;bottom:max(18px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--panel2);border:1px solid var(--ember);padding:8px 16px;border-radius:20px;z-index:30;font-size:14px;max-width:calc(100% - 32px)}
-@media (max-width:480px){.mbody{padding:16px}.moves{grid-template-columns:1fr 1fr}.bars{grid-template-columns:1fr}}
+@media (max-width:480px){.mbody{padding:16px}.bars{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
@@ -218,15 +246,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
           <button class="primary" id="btn-continue">繼續上次的傳奇</button>
           <span style="color:var(--muted);font-size:13px" id="continue-info"></span>
         </div>
-        <div class="field">
-          <label for="in-name">你的名字</label>
-          <input id="in-name" maxlength="8" value="雷夫" autocomplete="off">
-        </div>
-        <div class="field">
-          <label>你的出身</label>
-          <div class="bgs" id="bgs"></div>
-        </div>
+        <div class="field"><label for="in-name">你的名字</label><input id="in-name" maxlength="8" value="雷夫" autocomplete="off"></div>
+        <div class="field"><span class="lbl">外型</span><div class="looks" id="looks"></div></div>
+        <div class="field"><span class="lbl">出身</span><div class="opts" id="bgs"></div></div>
+        <div class="field"><span class="lbl">難度</span><div class="opts" id="diffs"></div></div>
+        <div class="field" id="legacy-field"><span class="lbl">傳承（前人留給你的東西）</span><div class="opts" id="legacies"></div></div>
         <div class="row"><button class="primary" id="btn-start">揚帆出發</button></div>
+        <details class="ach" id="ach-box"><summary id="ach-sum">成就</summary><div class="ach-list" id="ach-list"></div></details>
       </div>
     </div>
   </section>
@@ -259,18 +285,31 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <script>
 'use strict';
-const SAVE='north-ambition-save-v1';
+const SAVE='north-ambition-save-v2';
+const META='north-ambition-meta';
 const $=s=>document.querySelector(s);
 const rnd=(a,b)=>a+Math.random()*(b-a);
 const ri=(a,b)=>Math.floor(rnd(a,b+1));
 const pick=a=>a[Math.floor(Math.random()*a.length)];
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const pct=p=>Math.round(p*100)+'%';
+const pct=p=>Math.round(clamp(p,0,1)*100)+'%';
 
+/* ================= 資料 ================= */
+const DIFF={
+  easy:{name:'輕鬆',desc:'想好好體驗劇情。敵人較弱、不用付軍餉、每升一級 3 點能力。',foe:.75,wage:0,loy:.5,pts:3,bless:3,world:.6},
+  normal:{name:'標準',desc:'推薦第一次玩。判斷力決定一切。',foe:1,wage:1,loy:1,pts:2,bless:3,world:1},
+  hero:{name:'英雄',desc:'敵人更強，世界變強得更快，祈福最多 2 次。通關另有獎勵。',foe:1.25,wage:1,loy:1,pts:2,bless:2,world:1.4},
+};
 const STAT={str:'力量',con:'體魄',wit:'智謀',pre:'威望'};
 const STAT_RUNE={str:'ᚦ',con:'ᚢ',wit:'ᚨ',pre:'ᛏ'};
-const STAT_DESC={str:'單挑傷害、部隊戰力',con:'生命上限、減少受到的傷害',wit:'看穿對手、夜襲、談判',pre:'招募人數、結盟、說服'};
+const STAT_DESC={str:'單挑傷害、部隊戰力',con:'生命上限、減少受到的傷害',wit:'看穿對手、夜襲、談判',pre:'統御人數、震懾、結盟'};
+const MILES={
+  str:{6:'重擊破盾的傷害 +20%',9:'親自上陣時，部隊戰力 ×1.3',12:'斬首：對手生命低於 25% 時，重擊命中直接擊倒'},
+  con:{6:'留下舊傷的機率減半',9:'每季自然回血加倍',12:'不倒：每場生死單挑，致命一擊時保留 1 點生命'},
+  wit:{6:'有些事件會多出新的選項',9:'夜襲成功率 +15%，看清敵方確切戰力',12:'單挑時一眼看穿對手的習慣'},
+  pre:{6:'怒吼更容易震住對手',9:'有名的勇士會主動來找你',12:'統御上限 ×1.5，結盟成功率 +10%'},
+};
 const SEASON=['春','夏','秋','冬'];
 const BGS=[
   {id:'smith',name:'鐵匠之子',st:'str',desc:'從小掄錘，臂力過人。'},
@@ -281,102 +320,223 @@ const BGS=[
 const TALENTS={
   berserk:{name:'狂戰士',desc:'生命低於 40% 時，單挑傷害 ×1.5'},
   seawolf:{name:'海狼',desc:'突襲戰利品 +40%'},
-  tongue:{name:'說客',desc:'結盟、說服的成功率 +20%'},
-  ironwall:{name:'鐵壁',desc:'格擋反擊傷害加倍，受到的傷害 -15%'},
-  odin:{name:'奧丁之眼',desc:'單挑時永遠看穿對手的意圖'},
-  warcry:{name:'戰吼者',desc:'怒吼加成更強，部隊戰力 +10%'},
-  leader:{name:'天生領袖',desc:'招募費用 -30%，忠誠下降減半'},
-  raider:{name:'掠奪者',desc:'每次突襲勝利，名聲額外 +5'},
+  tongue:{name:'說客',desc:'結盟、說服、逼宮的成功率提高'},
+  ironwall:{name:'鐵壁',desc:'格擋反擊的傷害大增，受到的傷害 -10%'},
+  odin:{name:'奧丁之眼',desc:'更容易看穿對手的意圖'},
+  warcry:{name:'戰吼者',desc:'怒吼更容易震住對手、蓄力更強，部隊戰力 +8%'},
+  leader:{name:'天生領袖',desc:'招募費用 -25%，統御上限 +6'},
+  raider:{name:'掠奪者',desc:'突襲勝利名聲 +4，惡名增加減半'},
+  breaker:{name:'破盾者',desc:'重擊破盾的傷害大增'},
+  swift:{name:'迅捷',desc:'快攻傷害 +30%'},
+  tactician:{name:'戰術家',desc:'夜襲成功率 +10%，包抄更有效'},
+  ironbody:{name:'鐵骨',desc:'生命上限 +15，留下舊傷的機率減半'},
+  regen:{name:'自癒',desc:'每季多回復 4 點生命'},
+  quarter:{name:'軍需官',desc:'軍餉 -40%，每季糧食消耗 -1'},
+  drill:{name:'操練官',desc:'操練經驗 +50%，更多戰士晉升老兵'},
+  skaldblood:{name:'詩人之血',desc:'獲得的名聲 +30%'},
+  dread:{name:'恐懼之名',desc:'惡名 40 以上時，部隊戰力 +15%'},
+  calm:{name:'沉穩',desc:'忠誠的自然下降減半'},
+  executioner:{name:'處刑人',desc:'對手生命低於 30% 時，傷害 ×1.4'},
+  huntsman:{name:'獵人本色',desc:'狩獵與採集的糧食 +50%'},
+};
+const TALENT_LV=[3,6,9,12];
+const HINT={
+  human:{H:['對方雙手握緊武器，重心下沉，像是要蓄力重劈。','他深吸一口氣，把武器高高舉過肩膀。'],
+         Q:['對方腳步輕快，眼神游移，準備搶攻。','他壓低身子，刀尖對準你的空檔。'],
+         B:['對方舉起盾牌，緊盯著你的動作。','他退了半步，盾牌護住胸口，在等你先出手。']},
+  beast:{H:['牠壓低身子，後腿繃緊，準備整個撲上來。','牠人立而起，張開了巨大的前爪。'],
+         Q:['牠繞著你小步打轉，隨時要咬上來。','牠齜牙低吼，往你的腳邊試探。'],
+         B:['牠往後退了兩步，弓起背盯著你。','牠縮回樹叢邊，豎起全身的毛。']},
 };
 const FOES={
-  wolf:{name:'飢餓的灰狼',hp:23,atk:7.5,w:[.25,.6,.15]},
-  bandit:{name:'林間強盜',hp:30,atk:9,w:[.35,.35,.3]},
-  guard:{name:'漁村守衛',hp:37,atk:10.5,w:[.3,.25,.45]},
-  brawler:{name:'酒館壯漢',hp:35,atk:9,w:[.5,.25,.25]},
-  sven1:{name:'斯韋恩',hp:41,atk:10.5,w:[.45,.35,.2]},
-  gyr:{name:'壯漢蓋爾',hp:53,atk:13.5,w:[.45,.3,.25]},
-  astrid:{name:'盾女阿斯特麗德',hp:58,atk:13.5,w:[.2,.3,.5]},
-  edric:{name:'灰石堡領主艾德里克',hp:77,atk:16,w:[.3,.25,.45]},
-  brynhild:{name:'鷹巢峰的布倫希爾德',hp:73,atk:17.5,w:[.3,.45,.25]},
-  sven:{name:'紅帆斯韋恩',hp:88,atk:19,w:[.5,.3,.2]},
-  wilfred:{name:'溫特堡御衛長威爾弗',hp:99,atk:20,w:[.3,.3,.4]},
+  wolf:{name:'飢餓的灰狼',hp:22,atk:7.5,w:[.25,.6,.15],beast:1,hab:'wolf',tip:'連續撲咬兩次之後，牠會整個撲上來。'},
+  boar:{name:'發狂的野豬',hp:30,atk:9,w:[.3,.5,.2],beast:1,hab:'alt',tip:'衝撞和頂撞輪流來，很少連續用同一招。'},
+  bear:{name:'灰熊',hp:46,atk:12.5,w:[.55,.15,.3],beast:1,hab:'bear',tip:'每次猛撲之後，牠都要退一步喘氣。'},
+  bandit:{name:'林間強盜',hp:30,atk:9,w:[.35,.35,.3],tip:'毫無章法，只能見招拆招。'},
+  guard:{name:'漁村守衛',hp:37,atk:10.5,w:[.3,.25,.45],hab:'guard',tip:'你一舉盾，他就會用力砸下來。'},
+  brawler:{name:'酒館壯漢',hp:35,atk:9,w:[.5,.25,.25],tip:'最愛掄大拳，重擊特別多。'},
+  drunk:{name:'醉醺醺的漁夫',hp:24,atk:6.5,w:[.5,.3,.2],tip:'喝醉了，只會亂揮。'},
+  hunter:{name:'賞金獵人',hp:44,atk:12,w:[.34,.33,.33],hab:'counter',tip:'他專挑你上一招的破綻出手。'},
+  sven1:{name:'斯韋恩',hp:41,atk:10.5,w:[.45,.35,.2],hab:'rage',tip:'一受傷就發狂，只會重劈。'},
+  gyr:{name:'壯漢蓋爾',hp:53,atk:13.5,w:[.45,.3,.25],tip:'力氣大，重擊特別多。'},
+  astrid:{name:'盾女阿斯特麗德',hp:58,atk:13.5,w:[.2,.3,.5],hab:'astrid',tip:'舉盾之後，總是接一記快攻。'},
+  ragnar:{name:'狂戰士拉格納',hp:72,atk:16,w:[.6,.25,.15],hab:'rage',tip:'血越少越瘋，幾乎只剩重劈。'},
+  usurper:{name:'篡位者',hp:62,atk:15,w:[.4,.3,.3],tip:'他急著要你的位子，招式很亂。'},
+  svenA:{name:'紅帆斯韋恩',hp:70,atk:15,w:[.5,.3,.2],hab:'rage',lord:1,tip:'一受傷就發狂，只會重劈。'},
+  edric:{name:'灰石堡領主艾德里克',hp:80,atk:16,w:[.3,.25,.45],hab:'edric',lord:1,tip:'一被砍中，下一招幾乎都縮回盾後。'},
+  brynhild:{name:'鷹巢峰的布倫希爾德',hp:76,atk:17,w:[.3,.45,.25],hab:'chain',lord:1,tip:'快攻之後，喜歡連著再快攻。'},
+  sven:{name:'紅帆斯韋恩',hp:92,atk:19,w:[.5,.3,.2],hab:'rage',lord:1,tip:'一受傷就發狂，只會重劈。'},
+  wilfred:{name:'溫特堡御衛長威爾弗',hp:150,atk:22,w:[.34,.33,.33],hab:'cycle',lord:1,tip:'招式有固定順序：格擋之後重擊，重擊之後快攻，快攻之後格擋。'},
+  king:{name:'老國王奧斯瓦爾德',hp:110,atk:28,w:[.35,.35,.3],lord:1,king:1,tip:'受傷過半後，他露出重擊的架勢，常常是在騙你出快攻。'},
+};
+const CHAMPS={
+  hakon:{name:'哈康',pow:6,ab:'老練：打勝仗時更多戰士晉升老兵'},
+  astrid:{name:'阿斯特麗德',pow:5,ab:'盾牆：戰鬥傷亡 -30%'},
+  thorfinn:{name:'托爾芬',pow:7,ab:'誓言：永遠不會背叛你'},
+  sven:{name:'斯韋恩',pow:10,ab:'昔日宿敵：每季惡名 +1'},
+  una:{name:'烏娜',pow:1,ab:'草藥：祭祀代價減半，休養必定治好舊傷'},
+  bragi:{name:'布拉吉',pow:1,ab:'吟遊詩人：每季名聲 +1，忠誠下降較慢'},
+  einar:{name:'埃納',pow:3,ab:'獵人：每季糧食 +2，看清敵方戰力，夜襲較易成功'},
+  gudrun:{name:'古德倫',pow:2,ab:'鐵匠：單挑傷害 +2，部隊戰力 +5%'},
+  ragnar:{name:'拉格納',pow:12,ab:'狂戰士：戰力驚人，但偶爾在部落鬧事'},
+  osric:{name:'歐斯里克',pow:5,ab:'撒克遜降將：結盟較易成功，每季銀幣 +3'},
+  knut:{name:'疤面克努特',pow:8,ab:'亡命之徒：突襲戰利品 +20%，每季惡名 +1'},
 };
 const REGIONS=[
-  {id:'village',name:'鹽灘漁村',kind:'minor',x:58,y:118,def:8,loot:[22,10],inc:[3,3],desc:'漁民、鹹魚和幾把生鏽的矛。防備鬆散，油水不多。'},
-  {id:'abbey',name:'聖柯倫修道院',kind:'minor',x:140,y:72,def:12,loot:[45,4],inc:[6,1],desc:'修士們守著金燭台和銀聖杯，幾乎沒有守衛。'},
-  {id:'forest',name:'黑森林',kind:'minor',x:126,y:168,def:15,loot:[30,6],inc:[3,3],desc:'強盜的老巢，據說藏著他們搶來的財寶。'},
-  {id:'market',name:'河口集市',kind:'minor',x:206,y:136,def:22,loot:[62,12],inc:[9,2],needs:'dock',desc:'河口的貿易集市，富得流油，守備也不差。要有碼頭的船才能沿河抵達。'},
-  {id:'marsh',name:'霧沼',kind:'minor',x:232,y:214,def:18,loot:[36,10],inc:[4,4],needs:'dock',desc:'霧氣終年不散的沼澤村落。要有船才進得去。'},
+  {id:'village',name:'鹽灘漁村',kind:'minor',x:58,y:118,def:8,loot:[28,12],inc:[3,3],inf:6,desc:'漁民、鹹魚和幾把生鏽的矛。防備鬆散，油水不多。'},
+  {id:'abbey',name:'聖柯倫修道院',kind:'minor',x:140,y:72,def:12,loot:[55,5],inc:[6,1],inf:10,desc:'修士們守著金燭台和銀聖杯，幾乎沒有守衛。搶修道院會讓人記恨很久。'},
+  {id:'forest',name:'黑森林',kind:'minor',x:126,y:168,def:15,loot:[36,8],inc:[3,3],inf:0,desc:'強盜的老巢，據說藏著他們搶來的財寶。剿滅強盜，沒有人會怪你。'},
+  {id:'market',name:'河口集市',kind:'minor',x:206,y:136,def:22,loot:[75,14],inc:[9,2],inf:6,needs:'dock',desc:'河口的貿易集市，富得流油，守備也不差。要有碼頭的船才能沿河抵達。'},
+  {id:'marsh',name:'霧沼',kind:'minor',x:232,y:214,def:18,loot:[44,12],inc:[4,4],inf:6,needs:'dock',desc:'霧氣終年不散的沼澤村落。要有船才進得去。'},
   {id:'grey',name:'灰石堡',kind:'seat',lord:'艾德里克',foe:'edric',x:226,y:62,def:32,inc:[10,4],desc:'撒克遜領主艾德里克的城堡。他驕傲又多疑，城牆是灰色的石頭。'},
   {id:'eagle',name:'鷹巢峰',kind:'seat',lord:'布倫希爾德',foe:'brynhild',x:304,y:98,def:36,inc:[10,4],desc:'北方來的女首領布倫希爾德盤據山頂。她只尊敬比她強的人。'},
   {id:'red',name:'紅帆營',kind:'seat',lord:'斯韋恩',foe:'sven',x:56,y:44,def:40,inc:[10,4],desc:'你的宿敵斯韋恩帶著紅帆船隊在海岸紮營。他不要盟約，只要你的頭。'},
-  {id:'winter',name:'溫特堡',kind:'seat',lord:'奧斯瓦爾德王',foe:'wilfred',x:300,y:186,def:52,inc:[14,6],desc:'老國王奧斯瓦爾德的王都。先拿下另外兩方勢力，否則你連城門都靠近不了。'},
+  {id:'winter',name:'溫特堡',kind:'seat',lord:'奧斯瓦爾德王',foe:'wilfred',x:300,y:186,def:55,inc:[14,6],desc:'老國王奧斯瓦爾德的王都。先拿下另外兩方勢力，否則你連城門都靠近不了。'},
 ];
 const SEATS=['grey','eagle','red','winter'];
 const R=id=>REGIONS.find(r=>r.id===id);
+const TRIBE_LV=['營地','村落','城鎮','要塞','王都'];
+const TRIBE_UP=[{cost:[60,15],need:2},{cost:[120,30],need:4},{cost:[200,50],need:6},{cost:[320,80],need:8}];
+const TRIBE_HOUSE=[6,10,16,24,34];
 const BLD=[
-  {id:'longhouse',name:'長屋',cost:[35,8],desc:'族人的家。戰士上限 +10，忠誠 +10。'},
-  {id:'granary',name:'糧倉',cost:[30,0],desc:'每季多產 4 糧食。'},
-  {id:'smithy',name:'鐵匠鋪',cost:[45,0],desc:'部隊戰力 ×1.25，你的單挑傷害 +2。'},
-  {id:'barracks',name:'兵營',cost:[40,5],desc:'招募費用 -30%，戰士上限 +6。'},
-  {id:'dock',name:'碼頭',cost:[45,0],desc:'突襲戰利品 +40%，船隻能抵達河口集市與霧沼。'},
-  {id:'altar',name:'祭壇',cost:[30,6],desc:'能舉行冬至祭典。族人為你祭祀療傷時，代價較低。'},
-  {id:'hall',name:'議事廳',cost:[55,0],desc:'結盟成功率 +15%，每季名聲 +1。'},
+  {id:'longhouse',name:'長屋',tl:1,cost:[30,8],eff:l=>`住房 +${8*l}`},
+  {id:'granary',name:'糧倉',tl:1,cost:[30,0],eff:l=>`每季糧食 +${3*l}`},
+  {id:'smithy',name:'鐵匠鋪',tl:1,cost:[45,0],eff:l=>`部隊戰力 ×${[1,1.15,1.25,1.35][l]}，單挑傷害 +${l}`},
+  {id:'barracks',name:'兵營',tl:1,cost:[40,5],eff:l=>`招募費 -${[0,15,30,40][l]}%，住房 +${4*l}，老兵晉升 +${5*l}%`},
+  {id:'dock',name:'碼頭',tl:1,cost:[45,0],eff:l=>`突襲戰利品 +${[0,25,40,60][l]}%，船能抵達河口與霧沼${l>=3?'，突襲後的戒備時間 -1':''}`},
+  {id:'altar',name:'祭壇',tl:1,cost:[30,6],eff:l=>`祭祀療傷的代價 -${[0,25,50,75][l]}%，能舉行冬至祭典${l>=3?'，休養必定治好舊傷':''}`},
+  {id:'hall',name:'議事廳',tl:2,cost:[55,0],eff:l=>`結盟成功率 +${[0,10,15,20][l]}%，統御 +${4*l}，每季名聲 +${l}`},
+  {id:'tower',name:'瞭望塔',tl:2,cost:[40,0],eff:l=>`守衛部落時戰力 ×${[1,1.15,1.3,1.45][l]}，看清來犯敵軍`},
+  {id:'market',name:'市集',tl:3,cost:[70,0],eff:l=>`每季銀幣 +${[0,4,7,10][l]}`},
 ];
+const B=id=>BLD.find(b=>b.id===id);
+const POLICY={fair:{name:'平分',desc:'首領拿 40%',take:.4,loy:3,bond:2},big:{name:'首領大份',desc:'首領拿 70%',take:.7,loy:0,bond:0},all:{name:'全部獨吞',desc:'首領拿 100%',take:1,loy:-6,bond:-4}};
+const ACH={
+  first_king:{name:'西境之王',desc:'第一次稱王。',reward:'傳承「祖傳戰斧」'},
+  hero_king:{name:'英雄之王',desc:'在英雄難度稱王。',reward:'外觀「英雄之盔」、傳承「英雄血脈」'},
+  deathless:{name:'不死之身',desc:'一次都沒倒下就稱王。',reward:'外觀「霜狼披風」'},
+  end_kind:{name:'仁君',desc:'以仁君之名加冕。',reward:'傳承「詩人傳唱」'},
+  end_iron:{name:'鐵血之王',desc:'以鐵血之王之名加冕。'},
+  end_pact:{name:'盟約之王',desc:'以盟約之王之名加冕。'},
+  end_sea:{name:'海狼之王',desc:'以海狼之王之名加冕。',reward:'傳承「老水手的海圖」'},
+  end_lonely:{name:'孤獨之王',desc:'以孤獨之王之名加冕。'},
+  end_conq:{name:'征服者',desc:'以征服者之名加冕。'},
+  three_crowns:{name:'三頂王冠',desc:'達成三種不同的結局。',reward:'外觀「渡鴉羽飾」'},
+  kill_sven:{name:'血債血償',desc:'親手了結斯韋恩。',reward:'外觀「血色戰紋」'},
+  spare_sven:{name:'化敵為友',desc:'讓宿敵為你而戰。'},
+  valhalla:{name:'瓦爾哈拉之門',desc:'用盡所有祈福，留下遺言。'},
+  duelist:{name:'一騎當千',desc:'一局之內贏下 30 場單挑。'},
+  fullhall:{name:'群英會',desc:'同時擁有 7 位勇士。'},
+};
+const SKINS={base:{name:'預設'},frost:{name:'霜狼披風',need:'deathless'},hero:{name:'英雄之盔',need:'hero_king'},raven:{name:'渡鴉羽飾',need:'three_crowns'},paint:{name:'血色戰紋',need:'kill_sven'}};
+const LEGACY={none:{name:'不帶',desc:'白手起家。'},axe:{name:'祖傳戰斧',desc:'力量 +1',need:'first_king'},chart:{name:'老水手的海圖',desc:'起始銀幣 +20',need:'end_sea'},song:{name:'詩人傳唱',desc:'起始名聲 +10',need:'end_kind'},blood:{name:'英雄血脈',desc:'所有能力 +1',need:'hero_king'}};
+const SKIN_TONES=['#e9c6a6','#c99a76','#8b6246'];
+const HAIR_C={gold:'#c9a35a',red:'#a24d2c',black:'#2b2420',silver:'#d2cdc2'};
 
 let S=null;
 let toastT=0;
 
-/* ---------- 基本數值 ---------- */
+/* ================= 存檔與成就 ================= */
+function meta(){try{const m=JSON.parse(localStorage.getItem(META));return m&&m.ach?m:{ach:{},ends:{}};}catch(e){return {ach:{},ends:{}};}}
+function saveMeta(m){try{localStorage.setItem(META,JSON.stringify(m));}catch(e){}}
+function unlock(id){const m=meta();if(m.ach[id])return;m.ach[id]=Date.now();saveMeta(m);toast(`成就解鎖：${ACH[id].name}`);}
+function save(){ if(!S||S.dead||S.won) return; try{localStorage.setItem(SAVE,JSON.stringify(S));}catch(e){} }
+function load(){ try{const t=localStorage.getItem(SAVE);return t?JSON.parse(t):null;}catch(e){return null;} }
+
+/* ================= 基本數值 ================= */
+const D=()=>DIFF[S.diff];
 const has=t=>S.talents.includes(t);
+const hasC=id=>S.champions.some(c=>c.id===id);
+const bl=id=>S.bld[id]||0;
 const eff=k=>Math.max(1,S.st[k]-(S.wounded>0?1:0));
-const maxHp=()=>20+S.st.con*6;
+const maxHp=()=>Math.max(12,20+S.st.con*6+(has('ironbody')?15:0)-S.scars*6);
 const xpNeed=()=>20+S.lvl*15;
+const maxBless=()=>D().bless;
 const charges=()=>(S.amulet?1:0)+S.blessings;
 const year=()=>Math.floor(S.turn/4)+1;
 const age=()=>19+Math.floor(S.turn/4);
 const stamp=()=>`第${year()}年${SEASON[S.turn%4]}`;
+const wf=()=>1+Math.min(S.turn,80)*.008*D().world;
+const lf=()=>clamp(1+(S.turn-35)*.006*D().world,.9,1.35);
 const owned=k=>REGIONS.filter(r=>S.reg[r.id].st==='yours'&&(!k||r.kind===k)).length;
 const allies=()=>REGIONS.filter(r=>S.reg[r.id].st==='ally').length;
 const seatsHeld=()=>SEATS.filter(id=>['yours','ally'].includes(S.reg[id].st)).length;
 const bldCount=()=>Object.keys(S.bld).length;
-function menCap(){
+const bldLevels=()=>Object.values(S.bld).reduce((a,b)=>a+b,0);
+function housing(){
   if(S.phase===1) return 3;
-  return 6+(S.bld.longhouse?10:0)+(S.bld.barracks?6:0)+owned('minor')*3+owned('seat')*5;
+  return TRIBE_HOUSE[S.tlv-1]+bl('longhouse')*8+bl('barracks')*4;
 }
-const recruitCost=()=>Math.round(8*(S.bld.barracks?.7:1)*(has('leader')?.7:1));
+function command(){
+  let c=4+eff('pre')*4+(has('leader')?6:0)+bl('hall')*4;
+  if(eff('pre')>=12) c=Math.round(c*1.5);
+  return c;
+}
+const garrison=()=>owned('minor')*2+owned('seat')*3;
+const fieldMen=()=>Math.max(0,S.men-garrison());
 function armyPower(){
-  let p=S.men*(S.bld.smithy?1.25:1)+S.champions.reduce((a,c)=>a+c.pow,0)+eff('str')*1.5+eff('pre')*.8+allies()*8;
-  if(has('warcry')) p*=1.1;
+  const fm=fieldMen(),fv=Math.min(S.vets,fm);
+  let p=(fm-fv+fv*2)*[1,1.15,1.25,1.35][bl('smithy')];
+  p+=S.champions.reduce((a,c)=>a+CHAMPS[c.id].pow,0)+eff('str')*1.5+eff('pre')*.8+allies()*8;
+  if(fm>=25) p*=1.1;
+  if(has('warcry')) p*=1.08;
+  if(hasC('gudrun')) p*=1.05;
+  if(has('dread')&&S.infamy>=40) p*=1.15;
   return Math.round(p);
 }
-const pDmg=()=>4+eff('str')*2+(S.bld.smithy?2:0);
+const leadMul=()=>eff('str')>=9?1.3:1.2;
+const pDmg=()=>4+eff('str')*2+bl('smithy')+(hasC('gudrun')?2:0);
+const recruitCost=()=>Math.max(3,Math.round(8*(1-[0,.15,.3,.4][bl('barracks')])*(has('leader')?.75:1)));
 function income(){
   let s=0,f=0;
   REGIONS.forEach(r=>{const g=S.reg[r.id];if(g.st==='yours'){s+=r.inc[0];f+=r.inc[1];}else if(g.st==='ally'){s+=6;}});
-  if(S.bld.granary) f+=4;
+  if(S.phase>=2){s+=[3,5,7,10,13][S.tlv-1];f+=[2,3,4,6,8][S.tlv-1];}
+  f+=bl('granary')*3;s+=[0,4,7,10][bl('market')];
+  if(hasC('einar')) f+=2;
+  if(hasC('osric')) s+=3;
   return [s,f];
 }
-function upkeep(){return S.phase===1?1+Math.ceil(S.men/2):Math.ceil((S.men+S.champions.length)/4)+1;}
-function loseLoyalty(n){S.loyalty=clamp(S.loyalty-(has('leader')?Math.ceil(n/2):n),0,100);}
+function upkeep(){return S.phase===1?1+Math.ceil(S.men/2):Math.max(1,Math.ceil((S.men+S.champions.length)/4)+1-(has('quarter')?1:0));}
+function wages(){if(S.phase===1)return 0;return Math.round(D().wage*(Math.ceil((S.men-S.vets)/3)+Math.ceil(S.vets/2))*(has('quarter')?.6:1));}
+function loseLoyalty(n){let k=n*D().loy;if(has('leader'))k*=.75;S.loyalty=clamp(Math.round(S.loyalty-k),0,100);}
 function addLoyalty(n){S.loyalty=clamp(S.loyalty+n,0,100);}
-function addFame(n){S.fame=Math.max(0,S.fame+n);}
-function log(t){S.log.unshift([stamp(),t]);S.log.length=Math.min(S.log.length,40);}
+function addFame(n){if(n>0&&has('skaldblood'))n=Math.round(n*1.3);S.fame=Math.max(0,S.fame+n);}
+function addInfamy(n){if(n>0&&has('raider'))n=Math.ceil(n/2);S.infamy=clamp(S.infamy+n,0,100);}
+function bond(id,n){const c=S.champions.find(x=>x.id===id);if(c)c.bond=clamp(c.bond+n,0,100);}
+function bondAll(n){S.champions.forEach(c=>c.bond=clamp(c.bond+n,0,100));}
+function log(t){S.log.unshift([stamp(),t]);if(S.log.length>40)S.log.length=40;}
 function gainXp(n){
   S.xp+=n;
   while(S.xp>=xpNeed()){
-    S.xp-=xpNeed();S.lvl++;S.pts+=2;S.hp=maxHp();
-    if([3,5,7,9].includes(S.lvl)) S.talentPicks++;
+    S.xp-=xpNeed();S.lvl++;S.pts+=D().pts;S.hp=maxHp();
+    if(TALENT_LV.includes(S.lvl)) S.talentPicks++;
     log(`升到第 ${S.lvl} 級。`);
   }
 }
+function addChamp(id,b=60){
+  if(hasC(id)) return '';
+  S.champions.push({id,bond:b});
+  log(`勇士${CHAMPS[id].name}加入了你。`);
+  if(S.champions.length>=7) unlock('fullhall');
+  return `<span class="good">勇士${CHAMPS[id].name}加入（${CHAMPS[id].ab}）</span>`;
+}
+function removeChamp(id){S.champions=S.champions.filter(c=>c.id!==id);}
+function maybeScar(){
+  if(S.scars>=3||S.hp>=maxHp()*.25) return '';
+  let p=.4;if(eff('con')>=6)p*=.5;if(has('ironbody'))p*=.5;
+  if(Math.random()>=p) return '';
+  S.scars++;S.hp=Math.min(S.hp,maxHp());log('留下了一道舊傷。');
+  return `\n<span class="bad">傷口太深，留下了舊傷（生命上限 -6）。好好休養才會痊癒。</span>`;
+}
 function toast(t){
+  document.querySelectorAll('.toast').forEach(x=>x.remove());
   const el=document.createElement('div');el.className='toast';el.textContent=t;document.body.appendChild(el);
   clearTimeout(toastT);toastT=setTimeout(()=>el.remove(),2600);
-  document.querySelectorAll('.toast').forEach(x=>{if(x!==el)x.remove();});
 }
+const chk=p=>Math.random()<clamp(p,.03,.97);
+const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 
-/* ---------- 視窗佇列 ---------- */
+/* ================= 視窗佇列 ================= */
 const Q=[];let modalOpen=false;let ins=0;
 function pushModal(fn){ if(modalOpen){Q.splice(ins++,0,fn);} else {Q.push(fn);nextModal();} }
 function pushLater(fn){ Q.push(fn); if(!modalOpen) nextModal(); }
@@ -394,115 +554,174 @@ function resultView(el,title,html,eyebrow){
   el.innerHTML=`${eyebrow?`<p class="eyebrow">${eyebrow}</p>`:''}<h2>${title}</h2><div class="res">${html}</div><button class="primary" id="m-ok">繼續</button>`;
   $('#m-ok').onclick=closeModal;$('#m-ok').focus();
 }
+function note(title,html,eyebrow){pushModal(el=>resultView(el,title,html,eyebrow));}
 function checkPost(){
   if(!S||S.dead||S.won) return;
   if(S.pts>0||S.talentPicks>0){pushModal(levelUpModal);return;}
   if(S.phase===3&&seatsHeld()>=4){pushModal(coronation);return;}
 }
 
-/* ---------- 時間推進 ---------- */
-function passTime(){
+/* ================= 時間推進 ================= */
+function passTime(quiet){
   S.turn++;
   const [si,fi]=income();
-  const eat=upkeep();
-  S.silver+=si;S.food+=fi-eat;
-  if(S.bld.hall) addFame(1);
+  S.silver+=si;S.food+=fi-upkeep();
+  const wg=wages();
+  if(wg){
+    S.silver-=wg;
+    if(S.silver<0){S.silver=0;loseLoyalty(10);const l=Math.ceil(S.men*.1);S.men-=l;S.vets=Math.min(S.vets,S.men);log(`發不出軍餉，${l} 名戰士走了。`);}
+  }
   if(S.food<0){
     S.food=0;
-    if(S.men>0){const l=Math.max(1,Math.ceil(S.men*.15));S.men-=l;log(`糧食耗盡，${l} 名戰士離開了你。`);}
+    if(S.men>0){const l=Math.max(1,Math.ceil(S.men*.15));S.men-=l;S.vets=Math.min(S.vets,S.men);log(`糧食耗盡，${l} 名戰士離開了你。`);}
     else log('糧食耗盡，你餓著肚子上路。');
     loseLoyalty(10);S.hp=Math.max(1,S.hp-5);
   }
+  addFame(bl('hall')+(hasC('bragi')?1:0));
+  addInfamy((hasC('sven')?1:0)+(hasC('knut')?1:0)-1);
   if(S.wounded>0){S.wounded--;if(!S.wounded) log('傷勢痊癒，你重新握緊了斧頭。');}
-  S.hp=Math.min(maxHp(),S.hp+2+Math.floor(S.st.con/2));
+  const reg=(1+Math.floor(S.st.con/3))*(eff('con')>=9?2:1)+(has('regen')?4:0);
+  S.hp=Math.min(maxHp(),S.hp+reg);
   REGIONS.forEach(r=>{if(S.reg[r.id].cd>0)S.reg[r.id].cd--;});
-  if(S.phase>=2&&S.loyalty<20&&S.men>2){const l=Math.ceil(S.men*.1);S.men-=l;log(`族人對你失去信心，${l} 名戰士在夜裡溜走了。`);}
-  // 劇情與隨機事件
-  if(S.phase===1&&S.turn>=2&&!S.flags.sven_intro){S.flags.sven_intro=1;pushLater(eventModal(EV_SVEN));return;}
-  if(S.phase===3&&S.reg.red.st==='free'&&S.turn-S.lastRival>=6){S.lastRival=S.turn;rivalAttack();return;}
-  if(Math.random()<(S.phase===1?.35:.4)){
-    const pool=EVENTS.filter(e=>(!e.once||!S.flags['ev_'+e.id])&&e.phase.includes(S.phase)&&(!e.cond||e.cond()));
-    if(pool.length){const e=pick(pool);if(e.once)S.flags['ev_'+e.id]=1;pushLater(eventModal(e));}
+  if(S.phase>=2){
+    if(S.loyalty>60&&!((has('calm')||hasC('bragi'))&&S.turn%2)) loseLoyalty(S.loyalty>80?2:1);
+    const over=S.men-command();
+    if(over>0){loseLoyalty(Math.ceil(over/2));if(!S.flags.overWarn){S.flags.overWarn=1;log('人太多了，你管不過來，族人開始不滿。');}}
+    if(S.turn-S.lastBattle>=10){loseLoyalty(1);if(!S.flags.bored){S.flags.bored=1;log('太久沒打仗，戰士們閒得發慌。');}}
+    if(hasC('ragnar')&&Math.random()<.25){loseLoyalty(3);log('拉格納又在長屋裡打破了誰的頭。');}
+    if(S.loyalty<30&&S.men>2){const l=Math.ceil(S.men*.08);S.men-=l;S.vets=Math.min(S.vets,S.men);log(`族人對你失去信心，${l} 名戰士在夜裡溜走了。`);}
+    if(S.loyalty<40) bondAll(-2);
   }
+  if(S.turn%4===0){const a=age();if(a>=45&&(a-45)%4===0){S.st.str=Math.max(1,S.st.str-1);S.st.con=Math.max(1,S.st.con-1);log('歲月不饒人，你的力氣和體魄都衰退了。');}}
+  // 劇情
+  if(S.phase===1&&S.turn>=2&&!S.flags.sven_intro){S.flags.sven_intro=1;pushLater(eventModal(EV_SVEN));return;}
+  if(S.phase===3&&S.reg.red.st==='free'&&S.rival.attacks<3&&S.turn>=S.p3turn+[4,12,20][S.rival.attacks]){rivalAttack();return;}
+  if(S.phase>=2&&S.loyalty<15&&S.turn-(S.flags.coupT??-99)>=8){S.flags.coupT=S.turn;pushLater(eventModal(EV_COUP));return;}
+  if(S.phase>=2){
+    const tr=S.champions.find(c=>c.id!=='thorfinn'&&c.bond<25&&S.loyalty<40);
+    if(tr&&Math.random()<.3){betray(tr.id);return;}
+  }
+  if(S.trainLog.filter(t=>t>S.turn-6).length>=3&&S.turn-(S.flags.trainT??-99)>=6){S.flags.trainT=S.turn;pushLater(eventModal(EV_TRAIN));return;}
+  if(quiet) return;
+  if(Math.random()<.4) randomEvent();
 }
+function randomEvent(){
+  const pool=EVENTS.filter(e=>(!e.once||!S.flags['ev_'+e.id])&&e.phase.includes(S.phase)&&(!e.cond||e.cond()));
+  if(!pool.length) return;
+  const e=pick(pool);
+  if(e.once) S.flags['ev_'+e.id]=1;
+  if(e.cd) S.flags['cd_'+e.id]=S.turn;
+  pushLater(eventModal(e));
+}
+const cdOk=(id,n)=>S.turn-(S.flags['cd_'+id]??-99)>=n;
 
-/* ---------- 單挑 ---------- */
+/* ================= 單挑 ================= */
 const MV={H:'重擊',Q:'快攻',B:'格擋',R:'怒吼'};
-const HINT={
-  H:['對方雙手握緊武器，重心下沉，像是要蓄力重劈。','他深吸一口氣，把斧頭高高舉過肩膀。'],
-  Q:['對方腳步輕快，眼神游移，準備搶攻。','他壓低身子，刀尖對準你的空檔。'],
-  B:['對方舉起盾牌，緊盯著你的動作。','他退了半步，盾牌護住胸口，在等你先出手。'],
-};
+function habitW(f,d){
+  const w=f.w.slice();
+  const set=(m,p)=>{const i='HQB'.indexOf(m);for(let j=0;j<3;j++)w[j]=j===i?p:(1-p)/2;};
+  switch(f.hab){
+    case 'wolf': if(d.qs>=2)set('H',.8);break;
+    case 'alt': if(d.last==='Q')set('H',.7);else if(d.last==='H')set('Q',.7);break;
+    case 'bear': if(d.last==='H')set('B',.75);break;
+    case 'guard': if(d.lastP==='B')set('H',.75);break;
+    case 'counter': if(d.lastP)set({H:'Q',Q:'B',B:'H',R:'H'}[d.lastP],.65);break;
+    case 'rage': if(d.hp<d.max*.5)set('H',.8);break;
+    case 'astrid': if(d.last==='B')set('Q',.75);break;
+    case 'edric': if(d.hit)set('B',.75);break;
+    case 'chain': if(d.last==='Q')set('Q',.65);break;
+    case 'cycle': if(d.last)set({B:'H',H:'Q',Q:'B'}[d.last],.75);break;
+  }
+  return w;
+}
 function duel(key,o){
   pushModal(el=>{
     const base=FOES[key];
-    const sc=o.scale?1+.12*(S.lvl-1):1;
-    const d={name:base.name,max:Math.round(base.hp*sc),atk:base.atk*(o.scale?1+.08*(S.lvl-1):1),w:base.w,buff:1,cd:0,log:[],over:false};
+    const tm=(base.lord?lf():wf())*(o.mul||1);
+    const f=D().foe;
+    const d={name:base.name,max:Math.round(base.hp*tm*(1+(f-1)*.5)*(base.lord?1.1:1)),atk:base.atk*tm*f*(base.lord?1.2:1.12),buff:1,cd:0,log:[],over:false,qs:0,last:null,lastP:null,hit:false,pierce:false,stood:false};
     d.hp=d.max;
-    const acc=has('odin')?1:Math.min(.92,.4+eff('wit')*.07);
-    const choose=()=>{const r=Math.random();d.intent=r<d.w[0]?'H':r<d.w[0]+d.w[1]?'Q':'B';
-      d.shown=Math.random()<acc?d.intent:pick(['H','Q','B'].filter(x=>x!==d.intent));d.hint=pick(HINT[d.shown]);};
+    let acc=.4+eff('wit')*.06+(has('odin')?.25:0);
+    if(base.king) acc-=has('odin')?.15:.3;
+    acc=clamp(acc,.2,.95);
+    const flinch=clamp(.25+eff('pre')*.05+(eff('pre')>=6?.1:0)+(has('warcry')?.15:0),.25,.9);
+    const knows=S.known[key]||eff('wit')>=12;
+    const choose=()=>{
+      const w=habitW(base,d);const r=Math.random();
+      d.intent=r<w[0]?'H':r<w[0]+w[1]?'Q':'B';d.feint=false;
+      if(base.king&&d.hp<d.max*.6&&Math.random()<.3){d.intent='B';d.shown='H';d.feint=true;}
+      else d.shown=Math.random()<acc?d.intent:pick(['H','Q','B'].filter(x=>x!==d.intent));
+      d.hint=pick(HINT[base.beast?'beast':'human'][d.shown]);
+    };
     choose();
     const draw=()=>{
-      const end=d.over;
       el.innerHTML=`<p class="eyebrow">${o.lethal?'生死單挑':'比武 · 點到為止'}</p><h2>${esc(S.name)} 對 ${d.name}</h2>
       ${o.intro&&!d.log.length?`<p class="story">${o.intro}</p>`:''}
       <div class="fighters">
-        <div class="fighter"><b>${esc(S.name)}</b><div class="track"><div class="fill" style="width:${S.hp/maxHp()*100}%"></div></div><span class="num">${Math.max(0,S.hp)} / ${maxHp()}${d.buff>1?' · 怒吼蓄勢':''}</span></div>
+        <div class="fighter"><b>${esc(S.name)}</b><div class="track"><div class="fill" style="width:${clamp(S.hp/maxHp(),0,1)*100}%"></div></div><span class="num">${Math.max(0,S.hp)} / ${maxHp()}${d.buff>1?' · 蓄勢待發':''}</span></div>
         <div class="fighter foe"><b>${d.name}</b><div class="track"><div class="fill" style="width:${Math.max(0,d.hp)/d.max*100}%"></div></div><span class="num">${Math.max(0,d.hp)} / ${d.max}</span></div>
       </div>
-      ${end?`<div class="res">${d.result}</div><button class="primary" id="m-ok">繼續</button>`:`
-      <p class="hint">${d.hint}<small>看穿對手的機率 ${pct(acc)}（智謀越高越準）</small></p>
+      ${d.over?`<div class="res">${d.result}</div><button class="primary" id="m-ok">繼續</button>`:`
+      <p class="hint">${d.hint}<small>看穿對手的機率 ${pct(acc)}</small>${knows?`<small class="habit">你記得：${base.tip}</small>`:''}</p>
       <div class="moves">
         <button class="move" data-m="H"><b>重擊</b><small>能破格擋，會被快攻打斷</small></button>
         <button class="move" data-m="Q"><b>快攻</b><small>能打斷重擊，會被格擋反擊</small></button>
         <button class="move" data-m="B"><b>格擋</b><small>能反擊快攻，擋不住重擊</small></button>
-        <button class="move" data-m="R" ${d.cd>0?'disabled':''}><b>怒吼</b><small>${d.cd>0?`喘息中，還要 ${d.cd} 回合`:'下一擊威力大增，這回合不出手'}</small></button>
+        <button class="move" data-m="R" ${d.cd>0?'disabled':''}><b>怒吼</b><small>${d.cd>0?`喘息中，還要 ${d.cd} 回合`:`震懾 ${pct(flinch)}，下一擊加倍且無視格擋`}</small></button>
       </div>`}
       <ol class="dlog">${d.log.slice(0,4).map(l=>`<li>${l}</li>`).join('')}</ol>`;
-      if(end){$('#m-ok').onclick=()=>{if(S.hp<=0)triggerFall(o.cause||`死在${d.name}手下`);closeModal();};$('#m-ok').focus();}
+      if(d.over){$('#m-ok').onclick=()=>{if(S.hp<=0)triggerFall(o.cause||`死在${d.name}手下`);closeModal();};$('#m-ok').focus();}
       else el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>round(b.dataset.m));
     };
     const round=pm=>{
       const em=d.intent;
-      let P=pDmg()*rnd(.85,1.15)*d.buff;
+      let P=pDmg()*rnd(.9,1.1)*d.buff;
       if(has('berserk')&&S.hp<maxHp()*.4) P*=1.5;
-      const E=d.atk*rnd(.85,1.15);
+      if(has('executioner')&&d.hp<d.max*.3) P*=1.4;
+      const E=d.atk*rnd(.9,1.1);
       let toF=0,toP=0,t='';
       if(pm==='R'){
-        d.buff=has('warcry')?2.2:1.8;d.cd=3;
-        toP=em==='H'?E*1.3:em==='Q'?E:0;
-        t=`你仰天怒吼，血往頭上衝。${em==='B'?'對方只是舉盾觀望。':`對方趁機${MV[em]}，`}`;
+        const fl=Math.random()<flinch;
+        d.buff=has('warcry')?2.5:2.2;d.pierce=true;d.cd=3;
+        if(fl) t='你仰天怒吼，對方被震住了，愣在原地！';
+        else{toP=em==='H'?E*1.3:em==='Q'?E:0;t=em==='B'?'你仰天怒吼，對方只是舉盾觀望。':`你仰天怒吼，但對方沒被嚇住，趁機${MV[em]}。`;}
       }else{
+        const hb=(has('breaker')?1.8:1.4)*(eff('str')>=6?1.2:1);
+        const q=has('swift')?1.3:1;
         switch(pm+em){
-          case 'HB':toF=P*1.4;t='你一斧劈開了對方的盾牌！';break;
+          case 'HB':toF=P*hb;t='你一斧劈開了對方的盾牌！';break;
           case 'HQ':toP=E;t='你蓄力太慢，被對方搶先砍中。';break;
           case 'HH':toF=P*1.2;toP=E*1.2;t='兩把武器狠狠對撞，雙方都見了血。';break;
-          case 'QH':toF=P;t='你在對方舉起武器前搶先出手！';break;
-          case 'QQ':toF=P*.7;toP=E*.7;t='你們互相搶攻，各自劃出一道傷口。';break;
-          case 'QB':toP=E*.8;t='你的快攻撞上盾牌，被反手一擊。';break;
-          case 'BQ':toF=P*(has('ironwall')?1.8:.9);t='你擋下攻擊，順勢反擊！';break;
+          case 'QH':toF=P*q;t='你在對方舉起武器前搶先出手！';break;
+          case 'QQ':toF=P*.7*q;toP=E*.7;t='你們互相搶攻，各自劃出一道傷口。';break;
+          case 'QB':if(d.pierce){toF=P*q;t='蓄滿力的一擊撞穿了盾牌！';}else{toP=E*.8;t='你的快攻撞上盾牌，被反手一擊。';}break;
+          case 'BQ':toF=P*(has('ironwall')?1.4:.9);t='你擋下攻擊，順勢反擊！';break;
           case 'BH':toP=E*1.2;t='對方的重擊砸穿了你的格擋。';break;
           case 'BB':S.hp=Math.min(maxHp(),S.hp+2);d.hp=Math.min(d.max,d.hp+2);t='雙方都在防守，繞著圈喘口氣。';break;
         }
-        if(pm!=='B') d.buff=1;
+        if(d.feint) t='他擺出重擊的架勢，卻在最後一刻舉起了盾！'+t;
+        if(pm==='H'&&toF>0&&eff('str')>=12&&d.hp<=d.max*.25){toF=d.hp;t+='一斧斬落！';}
+        if(pm!=='B'){d.buff=1;d.pierce=false;}
         if(d.cd>0) d.cd--;
       }
-      if(toP>0){toP=Math.max(1,Math.round((toP-eff('con')*.6)*(has('ironwall')?.85:1)));}
+      if(toP>0) toP=Math.max(1,Math.round((toP-eff('con')*.6)*(has('ironwall')?.9:1)));
       toF=Math.round(toF);
+      if(o.lethal&&S.hp-toP<=0&&eff('con')>=12&&!d.stood&&d.hp-toF>0){d.stood=true;toP=S.hp-1;t+='你咬著牙，硬是沒有倒下！';}
       d.hp-=toF;S.hp-=toP;
+      d.hit=toF>0;d.last=em;d.lastP=pm;d.qs=em==='Q'?d.qs+1:0;
       d.log.unshift(`${t}${toF?` <span style="color:var(--ember)">對方 -${toF}</span>`:''}${toP?` <span style="color:var(--blood)">你 -${toP}</span>`:''}`);
       const fled=o.retreatAt&&d.hp>0&&d.hp<=d.max*o.retreatAt;
       if(d.hp<=0||fled||S.hp<=0){
         d.over=true;
         let win=d.hp<=0||fled;
-        if(S.hp<=0&&d.hp<=0&&!fled){win=true;S.hp=1;}
-        if(!o.lethal&&S.hp<=0){S.hp=1;}
+        if(S.hp<=0&&win){S.hp=1;}
+        if(!o.lethal&&S.hp<=0) S.hp=1;
         if(o.lethal&&S.hp<=0){S.hp=0;win=false;}
-        if(win){S.stats.duels++;gainXp(o.xp||10);}
+        if(win){S.stats.duels++;S.known[key]=1;gainXp(Math.round((o.xp||10)*tm));if(S.stats.duels>=30)unlock('duelist');}
         const head=win?(fled?`<span class="good">${d.name}撐不住，轉身逃了。</span>`:`<span class="good">${d.name}倒下了。</span>`)
-          :(S.hp<=0?`<span class="bad">你眼前一黑，倒在血泊裡……</span>`:`<span class="bad">你輸了這場比武。</span>`);
-        d.result=head+'\n'+(o.onEnd?o.onEnd(win)||'':'');
+          :(S.hp<=0?'<span class="bad">你眼前一黑，倒在血泊裡……</span>':'<span class="bad">你輸了這場比武。</span>');
+        const scar=o.lethal&&S.hp>0?maybeScar():'';
+        d.result=head+'\n'+(o.onEnd?o.onEnd(win)||'':'')+scar;
       }else choose();
       draw();
     };
@@ -510,73 +729,90 @@ function duel(key,o){
   });
 }
 
-/* ---------- 部隊戰 ---------- */
+/* ================= 部隊戰 ================= */
+function scouted(defend){return eff('wit')>=9||hasC('einar')||(defend&&bl('tower')>0);}
 function battle(o){
   pushModal(el=>{
     let lead=S.hp>maxHp()*.35;
     const draw=()=>{
-      const p=armyPower()*(lead?1.2:1);
-      const nightP=clamp(.3+eff('wit')*.06,0,.9);
+      const p=armyPower()*(lead?leadMul():1);
+      const nightP=clamp(.2+eff('wit')*.06+(eff('wit')>=9?.15:0)+(hasC('einar')?.1:0)+(has('tactician')?.1:0),.1,.9);
+      const est=scouted(o.defend)?`${Math.round(o.def)}`:`${Math.round(o.def*.85)}–${Math.round(o.def*1.15)}`;
+      const fm=fieldMen();
       el.innerHTML=`<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>
       ${o.intro?`<p class="story">${o.intro}</p>`:''}
-      <div class="vs"><div><span>我方戰力</span><b>${Math.round(p)}</b><small>${S.men} 名戰士${S.champions.length?` · ${S.champions.length} 名勇士`:''}${allies()?` · ${allies()} 個盟友`:''}</small></div>
-      <div><span>敵方戰力</span><b>約 ${Math.round(o.def)}</b><small>${o.foeNote||'數字差距越大，勝算越高'}</small></div></div>
-      <label class="lead"><input type="checkbox" id="b-lead" ${lead?'checked':''}> 親自上陣：戰力 ×1.2，但你會受傷（生命 ${S.hp}/${maxHp()}）</label>
+      <div class="vs"><div><span>我方戰力</span><b>${Math.round(p)}</b><small>出戰 ${fm} 人${S.vets?`（老兵 ${Math.min(S.vets,fm)}）`:''}${garrison()?` · 駐守 ${Math.min(garrison(),S.men)}`:''}${S.champions.length?` · 勇士 ${S.champions.length}`:''}</small></div>
+      <div><span>敵方戰力</span><b>${est}</b><small>${o.foeNote||(scouted(o.defend)?'已探明':'只能估個大概')}</small></div></div>
+      <label class="lead"><input type="checkbox" id="b-lead" ${lead?'checked':''}> 親自上陣：戰力 ×${leadMul()}，但你會受傷（生命 ${S.hp}/${maxHp()}）</label>
       <div class="choices">
-        ${o.defend?`<button class="choice" data-t="hold"><b>據守木牆</b><small>戰力 ×1.3，穩紮穩打</small></button>`:''}
-        <button class="choice" data-t="charge"><b>正面衝鋒</b><small>力量越高越猛（+${eff('str')*3}%），傷亡較重</small></button>
-        <button class="choice" data-t="night"><b>夜襲</b><small>成功率 ${pct(nightP)}（看智謀）：成功戰力 ×1.5，失敗 ×0.75</small></button>
-        <button class="choice" data-t="flank" ${S.men<8?'disabled':''}><b>包抄</b><small>${S.men<8?'需要至少 8 名戰士':`戰力 ×${(1.05+eff('wit')*.02).toFixed(2)}，傷亡較輕`}</small></button>
+        ${o.defend?`<button class="choice" data-t="hold"><b>據守木牆</b><small>戰力 ×${(1.3*[1,1.15,1.3,1.45][bl('tower')]).toFixed(2)}，傷亡較輕</small></button>`:''}
+        <button class="choice" data-t="charge"><b>正面衝鋒</b><small>戰力 ×${(1+eff('str')*.03).toFixed(2)}（看力量），傷亡較重</small></button>
+        <button class="choice" data-t="night"><b>夜襲</b><small>${rate(nightP)}：成功戰力 ×1.8${o.raid?'、戰利品更多':''}；失敗戰力 ×0.5，你也更容易受重傷</small></button>
+        <button class="choice" data-t="flank" ${fm<8?'disabled':''}><b>包抄</b><small>${fm<8?'需要至少 8 名出戰的戰士':`戰力 ×${(1.05+eff('wit')*.02+(has('tactician')?.1:0)).toFixed(2)}（看智謀），傷亡較輕，敵人可能潰逃`}</small></button>
         ${o.cancel?`<button class="ghost" id="b-cancel">先撤回，再做準備</button>`:''}
       </div>`;
       $('#b-lead').onchange=e=>{lead=e.target.checked;draw();};
       if(o.cancel) $('#b-cancel').onclick=closeModal;
-      el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>resolve(b.dataset.t));
+      el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>resolve(b.dataset.t,nightP));
     };
-    const resolve=t=>{
-      if(!o.defend) passTime();
-      let p=armyPower()*(lead?1.2:1),cas=1;const lines=[];
-      if(t==='hold'){p*=1.3;cas=.8;lines.push('你們在木牆後排成盾牆，一步也不退。');}
+    const resolve=(t,nightP)=>{
+      let p=armyPower()*(lead?leadMul():1),cas=1,nightOk=null;const lines=[];
+      if(t==='hold'){p*=1.3*[1,1.15,1.3,1.45][bl('tower')];cas=.7;lines.push('你們在木牆後排成盾牆，一步也不退。');}
       if(t==='charge'){p*=1+eff('str')*.03;cas=1.4;lines.push(lead?'你第一個衝出去，戰士們吼叫著跟上。':'戰士們吼叫著衝向敵陣。');}
-      if(t==='night'){const ok=Math.random()<clamp(.3+eff('wit')*.06,0,.9);p*=ok?1.5:.75;cas=.8;lines.push(ok?'夜色掩護了你們，敵人在睡夢中驚醒。':'一隻狗吠了起來，夜襲被發現了。');}
-      if(t==='flank'){p*=1.05+eff('wit')*.02;cas=.9;lines.push('你把人分成兩路，從側面包了過去。');}
-      const winP=clamp(.5+(p/o.def-1)*.9,.05,.95);
-      const win=Math.random()<winP;
-      let lost=Math.round(S.men*rnd(win?.04:.18,win?.12:.32)*cas*(S.champions.some(c=>c.id==='astrid')?.7:1));
-      lost=Math.min(lost,S.men);S.men-=lost;S.stats.fallen+=lost;
+      if(t==='night'){nightOk=Math.random()<nightP;p*=nightOk?1.8:.5;cas=nightOk?.6:1.3;lines.push(nightOk?'夜色掩護了你們，敵人在睡夢中驚醒。':'一隻狗吠了起來，夜襲被發現，你們一頭撞進了陷阱。');}
+      if(t==='flank'){p*=1.05+eff('wit')*.02+(has('tactician')?.1:0);cas=.85;lines.push('你把人分成兩路，從側面包了過去。');}
+      const ratio=p/o.def;
+      const win=Math.random()<clamp(.5+(ratio-1)*2.2,.03,.97);
+      const fm=fieldMen();
+      if(fieldMen()>=15) cas*=.85;
+      if(hasC('astrid')) cas*=.7;
+      let lost=Math.round(fm*(win?clamp(.12-(ratio-1)*.08,.03,.12):clamp(.3-(ratio-1)*.1,.15,.4))*cas);
+      lost=Math.min(lost,S.men);
+      const lv=Math.round(lost*(S.men?S.vets/S.men:0));
+      S.men-=lost;S.vets=Math.max(0,Math.min(S.men,S.vets-lv));S.stats.fallen+=lost;
       if(lost) lines.push(`${lost} 名戰士沒能回來。`);
-      if(!win&&S.champions.length&&Math.random()<.18){const c=pick(S.champions);S.champions=S.champions.filter(x=>x!==c);lines.push(`<span class="bad">勇士${c.name}戰死了。</span>`);log(`勇士${c.name}戰死沙場。`);}
+      if(!win&&S.champions.length&&Math.random()<.15){const c=pick(S.champions.filter(c=>c.id!=='sven')||S.champions);if(c){removeChamp(c.id);lines.push(`<span class="bad">勇士${CHAMPS[c.id].name}戰死了。</span>`);log(`勇士${CHAMPS[c.id].name}戰死沙場。`);}}
+      if(win){
+        const rec=fieldMen()-Math.min(S.vets,fieldMen());
+        const pr=Math.floor(rec*(.15+(hasC('hakon')?.1:0)+bl('barracks')*.05+(has('drill')?.1:0)));
+        if(pr>0){S.vets+=pr;lines.push(`${pr} 名戰士在這一仗後成了老兵。`);}
+        S.stats.battles++;bondAll(3);addLoyalty(2);
+      }else{bondAll(-5);loseLoyalty(lead?18:12);S.flags.lastLoss=S.turn;lines.push(`<span class="bad">敗仗讓族人抬不起頭（忠誠 -${lead?18:12}）。</span>`);}
+      S.lastBattle=S.turn;
       if(lead){
-        const dmg=Math.max(1,Math.round(o.def*rnd(.12,.3)*(win?.6:1.1)-eff('con')*.5));
+        let dmg=Math.max(1,Math.round(o.def*rnd(.12,.22)*(win?.6:1.1)*(nightOk===false?1.5:1)-eff('con')*.5));
         S.hp=win?Math.max(1,S.hp-dmg):S.hp-dmg;
         lines.push(`你在亂戰中受了傷（生命 -${dmg}）。`);
+        if(S.hp>0) {const sc=maybeScar();if(sc)lines.push(sc.trim());}
       }
       gainXp(win?Math.round(12+o.def/3):6);
-      if(win) S.stats.battles++;
-      const after=o.onEnd(win)||'';
+      const after=o.onEnd(win,{nightOk})||'';
+      if(win&&t==='flank'&&!o.defend&&Math.random()<.4) pushModal(stragglers());
       el.innerHTML=`<p class="eyebrow">戰報</p><h2>${win?'勝利':'敗退'}</h2>
       <div class="res">${lines.join('\n')}\n${win?'<span class="good">':'<span class="bad">'}${after}</span></div>
       <button class="primary" id="m-ok">繼續</button>`;
       $('#m-ok').onclick=()=>{if(S.hp<=0)triggerFall(o.cause||'倒在亂軍之中');closeModal();};$('#m-ok').focus();
+      if(!o.defend) passTime();
       render();
     };
     draw();
   });
 }
 
-/* ---------- 祈福與死亡 ---------- */
+/* ================= 祈福與死亡 ================= */
 function addBlessing(){
-  if(charges()>=3){addLoyalty(5);return `<span class="blessed">祈福已滿（3/3），族人的敬愛化為忠誠 +5。</span>`;}
+  if(S.loyalty<60) return `<span class="muted" style="color:var(--muted)">族人跟著你唸了禱詞，但沒有人走向祭壇刻下符文。</span>`;
+  if(charges()>=maxBless()){addLoyalty(5);return `<span class="blessed">祈福已滿（${maxBless()}/${maxBless()}），族人的敬愛化為忠誠 +5。</span>`;}
   S.blessings++;S.stats.blessGained++;
-  log(`族人為你刻下祈福符文（${charges()}/3）。`);
-  return `<span class="blessed">ᚱ 族人在祭壇石上為你刻下一道祈福符文。祈福 ${charges()}/3</span>`;
+  log(`族人為你刻下祈福符文（${charges()}/${maxBless()}）。`);
+  return `<span class="blessed">ᚱ 族人在祭壇石上為你刻下一道祈福符文。祈福 ${charges()}/${maxBless()}</span>`;
 }
 function triggerFall(cause){
   S.lastCause=cause;
   pushModal(charges()>0?ritualModal:deathModal);
 }
 function ritualModal(el){
-  let story,cost=[];
+  let story;const cost=[];
   const useAmulet=S.amulet&&(S.phase===1||S.blessings===0);
   if(useAmulet){
     S.amulet=false;
@@ -585,60 +821,66 @@ function ritualModal(el){
     if(lost) cost.push(`醒來時，錢袋輕了不少（銀幣 -${lost}）`);
   }else{
     S.blessings--;
-    const rate=(S.bld.altar?.15:.25)+(S.loyalty<30?.15:0);
-    const ls=Math.floor(S.silver*rate),lf=Math.floor(S.food*rate);
-    S.silver-=ls;S.food-=lf;
+    let r=.3*(1-[0,.25,.5,.75][bl('altar')])*(hasC('una')?.5:1)+(S.loyalty<30?.15:0);
+    const ls=Math.floor(S.silver*r),lf2=Math.floor(S.food*r);
+    S.silver-=ls;S.food-=lf2;
     story=`族人把你抬回${esc(S.tribe)}。\n\n他們在祭壇前點起火，殺了最好的一頭公牛，把血灑在刻著你名字的符文石上。整整三天三夜，鼓聲沒有停。${S.loyalty<30?'\n\n來祭祀的人，比你想像的少。':''}\n\n第四天清晨，你睜開了眼睛。`;
-    cost.push(`祭品與供奉：銀幣 -${ls}，糧食 -${lf}`);
+    cost.push(`祭品與供奉：銀幣 -${ls}，糧食 -${lf2}`);
     if(S.men>0&&Math.random()<.5){
-      S.men--;const n=pick(['老哈爾德','獨臂的烏爾夫','白髮的貢納爾','老槳手托克']);
+      S.men--;S.vets=Math.min(S.vets,S.men);const n=pick(['老哈爾德','獨臂的烏爾夫','白髮的貢納爾','老槳手托克']);
       cost.push(`${n}割開手掌，把血灑在祭壇上。第二天，他沒有醒來（戰士 -1）`);
       log(`${n}為你獻出了生命。`);
     }
     addFame(6);cost.push('「死而復生」的傳說傳開了（名聲 +6）');
   }
   S.stats.revived++;S.wounded=3;S.hp=Math.round(maxHp()*.5);
+  if(S.scars<3){S.scars++;S.hp=Math.min(S.hp,maxHp());cost.push('這一次，留下了舊傷（生命上限 -6）');}
   log(`${S.lastCause}，但又活了過來。`);
-  cost.push(`你需要休養 3 季：這段時間所有能力 -1`);
+  cost.push('你需要休養 3 季：這段時間所有能力 -1');
   el.innerHTML=`<div class="ritual"><div class="big-rune">ᚱ</div></div><p class="eyebrow">${useAmulet?'母親的護身符':'族人的祈福'}</p><h2>你倒下了</h2>
-  <p class="story">${story}</p><div class="res">${cost.join('\n')}\n<span class="blessed">剩下的祈福：${charges()}/3</span></div>
+  <p class="story">${story}</p><div class="res">${cost.join('\n')}\n<span class="blessed">剩下的祈福：${charges()}/${maxBless()}</span></div>
   <button class="primary" id="m-ok">撐起身子</button>`;
   $('#m-ok').onclick=closeModal;
 }
 function lastWords(){
   const seats=seatsHeld();
-  const heir=S.champions.length?pick(S.champions).name:'孩子們';
+  const heir=S.champions.length?CHAMPS[pick(S.champions).id].name:'孩子們';
   if(S.phase===1) return {mood:'不甘',scene:'你倒在異鄉的泥地裡，身邊沒有族人，只有海風。',line:pick(['「母親……護身符碎了，我卻連一塊自己的土地都還沒有。」','「這片海……我才剛渡過來而已啊。」'])};
   if(S.loyalty<25) return {mood:'悔恨',scene:'你躺在長屋裡。火盆快熄了，門口只站著兩三個人。',line:pick(['「原來到最後……沒有人為我唱歌。」','「我搶了這麼多……卻什麼也沒留下。」'])};
   if(seats>=3) return {mood:'無怨',scene:'族人圍在你身邊，有人在哭，有人已經開始唱你的故事。',line:pick(['「酒杯留給我。西境已經記住了我的名字……瓦爾哈拉見。」','「別哭。我從一艘破船走到這裡，夠了。」'])};
   return {mood:'不甘',scene:`${esc(heir)}跪在你身邊，握著你的手。`,line:pick([`「我還沒看到海的另一邊……${esc(heir)}，替我把旗子插上去。」`,'「再給我一個冬天……只要一個冬天……」'])};
 }
 function summaryHTML(){
-  const best=S.champions.slice().sort((a,b)=>b.pow-a.pow)[0];
+  const best=S.champions.slice().sort((a,b)=>CHAMPS[b.id].pow-CHAMPS[a.id].pow)[0];
   const items=[
-    ['享年／年紀',`${age()} 歲`],['闖蕩歲月',`${year()} 年`],['等級',`第 ${S.lvl} 級`],
+    ['年紀',`${age()} 歲`],['闖蕩歲月',`${year()} 年`],['等級',`第 ${S.lvl} 級`],
     ['能力',`力${S.st.str} 體${S.st.con} 智${S.st.wit} 威${S.st.pre}`],
-    ['掌控之地',`${owned()} 處${allies()?`，盟友 ${allies()}`:''}`],['部落',S.tribe?esc(S.tribe):'沒能建立'],
-    ['單挑勝場',S.stats.duels],['突襲',`${S.stats.raids} 次`],['死而復生',`${S.stats.revived} 次`],
-    ['最強的勇士',best?best.name:'無'],['宿敵斯韋恩',S.rival.fate],['戰死的族人',`${S.stats.fallen} 人`],
+    ['掌控之地',`${owned()} 處${allies()?`，盟友 ${allies()}`:''}`],['部落',S.tribe?`${esc(S.tribe)}（${TRIBE_LV[S.tlv-1]}）`:'沒能建立'],
+    ['單挑勝場',S.stats.duels],['突襲',`${S.stats.raids} 次`],['倒下又站起',`${S.stats.revived} 次`],
+    ['最強的勇士',best?CHAMPS[best.id].name:'無'],['宿敵斯韋恩',S.rival.fate],['戰死的族人',`${S.stats.fallen} 人`],
+    ['名聲／惡名',`${S.fame}／${S.infamy}`],['難度',D().name],
   ];
   return `<div class="summary">${items.map(([k,v])=>`<div><span>${k}</span><b>${v}</b></div>`).join('')}</div>`;
+}
+function endScreen(el,html){
+  el.innerHTML=html+`<button class="primary" id="m-restart">開始新的傳奇</button>`;
+  try{localStorage.removeItem(SAVE);}catch(e){}
+  $('#m-restart').onclick=()=>{S=null;Q.length=0;modalOpen=false;$('#modal').hidden=true;showTitle();};
 }
 function deathModal(el){
   Q.length=0;S.dead=true;
   const w=lastWords();
   log(`${S.lastCause}。`);
-  el.innerHTML=`<div class="ritual death"><div class="big-rune">ᛞ</div></div><p class="eyebrow">最後的祈福已經用盡 · ${w.mood}</p><h2>${esc(S.name)} 的遺言</h2>
+  unlock('valhalla');
+  endScreen(el,`<div class="ritual death"><div class="big-rune">ᛞ</div></div><p class="eyebrow">最後的祈福已經用盡 · ${w.mood}</p><h2>${esc(S.name)} 的遺言</h2>
   <p class="story">${w.scene}</p><p class="quote">${w.line}</p>
-  <p class="eyebrow" style="margin-top:6px">生平</p>${summaryHTML()}
-  <button class="primary" id="m-restart">開始新的傳奇</button>`;
-  try{localStorage.removeItem(SAVE);}catch(e){}
-  $('#m-restart').onclick=()=>{S=null;modalOpen=false;$('#modal').hidden=true;showTitle();};
+  <p class="eyebrow" style="margin-top:6px">生平</p>${summaryHTML()}`);
 }
 
-/* ---------- 升級 ---------- */
+/* ================= 升級 ================= */
+function newOffer(){const pool=Object.keys(TALENTS).filter(t=>!has(t));S.offer=pool.sort(()=>Math.random()-.5).slice(0,3);}
 function levelUpModal(el){
-  if(S.talentPicks>0&&!S.offer){const pool=Object.keys(TALENTS).filter(t=>!has(t));S.offer=pool.sort(()=>Math.random()-.5).slice(0,3);}
+  if(S.talentPicks>0&&!S.offer) newOffer();
   const draw=()=>{
     const done=S.pts===0&&S.talentPicks===0;
     el.innerHTML=`<p class="eyebrow">第 ${S.lvl} 級</p><h2>你變得更強了</h2>
@@ -648,143 +890,273 @@ function levelUpModal(el){
     ${S.talentPicks>0?`<p class="eyebrow" style="margin-top:6px">選一個天賦</p><div class="talents">${S.offer.map(t=>`<button class="choice" data-t="${t}"><b>${TALENTS[t].name}</b><small>${TALENTS[t].desc}</small></button>`).join('')}</div>`:''}
     <button class="primary" id="m-ok" ${done?'':'disabled'}>${done?'繼續':'分配完才能繼續'}</button>`;
     el.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{const k=b.dataset.s;S.st[k]++;S.pts--;if(k==='con')S.hp+=6;draw();render();});
-    el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{S.talents.push(b.dataset.t);S.talentPicks--;S.offer=null;log(`獲得天賦「${TALENTS[b.dataset.t].name}」。`);
-      if(S.talentPicks>0){const pool=Object.keys(TALENTS).filter(t=>!has(t));S.offer=pool.sort(()=>Math.random()-.5).slice(0,3);}draw();render();});
+    el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{S.talents.push(b.dataset.t);S.talentPicks--;S.offer=null;
+      if(b.dataset.t==='ironbody') S.hp+=15;
+      log(`獲得天賦「${TALENTS[b.dataset.t].name}」。`);if(S.talentPicks>0)newOffer();draw();render();});
     if(done) $('#m-ok').onclick=closeModal;
   };
   draw();
 }
 
-/* ---------- 事件 ---------- */
+/* ================= 事件 ================= */
 function eventModal(ev){
   return el=>{
+    const txt=typeof ev.text==='function'?ev.text():ev.text;
     const opts=ev.ch.filter(c=>!c.show||c.show());
-    el.innerHTML=`<p class="eyebrow">${ev.kind||'事件'}</p><h2>${ev.title}</h2><p class="story">${typeof ev.text==='function'?ev.text():ev.text}</p>
-    <div class="choices">${opts.map((c,i)=>{const ok=!c.ok||c.ok();return `<button class="choice" data-i="${i}" ${ok?'':'disabled'}><b>${c.t}</b>${c.note?`<small>${c.note}</small>`:''}</button>`;}).join('')}</div>`;
+    el.innerHTML=`<p class="eyebrow">${ev.kind||'事件'}</p><h2>${typeof ev.title==='function'?ev.title():ev.title}</h2><p class="story">${txt}</p>
+    <div class="choices">${opts.map((c,i)=>{const ok=!c.ok||c.ok();const n=typeof c.note==='function'?c.note():c.note;return `<button class="choice" data-i="${i}" ${ok?'':'disabled'}><b>${c.t}</b>${n?`<small>${n}</small>`:''}</button>`;}).join('')}</div>`;
     el.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{
       const r=opts[+b.dataset.i].fx();
       if(r===null){closeModal();return;}
-      resultView(el,ev.title,r,ev.kind||'事件');render();
+      resultView(el,typeof ev.title==='function'?ev.title():ev.title,r,ev.kind||'事件');render();
     });
   };
 }
-const chk=p=>Math.random()<clamp(p,.05,.95);
-const EV_SVEN={id:'sven',kind:'宿敵',title:'碼頭上的老面孔',
+const EV_SVEN={kind:'宿敵',title:'碼頭上的老面孔',
   text:()=>`你在碼頭卸貨時，有人一腳踢翻了你的木箱。\n\n是斯韋恩，故鄉雅爾的兒子。他也渡海來了，身後站著一群紅帆船上的打手。\n\n「看看是誰？那個說要當國王的${esc(S.name)}。」他笑得很大聲，「你這輩子只配划槳。」`,
   ch:[
     {t:'當眾跟他打一場',note:'比武，點到為止',fx:()=>{duel('sven1',{lethal:false,xp:14,intro:'圍觀的人吹起了口哨。',onEnd:w=>{
-      if(w){addFame(10);S.rival.fate='被你當眾擊倒過一次，懷恨在心';log('在碼頭當眾擊倒了斯韋恩。');return '人群爆出歡呼。斯韋恩擦掉嘴角的血：「你會後悔的。」\n名聲 +10';}
+      if(w){addFame(10);S.rival.fate='被你當眾擊倒過，懷恨在心';log('在碼頭當眾擊倒了斯韋恩。');return '人群爆出歡呼。斯韋恩擦掉嘴角的血：「你會後悔的。」\n名聲 +10';}
       addFame(2);log('在碼頭輸給了斯韋恩。');return '斯韋恩踩著你的背大笑。但也有人記住了：這傢伙敢跟雅爾的兒子動手。\n名聲 +2';}});return null;}},
     {t:'忍下來，把他的臉記住',fx:()=>{gainXp(8);S.rival.fate='記得你低頭的樣子';log('在碼頭忍下了斯韋恩的羞辱。');return '你彎腰撿起木箱。斯韋恩覺得無趣，走了。\n你把這份恥辱刻在心裡。經驗 +8';}},
   ]};
+const EV_TRAIN={kind:'部落',title:'操練場上的怨言',text:'「又要練？」戰士們丟下木盾，坐在地上不肯起來。「我們是來打仗搶東西的，不是來給你當木樁的。」',
+  ch:[{t:'讓他們休息幾天',fx:()=>{S.trainLog=[];return '戰士們歡呼著散去。';}},
+      {t:'加發酒和肉（10 銀幣、5 糧食）',ok:()=>S.silver>=10&&S.food>=5,fx:()=>{S.silver-=10;S.food-=5;addLoyalty(3);return '有酒有肉，怨言少了很多。\n忠誠 +3';}},
+      {t:'「不練的，滾。」',fx:()=>{loseLoyalty(8);bondAll(-3);return '<span class="bad">沒人敢再抱怨，但也沒人看你一眼。忠誠 -8</span>';}}]};
+const EV_COUP={kind:'危機',title:'有人要你的位子',text:'一個滿臉橫肉的戰士站上長屋的長桌：「這種首領，我們受夠了！」不少人在他身後拔出了武器。',
+  ch:[{t:'接受挑戰',note:'生死單挑',fx:()=>{duel('usurper',{lethal:true,xp:20,cause:'死在篡位者的刀下',onEnd:w=>{if(!w)return '';addLoyalty(25);addFame(5);log('親手斬殺了篡位者。');return '你把他的頭扔在長桌上。沒人再說話了。\n<span class="good">忠誠 +25</span>';}});return null;}},
+      {t:'拿出銀幣收買人心',note:()=>`花掉一半銀幣（${Math.floor(S.silver/2)}）`,fx:()=>{const l=Math.floor(S.silver/2);S.silver-=l;addLoyalty(15);return `銀幣讓大家冷靜了下來。\n銀幣 -${l}，忠誠 +15`;}}]};
+const vEvent=(id,o)=>Object.assign({id,phase:[1],once:1},o);
 const EVENTS=[
-  {id:'bard',phase:[1,2,3],cond:()=>S.silver>=10&&(S.flags.bardT??-99)+8<=S.turn,title:'吟遊詩人',
-    text:'一個背著豎琴的吟遊詩人在火堆邊坐下：「給我十枚銀幣，我讓你的名字傳遍每一座酒館。」',
-    ch:[{t:'給他 10 銀幣',ok:()=>S.silver>=10,fx:()=>{S.silver-=10;addFame(8);S.flags.bardT=S.turn;return `幾週後，連漁夫都在哼一首關於${esc(S.name)}的歌。\n<span class="good">名聲 +8</span>`;}},
-        {t:'打發他走',fx:()=>{S.flags.bardT=S.turn;return '詩人聳聳肩，往下一個火堆走去。';}}]},
-  {id:'runestone',once:1,phase:[1,2],title:'長滿青苔的符文石',text:'路邊立著一塊長滿青苔的符文石，刻痕已經模糊。',
-    ch:[{t:'蹲下來試著解讀',note:'看智謀',fx:()=>{if(chk(.35+eff('wit')*.08)){S.st.wit++;return '你讀出了刻文：「先祖之力，留給膽敢前行的人。」\n<span class="good">智謀 +1</span>';}gainXp(5);return '你盯了半天，只看出一條蛇。\n經驗 +5';}},
-        {t:'繼續趕路',fx:()=>'你沒有停下腳步。'}]},
-  {id:'hakon',once:1,phase:[1,2],cond:()=>S.fame>=12,title:'獨眼的老戰士',
-    text:'一個獨眼的老戰士攔住你：「我看過你打架。我叫哈康，我的斧頭還沒老，只是缺個值得追隨的人。」',
-    ch:[{t:'收下他',fx:()=>{S.champions.push({id:'hakon',name:'哈康',pow:6,trait:'老練的斧手'});log('獨眼哈康加入了你。');return '哈康咧嘴一笑，露出缺了兩顆的牙。\n<span class="good">勇士哈康加入（部隊戰力 +6）</span>';}},
-        {t:'婉拒',fx:()=>'哈康點點頭，消失在人群裡。'}]},
-  {id:'merchant',once:1,phase:[1],title:'翻倒的商隊',text:'一輛商隊馬車翻在路邊，一個胖商人被強盜用刀抵著脖子。',
-    ch:[{t:'出手相救',note:'生死單挑',fx:()=>{duel('bandit',{lethal:true,scale:true,xp:12,onEnd:w=>{if(w){S.silver+=15;addFame(6);log('從強盜手下救了一名商人。');return '商人塞給你一袋銀幣，到處跟人說你的事。\n<span class="good">銀幣 +15，名聲 +6</span>';}return '';}});return null;}},
-        {t:'等強盜走了，搜刮馬車',fx:()=>{S.silver+=12;S.flags.cruel=(S.flags.cruel||0)+1;return '商人已經斷氣了。你從車底摸出一袋銀子。\n<span class="good">銀幣 +12</span>';}},
-        {t:'不關我的事',fx:()=>'你繞過了那輛馬車。'}]},
-  {id:'witch',once:1,phase:[1,2],title:'霧裡的老婦人',text:'霧氣裡走出一個老婦人，她說能看見你的命運，只要一點食物。',
+  // —— 第一章：漁村裡的無名小卒 ——
+  vEvent('ingrid',{title:'漁夫的女兒',text:'一個提著魚簍的姑娘停在你面前：「你看起來三天沒吃東西了。」她叫英格麗，是漁夫哈爾的女兒。',
+    ch:[{t:'收下魚，向她道謝',fx:()=>{S.food+=4;S.flags.ingrid=1;return '烤魚的香味讓你想起了故鄉。\n<span class="good">糧食 +4</span>';}},
+        {t:'幫她父親修補漁網',fx:()=>{S.food+=2;gainXp(6);addInfamy(-3);S.flags.ingrid=2;return '你忙了一整個下午。哈爾拍拍你的肩：「你跟那些搶匪不一樣。」\n糧食 +2，經驗 +6，惡名 -3';}},
+        {t:'「我不需要施捨。」',fx:()=>'英格麗聳聳肩走了。'}]}),
+  vEvent('wreck',{title:'海灘上的沉船',text:'暴風雨過後，一艘商船的殘骸被沖上了海灘，貨箱散了一地。',
+    ch:[{t:'動手搜刮',note:()=>rate(.35+eff('wit')*.07),fx:()=>{if(chk(.35+eff('wit')*.07)){S.st.str++;return '你在船艙裡摸到一把用油布包好的好劍。\n<span class="good">力量 +1</span>';}S.silver+=6;return '大部分東西都泡爛了，只撿到幾枚銀幣。\n銀幣 +6';}},
+        {t:'仔細檢查船底的暗格',show:()=>eff('wit')>=6,fx:()=>{S.silver+=22;return '船底有個走私用的暗格，裡面是一袋銀子。\n<span class="good">銀幣 +22</span>';}},
+        {t:'通報漁村村長',fx:()=>{addFame(4);addInfamy(-5);return '村長把東西分給了失去家人的漁民。大家記住了你。\n名聲 +4，惡名 -5';}}]}),
+  vEvent('framed',{title:'被偷的漁網',text:'村民堵住你的路：「昨晚漁網被割走了，有人看見一個外地人！」他們手裡拿著船槳和魚叉。',
+    ch:[{t:'賠他們 8 銀幣了事',ok:()=>S.silver>=8,fx:()=>{S.silver-=8;return '村民嘀咕著散了。';}},
+        {t:'找出真正的小偷',note:()=>rate(.3+eff('wit')*.07),fx:()=>{if(chk(.3+eff('wit')*.07)){addFame(6);addInfamy(-5);return '你在鄰村的船屋裡找到了漁網和割網的人。村民向你道歉。\n<span class="good">名聲 +6，惡名 -5</span>';}addInfamy(6);return '你找不到證據，村民更加認定是你。\n<span class="bad">惡名 +6</span>';}},
+        {t:'揍出一條路',fx:()=>{addInfamy(10);addFame(2);return '你打翻了三個人。從此村民看到你就關門。\n<span class="bad">惡名 +10</span>';}}]}),
+  vEvent('treasure',{title:'老船長的藏寶圖',cond:()=>S.silver>=10,text:'酒館角落的老船長壓低聲音：「十枚銀幣，這張圖就是你的。圖上標著強盜埋寶的地方。」',
+    ch:[{t:'買下藏寶圖（10 銀幣）',fx:()=>{S.silver-=10;S.flags.map=1;return '你把圖塞進懷裡。「行動」裡多了一個新的選擇。';}},
+        {t:'不信這種東西',fx:()=>'老船長哼了一聲，繼續喝他的酒。'}]}),
+  {id:'drunk',phase:[1],cd:1,cond:()=>cdOk('drunk',6),title:'醉漢挑釁',text:'一個滿身酒氣的漁夫搖搖晃晃地擋住你：「外地人，敢不敢跟我比劃比劃？」',
+    ch:[{t:'陪他玩玩',note:'比武，點到為止',fx:()=>{duel('drunk',{lethal:false,xp:6,onEnd:w=>{if(w){addFame(3);return '醉漢躺在地上打呼。圍觀的人笑成一團。\n名聲 +3';}return '你居然輸給了一個醉漢。';}});return null;}},
+        {t:'繞開他',fx:()=>'醉漢在你背後罵了幾句。'}]},
+  vEvent('wolves',{title:'村長的請求',cond:()=>S.fame>=8,text:'鹽灘漁村的村長找上你：「狼群叼走了我們的羊。你能幫忙嗎？我們湊了一點錢。」',
+    ch:[{t:'接下這件事',note:'生死單挑',fx:()=>{duel('wolf',{lethal:true,mul:1.3,xp:12,intro:'頭狼比一般的狼大了一圈。',cause:'被狼群咬死在雪地裡',onEnd:w=>{if(!w)return '';S.silver+=8;addFame(8);addInfamy(-5);return '你把頭狼的皮掛在村口。\n<span class="good">銀幣 +8，名聲 +8，惡名 -5</span>';}});return null;}},
+        {t:'沒空',fx:()=>'村長失望地走了。'}]}),
+  vEvent('merchant',{title:'翻倒的商隊',text:'一輛商隊馬車翻在路邊，一個胖商人被強盜用刀抵著脖子。',
+    ch:[{t:'出手相救',note:'生死單挑',fx:()=>{duel('bandit',{lethal:true,xp:12,onEnd:w=>{if(!w)return '';S.silver+=15;addFame(6);addInfamy(-3);log('從強盜手下救了一名商人。');return '商人塞給你一袋銀幣，到處跟人說你的事。\n<span class="good">銀幣 +15，名聲 +6</span>';}});return null;}},
+        {t:'等強盜走了，搜刮馬車',fx:()=>{S.silver+=12;S.cruel++;addInfamy(4);return '商人已經斷氣了。你從車底摸出一袋銀子。\n銀幣 +12，惡名 +4';}},
+        {t:'不關我的事',fx:()=>'你繞過了那輛馬車。'}]}),
+  vEvent('witch',{title:'霧裡的老婦人',text:'霧氣裡走出一個老婦人，她說能看見你的命運，只要一點食物。',
     ch:[{t:'給她 4 糧食',ok:()=>S.food>=4,fx:()=>{S.food-=4;S.st.con++;S.hp+=6;return '她用骨頭在地上擲出圖案：「你會倒下，也會再站起來。」\n當晚你睡得特別沉，醒來時渾身是勁。\n<span class="good">體魄 +1</span>';}},
-        {t:'把她趕走',fx:()=>'她咯咯笑著退回霧裡。'}]},
+        {t:'把她趕走',fx:()=>'她咯咯笑著退回霧裡。'}]}),
+  vEvent('runestone',{phase:[1,2],title:'長滿青苔的符文石',text:'路邊立著一塊長滿青苔的符文石，刻痕已經模糊。',
+    ch:[{t:'蹲下來試著解讀',note:()=>rate(.3+eff('wit')*.07),fx:()=>{if(chk(.3+eff('wit')*.07)){S.st.wit++;return '你讀出了刻文：「先祖之力，留給膽敢前行的人。」\n<span class="good">智謀 +1</span>';}gainXp(5);return '你盯了半天，只看出一條蛇。\n經驗 +5';}},
+        {t:'繼續趕路',fx:()=>'你沒有停下腳步。'}]}),
+  vEvent('hakon',{phase:[1,2],cond:()=>S.fame>=12,title:'獨眼的老戰士',text:'一個獨眼的老戰士攔住你：「我看過你打架。我叫哈康，我的斧頭還沒老，只是缺個值得追隨的人。」',
+    ch:[{t:'收下他',fx:()=>'哈康咧嘴一笑，露出缺了兩顆的牙。\n'+addChamp('hakon',65)},{t:'婉拒',fx:()=>'哈康點點頭，消失在人群裡。'}]}),
+  vEvent('einar',{phase:[1,2],cond:()=>S.stats.bears>=1,title:'年輕的獵人',text:'一個背著長弓的年輕人一直跟著你：「我看見你徒手放倒那頭熊了。我叫埃納，林子裡沒有我找不到的路。」',
+    ch:[{t:'讓他跟著',fx:()=>addChamp('einar',60)},{t:'打發他回家',fx:()=>'埃納失望地鑽回了樹林。'}]}),
+  // —— 通用 ——
+  {id:'bard',phase:[1,2,3],cond:()=>S.turn>=(S.flags.bardNext??6),title:'吟遊詩人',
+    text:()=>{const lost=S.turn-(S.flags.lastLoss??-99)<=4;S.flags.bardMood=lost?'mock':S.infamy>=40?'dread':'praise';
+      return {mock:'酒館裡，一個吟遊詩人正在唱一首新歌，歌詞是你上次打敗仗的狼狽樣。大家笑得東倒西歪。',
+        dread:'一個吟遊詩人在火堆邊撥著琴弦：「我聽說了你做的事。我可以把它寫成一首讓人睡不著覺的歌。」',
+        praise:'一個背著豎琴的吟遊詩人在火堆邊坐下：「給我一點銀幣，我讓你的名字傳遍每一座酒館。」'}[S.flags.bardMood];},
+    ch:[{t:'塞錢讓他閉嘴（10 銀幣）',show:()=>S.flags.bardMood==='mock',ok:()=>S.silver>=10,fx:()=>{S.silver-=10;bardDone();return '詩人收了錢，換了一首情歌。';}},
+        {t:'讓他唱',show:()=>S.flags.bardMood==='mock',fx:()=>{addFame(-6);bardDone();return '<span class="bad">這首歌傳得比你想像的還快。名聲 -6</span>';}},
+        {t:'讓他寫（免費）',show:()=>S.flags.bardMood==='dread',fx:()=>{addFame(6);addInfamy(6);bardDone();return '那首歌讓好幾個村子連夜加固了圍牆。\n名聲 +6，惡名 +6';}},
+        {t:'給他 15 銀幣',show:()=>S.flags.bardMood==='praise',ok:()=>S.silver>=15,fx:()=>{S.silver-=15;addFame(12);bardDone();return `幾週後，連漁夫都在哼一首關於${esc(S.name)}的歌。\n<span class="good">名聲 +12</span>`;}},
+        {t:'邀請他留在部落（30 銀幣）',show:()=>S.phase>=2&&S.fame>=40&&!hasC('bragi')&&!S.flags.bragiGone,ok:()=>S.silver>=30,fx:()=>{S.silver-=30;bardDone();return '「布拉吉，」他報上名字，「我會把你的一生都寫下來。」\n'+addChamp('bragi',70);}},
+        {t:'打發他走',fx:()=>{bardDone();return '詩人聳聳肩，往下一個火堆走去。';}}]},
+  {id:'hunterB',phase:[1,2,3],cond:()=>S.infamy>=30&&cdOk('hunterB',6),cd:1,kind:'追殺',title:'賞金獵人',text:()=>`一個披著狼皮的男人攔住去路，手裡拿著一張畫得很像你的通緝令：「${esc(S.name)}，有人出錢要你的命。」`,
+    ch:[{t:'拔斧迎戰',note:'生死單挑',fx:()=>{duel('hunter',{lethal:true,xp:16,cause:'死在賞金獵人手下',onEnd:w=>{if(!w)return '';S.silver+=15;addFame(4);addInfamy(-5);return '你從他身上搜出了賞金的一半訂金。\n<span class="good">銀幣 +15，名聲 +4，惡名 -5</span>';}});return null;}},
+        {t:'付錢讓他回去交差（30 銀幣）',ok:()=>S.silver>=30,fx:()=>{S.silver-=30;addInfamy(-10);return '他數了數錢，收起通緝令。\n惡名 -10';}},
+        {t:'趁他不備逃走',note:()=>rate(.3+eff('wit')*.06),fx:()=>{if(chk(.3+eff('wit')*.06))return '你鑽進漁市的人群，甩掉了他。';duel('hunter',{lethal:true,xp:16,intro:'你沒跑掉。',cause:'死在賞金獵人手下',onEnd:w=>w?'他再也追不了任何人了。':''});return null;}}]},
+  // —— 第二、三章 ——
   {id:'astrid',once:1,phase:[2,3],cond:()=>S.fame>=35,title:'盾女',text:'一個背著圓盾的女戰士走進營地，把斧頭插在你面前的桌上：「我叫阿斯特麗德。我只追隨比我強的人。」',
-    ch:[{t:'接受比武',note:'點到為止',fx:()=>{duel('astrid',{lethal:false,xp:16,onEnd:w=>{if(w){S.champions.push({id:'astrid',name:'阿斯特麗德',pow:7,trait:'盾牆：戰鬥傷亡 -30%'});log('盾女阿斯特麗德加入了你。');return '她拔起斧頭，單膝跪下。\n<span class="good">勇士阿斯特麗德加入（戰力 +7，傷亡 -30%）</span>';}S.flags.ev_astrid=0;return '她搖搖頭：「等你更強再說。」她也許還會回來。';}});return null;}},
-        {t:'用威望說服她',note:'需要威望 6',ok:()=>eff('pre')>=6,fx:()=>{S.champions.push({id:'astrid',name:'阿斯特麗德',pow:7,trait:'盾牆：戰鬥傷亡 -30%'});log('盾女阿斯特麗德加入了你。');return '你沒有拔武器，只是把你的計畫說給她聽。她沉默很久，然後點頭。\n<span class="good">勇士阿斯特麗德加入</span>';}},
+    ch:[{t:'接受比武',note:'點到為止',fx:()=>{duel('astrid',{lethal:false,xp:16,onEnd:w=>{if(w)return '她拔起斧頭，單膝跪下。\n'+addChamp('astrid',60);S.flags.ev_astrid=0;return '她搖搖頭：「等你更強再說。」她也許還會回來。';}});return null;}},
+        {t:'用你的計畫說服她',note:()=>rate(.1+eff('pre')*.07),fx:()=>{if(chk(.1+eff('pre')*.07))return '你沒有拔武器，只是把你的計畫說給她聽。她沉默很久，然後點頭。\n'+addChamp('astrid',55);S.flags.ev_astrid=0;return '她聽完只說了一句：「空話。」';}},
         {t:'我不需要你',fx:()=>'她冷哼一聲，轉身走了。'}]},
+  {id:'una',once:1,phase:[2,3],title:'霧沼的草藥婆',text:'一個背著藥簍的老婦人來到部落門口。她說她叫烏娜，霧沼的村子容不下她了。「給我一間屋子，我能治好你身上的傷。」',
+    ch:[{t:'給她一間屋子（20 銀幣）',ok:()=>S.silver>=20,fx:()=>{S.silver-=20;return '烏娜在長屋後面種起了草藥。\n'+addChamp('una',65);}},{t:'部落不收外人',fx:()=>'烏娜拄著拐杖走回霧裡。'}]},
+  {id:'gudrun',once:1,phase:[2,3],cond:()=>bl('smithy')>0,title:'流浪的鐵匠',text:'一個手臂粗得像橡木的女鐵匠看了看你的鐵匠鋪：「爐子砌歪了。付我 25 銀幣，我留下來幫你重打。」',
+    ch:[{t:'付錢留下她',ok:()=>S.silver>=25,fx:()=>{S.silver-=25;return '古德倫把爐子拆了重砌，打出來的斧頭亮得能照人。\n'+addChamp('gudrun',60);}},{t:'不用了',fx:()=>'古德倫扛起鐵鎚走了。'}]},
+  {id:'ragnar',once:1,phase:[2,3],cond:()=>eff('pre')>=9,title:'狂戰士',text:'一個赤裸上身、渾身刺青的巨漢走進部落：「我叫拉格納。聽說你是西境最強的人？證明給我看，我就為你殺人。」',
+    ch:[{t:'跟他打',note:'生死單挑',fx:()=>{duel('ragnar',{lethal:true,xp:30,cause:'被狂戰士拉格納劈成兩半',onEnd:w=>w?'拉格納大笑著從地上爬起來：「好！好！我跟你走！」\n'+addChamp('ragnar',50):''});return null;}},{t:'我不需要瘋子',fx:()=>'拉格納吐了口口水，走了。'}]},
+  {id:'knut',once:1,phase:[2,3],cond:()=>S.infamy>=40,title:'亡命之徒',text:'一個臉上有道長疤的男人帶著三個手下來投靠：「我叫克努特。聽說你這裡不問來歷。」',
+    ch:[{t:'收下他們',fx:()=>{S.men+=3;return '「戰士 +3」\n'+addChamp('knut',45);}},{t:'我這裡不收賊',fx:()=>{addInfamy(-3);return '克努特冷笑著走了。惡名 -3';}}]},
   {id:'children',once:1,phase:[2,3],title:'木劍',text:'部落裡的孩子們拿著木棍，在你的長屋外嚷著要學劍。',
-    ch:[{t:'教他們兩招',fx:()=>{gainXp(10);addLoyalty(6);return '你教了他們怎麼握盾。孩子們的爸媽在旁邊看著，笑了。\n<span class="good">忠誠 +6，經驗 +10</span>';}},
-        {t:'沒空',fx:()=>{loseLoyalty(3);return '孩子們失望地散開了。\n<span class="bad">忠誠 -3</span>';}}]},
+    ch:[{t:'教他們兩招',fx:()=>{gainXp(10);addLoyalty(4);return '你教了他們怎麼握盾。孩子們的爸媽在旁邊看著，笑了。\n忠誠 +4，經驗 +10';}},{t:'沒空',fx:()=>{loseLoyalty(3);return '孩子們失望地散開了。\n<span class="bad">忠誠 -3</span>';}}]},
   {id:'gyr',once:1,phase:[2,3],title:'不服的聲音',text:()=>`營火邊有人說：「${esc(S.name)}不過是運氣好，配不上首領的位子。」\n說話的是壯漢蓋爾，不少人跟著點頭。`,
-    ch:[{t:'當眾單挑他',note:'比武，點到為止',fx:()=>{duel('gyr',{lethal:false,xp:15,onEnd:w=>{if(w){addFame(8);addLoyalty(10);return '蓋爾躺在地上喘氣，再也沒人點頭了。\n<span class="good">名聲 +8，忠誠 +10</span>';}loseLoyalty(10);return '你被蓋爾摔進了泥裡。\n<span class="bad">忠誠 -10</span>';}});return null;}},
-        {t:'用言語折服眾人',note:'看威望',fx:()=>{if(chk(.3+eff('pre')*.07+(has('tongue')?.2:0))){addLoyalty(8);return '你一一數出你帶他們打過的仗、分過的銀子。蓋爾低下了頭。\n<span class="good">忠誠 +8</span>';}loseLoyalty(5);return '你的話沒人聽進去。\n<span class="bad">忠誠 -5</span>';}},
-        {t:'不予理會',fx:()=>{loseLoyalty(8);return '流言在營地裡傳開了。\n<span class="bad">忠誠 -8</span>';}}]},
-  {id:'traitor',phase:[2,3],cond:()=>S.loyalty<35&&S.silver>20,title:'被撬開的銀箱',text:'清晨，你發現銀箱被撬開了。有人趁夜偷走了不少銀幣。',
-    ch:[{t:'追查到底',note:'看智謀',fx:()=>{const l=Math.floor(S.silver*.3);if(chk(.3+eff('wit')*.07)){S.silver-=Math.floor(l/2);return `你順著腳印找到了小偷，追回一半。\n<span class="bad">銀幣 -${Math.floor(l/2)}</span>`;}S.silver-=l;return `線索斷了。\n<span class="bad">銀幣 -${l}</span>`;}},
+    ch:[{t:'當眾單挑他',note:'比武，點到為止',fx:()=>{duel('gyr',{lethal:false,xp:15,onEnd:w=>{if(w){addFame(6);addLoyalty(8);return '蓋爾躺在地上喘氣，再也沒人點頭了。\n名聲 +6，忠誠 +8';}loseLoyalty(12);return '<span class="bad">你被蓋爾摔進了泥裡。忠誠 -12</span>';}});return null;}},
+        {t:'查出是誰在背後煽動',show:()=>eff('wit')>=6,fx:()=>{addLoyalty(10);return '你發現是有人塞了錢給蓋爾。你當眾揭穿了這件事，蓋爾羞愧地低下頭。\n<span class="good">忠誠 +10</span>';}},
+        {t:'用言語折服眾人',note:()=>rate(.2+eff('pre')*.06+(has('tongue')?.12:0)),fx:()=>{if(chk(.2+eff('pre')*.06+(has('tongue')?.12:0))){addLoyalty(6);return '你一一數出你帶他們打過的仗、分過的銀子。蓋爾低下了頭。\n忠誠 +6';}loseLoyalty(6);return '<span class="bad">你的話沒人聽進去。忠誠 -6</span>';}},
+        {t:'不予理會',fx:()=>{loseLoyalty(8);return '<span class="bad">流言在營地裡傳開了。忠誠 -8</span>';}}]},
+  {id:'grumble',phase:[2,3],cd:1,cond:()=>S.loyalty<50&&cdOk('grumble',6),title:'戰士們的怨言',text:'「我們好久沒分到像樣的東西了。」幾個戰士在你背後竊竊私語，看到你就閉上了嘴。',
+    ch:[{t:'加發賞錢（15 銀幣）',ok:()=>S.silver>=15,fx:()=>{S.silver-=15;addLoyalty(6);return '忠誠 +6';}},
+        {t:'揪出帶頭的人',show:()=>eff('wit')>=6,fx:()=>{addLoyalty(4);addFame(2);return '你私下找帶頭的人談了一次，他從此閉上了嘴。\n忠誠 +4';}},
+        {t:'用威望壓下去',note:()=>rate(.15+eff('pre')*.06),fx:()=>{if(chk(.15+eff('pre')*.06)){addLoyalty(4);return '你一瞪眼，沒人再說話。\n忠誠 +4';}loseLoyalty(6);return '<span class="bad">他們表面上安靜了，私下更不滿。忠誠 -6</span>';}},
+        {t:'不理會',fx:()=>{loseLoyalty(5);return '<span class="bad">忠誠 -5</span>';}}]},
+  {id:'traitor',phase:[2,3],cd:1,cond:()=>S.loyalty<35&&S.silver>20&&cdOk('traitor',8),title:'被撬開的銀箱',text:'清晨，你發現銀箱被撬開了。有人趁夜偷走了不少銀幣。',
+    ch:[{t:'追查到底',note:()=>rate(.25+eff('wit')*.07),fx:()=>{const l=Math.floor(S.silver*.3);if(chk(.25+eff('wit')*.07)){S.silver-=Math.floor(l/2);return `你順著腳印找到了小偷，追回一半。\n<span class="bad">銀幣 -${Math.floor(l/2)}</span>`;}S.silver-=l;return `<span class="bad">線索斷了。銀幣 -${l}</span>`;}},
         {t:'算了',fx:()=>{const l=Math.floor(S.silver*.3);S.silver-=l;return `<span class="bad">銀幣 -${l}</span>`;}}]},
-  {id:'oracle',once:1,phase:[2,3],cond:()=>S.bld.altar,title:'祭司的夢',text:'祭司說，奧丁在夢裡給了她一個答案，只要你獻上 10 銀幣。',
-    ch:[{t:'獻上 10 銀幣',ok:()=>S.silver>=10,fx:()=>{S.silver-=10;const k=pick(['str','con','wit','pre']);S.st[k]++;return `祭司在你額頭上畫下符文。\n<span class="good">${STAT[k]} +1</span>`;}},
-        {t:'不信這個',fx:()=>'祭司默默收起骨頭。'}]},
+  {id:'oracle',once:1,phase:[2,3],cond:()=>bl('altar')>0,title:'祭司的夢',text:'祭司說，奧丁在夢裡給了她一個答案，只要你獻上 10 銀幣。',
+    ch:[{t:'獻上 10 銀幣',ok:()=>S.silver>=10,fx:()=>{S.silver-=10;const k=pick(['str','con','wit','pre']);S.st[k]++;return `祭司在你額頭上畫下符文。\n<span class="good">${STAT[k]} +1</span>`;}},{t:'不信這個',fx:()=>'祭司默默收起骨頭。'}]},
   {id:'plague',once:1,phase:[3],cond:()=>S.men>=6,title:'熱病',text:'營地爆發了熱病，戰士一個接一個倒下。',
-    ch:[{t:'花 25 銀幣請醫者',ok:()=>S.silver>=25,fx:()=>{S.silver-=25;addLoyalty(5);return '醫者熬了三天草藥，大部分人都撐過來了。\n<span class="good">忠誠 +5</span>';}},
-        {t:'讓他們自己撐過去',fx:()=>{const l=Math.ceil(S.men*.25);S.men-=l;S.stats.fallen+=l;loseLoyalty(5);return `<span class="bad">${l} 名戰士病死，忠誠 -5</span>`;}}]},
-  {id:'thorfinn_up',once:1,phase:[3],cond:()=>S.flags.forgave,title:'被饒恕的人',text:'當年燒了糧倉的托爾芬，如今已是部落裡最能打的年輕人。他跪在你面前，把劍橫放在膝上。',
-    ch:[{t:'讓他站起來',fx:()=>{S.champions.push({id:'thorfinn',name:'托爾芬',pow:8,trait:'誓死效忠'});return '「我的命是你給的。」\n<span class="good">勇士托爾芬加入（戰力 +8）</span>';}}]},
+    ch:[{t:'花 30 銀幣請醫者',show:()=>!hasC('una'),ok:()=>S.silver>=30,fx:()=>{S.silver-=30;addLoyalty(4);return '醫者熬了三天草藥，大部分人都撐過來了。\n忠誠 +4';}},
+        {t:'交給烏娜',show:()=>hasC('una'),fx:()=>{bond('una',10);addLoyalty(4);return '烏娜三天沒闔眼，沒有一個人死去。\n忠誠 +4';}},
+        {t:'讓他們自己撐過去',fx:()=>{const l=Math.ceil(S.men*.25);S.men-=l;S.vets=Math.min(S.vets,S.men);S.stats.fallen+=l;loseLoyalty(8);return `<span class="bad">${l} 名戰士病死，忠誠 -8</span>`;}}]},
+  {id:'thorfinn_up',once:1,phase:[3],cond:()=>S.flags.forgave&&!S.flags.thorfinnLeft,title:'被饒恕的人',text:'當年燒了糧倉的托爾芬，如今已是部落裡最能打的年輕人。他跪在你面前，把劍橫放在膝上。',
+    ch:[{t:'讓他站起來',fx:()=>'「我的命是你給的。」\n'+addChamp('thorfinn',90)}]},
+  // 勇士個人事件
+  {id:'p_hakon',once:1,phase:[2,3],cond:()=>hasC('hakon'),kind:'勇士',title:'哈康的舊帳',text:'一夥人找上門，說哈康年輕時殺了他們的父親。「交出獨眼的，我們就走。」哈康站在你身後，一句話也沒說。',
+    ch:[{t:'站在哈康這邊',note:'生死單挑',fx:()=>{duel('hunter',{lethal:true,xp:16,intro:'對方派出了最能打的人。',cause:'為了哈康死在仇家刀下',onEnd:w=>{if(!w)return '';bond('hakon',25);return '仇家扛著屍體走了。哈康拍了拍你的背，眼眶有點紅。\n哈康好感 +25';}});return null;}},
+        {t:'交出哈康，換 20 銀幣',fx:()=>{S.silver+=20;removeChamp('hakon');S.cruel++;loseLoyalty(10);bondAll(-10);return '<span class="bad">哈康被綁走了。族人看你的眼神變了。忠誠 -10，所有勇士好感 -10</span>';}}]},
+  {id:'p_astrid',phase:[2,3],cd:1,cond:()=>hasC('astrid')&&cdOk('p_astrid',12),kind:'勇士',title:'阿斯特麗德的挑戰',text:'「一年了，」阿斯特麗德扔給你一面盾，「讓我看看你有沒有變弱。」',
+    ch:[{t:'接受',note:'比武，點到為止',fx:()=>{duel('astrid',{lethal:false,xp:14,onEnd:w=>{if(w){bond('astrid',15);return '「還行。」她嘴上這樣說，但笑了。\n阿斯特麗德好感 +15';}bond('astrid',-5);return '「你變軟了。」\n阿斯特麗德好感 -5';}});return null;}},
+        {t:'今天不行',fx:()=>{bond('astrid',-10);return '她失望地收起盾牌。\n阿斯特麗德好感 -10';}}]},
+  {id:'p_una',once:1,phase:[2,3],cond:()=>hasC('una'),kind:'勇士',title:'烏娜的草藥',text:'烏娜說有一種只長在冬天雪地裡的藥草，能治好陳年的舊傷。她需要 10 糧食和幾個人手去採。',
+    ch:[{t:'給她（10 糧食）',ok:()=>S.food>=10,fx:()=>{S.food-=10;bond('una',15);const h=S.scars;S.scars=0;return `烏娜熬出一鍋苦得要命的藥。${h?`\n<span class="good">舊傷全部痊癒了</span>`:''}\n烏娜好感 +15`;}},
+        {t:'糧食不能浪費在這上面',fx:()=>{bond('una',-10);return '烏娜好感 -10';}}]},
+  {id:'p_bragi',once:1,phase:[2,3],cond:()=>hasC('bragi'),kind:'勇士',title:'布拉吉的詩',text:'布拉吉卡在一首詩的最後一句，非要你跟他一起想。',
+    ch:[{t:'陪他想',note:()=>rate(.25+eff('wit')*.07),fx:()=>{bond('bragi',10);if(chk(.25+eff('wit')*.07)){addFame(10);return '你們想出的那一句，後來被唱遍了整個西境。\n<span class="good">名聲 +10</span>，布拉吉好感 +10';}addFame(2);return '想到天亮，還是差一句。但布拉吉很開心。\n名聲 +2，布拉吉好感 +10';}},
+        {t:'我沒空寫詩',fx:()=>{bond('bragi',-8);return '布拉吉好感 -8';}}]},
+  {id:'p_ragnar',once:1,phase:[2,3],cond:()=>hasC('ragnar'),kind:'勇士',title:'失控',text:'拉格納喝醉後打死了一個農夫。死者的家人跪在長屋外，要你給個交代。',
+    ch:[{t:'當眾鞭打拉格納',fx:()=>{bond('ragnar',-25);addLoyalty(6);S.mercy++;return '拉格納一聲不吭地挨完了鞭子。他看你的眼神很冷。\n忠誠 +6，拉格納好感 -25';}},
+        {t:'賠錢了事，壓下這件事',fx:()=>{bond('ragnar',10);addInfamy(8);loseLoyalty(6);S.cruel++;return '<span class="bad">死者家人拿了錢，但族人都在議論。忠誠 -6，惡名 +8</span>\n拉格納好感 +10';}}]},
+  {id:'p_knut',once:1,phase:[2,3],cond:()=>hasC('knut'),kind:'勇士',title:'克努特的主意',text:'克努特想帶他的人去搶一座小教堂。「不用你出兵，搶來的分你一半。」',
+    ch:[{t:'去吧',fx:()=>{S.silver+=30;addInfamy(10);bond('knut',10);return '克努特扛回了一箱銀器。\n銀幣 +30，<span class="bad">惡名 +10</span>，克努特好感 +10';}},
+        {t:'不准',fx:()=>{bond('knut',-15);return '克努特好感 -15';}}]},
+  {id:'p_einar',once:1,phase:[2,3],cond:()=>hasC('einar'),kind:'勇士',title:'白鹿的蹤跡',text:'埃納興奮地跑來：「我在北邊的林子看到了白鹿的蹤跡！但那一帶有熊。」',
+    ch:[{t:'一起去',note:'生死單挑',fx:()=>{duel('bear',{lethal:true,xp:16,cause:'被灰熊撕碎在北邊的林子裡',onEnd:w=>{if(!w)return '';S.food+=10;addFame(6);bond('einar',15);return '你們扛著熊皮回來，還看見了白鹿。族人說這是好兆頭。\n糧食 +10，名聲 +6，埃納好感 +15';}});return null;}},
+        {t:'太危險了',fx:()=>{bond('einar',-5);return '埃納好感 -5';}}]},
+  {id:'p_osric',once:1,phase:[3],cond:()=>hasC('osric'),kind:'勇士',title:'歐斯里克的家人',text:'歐斯里克說他的妻兒還在溫特堡附近。他想帶 10 銀幣回去接他們。',
+    ch:[{t:'給他 10 銀幣',ok:()=>S.silver>=10,fx:()=>{S.silver-=10;bond('osric',20);return '一個月後，歐斯里克帶著家人回來了。\n歐斯里克好感 +20';}},{t:'不行',fx:()=>{bond('osric',-15);return '歐斯里克好感 -15';}}]},
   // 祈福事件
   {id:'forgive',once:1,phase:[2,3],kind:'抉擇',title:'燒了糧倉的年輕人',text:'年輕戰士托爾芬喝醉了，打翻火把，燒了糧倉一角。他被綁著跪在眾人面前，等你發落。',
-    ch:[{t:'饒恕他',note:'族人會記住你的寬厚',fx:()=>{S.flags.forgave=1;S.mercy++;addLoyalty(5);const b=addBlessing();return `你割斷他的繩子：「把燒掉的補回來。」托爾芬哭著磕頭。\n<span class="good">忠誠 +5</span>\n${b}`;}},
+    ch:[{t:'饒恕他',note:'族人會看在眼裡',fx:()=>{S.flags.forgave=1;S.mercy++;addLoyalty(4);const lf2=Math.min(S.food,8);S.food-=lf2;return `你割斷他的繩子：「把燒掉的補回來。」托爾芬哭著磕頭。\n糧食 -${lf2}，忠誠 +4\n${addBlessing()}`;}},
         {t:'鞭刑示眾',fx:()=>{addFame(3);return '二十鞭。沒人再敢在糧倉附近喝酒。\n名聲 +3';}},
-        {t:'處死',fx:()=>{S.cruel++;loseLoyalty(10);addFame(5);return '斧頭落下。族人看你的眼神變了。\n<span class="bad">忠誠 -10</span>，名聲 +5';}}]},
-  {id:'yule',once:1,phase:[2,3],kind:'抉擇',cond:()=>S.bld.altar&&S.turn%4===3,title:'冬至祭典',text:'最長的一夜到了。族人聚在祭壇前，等著首領主持祭典。',
-    ch:[{t:'親自主持，獻上 8 糧食、10 銀幣',ok:()=>S.food>=8&&S.silver>=10,fx:()=>{S.food-=8;S.silver-=10;addLoyalty(10);const b=addBlessing();return `你把公牛的血灑在祭壇上，向奧丁唸出每一個戰死者的名字。\n<span class="good">忠誠 +10</span>\n${b}`;}},
-        {t:'交給祭司辦',fx:()=>{addLoyalty(3);return '祭典照常舉行，只是你不在。\n忠誠 +3';}},
+        {t:'處死',fx:()=>{S.cruel++;loseLoyalty(10);addFame(5);addInfamy(5);return '<span class="bad">斧頭落下。族人看你的眼神變了。忠誠 -10</span>，名聲 +5';}}]},
+  {id:'yule',once:1,phase:[2,3],kind:'抉擇',cond:()=>bl('altar')>0&&S.turn%4===3,title:'冬至祭典',text:'最長的一夜到了。族人聚在祭壇前，等著首領主持祭典。',
+    ch:[{t:'親自主持（12 糧食、15 銀幣）',ok:()=>S.food>=12&&S.silver>=15,fx:()=>{S.food-=12;S.silver-=15;addLoyalty(8);return `你把公牛的血灑在祭壇上，向奧丁唸出每一個戰死者的名字。\n忠誠 +8\n${addBlessing()}`;}},
+        {t:'交給祭司辦',fx:()=>{addLoyalty(2);return '祭典照常舉行，只是你不在。\n忠誠 +2';}},
         {t:'取消祭典，省點糧食',fx:()=>{loseLoyalty(10);S.food+=3;return '<span class="bad">忠誠 -10</span>';}}]},
-  {id:'famine',once:1,phase:[2,3],kind:'抉擇',cond:()=>S.turn%4===3||S.food<6,title:'難熬的冬天',text:'冬天來得太早，族人的存糧撐不到春天。孩子們開始在夜裡哭。',
-    ch:[{t:'打開你自己的糧倉',note:'分出你一半的糧食',fx:()=>{const l=Math.floor(S.food/2);S.food-=l;S.mercy++;addLoyalty(15);const b=addBlessing();return `你把自己的存糧一袋一袋分出去。\n<span class="bad">糧食 -${l}</span>，<span class="good">忠誠 +15</span>\n${b}`;}},
-        {t:'帶人去搶鄰村',fx:()=>{S.food+=12;addFame(4);S.cruel++;return '你們帶回了足夠的糧食，還有鄰村的哭聲。\n<span class="good">糧食 +12，名聲 +4</span>';}},
-        {t:'殺掉牲口撐過去',fx:()=>{S.food+=5;loseLoyalty(5);return '大家勉強撐過了冬天，但春天沒有牛可以犁田。\n糧食 +5，<span class="bad">忠誠 -5</span>';}}]},
-  {id:'widow',once:1,phase:[3],kind:'抉擇',cond:()=>S.stats.fallen>=3,title:'戰死者的遺孀',text:'一個戰死者的遺孀帶著兩個孩子來見你。她什麼也沒說，只是看著你。',
-    ch:[{t:'答應撫養孩子，送她 20 銀幣',ok:()=>S.silver>=20,fx:()=>{S.silver-=20;S.mercy++;addLoyalty(10);const b=addBlessing();return `你蹲下來，摸了摸孩子的頭：「你們的父親是英雄。從今天起，你們吃我的飯。」\n<span class="good">忠誠 +10</span>\n${b}`;}},
-        {t:'「戰士本來就會死。」',fx:()=>{loseLoyalty(8);return '她轉身走了。消息傳得很快。\n<span class="bad">忠誠 -8</span>';}}]},
+  {id:'famine',once:1,phase:[2,3],kind:'抉擇',cond:()=>S.turn%4===3,title:'難熬的冬天',text:'冬天來得太早，族人的存糧撐不到春天。孩子們開始在夜裡哭。',
+    ch:[{t:'打開你自己的糧倉',note:'分出你一半的糧食',fx:()=>{const l=Math.floor(S.food/2);S.food-=l;S.mercy++;addLoyalty(10);return `你把自己的存糧一袋一袋分出去。\n<span class="bad">糧食 -${l}</span>，忠誠 +10\n${addBlessing()}`;}},
+        {t:'帶人去搶鄰村',fx:()=>{S.food+=12;addFame(3);addInfamy(8);S.cruel++;return '你們帶回了足夠的糧食，還有鄰村的哭聲。\n糧食 +12，<span class="bad">惡名 +8</span>';}},
+        {t:'殺掉牲口撐過去',fx:()=>{S.food+=5;loseLoyalty(6);return '大家勉強撐過了冬天，但春天沒有牛可以犁田。\n糧食 +5，<span class="bad">忠誠 -6</span>';}}]},
+  {id:'widow',once:1,phase:[3],kind:'抉擇',cond:()=>S.stats.fallen>=5,title:'戰死者的遺孀',text:'一個戰死者的遺孀帶著兩個孩子來見你。她什麼也沒說，只是看著你。',
+    ch:[{t:'答應撫養孩子，送她 25 銀幣',ok:()=>S.silver>=25,fx:()=>{S.silver-=25;S.mercy++;addLoyalty(8);return `你蹲下來，摸了摸孩子的頭：「你們的父親是英雄。從今天起，你們吃我的飯。」\n忠誠 +8\n${addBlessing()}`;}},
+        {t:'「戰士本來就會死。」',fx:()=>{loseLoyalty(8);return '<span class="bad">她轉身走了。消息傳得很快。忠誠 -8</span>';}}]},
 ];
-function shareLootEvent(silver){
-  return eventModal({kind:'抉擇',title:'分贓',text:`戰利品堆在長屋中央：${silver} 枚銀幣、銀杯和皮毛。戰士們看著你，等你開口。`,
-    ch:[{t:'平分給所有人',note:'族人會記住你的慷慨',fx:()=>{const l=Math.floor(silver/2);S.silver-=l;S.mercy++;addLoyalty(15);const b=addBlessing();return `你把銀幣分成一堆堆，連守營的人都有份。\n<span class="bad">銀幣 -${l}</span>，<span class="good">忠誠 +15</span>\n${b}`;}},
-        {t:'首領拿大份，其餘分下去',fx:()=>{const l=Math.floor(silver/5);S.silver-=l;addLoyalty(3);return `大家沒什麼怨言。\n銀幣 -${l}，忠誠 +3`;}},
-        {t:'全部收進自己的箱子',fx:()=>{S.cruel++;loseLoyalty(15);return '長屋裡安靜得可怕。\n<span class="bad">忠誠 -15</span>';}}]});
+function bardDone(){S.flags.bardNext=S.turn+ri(16,20);}
+const EV_FAIR={kind:'抉擇',title:'公平的首領',text:'又一次分贓。老戰士們發現，你每一次都把銀子分得清清楚楚，連守營的人都有份。今晚，他們自發聚到了祭壇前。',
+  ch:[{t:'走過去',fx:()=>{S.mercy++;return '有人開始唱歌。\n'+addBlessing();}}]};
+function stragglers(){
+  const target=pick(SEATS.filter(id=>S.reg[id].st==='free'));
+  return eventModal({kind:'戰後',title:'潰逃的敵兵',text:'包抄讓敵人陣腳大亂，十幾個敵兵丟下武器逃進了林子。',
+    ch:[{t:'追上去收編他們',note:()=>rate(.2+eff('pre')*.06),fx:()=>{if(chk(.2+eff('pre')*.06)){const n=ri(2,4);S.men+=n;loseLoyalty(2);return `他們跪下投降。\n<span class="good">戰士 +${n}</span>`;}return '他們寧死也不肯投降，最後全跑了。';}},
+        {t:'放他們走',fx:()=>{addFame(3);if(target&&Math.random()<.5){S.reg[target].def+=3;return `後來你聽說，他們投靠了${R(target).name}。\n名聲 +3，<span class="bad">${R(target).name}的守備增強了</span>`;}return '他們會告訴所有人，你放了他們一條生路。\n名聲 +3';}},
+        {t:'斬盡殺絕',fx:()=>{addFame(2);addInfamy(8);S.cruel++;return '林子裡安靜了下來。\n名聲 +2，<span class="bad">惡名 +8</span>';}}]});
+}
+function betray(id){
+  const c=CHAMPS[id];
+  removeChamp(id);
+  if(id==='osric') S.flags.osricGone=1;
+  S.flags.traitor=c.name;
+  if(['sven','knut','ragnar'].includes(id)){
+    pushLater(eventModal({kind:'背叛',title:`${c.name}反了`,text:`半夜，${c.name}帶著幾個人衝進你的長屋，刀已經出鞘。「這部落，我來管。」`,
+      ch:[{t:'迎戰',note:'生死單挑',fx:()=>{duel(id==='ragnar'?'ragnar':'usurper',{lethal:true,xp:20,cause:`死在叛徒${c.name}手下`,onEnd:w=>{if(!w)return '';addLoyalty(10);log(`擊敗了叛徒${c.name}。`);return `${c.name}倒在血泊裡。\n忠誠 +10`;}});return null;}}]}));
+    return;
+  }
+  const n=Math.min(S.men,ri(2,4));S.men-=n;S.vets=Math.min(S.vets,S.men);const s=Math.floor(S.silver*.2);S.silver-=s;
+  log(`${c.name}帶著 ${n} 個人離開了你。`);
+  pushLater(eventModal({kind:'背叛',title:`${c.name}走了`,text:`天亮時，${c.name}的床鋪是空的。跟著一起走的，還有 ${n} 名戰士和銀箱裡的 ${s} 枚銀幣。\n\n桌上留著一句話：「你不是我當初追隨的那個人了。」`,ch:[{t:'……',fx:()=>null}]}));
 }
 function rivalAttack(){
-  const def=Math.round(24+(S.turn-S.p3turn)*1.2);
-  pushLater(eventModal({kind:'宿敵',title:'紅帆來襲',text:`號角聲從海邊傳來。斯韋恩的紅帆船靠岸了，他的人正朝${esc(S.tribe)}衝過來。\n\n「${esc(S.name)}！今天我要燒了你的破木牆！」`,
-    ch:[{t:'集結戰士迎戰',note:`敵方戰力約 ${def}`,fx:()=>{battle({title:'守衛部落',def,defend:true,foeNote:'斯韋恩的紅帆戰團',cause:'死在紅帆戰團的亂刀之下',onEnd:w=>{
-          if(w){addFame(6);addLoyalty(5);log('擊退了斯韋恩的突襲。');return '紅帆船狼狽地退回海上。\n名聲 +6，忠誠 +5';}
-          const ls=Math.floor(S.silver*.3),lf=Math.floor(S.food*.3);S.silver-=ls;S.food-=lf;loseLoyalty(10);log('斯韋恩洗劫了部落。');
-          return `他們燒了半個部落才離開。\n銀幣 -${ls}，糧食 -${lf}，忠誠 -10`;}});return null;}},
-        {t:'走出木牆，與斯韋恩單挑',note:'生死單挑，他撐不住就會逃',fx:()=>{duel('sven',{lethal:true,retreatAt:.45,xp:20,cause:'死在宿敵斯韋恩的斧下',onEnd:w=>{
-          if(w){addFame(10);addLoyalty(8);log('單挑逼退了斯韋恩。');return '斯韋恩捂著傷口跳回船上。你的族人敲著盾牌高喊你的名字。\n名聲 +10，忠誠 +8';}return '';}});return null;}}]}));
+  const k=S.rival.attacks;S.rival.attacks++;
+  const def=Math.round([30,44,58][k]*lf()*D().foe);
+  const txt=[
+    `號角聲從海邊傳來。斯韋恩的紅帆船靠岸了，他的人正朝${esc(S.tribe)}衝過來。\n\n「${esc(S.name)}！今天我要燒了你的破木牆！」`,
+    `紅帆又來了，這次船更多。${S.flags.traitor?`站在斯韋恩身邊的，是當初背叛你的${S.flags.traitor}。`:'斯韋恩雇了一批撒克遜傭兵。'}\n\n「上次是我大意了。」`,
+    `這是斯韋恩傾巢而出的最後一擊。海面上全是紅帆，船頭綁著點燃的油桶。\n\n「今天，只有一個人能活著離開這片海灘。」`][k];
+  pushLater(eventModal({kind:'宿敵',title:['紅帆來襲','紅帆再臨','火船'][k],text:txt,
+    ch:[{t:'集結戰士迎戰',note:scouted(true)?`敵方戰力 ${def}`:`敵方戰力約 ${Math.round(def*.85)}–${Math.round(def*1.15)}`,fx:()=>{battle({title:'守衛部落',def,defend:true,foeNote:'斯韋恩的紅帆戰團',cause:'死在紅帆戰團的亂刀之下',onEnd:w=>{
+          if(w){addFame(6);log('擊退了斯韋恩的進攻。');return '紅帆船狼狽地退回海上。\n名聲 +6';}
+          const ls=Math.floor(S.silver*.3),lf2=Math.floor(S.food*.3);S.silver-=ls;S.food-=lf2;
+          let extra='';
+          if(k===2){const ids=Object.keys(S.bld).filter(id=>S.bld[id]>0);if(ids.length){const b=pick(ids);S.bld[b]--;if(!S.bld[b])delete S.bld[b];extra=`\n火船燒毀了${B(b).name}（降一級）。`;}}
+          log('斯韋恩洗劫了部落。');return `他們燒了半個部落才離開。\n銀幣 -${ls}，糧食 -${lf2}${extra}`;}});return null;}},
+        {t:'走出木牆，與斯韋恩單挑',note:'生死單挑，他撐不住就會逃',fx:()=>{duel('svenA',{lethal:true,mul:[1,1.2,1.4][k],retreatAt:.45,xp:20,cause:'死在宿敵斯韋恩的斧下',onEnd:w=>{
+          if(w){addFame(10);addLoyalty(6);log('單挑逼退了斯韋恩。');return '斯韋恩捂著傷口跳回船上。你的族人敲著盾牌高喊你的名字。\n名聲 +10，忠誠 +6';}return '';}});return null;}}]}));
 }
 
-/* ---------- 行動 ---------- */
+/* ================= 行動 ================= */
 function actions(){
-  const A=[];
-  const p=S.phase;
+  const A=[];const p=S.phase;
   if(p===1){
-    const ok=S.silver>=60&&S.fame>=30;
-    A.push({id:'found',key:true,name:'插旗，建立部落',desc:'找一塊能立足的土地。花費 40 銀幣。',gain:`需要銀幣 60、名聲 30`,dis:ok?null:`銀幣 ${S.silver}/60 · 名聲 ${S.fame}/30`,run:foundTribe});
-    A.push({id:'bounty',name:'接懸賞',desc:'獵殺林間強盜。生死單挑。',gain:'銀幣、名聲、經驗',run:()=>{duel('bandit',{lethal:true,scale:true,xp:14,cause:'死在一個無名強盜的刀下',onEnd:w=>{
-      if(!w)return '';const s=ri(10,16);S.silver+=s;addFame(6);log(`獵殺強盜，領到 ${s} 銀幣賞金。`);return `<span class="good">賞金 +${s} 銀幣，名聲 +6</span>`;}});passTime();}});
+    const ok=S.silver>=60&&S.fame>=25;
+    A.push({id:'found',key:true,name:'插旗，建立部落',desc:'找一塊能立足的土地。花費 40 銀幣。',gain:'需要銀幣 60、名聲 25',dis:ok?null:`銀幣 ${S.silver}/60 · 名聲 ${S.fame}/25`,run:foundTribe});
+    A.push({id:'bounty',name:'接懸賞',desc:'獵殺林間強盜。生死單挑。',gain:'銀幣、名聲',run:()=>{duel('bandit',{lethal:true,xp:14,cause:'死在一個無名強盜的刀下',onEnd:w=>{
+      if(!w)return '';const s=ri(10,16);S.silver+=s;addFame(6);addInfamy(-2);log(`獵殺強盜，領到 ${s} 銀幣賞金。`);return `<span class="good">賞金 +${s} 銀幣，名聲 +6</span>`;}});passTime();}});
     const vc=S.reg.village.cd;
-    A.push({id:'soloraid',name:'獨自突襲漁村',desc:`守衛會出來拚命。生死單挑${S.men?`，同伴讓戰利品 +${S.men*15}%`:''}。`,gain:'更多銀幣與糧食',dis:vc?`漁村還在戒備（${vc} 季）`:null,run:()=>{
-      duel('guard',{lethal:true,scale:true,xp:16,cause:'死在漁村守衛的矛下',onEnd:w=>{if(!w)return '';const s=Math.round(ri(16,26)*(1+S.men*.15)),f=ri(2,4);S.silver+=s;S.food+=f;addFame(5);S.reg.village.cd=3;S.stats.raids++;log(`突襲鹽灘漁村，搶到 ${s} 銀幣。`);
-        return `<span class="good">銀幣 +${s}，糧食 +${f}，名聲 +5</span>`;}});passTime();}});
-    A.push({id:'tavern',name:'酒館比武',desc:'押上 5 銀幣，點到為止。',gain:'贏了拿 10 銀幣',dis:S.silver<5?'需要 5 銀幣':null,run:()=>{S.silver-=5;
-      duel('brawler',{lethal:false,scale:true,xp:10,onEnd:w=>{if(w){S.silver+=15;addFame(4);return '<span class="good">贏得 15 銀幣（淨賺 10），名聲 +4</span>';}gainXp(4);return '押金沒了。';}});passTime();}});
+    A.push({id:'soloraid',name:'獨自突襲漁村',desc:`守衛會出來拚命。生死單挑${S.men?`，同伴讓戰利品 +${S.men*15}%`:''}。`,gain:'銀幣與糧食多，但會增加惡名',dis:vc?`漁村還在戒備（${vc} 季）`:null,run:()=>{
+      duel('guard',{lethal:true,xp:16,cause:'死在漁村守衛的矛下',onEnd:w=>{if(!w)return '';const s=Math.round(ri(16,26)*(1+S.men*.15)),f=ri(2,4);S.silver+=s;S.food+=f;addInfamy(12);S.reg.village.cd=3;S.stats.raids++;log(`突襲鹽灘漁村，搶到 ${s} 銀幣。`);
+        return `<span class="good">銀幣 +${s}，糧食 +${f}</span>\n<span class="bad">惡名 +12：村民記住了你的臉。</span>`;}});passTime();}});
+    A.push({id:'tavern',name:'酒館比武',desc:'押上 5 銀幣，點到為止。',gain:'贏了拿 15 銀幣',dis:S.silver<5?'需要 5 銀幣':null,run:()=>{S.silver-=5;
+      duel('brawler',{lethal:false,xp:10,onEnd:w=>{if(w){S.silver+=15;addFame(4);return '<span class="good">贏得 15 銀幣，名聲 +4</span>';}gainXp(4);return '押金沒了。';}});passTime();}});
     A.push({id:'hire',name:'招募同伴',desc:`雇一個願意跟你走的人（${S.men}/3）。花費 12 銀幣。`,gain:'突襲戰利品增加',dis:S.men>=3?'同伴已滿':S.fame<10?'名聲至少 10':S.silver<12?'需要 12 銀幣':null,
       run:()=>{S.silver-=12;S.men++;const n=pick(['比約恩','卡爾','埃納爾','斯泰因','奧拉夫']);log(`${n}成了你的同伴。`);toast(`${n}加入了你`);passTime();}});
+    if(S.flags.map===1) A.push({id:'treasure',name:'按圖尋寶',desc:'照老船長的藏寶圖去挖。',gain:'也許有一大筆錢',run:()=>{S.flags.map=2;
+      duel('bandit',{lethal:true,mul:1.25,xp:16,intro:'你挖到箱子的同時，另一夥拿著同一張圖的人也到了。',cause:'為了一箱財寶死在海邊',onEnd:w=>{if(!w)return '';S.silver+=40;return '<span class="good">箱子裡是滿滿的銀幣。銀幣 +40</span>';}});passTime();}});
   }else{
     if(p===2){const ok=bldCount()>=3&&S.men>=8;
       A.push({id:'declare',key:true,name:'向西境宣告你的名字',desc:'讓諸侯知道，有個新的勢力崛起了。',gain:'進入擴張階段',dis:ok?null:`建築 ${bldCount()}/3 · 戰士 ${S.men}/8`,run:declare});}
     A.push({id:'gomap',key:p===3,name:'出兵',desc:p===2?'打開地圖，選一個地方突襲。':'打開地圖：突襲、征服或結盟。',gain:'選定目標前不消耗時間',run:()=>{S.tab='map';render();}});
-    const cap=menCap(),cost=recruitCost();
-    A.push({id:'recruit',name:'招募戰士',desc:`每人 ${cost} 銀幣。戰士 ${S.men}/${cap}`,gain:`每次最多 ${2+eff('pre')} 人（看威望）`,dis:S.men>=cap?'戰士已達上限，蓋長屋、兵營或佔領土地':S.silver<cost?`需要 ${cost} 銀幣`:null,run:recruitModal});
-    A.push({id:'build',name:'建設部落',desc:'打開部落頁，蓋新的建築。',gain:'選定建築前不消耗時間',run:()=>{S.tab='tribe';render();}});
-    A.push({id:'train',name:'操練',desc:'帶戰士們對練。消耗 2 糧食。',gain:`經驗 +${S.bld.smithy?22:12}`,dis:S.food<2?'糧食不足':null,run:()=>{S.food-=2;gainXp(S.bld.smithy?22:12);toast(`經驗 +${S.bld.smithy?22:12}`);passTime();}});
-    A.push({id:'feast',name:'設宴',desc:'花 15 銀幣、6 糧食，讓族人喝個痛快。',gain:'忠誠 +15，名聲 +3',dis:S.silver<15||S.food<6?'需要 15 銀幣、6 糧食':null,
-      run:()=>{S.silver-=15;S.food-=6;addLoyalty(15);addFame(3);log('在長屋設宴，酒灌到天亮。');toast('忠誠 +15');passTime();}});
+    const cap=housing(),cost=recruitCost();
+    A.push({id:'recruit',name:'招募戰士',desc:`每人 ${cost} 銀幣。戰士 ${S.men}/${cap}（統御 ${command()}）`,gain:`每次最多 ${2+eff('pre')} 人`,dis:S.men>=cap?'住房滿了，蓋長屋或升級部落':S.silver<cost?`需要 ${cost} 銀幣`:null,run:recruitModal});
+    A.push({id:'build',name:'建設部落',desc:'打開部落頁：蓋建築、升級、調整分贓。',gain:'選定之前不消耗時間',run:()=>{S.tab='tribe';render();}});
+    const tf=2+Math.ceil(S.men/3);
+    A.push({id:'train',name:'操練',desc:`帶戰士們對練，消耗 ${tf} 糧食。`,gain:`經驗 +${trainXp()}，1 名戰士升為老兵`,dis:S.food<tf?'糧食不足':null,run:()=>{S.food-=tf;const x=trainXp();gainXp(x);
+      if(S.men>S.vets)S.vets++;S.trainLog.push(S.turn);toast(`經驗 +${x}`);passTime();}});
+    A.push({id:'feast',name:'設宴',desc:'花 15 銀幣、6 糧食，讓族人喝個痛快。',gain:S.turn-(S.flags.feastT??-99)<4?'剛辦過宴會，效果有限':'忠誠 +8，勇士好感 +3',dis:S.silver<15||S.food<6?'需要 15 銀幣、6 糧食':null,
+      run:()=>{S.silver-=15;S.food-=6;const fresh=S.turn-(S.flags.feastT??-99)>=4;addLoyalty(fresh?8:3);if(fresh)bondAll(3);addFame(2);S.flags.feastT=S.turn;log('在長屋設宴，酒灌到天亮。');toast(`忠誠 +${fresh?8:3}`);passTime();}});
   }
-  A.push({id:'hunt',name:p===1?'狩獵':'狩獵捕魚',desc:'進雪林或出海，帶回食物。',gain:`糧食約 +${4+Math.floor(eff('wit')/2)+(p>1?Math.floor(S.men/3):0)}`,run:()=>{
-    if(p===1&&Math.random()<.18){duel('wolf',{lethal:true,scale:true,xp:8,intro:'一頭灰狼從雪堆後撲了出來！',cause:'被雪林裡的狼群咬死',onEnd:w=>{if(!w)return '';S.food+=5;return '<span class="good">狼肉也是肉。糧食 +5</span>';}});passTime();return;}
-    const f=ri(3,5)+Math.floor(eff('wit')/2)+(p>1?Math.floor(S.men/3):0);S.food+=f;gainXp(3);toast(`糧食 +${f}`);passTime();}});
-  A.push({id:'rest',name:'休養',desc:'好好睡一覺，恢復全部生命。',gain:`生命 ${S.hp}/${maxHp()}`,dis:S.hp>=maxHp()?'你的狀態很好':null,run:()=>{passTime();S.hp=maxHp();toast('生命全滿');render();}});
+  const fm=has('huntsman')?1.5:1;
+  A.push({id:'trap',name:'採集與設陷阱',desc:'在附近撿柴、設陷阱、撈貝類。很安全。',gain:`糧食約 +${Math.round((2.5+(eff('wit')>=6?1:0)+(p>1?S.men/4:0))*fm)}`,run:()=>{
+    const f=Math.round((ri(2,3)+(eff('wit')>=6?1:0)+(p>1?Math.floor(S.men/4):0))*fm);S.food+=f;gainXp(2);toast(`糧食 +${f}`);passTime();}});
+  A.push({id:'hunt',name:'深入獵捕',desc:'進深山追獵大型野獸。生死單挑。',gain:`糧食 +${Math.round((6+(p>1?Math.floor(S.men/3):0))*fm)}，毛皮能換銀幣`,run:()=>{
+    const k=pick(S.lvl>=3?['wolf','boar','bear','bear']:['wolf','boar','boar']);
+    duel(k,{lethal:true,xp:k==='bear'?14:9,intro:{wolf:'雪地上的腳印通向一頭落單的灰狼。',boar:'灌木叢裡衝出一頭發狂的野豬！',bear:'你驚醒了一頭正在冬眠的灰熊。'}[k],cause:'死在深山的野獸爪下',onEnd:w=>{
+      if(!w)return '';const f=Math.round((6+(p>1?Math.floor(S.men/3):0))*fm);const s=k==='bear'?ri(8,12):ri(3,6);S.food+=f;S.silver+=s;if(k==='bear')S.stats.bears++;
+      return `<span class="good">糧食 +${f}，毛皮賣了 ${s} 銀幣</span>`;}});passTime();}});
+  A.push({id:'rest',name:'休養',desc:'好好睡一覺，恢復全部生命，也有機會養好舊傷。',gain:`生命 ${S.hp}/${maxHp()}${S.scars?` · 舊傷 ${S.scars}`:''}`,dis:S.hp>=maxHp()&&!S.scars?'你的狀態很好':null,run:rest});
   return A;
+}
+function trainXp(){return Math.round((14+bl('smithy')*4)*(has('drill')?1.5:1)*Math.max(.25,1-(S.lvl-1)*.08));}
+const REST_EVENTS=[
+  {title:'夢見母親',text:'你夢見母親站在峽灣的岸邊，對你說了一句話。醒來時，你只記得那句話讓你很平靜。',ch:[{t:'起身',fx:()=>{gainXp(10);return '經驗 +10';}}]},
+  {title:'夜裡的狼嚎',text:'半夜，狼嚎越來越近。火堆快熄了，有一雙綠眼睛在黑暗裡盯著你。',ch:[{t:'抓起斧頭',note:'生死單挑',fx:()=>{duel('wolf',{lethal:true,xp:8,cause:'睡夢中被狼咬斷了喉嚨',onEnd:w=>w?'你把狼皮鋪在了床上。\n糧食 +3':''});S.food+=3;return null;}},{t:'往火裡添柴，嚇走牠',note:()=>rate(.4+eff('pre')*.05),fx:()=>{if(chk(.4+eff('pre')*.05))return '火光一亮，綠眼睛退回了黑暗裡。';S.food=Math.max(0,S.food-4);return '<span class="bad">狼趁你不注意叼走了一袋肉乾。糧食 -4</span>';}}]},
+  {title:'營火邊的旅人',text:'一個旅人借你的火取暖，跟你聊起了西境的事。',ch:[{t:'向他打聽消息',fx:()=>{gainXp(6);addFame(2);return '他說了很多你不知道的事，臨走前說會幫你傳名。\n經驗 +6，名聲 +2';}},{t:'請他喝一杯（3 銀幣）',ok:()=>S.silver>=3,fx:()=>{S.silver-=3;addFame(4);return '旅人喝得很開心，答應到每個村子都提你的名字。\n名聲 +4';}}]},
+  {title:'有人摸進來了',text:'你半夢半醒間，聽見有人在翻你的行囊。',ch:[{t:'裝睡，等他靠近',note:()=>rate(.35+eff('wit')*.07),fx:()=>{if(chk(.35+eff('wit')*.07)){S.silver+=5;return '你一把抓住小偷的手腕，他把身上的錢都留下來賠罪。\n銀幣 +5';}const l=Math.floor(S.silver*.2);S.silver-=l;return `<span class="bad">你睡得太沉了。銀幣 -${l}</span>`;}},{t:'大喊一聲',fx:()=>'小偷嚇得翻窗跑了。'}]},
+];
+function rest(){
+  passTime(true);
+  S.hp=maxHp();
+  let healed='';
+  if(S.scars&&(hasC('una')||bl('altar')>=3||Math.random()<.5)){S.scars--;S.hp=maxHp();healed='一道舊傷痊癒了';}
+  toast(healed||'生命全滿');
+  if(Math.random()<.35) pushLater(eventModal(Object.assign({kind:'夜裡'},pick(REST_EVENTS))));
+  render();
 }
 function foundTribe(){
   pushModal(el=>{
@@ -794,54 +1166,70 @@ function foundTribe(){
     <button class="primary" id="m-ok">立起旗幟</button>`;
     $('#m-ok').onclick=()=>{
       S.tribe=($('#in-tribe').value.trim()||'渡鴉谷').slice(0,8);
-      S.silver-=40;S.phase=2;S.loyalty=60;S.tab='act';passTime();
+      S.silver-=40;S.phase=2;S.loyalty=60;S.tab='act';S.lastBattle=S.turn;
       log(`在海灣邊建立了部落「${S.tribe}」。`);
-      resultView(el,'部落建立了',`<span class="good">${esc(S.tribe)}</span>的旗幟在海風裡飄了起來。\n\n消息傳開後，開始有人來投靠你。接下來：\n・在「部落」頁蓋建築\n・招募戰士，出兵突襲\n・族人的<span class="blessed">忠誠</span>很重要：他們越信服你，越可能在你倒下時為你祈福`,'第二章');
-      render();
+      resultView(el,'部落建立了',`<span class="good">${esc(S.tribe)}</span>的旗幟在海風裡飄了起來。\n\n消息傳開後，開始有人來投靠你。接下來：\n・在「部落」頁蓋建築、決定怎麼分贓\n・招募戰士，出兵突襲。每季都要發軍餉，老兵領得比較多\n・族人的忠誠很重要：他們越信服你，越可能在你倒下時為你祈福\n・你的威望決定你管得動多少人`,'第二章');
+      passTime();render();
     };
   });
 }
 function declare(){
-  passTime();S.phase=3;S.p3turn=S.turn;S.lastRival=S.turn-3;
+  S.phase=3;S.p3turn=S.turn+1;
   log('向西境諸侯宣告了自己的名字。');
-  pushModal(el=>resultView(el,'西境諸侯',`你派出使者，帶著${esc(S.tribe)}的旗幟走遍西境。\n\n灰石堡的艾德里克把使者趕了出去。鷹巢峰的布倫希爾德笑了，說想看看你有多能打。溫特堡的老國王什麼也沒說。\n\n還有一個人聽見你的名字就砸了酒杯：<em>斯韋恩</em>。他在海岸建了紅帆營，發誓要燒掉你的部落。\n\n<span class="good">目標：征服或結盟四大勢力，成為西境之王。</span>`,'第三章'));
+  note('西境諸侯',`你派出使者，帶著${esc(S.tribe)}的旗幟走遍西境。\n\n灰石堡的艾德里克把使者趕了出去。鷹巢峰的布倫希爾德笑了，說想看看你有多能打。溫特堡的老國王什麼也沒說。\n\n還有一個人聽見你的名字就砸了酒杯：<em>斯韋恩</em>。他在海岸建了紅帆營，發誓要燒掉你的部落。\n\n<span class="good">目標：征服或結盟四大勢力，成為西境之王。</span>\n佔領的土地每塊要留人駐守，出戰的人會變少。`,'第三章');
+  passTime();
 }
 function recruitModal(){
   pushModal(el=>{
-    const cost=recruitCost(),max=Math.min(2+eff('pre'),menCap()-S.men,Math.floor(S.silver/cost));
+    const cost=recruitCost(),max=Math.max(0,Math.min(2+eff('pre'),housing()-S.men,Math.floor(S.silver/cost)));
     let n=Math.max(1,max);
     const draw=()=>{
-      el.innerHTML=`<p class="eyebrow">招募</p><h2>招募戰士</h2><p class="story">消息傳到附近的村子，有些年輕人帶著斧頭來了。你的威望決定一次能說服多少人。</p>
-      <div class="row"><button class="ghost" id="r-m">−</button><b style="font-size:28px;min-width:2ch;text-align:center">${n}</b><button class="ghost" id="r-p">+</button>
-      <span style="color:var(--muted)">共 ${n*cost} 銀幣（上限 ${max} 人）</span></div>
-      <div class="row"><button class="primary" id="m-ok">招募 ${n} 人</button><button class="ghost" id="m-x">取消</button></div>`;
+      const over=S.men+n-command();
+      el.innerHTML=`<p class="eyebrow">招募</p><h2>招募戰士</h2><p class="story">消息傳到附近的村子，有些年輕人帶著斧頭來了。</p>
+      <div class="meta"><span>住房 <b>${S.men}/${housing()}</b></span><span>統御 <b>${command()}</b></span><span>每季軍餉 <b>${wages()}</b> 銀幣</span></div>
+      <div class="row"><button class="ghost" id="r-m" aria-label="減少">−</button><b style="font-size:28px;min-width:2ch;text-align:center">${n}</b><button class="ghost" id="r-p" aria-label="增加">+</button>
+      <span style="color:var(--muted)">共 ${n*cost} 銀幣（這次最多 ${max} 人）</span></div>
+      ${over>0?`<p class="story bad" style="font-size:14px">超過你的統御上限 ${over} 人。人太多管不動，每季忠誠會下降。</p>`:''}
+      <div class="row"><button class="primary" id="m-ok" ${max<1?'disabled':''}>招募 ${n} 人</button><button class="ghost" id="m-x">取消</button></div>`;
       $('#r-m').onclick=()=>{n=Math.max(1,n-1);draw();};$('#r-p').onclick=()=>{n=Math.min(max,n+1);draw();};
       $('#m-x').onclick=closeModal;
-      $('#m-ok').onclick=()=>{S.silver-=n*cost;S.men+=n;passTime();log(`招募了 ${n} 名戰士。`);toast(`戰士 +${n}`);closeModal();};
+      if(max>=1) $('#m-ok').onclick=()=>{S.silver-=n*cost;S.men+=n;log(`招募了 ${n} 名戰士。`);toast(`戰士 +${n}`);closeModal();passTime();};
     };
     draw();
   });
 }
+const bldMax=()=>S.tlv>=4?3:S.tlv>=3?2:1;
+const bldCost=(b,l)=>[Math.round(b.cost[0]*[1,2,3.5][l]),Math.round(b.cost[1]*[1,2,3.5][l])];
 function build(id){
-  const b=BLD.find(x=>x.id===id);
-  S.silver-=b.cost[0];S.food-=b.cost[1];S.bld[id]=1;passTime();
-  if(id==='longhouse') addLoyalty(10);
-  log(`蓋好了${b.name}。`);toast(`${b.name}完工`);render();
+  const b=B(id),l=bl(id),[s,f]=bldCost(b,l);
+  S.silver-=s;S.food-=f;S.bld[id]=l+1;
+  if(id==='longhouse') addLoyalty(5);
+  log(`${l?`把${b.name}升到 ${l+1} 級`:`蓋好了${b.name}`}。`);toast(`${b.name}${l?`升到 ${l+1} 級`:'完工'}`);passTime();render();
+}
+function upgradeTribe(){
+  const u=TRIBE_UP[S.tlv-1];
+  S.silver-=u.cost[0];S.food-=u.cost[1];S.tlv++;addLoyalty(5);addFame(5);
+  log(`${S.tribe}擴建成了${TRIBE_LV[S.tlv-1]}。`);
+  note(`${TRIBE_LV[S.tlv-1]}`,`${esc(S.tribe)}擴建成了<span class="good">${TRIBE_LV[S.tlv-1]}</span>。\n\n住房上限提高了，${S.tlv===2?'能蓋議事廳和瞭望塔了。':S.tlv===3?'能蓋市集，建築能升到 2 級了。':S.tlv===4?'建築能升到 3 級了。':'這裡已經是配得上一位國王的都城。'}\n忠誠 +5，名聲 +5`,'部落');
+  passTime();
 }
 
-/* ---------- 地區行動 ---------- */
+/* ================= 地區行動 ================= */
+function rdef(r){const g=S.reg[r.id];return Math.round(g.def*(r.kind==='seat'?lf():wf())*D().foe*(S.infamy>=50&&r.kind==='minor'?1.2:1));}
+const lootMul=()=>[1,1.25,1.4,1.6][bl('dock')]*(has('seawolf')?1.4:1)*(hasC('knut')?1.2:1);
+const allyChance=()=>clamp(.08+eff('pre')*.035+eff('wit')*.02+[0,.1,.15,.2][bl('hall')]+(has('tongue')?.12:0)+(hasC('osric')?.1:0)+(eff('pre')>=12?.1:0),.05,.85);
+const abdicateChance=()=>Math.min(.6,.05+eff('pre')*.025+allies()*.08+(S.loyalty>=70?.1:0)+(has('tongue')?.1:0));
+const estOf=v=>scouted()?`${Math.round(v)}`:`${Math.round(v*.85)}–${Math.round(v*1.15)}`;
+const estTxt=r=>estOf(rdef(r));
 function regionActs(r){
   const g=S.reg[r.id],A=[];
-  if(S.phase===1){
-    if(r.id==='village') A.push({t:'獨自突襲',note:'在「行動」頁執行',dis:'請到行動頁'});
-    return {info:'你孤身一人，還動不了這裡。先累積銀幣和名聲，建立自己的部落。',A};
-  }
-  if(r.needs&&!S.bld[r.needs]) return {info:'要先在部落蓋好碼頭，船才到得了這裡。',A};
-  if(g.st==='yours') return {info:`這裡已經是你的土地。每季產出銀幣 ${r.inc[0]}、糧食 ${r.inc[1]}。`,A};
+  if(S.phase===1) return {info:'你孤身一人，還動不了這裡。先累積銀幣和名聲，建立自己的部落。',A};
+  if(r.needs&&!bl(r.needs)) return {info:'要先在部落蓋好碼頭，船才到得了這裡。',A};
+  if(g.st==='yours') return {info:`這裡已經是你的土地。每季產出銀幣 ${r.inc[0]}、糧食 ${r.inc[1]}，駐守 ${r.kind==='seat'?3:2} 人。`,A};
   if(g.st==='ally') return {info:`${r.lord}是你的盟友。每季送來 6 銀幣，出兵時提供戰力 +8。`,A};
   if(r.kind==='minor'){
-    A.push({t:'突襲',note:`敵方約 ${Math.round(g.def*.8)}。搶了就走，戰利品約 ${Math.round(r.loot[0]*lootMul())} 銀幣`,dis:g.cd?`他們還在戒備（${g.cd} 季）`:null,run:()=>raid(r)});
-    if(S.phase===3) A.push({t:'征服',note:`敵方約 ${g.def}。佔領後每季產出，戰士上限 +3`,run:()=>conquer(r)});
+    A.push({t:'突襲',note:`敵方 ${estOf(rdef(r)*.8)}。搶了就走，戰利品約 ${Math.round(r.loot[0]*lootMul())} 銀幣${r.inf?`，惡名 +${r.inf}`:''}`,dis:g.cd?`他們還在戒備（${g.cd} 季）`:null,run:()=>raid(r)});
+    if(S.phase===3) A.push({t:'征服',note:`敵方 ${estTxt(r)}。佔領後每季產出，但要留 2 人駐守`,run:()=>conquer(r)});
     else A.push({t:'征服',dis:'宣告名字（第三章）後才能佔領土地'});
     return {info:'',A};
   }
@@ -849,133 +1237,213 @@ function regionActs(r){
   if(r.id==='winter'){
     const others=SEATS.filter(id=>id!=='winter'&&['yours','ally'].includes(S.reg[id].st)).length;
     if(others<2) return {info:`先拿下另外兩方勢力（${others}/2），老國王才會正眼看你。`,A};
-    A.push({t:'攻打王都',note:`敵方約 ${g.def}，之後要與御衛長決鬥`,run:()=>conquer(r)});
-    A.push({t:'逼老國王讓位',note:others>=3?`看威望，成功率約 ${pct(clamp(.3+eff('pre')*.06+(has('tongue')?.2:0),.05,.95))}`:'需要先拿下其他三方',dis:others>=3?null:'需要先拿下其他三方',run:()=>abdicate(r)});
+    A.push({t:'攻打王都',note:`敵方 ${estTxt(r)}，之後要連戰御衛長與老國王`,run:()=>conquer(r)});
+    A.push({t:'逼老國王讓位',note:others>=3?rate(abdicateChance()):'需要先拿下其他三方',dis:others>=3?(g.cd?`他還在氣頭上（${g.cd} 季）`:null):'需要先拿下其他三方',run:abdicate});
     return {info:'',A};
   }
-  A.push({t:'征服',note:`敵方約 ${g.def}，打贏後${r.lord}會要求單挑`,run:()=>conquer(r)});
-  if(r.id==='grey') A.push({t:'送禮結盟（30 銀幣）',note:`看威望與智謀，成功率約 ${pct(allyChance())}`,dis:S.silver<30?'需要 30 銀幣':g.cd?`他還在氣頭上（${g.cd} 季）`:null,run:()=>allyGrey(r)});
-  if(r.id==='eagle') A.push({t:'比武求盟',note:'跟布倫希爾德比武，點到為止',dis:g.cd?`她要你過陣子再來（${g.cd} 季）`:null,run:()=>allyEagle(r)});
+  A.push({t:'征服',note:`敵方 ${estTxt(r)}，打贏後${r.lord}會要求單挑`,run:()=>conquer(r)});
+  if(r.id==='grey') A.push({t:'送禮結盟（30 銀幣）',note:rate(allyChance()),dis:S.silver<30?'需要 30 銀幣':g.cd?`他還在氣頭上（${g.cd} 季）`:null,run:allyGrey});
+  if(r.id==='eagle') A.push({t:'比武求盟',note:'跟布倫希爾德比武，點到為止',dis:g.cd?`她要你過陣子再來（${g.cd} 季）`:null,run:allyEagle});
   if(r.id==='red') A.push({t:'斯韋恩不接受結盟',dis:'只能用斧頭解決'});
   return {info:'',A};
 }
-const lootMul=()=>(S.bld.dock?1.4:1)*(has('seawolf')?1.4:1);
-const allyChance=()=>clamp(.15+eff('pre')*.05+eff('wit')*.02+(S.bld.hall?.15:0)+(has('tongue')?.2:0),.05,.95);
 function raid(r){
   const g=S.reg[r.id];
-  battle({title:`突襲${r.name}`,def:g.def*.8,cancel:true,intro:r.desc,cause:`死在突襲${r.name}的亂戰中`,onEnd:w=>{
-    g.cd=4;
-    if(!w){loseLoyalty(3);log(`突襲${r.name}失敗。`);return '你們空手而回。忠誠 -3';}
-    const s=Math.round(r.loot[0]*rnd(.8,1.2)*lootMul()),f=Math.round(r.loot[1]*rnd(.8,1.2));
-    S.silver+=s;S.food+=f;g.def+=2;S.stats.raids++;const fm=4+(has('raider')?5:0);addFame(fm);
-    log(`突襲${r.name}，搶到 ${s} 銀幣。`);
-    if(!S.flags.ev_share&&Math.random()<.6){S.flags.ev_share=1;pushModal(shareLootEvent(s));}
-    return `搶到銀幣 ${s}、糧食 ${f}，名聲 +${fm}。\n${r.name}加強了防備。`;
+  battle({title:`突襲${r.name}`,def:rdef(r)*.8,cancel:true,raid:true,intro:r.desc,cause:`死在突襲${r.name}的亂戰中`,onEnd:(w,x)=>{
+    g.cd=Math.max(1,4-(bl('dock')>=3?1:0));
+    if(!w){log(`突襲${r.name}失敗。`);return '你們空手而回。';}
+    const pol=POLICY[S.policy];
+    const gross=Math.round(r.loot[0]*rnd(.85,1.15)*lootMul()*(x.nightOk?1.5:1)),f=Math.round(r.loot[1]*rnd(.85,1.15)*(x.nightOk?1.5:1));
+    const s=Math.round(gross*pol.take);
+    S.silver+=s;S.food+=f;g.def+=2;S.stats.raids++;
+    const fm=(r.id==='forest'?5:2)+(has('raider')?4:0);addFame(fm);addInfamy(r.inf);
+    addLoyalty(pol.loy);bondAll(pol.bond);
+    if(S.policy==='fair'){S.stats.fair++;if(S.stats.fair>=5&&!S.flags.ev_fair){S.flags.ev_fair=1;pushModal(eventModal(EV_FAIR));}}
+    if(S.policy==='all'){S.stats.greedy++;if(S.stats.greedy%3===0)S.cruel++;}
+    log(`突襲${r.name}，搶到 ${gross} 銀幣。`);
+    return `搶到銀幣 ${gross}（照「${pol.name}」你拿 ${s}）、糧食 ${f}。\n名聲 +${fm}${r.inf?`，惡名 +${r.inf}`:''}，忠誠 ${pol.loy>=0?'+':''}${pol.loy}\n${r.name}加強了防備。`;
   }});
 }
 function conquer(r){
   const g=S.reg[r.id];
-  battle({title:`征服${r.name}`,def:g.def,cancel:true,intro:r.desc,cause:`死在攻打${r.name}的城牆下`,foeNote:r.lord?`${r.lord}的軍隊`:'',onEnd:w=>{
+  battle({title:`征服${r.name}`,def:rdef(r),cancel:true,intro:r.desc,cause:`死在攻打${r.name}的城牆下`,foeNote:r.lord?`${r.lord}的軍隊`:'',onEnd:w=>{
     if(!w){log(`進攻${r.name}失敗。`);return '你們被打退了。';}
-    if(r.kind==='minor'){g.st='yours';addFame(6);log(`佔領了${r.name}。`);return `${r.name}插上了${esc(S.tribe)}的旗幟。\n名聲 +6，每季產出銀幣 ${r.inc[0]}、糧食 ${r.inc[1]}`;}
+    if(r.kind==='minor'){g.st='yours';addFame(6);addInfamy(3);log(`佔領了${r.name}。`);return `${r.name}插上了${esc(S.tribe)}的旗幟。\n名聲 +6，每季產出銀幣 ${r.inc[0]}、糧食 ${r.inc[1]}`;}
     pushModal(lordChoice(r));
     return `城牆被攻破了。${r.lord}的人退進了最後的堡壘。`;
   }});
 }
 function takeSeat(r,how){
-  const g=S.reg[r.id];g.st='yours';addFame(15);addLoyalty(5);
+  S.reg[r.id].st='yours';addFame(15);addLoyalty(5);
   log(`${how}，拿下了${r.name}。`);
   return `<span class="good">${r.name}歸你了。名聲 +15，忠誠 +5</span>`;
+}
+function winterDuels(){
+  duel('wilfred',{lethal:true,xp:40,intro:'御衛長威爾弗擋在大廳門口，身後是老國王的王座。',cause:'死在溫特堡的大廳門口',onEnd:w=>{
+    if(!w){log('倒在溫特堡的大廳門口。');return '你的戰士把你拖了出去，攻城失敗了。';}
+    duel('king',{lethal:true,xp:50,intro:'老國王奧斯瓦爾德從王座上站起來，拔出了一把比你年紀還老的劍。\n「我年輕時，也像你一樣。」\n\n你沒有時間喘口氣。',cause:'死在老國王奧斯瓦爾德的劍下',onEnd:w2=>{
+      if(!w2){log('倒在老國王的劍下。');return '你的戰士把你拖了出去，攻城失敗了。';}
+      return '老國王單膝跪地，把劍放在你的腳邊。\n'+takeSeat(R('winter'),'連敗御衛長與老國王');}});
+    return '威爾弗倒下了。大廳深處，有人站了起來。';}});
 }
 function lordChoice(r){
   const foe=FOES[r.foe];
   const talk={grey:'艾德里克站在殘破的城門前：「北方蠻子，敢不敢跟我一對一？」',eagle:'布倫希爾德拔出長劍，笑了：「終於有個像樣的對手。來，單挑。」',
     red:'斯韋恩站在燃燒的紅帆船前，舔掉斧刃上的血：「我等這一天很久了。」',winter:'王都最後的大門前，御衛長威爾弗擋住去路：「想見國王，先過我這關。」'}[r.id];
+  const sp=()=>clamp(.4+(armyPower()/rdef(r)-1)*.8,.1,.9);
   return eventModal({kind:'決戰',title:r.name,text:talk,ch:[
-    {t:'接受單挑',note:`生死單挑：${foe.name}`,fx:()=>{duel(r.foe,{lethal:true,xp:30,cause:`死在${foe.name}手下`,onEnd:w=>{
-      if(!w){log(`在${r.name}的單挑中倒下。`);return '你的戰士把你拖了回去，進攻失敗了。';}
-      if(r.id==='red'){pushModal(svenFate(r));return '斯韋恩跪倒在地，斧頭脫手。';}
-      return takeSeat(r,'單挑勝利');}});return null;}},
-    {t:'拒絕單挑，強攻到底',note:`會損失不少戰士，成功率約 ${pct(clamp(.4+(armyPower()/S.reg[r.id].def-1)*.6,.15,.9))}`,fx:()=>{
-      const ok=chk(.4+(armyPower()/S.reg[r.id].def-1)*.6);const l=Math.ceil(S.men*(ok?.2:.3));S.men-=l;S.stats.fallen+=l;
-      if(!ok){log(`強攻${r.name}失敗。`);return `<span class="bad">強攻失敗，${l} 名戰士戰死。</span>`;}
-      if(r.id==='red'){S.rival.fate='死在亂軍之中';}
+    {t:'接受單挑',note:r.id==='winter'?'生死單挑：先御衛長，再老國王，中間不能休息':`生死單挑：${foe.name}`,fx:()=>{
+      if(r.id==='winter'){winterDuels();return null;}
+      duel(r.foe,{lethal:true,xp:30,cause:`死在${foe.name}手下`,onEnd:w=>{
+        if(!w){log(`在${r.name}的單挑中倒下。`);return '你的戰士把你拖了回去，進攻失敗了。';}
+        if(r.id==='red'){pushModal(svenFate(r));return '斯韋恩跪倒在地，斧頭脫手。';}
+        if(r.id==='grey'&&!S.flags.osricGone) pushModal(eventModal({kind:'戰後',title:'艾德里克的隊長',text:'艾德里克的親衛隊長歐斯里克被押到你面前。他是個撒克遜人，但聽說他打仗很有一套。',
+          ch:[{t:'收編他',fx:()=>addChamp('osric',45)},{t:'放他走',fx:()=>{S.mercy++;return '歐斯里克深深看了你一眼，走了。';}}]}));
+        return takeSeat(r,'單挑勝利');}});return null;}},
+    {t:r.id==='winter'?'不跟御衛長糾纏，直接殺進大廳':'拒絕單挑，強攻到底',note:()=>r.id==='winter'?'會損失不少戰士；老國王仍會親自迎戰':`會損失不少戰士，${rate(sp())}`,fx:()=>{
+      if(r.id==='winter'){const l=Math.ceil(S.men*.2);S.men-=l;S.vets=Math.min(S.vets,S.men);S.stats.fallen+=l;
+        duel('king',{lethal:true,xp:50,intro:`你付出了 ${l} 名戰士，衝進了大廳。老國王奧斯瓦爾德拔出了劍：「那就來吧。」`,cause:'死在老國王奧斯瓦爾德的劍下',onEnd:w=>w?'老國王單膝跪地。\n'+takeSeat(R('winter'),'血洗王都'):'你的戰士把你拖了出去，攻城失敗了。'});return null;}
+      const ok=chk(sp());const l=Math.ceil(S.men*(ok?.2:.3));S.men-=l;S.vets=Math.min(S.vets,S.men);S.stats.fallen+=l;
+      if(!ok){loseLoyalty(10);log(`強攻${r.name}失敗。`);return `<span class="bad">強攻失敗，${l} 名戰士戰死。忠誠 -10</span>`;}
+      if(r.id==='red') S.rival.fate='死在亂軍之中';
       return `付出 ${l} 名戰士的代價。\n`+takeSeat(r,'強攻');}},
   ]});
 }
 function svenFate(r){
   return eventModal({kind:'宿敵',title:'斯韋恩的下場',text:'斯韋恩跪在你面前，滿臉是血。他抬起頭，還在笑：「動手啊，划槳的。」',ch:[
-    {t:'砍下他的頭',fx:()=>{S.cruel++;S.rival.fate='死在你的斧下';addFame(10);return '你結束了這段恩怨。\n名聲 +10\n'+takeSeat(r,'斬殺宿敵');}},
-    {t:'饒他一命，讓他效忠',note:'他會成為勇士',fx:()=>{S.mercy++;S.rival.fate='跪下效忠，成了你的勇士';S.champions.push({id:'sven',name:'斯韋恩',pow:10,trait:'昔日的宿敵'});addLoyalty(5);
-      return '斯韋恩愣了很久，然後把斧頭橫放在你腳邊。\n<span class="good">勇士斯韋恩加入（戰力 +10）</span>\n'+takeSeat(r,'收服宿敵');}},
+    {t:'了結他',fx:()=>{S.rival.fate='死在你的斧下';addFame(10);unlock('kill_sven');return '你結束了這段恩怨。\n名聲 +10\n'+takeSeat(r,'斬殺宿敵');}},
+    {t:'饒他一命，讓他效忠',note:'他會成為勇士，但不一定永遠聽話',fx:()=>{S.mercy++;S.rival.fate='跪下效忠，成了你的勇士';unlock('spare_sven');
+      return '斯韋恩愣了很久，然後把斧頭橫放在你腳邊。\n'+addChamp('sven',35)+'\n'+takeSeat(r,'收服宿敵');}},
   ]});
 }
-function allyGrey(r){
+function allyGrey(){
   S.silver-=30;
-  if(chk(allyChance())){S.reg.grey.st='ally';addFame(8);log('與灰石堡的艾德里克結盟。');pushModal(el=>resultView(el,'盟約','艾德里克收下了禮物，第一次對你舉杯。\n<span class="good">灰石堡成為盟友</span>','外交'));}
-  else{S.reg.grey.cd=3;S.reg.grey.def+=4;pushModal(el=>resultView(el,'被拒絕','他收下禮物，然後把你的使者趕出城門。\n<span class="bad">灰石堡加強了防備</span>','外交'));}
+  if(chk(allyChance())){S.reg.grey.st='ally';addFame(8);log('與灰石堡的艾德里克結盟。');note('盟約','艾德里克收下了禮物，第一次對你舉杯。\n<span class="good">灰石堡成為盟友</span>','外交');}
+  else{S.reg.grey.cd=3;S.reg.grey.def+=4;note('被拒絕','他收下禮物，然後把你的使者趕出城門。\n<span class="bad">灰石堡加強了防備</span>','外交');}
   passTime();
 }
-function allyEagle(r){
+function allyEagle(){
   duel('brynhild',{lethal:false,xp:24,intro:'布倫希爾德在山頂畫了一個圈：「出圈的人輸。」',onEnd:w=>{
     if(w){S.reg.eagle.st='ally';addFame(12);log('比武勝過布倫希爾德，鷹巢峰成為盟友。');return '她大笑著把劍插回鞘裡：「好！鷹巢峰的戰士跟你走。」\n<span class="good">鷹巢峰成為盟友，名聲 +12</span>';}
     S.reg.eagle.cd=3;return '她把你推出圈外：「回去再練練。」';}});
   passTime();
 }
-function abdicate(r){
-  if(chk(.3+eff('pre')*.06+(has('tongue')?.2:0))){S.mercy++;pushModal(el=>resultView(el,'讓位',`你獨自走進王都，把三方勢力的旗幟放在老國王腳邊。\n\n奧斯瓦爾德看了很久，摘下王冠：「西境需要一個年輕的王。」\n\n`+takeSeat(r,'不流血地'),'溫特堡'));}
-  else{S.reg.winter.def+=5;pushModal(el=>resultView(el,'被拒絕','老國王冷笑：「要王冠，就自己來拿。」\n<span class="bad">溫特堡加強了防備</span>','溫特堡'));}
+function abdicate(){
+  if(chk(abdicateChance())){S.mercy++;note('讓位',`你獨自走進王都，把三方勢力的旗幟放在老國王腳邊。\n\n奧斯瓦爾德看了很久，摘下王冠：「西境需要一個年輕的王。」\n\n`+takeSeat(R('winter'),'不流血地'),'溫特堡');}
+  else{S.reg.winter.def+=6;S.reg.winter.cd=3;note('被拒絕','老國王冷笑：「要王冠，就自己來拿。」\n<span class="bad">溫特堡加強了防備</span>','溫特堡');}
   passTime();
 }
 
-/* ---------- 加冕 ---------- */
+/* ================= 加冕 ================= */
+function ending(){
+  if(!S.champions.length) return ['end_lonely','孤獨之王','你身邊的勇士都不在了。王座很高，也很冷。'];
+  if(S.cruel>=4||S.infamy>=60) return ['end_iron','鐵血之王','人們怕你，比愛你更多。'];
+  if(S.mercy>=5&&S.cruel===0&&S.loyalty>=80&&S.infamy<30) return ['end_kind','仁君','族人說，你是第一個會記住戰死者名字的王。'];
+  if(allies()>=2) return ['end_pact','盟約之王','你用盟約而不只是斧頭，把西境綁在了一起。'];
+  if(S.stats.raids>=15) return ['end_sea','海狼之王','西境的每一條河，都記得你的船。'];
+  return ['end_conq','征服者','西境的每一面牆，都記得你的斧頭。'];
+}
 function coronation(el){
   S.won=true;Q.length=0;
-  const style=S.cruel>=3||S.loyalty<30?['鐵血之王','人們怕你，比愛你更多。']:S.mercy>=3&&S.loyalty>=65?['仁君','族人說，你是第一個會記住戰死者名字的王。']:allies()>=2?['盟約之王','你用盟約而不只是斧頭，把西境綁在了一起。']:['征服者','西境的每一面牆，都記得你的斧頭。'];
-  log(`在溫特堡加冕，成為西境之王。`);
-  try{localStorage.removeItem(SAVE);}catch(e){}
-  el.innerHTML=`<div class="ritual"><div class="big-rune" style="color:var(--gold);text-shadow:0 0 24px rgba(207,171,92,.6)">ᛟ</div></div>
-  <p class="eyebrow">終章 · ${style[0]}</p><h2>西境之王 ${esc(S.name)}</h2>
-  <p class="story">${age()} 歲那年，你在溫特堡的大廳裡戴上了王冠。\n\n${year()} 年前，你是一個帶著護身符、只有一把斧頭的年輕人。斯韋恩說你一輩子只配划槳。\n\n${style[1]}</p>
+  const [eid,title,line]=ending();
+  log('在溫特堡加冕，成為西境之王。');
+  unlock('first_king');unlock(eid);
+  if(S.diff==='hero') unlock('hero_king');
+  if(!S.stats.revived) unlock('deathless');
+  const m=meta();m.ends=m.ends||{};m.ends[eid]=1;saveMeta(m);
+  if(Object.keys(m.ends).length>=3) unlock('three_crowns');
+  endScreen(el,`${portrait({crown:true,size:'small'})}
+  <p class="eyebrow">終章 · ${title}</p><h2>西境之王 ${esc(S.name)}</h2>
+  <p class="story">${age()} 歲那年，你在溫特堡的大廳裡戴上了王冠。\n\n${year()} 年前，你是一個帶著護身符、只有一把斧頭的年輕人。斯韋恩說你一輩子只配划槳。\n\n${line}</p>
   <p class="quote">「母親，你看見了嗎？」</p>
-  <p class="eyebrow" style="margin-top:6px">生平</p>${summaryHTML()}
-  <button class="primary" id="m-restart">開始新的傳奇</button>`;
-  $('#m-restart').onclick=()=>{S=null;modalOpen=false;$('#modal').hidden=true;showTitle();};
+  <p class="eyebrow" style="margin-top:6px">生平</p>${summaryHTML()}`);
 }
 
-/* ---------- 畫面 ---------- */
-function portrait(){
-  const p=S?S.phase:1,w=S&&S.wounded>0;
-  const crown=S&&(S.won||seatsHeld()>=3);
-  return `<svg class="portrait" viewBox="0 0 120 140" role="img" aria-label="${S?esc(S.name):''}的剪影">
-  <defs><radialGradient id="pg" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#2a3a42"/><stop offset="1" stop-color="#151d22"/></radialGradient></defs>
-  <circle cx="60" cy="64" r="56" fill="url(#pg)"/>
-  <path d="M97,22 L86,132" stroke="#5a4636" stroke-width="4" stroke-linecap="round"/>
-  <path d="M92,16 C108,12 116,28 106,40 C102,34 96,31 90,33 Z" fill="#8a96a0"/>
-  <path d="M12,140 C14,106 32,92 60,90 C88,92 106,106 108,140 Z" fill="#0a0e10"/>
-  ${p>=2?'<path d="M16,118 C26,96 94,96 104,118 C94,108 26,108 16,118 Z" fill="#6b5640"/>':''}
-  ${p>=2?'<circle cx="38" cy="106" r="4" fill="#cfab5c"/>':''}
-  <circle cx="60" cy="58" r="21" fill="#0a0e10"/>
-  <path d="M43,62 C45,86 53,98 60,104 C67,98 75,86 77,62 Z" fill="#0a0e10"/>
-  <path d="M52,92 L50,106 M68,92 L70,106" stroke="#0a0e10" stroke-width="3"/>
-  ${crown?'<path d="M40,42 L44,26 L51,37 L60,22 L69,37 L76,26 L80,42 Z" fill="#cfab5c"/>'
-    :'<path d="M38,56 C38,32 82,32 82,56 L78,54 C76,40 44,40 42,54 Z" fill="#46525a"/><rect x="58" y="44" width="4" height="18" fill="#46525a"/>'}
-  <circle cx="52" cy="60" r="1.7" fill="#d47a3b"/><circle cx="68" cy="60" r="1.7" fill="#d47a3b"/>
-  ${w?'<path d="M30,40 L90,110" stroke="#b5432f" stroke-width="3" opacity=".8"/>':''}
-  </svg>`;
+/* ================= 主角立繪 ================= */
+let pid=0;
+function shade(hex,k){const n=parseInt(hex.slice(1),16);const f=c=>clamp(Math.round(c*k),0,255);return '#'+[f(n>>16),f(n>>8&255),f(n&255)].map(x=>x.toString(16).padStart(2,'0')).join('');}
+function portrait(o={}){
+  const L=o.look||S.look,ph=o.phase??(S?S.phase:1);
+  const crown=o.crown||(S&&!o.look&&(S.won||seatsHeld()>=3));
+  const wounded=!o.look&&S&&S.wounded>0,scars=o.look?0:(S?S.scars:0);
+  const id='p'+(++pid);
+  const sk=SKIN_TONES[L.skin],sk2=shade(sk,.82),hc=HAIR_C[L.hairC],hc2=shade(hc,.75);
+  const fem=L.sex==='f';
+  const fur=L.skinId==='frost'?'#e6e3dc':'#7a5c40',fur2=L.skinId==='frost'?'#bdb8ad':'#5c4430';
+  const trim=L.skinId==='hero'?'#cfab5c':'#4a5359';
+  let s=`<svg class="portrait" viewBox="0 0 200 240" role="img" aria-label="主角立繪"${o.size==='small'?' style="max-width:150px"':''}>
+  <defs><radialGradient id="${id}g" cx="50%" cy="38%" r="62%"><stop offset="0" stop-color="#2b3c44"/><stop offset="1" stop-color="#141c21"/></radialGradient>
+  <pattern id="${id}m" width="6" height="5" patternUnits="userSpaceOnUse"><path d="M0,2.5 a3,2.5 0 0 1 6,0" fill="none" stroke="#515b62" stroke-width="1.2"/></pattern>
+  <clipPath id="${id}c"><circle cx="100" cy="112" r="96"/></clipPath>
+  <path id="${id}r" d="M100,112 m-86,0 a86,86 0 1,1 172,0 a86,86 0 1,1 -172,0"/></defs>
+  <circle cx="100" cy="112" r="96" fill="url(#${id}g)"/>
+  <text font-size="9" fill="#33454e" font-family="var(--f-rune)" letter-spacing="3"><textPath href="#${id}r">ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖ</textPath></text>
+  <g clip-path="url(#${id}c)">`;
+  if(ph>=3||crown) s+=`<circle cx="44" cy="196" r="44" fill="#7e2e24" stroke="#3f2e21" stroke-width="5"/><path d="M44,152 V240 M0,196 H88" stroke="#5e221b" stroke-width="3"/><circle cx="44" cy="196" r="10" fill="#9aa6ae"/>`;
+  s+=`<path d="M152,36 L132,240" stroke="#5a4636" stroke-width="7" stroke-linecap="round"/>
+  <path d="M146,26 C170,18 186,44 170,64 C164,54 154,50 146,52 Z" fill="#9aa6ae"/><path d="M168,28 C178,36 180,50 172,60" fill="none" stroke="#d6dde2" stroke-width="2"/>`;
+  if(L.hair==='long'||fem&&L.hair!=='short') s+=`<path d="M64,100 C56,150 64,192 78,212 L122,212 C136,192 144,150 136,100 Z" fill="${hc2}"/>`;
+  const body=ph===1?'#5b4330':'url(#'+id+'m)';
+  s+=`<path d="M16,244 C18,198 50,174 100,170 C150,174 182,198 184,244 Z" fill="${ph===1?'#5b4330':'#6b757c'}"/>`;
+  if(ph>=2) s+=`<path d="M16,244 C18,198 50,174 100,170 C150,174 182,198 184,244 Z" fill="${body}"/>`;
+  s+=`<path d="M78,172 L100,200 L122,172 Z" fill="${ph===1?'#3f2e21':'#7e2e24'}"/>`;
+  if(ph===1) s+=`<path d="M46,192 L150,244" stroke="#3f2e21" stroke-width="7"/>`;
+  if(ph>=2) s+=`<path d="M20,210 C34,176 70,168 100,172 C130,168 166,176 180,210 C160,194 136,188 100,190 C64,188 40,194 20,210 Z" fill="${fur}"/>
+    <path d="M34,196 l6,-8 M52,186 l5,-8 M148,186 l-5,-8 M166,196 l-6,-8 M70,182 l3,-7 M130,182 l-3,-7" stroke="${fur2}" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="74" cy="194" r="5" fill="${L.skinId==='hero'||crown?'#cfab5c':'#9aa6ae'}"/><circle cx="126" cy="194" r="5" fill="${L.skinId==='hero'||crown?'#cfab5c':'#9aa6ae'}"/>`;
+  s+=`<path d="M86,140 L114,140 L116,174 Q100,182 84,174 Z" fill="${sk2}"/>
+  <ellipse cx="70" cy="114" rx="5" ry="8" fill="${sk2}"/><ellipse cx="130" cy="114" rx="5" ry="8" fill="${sk2}"/>
+  <ellipse cx="100" cy="110" rx="${fem?28:30}" ry="${fem?34:36}" fill="${sk}"/>`;
+  if(fem) s+=`<circle cx="69" cy="124" r="2.6" fill="#cfab5c"/><circle cx="131" cy="124" r="2.6" fill="#cfab5c"/>`;
+  if(L.skinId==='paint') s+=`<path d="M71,103 L129,103 L129,114 L71,114 Z" fill="#8e2a1f" opacity=".6"/>`;
+  s+=`<ellipse cx="89" cy="110" rx="4" ry="2.6" fill="#1b1410"/><ellipse cx="111" cy="110" rx="4" ry="2.6" fill="#1b1410"/>
+  <circle cx="90" cy="109" r="1" fill="#e9e0cf"/><circle cx="112" cy="109" r="1" fill="#e9e0cf"/>
+  <path d="M81,${fem?102:101} Q89,${fem?97:96} 97,${fem?101:100}" stroke="${hc2}" stroke-width="${fem?2.2:3.4}" fill="none" stroke-linecap="round"/>
+  <path d="M103,${fem?101:100} Q111,${fem?97:96} 119,${fem?102:101}" stroke="${hc2}" stroke-width="${fem?2.2:3.4}" fill="none" stroke-linecap="round"/>
+  <path d="M100,111 Q97,121 98,124 Q101,126 104,124" stroke="${sk2}" stroke-width="2" fill="none"/>
+  <path d="M92,133 Q100,137 108,133" stroke="${fem?'#9a4a3c':'#6b3a2c'}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
+  if(scars>=1) s+=`<path d="M80,115 L88,130" stroke="#a0584a" stroke-width="2"/>`;
+  if(scars>=2) s+=`<path d="M112,95 L118,107" stroke="#a0584a" stroke-width="2"/>`;
+  if(scars>=3) s+=`<path d="M103,129 L107,139" stroke="#a0584a" stroke-width="2"/>`;
+  if(!fem&&L.beard!=='none'){
+    s+=L.beard==='long'
+      ?`<path d="M70,112 C70,158 88,180 100,182 C112,180 130,158 130,112 C124,134 112,143 100,143 C88,143 76,134 70,112 Z" fill="${hc}"/><path d="M95,176 h10 l-2,40 h-6 Z" fill="${hc}"/><rect x="94" y="188" width="12" height="4" fill="#cfab5c"/><rect x="95" y="202" width="10" height="4" fill="#cfab5c"/>`
+      :`<path d="M72,116 C74,146 88,160 100,162 C112,160 126,146 128,116 C122,132 112,141 100,141 C88,141 78,132 72,116 Z" fill="${hc}"/>`;
+    s+=`<path d="M86,131 Q100,123 114,131 Q100,128 86,131 Z" fill="${hc}"/>`;
+  }
+  const hideTop=ph>=3&&!crown;
+  if(L.hair==='short') s+=`<path d="M69,108 C66,76 84,68 100,68 C116,68 134,76 131,108 C127,92 116,84 100,84 C84,84 73,92 69,108 Z" fill="${hc}"/>`;
+  else if(L.hair==='shaved') s+=`<path d="M70,104 C70,86 80,78 86,76 L86,94 C78,96 72,100 70,104 Z M130,104 C130,86 120,78 114,76 L114,94 C122,96 128,100 130,104 Z" fill="${hc2}" opacity=".45"/><path d="M84,74 C90,64 110,64 116,74 L114,94 L86,94 Z" fill="${hc}"/><path d="M95,66 C92,54 104,48 108,58 C104,56 100,58 100,64 Z" fill="${hc}"/>`;
+  else s+=`<path d="M68,112 C64,74 84,66 100,66 C116,66 136,74 132,112 C128,94 118,84 100,84 C82,84 72,94 68,112 Z" fill="${hc}"/>
+    <path d="M68,104 C63,132 66,162 62,196 L72,196 C75,164 74,132 74,108 Z M132,104 C137,132 134,162 138,196 L128,196 C125,164 126,132 126,108 Z" fill="${hc}"/>
+    <rect x="62" y="170" width="11" height="4" fill="#cfab5c"/><rect x="127" y="170" width="11" height="4" fill="#cfab5c"/>`;
+  if(ph===2&&!crown) s+=`<path d="M69,96 Q100,87 131,96 L131,102 Q100,93 69,102 Z" fill="#3f2e21"/><circle cx="100" cy="92" r="2.4" fill="#cfab5c"/>`;
+  if(hideTop) s+=`<path d="M65,108 C62,62 138,62 135,108 Z" fill="#5d676e"/><path d="M97,66 h6 v42 h-6 Z" fill="${trim}"/><path d="M63,100 h74 v9 h-74 Z" fill="${trim}"/>
+    <path d="M97,107 h6 v19 h-6 Z" fill="${trim}"/><circle cx="74" cy="104" r="1.8" fill="#9aa6ae"/><circle cx="126" cy="104" r="1.8" fill="#9aa6ae"/>`;
+  if(L.skinId==='raven'&&(hideTop||crown)) s+=`<path d="M134,84 C150,62 162,56 172,50 C162,66 152,78 138,96 Z" fill="#141519"/><path d="M136,90 C154,74 166,70 176,68 C164,80 152,88 138,100 Z" fill="#22242a"/>`;
+  if(crown) s+=`<path d="M70,94 L74,70 L84,84 L92,62 L100,80 L108,62 L116,84 L126,70 L130,94 Z" fill="#cfab5c"/><path d="M70,90 h60 v8 h-60 Z" fill="#a8873f"/>
+    <circle cx="100" cy="94" r="3" fill="#b5432f"/><circle cx="84" cy="94" r="2.2" fill="#8fbfcf"/><circle cx="116" cy="94" r="2.2" fill="#8fbfcf"/>`;
+  if(wounded) s+=`<path d="M68,98 Q100,90 132,98 L132,106 Q100,98 68,106 Z" fill="#d9d2c3"/><circle cx="118" cy="100" r="3.5" fill="#b5432f" opacity=".8"/>`;
+  s+=`</g></svg>`;
+  return s;
 }
+
+/* ================= 畫面 ================= */
 function charHTML(){
   const bg=BGS.find(b=>b.id===S.bg);
+  const title=S.won?'西境之王':['','孤身闖蕩','部落首領','西境的挑戰者'][S.phase];
   return `<div class="char">
   ${portrait()}
-  <h2>${esc(S.name)}</h2><div class="who">${bg.name} · ${['','孤身闖蕩','部落首領','西境的挑戰者'][S.phase]}${S.wounded?` · <span style="color:var(--blood)">負傷（${S.wounded} 季）</span>`:''}</div>
-  <div class="stats">${Object.keys(STAT).map(k=>`<div class="stat"><span class="r">${STAT_RUNE[k]}</span><div>${STAT[k]}<small>${STAT_DESC[k]}</small></div><span class="v ${S.wounded?'low':''}">${eff(k)}</span>
+  <h2>${esc(S.name)}</h2><div class="who">${bg.name} · ${title}${S.wounded?` · <span class="bad">負傷（${S.wounded} 季）</span>`:''}${S.scars?` · 舊傷 ${S.scars}`:''}</div>
+  <div class="stats">${Object.keys(STAT).map(k=>`<div class="stat"><span class="r">${STAT_RUNE[k]}</span><div>${STAT[k]}<small>${STAT_DESC[k]}</small>
+    ${[6,9,12].map(t=>`<span class="mile ${S.st[k]>=t?'on':''}">${t}：${S.st[k]>=t?MILES[k][t]:'？？？'}</span>`).join('')}</div>
+    <span class="v ${S.wounded?'low':''}">${eff(k)}</span>
     ${S.pts>0?`<button class="plus" data-s="${k}" aria-label="提升${STAT[k]}">+</button>`:'<span></span>'}</div>`).join('')}</div>
   <div class="sec-h">祈福 · 倒下時能再站起來的次數</div>
-  <div class="bless-big">${[0,1,2].map(i=>`<i class="${i<charges()?'on':''}">ᚱ</i>`).join('')}</div>
-  <div class="list"><small>${S.amulet?'母親的護身符還在（1 次）。':'護身符已經碎了。'}${S.phase>=2?' 族人越信服你，越可能為你刻下祈福符文（最多 3 次）。':' 建立部落後，族人的祈福能增加次數。'}</small></div>
+  <div class="bless-big">${Array.from({length:maxBless()},(_,i)=>`<i class="${i<charges()?'on':''}">ᚱ</i>`).join('')}</div>
+  <div class="list"><small>${S.amulet?'母親的護身符還在。':'護身符已經碎了。'}${S.phase>=2?'族人信服你的話，有時會為你刻下祈福符文。':'族人的祈福，要等你有了自己的部落。'}</small></div>
   ${S.talents.length?`<div class="sec-h">天賦</div><div class="list">${S.talents.map(t=>`<div><b>${TALENTS[t].name}</b><small>${TALENTS[t].desc}</small></div>`).join('')}</div>`:''}
-  ${S.champions.length?`<div class="sec-h">勇士</div><div class="list">${S.champions.map(c=>`<div><b>${c.name}</b><small>${c.trait} · 戰力 +${c.pow}</small></div>`).join('')}</div>`:''}
+  ${S.champions.length?`<div class="sec-h">勇士</div><div class="list">${S.champions.map(c=>`<div><b>${CHAMPS[c.id].name}<span class="bond" title="好感 ${c.bond}"><i style="width:${c.bond}%"></i></span> <small style="display:inline">好感 ${c.bond}</small></b><small>${CHAMPS[c.id].ab} · 戰力 +${CHAMPS[c.id].pow}</small></div>`).join('')}</div>`:''}
   </div>`;
 }
 function mapHTML(){
@@ -989,8 +1457,8 @@ function mapHTML(){
     <path d="M206,136 C196,150 180,170 166,200 C158,222 150,240 146,252" fill="none" stroke="#24363c" stroke-width="3" stroke-linecap="round"/>
     <text x="330" y="22" font-size="9" fill="var(--muted)" font-family="var(--f-rune)">ᚹᛖᛋᛏ</text>
     <text x="18" y="252" font-size="8" fill="#3c5560">北海</text>
-    ${S.phase>=2?`<g><circle cx="94" cy="206" r="10" fill="var(--ember)"/><text x="94" y="210" text-anchor="middle" font-size="11" fill="#1a0f08" style="stroke:none;font-family:var(--f-rune)">ᛟ</text><text x="94" y="228" text-anchor="middle" font-size="9" fill="var(--bone)">${esc(S.tribe)}</text></g>`:''}
-    ${REGIONS.map(r=>{const gg=S.reg[r.id];const c=col(gg);const s=r.id===sel.id;const locked=r.needs&&!S.bld[r.needs];
+    ${S.phase>=2?`<g><circle cx="94" cy="206" r="10" fill="var(--ember)"/><text x="94" y="210" text-anchor="middle" font-size="11" fill="#1a0f08" style="font-family:var(--f-rune)">ᛟ</text><text x="94" y="228" text-anchor="middle" font-size="9" fill="var(--bone)">${esc(S.tribe)}</text></g>`:''}
+    ${REGIONS.map(r=>{const gg=S.reg[r.id];const c=col(gg);const s=r.id===sel.id;const locked=r.needs&&!bl(r.needs);
       return `<g class="node" data-r="${r.id}" tabindex="0" role="button" aria-label="${r.name}">
       ${s?`<circle cx="${r.x}" cy="${r.y}" r="${r.kind==='seat'?15:12}" fill="none" stroke="var(--ember)" stroke-width="1.5"/>`:''}
       ${r.kind==='seat'?`<rect x="${r.x-8}" y="${r.y-8}" width="16" height="16" transform="rotate(45 ${r.x} ${r.y})" fill="${c}" opacity="${locked?.4:1}"/>`:`<circle cx="${r.x}" cy="${r.y}" r="7" fill="${c}" opacity="${locked?.4:1}"/>`}
@@ -999,22 +1467,32 @@ function mapHTML(){
   <div class="legend"><span><i style="background:var(--muted)"></i>無主／敵方</span><span><i style="background:var(--gold)"></i>你的土地</span><span><i style="background:var(--frost)"></i>盟友</span><span><i style="background:#7a5236"></i>戒備中</span><span>◆ 大勢力</span></div></div>
   <div class="card region"><div class="row" style="justify-content:space-between"><h3>${sel.name}</h3><span class="pill" style="color:${col(g)}">${stTxt}</span></div>
     <p class="story" style="color:var(--muted)">${sel.desc}</p>
-    <div class="meta">${g.st==='free'?`<span>防備 <b>${g.def}</b></span><span>你的戰力 <b>${armyPower()}</b>（親自上陣 ${Math.round(armyPower()*1.2)}）</span>`:''}${sel.kind==='minor'&&g.st==='free'?`<span>可搶銀幣約 <b>${Math.round(sel.loot[0]*lootMul())}</b></span>`:''}</div>
+    <div class="meta">${g.st==='free'&&S.phase>1?`<span>防備 <b>${estTxt(sel)}</b></span><span>你的戰力 <b>${armyPower()}</b>（親自上陣 ${Math.round(armyPower()*leadMul())}）</span>`:''}</div>
     ${ra.info?`<p class="story">${ra.info}</p>`:''}
     ${ra.A.length?`<div class="choices">${ra.A.map((a,i)=>`<button class="choice" data-ra="${i}" ${a.dis||!a.run?'disabled':''}><b>${a.t}</b><small>${a.dis||a.note||''}</small></button>`).join('')}</div>`:''}
   </div>`;
 }
 function tribeHTML(){
-  if(S.phase===1) return `<div class="card"><p class="story">你還沒有自己的土地。存下 60 銀幣、名聲達到 30，就能插旗建立部落。</p></div>`;
-  const [si,fi]=income();
-  return `<div class="card" style="display:grid;gap:6px"><h3 style="font-size:20px">${esc(S.tribe)}</h3>
-    <div class="region"><div class="meta"><span>族人忠誠 <b>${S.loyalty}</b></span><span>戰士 <b>${S.men}/${menCap()}</b></span><span>每季收入 <b>銀 ${si}・糧 ${fi}</b></span><span>每季消耗 <b>糧 ${upkeep()}</b></span></div></div></div>
-  <div class="blds">${BLD.map(b=>{const done=S.bld[b.id];const can=S.silver>=b.cost[0]&&S.food>=b.cost[1];
-    return `<div class="bld ${done?'done':''}"><b>${b.name}</b><small>${b.desc}</small>
-    ${done?'<span class="done-tag">已建成</span>':`<span class="cost">銀幣 ${b.cost[0]}${b.cost[1]?`・糧食 ${b.cost[1]}`:''}</span><button class="primary" data-b="${b.id}" ${can?'':'disabled'}>${can?'建造（1 季）':'資源不足'}</button>`}</div>`;}).join('')}</div>`;
+  if(S.phase===1) return `<div class="card"><p class="story">你還沒有自己的土地。存下 60 銀幣、名聲達到 25，就能插旗建立部落。</p></div>`;
+  const [si,fi]=income();const up=TRIBE_UP[S.tlv-1];
+  const canUp=up&&S.silver>=up.cost[0]&&S.food>=up.cost[1]&&bldCount()>=up.need;
+  return `<div class="card" style="display:grid;gap:10px">
+    <div class="row" style="justify-content:space-between"><h3 style="font-size:20px">${esc(S.tribe)} · ${TRIBE_LV[S.tlv-1]}</h3>
+    ${up?`<button class="primary" data-tl="1" ${canUp?'':'disabled'} style="padding:6px 14px;font-size:14px">擴建成${TRIBE_LV[S.tlv]}</button>`:''}</div>
+    ${up?`<div class="meta"><span>擴建需要：銀幣 <b>${up.cost[0]}</b> · 糧食 <b>${up.cost[1]}</b> · 不同建築 <b>${bldCount()}/${up.need}</b></span></div>`:''}
+    <div class="meta"><span>忠誠 <b>${S.loyalty}</b></span><span>戰士 <b>${S.men}/${housing()}</b>（老兵 ${S.vets}）</span><span>統御 <b>${command()}</b>${S.men>command()?' <span class="bad">管不動了</span>':''}</span><span>駐守 <b>${Math.min(garrison(),S.men)}</b></span></div>
+    <div class="meta"><span>每季收入 <b>銀 ${si}・糧 ${fi}</b></span><span>每季支出 <b>軍餉 ${wages()}・糧 ${upkeep()}</b></span></div>
+    <div><div class="lbl" style="font-size:13px;color:var(--muted);margin-bottom:6px">突襲戰利品怎麼分</div>
+    <div class="policy">${Object.entries(POLICY).map(([k,p])=>`<button data-pol="${k}" aria-pressed="${S.policy===k}"><b>${p.name}</b><small>${p.desc}，每次突襲忠誠 ${p.loy>0?'+':''}${p.loy}</small></button>`).join('')}</div></div>
+  </div>
+  <div class="blds">${BLD.map(b=>{const l=bl(b.id);const locked=S.tlv<b.tl;const capped=l>=bldMax();const [cs,cf]=bldCost(b,l);const can=!locked&&!capped&&l<3&&S.silver>=cs&&S.food>=cf;
+    return `<div class="bld ${l?'done':''} ${l>=3?'max':''}"><div class="row" style="justify-content:space-between"><b>${b.name}</b><span class="lv">${l?'★'.repeat(l)+'☆'.repeat(3-l):''}</span></div>
+    ${l?`<span class="now">${b.eff(l)}</span>`:''}
+    ${locked?`<small>部落擴建成${TRIBE_LV[b.tl-1]}後才能蓋</small>`:l>=3?'<small>已經是最高等級</small>':capped?`<small>下一級：${b.eff(l+1)}</small><small>部落擴建後才能再升級</small>`:
+      `<small>${l?'下一級：':''}${b.eff(l+1)}</small><span class="cost">銀幣 ${cs}${cf?`・糧食 ${cf}`:''}</span><button class="primary" data-b="${b.id}" ${can?'':'disabled'}>${can?(l?'升級（1 季）':'建造（1 季）'):'資源不足'}</button>`}</div>`;}).join('')}</div>`;
 }
 function goalHTML(){
-  if(S.phase===1) return `<b>第一章 · 孤身闖蕩</b>　存下 60 銀幣、名聲達到 30，就能插旗建立部落。<span class="prog">（銀幣 ${S.silver}/60 · 名聲 ${S.fame}/30）</span>`;
+  if(S.phase===1) return `<b>第一章 · 孤身闖蕩</b>　存下 60 銀幣、名聲達到 25，就能插旗建立部落。<span class="prog">（銀幣 ${S.silver}/60 · 名聲 ${S.fame}/25）</span>`;
   if(S.phase===2) return `<b>第二章 · 建立部落</b>　蓋好 3 棟建築、擁有 8 名戰士，然後向西境宣告你的名字。<span class="prog">（建築 ${bldCount()}/3 · 戰士 ${S.men}/8）</span>`;
   return `<b>第三章 · 擴張勢力</b>　征服或結盟四大勢力，成為西境之王。<span class="prog">（${seatsHeld()}/4）</span>`;
 }
@@ -1022,16 +1500,18 @@ function render(){
   if(!S||$('#game-screen').hidden) return;
   if(S.hp>maxHp()) S.hp=maxHp();
   $('#h-name').textContent=S.name+(S.tribe?` · ${S.tribe}`:'');
-  $('#h-sub').textContent=`${stamp()} · ${age()} 歲`;
+  $('#h-sub').textContent=`${stamp()} · ${age()} 歲 · ${D().name}`;
   $('#h-hp').textContent=`${Math.max(0,S.hp)} / ${maxHp()}`;
   $('#h-hpbar').style.width=clamp(S.hp/maxHp()*100,0,100)+'%';
   $('#h-lvl').textContent=`第 ${S.lvl} 級`;
   $('#h-xp').textContent=`${S.xp} / ${xpNeed()}`;
   $('#h-xpbar').style.width=(S.xp/xpNeed()*100)+'%';
-  const chips=[['銀幣',S.silver],['糧食',S.food,S.food<upkeep()*2],['名聲',S.fame],[S.phase===1?'同伴':'戰士',S.men]];
+  const chips=[['銀幣',S.silver,S.phase>1&&S.silver<wages()*2],['糧食',S.food,S.food<upkeep()*2],['名聲',S.fame]];
+  if(S.infamy>0) chips.push(['惡名',S.infamy,S.infamy>=30]);
+  chips.push([S.phase===1?'同伴':'戰士',S.phase===1?S.men:`${S.men}${S.vets?`（老兵 ${S.vets}）`:''}`,S.phase>1&&S.men>command()]);
   if(S.phase>=2) chips.push(['忠誠',S.loyalty,S.loyalty<30]);
   $('#chips').innerHTML=chips.map(([k,v,w])=>`<span class="chip ${w?'warn':''}"><span>${k}</span><b>${v}</b></span>`).join('')+
-    `<span class="chip"><span>祈福</span><span class="bless">${[0,1,2].map(i=>`<i class="${i<charges()?'on':''}">ᚱ</i>`).join('')}</span></span>`;
+    `<span class="chip"><span>祈福</span><span class="bless">${Array.from({length:maxBless()},(_,i)=>`<i class="${i<charges()?'on':''}">ᚱ</i>`).join('')}</span></span>`;
   $('#side').innerHTML=charHTML();
   $('#goal').innerHTML=goalHTML();
   const tabs=[['act','行動'],['map','地圖'],['tribe','部落'],['char','角色']];
@@ -1045,34 +1525,57 @@ function render(){
   $('#log').innerHTML=S.log.slice(0,8).map(([t,x])=>`<li><span>${t}</span>${x}</li>`).join('');
   save();
 }
-function save(){ if(!S||S.dead||S.won) return; try{localStorage.setItem(SAVE,JSON.stringify(S));}catch(e){} }
-function load(){ try{const t=localStorage.getItem(SAVE);return t?JSON.parse(t):null;}catch(e){return null;} }
 
-/* ---------- 事件綁定 ---------- */
+/* ================= 互動 ================= */
 document.addEventListener('click',e=>{
-  if(!S||modalOpen) return;
-  const t=e.target.closest('[data-tab],[data-a],[data-r],[data-ra],[data-b],[data-s]');
+  if(!S||modalOpen||$('#game-screen').hidden) return;
+  const t=e.target.closest('[data-tab],[data-a],[data-r],[data-ra],[data-b],[data-s],[data-pol],[data-tl]');
   if(!t) return;
-  if(t.dataset.tab){S.tab=t.dataset.tab;render();return;}
-  if(t.dataset.a){const a=actions().find(x=>x.id===t.dataset.a);if(a&&!a.dis){a.run();render();}return;}
-  if(t.dataset.r){S.sel=t.dataset.r;render();return;}
-  if(t.dataset.ra){const sel=R(S.sel);const a=regionActs(sel).A[+t.dataset.ra];if(a&&a.run&&!a.dis){a.run();render();}return;}
-  if(t.dataset.b){const b=BLD.find(x=>x.id===t.dataset.b);if(b&&!S.bld[b.id]&&S.silver>=b.cost[0]&&S.food>=b.cost[1])build(b.id);return;}
-  if(t.dataset.s&&S.pts>0){const k=t.dataset.s;S.st[k]++;S.pts--;if(k==='con')S.hp+=6;render();return;}
+  const d=t.dataset;
+  if(d.tab){S.tab=d.tab;render();return;}
+  if(d.a){const a=actions().find(x=>x.id===d.a);if(a&&!a.dis){a.run();render();}return;}
+  if(d.r){S.sel=d.r;render();return;}
+  if(d.ra){const a=regionActs(R(S.sel)).A[+d.ra];if(a&&a.run&&!a.dis){a.run();render();}return;}
+  if(d.b){const b=B(d.b),l=bl(d.b),[cs,cf]=bldCost(b,l);if(S.tlv>=b.tl&&l<bldMax()&&S.silver>=cs&&S.food>=cf)build(d.b);return;}
+  if(d.pol){S.policy=d.pol;render();return;}
+  if(d.tl){const u=TRIBE_UP[S.tlv-1];if(u&&S.silver>=u.cost[0]&&S.food>=u.cost[1]&&bldCount()>=u.need)upgradeTribe();return;}
+  if(d.s&&S.pts>0){const k=d.s;S.st[k]++;S.pts--;if(k==='con')S.hp+=6;render();return;}
 });
 document.addEventListener('keydown',e=>{
   if((e.key==='Enter'||e.key===' ')&&e.target.matches('.node')){e.preventDefault();e.target.dispatchEvent(new MouseEvent('click',{bubbles:true}));}
 });
 
-/* ---------- 開始 ---------- */
-let chosenBg='smith';
+/* ================= 開始畫面 ================= */
+const NEW={bg:'smith',diff:'normal',legacy:'none',look:{sex:'m',skin:0,hairC:'gold',hair:'braid',beard:'short',skinId:'base'}};
 function showTitle(){
   $('#game-screen').hidden=true;$('#title-screen').hidden=false;
-  $('#bgs').innerHTML=BGS.map(b=>`<button class="bg-card" data-bg="${b.id}" aria-pressed="${b.id===chosenBg}"><b>${b.name}</b><small>${b.desc}</small><span class="tag">${STAT[b.st]} +2</span></button>`).join('');
-  $('#bgs').querySelectorAll('[data-bg]').forEach(b=>b.onclick=()=>{chosenBg=b.dataset.bg;showTitle();});
+  const m=meta();const okNeed=n=>!n||m.ach[n];
+  const L=NEW.look;
+  const seg=(lbl,key,opts)=>`<div class="seg"><span>${lbl}</span>${opts.map(([v,n,dis])=>`<button data-look="${key}" data-v="${v}" aria-pressed="${L[key]===v}" ${dis?'disabled':''}>${n}</button>`).join('')}</div>`;
+  $('#looks').innerHTML=portrait({look:L,phase:L.preview??2})+`<div class="looks-ctl">
+    ${seg('性別','sex',[['m','男'],['f','女']])}
+    <div class="seg"><span>膚色</span>${SKIN_TONES.map((c,i)=>`<button class="swatch" style="background:${c}" data-look="skin" data-v="${i}" aria-pressed="${L.skin===i}" aria-label="膚色 ${i+1}"></button>`).join('')}</div>
+    <div class="seg"><span>髮色</span>${Object.entries(HAIR_C).map(([k,c])=>`<button class="swatch" style="background:${c}" data-look="hairC" data-v="${k}" aria-pressed="${L.hairC===k}" aria-label="${{gold:'金',red:'紅',black:'黑',silver:'銀白'}[k]}髮"></button>`).join('')}</div>
+    ${seg('髮型','hair',[['braid','長辮'],['short','短髮'],['shaved','剃邊']])}
+    ${L.sex==='m'?seg('鬍子','beard',[['none','無'],['short','短鬚'],['long','長辮鬚']]):''}
+    ${seg('外觀','skinId',Object.entries(SKINS).map(([k,s])=>[k,okNeed(s.need)?s.name:'？？？',!okNeed(s.need)]))}
+    ${seg('預覽','preview',[[1,'闖蕩'],[2,'首領'],[3,'挑戰者']])}
+  </div>`;
+  $('#looks').querySelectorAll('[data-look]').forEach(b=>b.onclick=()=>{const k=b.dataset.look;let v=b.dataset.v;if(k==='skin'||k==='preview')v=+v;L[k]=v;showTitle();});
+  $('#bgs').innerHTML=BGS.map(b=>`<button class="opt" data-bg="${b.id}" aria-pressed="${b.id===NEW.bg}"><b>${b.name}</b><small>${b.desc}</small><span class="tag">${STAT[b.st]} +2</span></button>`).join('');
+  $('#bgs').querySelectorAll('[data-bg]').forEach(b=>b.onclick=()=>{NEW.bg=b.dataset.bg;showTitle();});
+  $('#diffs').innerHTML=Object.entries(DIFF).map(([k,d])=>`<button class="opt" data-diff="${k}" aria-pressed="${k===NEW.diff}"><b>${d.name}</b><small>${d.desc}</small></button>`).join('');
+  $('#diffs').querySelectorAll('[data-diff]').forEach(b=>b.onclick=()=>{NEW.diff=b.dataset.diff;showTitle();});
+  const legs=Object.entries(LEGACY).filter(([k,l])=>okNeed(l.need));
+  $('#legacy-field').hidden=legs.length<2;
+  $('#legacies').innerHTML=legs.map(([k,l])=>`<button class="opt" data-leg="${k}" aria-pressed="${k===NEW.legacy}"><b>${l.name}</b><small>${l.desc}</small></button>`).join('');
+  $('#legacies').querySelectorAll('[data-leg]').forEach(b=>b.onclick=()=>{NEW.legacy=b.dataset.leg;showTitle();});
+  const got=Object.keys(ACH).filter(k=>m.ach[k]).length;
+  $('#ach-sum').textContent=`成就 ${got}/${Object.keys(ACH).length}`;
+  $('#ach-list').innerHTML=Object.entries(ACH).map(([k,a])=>m.ach[k]?`<div class="on"><b>${a.name}</b><small>${a.desc}${a.reward?`　獎勵：${a.reward}`:''}</small></div>`:`<div><b>？？？</b><small>${a.reward?`獎勵：？？？`:'尚未解鎖'}</small></div>`).join('');
   const sv=load();
   $('#continue-row').hidden=!sv;
-  if(sv) $('#continue-info').textContent=`${sv.name} · 第 ${sv.lvl} 級 · ${['','孤身闖蕩','部落首領','西境的挑戰者'][sv.phase]}`;
+  if(sv) $('#continue-info').textContent=`${sv.name} · 第 ${sv.lvl} 級 · ${['','孤身闖蕩','部落首領','西境的挑戰者'][sv.phase]} · ${DIFF[sv.diff].name}`;
 }
 function startGame(){
   $('#title-screen').hidden=true;$('#game-screen').hidden=false;window.scrollTo(0,0);render();checkPost();
@@ -1080,20 +1583,26 @@ function startGame(){
 $('#btn-continue').onclick=()=>{S=load();if(S)startGame();};
 $('#btn-start').onclick=()=>{
   const name=($('#in-name').value.trim()||'雷夫').slice(0,8);
-  const bg=BGS.find(b=>b.id===chosenBg);
+  const bg=BGS.find(b=>b.id===NEW.bg);
   const st={str:3,con:3,wit:3,pre:3};st[bg.st]+=2;
-  S={v:1,name,bg:bg.id,turn:0,phase:1,lvl:1,xp:0,pts:0,talentPicks:0,talents:[],offer:null,st,hp:0,wounded:0,
-    silver:12,food:6,fame:0,loyalty:60,men:0,champions:[],amulet:true,blessings:0,bld:{},tribe:'',reg:{},sel:'village',tab:'act',
-    rival:{fate:'仍在西境某處磨著斧頭'},flags:{},log:[],stats:{duels:0,raids:0,battles:0,revived:0,fallen:0,blessGained:0},
-    mercy:0,cruel:0,p3turn:0,lastRival:0,dead:false,won:false,lastCause:''};
+  const look={...NEW.look};delete look.preview;if(look.sex==='f')look.beard='none';
+  S={v:2,diff:NEW.diff,name,look,legacy:NEW.legacy,bg:bg.id,turn:0,phase:1,lvl:1,xp:0,pts:0,talentPicks:0,talents:[],offer:null,st,hp:0,scars:0,wounded:0,
+    silver:12,food:6,fame:0,infamy:0,loyalty:60,men:0,vets:0,champions:[],amulet:true,blessings:0,tribe:'',tlv:1,bld:{},policy:'big',reg:{},sel:'village',tab:'act',
+    rival:{fate:'仍在西境某處磨著斧頭',attacks:0},flags:{},known:{},log:[],trainLog:[],
+    stats:{duels:0,raids:0,battles:0,revived:0,fallen:0,blessGained:0,bears:0,fair:0,greedy:0},
+    mercy:0,cruel:0,p3turn:0,lastBattle:0,dead:false,won:false,lastCause:''};
+  if(S.legacy==='axe') S.st.str++;
+  if(S.legacy==='chart') S.silver+=20;
+  if(S.legacy==='song') S.fame+=10;
+  if(S.legacy==='blood') for(const k in S.st) S.st[k]++;
   S.hp=maxHp();
   REGIONS.forEach(r=>S.reg[r.id]={st:'free',cd:0,def:r.def});
   log('離開峽灣，搭上往西的商船。');
   startGame();
-  pushModal(el=>resultView(el,'渡海向西',`峽灣的冬天又長又冷。你是<em>${esc(name)}</em>，${bg.name}，十九歲，除了一把斧頭什麼都沒有。\n\n出發前，雅爾的兒子斯韋恩當著所有人的面笑你：「像你這樣的人，一輩子只配划槳。」\n\n母親把一枚刻著符文的護身符掛在你脖子上：「活著回來，或者別回來。」\n\n你搭上一艘往西的商船。海的另一邊，是一片沒有主人的土地。`,'第一章'));
+  note('渡海向西',`峽灣的冬天又長又冷。你是<em>${esc(name)}</em>，${bg.name}，十九歲，除了一把斧頭什麼都沒有。\n\n出發前，雅爾的兒子斯韋恩當著所有人的面笑你：「像你這樣的人，一輩子只配划槳。」\n\n母親把一枚刻著符文的護身符掛在你脖子上：「活著回來，或者別回來。」\n\n你搭上一艘往西的商船。海的另一邊，是一片沒有主人的土地。`,`第一章 · ${D().name}難度`);
 };
 function boot(data){
-  if(data&&data.S){S=data.S;startGame();return;}
+  if(data&&data.S&&data.S.v===2){S=data.S;startGame();return;}
   showTitle();
 }
 window.claude?.hot?.snapshot?.(()=>({S:S&&!S.dead&&!S.won?S:null}));
