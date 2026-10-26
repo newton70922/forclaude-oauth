@@ -71,6 +71,9 @@ h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;font-weight:900
 .ghost{background:transparent;border:1px solid var(--line);padding:10px 18px;border-radius:4px;color:var(--bone)}
 details.ach{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px}
 details.ach summary{cursor:pointer;font-family:var(--f-display);font-weight:600}
+.ach-tools{display:grid;gap:8px;margin-top:12px;font-size:13px;color:var(--muted)}
+.ach-tools textarea{width:100%;min-height:64px;background:var(--bg);color:var(--bone);border:1px solid var(--line);border-radius:4px;padding:8px;font:12px/1.4 ui-monospace,Menlo,monospace;word-break:break-all}
+.ach-tools .row button{padding:6px 12px;font-size:13px}
 .ach-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin-top:10px;font-size:13px}
 .ach-list div{background:var(--bg);border-radius:5px;padding:8px 10px;display:grid}
 .ach-list div.on b{color:var(--gold)}
@@ -263,7 +266,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <div class="field"><span class="lbl">難度</span><div class="opts" id="diffs"></div></div>
         <div class="field" id="legacy-field"><span class="lbl">傳承（前人留給你的東西）</span><div class="opts" id="legacies"></div></div>
         <div class="row"><button class="primary" id="btn-start">揚帆出發</button></div>
-        <details class="ach" id="ach-box"><summary id="ach-sum">成就</summary><div class="ach-list" id="ach-list"></div></details>
+        <details class="ach" id="ach-box"><summary id="ach-sum">成就</summary><div class="ach-list" id="ach-list"></div><div class="ach-tools" id="ach-tools"></div></details>
       </div>
     </div>
   </section>
@@ -451,11 +454,57 @@ let S=null;
 let toastT=0;
 
 /* ================= 存檔與成就 ================= */
-function meta(){try{const m=JSON.parse(localStorage.getItem(META));return m&&m.ach?m:{ach:{},ends:{}};}catch(e){return {ach:{},ends:{}};}}
-function saveMeta(m){try{localStorage.setItem(META,JSON.stringify(m));}catch(e){}}
+// 成就與存檔：本機一份，Claude 帳號（artifact 資料庫的私人空間）一份，兩邊合併
+const remote={db:null,uid:null,busy:{},pending:{},save:null,ready:false};
+let META_CACHE=null,remoteSaveT=0;
+function localMeta(){try{const m=JSON.parse(localStorage.getItem(META));return m&&m.ach?m:null;}catch(e){return null;}}
+function mergeMeta(a,b){const m={ach:{...(a&&a.ach)},ends:{...(a&&a.ends)}};if(b){for(const k in b.ach||{})m.ach[k]=m.ach[k]||b.ach[k];for(const k in b.ends||{})m.ends[k]=1;}return m;}
+function meta(){if(!META_CACHE)META_CACHE=mergeMeta(localMeta(),null);return META_CACHE;}
+function saveMeta(m){META_CACHE=m;try{localStorage.setItem(META,JSON.stringify(m));}catch(e){}rwrite('meta',{ach:m.ach,ends:m.ends||{}});}
+const rpath=k=>`data/users/${remote.uid}/${k}`;
+function rwrite(key,data){if(!remote.db)return;remote.pending[key]=data;if(!remote.busy[key])rflush(key);}
+async function rflush(key){
+  if(!(key in remote.pending))return;
+  const data=remote.pending[key];delete remote.pending[key];remote.busy[key]=true;
+  try{if(data===null)await remote.db.doc(rpath(key)).delete();else await remote.db.doc(rpath(key)).set(data);}
+  catch(e){if(e&&(e.code==='invalid_argument'||e.code==='revoked'||e.code==='not_granted')){remote.db=null;if(!$('#title-screen').hidden)showTitle();}}
+  finally{remote.busy[key]=false;if(key in remote.pending)rflush(key);}
+}
+async function initRemote(){
+  if(!window.claude||!window.claude.use) return;
+  try{
+    const [db,user]=await Promise.all([window.claude.use('db'),window.claude.use('user')]);
+    if(!db||!user) return;
+    const uid=await user.id();
+    if(!uid) return;
+    remote.db=db;remote.uid=uid;
+    const [m,sv]=await Promise.all([db.doc(rpath('meta')).get(),db.doc(rpath('save')).get()]);
+    const merged=mergeMeta(meta(),m.exists?m.data():null);
+    META_CACHE=merged;try{localStorage.setItem(META,JSON.stringify(merged));}catch(e){}
+    if(!m.exists||JSON.stringify(merged)!==JSON.stringify(mergeMeta(m.data(),null))) rwrite('meta',{ach:merged.ach,ends:merged.ends});
+    if(sv.exists){const d=sv.data();if(d&&typeof d.json==='string')remote.save={json:d.json,at:d.at||0};}
+    remote.ready=true;
+    if(!$('#title-screen').hidden) showTitle();
+  }catch(e){remote.db=null;}
+}
+function backupCode(){return btoa(unescape(encodeURIComponent(JSON.stringify(meta()))));}
+function restoreCode(code){try{const m=JSON.parse(decodeURIComponent(escape(atob(code.trim()))));if(!m||!m.ach)return false;saveMeta(mergeMeta(meta(),m));return true;}catch(e){return false;}}
 function unlock(id){const m=meta();if(m.ach[id])return;m.ach[id]=Date.now();saveMeta(m);toast(`成就解鎖：${ACH[id].name}`);}
-function save(){ if(!S||S.dead||S.won) return; try{localStorage.setItem(SAVE,JSON.stringify(S));}catch(e){} }
-function load(){ try{const t=localStorage.getItem(SAVE);return t?JSON.parse(t):null;}catch(e){return null;} }
+function save(){
+  if(!S||S.dead||S.won) return;
+  S.savedAt=Date.now();const json=JSON.stringify(S);
+  try{localStorage.setItem(SAVE,json);}catch(e){}
+  if(remote.db){clearTimeout(remoteSaveT);remoteSaveT=setTimeout(()=>{remote.save={json,at:S?S.savedAt:Date.now()};rwrite('save',{json,at:remote.save.at});},1500);}
+}
+function load(){
+  let loc=null;try{const t=localStorage.getItem(SAVE);loc=t?JSON.parse(t):null;}catch(e){}
+  let rem=null;try{rem=remote.save?JSON.parse(remote.save.json):null;}catch(e){}
+  if(rem&&rem.v!==2) rem=null;
+  if(loc&&loc.v!==2) loc=null;
+  if(rem&&(!loc||(rem.savedAt||0)>(loc.savedAt||0))) return rem;
+  return loc;
+}
+function clearSave(){try{localStorage.removeItem(SAVE);}catch(e){}clearTimeout(remoteSaveT);remote.save=null;rwrite('save',null);}
 
 /* ================= 基本數值 ================= */
 const D=()=>DIFF[S.diff];
@@ -878,7 +927,7 @@ function summaryHTML(){
 }
 function endScreen(el,html){
   el.innerHTML=html+`<button class="primary" id="m-restart">開始新的傳奇</button>`;
-  try{localStorage.removeItem(SAVE);}catch(e){}
+  clearSave();
   $('#m-restart').onclick=()=>{S=null;Q.length=0;modalOpen=false;$('#modal').hidden=true;showTitle();};
 }
 function deathModal(el){
@@ -1520,6 +1569,15 @@ function showTitle(){
   const got=Object.keys(ACH).filter(k=>m.ach[k]).length;
   $('#ach-sum').textContent=`成就 ${got}/${Object.keys(ACH).length}`;
   $('#ach-list').innerHTML=Object.entries(ACH).map(([k,a])=>m.ach[k]?`<div class="on"><b>${a.name}</b><small>${a.desc}${a.reward?`　獎勵：${a.reward}`:''}</small></div>`:`<div><b>？？？</b><small>${a.reward?`獎勵：？？？`:'尚未解鎖'}</small></div>`).join('');
+  $('#ach-tools').innerHTML=`<span>${remote.db?'成就和存檔會同步到你的 Claude 帳號，換裝置也在。':'成就只存在這個瀏覽器。清除瀏覽資料或換裝置就會不見，可以先複製備份碼留著。'}</span>
+    <div class="row"><button class="ghost" id="bk-copy">複製成就備份碼</button><button class="ghost" id="bk-show">貼上備份碼還原</button></div>
+    <div id="bk-area" hidden><label for="bk-text" style="display:block;margin-bottom:4px">備份碼</label><textarea id="bk-text" spellcheck="false"></textarea>
+    <div class="row" style="margin-top:6px"><button class="ghost" id="bk-apply">還原</button><span id="bk-msg"></span></div></div>`;
+  $('#bk-copy').onclick=()=>{const c=backupCode();$('#bk-area').hidden=false;$('#bk-text').value=c;$('#bk-text').select();
+    const done=()=>{$('#bk-msg').textContent='已複製。把這串文字存在備忘錄裡就好。';};
+    try{navigator.clipboard.writeText(c).then(done,()=>{$('#bk-msg').textContent='已選取，請手動複製。';});}catch(e){$('#bk-msg').textContent='已選取，請手動複製。';}};
+  $('#bk-show').onclick=()=>{$('#bk-area').hidden=false;$('#bk-text').value='';$('#bk-text').focus();$('#bk-msg').textContent='';};
+  $('#bk-apply').onclick=()=>{if(restoreCode($('#bk-text').value)){showTitle();$('#ach-box').open=true;$('#bk-area').hidden=false;$('#bk-msg').textContent='已還原。';}else $('#bk-msg').textContent='備份碼看起來不對，請確認有完整複製。';};
   const sv=load();
   $('#continue-row').hidden=!sv;
   if(sv) $('#continue-info').textContent=`${sv.name} · 第 ${sv.lvl} 級 · ${['','孤身闖蕩','部落首領','西境的挑戰者'][sv.phase]} · ${DIFF[sv.diff].name}`;
@@ -1554,4 +1612,5 @@ function boot(data){
 }
 window.claude?.hot?.snapshot?.(()=>({S:S&&!S.dead&&!S.won?S:null}));
 window.claude?.hot?.ready?window.claude.hot.ready(boot):boot(window.claude?.hot?.data??{});
+initRemote();
 </script>
