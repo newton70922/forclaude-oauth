@@ -52,9 +52,12 @@ h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;font-weight:900
 .opt .tag{color:var(--ember);font-size:12px}
 .opt[aria-pressed="true"]{border-color:var(--ember);background:var(--panel2);box-shadow:inset 0 0 0 1px var(--ember)}
 .opt:disabled{opacity:.4}
-.looks{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:18px;align-items:start}
-@media (max-width:560px){.looks{grid-template-columns:1fr}.looks .portrait{max-width:180px}}
-.looks-ctl{display:grid;gap:12px;min-width:0}
+.looks{display:grid;gap:12px}
+.heroes{display:grid;grid-template-columns:repeat(2,minmax(0,220px));gap:12px}
+.hero{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px;display:grid;gap:6px;text-align:left}
+.hero .portrait{max-width:none}
+.hero b{font-family:var(--f-display);font-size:16px;padding-inline:2px}
+.hero[aria-pressed="true"]{border-color:var(--ember);box-shadow:inset 0 0 0 1px var(--ember)}
 .seg{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .seg>span{font-size:13px;color:var(--muted);min-width:3.5em}
 .seg button{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:3px 12px;font-size:14px}
@@ -125,7 +128,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* 角色 */
 .char{display:grid;gap:12px}
-.portrait{width:100%;max-width:220px;margin:0 auto;display:block}
+.portrait{position:relative;width:100%;max-width:240px;aspect-ratio:3/4;margin:0 auto;border-radius:6px;overflow:hidden;border:2px solid var(--line);background:#0b0f11}
+.portrait img{display:block;width:100%;height:100%;object-fit:cover}
+.portrait::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 -40px 40px -20px rgba(15,20,23,.7)}
+.portrait.wounded::after{box-shadow:inset 0 0 60px 10px rgba(150,30,20,.55),inset 0 -40px 40px -20px rgba(15,20,23,.7)}
+.portrait .ptag{position:absolute;left:8px;bottom:6px;z-index:1;font-size:12px;color:var(--bone);text-shadow:0 1px 3px #000}
+.portrait.f-frost{border-color:var(--frost);box-shadow:0 0 16px rgba(143,191,207,.35)}
+.portrait.f-hero{border-color:var(--gold);box-shadow:0 0 16px rgba(207,171,92,.35)}
+.portrait.f-raven{border:3px double #e9e0cf;outline:2px solid #000}
+.portrait.f-paint{border-color:var(--blood);box-shadow:0 0 16px rgba(181,67,47,.4)}
 .char h2{font-size:22px;text-align:center}
 .char .who{text-align:center;color:var(--muted);font-size:13px;margin-top:-8px}
 .stats{display:grid;gap:8px}
@@ -247,7 +258,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
           <span style="color:var(--muted);font-size:13px" id="continue-info"></span>
         </div>
         <div class="field"><label for="in-name">你的名字</label><input id="in-name" maxlength="8" value="雷夫" autocomplete="off"></div>
-        <div class="field"><span class="lbl">外型</span><div class="looks" id="looks"></div></div>
+        <div class="field"><span class="lbl">主角</span><div class="looks" id="looks"></div></div>
         <div class="field"><span class="lbl">出身</span><div class="opts" id="bgs"></div></div>
         <div class="field"><span class="lbl">難度</span><div class="opts" id="diffs"></div></div>
         <div class="field" id="legacy-field"><span class="lbl">傳承（前人留給你的東西）</span><div class="opts" id="legacies"></div></div>
@@ -413,25 +424,28 @@ const B=id=>BLD.find(b=>b.id===id);
 const POLICY={fair:{name:'平分',desc:'首領拿 40%',take:.4,loy:3,bond:2},big:{name:'首領大份',desc:'首領拿 70%',take:.7,loy:0,bond:0},all:{name:'全部獨吞',desc:'首領拿 100%',take:1,loy:-6,bond:-4}};
 const ACH={
   first_king:{name:'西境之王',desc:'第一次稱王。',reward:'傳承「祖傳戰斧」'},
-  hero_king:{name:'英雄之王',desc:'在英雄難度稱王。',reward:'外觀「英雄之盔」、傳承「英雄血脈」'},
-  deathless:{name:'不死之身',desc:'一次都沒倒下就稱王。',reward:'外觀「霜狼披風」'},
+  hero_king:{name:'英雄之王',desc:'在英雄難度稱王。',reward:'畫框「英雄畫框」、傳承「英雄血脈」'},
+  deathless:{name:'不死之身',desc:'一次都沒倒下就稱王。',reward:'畫框「霜狼畫框」'},
   end_kind:{name:'仁君',desc:'以仁君之名加冕。',reward:'傳承「詩人傳唱」'},
   end_iron:{name:'鐵血之王',desc:'以鐵血之王之名加冕。'},
   end_pact:{name:'盟約之王',desc:'以盟約之王之名加冕。'},
   end_sea:{name:'海狼之王',desc:'以海狼之王之名加冕。',reward:'傳承「老水手的海圖」'},
   end_lonely:{name:'孤獨之王',desc:'以孤獨之王之名加冕。'},
   end_conq:{name:'征服者',desc:'以征服者之名加冕。'},
-  three_crowns:{name:'三頂王冠',desc:'達成三種不同的結局。',reward:'外觀「渡鴉羽飾」'},
-  kill_sven:{name:'血債血償',desc:'親手了結斯韋恩。',reward:'外觀「血色戰紋」'},
+  three_crowns:{name:'三頂王冠',desc:'達成三種不同的結局。',reward:'畫框「渡鴉畫框」'},
+  kill_sven:{name:'血債血償',desc:'親手了結斯韋恩。',reward:'畫框「血色畫框」'},
   spare_sven:{name:'化敵為友',desc:'讓宿敵為你而戰。'},
   valhalla:{name:'瓦爾哈拉之門',desc:'用盡所有祈福，留下遺言。'},
   duelist:{name:'一騎當千',desc:'一局之內贏下 30 場單挑。'},
   fullhall:{name:'群英會',desc:'同時擁有 7 位勇士。'},
 };
-const SKINS={base:{name:'預設'},frost:{name:'霜狼披風',need:'deathless'},hero:{name:'英雄之盔',need:'hero_king'},raven:{name:'渡鴉羽飾',need:'three_crowns'},paint:{name:'血色戰紋',need:'kill_sven'}};
+const SKINS={base:{name:'無畫框'},frost:{name:'霜狼畫框',need:'deathless'},hero:{name:'英雄畫框',need:'hero_king'},raven:{name:'渡鴉畫框',need:'three_crowns'},paint:{name:'血色畫框',need:'kill_sven'}};
 const LEGACY={none:{name:'不帶',desc:'白手起家。'},axe:{name:'祖傳戰斧',desc:'力量 +1',need:'first_king'},chart:{name:'老水手的海圖',desc:'起始銀幣 +20',need:'end_sea'},song:{name:'詩人傳唱',desc:'起始名聲 +10',need:'end_kind'},blood:{name:'英雄血脈',desc:'所有能力 +1',need:'hero_king'}};
-const SKIN_TONES=['#e9c6a6','#c99a76','#8b6246'];
-const HAIR_C={gold:'#c9a35a',red:'#a24d2c',black:'#2b2420',silver:'#d2cdc2'};
+const HEROES={
+  m:{name:'維京戰士',art:['art/m1.webp','art/m2.webp','art/m2.webp','art/mk.webp']},
+  f:{name:'盾女',art:['art/f3.webp','art/f3.webp','art/f3.webp','art/fk.webp']},
+};
+const STAGE_NAME=['闖蕩','首領','挑戰者','稱王'];
 
 let S=null;
 let toastT=0;
@@ -1352,7 +1366,7 @@ function coronation(el){
   if(!S.stats.revived) unlock('deathless');
   const m=meta();m.ends=m.ends||{};m.ends[eid]=1;saveMeta(m);
   if(Object.keys(m.ends).length>=3) unlock('three_crowns');
-  endScreen(el,`${portrait({crown:true,size:'small'})}
+  endScreen(el,`${portrait({stage:3,size:'small'})}
   <p class="eyebrow">終章 · ${title}</p><h2>西境之王 ${esc(S.name)}</h2>
   <p class="story">${age()} 歲那年，你在溫特堡的大廳裡戴上了王冠。\n\n${year()} 年前，你是一個帶著護身符、只有一把斧頭的年輕人。斯韋恩說你一輩子只配划槳。\n\n${line}</p>
   <p class="quote">「母親，你看見了嗎？」</p>
@@ -1360,72 +1374,11 @@ function coronation(el){
 }
 
 /* ================= 主角立繪 ================= */
-let pid=0;
-function shade(hex,k){const n=parseInt(hex.slice(1),16);const f=c=>clamp(Math.round(c*k),0,255);return '#'+[f(n>>16),f(n>>8&255),f(n&255)].map(x=>x.toString(16).padStart(2,'0')).join('');}
 function portrait(o={}){
-  const L=o.look||S.look,ph=o.phase??(S?S.phase:1);
-  const crown=o.crown||(S&&!o.look&&(S.won||seatsHeld()>=3));
-  const wounded=!o.look&&S&&S.wounded>0,scars=o.look?0:(S?S.scars:0);
-  const id='p'+(++pid);
-  const sk=SKIN_TONES[L.skin],sk2=shade(sk,.82),hc=HAIR_C[L.hairC],hc2=shade(hc,.75);
-  const fem=L.sex==='f';
-  const fur=L.skinId==='frost'?'#e6e3dc':'#7a5c40',fur2=L.skinId==='frost'?'#bdb8ad':'#5c4430';
-  const trim=L.skinId==='hero'?'#cfab5c':'#4a5359';
-  let s=`<svg class="portrait" viewBox="0 0 200 240" role="img" aria-label="主角立繪"${o.size==='small'?' style="max-width:150px"':''}>
-  <defs><radialGradient id="${id}g" cx="50%" cy="38%" r="62%"><stop offset="0" stop-color="#2b3c44"/><stop offset="1" stop-color="#141c21"/></radialGradient>
-  <pattern id="${id}m" width="6" height="5" patternUnits="userSpaceOnUse"><path d="M0,2.5 a3,2.5 0 0 1 6,0" fill="none" stroke="#515b62" stroke-width="1.2"/></pattern>
-  <clipPath id="${id}c"><circle cx="100" cy="112" r="96"/></clipPath>
-  <path id="${id}r" d="M100,112 m-86,0 a86,86 0 1,1 172,0 a86,86 0 1,1 -172,0"/></defs>
-  <circle cx="100" cy="112" r="96" fill="url(#${id}g)"/>
-  <text font-size="9" fill="#33454e" font-family="var(--f-rune)" letter-spacing="3"><textPath href="#${id}r">ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖ</textPath></text>
-  <g clip-path="url(#${id}c)">`;
-  if(ph>=3||crown) s+=`<circle cx="44" cy="196" r="44" fill="#7e2e24" stroke="#3f2e21" stroke-width="5"/><path d="M44,152 V240 M0,196 H88" stroke="#5e221b" stroke-width="3"/><circle cx="44" cy="196" r="10" fill="#9aa6ae"/>`;
-  s+=`<path d="M152,36 L132,240" stroke="#5a4636" stroke-width="7" stroke-linecap="round"/>
-  <path d="M146,26 C170,18 186,44 170,64 C164,54 154,50 146,52 Z" fill="#9aa6ae"/><path d="M168,28 C178,36 180,50 172,60" fill="none" stroke="#d6dde2" stroke-width="2"/>`;
-  if(L.hair==='long'||fem&&L.hair!=='short') s+=`<path d="M64,100 C56,150 64,192 78,212 L122,212 C136,192 144,150 136,100 Z" fill="${hc2}"/>`;
-  const body=ph===1?'#5b4330':'url(#'+id+'m)';
-  s+=`<path d="M16,244 C18,198 50,174 100,170 C150,174 182,198 184,244 Z" fill="${ph===1?'#5b4330':'#6b757c'}"/>`;
-  if(ph>=2) s+=`<path d="M16,244 C18,198 50,174 100,170 C150,174 182,198 184,244 Z" fill="${body}"/>`;
-  s+=`<path d="M78,172 L100,200 L122,172 Z" fill="${ph===1?'#3f2e21':'#7e2e24'}"/>`;
-  if(ph===1) s+=`<path d="M46,192 L150,244" stroke="#3f2e21" stroke-width="7"/>`;
-  if(ph>=2) s+=`<path d="M20,210 C34,176 70,168 100,172 C130,168 166,176 180,210 C160,194 136,188 100,190 C64,188 40,194 20,210 Z" fill="${fur}"/>
-    <path d="M34,196 l6,-8 M52,186 l5,-8 M148,186 l-5,-8 M166,196 l-6,-8 M70,182 l3,-7 M130,182 l-3,-7" stroke="${fur2}" stroke-width="2.5" stroke-linecap="round"/>
-    <circle cx="74" cy="194" r="5" fill="${L.skinId==='hero'||crown?'#cfab5c':'#9aa6ae'}"/><circle cx="126" cy="194" r="5" fill="${L.skinId==='hero'||crown?'#cfab5c':'#9aa6ae'}"/>`;
-  s+=`<path d="M86,140 L114,140 L116,174 Q100,182 84,174 Z" fill="${sk2}"/>
-  <ellipse cx="70" cy="114" rx="5" ry="8" fill="${sk2}"/><ellipse cx="130" cy="114" rx="5" ry="8" fill="${sk2}"/>
-  <ellipse cx="100" cy="110" rx="${fem?28:30}" ry="${fem?34:36}" fill="${sk}"/>`;
-  if(fem) s+=`<circle cx="69" cy="124" r="2.6" fill="#cfab5c"/><circle cx="131" cy="124" r="2.6" fill="#cfab5c"/>`;
-  if(L.skinId==='paint') s+=`<path d="M71,103 L129,103 L129,114 L71,114 Z" fill="#8e2a1f" opacity=".6"/>`;
-  s+=`<ellipse cx="89" cy="110" rx="4" ry="2.6" fill="#1b1410"/><ellipse cx="111" cy="110" rx="4" ry="2.6" fill="#1b1410"/>
-  <circle cx="90" cy="109" r="1" fill="#e9e0cf"/><circle cx="112" cy="109" r="1" fill="#e9e0cf"/>
-  <path d="M81,${fem?102:101} Q89,${fem?97:96} 97,${fem?101:100}" stroke="${hc2}" stroke-width="${fem?2.2:3.4}" fill="none" stroke-linecap="round"/>
-  <path d="M103,${fem?101:100} Q111,${fem?97:96} 119,${fem?102:101}" stroke="${hc2}" stroke-width="${fem?2.2:3.4}" fill="none" stroke-linecap="round"/>
-  <path d="M100,111 Q97,121 98,124 Q101,126 104,124" stroke="${sk2}" stroke-width="2" fill="none"/>
-  <path d="M92,133 Q100,137 108,133" stroke="${fem?'#9a4a3c':'#6b3a2c'}" stroke-width="2.2" fill="none" stroke-linecap="round"/>`;
-  if(scars>=1) s+=`<path d="M80,115 L88,130" stroke="#a0584a" stroke-width="2"/>`;
-  if(scars>=2) s+=`<path d="M112,95 L118,107" stroke="#a0584a" stroke-width="2"/>`;
-  if(scars>=3) s+=`<path d="M103,129 L107,139" stroke="#a0584a" stroke-width="2"/>`;
-  if(!fem&&L.beard!=='none'){
-    s+=L.beard==='long'
-      ?`<path d="M70,112 C70,158 88,180 100,182 C112,180 130,158 130,112 C124,134 112,143 100,143 C88,143 76,134 70,112 Z" fill="${hc}"/><path d="M95,176 h10 l-2,40 h-6 Z" fill="${hc}"/><rect x="94" y="188" width="12" height="4" fill="#cfab5c"/><rect x="95" y="202" width="10" height="4" fill="#cfab5c"/>`
-      :`<path d="M72,116 C74,146 88,160 100,162 C112,160 126,146 128,116 C122,132 112,141 100,141 C88,141 78,132 72,116 Z" fill="${hc}"/>`;
-    s+=`<path d="M86,131 Q100,123 114,131 Q100,128 86,131 Z" fill="${hc}"/>`;
-  }
-  const hideTop=ph>=3&&!crown;
-  if(L.hair==='short') s+=`<path d="M69,108 C66,76 84,68 100,68 C116,68 134,76 131,108 C127,92 116,84 100,84 C84,84 73,92 69,108 Z" fill="${hc}"/>`;
-  else if(L.hair==='shaved') s+=`<path d="M70,104 C70,86 80,78 86,76 L86,94 C78,96 72,100 70,104 Z M130,104 C130,86 120,78 114,76 L114,94 C122,96 128,100 130,104 Z" fill="${hc2}" opacity=".45"/><path d="M84,74 C90,64 110,64 116,74 L114,94 L86,94 Z" fill="${hc}"/><path d="M95,66 C92,54 104,48 108,58 C104,56 100,58 100,64 Z" fill="${hc}"/>`;
-  else s+=`<path d="M68,112 C64,74 84,66 100,66 C116,66 136,74 132,112 C128,94 118,84 100,84 C82,84 72,94 68,112 Z" fill="${hc}"/>
-    <path d="M68,104 C63,132 66,162 62,196 L72,196 C75,164 74,132 74,108 Z M132,104 C137,132 134,162 138,196 L128,196 C125,164 126,132 126,108 Z" fill="${hc}"/>
-    <rect x="62" y="170" width="11" height="4" fill="#cfab5c"/><rect x="127" y="170" width="11" height="4" fill="#cfab5c"/>`;
-  if(ph===2&&!crown) s+=`<path d="M69,96 Q100,87 131,96 L131,102 Q100,93 69,102 Z" fill="#3f2e21"/><circle cx="100" cy="92" r="2.4" fill="#cfab5c"/>`;
-  if(hideTop) s+=`<path d="M65,108 C62,62 138,62 135,108 Z" fill="#5d676e"/><path d="M97,66 h6 v42 h-6 Z" fill="${trim}"/><path d="M63,100 h74 v9 h-74 Z" fill="${trim}"/>
-    <path d="M97,107 h6 v19 h-6 Z" fill="${trim}"/><circle cx="74" cy="104" r="1.8" fill="#9aa6ae"/><circle cx="126" cy="104" r="1.8" fill="#9aa6ae"/>`;
-  if(L.skinId==='raven'&&(hideTop||crown)) s+=`<path d="M134,84 C150,62 162,56 172,50 C162,66 152,78 138,96 Z" fill="#141519"/><path d="M136,90 C154,74 166,70 176,68 C164,80 152,88 138,100 Z" fill="#22242a"/>`;
-  if(crown) s+=`<path d="M70,94 L74,70 L84,84 L92,62 L100,80 L108,62 L116,84 L126,70 L130,94 Z" fill="#cfab5c"/><path d="M70,90 h60 v8 h-60 Z" fill="#a8873f"/>
-    <circle cx="100" cy="94" r="3" fill="#b5432f"/><circle cx="84" cy="94" r="2.2" fill="#8fbfcf"/><circle cx="116" cy="94" r="2.2" fill="#8fbfcf"/>`;
-  if(wounded) s+=`<path d="M68,98 Q100,90 132,98 L132,106 Q100,98 68,106 Z" fill="#d9d2c3"/><circle cx="118" cy="100" r="3.5" fill="#b5432f" opacity=".8"/>`;
-  s+=`</g></svg>`;
-  return s;
+  const L=o.look||S.look;
+  const st=o.stage??(S&&!o.look?(S.won?3:S.phase-1):0);
+  const wounded=!o.look&&S&&S.wounded>0;
+  return `<div class="portrait f-${L.skinId||'base'}${wounded?' wounded':''}"${o.size==='small'?' style="max-width:180px"':''}><img src="${HEROES[L.sex].art[st]}" alt="${HEROES[L.sex].name}・${STAGE_NAME[st]}">${wounded?'<span class="ptag">負傷中</span>':''}</div>`;
 }
 
 /* ================= 畫面 ================= */
@@ -1546,22 +1499,16 @@ document.addEventListener('keydown',e=>{
 });
 
 /* ================= 開始畫面 ================= */
-const NEW={bg:'smith',diff:'normal',legacy:'none',look:{sex:'m',skin:0,hairC:'gold',hair:'braid',beard:'short',skinId:'base'}};
+const NEW={bg:'smith',diff:'normal',legacy:'none',look:{sex:'m',skinId:'base',stage:0}};
 function showTitle(){
   $('#game-screen').hidden=true;$('#title-screen').hidden=false;
   const m=meta();const okNeed=n=>!n||m.ach[n];
   const L=NEW.look;
-  const seg=(lbl,key,opts)=>`<div class="seg"><span>${lbl}</span>${opts.map(([v,n,dis])=>`<button data-look="${key}" data-v="${v}" aria-pressed="${L[key]===v}" ${dis?'disabled':''}>${n}</button>`).join('')}</div>`;
-  $('#looks').innerHTML=portrait({look:L,phase:L.preview??2})+`<div class="looks-ctl">
-    ${seg('性別','sex',[['m','男'],['f','女']])}
-    <div class="seg"><span>膚色</span>${SKIN_TONES.map((c,i)=>`<button class="swatch" style="background:${c}" data-look="skin" data-v="${i}" aria-pressed="${L.skin===i}" aria-label="膚色 ${i+1}"></button>`).join('')}</div>
-    <div class="seg"><span>髮色</span>${Object.entries(HAIR_C).map(([k,c])=>`<button class="swatch" style="background:${c}" data-look="hairC" data-v="${k}" aria-pressed="${L.hairC===k}" aria-label="${{gold:'金',red:'紅',black:'黑',silver:'銀白'}[k]}髮"></button>`).join('')}</div>
-    ${seg('髮型','hair',[['braid','長辮'],['short','短髮'],['shaved','剃邊']])}
-    ${L.sex==='m'?seg('鬍子','beard',[['none','無'],['short','短鬚'],['long','長辮鬚']]):''}
-    ${seg('外觀','skinId',Object.entries(SKINS).map(([k,s])=>[k,okNeed(s.need)?s.name:'？？？',!okNeed(s.need)]))}
-    ${seg('預覽','preview',[[1,'闖蕩'],[2,'首領'],[3,'挑戰者']])}
-  </div>`;
-  $('#looks').querySelectorAll('[data-look]').forEach(b=>b.onclick=()=>{const k=b.dataset.look;let v=b.dataset.v;if(k==='skin'||k==='preview')v=+v;L[k]=v;showTitle();});
+  const seg=(lbl,key,opts)=>`<div class="seg"><span>${lbl}</span>${opts.map(([v,n,dis])=>`<button data-look="${key}" data-v="${v}" aria-pressed="${String(L[key])===String(v)}" ${dis?'disabled':''}>${n}</button>`).join('')}</div>`;
+  $('#looks').innerHTML=`<div class="heroes">${Object.entries(HEROES).map(([k,h])=>`<button class="hero" data-look="sex" data-v="${k}" aria-pressed="${L.sex===k}">${portrait({look:{...L,sex:k},stage:L.stage})}<b>${h.name}</b></button>`).join('')}</div>
+    ${seg('預覽','stage',STAGE_NAME.map((n,i)=>[i,n]))}
+    ${seg('畫框','skinId',Object.entries(SKINS).map(([k,sk])=>[k,okNeed(sk.need)?sk.name:'？？？',!okNeed(sk.need)]))}`;
+  $('#looks').querySelectorAll('[data-look]').forEach(b=>b.onclick=()=>{const k=b.dataset.look;let v=b.dataset.v;if(k==='stage')v=+v;L[k]=v;showTitle();});
   $('#bgs').innerHTML=BGS.map(b=>`<button class="opt" data-bg="${b.id}" aria-pressed="${b.id===NEW.bg}"><b>${b.name}</b><small>${b.desc}</small><span class="tag">${STAT[b.st]} +2</span></button>`).join('');
   $('#bgs').querySelectorAll('[data-bg]').forEach(b=>b.onclick=()=>{NEW.bg=b.dataset.bg;showTitle();});
   $('#diffs').innerHTML=Object.entries(DIFF).map(([k,d])=>`<button class="opt" data-diff="${k}" aria-pressed="${k===NEW.diff}"><b>${d.name}</b><small>${d.desc}</small></button>`).join('');
@@ -1585,7 +1532,7 @@ $('#btn-start').onclick=()=>{
   const name=($('#in-name').value.trim()||'雷夫').slice(0,8);
   const bg=BGS.find(b=>b.id===NEW.bg);
   const st={str:3,con:3,wit:3,pre:3};st[bg.st]+=2;
-  const look={...NEW.look};delete look.preview;if(look.sex==='f')look.beard='none';
+  const look={sex:NEW.look.sex,skinId:NEW.look.skinId};
   S={v:2,diff:NEW.diff,name,look,legacy:NEW.legacy,bg:bg.id,turn:0,phase:1,lvl:1,xp:0,pts:0,talentPicks:0,talents:[],offer:null,st,hp:0,scars:0,wounded:0,
     silver:12,food:6,fame:0,infamy:0,loyalty:60,men:0,vets:0,champions:[],amulet:true,blessings:0,tribe:'',tlv:1,bld:{},policy:'big',reg:{},sel:'village',tab:'act',
     rival:{fate:'仍在西境某處磨著斧頭',attacks:0},flags:{},known:{},log:[],trainLog:[],
