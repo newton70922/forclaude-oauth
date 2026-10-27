@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Runic&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600;900&display=swap">
 <style>
-/* Layout：四系並排成四欄（手機時一系一段），每欄由上而下五階，最後一階是頂點；下方是不需前置的通用天賦、神授與勇士傳授。單一深色主題，和遊戲一致。 */
+/* Layout：五系並排成五欄（窄螢幕自動換行，手機一系一段），每欄由上而下五階，最後一階是頂點；下方是不需前置的通用天賦、神授與勇士傳授。單一深色主題，和遊戲一致。 */
 :root{
   --bg:#0f1417;--panel:#172025;--panel2:#1e2a30;--line:#2c3a42;--bone:#e9e0cf;--muted:#97a3a5;
   --ember:#d47a3b;--gold:#cfab5c;--frost:#8fbfcf;--blood:#b5432f;
@@ -21,9 +21,10 @@ h2{font-family:var(--f-display);font-size:22px;margin:0 0 4px}
 .rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:20px 0 26px}
 .rules div{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px;font-size:14px}
 .rules b{display:block;font-family:var(--f-display);font-size:16px;color:var(--gold)}
-.tree{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
-@media (max-width:900px){.tree{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:540px){.tree{grid-template-columns:1fr}}
+.tree{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.why{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:6px;padding:12px 16px;margin:0 0 24px;font-size:14px;max-width:60em}
+.why b{color:var(--gold)}
+.why ul{margin:6px 0 0;padding-left:1.2em}
 .branch{display:grid;gap:0;align-content:start;min-width:0}
 .bhead{display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:6px 6px 0 0}
 .bhead .r{font-family:var(--f-rune);font-size:28px;color:var(--ember);line-height:1}
@@ -55,16 +56,22 @@ h2{font-family:var(--f-display);font-size:22px;margin:0 0 4px}
 
 <div class="wrap">
   <p class="eyebrow">北境雄心 · 概念圖</p>
-  <h1>四系天賦樹</h1>
-  <p class="lead">取代現在「升級時從 3 個隨機天賦裡挑 1 個」。四條路各 5 階，同一條路要從上往下學；第 5 階是頂點天賦，效果最強。另外有不需前置的通用天賦，以及從神明、勇士那裡得到的天賦。</p>
+  <h1>五系天賦樹</h1>
+  <p class="lead">取代現在「升級時從 3 個隨機天賦裡挑 1 個」。五條路各 5 階，同一條路要從上往下學；第 5 階是頂點天賦，效果最強。另外有不需前置的通用天賦，以及從神明、勇士那裡得到的天賦。</p>
 
   <div class="rules">
     <div><b>每 2 級選 1 個</b>第 2、4、6、8、10、12 級……自己選，不再隨機。主線大約能拿 6 個，第四章還能繼續拿。</div>
     <div><b>由上而下</b>同一系要先學前一階才能學下一階。通用天賦隨時可學。</div>
-    <div><b>學不完是刻意的</b>6 個剛好能把一系練到頂點再旁修一點，或兩系各練一半。不同玩法有不同流派，重玩才有意思。</div>
+    <div><b>學不完是刻意的</b>6 個剛好能把一系練到頂點再旁修一點，或兩系各練一半。不同玩法走不同流派，重玩才有意思。</div>
     <div><b>不只靠升級</b>神明「神選」和勇士「誓約」會額外送天賦，不佔升級的名額。</div>
   </div>
 
+  <div class="why"><b>怎麼讓「不打架」的天賦也有人選</b>
+    <ul>
+      <li>經濟獨立成一整系「豐饒之道」，頂點天賦會把部落的規模直接換成你的能力點，越到後面越強。</li>
+      <li>每個經濟天賦都換算得出價值：例如「營造者」一局大約省下 200 銀幣和 6 季時間，等於多出 6 次行動。</li>
+      <li>v0.2.5 會同時加重軍餉、提高征服收入、讓部落升級更值得，錢不再用不完，經濟天賦才有意義。</li>
+    </ul></div>
   <h2>看看幾種流派</h2>
   <p class="lead" style="font-size:14px">點一下，圖上會標出那條路線會學的 6 個天賦。</p>
   <div class="build" id="builds"></div>
@@ -92,34 +99,40 @@ h2{font-family:var(--f-display);font-size:22px;margin:0 0 4px}
 <script>
 'use strict';
 const BR=[
-  {id:'str',rune:'ᚦ',name:'狂戰之道',sub:'力量系 · 打得最痛',nodes:[
+  {id:'str',rune:'ᚦ',name:'狂戰之道',sub:'單挑輸出 · 打得最痛',nodes:[
     ['破盾者','重擊破對方格擋時，傷害 +40%'],
     ['狂戰士','生命低於 40% 時，傷害 ×1.5'],
     ['處刑人','對手生命低於 30% 時，傷害 ×1.4'],
     ['戰吼者','怒吼更容易震住對手、蓄力更強；部隊戰力 +8%'],
     ['伯瑟克之怒','每場單挑一次可以發狂 3 回合：每一擊都無視格擋，但你受到的傷害 +30%']]},
-  {id:'con',rune:'ᚢ',name:'鐵壁之道',sub:'體魄系 · 最難殺死',nodes:[
+  {id:'con',rune:'ᚢ',name:'鐵壁之道',sub:'存活 · 最難殺死',nodes:[
     ['鐵骨','生命上限 +15，留下舊傷的機率減半'],
-    ['自癒','每季多回復 4 點生命'],
+    ['自癒','每季多回復 4 點生命，休養必定治好一道舊傷'],
     ['鐵壁','格擋反擊傷害大增，受到的傷害 -10%'],
     ['盾牆統帥','守城與包抄時，部隊傷亡 -25%；精兵更不容易戰死'],
     ['不死之軀','祈福上限 +1（英雄難度也適用）']]},
-  {id:'wit',rune:'ᚨ',name:'渡鴉之道',sub:'智謀系 · 看穿一切',nodes:[
+  {id:'wit',rune:'ᚨ',name:'渡鴉之道',sub:'詭計與情報 · 以巧取勝',nodes:[
     ['讀心','看穿對手意圖的機率 +20%'],
     ['戰術家','夜襲成功率 +10%，包抄更有效'],
     ['迅捷','快攻傷害 +30%'],
-    ['軍需官','軍餉 -40%，每季糧食消耗 -1'],
+    ['斥候網','地圖上所有敵人的戰力一清二楚；敵人來襲前一季就會收到警告'],
     ['千面','你也能使出假動作：擺出一招的架勢，實際出另一招']]},
-  {id:'pre',rune:'ᛏ',name:'王者之道',sub:'威望系 · 帶兵與人心',nodes:[
+  {id:'pre',rune:'ᛏ',name:'王者之道',sub:'統帥與人心 · 靠別人打天下',nodes:[
     ['天生領袖','招募費用 -25%，統御上限 +6'],
     ['說客','結盟、說服、逼宮的成功率提高'],
-    ['詩人之血','獲得的名聲 +30%'],
     ['操練官','操練效果 +50%，更容易練出精兵'],
+    ['精兵之主','精兵戰力 3.5 → 4.5，打勝仗時晉升的人數加倍'],
     ['萬人之王','勇士好感不再自然下降；決鬥代理人可以派兩位勇士輪番上場']]},
+  {id:'eco',rune:'ᚠ',name:'豐饒之道',sub:'經濟與建設 · 越後面越強',nodes:[
+    ['豐收之手','糧食產量 +50%，設宴的效果加倍'],
+    ['營造者','建造、升級與部落擴建的費用 -30%，而且不消耗一季'],
+    ['商路','每塊你的土地每季 +4 銀幣，盟友的上貢加倍'],
+    ['軍需官','軍餉減半，每季糧食消耗 -1'],
+    ['黃金時代','部落每擴建一級，你永久 +1 點能力（之前擴建的也算）；部落還能擴建到第 6 級「傳說之都」']]},
 ];
 const GENERAL=[
   ['海狼','突襲戰利品 +40%'],['掠奪者','突襲勝利名聲 +4，惡名增加減半'],['恐懼之名','惡名 40 以上時部隊戰力 +15%'],
-  ['沉穩','忠誠的自然下降減半'],['獵人本色','狩獵傳說野獸時傷害 +30%，戰利品更好'],
+  ['沉穩','忠誠的自然下降減半'],['詩人之血','獲得的名聲 +30%'],['獵人本色','狩獵傳說野獸時傷害 +30%，戰利品更好'],
 ];
 const GODS=[
   ['奧丁 · 渡鴉之眼','一眼看穿所有對手的習慣','解讀符文、單挑時看穿對手、聽吟遊詩人唱歌'],
@@ -131,12 +144,15 @@ const GODS=[
 const CHAMPS=[
   ['哈康','教你「破盾者」','好感誓約後傳授'],['阿斯特麗德','教你「盾牆統帥」（跳過前置）','好感誓約後傳授'],
   ['埃納','教你「讀心」','好感誓約後傳授'],['布拉吉','教你「詩人之血」','好感誓約後傳授'],['拉格納','教你「伯瑟克之怒」（跳過前置）','好感誓約後傳授'],
+  ['古德倫','教你「營造者」（跳過前置）','好感誓約後傳授'],
 ];
 const BUILDS={
-  '狂戰士流':{picks:['str-0','str-1','str-2','str-3','str-4','gen-0'],note:'力量系一路練到頂點「伯瑟克之怒」，再補一個「海狼」多搶點錢。單挑最痛，但很吃血量。'},
-  '鐵壁戰士':{picks:['con-0','con-1','con-2','con-3','con-4','pre-0'],note:'體魄系練滿，最後多一次祈福；再補「天生領袖」帶更多兵。最不容易死的路線，適合追求「一次都沒倒下」。'},
-  '渡鴉謀士':{picks:['wit-0','wit-1','wit-2','wit-3','pre-0','pre-1'],note:'智謀系練到「軍需官」，加上王者之道前兩階。看得穿、打得巧、結盟容易，部隊和經濟最省。'},
-  '恐懼之王':{picks:['str-0','str-1','pre-0','pre-1','gen-1','gen-2'],note:'兩系各學一半，搭配「掠奪者」和「恐懼之名」，走高惡名路線。搶得多，但要小心賞金獵人和討伐軍。'},
+  '血斧狂戰':{picks:['str-0','str-1','str-2','str-3','str-4','gen-0'],note:'親手砍出一條路。單挑最痛，但很吃血，倒下的風險也最高。'},
+  '不倒盾王':{picks:['con-0','con-1','con-2','con-3','con-4','pre-0'],note:'最難殺死，還多一次祈福。想拿「一次都沒倒下」成就的首選。'},
+  '渡鴉智者':{picks:['wit-0','wit-1','wit-2','wit-3','wit-4','gen-3'],note:'看穿、夜襲、假動作。不靠蠻力，靠讓對手猜錯。'},
+  '金髮統帥':{picks:['pre-0','pre-1','pre-2','pre-3','pre-4','gen-4'],note:'你本人不必最強，精兵和勇士替你打天下，決鬥也能派代理人上場。'},
+  '豐收之主':{picks:['eco-0','eco-1','eco-2','eco-3','eco-4','pre-0'],note:'前期最弱、後期最強：部落擴建到傳說之都時，等於多出 6 點能力。第四章的最佳路線。'},
+  '海狼惡名':{picks:['gen-0','gen-1','gen-2','str-0','str-1','wit-0'],note:'搶得多、殺得狠，走高惡名路線。報酬最高，但要扛住賞金獵人和討伐軍。'},
 };
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let active=null;
