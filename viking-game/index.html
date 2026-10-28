@@ -396,6 +396,8 @@ const TREE={
   eco:{rune:'ᚠ',name:'豐饒之道',ids:['harvest','builder','trade','quarter','golden']},
 };
 const GENERAL_T=['seawolf','raider','dread','calm','skaldblood','huntsman'];
+// 勇士教到你已經會的天賦時，改成「精通」：效果加強
+const MASTERY={breaker:'破盾傷害 +40% → +70%',shieldlord:'傷亡減免 25% → 40%',skaldblood:'名聲 +30% → +50%',mindread:'看穿機率 +20% → +30%',builder:'費用 -30% → -40%',rage:'發狂 3 回合 → 4 回合'};
 const HINT={
   human:{H:['對方雙手握緊武器，重心下沉，像是要蓄力重劈。','他深吸一口氣，把武器高高舉過肩膀。'],
          Q:['對方腳步輕快，眼神游移，準備搶攻。','他壓低身子，刀尖對準你的空檔。'],
@@ -441,7 +443,7 @@ const CHAMPS={
 };
 const REGIONS=[
   {id:'village',name:'鹽灘漁村',kind:'minor',x:58,y:118,def:8,loot:[28,12],inc:[8,5],inf:6,perk:'漁港：每季糧食消耗 -1',desc:'漁民、鹹魚和幾把生鏽的矛。防備鬆散，油水不多。'},
-  {id:'abbey',name:'弗雷神殿',kind:'minor',x:140,y:72,def:12,loot:[55,5],inc:[14,2],inf:10,perk:'神殿：祭祀療傷的代價減半，族人更願意為你祈福',desc:'供奉豐饒之神弗雷的神殿，祭品裡有金臂環和銀杯。搶神殿會讓人記恨很久。'},
+  {id:'abbey',name:'弗雷神殿',kind:'minor',x:140,y:72,def:12,loot:[55,5],inc:[14,2],inf:12,perk:'神殿：祭祀療傷的代價減半，族人更願意為你祈福',desc:'供奉豐饒之神弗雷的神殿，祭品裡有金臂環和銀杯。搶神殿會讓人記恨很久。'},
   {id:'forest',name:'狼牙林',kind:'minor',x:126,y:168,def:15,loot:[36,8],inc:[8,4],inf:0,perk:'獵場：深入獵捕的獵物多五成',desc:'強盜的老巢，據說藏著他們搶來的財寶。剿滅強盜，沒有人會怪你。'},
   {id:'market',name:'考邦集市',kind:'minor',x:206,y:136,def:22,loot:[75,14],inc:[18,4],inf:6,needs:'dock',perk:'商港：招募費用 -25%，建築費用 -10%',desc:'挪威最大的貿易集市，富得流油，守備也不差。要有碼頭的船才能沿河抵達。'},
   {id:'marsh',name:'霧沼',kind:'minor',x:232,y:214,def:18,loot:[44,12],inc:[10,6],inf:6,needs:'dock',perk:'草藥：休養必定治好舊傷，每季多回 3 點生命',desc:'霧氣終年不散的沼澤村落，盛產草藥。要有船才進得去。'},
@@ -560,6 +562,7 @@ function clearSave(){try{localStorage.removeItem(SAVE);}catch(e){}clearTimeout(r
 /* ================= 基本數值 ================= */
 const D=()=>DIFF[S.diff];
 const has=t=>S.talents.includes(t);
+const mastered=t=>!!(S.master&&S.master[t]);
 const hasC=id=>S.champions.some(c=>c.id===id);
 const champ=id=>S.champions.find(c=>c.id===id);
 const ownsR=id=>S.reg[id]&&S.reg[id].st==='yours';
@@ -612,7 +615,7 @@ function armyPower(){
 const leadMul=()=>eff('str')>=9?1.3:1.2;
 const pDmg=()=>4+eff('str')*2+bl('smithy')+(hasC('gudrun')?2:0);
 const recruitCost=()=>Math.max(3,Math.round(8*(1-[0,.15,.3,.4][bl('barracks')])*(has('leader')?.75:1)*(ownsR('market')?.75:1)));
-const costMul=()=>(has('builder')?.7:1)*(ownsR('market')?.9:1);
+const costMul=()=>(has('builder')?(mastered('builder')?.6:.7):1)*(ownsR('market')?.9:1);
 function income(){
   let s=0,f=0;
   REGIONS.forEach(r=>{const g=S.reg[r.id];if(g.st==='yours'){s+=r.inc[0]+(has('trade')?4:0);f+=r.inc[1];}else if(g.st==='ally'){s+=has('trade')?16:8;}});
@@ -627,8 +630,8 @@ function upkeep(){return S.phase===1?1+Math.ceil(S.men/2):Math.max(1,Math.ceil((
 function wages(){if(S.phase===1)return 0;return Math.round(D().wage*(Math.ceil(recruits()/3)+Math.ceil(S.vets/2)+S.elite)*(has('quarter')?.5:1));}
 function loseLoyalty(n){let k=n*D().loy;if(has('leader'))k*=.75;S.loyalty=clamp(Math.round(S.loyalty-k),0,100);}
 function addLoyalty(n){S.loyalty=clamp(S.loyalty+n,0,100);}
-function addFame(n){if(n>0&&has('skaldblood'))n=Math.round(n*1.3);S.fame=Math.max(0,S.fame+n);}
-function addInfamy(n){if(n>0){if(has('raider'))n=Math.ceil(n/2);n=Math.round(n*(1+S.infamy/100));}S.infamy=clamp(S.infamy+n,0,100);}
+function addFame(n){if(n>0&&has('skaldblood'))n=Math.round(n*(mastered('skaldblood')?1.5:1.3));S.fame=Math.max(0,S.fame+n);}
+function addInfamy(n){if(n>0){if(has('raider'))n=Math.ceil(n/2);n=Math.round(n*(1+S.infamy/200));}S.infamy=clamp(S.infamy+n,0,100);}
 function bond(id,n){const c=champ(id);if(!c)return;if(n<0&&has('kingofmen'))return;c.bond=clamp(c.bond+n,0,100);checkOath(c);}
 function bondAll(n){S.champions.forEach(c=>bond(c.id,n));}
 function log(t){S.log.unshift([stamp(),t]);if(S.log.length>40)S.log.length=40;}
@@ -667,8 +670,10 @@ function checkOath(c){
   c.oath=true;
   const o=CHAMPS[c.id].oath,n=CHAMPS[c.id].name;
   let gift;
-  if(o.t){learn(o.t,true);gift=`${n}把壓箱底的本事教給了你：<span class="good">學會天賦「${TALENTS[o.t].name}」</span>`;}
-  else{S.st[o.st]++;gift=`${n}陪你練了整整一個冬天：<span class="good">${STAT[o.st]} +1</span>`;}
+  if(o.t&&has(o.t)&&MASTERY[o.t]){(S.master||(S.master={}))[o.t]=1;log(`精通了「${TALENTS[o.t].name}」。`);gift=`「這招你早就會了？」${n}笑了，「那我教你真正的門道。」
+<span class="good">「${TALENTS[o.t].name}」精通：${MASTERY[o.t]}</span>`;}
+  else if(o.t&&!has(o.t)){learn(o.t,true);gift=`${n}把壓箱底的本事教給了你：<span class="good">學會天賦「${TALENTS[o.t].name}」</span>`;}
+  else{const k=o.st||'str';S.st[k]++;gift=`${n}陪你練了整整一個冬天：<span class="good">${STAT[k]} +1</span>`;}
   log(`與勇士${n}立下誓約。`);
   pushLater(el=>resultView(el,`與${n}立誓`,`${n}割破手掌，把血滴在你的斧刃上：「從今天起，我的命就是你的。」\n\n${gift}${o.txt?`\n${n}${o.txt}。`:''}\n好感 80 以上的勇士，戰力 ×1.5，也能當你的決鬥代理人。`,'誓約'));
 }
@@ -729,8 +734,8 @@ function passTime(quiet){
     loseLoyalty(10);S.hp=Math.max(1,S.hp-5);
   }
   addFame(bl('hall')+(hasC('bragi')?1:0));
-  // 惡名：平常 -2，連續兩季沒突襲 -4
-  const calmInf=S.turn-S.lastRaid>=2?-4:-2;
+  // 惡名：平常 -1，連續三季沒突襲 -3
+  const calmInf=S.turn-S.lastRaid>=3?-3:-1;
   S.infamy=clamp(S.infamy+calmInf+(hasC('sven')?1:0)+(hasC('knut')?1:0),0,100);
   if(S.wounded>0){S.wounded--;if(!S.wounded) log('傷勢痊癒，你重新握緊了斧頭。');}
   const reg=(1+Math.floor(S.st.con/3))*(eff('con')>=9?2:1)+(has('regen')?4:0)+(ownsR('marsh')?3:0);
@@ -820,7 +825,7 @@ function duel(key,o){
     const fs=foeStats(key,o.mul);const base=fs.base;
     const d={name:base.name,max:fs.max,atk:fs.atk*(o.hunt&&has('huntsman')?1:1),buff:1,cd:0,log:[],over:false,qs:0,last:null,lastP:null,hit:false,pierce:false,stood:false,rage:0,rageUsed:false,feintUsed:false,feintNext:false,hakonUsed:false};
     d.hp=d.max;
-    let acc=.4+eff('wit')*.06+(has('mindread')?.2:0);
+    let acc=.4+eff('wit')*.06+(has('mindread')?(mastered('mindread')?.3:.2):0);
     if(base.king) acc-=has('mindread')?.15:.3;
     acc=clamp(acc,.2,.95);
     const flinch=clamp(.25+eff('pre')*.05+(eff('pre')>=6?.1:0)+(has('warcry')?.15:0),.25,.9);
@@ -855,7 +860,7 @@ function duel(key,o){
     };
     const round=pm=>{
       const em=d.intent;
-      if(pm==='X'){d.rage=3;d.rageUsed=true;d.log.unshift('你的眼睛紅了。接下來三回合，什麼盾都擋不住你。');draw();return;}
+      if(pm==='X'){d.rage=mastered('rage')?4:3;d.rageUsed=true;d.log.unshift(`你的眼睛紅了。接下來 ${d.rage} 回合，什麼盾都擋不住你。`);draw();return;}
       let P=pDmg()*rnd(.9,1.1)*d.buff*(d.feintNext?1.5:1);
       if(has('berserk')&&S.hp<maxHp()*.4) P*=1.5;
       if(has('executioner')&&d.hp<d.max*.3) P*=1.4;
@@ -873,7 +878,7 @@ function duel(key,o){
         if(fl) t='你仰天怒吼，對方被震住了，愣在原地！';
         else{toP=em==='H'?E*1.3:em==='Q'?E:0;t=em==='B'?'你仰天怒吼，對方只是舉盾觀望。':`你仰天怒吼，但對方沒被嚇住，趁機${MV[em]}。`;}
       }else{
-        const hb=(has('breaker')?1.4*1.4:1.4)*(eff('str')>=6?1.2:1);
+        const hb=1.4*(has('breaker')?(mastered('breaker')?1.7:1.4):1)*(eff('str')>=6?1.2:1);
         const q=has('swift')?1.3:1;
         switch(pm+em){
           case 'HB':toF=P*hb;t='你一斧劈開了對方的盾牌！';break;
@@ -1071,7 +1076,7 @@ function battle(o){
       const m=fieldMix();
       if(m.fm>=15) cas*=.85;
       if(hasC('astrid')) cas*=.7;
-      if(has('shieldlord')&&(t==='hold'||t==='flank')) cas*=.75;
+      if(has('shieldlord')&&(t==='hold'||t==='flank')) cas*=mastered('shieldlord')?.6:.75;
       let lost=Math.round(m.fm*(win?clamp(.12-(ratio-1)*.08,.03,.12):clamp(.3-(ratio-1)*.1,.15,.4))*cas);
       lost=takeLosses(Math.min(lost,m.fm),has('shieldlord')?.25:.5);
       S.stats.fallen+=lost;
@@ -1337,12 +1342,12 @@ const EVENTS=[
     ch:[{t:'教他們兩招',fx:()=>{gainXp(10);addLoyalty(4);return '你教了他們怎麼握盾。孩子們的爸媽在旁邊看著，笑了。\n忠誠 +4，經驗 +10';}},{t:'沒空',fx:()=>{loseLoyalty(3);return '孩子們失望地散開了。\n<span class="bad">忠誠 -3</span>';}}]},
   {id:'gyr',once:1,phase:[2,3],title:'不服的聲音',text:()=>`營火邊有人說：「${esc(S.name)}不過是運氣好，配不上首領的位子。」\n說話的是壯漢蓋爾，不少人跟著點頭。`,
     ch:[{t:'當眾單挑他',note:'比武，點到為止',fx:()=>{duel('gyr',{lethal:false,xp:15,onEnd:w=>{if(w){addFame(6);addLoyalty(8);return '蓋爾躺在地上喘氣，再也沒人點頭了。\n名聲 +6，忠誠 +8';}loseLoyalty(12);return '<span class="bad">你被蓋爾摔進了泥裡。忠誠 -12</span>';}});return null;}},
-        {t:'查出是誰在背後煽動',show:()=>eff('wit')>=6,fx:()=>{addLoyalty(10);return '你發現是有人塞了錢給蓋爾。你當眾揭穿了這件事，蓋爾羞愧地低下頭。\n<span class="good">忠誠 +10</span>';}},
+        {t:'查出是誰在背後煽動',show:()=>eff('wit')>=6,note:()=>rate(.1+eff('wit')*.07),fx:()=>{if(chk(.1+eff('wit')*.07)){addLoyalty(10);S.st.wit++;return '你順著酒錢一路查下去，發現是有人塞了錢給蓋爾。你當眾揭穿了這件事，蓋爾羞愧地低下頭。\n<span class="good">忠誠 +10，智謀 +1</span>';}loseLoyalty(6);return '你查了半天，抓錯了人。蓋爾笑得更大聲了。\n<span class="bad">忠誠 -6</span>';}},
         {t:'用言語折服眾人',note:()=>rate(.2+eff('pre')*.06+(has('tongue')?.12:0)),fx:()=>{if(chk(.2+eff('pre')*.06+(has('tongue')?.12:0))){addLoyalty(6);return '你一一數出你帶他們打過的仗、分過的銀子。蓋爾低下了頭。\n忠誠 +6';}loseLoyalty(6);return '<span class="bad">你的話沒人聽進去。忠誠 -6</span>';}},
         {t:'不予理會',fx:()=>{loseLoyalty(8);return '<span class="bad">流言在營地裡傳開了。忠誠 -8</span>';}}]},
   {id:'grumble',phase:[2,3],cd:1,cond:()=>S.loyalty<50&&cdOk('grumble',6),title:'戰士們的怨言',text:'「我們好久沒分到像樣的東西了。」幾個戰士在你背後竊竊私語，看到你就閉上了嘴。',
     ch:[{t:'加發賞錢（15 銀幣）',ok:()=>S.silver>=15,fx:()=>{S.silver-=15;addLoyalty(6);return '忠誠 +6';}},
-        {t:'揪出帶頭的人',show:()=>eff('wit')>=6,fx:()=>{addLoyalty(4);addFame(2);return '你私下找帶頭的人談了一次，他從此閉上了嘴。\n忠誠 +4';}},
+        {t:'揪出帶頭的人',show:()=>eff('wit')>=6,note:()=>rate(.15+eff('wit')*.07),fx:()=>{if(chk(.15+eff('wit')*.07)){addLoyalty(6);addFame(2);return '你私下找帶頭的人談了一次，他從此閉上了嘴。\n忠誠 +6';}loseLoyalty(4);return '你找錯了人，反而讓大家更不滿。\n<span class="bad">忠誠 -4</span>';}},
         {t:'用威望壓下去',note:()=>rate(.15+eff('pre')*.06),fx:()=>{if(chk(.15+eff('pre')*.06)){addLoyalty(4);return '你一瞪眼，沒人再說話。\n忠誠 +4';}loseLoyalty(6);return '<span class="bad">他們表面上安靜了，私下更不滿。忠誠 -6</span>';}},
         {t:'不理會',fx:()=>{loseLoyalty(5);return '<span class="bad">忠誠 -5</span>';}}]},
   {id:'traitor',phase:[2,3],cd:1,cond:()=>S.loyalty<35&&S.silver>20&&cdOk('traitor',8),title:'被撬開的銀箱',text:'清晨，你發現銀箱被撬開了。有人趁夜偷走了不少銀幣。',
@@ -1788,7 +1793,7 @@ function charHTML(){
   <div class="bless-big">${Array.from({length:maxBless()},(_,i)=>`<i class="${i<charges()?'on':''}">ᚱ</i>`).join('')}</div>
   <div class="list"><small>${S.amulet?'母親的護身符還在。':'護身符已經碎了。'}${S.phase>=2?'族人信服你的話，有時會為你刻下祈福符文。':'族人的祈福，要等你有了自己的部落。'}</small></div>
   ${S.infamy>0?`<div class="sec-h">惡名 ${S.infamy} · ${tier.name}</div><div class="list"><small>${tier.fx||'還沒什麼人知道你做過的事。'}</small></div>`:''}
-  ${S.talents.length?`<div class="sec-h">天賦</div><div class="list">${S.talents.map(t=>`<div><b>${TALENTS[t].name}</b><small>${TALENTS[t].desc}</small></div>`).join('')}</div>`:''}
+  ${S.talents.length?`<div class="sec-h">天賦</div><div class="list">${S.talents.map(t=>`<div><b>${TALENTS[t].name}${mastered(t)?'（精通）':''}</b><small>${TALENTS[t].desc}${mastered(t)?`；精通：${MASTERY[t]}`:''}</small></div>`).join('')}</div>`:''}
   ${S.champions.length?`<div class="sec-h">勇士</div><div class="list">${S.champions.map(c=>`<div><b>${CHAMPS[c.id].name}<span class="bond" title="好感 ${c.bond}"><i style="width:${c.bond}%"></i></span> <small style="display:inline">好感 ${c.bond}${c.oath?' · 已立誓':c.bond>=60?' · 可當代理人':''}${c.skill?` · 戰技 ${c.skill}`:''}</small></b><small>${CHAMPS[c.id].ab} · 戰力 +${champPow(c)}${c.bond>=60?'（好感加成）':''}</small></div>`).join('')}</div>
   <div class="list"><small>好感 60：戰力 ×1.5、能當決鬥代理人。好感 80：立下誓約，教你一招。</small></div>`:''}
   <div class="sec-h">設定</div>
