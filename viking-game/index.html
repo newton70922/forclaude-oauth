@@ -2785,7 +2785,7 @@ function aidLines(){
 }
 function finalWar(){
   const tries=S.flags.daneTry||0;
-  const def=Math.round(180*lf()*D().foe*danMul()*(tries?.85:1));
+  const def=Math.round(220*lf()*D().foe*danMul()*(tries?.85:1));
   pushLater(el=>resultView(el,tries?'丹麥人又來了':'丹麥大軍',`${tries?'丹麥人在海邊過了一個冬天，又回來了。這一次，他們的人少了一些，但也更狠了。':'海面上全是船帆，多到數不清。「藍牙」哈拉爾的龍頭船停在最前面，船頭站著約姆斯堡的維京人首領帕爾納托基。'}\n\n${aidLines().join('\n')}\n\n先在海灘上排好盾牆。`,'丹麥戰爭'));
   pushLater(shieldWallFn({title:'海灘上的盾牆',onEnd:sc=>{
     const m=1.15-sc*.06;
