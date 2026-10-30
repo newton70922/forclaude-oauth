@@ -1320,9 +1320,11 @@ function proxyDuel(foeKey,cid,o,used,carry){
         <div class="seq">${[0,1,2].map(i=>`<span>${cur[i]||''}</span>`).join('')}</div>
         <div class="runepad">${R.map(r=>`<button data-r2="${r}" ${cur.includes(r)?'disabled':''}><b>${r}</b></button>`).join('')}</div>
         <div class="row" style="justify-content:space-between;margin-top:8px"><span class="num">第 ${hist.length+1}/${limit} 次（3 次內猜中算完美）　● 符文和位置都對　○ 符文對、位置錯</span>
-        <span><button class="ghost" id="lk-back">退一格</button> <button class="primary" id="lk-go" ${cur.length<3?'disabled':''}>猜</button></span></div>`+logHtml();
+        <span><button class="ghost" id="lk-back">退一格</button> <button class="primary" id="lk-go" ${cur.length<3?'disabled':''}>猜</button></span></div>
+        <div class="row" style="justify-content:flex-end;margin-top:6px"><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
         el.querySelectorAll('[data-r2]').forEach(b=>b.onclick=()=>{if(cur.length<3){cur.push(b.dataset.r2);drawL();}});
         $('#lk-back').onclick=()=>{cur.pop();drawL();};
+        $('#mg-give').onclick=()=>{if(done)return;done=true;apply(fail());};
         $('#lk-go').onclick=()=>{if(done||cur.length<3)return;const sc=score(cur);hist.push([cur,sc]);cur=[];
           if(sc[0]===3){done=true;apply(hist.length<=3?'perfect':'good');return;}
           if(hist.length>=limit){done=true;apply(defend()?'miss':{partial:.3});return;}drawL();};
@@ -1335,7 +1337,8 @@ function proxyDuel(foeKey,cid,o,used,carry){
       const cards=[...use,...use].sort(()=>Math.random()-.5);const got=new Set();let open=[],tries=0,done=false,lockUI=false;const limit=np*2+skill,perfect=np+2;
       const drawC=()=>{
         el.innerHTML=header()+`<div class="cards">${cards.map((r,i)=>`<button data-cd="${i}" class="${got.has(i)?'got':open.includes(i)?'open':''}" aria-label="第 ${i+1} 張牌${got.has(i)||open.includes(i)?'：'+r:''}">${got.has(i)||open.includes(i)?r:'ᛜ'}</button>`).join('')}</div>
-        <p class="num" style="text-align:center">翻牌 ${tries}/${limit}（${perfect} 次內找齊算完美）</p>`+logHtml();
+        <div class="row" style="justify-content:space-between"><span class="num">翻牌 ${tries}/${limit}（${perfect} 次內找齊算完美）</span><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
+        $('#mg-give').onclick=()=>{if(done)return;done=true;apply(fail());};
         el.querySelectorAll('[data-cd]').forEach(b=>b.onclick=()=>{const i=+b.dataset.cd;if(done||lockUI||got.has(i)||open.includes(i))return;open.push(i);
           if(open.length===2){tries++;const [x,y]=open;if(cards[x]===cards[y]){got.add(x);got.add(y);open=[];
               if(got.size===cards.length){done=true;apply(tries<=perfect?'perfect':'good');return;}}
@@ -3258,13 +3261,13 @@ function ch4End(el,kind){
   if(['lost','vassal','ragfall','lokiside'].includes(kind)) S.dead=true; else S.won=true;
   if(kind==='ragnarok') S.flags.ragWon=1;
   unlock(eid);if(kind==='win'||kind==='ragnarok')unlock('end4_win');log(`第四章結局：${title}。`);
-  const scene={win:`帕爾納托基的劍插在沙灘上。「藍牙」哈拉爾的船，一艘一艘消失在南方的海平線上。\n\n${age()} 歲的你站在海灘上，盔甲上全是別人的血。這是你這輩子打過最大的一仗。\n\n${line}`,
+  const scene={win:S.flags.struck?`耶靈的王廳燒起來了。「藍牙」哈拉爾跪在他父親立的大符文石前，把戒指交到你手裡。\n\n${age()} 歲的你站在丹麥的土地上，盔甲上全是別人的血。從來沒有一個北方的王，打到過這裡。\n\n${line}`:`帕爾納托基的劍插在沙灘上。「藍牙」哈拉爾的船，一艘一艘消失在南方的海平線上。\n\n${age()} 歲的你站在海灘上，盔甲上全是別人的血。這是你這輩子打過最大的一仗。\n\n${line}`,
     vassal:`你在丹麥使者面前跪了下來。\n\n王冠還在你頭上。只是從此以後，每年冬天，都有一艘載滿白銀的船往南開。\n\n${line}`,
     lost:`王廳燒起來的時候，你最後看了一眼王座。\n\n二十年前，你是一個只有一把斧頭的年輕人。現在，你又只剩下一把斧頭了。\n\n${line}`,
     ragnarok:`戰鬥結束時，天空是灰色的，地上全是冰和灰。你拄著斧頭站著，${patron()?`${GODS[patron()].name}就站在你身邊。`:'身邊站著倖存的眾神。'}\n\n然後，你看見了：在灰燼的下面，有一根綠色的嫩芽。\n\n預言說，諸神黃昏之後，新的世界會從海裡升起，倖存的人會在草地上找到眾神的金色棋子。你彎下腰，撿起了一顆。\n\n${line}`,
     ragfall:`你倒下的時候，看見奧丁也倒下了，索爾也倒下了。冰和火吞沒了一切。\n\n但預言說，在灰燼裡，會有一棵樹活下來，樹裡藏著兩個人。他們會記得你的名字。\n\n${line}`,
     lokiside:`你握住了洛基的手。他笑了，笑得像個孩子。\n\n那一天，彩虹橋斷了，瓦爾哈拉燒了。新的世界升起來的時候，王座上坐著的，是你。\n\n只是每到晚上，你都會聽見渡鴉在窗外，叫著你的名字。\n\n${line}`,
-    abdicate:`你在法石前摘下王冠，放在${S.heir?esc(S.heir.name):'繼承人'}的頭上。雅爾們一個一個跪了下來。\n\n${S.heir&&S.heir.trait?{war:'新王拔出劍，向全挪威宣誓：丹麥人來的那一天，他會站在最前面。',song:'新王在加冕宴上唱了一首歌，唱的是你的一生。很多人哭了。',peace:'新王用撒克遜話、丹麥話和挪威話各說了一次誓言。幾年後，丹麥人沒有打過來，而是派人來談和。',sea:'新王第二天就上了船。他說，北海的另一邊還有很多地方，你還沒去過。',champ:'你最信任的勇士戴上了王冠。他說，他會像當年跟著你一樣，守著這個王國。',divine:'新王的眼睛閃著金光。從那天起，挪威的麥子每一年都長得特別好。'}[S.heir.trait]||'':''}\n\n你回到了當年那片海灘，在一間小屋裡住了下來。\n\n${line}`}[kind];
+    abdicate:`你在法石前摘下王冠，放在${S.heir?esc(S.heir.name):'繼承人'}的頭上。雅爾們一個一個跪了下來。\n\n${S.heir&&S.heir.trait?{war:'新王拔出劍，向全挪威宣誓：丹麥人來的那一天，他會站在最前面。',song:'新王在加冕宴上唱了一首歌，唱的是你的一生。很多人哭了。',peace:'新王用撒克遜話、丹麥話和挪威話各說了一次誓言。幾年後，丹麥人沒有打過來，而是派人來談和。',sea:'新王第二天就上了船。他說，北海的另一邊還有很多地方，你還沒去過。',champ:`你最信任的勇士戴上了王冠。${['astrid','gudrun','una'].includes(S.heir.champ)?'她':'他'}說，會像當年跟著你一樣，守著這個王國。`,divine:'新王的眼睛閃著金光。從那天起，挪威的麥子每一年都長得特別好。'}[S.heir.trait]||'':''}\n\n你回到了當年那片海灘，在一間小屋裡住了下來。\n\n${line}`}[kind];
   endScreen(el,`${portrait({stage:3,size:'small'})}
   <p class="eyebrow">第四章終章 · ${title}</p><h2>${esc(S.name)}</h2>
   <p class="story">${scene}</p>${!['lost','lokiside'].includes(kind)?freyjaReveal():''}
