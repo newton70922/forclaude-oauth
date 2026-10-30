@@ -889,13 +889,14 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
-const ART_HAVE=new Set(['c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn']);
+const ART_HAVE=new Set(['c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna']);
 const CHAMP_ART={hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
 const artKey=id=>CHAMP_ART[id]||id;
 const hasArt=id=>ART_HAVE.has(artKey(id));
 const avatar=(id,cls='')=>hasArt(id)?`<img class="avatar ${cls}" src="art/${artKey(id)}.webp" alt="">`:'';
+const FOE_ART={palna:'palna',king:'halfdan',ragnar:'ragnar',astrid:'astrid',sven1:'sven',svenA:'sven',sven:'sven',knutD:'knut',egill:'egill'};
 const sceneImg=k=>ART_HAVE.has(k)?`<div class="scene"><img src="art/${k}.webp" alt=""></div>`:'';
 
 /* ================= 視窗佇列 ================= */
@@ -1090,7 +1091,7 @@ function duel(key,o){
     choose();
     const draw=()=>{
       el.innerHTML=`<p class="eyebrow">${o.lethal?'生死單挑':'比武 · 點到為止'}</p><h2>${esc(S.name)} 對 ${d.name}</h2>
-      ${o.intro&&!d.log.length?`<p class="story">${o.intro}</p>`:''}
+      ${!d.log.length&&FOE_ART[key]&&hasArt(FOE_ART[key])?avatar(FOE_ART[key],'big'):''}${o.intro&&!d.log.length?`<p class="story">${o.intro}</p>`:''}
       <div class="fighters">
         <div class="fighter"><b>${esc(S.name)}</b><div class="track"><div class="fill" style="width:${clamp(S.hp/maxHp(),0,1)*100}%"></div></div><span class="num">${Math.max(0,S.hp)} / ${maxHp()}${d.buff>1?' · 蓄勢待發':''}${d.rage?` · 狂暴（${d.rage}）`:''}</span></div>
         <div class="fighter foe"><b>${d.name}</b><div class="track"><div class="fill" style="width:${Math.max(0,d.hp)/d.max*100}%"></div></div><span class="num">${Math.max(0,d.hp)} / ${d.max}</span></div>
@@ -3252,7 +3253,7 @@ function freyjaReveal(){
   if(!freyFaithful()||S.flags.hnoss) return '';
   S.flags.hnoss=1;unlock('hnoss');codex('y_hnoss');
   const had=S.heir;if(!had) S.heir={name:'赫諾絲',born:S.turn,trait:'divine'};
-  return `<p class="story" style="color:var(--gold)">${S.dead?'你閉上眼睛的時候':'那天晚上'}，窗台上的蜂蜜酒杯空了。弗蕾亞站在月光裡，身邊站著一個金色頭髮的年輕女孩。\n\n「她叫赫諾絲。」弗蕾亞說，「我用一顆眼淚生下了她，在神的國度把她養大。你從來沒有在人間另找一個人，所以……她一直在等你。」\n\n女孩走過來，${had?`對${esc(had.name)}點了點頭，然後`:''}握住了你的手。她的眼睛，和她母親一模一樣。</p>`;
+  return `${avatar('hnoss','big')}<p class="story" style="color:var(--gold)">${S.dead?'你閉上眼睛的時候':'那天晚上'}，窗台上的蜂蜜酒杯空了。弗蕾亞站在月光裡，身邊站著一個金色頭髮的年輕女孩。\n\n「她叫赫諾絲。」弗蕾亞說，「我用一顆眼淚生下了她，在神的國度把她養大。你從來沒有在人間另找一個人，所以……她一直在等你。」\n\n女孩走過來，${had?`對${esc(had.name)}點了點頭，然後`:''}握住了你的手。她的眼睛，和她母親一模一樣。</p>`;
 }
 function heirLine(){
   if(!S.heir) return '';
