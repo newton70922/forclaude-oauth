@@ -255,6 +255,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:50% 20%;border:1px solid var(--line);float:left;margin:0 10px 4px 0}
 .avatar.big{display:block;width:150px;height:200px;border-radius:8px;float:none;margin:0 auto 12px;box-shadow:0 6px 18px rgba(0,0,0,.4)}
 .list .withav{overflow:hidden}
+.choice.withav{grid-template-columns:56px 1fr;column-gap:12px;align-items:start}
+.choice.withav .avatar{grid-row:1/3;grid-column:1;width:56px;height:56px;margin:0;float:none}
+.choice.withav>b,.choice.withav>small{grid-column:2}
 .saga{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:4px 0 8px;background:var(--panel2)}
 .saga .epi{font-family:'Noto Serif TC',serif;font-size:22px;color:var(--gold)}
 .saga small{color:var(--muted)}
@@ -886,7 +889,7 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
-const ART_HAVE=new Set(['c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una']);
+const ART_HAVE=new Set(['c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn']);
 const CHAMP_ART={hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
@@ -2900,7 +2903,7 @@ function spouseModal(){
   pushModal(el=>{
     const list=Object.keys(SPOUSES).filter(spouseOk);
     el.innerHTML=`<p class="eyebrow">王的婚事</p><h2>誰來當你的伴侶？</h2><p class="story">${S.flags.freyWed?'你是弗蕾亞的伴侶。可是她住在神的國度，王國需要一個人間的繼承人……\n\n':''}王需要一個伴侶，王國需要一個繼承人。這件事，一輩子只能決定一次。</p>
-    <div class="choices">${list.map(k=>{const s=SPOUSES[k];return `<button class="choice" data-sp="${k}"><b>${s.name}<small style="display:inline;color:var(--muted)">　${s.who||'你的勇士'}</small></b><small>${s.desc}　<span class="rider">${s.fx}</span></small></button>`;}).join('')||'<p class="story" style="color:var(--muted)">還沒有和誰熟到能談婚事。多和身邊的人相處，或讓勇士的好感到 80。</p>'}
+    <div class="choices">${list.map(k=>{const s=SPOUSES[k];return `<button class="choice ${hasArt(k)?'withav':''}" data-sp="${k}">${avatar(k)}<b>${s.name}<small style="display:inline;color:var(--muted)">　${s.who||'你的勇士'}</small></b><small>${s.desc}　<span class="rider">${s.fx}</span></small></button>`;}).join('')||'<p class="story" style="color:var(--muted)">還沒有和誰熟到能談婚事。多和身邊的人相處，或讓勇士的好感到 80。</p>'}
     <button class="ghost" id="sp-x">再想想</button></div>`;
     $('#sp-x').onclick=closeModal;
     el.querySelectorAll('[data-sp]').forEach(b=>b.onclick=()=>{marry(b.dataset.sp);closeModal();});
@@ -2916,7 +2919,7 @@ function marry(k){
   if(s.champ){const c=champ(k);if(c){c.bond=100;checkOath(c);}addLoyalty(5);}
   log(`與${s.name}成婚。`);
   const jeal=S.flags.freyWed?'\n\n那天晚上，弗蕾亞沒有來你的夢裡。第二天，你發現窗台上放著一顆金色的眼淚。她什麼也沒說。':'';
-  note('婚禮',`婚禮辦了整整七天。${s.name}在全挪威的雅爾面前，和你一起舉起了角杯。${jeal}\n<span class="good">${s.fx}</span>`,'王的婚事');
+  note('婚禮',`婚禮辦了整整七天。${s.name}在全挪威的雅爾面前，和你一起舉起了角杯。${jeal}\n<span class="good">${s.fx}</span>`,'王的婚事',k);
   passTime();
 }
 // 相處事件：答得好（+2）才會願意談婚事；答得不好就沒機會了
