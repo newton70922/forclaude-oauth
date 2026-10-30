@@ -140,6 +140,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .portrait.f-hero{border-color:var(--gold);box-shadow:0 0 16px rgba(207,171,92,.35)}
 .portrait.f-raven{border:3px double #e9e0cf;outline:2px solid #000}
 .portrait.f-paint{border-color:var(--blood);box-shadow:0 0 16px rgba(181,67,47,.4)}
+.portrait.framed{border:0!important;box-shadow:none!important;outline:0!important;background:transparent;overflow:visible}
+.portrait.framed img{position:absolute;inset:6% 7%;width:86%;height:88%;border-radius:2px}
+.portrait.framed::after{inset:6% 7%}
+.portrait .pframe{position:absolute;inset:0;background-size:100% 100%;pointer-events:none;z-index:1;filter:drop-shadow(0 4px 10px rgba(0,0,0,.5))}
+.portrait.framed .ptag{left:12%;bottom:9%;z-index:2}
 .portrait.f-gold{border:3px solid #e6c46a;box-shadow:0 0 20px rgba(230,196,106,.45),inset 0 0 18px rgba(230,196,106,.25)}
 .lockhint{display:block;color:var(--muted);font-size:12px;line-height:1.6;margin:-2px 0 8px}
 .char h2{font-size:22px;text-align:center}
@@ -892,7 +897,7 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
-const ART_HAVE=new Set(['c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla']);
+const ART_HAVE=new Set(['c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven']);
 const CHAMP_ART={hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
@@ -3675,7 +3680,8 @@ function portrait(o={}){
   const L=o.look||S.look;
   const st=o.stage??(S&&!o.look?(S.won||S.phase>=4?3:S.phase-1):0);
   const wounded=!o.look&&S&&S.wounded>0;
-  return `<div class="portrait f-${L.skinId||'base'}${wounded?' wounded':''}"${o.size==='small'?' style="max-width:180px"':''}><img src="${HEROES[L.sex].art[st]}" alt="${HEROES[L.sex].name}・${STAGE_NAME[st]}">${wounded?'<span class="ptag">負傷中</span>':''}</div>`;
+  const fr=L.skinId&&L.skinId!=='base'&&ART_HAVE.has('f_'+L.skinId);
+  return `<div class="portrait f-${L.skinId||'base'}${wounded?' wounded':''}${fr?' framed':''}"${o.size==='small'?' style="max-width:180px"':''}><img src="${HEROES[L.sex].art[st]}" alt="${HEROES[L.sex].name}・${STAGE_NAME[st]}">${fr?`<i class="pframe" style="background-image:url(art/f_${L.skinId}.webp)"></i>`:''}${wounded?'<span class="ptag">負傷中</span>':''}</div>`;
 }
 
 /* ================= 畫面 ================= */
