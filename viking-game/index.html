@@ -303,6 +303,28 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .runepad b{font-family:var(--f-rune);font-size:30px;line-height:1.1}
 .runepad small{color:var(--muted);font-size:12px}
 .tiles{--tile:64px;display:grid;gap:8px;justify-content:center}
+.dodge{text-align:center;padding:14px 8px;border:1px dashed var(--line);border-radius:6px;background:var(--bg);margin:6px 0}
+.dodge b{display:block;font-family:'Noto Serif TC',serif;font-size:20px;color:var(--ember)}
+.dodge small{color:var(--muted)}
+.dodgepad{margin:8px auto}
+.chargebar{position:relative;height:26px;background:var(--bg);border:1px solid var(--line);border-radius:13px;overflow:hidden;margin:16px 0}
+.chargebar .zone{position:absolute;top:0;bottom:0;background:rgba(207,171,92,.35);z-index:1}
+.chargebar .fillc{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--ember);opacity:.85}
+.shieldgrid{display:grid;grid-template-columns:28px repeat(4,1fr);gap:4px;width:100%;max-width:260px;margin:8px auto}
+.shieldgrid>*{aspect-ratio:1;display:grid;place-items:center;border-radius:5px;font-style:normal}
+.shieldgrid .arr{color:var(--blood);font-size:18px;aspect-ratio:auto;min-height:24px}
+.shieldgrid .rock{background:#3a4a44;color:var(--muted)}
+.shieldgrid button{width:100%;background:var(--panel2);border:1px solid var(--line);font-size:20px}
+.shieldgrid button.hot{background:#2a2422}
+.shieldgrid button.on{border-color:var(--gold);background:rgba(207,171,92,.15)}
+.lockhist{display:grid;gap:4px;margin:6px 0 10px;font-family:var(--f-rune)}
+.lockhist div{display:flex;justify-content:space-between;background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:4px 10px;font-size:20px}
+.lockhist b{color:var(--gold);font-family:inherit;letter-spacing:2px}
+.lockhist small{font-family:var(--f-sans,sans-serif);font-size:13px;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;max-width:280px;margin:8px auto}
+.cards button{aspect-ratio:3/4;background:var(--panel2);border:1px solid var(--line);border-radius:6px;font-family:var(--f-rune);font-size:26px;color:var(--muted)}
+.cards button.open{color:var(--bone);border-color:var(--ember)}
+.cards button.got{color:var(--gold);border-color:var(--gold);background:rgba(207,171,92,.12)}
 .tile{width:var(--tile);height:var(--tile);background:var(--panel2);border:1px solid var(--line);border-radius:8px;display:grid;place-items:center}
 .tile span{font-family:var(--f-rune);font-size:34px;color:var(--bone);transition:transform .15s}
 .tile.up{border-color:var(--gold)}.tile.up span{color:var(--gold)}
@@ -1145,11 +1167,122 @@ function proxyDuel(foeKey,cid,o,used,carry){
       if(fled) st.log.unshift(`${fs.base.name}撐不住，轉身逃了。`);
       if(fled||st.foe<=0||st.chp<=0) finish(fled||st.foe<=0);else between();
     };
+    // 每回合從小遊戲池裡挑一個，不連續重複
+    const POOL={react:{d:['ring','dodge'],a:['runes','charge']},puzzle:{d:['rotate','shields','pairs'],a:['rotate','lock','pairs']}};
+    const GAME_HINT={
+      ring:'圓圈縮到和中間的圓重疊時，按下「反擊」（或空白鍵）。',
+      dodge:'對方會連砍三刀。看清楚刀從哪裡來，往另一邊閃（也可以用方向鍵）。',
+      runes:'照順序輸入畫面上的符文（可以用方向鍵）。',
+      charge:'按「蓄力」開始，力道升到金色區域時按「出手」。太早沒力，太晚會脫手。',
+      rotate:()=>`把所有符文石都轉回朝上，就能${defend()?'擋下並反擊':'打出連擊'}。步數越少越好。`,
+      shields:'敵人的攻擊會沿著標了箭頭的行和列打過來。用有限的盾牌，把每一條攻擊線都擋住。',
+      lock:'猜出對方破綻的順序：三個不重複的符文。● 是符文和位置都對，○ 是符文對但位置錯。',
+      pairs:'翻開兩張符文牌，一樣就留著。在次數用完前把四對都找出來。',
+    };
     const between=()=>{
       mgKey=null;
-      el.innerHTML=header()+`<p class="hint">${defend()?`<b>${fs.base.name}要出手了。</b>${mode==='react'?'圓圈縮到和中間的圓重疊時，按下「反擊」（或空白鍵）。':'把所有符文石都轉回朝上，就能擋下並反擊。步數越少越好。'}`:`<b>對方露出破綻！</b>${mode==='react'?'照順序輸入畫面上的符文（可以用方向鍵）。':'把所有符文石轉回朝上，就能打出連擊。'}`}</p>
+      const pool=POOL[mode][defend()?'d':'a'].filter(g=>g!==st.lastGame||POOL[mode][defend()?'d':'a'].length===1);
+      const g=pick(pool);st.lastGame=g;
+      const h=typeof GAME_HINT[g]==='function'?GAME_HINT[g]():GAME_HINT[g];
+      el.innerHTML=header()+`<p class="hint">${defend()?`<b>${fs.base.name}要出手了。</b>`:'<b>對方露出破綻！</b>'}${h}</p>
       <button class="primary" id="mg-go">${defend()?'準備迎擊':'發動攻擊'}</button>`+logHtml();
-      $('#mg-go').onclick=()=>mode==='react'?(defend()?ring():runes()):puzzle();$('#mg-go').focus();
+      $('#mg-go').onclick=()=>({ring,dodge,runes,charge,rotate:puzzle,shields,lock,pairs})[g]();$('#mg-go').focus();
+    };
+    const fail=()=>defend()?'miss':{partial:0};
+    // 反應型：閃避三連擊
+    const dodge=()=>{
+      const SW=[['左邊','R','→','刀從左邊橫掃過來！'],['右邊','L','←','刀從右邊砍過來！'],['頭頂','D','↓','斧頭從頭頂劈下來！'],['腳下','U','↑','刀貼著地面掃向腳踝！']];
+      const seq=Array.from({length:3},()=>pick(SW));const W=(950+skill*120)*relax;let i=0,ok=0,done=false,timer=0;
+      const end=()=>{done=true;clearTimeout(timer);mgKey=null;apply(ok===3?'perfect':ok===2?'good':'miss');};
+      const show=()=>{
+        el.innerHTML=header()+`<div class="dodge"><b>${seq[i][3]}</b><small>第 ${i+1}/3 刀　閃過 ${ok}</small></div>
+        <div class="seapad dodgepad"><button data-v="U" aria-label="往上跳">↑ 跳</button><button data-v="L" aria-label="往左閃">← 左</button><button data-v="R" aria-label="往右閃">右 →</button><button data-v="D" aria-label="蹲低">↓ 蹲</button></div>
+        <div class="mg-time"><i id="mg-bar" style="transition:width ${W}ms linear"></i></div>`+logHtml();
+        requestAnimationFrame(()=>{const bar=$('#mg-bar');if(bar)bar.style.width='0%';});
+        el.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>pressD(b.dataset.v));
+        timer=setTimeout(()=>next(false),W);
+      };
+      const next=hit=>{if(done)return;clearTimeout(timer);if(hit)ok++;i++;if(i>=3)end();else setTimeout(()=>{if(!done)show();},250);};
+      const pressD=v=>{if(done)return;next(v===seq[i][1]);};
+      mgKey=e=>{const m={ArrowUp:'U',ArrowDown:'D',ArrowLeft:'L',ArrowRight:'R'}[e.key];if(m){e.preventDefault();pressD(m);}};
+      setTimeout(show,300);
+    };
+    // 反應型：蓄力一擊
+    const charge=()=>{
+      const T=1150/relax,zone=[78-skill*2,94+skill],good=[62,98];let t0=0,raf=0,done=false,started=false;
+      el.innerHTML=header()+`<div class="chargebar"><i class="zone" style="left:${zone[0]}%;width:${zone[1]-zone[0]}%"></i><i class="fillc" id="cg-f"></i></div>
+      <button class="primary big" id="mg-tap">蓄力</button>`+logHtml();
+      const end=g=>{if(done)return;done=true;cancelAnimationFrame(raf);mgKey=null;apply(g);};
+      const val=()=>(performance.now()-t0)/T*100;
+      const frame=()=>{const v=val();const f=$('#cg-f');if(f)f.style.width=Math.min(100,v)+'%';if(v>106){end({partial:0});return;}raf=requestAnimationFrame(frame);};
+      const tap=()=>{if(done)return;if(!started){started=true;t0=performance.now();$('#mg-tap').textContent='出手！';raf=requestAnimationFrame(frame);return;}
+        const v=val();end(v>=zone[0]&&v<=zone[1]?'perfect':v>=good[0]&&v<=good[1]?'good':{partial:v<good[0]?v/100*.6:0});};
+      $('#mg-tap').onclick=tap;$('#mg-tap').focus();
+      mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();tap();}};
+    };
+    // 解謎型：擺盾牌（擋住每一條攻擊線）
+    const shields=()=>{
+      const n=4;const nr=st.round<3?2:3,nc=2;
+      let rows,cols,rocks,need=0;
+      for(let tries=0;tries<300;tries++){
+        rows=[];while(rows.length<nr){const r=ri(0,n-1);if(!rows.includes(r))rows.push(r);}
+        cols=[];while(cols.length<nc){const c=ri(0,n-1);if(!cols.includes(c))cols.push(c);}
+        rocks=new Set();const cross=[];rows.forEach(r=>cols.forEach(c=>cross.push(r*n+c)));
+        const kr=ri(1,Math.min(3,cross.length-1));while(rocks.size<kr)rocks.add(pick(cross));
+        while(rocks.size<kr+1){const x=ri(0,n*n-1);rocks.add(x);}
+        // 暴力找最少盾牌數
+        const free=[...Array(n*n).keys()].filter(i=>!rocks.has(i));
+        const covers=set=>rows.every(r=>set.some(i=>Math.floor(i/n)===r))&&cols.every(c=>set.some(i=>i%n===c));
+        const comb=(k,start,cur)=>{if(cur.length===k)return covers(cur);for(let j=start;j<free.length;j++){cur.push(free[j]);if(comb(k,j+1,cur))return true;cur.pop();}return false;};
+        need=0;for(let k=1;k<=nr+nc;k++){if(comb(k,0,[])){need=k;break;}}
+        if(need&&need<nr+nc) break;
+      }
+      const placed=new Set();let toggles=0,done=false;
+      const covered=()=>rows.every(r=>[...placed].some(i=>Math.floor(i/n)===r))&&cols.every(c=>[...placed].some(i=>i%n===c));
+      const drawS=()=>{
+        el.innerHTML=header()+`<div class="shieldgrid"><i></i>${Array.from({length:n},(_,c)=>`<i class="arr">${cols.includes(c)?'↓':''}</i>`).join('')}
+        ${Array.from({length:n},(_,r)=>`<i class="arr">${rows.includes(r)?'→':''}</i>${Array.from({length:n},(_,c)=>{const i=r*n+c;const hot=rows.includes(r)||cols.includes(c);return rocks.has(i)?`<i class="rock">▲</i>`:`<button data-s2="${i}" class="${placed.has(i)?'on':''} ${hot?'hot':''}" aria-label="第 ${r+1} 行第 ${c+1} 列${placed.has(i)?'，已放盾牌':''}">${placed.has(i)?'🛡':''}</button>`;}).join('')}`).join('')}</div>
+        <div class="row" style="justify-content:space-between"><span class="num">盾牌 ${placed.size}/${need}　一面盾能同時擋住它那一行和那一列；▲ 是礁石，放不了盾</span><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
+        el.querySelectorAll('[data-s2]').forEach(b=>b.onclick=()=>{if(done)return;const i=+b.dataset.s2;if(placed.has(i))placed.delete(i);else if(placed.size<need)placed.add(i);else return;toggles++;
+          if(placed.size===need&&covered()){done=true;apply(toggles<=need+1?'perfect':'good');return;}drawS();});
+        $('#mg-give').onclick=()=>{if(done)return;done=true;apply(fail());};
+      };
+      drawS();
+    };
+    // 解謎型：符文鎖（猜順序）
+    const lock=()=>{
+      const R=['ᚠ','ᚢ','ᚦ','ᚨ'];const code=R.slice().sort(()=>Math.random()-.5).slice(0,3);const limit=5+Math.min(2,skill);
+      let cur=[],hist=[],done=false;
+      const score=g=>{let b=0,w=0;g.forEach((x,i)=>{if(code[i]===x)b++;else if(code.includes(x))w++;});return [b,w];};
+      const drawL=()=>{
+        el.innerHTML=header()+`<div class="lockhist">${hist.map(([g,[b,w]])=>`<div><span>${g.join(' ')}</span><b>${'●'.repeat(b)}${'○'.repeat(w)}${!b&&!w?'—':''}</b></div>`).join('')||'<div><small>還沒有猜過</small></div>'}</div>
+        <div class="seq">${[0,1,2].map(i=>`<span>${cur[i]||''}</span>`).join('')}</div>
+        <div class="runepad">${R.map(r=>`<button data-r2="${r}" ${cur.includes(r)?'disabled':''}><b>${r}</b></button>`).join('')}</div>
+        <div class="row" style="justify-content:space-between;margin-top:8px"><span class="num">第 ${hist.length+1}/${limit} 次（3 次內猜中算完美）　● 符文和位置都對　○ 符文對、位置錯</span>
+        <span><button class="ghost" id="lk-back">退一格</button> <button class="primary" id="lk-go" ${cur.length<3?'disabled':''}>猜</button></span></div>`+logHtml();
+        el.querySelectorAll('[data-r2]').forEach(b=>b.onclick=()=>{if(cur.length<3){cur.push(b.dataset.r2);drawL();}});
+        $('#lk-back').onclick=()=>{cur.pop();drawL();};
+        $('#lk-go').onclick=()=>{if(done||cur.length<3)return;const sc=score(cur);hist.push([cur,sc]);cur=[];
+          if(sc[0]===3){done=true;apply(hist.length<=3?'perfect':'good');return;}
+          if(hist.length>=limit){done=true;apply(defend()?'miss':{partial:.3});return;}drawL();};
+      };
+      drawL();
+    };
+    // 解謎型：符文配對
+    const pairs=()=>{
+      const R=['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ'];const use=R.sort(()=>Math.random()-.5).slice(0,4);
+      const cards=[...use,...use].sort(()=>Math.random()-.5);const got=new Set();let open=[],tries=0,done=false,lockUI=false;const limit=7+skill;
+      const drawC=()=>{
+        el.innerHTML=header()+`<div class="cards">${cards.map((r,i)=>`<button data-cd="${i}" class="${got.has(i)?'got':open.includes(i)?'open':''}" aria-label="第 ${i+1} 張牌${got.has(i)||open.includes(i)?'：'+r:''}">${got.has(i)||open.includes(i)?r:'ᛜ'}</button>`).join('')}</div>
+        <p class="num" style="text-align:center">翻牌 ${tries}/${limit}（5 次內找齊算完美）</p>`+logHtml();
+        el.querySelectorAll('[data-cd]').forEach(b=>b.onclick=()=>{const i=+b.dataset.cd;if(done||lockUI||got.has(i)||open.includes(i))return;open.push(i);
+          if(open.length===2){tries++;const [x,y]=open;if(cards[x]===cards[y]){got.add(x);got.add(y);open=[];
+              if(got.size===cards.length){done=true;apply(tries<=5?'perfect':'good');return;}}
+            else{lockUI=true;drawC();setTimeout(()=>{open=[];lockUI=false;if(tries>=limit){done=true;apply(defend()?'miss':{partial:got.size/cards.length});return;}drawC();},700);return;}
+            if(tries>=limit){done=true;apply(defend()?'miss':{partial:got.size/cards.length});return;}}
+          drawC();});
+      };
+      drawC();
     };
     const ring=()=>{
       const T=1400,win=(90+skill*20)*relax;
@@ -3022,8 +3155,8 @@ function showTitle(){
     ${seg('畫框','skinId',Object.entries(SKINS).map(([k,sk])=>[k,sk.name,!okNeed(sk.need)]))}
     ${Object.values(SKINS).some(sk=>!okNeed(sk.need))?`<small class="lockhint">${Object.values(SKINS).filter(sk=>!okNeed(sk.need)).map(sk=>`${sk.name}：${ACH[sk.need].secret?ACH[sk.need].hint:`達成「${ACH[sk.need].name}」（${ACH[sk.need].hint}）`}`).join('<br>')}</small>`:''}`;
   $('#looks').querySelectorAll('[data-look]').forEach(b=>b.onclick=()=>{const k=b.dataset.look;let v=b.dataset.v;if(k==='stage')v=+v;L[k]=v;showTitle();});
-  $('#minis').innerHTML=`<button class="opt" data-mini="react" aria-pressed="${NEW.mini==='react'}"><b>反應型</b><small>看準時機點擊反擊、限時輸入符文連擊。考驗反應和手速。</small></button>
-    <button class="opt" data-mini="puzzle" aria-pressed="${NEW.mini==='puzzle'}"><b>解謎型</b><small>旋轉符文石拼回原狀，沒有時間壓力，比的是步數。</small></button>`;
+  $('#minis').innerHTML=`<button class="opt" data-mini="react" aria-pressed="${NEW.mini==='react'}"><b>反應型</b><small>四種小遊戲輪流出現：看準時機反擊、閃避三連擊、限時符文連擊、蓄力一擊。考驗反應和手速。</small></button>
+    <button class="opt" data-mini="puzzle" aria-pressed="${NEW.mini==='puzzle'}"><b>解謎型</b><small>四種小遊戲輪流出現：旋轉符文石、擺盾牌擋攻擊線、猜符文鎖、符文配對。沒有時間壓力，比的是步數。</small></button>`;
   $('#minis').querySelectorAll('[data-mini]').forEach(b=>b.onclick=()=>{NEW.mini=b.dataset.mini;showTitle();});
   $('#relax-row').hidden=NEW.mini!=='react';
   $('#in-relax').checked=NEW.relaxed;$('#in-relax').onchange=e=>{NEW.relaxed=e.target.checked;};
