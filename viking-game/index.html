@@ -253,7 +253,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .scene{margin:-4px -4px 12px;border-radius:8px;overflow:hidden;aspect-ratio:16/9;background:var(--bg)}
 .scene img{width:100%;height:100%;object-fit:cover;display:block}
 .avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:50% 20%;border:1px solid var(--line);float:left;margin:0 10px 4px 0}
-.avatar.big{width:96px;height:128px;border-radius:8px;float:right;margin:0 0 8px 12px}
+.avatar.big{display:block;width:150px;height:200px;border-radius:8px;float:none;margin:0 auto 12px;box-shadow:0 6px 18px rgba(0,0,0,.4)}
 .list .withav{overflow:hidden}
 .saga{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:4px 0 8px;background:var(--panel2)}
 .saga .epi{font-family:'Noto Serif TC',serif;font-size:22px;color:var(--gold)}
@@ -886,7 +886,7 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
-const ART_HAVE=new Set([]);
+const ART_HAVE=new Set(['c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm']);
 const CHAMP_ART={hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
