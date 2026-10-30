@@ -3124,7 +3124,8 @@ function ragnarok(){
   S.flags.ragDone=1;
   const p=patron();
   if(p==='loki'){pushLater(eventModal(EV_LOKI_RAG));return;}
-  const def=Math.round(230*lf()*D().foe*(1-Math.min(.15,S.fame/2000))*(Object.keys(GODS).filter(g=>gt(g,3)).length>=2?.85:1)*(S.flags.ragnarVan?.92:1));
+  const aid=Object.keys(GODS).reduce((m,g)=>m*(gt(g,3)?.88:gt(g,2)?.95:1),1);
+  const def=Math.round(230*lf()*D().foe*(1-Math.min(.15,S.fame/2000))*aid*(S.flags.ragnarVan?.92:1));
   const [fk,fn,fline]=RAG_FOE[p||'none'];
   pushLater(el=>resultView(el,'諸神黃昏',`號角聲從天邊傳來，那是海姆達爾的號角。\n\n霜巨人從北方的冰原上走下來，火巨人從南方的天空燒過來。你的戰士們站在雪地裡，身邊多了很多陌生的面孔：那是從瓦爾哈拉回來的英靈戰士。\n\n${p?`${GODS[p].name}站在你的身邊。`:'眾神站在你的身後。'}${S.fame>=150?'\n挪威各地的人，聽說你要在這裡迎戰，全都趕來了。':''}\n\n先排好盾牆。`,'ᛞ 諸神黃昏'));
   pushLater(shieldWallFn({title:'冰原上的盾牆',onEnd:sc=>{
@@ -3152,6 +3153,7 @@ const danMul=()=>{
   let m=1;
   if(S.spouse==='sweyn'||S.spouse==='gunnhild') m*=.7;
   m*=1-Math.min(.12,S.fame/2500);
+  m*=1+.04*osYours().length; // 你越大，藍牙帶來的人越多
   if(S.flags.sweynTalk) m*=.9;
   if(S.heir&&S.heir.trait==='peace') m*=.95;
   if(S.flags.ragnarVan) m*=.92;
