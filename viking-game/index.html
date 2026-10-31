@@ -1454,13 +1454,13 @@ function proxyDuel(foeKey,cid,o,used,carry){
       const clicks=[];while(clicks.length<k){const c=ri(0,N-1);if(!clicks.includes(c))clicks.push(c);}
       clicks.forEach(c=>nb(c).forEach(j=>rot[j]=(rot[j]+1)%4));
       if(rot.every(r=>r===0)) rot[0]=1;
-      const limit=k+1+skill;let moves=0,done=false;
+      const limit=k+Math.max(3,k)+skill;let moves=0,done=false;
       const drawP=()=>{
         el.innerHTML=header()+`<p class="hint" style="margin:0">點一塊符文石，它和上下左右相鄰的石頭都會逆時針轉 90°。把全部轉回朝上（ᛏ 尖端向上）。</p>
         <div class="tiles" style="grid-template-columns:repeat(${size},var(--tile))">${rot.map((r,i)=>`<button class="tile ${r===0?'up':''}" data-t="${i}" aria-label="符文石 ${i+1}，${['朝上','朝右','朝下','朝左'][r]}"><span style="transform:rotate(${r*90}deg)">ᛏ</span></button>`).join('')}</div>
-        <div class="row" style="justify-content:space-between"><span class="num">步數 ${moves} / ${limit}（${k} 步內完成算完美）</span><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
+        <div class="row" style="justify-content:space-between"><span class="num">步數 ${moves} / ${limit}　${k} 步內：完美（傷害加成）・${limit} 步內：成功</span><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
         el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{if(done)return;moves++;nb(+b.dataset.t).forEach(j=>rot[j]=(rot[j]+3)%4);
-          if(rot.every(r=>r===0)){done=true;apply(moves<=k?'perfect':'good');return;}
+          if(rot.every(r=>r===0)){done=true;if(moves<=k)st.pb=1.3;apply(moves<=k?'perfect':'good');return;}
           if(moves>=limit){done=true;apply(defend()?'miss':{partial:0});return;}drawP();});
         $('#mg-give').onclick=()=>{if(done)return;done=true;apply(defend()?'miss':{partial:0});};
       };
