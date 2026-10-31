@@ -1288,15 +1288,15 @@ function proxyDuel(foeKey,cid,o,used,carry){
       let t='';
       const atk=st.atk*rnd(.9,1.1),dmg=st.dmg*rnd(.9,1.1);
       if(defend()){
-        if(grade==='perfect'){st.foe-=dmg*1.3;t=`完美的時機！${C.name}擋開攻擊順勢反砍。<span style="color:var(--ember)">對方 -${Math.round(dmg*1.3)}</span>`;}
+        if(grade==='perfect'){const m=1.3*(st.pb||1);st.foe-=dmg*m;t=`完美的時機！${C.name}擋開攻擊順勢反砍。<span style="color:var(--ember)">對方 -${Math.round(dmg*m)}</span>`;}
         else if(grade==='good'){st.foe-=dmg*.5;t=`${C.name}擋下這一擊，順手回了一刀。<span style="color:var(--ember)">對方 -${Math.round(dmg*.5)}</span>`;}
         else{st.chp-=atk*1.1;t=`${C.name}慢了半拍，被結結實實砍中。<span style="color:var(--blood)">${C.name} -${Math.round(atk*1.1)}</span>`;}
       }else{
-        if(grade==='perfect'){st.foe-=dmg*1.6;t=`一氣呵成的連擊！<span style="color:var(--ember)">對方 -${Math.round(dmg*1.6)}</span>`;}
+        if(grade==='perfect'){const m=1.6*(st.pb||1);st.foe-=dmg*m;t=`一氣呵成的連擊！<span style="color:var(--ember)">對方 -${Math.round(dmg*m)}</span>`;}
         else if(grade==='good'){st.foe-=dmg;t=`攻擊命中。<span style="color:var(--ember)">對方 -${Math.round(dmg)}</span>`;}
         else{const f=grade.partial||0;if(f>0)st.foe-=dmg*.5*f;st.chp-=atk*.5;t=`連擊斷了，對方趁機反擊。${f>0?`<span style="color:var(--ember)">對方 -${Math.round(dmg*.5*f)}</span> `:''}<span style="color:var(--blood)">${C.name} -${Math.round(atk*.5)}</span>`;}
       }
-      st.log.unshift(t);st.round++;
+      st.pb=0;st.log.unshift(t);st.round++;
       const fled=o.retreatAt&&st.foe>0&&st.foe<=st.fmax*o.retreatAt;
       if(fled) st.log.unshift(`${fs.base.name}撐不住，轉身逃了。`);
       if(fled||st.foe<=0||st.chp<=0) finish(fled||st.foe<=0);else between();
@@ -1410,11 +1410,11 @@ function proxyDuel(foeKey,cid,o,used,carry){
       const cards=[...use,...use].sort(()=>Math.random()-.5);const got=new Set();let open=[],tries=0,done=false,lockUI=false;const limit=np*2+skill,perfect=np+2;
       const drawC=()=>{
         el.innerHTML=header()+`<div class="cards">${cards.map((r,i)=>`<button data-cd="${i}" class="${got.has(i)?'got':open.includes(i)?'open':''}" aria-label="第 ${i+1} 張牌${got.has(i)||open.includes(i)?'：'+r:''}">${got.has(i)||open.includes(i)?r:'ᛜ'}</button>`).join('')}</div>
-        <div class="row" style="justify-content:space-between"><span class="num">翻牌 ${tries}/${limit}（${perfect} 次內找齊算完美）</span><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
+        <div class="row" style="justify-content:space-between"><span class="num">翻牌 ${tries}/${limit}　${perfect} 次內找齊：完美（傷害加成）・${limit} 次內：成功</span><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
         $('#mg-give').onclick=()=>{if(done)return;done=true;apply(fail());};
         el.querySelectorAll('[data-cd]').forEach(b=>b.onclick=()=>{const i=+b.dataset.cd;if(done||lockUI||got.has(i)||open.includes(i))return;open.push(i);
           if(open.length===2){tries++;const [x,y]=open;if(cards[x]===cards[y]){got.add(x);got.add(y);open=[];
-              if(got.size===cards.length){done=true;apply(tries<=perfect?'perfect':'good');return;}}
+              if(got.size===cards.length){done=true;if(tries<=perfect)st.pb=1.3;apply(tries<=perfect?'perfect':'good');return;}}
             else{lockUI=true;drawC();setTimeout(()=>{open=[];lockUI=false;if(tries>=limit){done=true;apply(defend()?'miss':{partial:got.size/cards.length});return;}drawC();},700);return;}
             if(tries>=limit){done=true;apply(defend()?'miss':{partial:got.size/cards.length});return;}}
           drawC();});
