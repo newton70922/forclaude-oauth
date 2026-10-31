@@ -266,6 +266,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .choice.withav{grid-template-columns:56px 1fr;column-gap:12px;align-items:start}
 .choice.withav .avatar{grid-row:1/3;grid-column:1;width:56px;height:56px;margin:0;float:none}
 .choice.withav>b,.choice.withav>small{grid-column:2}
+.ctabs{display:flex;gap:4px;margin:10px 0 4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.ctabs button{flex:1;min-width:52px;padding:8px 4px;background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);font-size:14px;position:relative;white-space:nowrap}
+.ctabs button[aria-selected="true"]{color:var(--bone);border-bottom-color:var(--ember)}
+.ctabs .dot{position:absolute;top:6px;right:8px;width:6px;height:6px;border-radius:50%;background:var(--ember)}
 .saga{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:4px 0 8px;background:var(--panel2)}
 .saga .epi{font-family:'Noto Serif TC',serif;font-size:22px;color:var(--gold)}
 .saga small{color:var(--muted)}
@@ -548,13 +552,13 @@ const FOES={
   glima:{name:'摔角對手',hp:30,atk:6,w:[.4,.3,.3],tip:'抓住腰帶就會用力往下壓。'},
   egill:{name:'冰島的埃吉爾',hp:70,atk:15,w:[.5,.3,.2],hab:'rage',tip:'脾氣比誰都差，一受傷就只會重劈。'},
   palna:{name:'約姆斯堡的帕爾納托基',hp:130,atk:24,w:[.35,.35,.3],hab:'counter',lord:1,tip:'約姆斯維京人的首領，專挑你上一招的破綻出手。'},
-  king:{name:'老王哈夫丹',hp:110,atk:28,w:[.35,.35,.3],lord:1,king:1,tip:'招式毫無規律，只能憑當下的判斷。'},
+  king:{name:'老王哈夫丹',hp:120,atk:29,w:[.35,.35,.3],hab:'king',lord:1,king:1,tip:'他會記住你最常用的招式，然後反制它；快倒下時，還會再撐一口氣。'},
 };
 const CHAMPS={
   hakon:{name:'哈康',pow:6,ab:'老練：打勝仗時更多戰士晉升老兵',oath:{t:'breaker',line:'哈康把那面滿是刀痕的盾牌靠在牆上，坐到你對面。「我跟過三個首領。兩個死在我前面，一個是我親手埋的。」他割破手掌，把血抹在你的斧刃上。「你是最後一個。」',teach:'「看好了，」他舉起斧頭，「盾牌不是拿來擋的，是拿來劈開的。」',master:'「這招你早就會了？」哈康咧嘴一笑，露出缺了的門牙，「那我教你，劈完之後怎麼讓他再也舉不起盾。」',txt:'誓約後會在生死單挑中替你擋下一次致命傷'}},
   astrid:{name:'阿斯特麗德',pow:5,ab:'盾牆：戰鬥傷亡 -30%',oath:{t:'shieldlord',line:'阿斯特麗德把她的盾和你的盾扣在一起，邊緣卡得嚴絲合縫。「在盾牆裡，你右邊的人就是你的命。」她看著你，「從今天起，我站你右邊。」',teach:'她花了一整個冬天，教你怎麼讓三十個人像一個人一樣呼吸。',master:'「你已經會排盾牆了，」她搖搖頭，「但你排的是牆。我要教你排的是山。」'}},
   thorfinn:{name:'托爾芬',pow:7,ab:'誓言：永遠不會背叛你',oath:{st:'con',line:'托爾芬什麼都沒說。他只是跪下來，把額頭貼在你的斧柄上，很久很久，然後割破了自己的手掌。',teach:'第二天天還沒亮，他就把你叫起來，在雪地裡一圈一圈地跑。整個冬天，一天都沒停過。'}},
-  sven:{name:'赫羅爾夫',pow:10,ab:'昔日宿敵：每季惡名 +1',oath:{st:'str',line:'赫羅爾夫灌了一大口酒，把角杯往地上一摔。「我說過你一輩子只配划槳。」他割破手掌，「我錯了。這是我這輩子第二次說這三個字，別讓我說第三次。」',teach:'他每天找你在碼頭邊扳手腕，輸了的人要跳進峽灣。你跳了很多次，但最後一次是他。'}},
+  sven:{name:'赫羅爾夫',pow:10,ab:'昔日宿敵：每季惡名 +1',oath:{st:'str',line:'赫羅爾夫灌了一大口酒，把角杯往地上一摔。「我說過你一輩子{Q}。」他割破手掌，「我錯了。這是我這輩子第二次說這三個字，別讓我說第三次。」',teach:'他每天找你在碼頭邊扳手腕，輸了的人要跳進峽灣。你跳了很多次，但最後一次是他。'}},
   una:{name:'烏娜',pow:1,ab:'草藥：祭祀代價減半，休養必定治好舊傷',oath:{st:'con',line:'烏娜把一小包曬乾的草藥塞進你的護身符袋。「這不是誓言，是藥方。」她把血滴在草藥上，「每天早上聞一下。你要是死了，我會很生氣。」',teach:'她逼你喝了一整個冬天的苦湯，苦到你懷疑她在報仇。但春天來的時候，你的舊傷不痛了。'}},
   bragi:{name:'布拉吉',pow:1,ab:'吟遊詩人：每季名聲 +1，忠誠下降較慢',oath:{t:'skaldblood',line:'布拉吉清了清喉嚨，對著整個長屋唱了一首新歌，主角是你。唱到最後一句，他割破手掌：「我的歌，從今天起只為一個人寫。」',teach:'「名聲不是你做了什麼，」他眨眨眼，「是別人怎麼講你做了什麼。我來教你怎麼讓他們講。」',master:'「你早就懂得講故事了？」布拉吉大笑，「那我教你最後一招：讓聽故事的人，以為那是他自己想出來的。」'}},
   einar:{name:'埃納',pow:3,ab:'獵人：每季糧食 +2，看清敵方戰力，夜襲較易成功',oath:{t:'mindread',line:'埃納帶你在林子裡蹲了一整夜，一句話都沒說。天亮時，一頭鹿走到你們面前，他沒有射。「我只是想讓你知道，」他低聲說，「我等得起。」然後他割破了手掌。',teach:'「獵物在動之前，眼睛會先動。」他指了指你的眼睛，「人也一樣。」',master:'「你看得懂人的眼睛了？」埃納難得笑了，「那我教你看他的腳。眼睛會騙人，腳不會。」'}},
@@ -575,6 +579,31 @@ const REGIONS=[
   {id:'winter',name:'維斯特福爾王廳',kind:'seat',lord:'老王哈夫丹',foe:'wilfred',x:300,y:186,def:55,inc:[28,10],desc:'老王哈夫丹的王廳。先拿下另外兩方勢力，否則你連王廳的門都靠近不了。'},
 ];
 const SEATS=['grey','eagle','red','winter'];
+// 四種出身，四種和赫羅爾夫的恩怨（{Q}＝那句羞辱，{L}＝他怎麼叫你）
+const ORIGIN={
+  smith:{q:'只配打馬蹄鐵',l:'打鐵的',ach:'ori_smith',
+    open:'出發前一晚，雅爾的兒子赫羅爾夫帶著人闖進你家的鐵匠鋪，一腳踢翻了你父親的鐵砧。\n\n「鐵匠的兒子，」他笑著說，「一輩子只配打馬蹄鐵。」',
+    quest:'你小時候，還幫那艘船打過船釘，記得嗎？',
+    fly:['「聽說你年輕時只會打馬蹄鐵。你頭上那頂王冠，該不會也是自己打的吧？」','「是啊。打得比你父親給你的那頂好多了。」'],
+    crown:'你父親的鐵砧，現在擺在王廳的正中央。'},
+  hunter:{q:'只配跟狗睡在獵屋裡',l:'睡狗窩的',ach:'ori_hunter',
+    open:'出發前，雅爾的兒子赫羅爾夫搶走了你在雪林裡追了三天的白狐皮，當著所有人的面披在自己肩上。\n\n「獵人，」他笑著說，「一輩子只配跟狗睡在獵屋裡。」',
+    quest:'你小時候，常常躲在那艘船的帆布底下睡覺，記得嗎？',
+    fly:['「聽說你以前是跟獵犬睡在一起的。難怪你的王廳有一股狗味。」','「我的狗很忠心。你的手下，有幾個比得上？」'],
+    crown:'那天晚上，你在王廳的火堆旁，鋪上了一張白狐皮。'},
+  sailor:{q:'只配划槳',l:'划槳的',ach:'ori_sailor',
+    open:'出發前，雅爾的兒子赫羅爾夫當著所有人的面笑你：「像你這樣的人，一輩子只配划槳。」',
+    quest:'你也在那艘船上划過槳，記得嗎？',
+    fly:['「聽說你年輕時只配划槳。現在戴了王冠，還是一雙划槳的手。」','「對，這雙手划過北海，也把王冠拿了下來。你的手呢？只拿過角杯。」'],
+    crown:'你的船，現在是挪威最大的一艘。'},
+  skald:{q:'只配唱別人的故事',l:'唱歌的',ach:'ori_skald',
+    open:'出發前的宴會上，你唱了一首自己寫的歌。雅爾的兒子赫羅爾夫把一杯酒潑在你臉上。\n\n「詩人的兒子，」他笑著說，「一輩子只配唱別人的故事。」',
+    quest:'你小時候，常常坐在那艘船的船頭唱歌，記得嗎？',
+    fly:['「聽說你以前是唱歌的。怎麼，國王當膩了，想回去唱別人的故事？」','「不用了。現在，全挪威的詩人都在唱我的故事。」'],
+    crown:'加冕宴上，詩人們唱的，是你的故事。'},
+};
+const ORI=()=>ORIGIN[(S&&S.bg)||'sailor']||ORIGIN.sailor;
+const fillQ=t=>typeof t==='string'?t.replace(/\{Q\}/g,ORI().q).replace(/\{L\}/g,ORI().l):t;
 const R=id=>REGIONS.find(r=>r.id===id);
 const TRIBE_LV=['營地','村落','城鎮','要塞','王都','傳說之都'];
 const TRIBE_UP=[{cost:[40,10],need:2},{cost:[85,20],need:4},{cost:[140,35],need:6},{cost:[225,55],need:8},{cost:[320,80],need:9,golden:1}];
@@ -670,6 +699,10 @@ const ACH={
   quest5:{name:'同生共死',desc:'完成五位勇士的心願。',hint:'幫五位勇士完成他們的心願。'},
   codex_all:{name:'北境學者',desc:'集滿北境百科。',hint:'在北境百科裡解鎖每一條條目。'},
   monument:{name:'刻在石頭上',desc:'立起一塊大符文石。',hint:'把你的一生刻在石頭上。'},
+  ori_smith:{name:'打鐵的王',desc:'以鐵匠之子的身分稱王。',hint:'以鐵匠之子的身分稱王。'},
+  ori_hunter:{name:'獵屋裡的王',desc:'以雪林獵人的身分稱王。',hint:'以雪林獵人的身分稱王。'},
+  ori_sailor:{name:'划槳的王',desc:'以船工的身分稱王。',hint:'以船工的身分稱王。'},
+  ori_skald:{name:'唱自己的歌',desc:'以詩人之子的身分稱王。',hint:'以詩人之子的身分稱王。'},
   strawdeath:{name:'稻草之死',desc:'在床上老死。',hint:'不是每個維京人都死在戰場上。',secret:1},
 };
 const SKINS={base:{name:'無畫框'},frost:{name:'霜狼畫框',need:'deathless'},hero:{name:'英雄畫框',need:'hero_king'},raven:{name:'渡鴉畫框',need:'three_crowns'},paint:{name:'血色畫框',need:'kill_sven'},gold:{name:'金淚畫框',need:'freyja_wed'}};
@@ -878,7 +911,7 @@ function checkOath(c){
   else{const k=o.st||'str';S.st[k]++;gift=`${o.teach||`${n}陪你練了整整一個冬天。`}\n<span class="good">${STAT[k]} +1</span>`;}
   log(`與勇士${n}立下誓約。`);
   S.stats.oaths=(S.stats.oaths||0)+1;if(S.stats.oaths>=5) unlock('oaths5');
-  pushLater(el=>resultView(el,`與${n}立誓`,`${o.line||`${n}割破手掌，把血滴在你的斧刃上：「從今天起，我的命就是你的。」`}\n\n${gift}${o.txt?`\n${n}${o.txt}。`:''}\n\n立誓的勇士永遠不會背叛你，戰時會拚盡全力。`,'誓約',c.id));
+  pushLater(el=>resultView(el,`與${n}立誓`,`${fillQ(o.line)||`${n}割破手掌，把血滴在你的斧刃上：「從今天起，我的命就是你的。」`}\n\n${gift}${o.txt?`\n${n}${o.txt}。`:''}\n\n立誓的勇士永遠不會背叛你，戰時會拚盡全力。`,'誓約',c.id));
 }
 function maybeScar(){
   if(S.scars>=3||S.hp>=maxHp()*.25) return '';
@@ -930,6 +963,31 @@ function checkPost(){
   if(!S||S.dead||S.won) return;
   if(S.pts>0||S.talentPicks>0){pushModal(levelUpModal);return;}
   if(S.phase===3&&seatsHeld()>=4){pushModal(coronation);return;}
+  tipCheck();
+}
+
+/* ================= 第一次的小提示 ================= */
+const TIPS=[
+  ['tribe',()=>S.phase>=2,'你有了自己的部落','「部落」頁可以蓋建築、擴建部落，也能決定突襲的戰利品怎麼分。\n族人的<b>忠誠</b>太低會有人溜走，甚至有人想搶你的位子。偶爾設宴，讓大家喝個痛快。'],
+  ['talent',()=>S.talentPicks>0&&S.lvl>=2,'天賦','升級時可以學天賦：三條路，每一階二選一，選了就不能回頭。\n完整的天賦樹在「角色」頁的「天賦」分頁。'],
+  ['champ',()=>S.champions.some(c=>c.bond>=60),'勇士的好感','勇士的好感到 60，戰力變成 1.5 倍、能替你上場決鬥，也可能找你幫忙完成心願。\n好感到 80 會和你立誓，教你一招。勇士的狀況在「角色」頁的「勇士」分頁。'],
+  ['gods',()=>Object.values(S.favor||{}).some(v=>v>=30),'眾神在看著你','你做的事，會讓某位神更看重你。神恩到 30、60、100 各有不同的眷顧。\n每位神喜歡什麼，都寫在「角色」頁的「眾神」分頁。'],
+  ['infamy',()=>S.infamy>=20,'惡名','搶劫、燒村、殘忍的選擇都會增加<b>惡名</b>。惡名高了，敵人會更戒備，賞金獵人會找上門；但也有人會因為怕你而投降。\n惡名會慢慢降下來，也可以做些贖罪的事。'],
+  ['fame',()=>S.phase>=2&&S.fame>=40,'名聲是可以花的','名聲越高，招募越便宜，還會有人自己來投靠。\n行動裡的「動用名聲」可以把名聲花掉，換成戰士、忠誠或禮物。'],
+  ['weather',()=>S.phase>=2&&S.weather&&S.weather!=='fair','季節與天氣','每個季節都不一樣：夏天適合突襲，秋天收成好，冬天船出不去。天氣也會影響收成和出海。\n目前的季節和天氣寫在「角色」頁的「能力」分頁。'],
+  ['winter',()=>S.phase>=2&&winterNow(),'長屋之夜','冬天的行動裡多了「長屋之夜」：喝酒比賽、摔角、擲斧、講故事。輕鬆一下，也能讓族人和勇士更喜歡你。'],
+  ['ch4',()=>S.phase>=4,'王的歲月','第四章多了「海外」分頁：突襲修道院、征服海外的城、往西航行。\n行動裡還有庭議（立法）、冊封雅爾和王的婚事。你越強，丹麥人就來得越早。'],
+  ['court',()=>S.phase>=4&&Object.values(S.courtS||{}).some(c=>c.st>0),'和人相處','想成婚的人，要先一段一段相處。回答得好才會更進一步；回答得太冷淡，對方就會死心。\n勇士則是好感到 80 或立誓後就能選。'],
+];
+function tipCheck(){
+  if(!S||S.noTips||S.dead||S.won||modalOpen) return false;
+  S.tipsSeen=S.tipsSeen||{};
+  const t=TIPS.find(([id,c])=>!S.tipsSeen[id]&&c());
+  if(!t) return false;
+  S.tipsSeen[t[0]]=1;
+  pushModal(el=>{el.innerHTML=`<p class="eyebrow">提示</p><h2>${t[2]}</h2><div class="res">${t[3]}</div><div class="row" style="justify-content:space-between;margin-top:8px"><button class="ghost" id="tip-off">之後不要再提示</button><button class="primary" id="m-ok">知道了</button></div>`;
+    $('#m-ok').onclick=closeModal;$('#tip-off').onclick=()=>{S.noTips=true;closeModal();};$('#m-ok').focus();});
+  return true;
 }
 
 /* ================= 時間推進 ================= */
@@ -989,9 +1047,9 @@ function passTime(quiet){
   if(gt('odin',2)) gainXp(3);
   if(S.infamy>=40) favor('loki',1);
   // 秋收節：族人吃得飽、過得好，弗雷亞會看在眼裡
-  if(S.phase>=2&&S.turn%4===2&&S.loyalty>=70&&S.food>=S.men) favor('freyja',4);
+  if(S.phase>=2&&S.turn%4===2&&S.loyalty>=70&&S.food>=S.men) favor('freyja',2);
   if(gt('freyja',3)&&!S.flags.fq){S.flags.fq=1;pushLater(eventModal(FQ_A));return;}
-  if(S.flags.fq===2&&S.turn-S.flags.fqT>=4){pushLater(eventModal(FQ_B));S.flags.fq=2.5;return;}
+  if(S.flags.fq===2&&(S.flags.oddClue||0)>=3){pushLater(eventModal(FQ_B));S.flags.fq=2.5;return;}
   if(gt('loki',3)&&Math.random()<.08){pushLater(eventModal(Object.assign({kind:'ᛚ 洛基'},pick(LOKI_PRANKS))));return;}
   if(S.phase===4&&ch4Tick()) return;
   if(questTick()) return;
@@ -1044,6 +1102,7 @@ function habitW(f,d){
     case 'edric': if(d.hit)set('B',.75);break;
     case 'chain': if(d.last==='Q')set('Q',.65);break;
     case 'cycle': if(d.last)set({B:'H',H:'Q',Q:'B'}[d.last],.75);break;
+    case 'king': {const pc=d.pc||{};const tot=(pc.H||0)+(pc.Q||0)+(pc.B||0);if(tot>=2){const m=['H','Q','B'].sort((a,b)=>(pc[b]||0)-(pc[a]||0))[0];set({H:'Q',Q:'B',B:'H'}[m],.6);}break;}
   }
   return w;
 }
@@ -1085,7 +1144,7 @@ function duel(key,o){
     d.hp=d.max;
     let acc=.4+eff('wit')*.06+(has('mindread')?(mastered('mindread')?.3:.2):0)+(gt('odin',1)?.05:0);
     if(base.king) acc-=has('mindread')?.15:.3;
-    acc=clamp(acc,.2,.9);
+    acc=clamp(acc,.2,base.king?.5:.9);
     const flinch=clamp(.25+eff('pre')*.05+(eff('pre')>=6?.1:0)+(has('warcry')?.15:0),.25,.9);
     const knows=S.known[key]||eff('wit')>=12||gt('odin',3);
     const choose=()=>{
@@ -1172,7 +1231,9 @@ function duel(key,o){
         else if(qd('thorfinn')&&hasC('thorfinn')&&!d.thorfUsed&&!o.hunt){d.thorfUsed=true;toP=Math.min(toP,S.hp-1);t+='托爾芬撲上來，替你擋下了這一擊！';}
       }
       if(d.stun){toP=0;if(pm==='H'||pm==='Q'){toF=Math.max(toF,Math.round(P));t='對方還沒回過神，你結結實實地砍中了他！';}else if(pm==='B')t='對方還沒回過神，你卻只是舉著盾看他。';else t='對方還沒回過神！'+t;}
-      d.hp-=toF;S.hp-=toP;if(toF||toP)sfx(toF>=toP?'hit':'clash');
+      d.hp-=toF;S.hp-=toP;
+      if('HQB'.includes(pm)){d.pc=d.pc||{};d.pc[pm]=(d.pc[pm]||0)+1;}
+      if(base.king&&!d.wind&&d.hp>0&&d.hp<d.max*.35){d.wind=1;const h=Math.round(d.max*.15);d.hp+=h;t+=`老王退了一步，深深吸了一口氣。他年輕時的樣子，好像又回來了。（對方 +${h}）`;}if(toF||toP)sfx(toF>=toP?'hit':'clash');
       d.hit=toF>0;d.last=em;d.lastP=pm;d.qs=em==='Q'?d.qs+1:0;
       d.log.unshift(`${t}${toF?` <span style="color:var(--ember)">對方 -${toF}</span>`:''}${toP?` <span style="color:var(--blood)">你 -${toP}</span>`:''}`);
       const fled=o.retreatAt&&d.hp>0&&d.hp<=d.max*o.retreatAt;
@@ -1595,7 +1656,7 @@ function verdicts(){
   // 宿敵與對手
   const rf=S.rival.fate||'';
   if(rf.includes('斧下')) V.push(['赫羅爾夫的老母親',`「${P}殺了我兒子。」她沒有哭，「可是，是我兒子先笑${P}的。」`]);
-  else if(rf.includes('效忠')) V.push(['赫羅爾夫',`「我說${P}一輩子只配划槳。」他灌了一口酒，「這句話，我收回了一輩子。」`]);
+  else if(rf.includes('效忠')) V.push(['赫羅爾夫',`「我說${P}一輩子${ORI().q}。」他灌了一口酒，「這句話，我收回了一輩子。」`]);
   else if(S.phase===1) V.push(['赫羅爾夫','「我早就說過了。」赫羅爾夫說完這句話，卻一整晚沒再開口。']);
   else if(won) V.push(['老王哈夫丹',S.flags.abdicated?`「把王冠交給${P}，是我這輩子做過最聰明的事。」`:`「挪威需要一個年輕的王。我只是沒想到，是這麼凶的一個。」`]);
   else if(S.phase>=4&&!won) V.push(['一位雅爾',`「${P}當過王。這一點，誰也拿不走。」`]);
@@ -1660,7 +1721,7 @@ const AGING={
   35:{text:'你在水桶的倒影裡，看見第一根白頭髮。\n\n你把它拔掉，假裝沒看見。'},
   40:{lv:1,st:{str:-1},text:'早上起床時，膝蓋會響了。年輕的戰士在練武場上跑，你站在旁邊喘氣。\n\n「我十九歲那年，可以划一整天的船。」你對自己說。沒有人在聽。',fx:'力量 -1，每季回復的生命 -1'},
   45:{lv:2,st:{str:-1,con:-1},text:'你劈柴劈到一半，得停下來揉肩膀。\n\n斧頭還是那把斧頭，只是好像一年比一年重。',fx:'力量 -1，體魄 -1'},
-  50:{lv:3,st:{str:-1,con:-1,wit:1},text:'你開始記不清年輕時那些人的臉了。赫羅爾夫當年到底說了什麼？……「只配划槳」。對，是這句。\n\n不過，現在誰在說謊，你一眼就看得出來。活得夠久，什麼把戲都見過了。',fx:'力量 -1，體魄 -1，生命上限 -10，智謀 +1'},
+  50:{lv:3,st:{str:-1,con:-1,wit:1},text:'你開始記不清年輕時那些人的臉了。赫羅爾夫當年到底說了什麼？……「{Q}」。對，是這句。\n\n不過，現在誰在說謊，你一眼就看得出來。活得夠久，什麼把戲都見過了。',fx:'力量 -1，體魄 -1，生命上限 -10，智謀 +1'},
   55:{lv:4,st:{str:-1,con:-1,pre:1},text:'孩子們圍著你聽故事。你講到一半，才發現這一段已經講過了。他們沒有說破，只是又笑了一次。\n\n族人開始叫你「老人家」。他們說，這是尊敬。',fx:'力量 -1，體魄 -1，威望 +1'},
   58:{text:'你夜裡常常醒來，聽著自己的心跳。\n\n維京人不該死在稻草床上。死在床上的人，女武神不會來接。',fx:'60 歲以後，每一年都可能是最後一年'},
 };
@@ -1671,7 +1732,7 @@ function agingModal(a){
   S.hp=Math.min(S.hp,maxHp());
   if(a>=55) unlock('grey');
   log(`${a} 歲了。`);
-  return el=>resultView(el,`${a} 歲`,`${g.text}${g.fx?`\n\n<span class="bad">${g.fx}</span>`:''}`,'年歲');
+  return el=>resultView(el,`${a} 歲`,`${fillQ(g.text)}${g.fx?`\n\n<span class="bad">${g.fx}</span>`:''}`,'年歲');
 }
 function strawDeathModal(el){
   Q.length=0;S.dead=true;S.lastCause='在睡夢中老去';
@@ -1739,7 +1800,7 @@ function eventModal(ev){
   };
 }
 const EV_SVEN={kind:'宿敵',title:'碼頭上的老面孔',
-  text:()=>`你在碼頭卸貨時，有人一腳踢翻了你的木箱。\n\n是赫羅爾夫，故鄉雅爾的兒子。他也離開了峽灣，身後站著一群紅帆船上的打手。\n\n「看看是誰？那個說要當國王的${esc(S.name)}。」他笑得很大聲，「你這輩子只配划槳。」`,
+  text:()=>`你在碼頭卸貨時，有人一腳踢翻了你的木箱。\n\n是赫羅爾夫，故鄉雅爾的兒子。他也離開了峽灣，身後站著一群紅帆船上的打手。\n\n「看看是誰？那個說要當國王的${esc(S.name)}。」他笑得很大聲，「你這輩子${ORI().q}。」`,
   ch:[
     {t:'當眾跟他打一場',note:'比武，點到為止',fx:()=>{duel('sven1',{lethal:false,xp:14,intro:'圍觀的人吹起了口哨。',onEnd:w=>{
       if(w){addFame(10);S.rival.fate='被你當眾擊倒過，懷恨在心';log('在碼頭當眾擊倒了赫羅爾夫。');return '人群爆出歡呼。赫羅爾夫擦掉嘴角的血：「你會後悔的。」\n名聲 +10';}
@@ -2031,19 +2092,32 @@ function blotModal(){
 }
 // —— 弗蕾亞的眼淚：神選之後的故事 ——
 const FQ_A={kind:'ᚠ 弗蕾亞',scene:'sc_tears',title:'金色的眼淚',text:'你夢見一個女人坐在海邊哭。她的眼淚落在沙上，變成了一顆一顆的金子。\n\n是弗蕾亞。「我的丈夫奧德出門遠行，再也沒有回來，」她說，「我找遍了九個世界。你的船走過那麼多海岸，有沒有見過他？」',
-  ch:[{t:'「我替你找他。」',fx:()=>{S.flags.fq=2;S.flags.fqT=S.turn;return '她看著你，很久很久，然後點了點頭。\n\n醒來時，你的枕邊有一顆金色的眼淚。\n<span class="good">（一年後，你也許會找到線索）</span>';}},
+  ch:[{t:'「我替你找他。」',fx:()=>{S.flags.fq=2;S.flags.fqT=S.turn;return '她看著你，很久很久，然後點了點頭。\n\n醒來時，你的枕邊有一顆金色的眼淚。\n<span class="good">（行動裡多了「尋找奧德」：要找到三條線索）</span>';}},
       {t:'撿起地上的金子',fx:()=>{S.flags.fq=-1;S.silver+=40;favor('freyja',-15);favor('loki',6);return '你把金子一顆一顆撿進袋子裡。她不哭了，只是看著你。然後夢就醒了。\n銀幣 +40，弗蕾亞的神恩 -15';}},
       {t:'「女神，忘了他吧。」',fx:()=>{S.flags.fq=-1;favor('freyja',-5);return '「你不懂。」她轉過身，消失在霧裡。';}}]};
 const FQ_B={kind:'ᚠ 弗蕾亞',art:'freyja',title:'奧德的斗篷',text:'在一個連名字都沒有的海岸，一個老漁夫交給你一件褪色的斗篷，上面繡著奧德的名字。\n\n「他往世界的盡頭走了，」老漁夫說，「臨走前他說：別讓她等。」',
   ch:[{t:'把實話帶回去，留在她身邊',fx:()=>{S.flags.fq=3;S.flags.freyWed=1;unlock('freyja_wed');const gb=charges()<maxBless();if(gb)S.blessings++;addLoyalty(10);addFame(15);log('成為了弗蕾亞的伴侶。');
         pushLater(eventModal({kind:'ᚠ 弗蕾亞',scene:'sc_tears',title:'那你呢？',text:'你把斗篷交給她。她把臉埋進斗篷裡，哭了很久很久。極光在海面上慢慢流動，兩隻大貓安靜地趴在她腳邊。\n\n然後她抬起頭。金色的眼淚還掛在睫毛上，在月光下一閃一閃。\n\n「他不會回來了。」她輕聲說，握住你的手，「……那你呢？你會走嗎？」\n\n她靠了過來。你聞到麥田和海風的味道。',
           ch:[{t:'吻她',fx:()=>'你低下頭，吻了她。\n\n她的嘴唇是溫的，帶著眼淚的鹹味。最後一滴金色的眼淚從她的臉頰滑下來，悄悄落進了海裡。\n\n「我不走。」你說。'},
-              {t:'擦掉她的眼淚',fx:()=>'你伸手擦掉她臉上的眼淚。指尖沾上的淚，變成了一點細細的金粉。\n\n她笑了，踮起腳，在你的唇上輕輕吻了一下：「這是第一次，有人替我擦眼淚。」'},
+              {t:'擦掉她的眼淚',fx:()=>{pushModal(el=>resultView(el,'那你呢？','你伸手擦掉她臉上的眼淚。指尖沾上的淚，變成了一點細細的金粉。\n\n她愣了一下，然後笑了。她踮起腳，雙手輕輕捧住你的臉，在你的唇上吻了一下。\n\n「這是第一次，」她小聲說，「有人替我擦眼淚。」','ᚠ 弗蕾亞',(k=>ART_HAVE.has(k)?k:'sc_tears')(heroSex()==='f'?'sc_kiss_f':'sc_kiss_m')));return null;}},
               {t:'把她抱進懷裡',fx:()=>'你把她抱進懷裡。女神在你的懷裡發抖，像一個在雪地裡走了很久的人。\n\n過了很久，她抬起頭，在你的唇上留下一個帶著淚的吻：「謝謝你，回來告訴我。」'}]}));
         pushLater(el=>resultView(el,'女神的伴侶',`在人間，你仍是${esc(S.tribe||'你的部落')}的首領；在弗爾克萬格，你是女神的伴侶。\n<span class="good">${gb?'祈福 +1，':''}忠誠 +10，名聲 +15\n解鎖畫框「金淚畫框」</span>`,'ᚠ 弗蕾亞','freyja'));
         return null;}},
       {t:'告訴她，奧德已經死了',fx:()=>{S.flags.fq=-1;favor('loki',15);return '這不是實話，但比實話容易。她哭了一整夜，第二天，就不再找了。\n\n她再也沒有來過你的夢裡。\n洛基的神恩 +15';}},
       {t:'帶著斗篷，繼續往世界的盡頭找',fx:()=>{S.flags.fq=-1;favor('tyr',10);gainXp(30);S.st.wit++;return '你答應過要找到他，就要找到他。你在海上漂了一整年，看見了沒有人看過的東西，但沒有找到奧德。\n\n回來時，弗蕾亞在港口等你：「謝謝你。夠了。」\n經驗 +30，智謀 +1，提爾的神恩 +10';}}]};
+// 尋找奧德：三條線索
+const ODD_CLUES=[
+  {t:'港口的老水手',go:'南邊的港口打聽消息',ok:'一個瞎眼的老水手說，很多年前，有個金頭髮的男人搭過他的船，一路往北，去了冰封的海。他留下了一枚刻著貓的銀扣子。',no:'港口裡沒有人聽過這個名字。'},
+  {t:'北方的冰海',go:'北方的冰海',ok:'你在冰海邊的一座石堆裡，找到一封刻在木片上的信：「我走得太遠了，遠到回不去了。」字跡已經被海水泡得模糊。',no:'冰海上什麼都沒有，只有風。'},
+  {t:'世界盡頭的海岸',go:'世界的盡頭',ok:'在一個連名字都沒有的海岸上，一個老漁夫看著你脖子上的金色眼淚，說：「你在找他，對吧？我等你很久了。」',no:'海岸上的漁村空無一人，只有一間小屋的門開著，像是有人剛走。'},
+];
+function searchOdd(){
+  const n=S.flags.oddClue||0,c=ODD_CLUES[n],p=.35+eff('wit')*.05+(bl('dock')>=2?.1:0);
+  S.silver-=20;
+  pushModal(eventModal({kind:'ᚠ 尋找奧德',title:c.t,text:`你帶著那顆金色的眼淚出海，去${c.go}。`,
+    ch:[{t:'去找',note:()=>rate(p)+'（看智謀）',fx:()=>{if(chk(p)){S.flags.oddClue=n+1;favor('freyja',3);return `${c.ok}\\n<span class="good">找到第 ${n+1}/3 條線索</span>`;}return `${c.no}\\n（下次再試）`;}}]}));
+  passTime();
+}
 const LOKI_PRANKS=[
   {title:'洛基的玩笑',text:'早上醒來，你錢袋裡的銀幣全變成了鹹魚。中午，鹹魚又變回了銀幣，只是少了一些。',ch:[{t:'……',fx:()=>{const l=Math.floor(S.silver*.1);S.silver-=l;S.food+=5;return `銀幣 -${l}，糧食 +5`;}}]},
   {title:'洛基的玩笑',text:'你的斧頭不見了，原地放著一根掃帚。找了一整天，斧頭在長屋的屋頂上。',ch:[{t:'爬上去拿',fx:()=>{gainXp(8);addLoyalty(3);return '族人笑了你一整天，但也覺得首領沒那麼可怕了。\n經驗 +8，忠誠 +3';}}]},
@@ -2194,13 +2268,13 @@ function holmgangEvent(){
 }
 const MYTH_EVENTS=[
 // —— 弗蕾亞的事蹟 ——
-  {id:'wedding',phase:[2,3],kind:'弗蕾亞',cond:()=>cdOk('wedding',8)&&S.men>=6,cd:1,title:'長屋裡的婚禮',text:'兩個族人要成親了。新郎是你船上的槳手，新娘是織布女的女兒。他們想請首領來主持。',
-    ch:[{t:'送上嫁妝，親自主持（15 銀幣）',ok:()=>S.silver>=15,fx:()=>{S.silver-=15;addLoyalty(5);favor('freyja',8);return '你把一對銀臂環放在新人手上，舉起角杯，祝他們多子多孫。那天晚上，整個部落都喝醉了。\n忠誠 +5，弗蕾亞的神恩 +8';}},
+  {id:'wedding',phase:[2,3],kind:'弗蕾亞',cond:()=>cdOk('wedding',12)&&S.men>=6,cd:1,title:'長屋裡的婚禮',text:'兩個族人要成親了。新郎是你船上的槳手，新娘是織布女的女兒。他們想請首領來主持。',
+    ch:[{t:'送上嫁妝，親自主持（15 銀幣）',ok:()=>S.silver>=15,fx:()=>{S.silver-=15;addLoyalty(5);favor('freyja',5);return '你把一對銀臂環放在新人手上，舉起角杯，祝他們多子多孫。那天晚上，整個部落都喝醉了。\n忠誠 +5，弗蕾亞的神恩 +5';}},
         {t:'過去喝一杯就走',fx:()=>{addLoyalty(1);return '你喝了一杯酒，說了兩句祝福，就回去看地圖了。\n忠誠 +1';}},
         {t:'「打完這一仗再說。」',fx:()=>{loseLoyalty(3);favor('freyja',-4);return '新娘的母親看你的眼神，像在看一塊石頭。\n忠誠 -3';}}]},
-  {id:'birth',phase:[2,3],kind:'弗蕾亞',cond:()=>cdOk('birth',8),cd:1,title:'難產',text:'半夜，有人來敲你的門。鐵匠的妻子難產，已經一天一夜了，產婆說她撐不過今晚。',
-    ch:[{t:'叫烏娜過去',show:()=>hasC('una'),fx:()=>{favor('freyja',10);bond('una',5);addLoyalty(4);return '烏娜捲起袖子，把所有人都趕出去。天亮時，屋裡傳出了嬰兒的哭聲。\n母子平安。忠誠 +4，弗蕾亞的神恩 +10';}},
-        {t:'到神殿為她向弗蕾亞祈禱（8 糧食）',note:()=>rate(.6),ok:()=>S.food>=8,fx:()=>{S.food-=8;if(chk(.6)){favor('freyja',10);addLoyalty(3);return '你在神像前跪了一整夜。天亮時，有人跑來告訴你：生了，是個女孩，母女平安。\n忠誠 +3，弗蕾亞的神恩 +10';}favor('freyja',4);loseLoyalty(2);return '天亮時，鐵匠一個人坐在門口，什麼都沒說。\n孩子活下來了，母親沒有。弗蕾亞的神恩 +4，忠誠 -2';}},
+  {id:'birth',phase:[2,3],kind:'弗蕾亞',cond:()=>cdOk('birth',12),cd:1,title:'難產',text:'半夜，有人來敲你的門。鐵匠的妻子難產，已經一天一夜了，產婆說她撐不過今晚。',
+    ch:[{t:'叫烏娜過去',show:()=>hasC('una'),fx:()=>{favor('freyja',8);bond('una',5);addLoyalty(4);return '烏娜捲起袖子，把所有人都趕出去。天亮時，屋裡傳出了嬰兒的哭聲。\n母子平安。忠誠 +4，弗蕾亞的神恩 +8';}},
+        {t:'到神殿為她向弗蕾亞祈禱（8 糧食）',note:()=>rate(.6),ok:()=>S.food>=8,fx:()=>{S.food-=8;if(chk(.6)){favor('freyja',6);addLoyalty(3);return '你在神像前跪了一整夜。天亮時，有人跑來告訴你：生了，是個女孩，母女平安。\n忠誠 +3，弗蕾亞的神恩 +6';}favor('freyja',4);loseLoyalty(2);return '天亮時，鐵匠一個人坐在門口，什麼都沒說。\n孩子活下來了，母親沒有。弗蕾亞的神恩 +4，忠誠 -2';}},
         {t:'「這是女人的事。」',fx:()=>{favor('freyja',-3);return '你翻過身繼續睡。隔天早上，你沒去問結果。';}}]},
   {id:'brisingamen',once:1,phase:[2,3],kind:'神話',cond:()=>((S.favor||{}).freyja||0)>=40,title:'布里希嘉曼的碎片',text:'一個商人神秘兮兮地打開布包：一小段金項鍊，亮得不像人間的東西。「四個侏儒打的，」他壓低聲音，「女神的項鍊，被洛基偷過一次，斷了一截。」',
     ch:[{t:'買下來，獻給弗蕾亞（40 銀幣）',ok:()=>S.silver>=40,fx:()=>{S.silver-=40;favor('freyja',15);return '你把金鍊放在祭壇上。那天晚上，一陣暖風吹過整個部落，連狗都安靜了下來。\n弗蕾亞的神恩 +15';}},
@@ -2270,13 +2344,14 @@ function actions(){
     const cap=housing(),cost=recruitCost();
     A.push({id:'recruit',name:'招募戰士',desc:`每人 ${cost} 銀幣。戰士 ${S.men}/${cap}（統御 ${command()}）`,gain:`每次最多 ${2+eff('pre')} 人`,dis:S.men>=cap?'住房滿了，蓋長屋或擴建部落':S.silver<cost?`需要 ${cost} 銀幣`:null,run:recruitModal});
     A.push({id:'build',name:'建設部落',desc:'打開部落頁：蓋建築、升級、擴建、調整分贓。',gain:'選定之前不消耗時間',run:()=>{S.tab='tribe';render();}});
+    if(S.flags.fq===2) A.push({id:'odd',key:true,name:'尋找奧德',desc:`帶著弗蕾亞的金色眼淚出海，找她的丈夫。（線索 ${S.flags.oddClue||0}/3）`,gain:'花 20 銀幣、一季',dis:!bl('dock')?'要先蓋好碼頭':S.silver<20?'需要 20 銀幣':null,run:searchOdd});
     if(bl('altar')>0&&!crossed()) A.push({id:'blot',name:'布洛特祭',desc:'在祭壇前向一位神獻祭。',gain:'選定之前不消耗時間',run:blotModal});
     if(winterNow()) A.push({id:'longhouse',key:S.flags.lhT!==S.turn,name:'長屋之夜',desc:'冬天船出不去。喝酒、摔角、擲斧、講故事，或下一盤國王棋。',gain:'會花掉一季',dis:S.flags.lhT===S.turn?'今晚已經玩過了':null,run:longhouseModal});
     A.push({id:'fame',name:'動用名聲',desc:`名聲 ${S.fame}・${FAME_TIER[fameTier()].name}。號召戰士、請詩人傳唱、擺排場。`,gain:'選定之前不消耗時間',dis:S.fame<20?'名聲至少要 20':null,run:fameModal});
     if(p>=4&&!S.flags.monument) A.push({id:'monument',name:'刻一塊大符文石',desc:'像「藍牙」在耶靈做的那樣，把你的一生刻在一塊巨大的石頭上。',gain:'名聲 +40，留在薩迦裡',dis:S.silver<250?'需要 250 銀幣':null,run:()=>{S.silver-=250;S.flags.monument=1;addFame(40);unlock('monument');codex('h_jelling');log('立起了一塊大符文石。');note('大符文石','石匠刻了整整一個夏天。完成的那天，全挪威的人都來看了。\n\n石頭上刻著：「'+esc(S.name)+'王立此石，紀念自己。他統一了挪威，渡過了大海。」\n<span class="good">名聲 +40</span>','王的歲月');passTime();}});
     A.push({id:'train',name:'操練',desc:'練兵、個人修練，或訓練勇士。',gain:'選定之前不消耗時間',run:trainModal});
     A.push({id:'feast',name:'設宴',desc:'花 15 銀幣、6 糧食，讓族人喝個痛快。',gain:S.turn-(S.flags.feastT??-99)<4?'剛辦過宴會，效果有限':`忠誠 +${has('harvest')?16:8}，勇士好感 +3`,dis:S.silver<15||S.food<6?'需要 15 銀幣、6 糧食':null,
-      run:()=>{S.silver-=15;S.food-=6;const fresh=S.turn-(S.flags.feastT??-99)>=4;if(fresh)favor('freyja',6);const g=(fresh?8:3)*(has('harvest')?2:1)*(osOwns('rouen')?2:1);addLoyalty(g);if(fresh)bondAll(3);addFame(2);S.flags.feastT=S.turn;log('在長屋設宴，酒灌到天亮。');toast(`忠誠 +${g}`);passTime();}});
+      run:()=>{S.silver-=15;S.food-=6;const fresh=S.turn-(S.flags.feastT??-99)>=4;if(fresh)favor('freyja',3);const g=(fresh?8:3)*(has('harvest')?2:1)*(osOwns('rouen')?2:1);addLoyalty(g);if(fresh)bondAll(3);addFame(2);S.flags.feastT=S.turn;log('在長屋設宴，酒灌到天亮。');toast(`忠誠 +${g}`);passTime();}});
   }
   const hm=(has('huntsman')?1.5:1)*(ownsR('forest')?1.5:1);
   A.push({id:'hunt',name:'深入獵捕',desc:'進深山追獵大型野獸。生死單挑。',gain:`糧食約 +${Math.round((6+(p>1?Math.floor(S.men/3):0))*hm)}，毛皮能換銀幣`,run:()=>{
@@ -2518,7 +2593,7 @@ function lordChoice(r){
   ]});
 }
 function svenFate(r){
-  return eventModal({kind:'宿敵',title:'赫羅爾夫的下場',text:'赫羅爾夫跪在你面前，滿臉是血。他抬起頭，還在笑：「動手啊，划槳的。」',ch:[
+  return eventModal({kind:'宿敵',title:'赫羅爾夫的下場',text:'赫羅爾夫跪在你面前，滿臉是血。他抬起頭，還在笑：「動手啊，'+ORI().l+'。」',ch:[
     {t:'了結他',fx:()=>{S.rival.fate='死在你的斧下';addFame(10);unlock('kill_sven');return '你結束了這段恩怨。\n名聲 +10\n'+takeSeat(r,'斬殺宿敵');}},
     {t:'饒他一命，讓他效忠',note:'他會成為勇士，但不一定永遠聽話',fx:()=>{S.mercy++;S.rival.fate='跪下效忠，成了你的勇士';unlock('spare_sven');
       return '赫羅爾夫愣了很久，然後把斧頭橫放在你腳邊。\n'+addChamp('sven',35)+'\n'+takeSeat(r,'收服宿敵');}},
@@ -2557,7 +2632,7 @@ function coronation(el){
   S.won=true;Q.length=0;
   const [eid,title,line]=ending();
   log('在維斯特福爾加冕，成為挪威之王。');
-  unlock('first_king');unlock(eid);
+  unlock('first_king');unlock(eid);unlock(ORI().ach);
   if(S.diff==='hero') unlock('hero_king');
   if(!S.stats.revived) unlock('deathless');
   if(S.stats.infMax!==undefined&&S.stats.infMax<=20) unlock('clean');
@@ -2565,7 +2640,7 @@ function coronation(el){
   if(Object.keys(m.ends).length>=3) unlock('three_crowns');
   endScreen(el,`${sceneImg('sc_coronation')||portrait({stage:3,size:'small'})}
   <p class="eyebrow">終章 · ${title}</p><h2>挪威之王 ${esc(S.name)}</h2>
-  <p class="story">${age()} 歲那年，你在維斯特福爾的王廳裡戴上了王冠。\n\n${year()} 年前，你是一個帶著護身符、只有一把斧頭的年輕人。赫羅爾夫說你一輩子只配划槳。\n\n${line}</p>
+  <p class="story">${age()} 歲那年，你在維斯特福爾的王廳裡戴上了王冠。\n\n${year()} 年前，你是一個帶著護身符、只有一把斧頭的年輕人。赫羅爾夫說你一輩子${ORI().q}。\n\n${line}\n\n${ORI().crown}</p>
   ${patronLine()}
   <p class="quote">「母親，你看見了嗎？」</p>
   <p class="story" style="color:var(--muted);font-size:14px">海的另一邊，還有英格蘭、愛爾蘭和法蘭克。南方的丹麥人，也正看著你的王冠。</p>
@@ -3032,7 +3107,7 @@ function negotiate(r){
 /* ---------- 第四章的事件 ---------- */
 const FLYT=[
   ['「你的船慢得像懷孕的母羊。等你划到英格蘭，修道院都蓋好第二座了。」','「至少我的船到得了英格蘭。你的船上次出海，是被浪打回自家門口的吧？」','「你娘才是母羊！」','「……船慢一點比較穩。」'],
-  ['「聽說你年輕時只配划槳。現在戴了王冠，還是一雙划槳的手。」','「對，這雙手划過北海，也把王冠拿了下來。你的手呢？只拿過角杯。」','「再說一次，我就砍了你！」','「划槳也是一門手藝……」'],
+  'ORIGIN',
   ['「你的戰士喝醉了比清醒時能打，所以他們天天喝醉。」','「那你最好祈禱，別遇上我們清醒的時候。」','「你的戰士連醉都醉不了，酒全被你一個人喝光了！」','「我們……其實很少喝。」'],
   ['「你的詩人把你寫成英雄。大家都知道，詩人是用銀子買的。」','「那你的詩人一定很便宜，因為你的故事連一枚銅板都不值。」','「閉嘴，你這個沒人要的東西！」','「布拉吉是自願的。」'],
   ['「奧丁只有一隻眼睛，所以祂才會選上你。另一隻眼睛要是還在，祂才不會看你。」','「奧丁拿一隻眼睛換了智慧。看看你，兩隻眼睛都拿去換酒了。」','「你褻瀆神明！」','「奧丁還有兩隻渡鴉，看得很清楚的……」'],
@@ -3041,7 +3116,7 @@ const FLYT=[
 function flyting(){
   codex('h_flyting');
   pushModal(el=>{
-    const rounds=FLYT.slice().sort(()=>Math.random()-.5).slice(0,3);let i=0,score=0;const help=hasC('bragi')||eff('wit')>=9;const lines=[];
+    const rounds=FLYT.map(r=>r==='ORIGIN'?[ORI().fly[0],ORI().fly[1],'「再說一次，我就砍了你！」','「那……那也是一門手藝……」']:r).slice().sort(()=>Math.random()-.5).slice(0,3);let i=0,score=0;const help=hasC('bragi')||eff('wit')>=9;const lines=[];
     const draw=()=>{
       if(i>=3){const win=score>=2;if(win){addFame(score===3?15:10);favor('odin',score===3?10:6);if(score===3)unlock('flyting');}else{addFame(-5);}
         el.innerHTML=`<p class="eyebrow">詩鬥</p><h2>${win?'你贏了':'你輸了'}</h2><div class="res">${lines.join('\n')}\n\n${win?`<span class="good">滿堂的人都在拍桌子。「蛇舌」奧德漲紅了臉，灌了一大口酒，再也沒開口。\n名聲 +${score===3?15:10}，奧丁的神恩 +${score===3?10:6}</span>`:'<span class="bad">笑聲是衝著你來的。\n名聲 -5</span>'}</div><button class="primary" id="m-ok">繼續</button>`;
@@ -3079,6 +3154,27 @@ const CH4_EVENTS=[
 ];
 
 /* ---------- 每季的第四章推進 ---------- */
+// 諸神黃昏的伏筆：不解釋，一閃而過
+const RAG_HINTS={
+  odin:['你早上醒來時，發現奧丁的兩隻渡鴉停在窗外。牠們一整個早上，一聲都沒叫。','奧丁坐在你的火堆旁，盯著火看了很久。「最近，你有做什麼夢嗎？」他沒等你回答，就走了。','老祭司說，聖泉的水位，三天裡低了一個手掌。'],
+  thor:['索爾抬頭看了天空很久。「嗯？……今天的天色怪怪的。」','打雷的晚上，雷聲是從北方傳來的。北方從來不打雷。','索爾把錘子握得很緊：「沒事。只是……我有點不好的預感。」'],
+  tyr:['提爾站在法石前，用他僅剩的那隻手摸著石頭上的裂縫，什麼也沒說。','有個牧羊人說，他聽見山裡有什麼東西在拉扯鐵鍊的聲音。','提爾低聲說：「誓言，總有一天要兌現的。」你問他是什麼誓言，他沒有回答。'],
+  freyja:['弗蕾亞的兩隻貓在你門口繞了一整夜，怎麼趕都不走。','今年的花開得特別早，也謝得特別早。','弗蕾亞握著你的手，握得有點太緊了。「沒什麼，」她說，「只是想握著。」'],
+  loki:['洛基笑著說：「你有沒有覺得，最近太陽好像比較累？」然後就不見了。','有人在你的酒杯底下壓了一張紙，上面畫著一頭狼，正在追太陽。','洛基難得沒有笑。「朋友，」他說，「你有沒有想過，世界會怎麼結束？」'],
+  none:['中午的時候，林子裡有狼在嚎。','夕陽紅得像血，很久都沒有沉下去。','海邊的老人說，今年的海鳥，都往南飛了。'],
+};
+function ragHintTick(){
+  if(S.flags.ragna||crossed()) return false;
+  if(!Object.keys(GODS).some(g=>gt(g,2))) return false;
+  const n=S.flags.rh||0;
+  const due=n===0?P4()>=3:n===1?!!S.flags.omenShown:n===2?!!S.flags.envoy:false;
+  if(!due||S.turn-(S.flags.rhT??-99)<2) return false;
+  S.flags.rh=n+1;S.flags.rhT=S.turn;
+  const g=Object.keys(GODS).filter(g=>gt(g,2)).sort((a,b)=>(S.favor[b]||0)-(S.favor[a]||0))[0]||'none';
+  const t=RAG_HINTS[g][n];
+  pushLater(el=>{el.innerHTML=`<p class="story" style="margin-top:6px">${t}</p><button class="primary" id="m-ok">繼續</button>`;$('#m-ok').onclick=closeModal;$('#m-ok').focus();});
+  return true;
+}
 function ch4Tick(){
   const t=P4();
   OS.forEach(o=>{if(!S.os[o.id])S.os[o.id]={st:'free',cd:0,def:o.def};});
@@ -3112,6 +3208,7 @@ function ch4Tick(){
     S.flags.omen=1;S.flags.omenShown=1;S.flags.omenT=S.flags.omenT??S.turn;
     pushLater(el=>resultView(el,'預兆',omenText(),'ᛞ 預兆'));return true;
   }
+  if(ragHintTick()) return true;
   if(S.flags.ragna&&!S.flags.ragDone){
     const left=S.flags.fimbulT+FIMBUL-S.turn;
     if(left<=0){ragnarok();return true;}
@@ -3346,7 +3443,7 @@ const QUESTS={
     b:'海岬上的墳',bt:'海岬上的風很大。托爾芬在一塊小小的石堆前站了很久，然後回頭看你：「你可以替我跟他說幾句話嗎？我……說不出口。」',
     go:(done)=>{pushModal(eventModal({kind:'勇士',title:'對一座墳說話',text:'你站在石堆前。托爾芬在你身後等著。',ch:[{t:'「你弟弟救過我很多次。」',fx:()=>{done();return null;}},{t:'「他現在是我最信任的人。」',fx:()=>{done();return null;}},{t:'什麼都不說，只是把手放在石頭上',fx:()=>{done();return null;}}]}));},goNote:'',
     win:'托爾芬第一次在你面前哭了。哭完，他擦了擦臉，對你說了很長的一段話，長到你都快記不住了。',reward:'守護者：每場生死單挑，托爾芬會替你擋下一次致命傷'},
-  sven:{a:'父親的船',at:'赫羅爾夫喝了一口酒，盯著火堆：「我父親死後，故鄉的新雅爾把他的紅帆船拿走了。那艘船，是我小時候學划槳的地方。」\n\n他咧嘴一笑：「你也在那艘船上划過槳，記得嗎？」',
+  sven:{a:'父親的船',at:'赫羅爾夫喝了一口酒，盯著火堆：「我父親死後，故鄉的新雅爾把他的紅帆船拿走了。那艘船，是我小時候學划槳的地方。」\n\n他咧嘴一笑：「{QUEST}」',
     b:'紅帆船',bt:'故鄉的峽灣還是那麼冷。新雅爾的人守在碼頭上，那艘紅帆船就停在他們身後。',
     go:(done)=>{battle({title:'奪回紅帆船',def:40*wf()*D().foe,cancel:false,intro:'碼頭上的守衛舉起了矛。',cause:'死在故鄉的碼頭上',onEnd:w=>w?done():'你們沒能靠近那艘船。'});},goNote:'部隊戰',
     win:'赫羅爾夫站在紅帆船的船頭，像個孩子一樣大笑：「我們以前在這上面打過架，你還記得嗎？」\n\n你記得。那天你輸了。',reward:'紅帆：突襲戰利品 +15%，他不再讓你的惡名增加'},
@@ -3394,7 +3491,7 @@ function questTick(){
 const isJarlId=id=>!!(S.jarls&&Object.values(S.jarls).includes(id));
 function questA(id){
   const q=QUESTS[id],n=CHAMPS[id].name;
-  return eventModal({kind:`${n}的心事`,art:id,title:q.a,text:q.at,ch:[
+  return eventModal({kind:`${n}的心事`,art:id,title:q.a,text:q.at.replace('{QUEST}',ORI().quest),ch:[
     {t:'「好，我們一起去。」',fx:()=>{S.quest[id]={st:'go',t:S.turn+2};bond(id,5);return `${n}點點頭。\n<span class="good">兩季後出發（${n}好感 +5）</span>`;}},
     {t:'「現在不行。」',fx:()=>{S.quest[id]={st:'later',t:S.turn};bond(id,-5);return `${n}沒再說什麼。\n${n}好感 -5（一年後他也許會再提）`;}}]});
 }
@@ -3652,7 +3749,7 @@ function axeThrow(){
 }
 function storyNight(){
   const tales=[];
-  if(S.rival.fate&&S.rival.fate.includes('斧下')) tales.push(['我怎麼宰了赫羅爾夫','那個說你只配划槳的人']);
+  if(S.rival.fate&&S.rival.fate.includes('斧下')) tales.push(['我怎麼宰了赫羅爾夫',`那個說你${ORI().q}的人`]);
   else if(S.rival.fate&&S.rival.fate.includes('效忠')) tales.push(['赫羅爾夫跪下的那一天','你的宿敵現在坐在台下']);
   if(S.stats.bears) tales.push(['徒手……差不多徒手殺熊',`你殺過 ${S.stats.bears} 頭熊`]);
   if(S.stats.revived) tales.push(['我死過一次',`你倒下過 ${S.stats.revived} 次`]);
@@ -3716,13 +3813,16 @@ function portrait(o={}){
 }
 
 /* ================= 畫面 ================= */
+const CTABS=[['me','能力'],['tal','天賦'],['champ','勇士'],['gods','眾神'],['set','設定']];
 function charHTML(){
   const bg=BGS.find(b=>b.id===S.bg);
   const title=S.won||S.phase>=4?'挪威之王':['','孤身闖蕩','部落首領','挪威的挑戰者'][S.phase];
   const tierI=infTier(),tier=INF_TIER[tierI];
-  return `<div class="char">
-  ${portrait()}
-  <h2>${esc(S.name)}</h2><div class="who">${bg.name} · ${title} · ${age()} 歲${S.wounded?` · <span class="bad">負傷（${S.wounded} 季）</span>`:''}${S.scars?` · 舊傷 ${S.scars}`:''}</div>
+  const ct=S.ctab||'me';
+  const dot={me:S.pts>0,tal:S.talentPicks>0};
+  const tabs=`<div class="ctabs" role="tablist">${CTABS.map(([k,n])=>`<button role="tab" data-ct="${k}" aria-selected="${ct===k}">${n}${dot[k]?'<span class="dot"></span>':''}</button>`).join('')}</div>`;
+  let body='';
+  if(ct==='me') body=`
   <div class="stats">${Object.keys(STAT).map(k=>`<div class="stat"><span class="r">${STAT_RUNE[k]}</span><div>${STAT[k]}<small>${STAT_DESC[k]}</small>
     ${[6,9,12].map(t=>`<span class="mile ${S.st[k]>=t?'on':''}">${t}：${S.st[k]>=t?MILES[k][t]:'？？？'}</span>`).join('')}</div>
     <span class="v ${S.wounded?'low':''}">${eff(k)}</span>
@@ -3732,17 +3832,22 @@ function charHTML(){
   <div class="list"><small>${S.amulet?'母親的護身符還在。':'護身符已經碎了。'}${S.phase>=2?'族人信服你的話，有時會為你刻下祈福符文。':'族人的祈福，要等你有了自己的部落。'}</small></div>
   ${S.phase>=2?`<div class="sec-h">名聲 ${S.fame} · ${FAME_TIER[fameTier()].name}</div><div class="list"><small>${FAME_TIER[fameTier()].fx||'還沒什麼人聽過你的名字。'}${fameTier()<4?`　下一級：名聲 ${FAME_TIER[fameTier()+1].min}`:''}</small></div>
   <div class="sec-h">${SEASON[S.turn%4]}・${WEATHER[S.weather||'fair'].name}</div><div class="list"><small>${SEASON_FX[S.turn%4]}${S.weather&&S.weather!=='fair'?`；${WEATHER[S.weather].fx}`:''}</small></div>`:''}
-  ${S.infamy>0?`<div class="sec-h">惡名 ${S.infamy} · ${tier.name}</div><div class="list"><small>${tier.fx||'還沒什麼人知道你做過的事。'}</small></div>`:''}
-  ${S.phase>=2||Object.values(S.favor||{}).some(v=>v>0)?godsHTML():''}
-  <div class="sec-h">天賦樹 · 已學 ${S.talents.length}${S.talentPicks?` · <span class="good">還能選 ${S.talentPicks} 個</span>`:''}</div>
+  ${S.infamy>0?`<div class="sec-h">惡名 ${S.infamy} · ${tier.name}</div><div class="list"><small>${tier.fx||'還沒什麼人知道你做過的事。'}</small></div>`:''}`;
+  else if(ct==='tal') body=`<div class="sec-h">天賦樹 · 已學 ${S.talents.length}${S.talentPicks?` · <span class="good">還能選 ${S.talentPicks} 個</span>`:''}</div>
   ${treeHTML()}
-  ${S.talents.some(t=>TALENTS[t].old)?`<div class="list">${S.talents.filter(t=>TALENTS[t].old).map(t=>`<div><b>${TALENTS[t].name}（舊版）</b><small>${TALENTS[t].desc}</small></div>`).join('')}</div>`:''}
-  ${S.champions.length?`<div class="sec-h">勇士</div><div class="list">${S.champions.map(c=>`<div class="${hasArt(c.id)?'withav':''}">${avatar(c.id)}<b>${CHAMPS[c.id].name}<span class="bond" title="好感 ${c.bond}"><i style="width:${c.bond}%"></i></span> <small style="display:inline">好感 ${c.bond}${c.oath?' · 已立誓':c.bond>=60?' · 可當代理人':''}${c.skill?` · 戰技 ${c.skill}`:''}</small></b><small>${champAb(c.id)} · 戰力 +${champPow(c)}${c.bond>=60?'（好感加成）':''}</small></div>`).join('')}</div>
-  ${relHTML()}<div class="list"><small>好感 60：戰力 ×1.5、能當決鬥代理人，也可能找你幫忙完成心願。好感 80：立下誓約，教你一招。</small></div>`:''}
-  <div class="sec-h">設定</div>
+  ${S.talents.some(t=>TALENTS[t].old)?`<div class="list">${S.talents.filter(t=>TALENTS[t].old).map(t=>`<div><b>${TALENTS[t].name}（舊版）</b><small>${TALENTS[t].desc}</small></div>`).join('')}</div>`:''}`;
+  else if(ct==='champ') body=S.champions.length?`<div class="sec-h">勇士 · ${S.champions.length}</div><div class="list">${S.champions.map(c=>`<div class="${hasArt(c.id)?'withav':''}">${avatar(c.id)}<b>${CHAMPS[c.id].name}<span class="bond" title="好感 ${c.bond}"><i style="width:${c.bond}%"></i></span> <small style="display:inline">好感 ${c.bond}${c.oath?' · 已立誓':c.bond>=60?' · 可當代理人':''}${c.skill?` · 戰技 ${c.skill}`:''}</small></b><small>${champAb(c.id)} · 戰力 +${champPow(c)}${c.bond>=60?'（好感加成）':''}</small></div>`).join('')}</div>
+  ${relHTML()}<div class="list"><small>好感 60：戰力 ×1.5、能當決鬥代理人，也可能找你幫忙完成心願。好感 80：立下誓約，教你一招。</small></div>`:'<div class="list"><small>還沒有勇士跟隨你。名聲越響，越多人會來投靠。</small></div>';
+  else if(ct==='gods') body=S.phase>=2||Object.values(S.favor||{}).some(v=>v>0)?godsHTML():'<div class="list"><small>眾神還沒有注意到你。</small></div>';
+  else body=`<div class="sec-h">設定</div>
   <div class="seg"><span>音效</span><button data-set="sound" data-v="1" aria-pressed="${soundOn()}">開</button><button data-set="sound" data-v="0" aria-pressed="${!soundOn()}">關</button></div>
+  <div class="seg"><span>提示</span><button data-set="tips" data-v="1" aria-pressed="${!S.noTips}">開</button><button data-set="tips" data-v="0" aria-pressed="${!!S.noTips}">關</button></div>
   <div class="seg"><span>代理人</span><button data-set="mini" data-v="react" aria-pressed="${S.mini==='react'}">反應型</button><button data-set="mini" data-v="puzzle" aria-pressed="${S.mini==='puzzle'}">解謎型</button></div>
-  ${S.mini==='react'?`<div class="seg"><span>判定</span><button data-set="relaxed" data-v="0" aria-pressed="${!S.relaxed}">標準</button><button data-set="relaxed" data-v="1" aria-pressed="${!!S.relaxed}">放寬</button></div>`:''}
+  ${S.mini==='react'?`<div class="seg"><span>判定</span><button data-set="relaxed" data-v="0" aria-pressed="${!S.relaxed}">標準</button><button data-set="relaxed" data-v="1" aria-pressed="${!!S.relaxed}">放寬</button></div>`:''}`;
+  return `<div class="char">
+  ${ct==='me'?portrait():''}
+  <h2>${esc(S.name)}</h2><div class="who">${bg.name} · ${title} · ${age()} 歲${S.wounded?` · <span class="bad">負傷（${S.wounded} 季）</span>`:''}${S.scars?` · 舊傷 ${S.scars}`:''}</div>
+  ${tabs}${body}
   </div>`;
 }
 function mapHTML(){
@@ -3816,7 +3921,7 @@ function render(){
   $('#side').innerHTML=charHTML();
   $('#goal').innerHTML=goalHTML();
   const tabs=S.phase>=4?[['act','行動'],['map','挪威'],['sea','海外'],['tribe','王國'],['char','角色']]:[['act','行動'],['map','地圖'],['tribe','部落'],['char','角色']];
-  $('#tabs').innerHTML=tabs.map(([k,n])=>`<button role="tab" class="tab-${k}" aria-selected="${S.tab===k}" data-tab="${k}">${n}${k==='char'&&S.pts>0?'<span class="dot"></span>':''}</button>`).join('');
+  $('#tabs').innerHTML=tabs.map(([k,n])=>`<button role="tab" class="tab-${k}" aria-selected="${S.tab===k}" data-tab="${k}">${n}${k==='char'&&(S.pts>0||S.talentPicks>0)?'<span class="dot"></span>':''}</button>`).join('');
   let pane='';
   if(S.tab==='act') pane=`<div class="acts">${actions().map(a=>`<button class="act ${a.key&&!a.dis?'key':''}" data-a="${a.id}" ${a.dis?'disabled':''}><b>${a.name}</b><small>${a.desc}</small><span class="gain">${a.dis||a.gain}</span></button>`).join('')}</div>`;
   else if(S.tab==='map') pane=mapHTML();
@@ -3831,9 +3936,10 @@ function render(){
 /* ================= 互動 ================= */
 document.addEventListener('click',e=>{
   if(!S||modalOpen||$('#game-screen').hidden) return;
-  const t=e.target.closest('[data-tab],[data-a],[data-r],[data-ra],[data-o],[data-oa],[data-b],[data-s],[data-pol],[data-tl],[data-set]');
+  const t=e.target.closest('[data-ct],[data-tab],[data-a],[data-r],[data-ra],[data-o],[data-oa],[data-b],[data-s],[data-pol],[data-tl],[data-set]');
   if(!t) return;
   const d=t.dataset;
+  if(d.ct){S.ctab=d.ct;render();return;}
   if(d.tab){S.tab=d.tab;render();return;}
   if(d.a){const a=actions().find(x=>x.id===d.a);if(a&&!a.dis){a.run();render();}return;}
   if(d.r){S.sel=d.r;render();return;}
@@ -3843,7 +3949,7 @@ document.addEventListener('click',e=>{
   if(d.b){const b=B(d.b),l=bl(d.b),[cs,cf]=bldCost(b,l);if(S.tlv>=b.tl&&l<bldMax()&&S.silver>=cs&&S.food>=cf)build(d.b);return;}
   if(d.pol){S.policy=d.pol;render();return;}
   if(d.tl){const u=tribeUp();if(u&&S.silver>=u.cost[0]&&S.food>=u.cost[1]&&bldCount()>=u.need)upgradeTribe();return;}
-  if(d.set){if(d.set==='sound'){try{localStorage.setItem('na-sound',d.v);}catch(e){}if(d.v==='1')sfx('ok');}else if(d.set==='mini')S.mini=d.v;else S.relaxed=d.v==='1';render();return;}
+  if(d.set){if(d.set==='tips'){S.noTips=d.v==='0';}else if(d.set==='sound'){try{localStorage.setItem('na-sound',d.v);}catch(e){}if(d.v==='1')sfx('ok');}else if(d.set==='mini')S.mini=d.v;else S.relaxed=d.v==='1';render();return;}
   if(d.s&&S.pts>0){const k=d.s;S.st[k]++;S.pts--;if(k==='con')S.hp+=6;render();return;}
 });
 document.addEventListener('keydown',e=>{
@@ -3916,7 +4022,7 @@ $('#btn-start').onclick=()=>{
   REGIONS.forEach(r=>S.reg[r.id]={st:'free',cd:0,def:r.def});
   log('離開故鄉的峽灣，搭上南下的商船。');
   startGame();
-  note('離開峽灣',`峽灣的冬天又長又冷。你是<em>${esc(name)}</em>，${bg.name}，十九歲，除了一把斧頭什麼都沒有。\n\n出發前，雅爾的兒子赫羅爾夫當著所有人的面笑你：「像你這樣的人，一輩子只配划槳。」\n\n母親把一枚刻著符文的護身符掛在你脖子上：「活著回來，或者別回來。」\n\n你搭上一艘南下的商船。這片海岸四分五裂：各地的雅爾互相攻伐，老王的權威早已名存實亡。總要有人把挪威統一起來。`,`第一章 · ${D().name}難度`,'sc_ch1');
+  note('離開峽灣',`峽灣的冬天又長又冷。你是<em>${esc(name)}</em>，${bg.name}，十九歲，除了一把斧頭什麼都沒有。\n\n${ORIGIN[bg.id].open}\n\n母親把一枚刻著符文的護身符掛在你脖子上：「活著回來，或者別回來。」\n\n你搭上一艘南下的商船。這片海岸四分五裂：各地的雅爾互相攻伐，老王的權威早已名存實亡。總要有人把挪威統一起來。`,`第一章 · ${D().name}難度`,'sc_ch1');
 };
 function boot(data){
   if(data&&data.S&&data.S.v===SAVE_V){S=data.S;startGame();return;}

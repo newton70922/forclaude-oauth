@@ -111,3 +111,12 @@ An ornate decorative portrait frame, vertical 3:4, Viking Age Norse knotwork car
 - **第一批（勇士）和第二批（第四章人物）**對遊戲體驗影響最大，建議先畫。
 - **第三、四批**是錦上添花。
 - **第五批**可有可無，不畫的話會繼續用現在的程式邊框。
+
+## 補充：弗蕾亞的吻（2 張，橫式 16:9）
+
+先貼「場景用」共用風格，再接下面的描述。檔名照表格。
+
+| # | 檔名 | 場景 | 描述 |
+|---|---|---|---|
+| 42 | sc_kiss_m | 男主角版 | Moonlit northern beach under green aurora. The goddess Freyja, long golden braided hair, falcon-feather cloak, golden Brísingamen necklace, a single golden tear on her cheek, stands on tiptoe to softly kiss a tall rugged Viking warrior king in fur cloak and chainmail. His hand gently cups her face. Two large grey forest cats rest nearby on the rocks. Tender, emotional, romantic, not explicit. |
+| 43 | sc_kiss_f | 女主角版 | Moonlit northern beach under green aurora. The goddess Freyja, long golden braided hair, falcon-feather cloak, golden Brísingamen necklace, a single golden tear on her cheek, stands on tiptoe to softly kiss a tall Viking shieldmaiden queen with braided hair, fur cloak and chainmail, who gently holds her hands. Two large grey forest cats rest nearby on the rocks. Tender, emotional, romantic, not explicit. |
