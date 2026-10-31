@@ -1265,7 +1265,7 @@ function proxyDuel(foeKey,cid,o,used,carry){
     // 反應型：閃避三連擊
     const dodge=()=>{
       const SW=[['左邊','R','→','刀從左邊橫掃過來！'],['右邊','L','←','刀從右邊砍過來！'],['頭頂','D','↓','斧頭從頭頂劈下來！'],['腳下','U','↑','刀貼著地面掃向腳踝！']];
-      const seq=Array.from({length:3},()=>pick(SW));const W=(950+skill*120)*relax;let i=0,ok=0,done=false,timer=0;
+      const seq=Array.from({length:3},()=>pick(SW));const W=(1950+skill*150)*relax;let i=0,ok=0,done=false,timer=0;
       const end=()=>{done=true;clearTimeout(timer);mgKey=null;apply(ok===3?'perfect':ok===2?'good':'miss');};
       const show=()=>{
         el.innerHTML=header()+`<div class="dodge"><b>${seq[i][3]}</b><small>第 ${i+1}/3 刀　閃過 ${ok}</small></div>
@@ -2036,7 +2036,12 @@ const FQ_A={kind:'ᚠ 弗蕾亞',scene:'sc_tears',title:'金色的眼淚',text:'
       {t:'「女神，忘了他吧。」',fx:()=>{S.flags.fq=-1;favor('freyja',-5);return '「你不懂。」她轉過身，消失在霧裡。';}}]};
 const FQ_B={kind:'ᚠ 弗蕾亞',art:'freyja',title:'奧德的斗篷',text:'在一個連名字都沒有的海岸，一個老漁夫交給你一件褪色的斗篷，上面繡著奧德的名字。\n\n「他往世界的盡頭走了，」老漁夫說，「臨走前他說：別讓她等。」',
   ch:[{t:'把實話帶回去，留在她身邊',fx:()=>{S.flags.fq=3;S.flags.freyWed=1;unlock('freyja_wed');const gb=charges()<maxBless();if(gb)S.blessings++;addLoyalty(10);addFame(15);log('成為了弗蕾亞的伴侶。');
-        return `你把斗篷交給她。她把臉埋進斗篷裡，哭了很久。\n\n然後她抬起頭，握住你的手：「他不會回來了。……那你呢？」\n\n在人間，你仍是${esc(S.tribe||'你的部落')}的首領；在弗爾克萬格，你是女神的伴侶。\n<span class="good">${gb?'祈福 +1，':''}忠誠 +10，名聲 +15\n解鎖畫框「金淚畫框」</span>`;}},
+        pushLater(eventModal({kind:'ᚠ 弗蕾亞',scene:'sc_tears',title:'那你呢？',text:'你把斗篷交給她。她把臉埋進斗篷裡，哭了很久很久。極光在海面上慢慢流動，兩隻大貓安靜地趴在她腳邊。\n\n然後她抬起頭。金色的眼淚還掛在睫毛上，在月光下一閃一閃。\n\n「他不會回來了。」她輕聲說，握住你的手，「……那你呢？你會走嗎？」\n\n她靠了過來。你聞到麥田和海風的味道。',
+          ch:[{t:'吻她',fx:()=>'你低下頭，吻了她。\n\n她的嘴唇是溫的，帶著眼淚的鹹味。最後一滴金色的眼淚從她的臉頰滑下來，悄悄落進了海裡。\n\n「我不走。」你說。'},
+              {t:'擦掉她的眼淚',fx:()=>'你伸手擦掉她臉上的眼淚。指尖沾上的淚，變成了一點細細的金粉。\n\n她笑了，踮起腳，在你的唇上輕輕吻了一下：「這是第一次，有人替我擦眼淚。」'},
+              {t:'把她抱進懷裡',fx:()=>'你把她抱進懷裡。女神在你的懷裡發抖，像一個在雪地裡走了很久的人。\n\n過了很久，她抬起頭，在你的唇上留下一個帶著淚的吻：「謝謝你，回來告訴我。」'}]}));
+        pushLater(el=>resultView(el,'女神的伴侶',`在人間，你仍是${esc(S.tribe||'你的部落')}的首領；在弗爾克萬格，你是女神的伴侶。\n<span class="good">${gb?'祈福 +1，':''}忠誠 +10，名聲 +15\n解鎖畫框「金淚畫框」</span>`,'ᚠ 弗蕾亞','freyja'));
+        return null;}},
       {t:'告訴她，奧德已經死了',fx:()=>{S.flags.fq=-1;favor('loki',15);return '這不是實話，但比實話容易。她哭了一整夜，第二天，就不再找了。\n\n她再也沒有來過你的夢裡。\n洛基的神恩 +15';}},
       {t:'帶著斗篷，繼續往世界的盡頭找',fx:()=>{S.flags.fq=-1;favor('tyr',10);gainXp(30);S.st.wit++;return '你答應過要找到他，就要找到他。你在海上漂了一整年，看見了沒有人看過的東西，但沒有找到奧德。\n\n回來時，弗蕾亞在港口等你：「謝謝你。夠了。」\n經驗 +30，智謀 +1，提爾的神恩 +10';}}]};
 const LOKI_PRANKS=[
@@ -2906,7 +2911,7 @@ const heroSex=()=>S.look&&S.look.sex==='f'?'f':'m';
 function spouseOk(k){
   const s=SPOUSES[k];if(!s.for.includes(heroSex())) return false;
   if(s.champ){const c=champ(k);return !!(c&&(c.bond>=80||c.oath));}
-  return s.need()&&((S.court||{})[k]||0)>=2;
+  return s.need()&&courtDone(k);
 }
 function spouseModal(){
   pushModal(el=>{
@@ -2933,22 +2938,39 @@ function marry(k){
 }
 // 相處事件：答得好（+2）才會願意談婚事；答得不好就沒機會了
 const COURT={
-  ingrid:{title:'海灘上的英格麗',text:'你帶著衛隊經過當年那片海灘。英格麗還在那裡補漁網，頭髮被海風吹得亂七八糟。\n\n「國王陛下，」她笑著行了個歪歪扭扭的禮，「還記得那條烤魚嗎？」',
-    ch:[['坐下來，幫她補漁網',2,'你們補了一整個下午的網，聊了很多以前的事。她說，她一直知道你會回來。'],['「當然記得。要什麼賞賜？」',1,'她的笑容淡了一點：「我不要賞賜。」'],['點點頭，繼續趕路',-1,'你走遠時回頭看了一眼。她已經低下頭去補網了。']]},
-  brynhild:{title:'鷹巢峰的挑戰',text:'布倫希爾德派人送來一把劍，劍柄上綁著一根鷹羽。\n\n「上次是你運氣好，」信上寫著，「再打一次。輸的人，要答應贏的人一件事。」',
-    ch:[['上鷹巢峰，再打一次',2,'你們打到天黑，誰也沒贏。她把劍插在雪地裡，第一次對你笑了：「好吧，算平手。」'],['回信：「我沒空。」',-1,'她把你的信燒了。'],['派一個勇士替你去',0,'你的勇士回來時鼻青臉腫：「她說，她要的是你。」']]},
-  gunnhild:{title:'丹麥的公主',text:'「藍牙」哈拉爾派來的船上，走下來一個年輕女人。她沒有等人介紹，直接走到王座前：「貢希爾德。我父親要我來看看，挪威的王長什麼樣子。」\n\n她把你從頭到腳看了一遍。「比我想的年輕，也比我想的醜。」',
-    ch:[['「你父親派你來當探子？」',2,'她愣了一下，然後笑出聲來：「至少你不笨。」那天晚上，你們聊到天亮，聊的全是怎麼對付她父親。'],['「歡迎，公主。」',1,'她禮貌地點了點頭，眼神裡有一點失望。'],['把她送回船上',-1,'她走的時候沒有回頭。']]},
-  sweyn:{title:'丹麥的王子',text:'「藍牙」哈拉爾派來的船上，跳下來一個鬍子分成兩叉的年輕人。他沒有行禮，直接坐到你旁邊，拿起你的角杯喝了一大口：「斯韋恩。我父親要我來看看你。我自己也想看。」',
-    ch:[['把角杯搶回來，自己也喝一口',2,'他大笑起來。那天晚上，你們喝光了半個酒窖，他把他父親的每一個弱點都告訴了你。'],['「你父親派你來當探子？」',1,'「當然，」他眨眨眼，「但我是個很爛的探子。」'],['叫人把他請出去',-1,'他走的時候還在笑，但笑得很冷。']]},
-  gormflaith:{title:'都柏林的公主',text:'都柏林的宴會上，一個紅髮的女人隔著火堆看了你一整晚。散席時，她經過你身邊，低聲說：「我嫁過的國王都很無聊。你看起來不太一樣。」',
-    ch:[['「我不打算當第四個死得不自然的國王。」',2,'她笑得很開心：「好。那我們就不要讓你死。」'],['邀她明天一起騎馬',1,'她答應了，但整個早上都在試探你的軍隊有多少人。'],['假裝沒聽見',-1,'第二天，她已經坐船回倫斯特了。']]},
-  sitric:{title:'絲鬚的王子',text:'都柏林老王的兒子西特里克被帶到你面前。你拿下這座城時饒了他一命，他現在幫你管港口的帳。\n\n「女王陛下，」他慢條斯理地摸著自己的鬍子，「港口的稅收多了三成。我想，我值得一頓晚餐。」',
-    ch:[['「那就吃一頓晚餐。」',2,'他是你見過最會說話的人。那頓晚餐吃了四個時辰。'],['「多三成？我要五成。」',1,'他嘆了口氣：「好吧，五成。但晚餐還是要吃。」'],['「你還活著，就該知足了。」',-1,'他微微鞠躬，從此只跟你談帳。']]},
+  ingrid:[{title:'海灘上的英格麗',text:'你帶著衛隊經過當年那片海灘。英格麗還在那裡補漁網，頭髮被海風吹得亂七八糟。\n\n「國王陛下，」她笑著行了個歪歪扭扭的禮，「還記得那條烤魚嗎？」',
+    ch:[['坐下來，幫她補漁網',2,'你們補了一整個下午的網，聊了很多以前的事。她說，她一直知道你會回來。'],['「當然記得。要什麼賞賜？」',1,'她的笑容淡了一點：「我不要賞賜。」'],['點點頭，繼續趕路',-1,'你走遠時回頭看了一眼。她已經低下頭去補網了。']]},{title:'老哈爾病了',text:'英格麗派人送信來：她父親老哈爾病倒了，咳了一整個月，村裡的草藥都沒用。\n\n信的最後一行寫得歪歪扭扭，像是猶豫了很久才寫上去：「你能來看看他嗎？」',
+    ch:[['親自帶著藥去漁村',2,'你在老哈爾的床邊坐了一整晚。天亮時，他的燒退了。他抓著你的手：「我就說，你跟那些搶匪不一樣。」英格麗在門口偷偷擦眼淚。'],['派人送去銀幣和草藥',1,'英格麗回了一封很客氣的信，謝謝國王的恩典。'],['「國事太忙了。」',-1,'她沒有再寫信來。']]},{title:'仲夏的篝火',text:'仲夏夜，漁村在海邊燒起了篝火。英格麗穿著一件繡著小花的新裙子，站在火堆旁邊，看起來有點緊張。\n\n「村裡的人說，國王不會跳舞。」她把手伸向你，「我跟他們打賭，說你會。」',
+    ch:[['握住她的手，跳到天亮',2,'你踩了她三次腳，她笑到停不下來。篝火快熄的時候，她靠在你肩上：「我贏了賭注。」'],['坐在旁邊，看她跳',1,'她一個人跳了一支舞，跳完走過來，坐在你旁邊，什麼也沒說。'],['帶著衛隊離開',-1,'你走的時候，聽見有人在笑。不是英格麗。']]}],
+  brynhild:[{title:'鷹巢峰的挑戰',text:'布倫希爾德派人送來一把劍，劍柄上綁著一根鷹羽。\n\n「上次是你運氣好，」信上寫著，「再打一次。輸的人，要答應贏的人一件事。」',
+    ch:[['上鷹巢峰，再打一次',2,'你們打到天黑，誰也沒贏。她把劍插在雪地裡，第一次對你笑了：「好吧，算平手。」'],['回信：「我沒空。」',-1,'她把你的信燒了。'],['派一個勇士替你去',0,'你的勇士回來時鼻青臉腫：「她說，她要的是你。」']]},{title:'鷹巢峰的狩獵',text:'布倫希爾德又派人來了。這次不是劍，是一張弓。\n\n「山上有一頭雪豹，吃了我三十頭羊。」信上寫著，「比賽，看誰先獵到牠。」',
+    ch:[['全力以赴',2,'你們在雪地裡追了兩天，最後同時拉弓，兩支箭插在同一個地方。她看著雪豹，又看著你，第一次笑得像個小女孩。'],['故意讓她贏',1,'她獵到了雪豹，卻一點都不高興：「你讓我？」她把弓丟在雪地上，「下次不准。」'],['「我不打獵。」',-1,'她把那張弓劈成了兩半。']]},{title:'沒有盔甲的女領主',text:'布倫希爾德第一次沒穿盔甲來你的王廳。她坐在火堆旁，看了你很久。\n\n「我母親說，女人只能嫁給比她強的人。」她說，「所以這十年，我打贏了每一個來求婚的人。他們都比我弱。」\n\n「……可是，我好像有點累了。」',
+    ch:[['「那就別嫁比你強的人。嫁一個跟你一樣倔的。」',2,'她愣了一下，然後大笑，笑到眼淚都出來了：「好。那就是你了。」'],['「那我再打你一次。」',1,'她搖搖頭笑了：「改天吧。今天，就坐著。」'],['「你該好好休息了。」',0,'她點點頭，站起來走了。你不確定她想聽的是不是這句話。']]}],
+  gunnhild:[{title:'丹麥的公主',text:'「藍牙」哈拉爾派來的船上，走下來一個年輕女人。她沒有等人介紹，直接走到王座前：「貢希爾德。我父親要我來看看，挪威的王長什麼樣子。」\n\n她把你從頭到腳看了一遍。「比我想的年輕，也比我想的醜。」',
+    ch:[['「你父親派你來當探子？」',2,'她愣了一下，然後笑出聲來：「至少你不笨。」那天晚上，你們聊到天亮，聊的全是怎麼對付她父親。'],['「歡迎，公主。」',1,'她禮貌地點了點頭，眼神裡有一點失望。'],['把她送回船上',-1,'她走的時候沒有回頭。']]},{title:'公主的秘密',text:'半夜，貢希爾德一個人來找你，手裡拿著一個小瓶子。\n\n「我父親給我的。」她把瓶子放在桌上，「他要我嫁給你，然後找一個晚上，倒進你的酒裡。」\n\n她看著你的眼睛：「我不想。」',
+    ch:[['「那你想要什麼？」',2,'「我想要一個不用聽我父親話的地方。」她說，「還有一個，敢跟他作對的人。」\n\n那天晚上，你們把那瓶毒藥倒進了海裡。'],['「我早就知道了。」',1,'她挑了挑眉：「那你還讓我進來？……你比我想的有趣。」'],['叫衛兵把她關起來',-1,'她被押回了丹麥。你再也沒見過她。']]}],
+  sweyn:[{title:'丹麥的王子',text:'「藍牙」哈拉爾派來的船上，跳下來一個鬍子分成兩叉的年輕人。他沒有行禮，直接坐到你旁邊，拿起你的角杯喝了一大口：「斯韋恩。我父親要我來看看你。我自己也想看。」',
+    ch:[['把角杯搶回來，自己也喝一口',2,'他大笑起來。那天晚上，你們喝光了半個酒窖，他把他父親的每一個弱點都告訴了你。'],['「你父親派你來當探子？」',1,'「當然，」他眨眨眼，「但我是個很爛的探子。」'],['叫人把他請出去',-1,'他走的時候還在笑，但笑得很冷。']]},{title:'王子的提議',text:'斯韋恩喝醉了，把角杯重重放在桌上。\n\n「我父親要我娶你，然後在你睡著的時候拿走你的王冠。」他笑了，「可我想要的是他的王冠。」\n\n他湊過來：「你跟我，一起把那個老頭拉下來。怎麼樣？」',
+    ch:[['「先說好，王冠是我的。」',2,'他大笑，舉起角杯碰了你的：「成交。你的歸你，他的歸我。」那是你們第一次一起笑到天亮。'],['「你醉了。」',1,'「我醉了。」他承認，「但我說的都是真的。」'],['把他趕出王廳',-1,'他走的時候還在笑。笑聲很冷。']]}],
+  gormflaith:[{title:'都柏林的公主',text:'都柏林的宴會上，一個紅髮的女人隔著火堆看了你一整晚。散席時，她經過你身邊，低聲說：「我嫁過的國王都很無聊。你看起來不太一樣。」',
+    ch:[['「我不打算當第四個死得不自然的國王。」',2,'她笑得很開心：「好。那我們就不要讓你死。」'],['邀她明天一起騎馬',1,'她答應了，但整個早上都在試探你的軍隊有多少人。'],['假裝沒聽見',-1,'第二天，她已經坐船回倫斯特了。']]},{title:'倫斯特的豎琴',text:'高爾姆萊斯請你去她的房間，彈了一首愛爾蘭的老歌。歌很慢，像海潮。\n\n彈完，她沒有抬頭：「北方的國王，你為什麼要跨過大海？為了銀子？為了名聲？還是因為你們北方人，從來不知道什麼時候該停下來？」',
+    ch:[['「因為我想知道，海的另一邊有什麼。」',2,'她抬起頭，第一次沒有在算計什麼：「……我小時候，也常常站在岸邊，想知道海的那一邊有什麼。」'],['「為了銀子。」',1,'她笑了：「至少你很誠實。」'],['「這不關你的事。」',-1,'她把豎琴收了起來。第二天，她回了倫斯特。']]}],
+  sitric:[{title:'絲鬚的王子',text:'都柏林老王的兒子西特里克被帶到你面前。你拿下這座城時饒了他一命，他現在幫你管港口的帳。\n\n「女王陛下，」他慢條斯理地摸著自己的鬍子，「港口的稅收多了三成。我想，我值得一頓晚餐。」',
+    ch:[['「那就吃一頓晚餐。」',2,'他是你見過最會說話的人。那頓晚餐吃了四個時辰。'],['「多三成？我要五成。」',1,'他嘆了口氣：「好吧，五成。但晚餐還是要吃。」'],['「你還活著，就該知足了。」',-1,'他微微鞠躬，從此只跟你談帳。']]},{title:'絲鬚的銀幣',text:'西特里克把一枚新鑄的銀幣放在你的手心。銀幣上刻著一個戴王冠的人，看起來……有點像你。\n\n「都柏林的第一枚錢幣。」他說，「我想，總要有一張臉，讓人們記得是誰讓這座城富起來的。」',
+    ch:[['「刻得太好看了，不像我。」',2,'他笑了，笑得很真心：「我照實刻的。是你自己沒照過鏡子。」'],['「多鑄一點。」',1,'「遵命，女王陛下。」他鞠了個躬，眼睛裡卻有一點失望。'],['「把我的臉刮掉。」',-1,'銀幣後來改刻了一艘船。他也不再請你吃晚餐了。']]}],
 };
+// 相處：一段一段來，答得好才會更進一步；答得不好就沒機會了
+const courtSt=k=>{S.courtS=S.courtS||{};if(!S.courtS[k]){const o=(S.court||{})[k];S.courtS[k]=o>=2?{st:COURT[k].length,sc:COURT[k].length}:{st:0,sc:0,out:o<0};}return S.courtS[k];};
+const courtDone=k=>{const c=courtSt(k);return !c.out&&c.st>=COURT[k].length&&c.sc>=COURT[k].length-.5;};
+const courtOpen=k=>{const c=courtSt(k);return !c.out&&c.st<COURT[k].length;};
 function courtEvent(k){
-  const c=COURT[k];codex({sweyn:'h_sweyn',gunnhild:'h_sweyn',gormflaith:'h_gormflaith',sitric:'h_sitric'}[k]);
-  return eventModal({kind:'相處',art:k,title:c.title,text:c.text,ch:c.ch.map(([t,v,r])=>({t,fx:()=>{S.court=S.court||{};S.court[k]=v;log(`與${SPOUSES[k].name}相處。`);return `${r}${v>=2?`\n<span class="good">${SPOUSES[k].name}對你有好感了。（王的婚事裡可以選${SPOUSES[k].political?'這門親事':SPOUSES[k].name}）</span>`:v===1?'\n（也許以後還有機會）':''}`;}}))});
+  const c=courtSt(k),stage=COURT[k][c.st],last=c.st===COURT[k].length-1;
+  codex({sweyn:'h_sweyn',gunnhild:'h_sweyn',gormflaith:'h_gormflaith',sitric:'h_sitric'}[k]);
+  return eventModal({kind:`相處 · ${c.st+1}/${COURT[k].length}`,art:k,title:stage.title,text:stage.text,ch:stage.ch.map(([t,v,r])=>({t,fx:()=>{
+    const n=SPOUSES[k].name;c.st++;if(v<0)c.out=true;else c.sc+=v>=2?1:v===1?.5:0;
+    log(`與${n}相處。`);
+    const tail=v<0?`\n<span class="bad">${n}對你的心冷了。</span>`:last?(courtDone(k)?`\n<span class="good">${n}願意和你共度一生了。（王的婚事裡可以選${SPOUSES[k].political?'這門親事':n}）</span>`:'\n（你們之間，好像總是差了一點什麼）'):v>=2?`\n<span class="good">${n}對你更有好感了。</span>`:'';
+    return r+tail;}}))});
 }
 // 弗蕾亞的伴侶：繼承人怎麼辦？
 const freyFaithful=()=>S.flags.freyWed&&!S.spouse&&S.faith!=='cross';
@@ -3074,9 +3096,9 @@ function ch4Tick(){
     const o=osYours().find(o=>!S.jarls[o.id]&&Math.random()<.15);
     if(o){counterAttack(o);return true;}
   }
-  if(!S.spouse&&t>=2&&S.turn-(S.flags.courtT??-99)>=3){
-    const k=Object.keys(COURT).find(k=>SPOUSES[k].for.includes(heroSex())&&SPOUSES[k].need()&&((S.court||{})[k]??0)<2&&((S.court||{})[k]??0)>=0&&!(S.flags['court_'+k]>=2));
-    if(k){S.flags.courtT=S.turn;S.flags['court_'+k]=(S.flags['court_'+k]||0)+1;pushLater(courtEvent(k));return true;}
+  if(!S.spouse&&t>=2&&S.turn-(S.flags.courtT??-99)>=2){
+    const ks=Object.keys(COURT).filter(k=>SPOUSES[k].for.includes(heroSex())&&SPOUSES[k].need()&&courtOpen(k)).sort((a,b)=>(courtSt(b).st>0)-(courtSt(a).st>0)||courtSt(b).sc-courtSt(a).sc);
+    if(ks.length){S.flags.courtT=S.turn;pushLater(courtEvent(ks[0]));return true;}
   }
   if(t>=6&&!S.flags.daneOffer&&!S.spouse){S.flags.daneOffer=1;}
   if(t>=4&&!S.flags.mission){S.flags.mission=1;pushLater(eventModal(EV_MISSION));return true;}
@@ -3088,7 +3110,6 @@ function ch4Tick(){
   // 預兆：越強，越早來
   if(!S.flags.omenShown&&(S.flags.omen||t>=DANE_OMEN||(t>=6&&ch4Strong()))){
     S.flags.omen=1;S.flags.omenShown=1;S.flags.omenT=S.flags.omenT??S.turn;
-    if(!S.flags.hedeby&&ragnaOk()){S.flags.ragna=1;S.flags.fimbulT=S.turn;pushLater(el=>resultView(el,'諸神黃昏',ragnaOmen(),'ᛞ 預兆','sc_ragnarok'));return true;}
     pushLater(el=>resultView(el,'預兆',omenText(),'ᛞ 預兆'));return true;
   }
   if(S.flags.ragna&&!S.flags.ragDone){
@@ -3187,13 +3208,23 @@ function aidLines(){
   if(S.flags.ragnarDane)L.push('<span class="bad">你在丹麥人的第一排看見了拉格納。</span>');
   return L;
 }
+// 打退丹麥人：被神選中的人，故事還沒完
+function daneVictory(){
+  if(ragnaOk()&&!S.flags.ragna){
+    S.flags.ragna=1;S.flags.fimbulT=S.turn;
+    pushLater(el=>resultView(el,'勝利之後','丹麥人的船還沒消失在海平線上，族人就已經開始唱歌了。那天晚上，整個挪威都在喝酒。\n\n只有你一個人站在海邊。\n\n風停了。海浪停了。連海鷗都不叫了。你聽見北方傳來一聲很長、很長的號角。\n\n<span class="good">丹麥人被打退了。</span>','丹麥戰爭'));
+    pushLater(el=>resultView(el,'諸神黃昏',ragnaOmen(),'ᛞ 預兆','sc_ragnarok'));
+    return;
+  }
+  pushLater(el=>ch4End(el,'win'));
+}
 const daneDef=()=>220*lf()*D().foe*danMul();
 function strikeJelling(m){
   battle({title:'直搗耶靈',def:daneDef()*1.05*m,intro:'你們的船隊衝進了耶靈的港口。「藍牙」哈拉爾的王廳就在眼前，門口立著那塊巨大的符文石。',foeNote:'「藍牙」哈拉爾的大軍',cause:'死在丹麥的土地上',onEnd:w=>{
     if(!w){S.flags.envoy='war';S.flags.warT=S.turn+2;S.flags.daneTry=0;return '<span class="bad">你們被打回了船上。藍牙會追過來的：丹麥大軍 2 季後來襲。</span>';}
     S.flags.warDone=1;S.flags.struck=1;unlock('jelling');
     duel('palna',{lethal:true,xp:60,intro:'王廳的大門被撞開了。帕爾納托基擋在哈拉爾的王座前：「要過去，先過我這一關。」',cause:'死在帕爾納托基的劍下',onEnd:dw=>{
-      if(dw||charges()>0){pushLater(el=>ch4End(el,'win'));return dw?'帕爾納托基倒下了。「藍牙」哈拉爾從王座上站起來，摘下了他的戒指。':'你倒下了。但哈拉爾已經沒有人可以派了。';}
+      if(dw||charges()>0){daneVictory();return dw?'帕爾納托基倒下了。「藍牙」哈拉爾從王座上站起來，摘下了他的戒指。':'你倒下了。但哈拉爾已經沒有人可以派了。';}
       return '';}});
     return '丹麥人的防線崩潰了！';}});
 }
@@ -3208,8 +3239,8 @@ function finalWar(){
         S.flags.warT=S.turn+2;const ls=Math.floor(S.silver*.4);S.silver-=ls;loseLoyalty(10);return `<span class="bad">你們退回了王廳。丹麥人燒了半個城，搶走了 ${ls} 銀幣。忠誠 -10\n他們還會再來。</span>`;}
       S.flags.warDone=1;
       duel('palna',{lethal:true,xp:60,intro:'丹麥人的陣線開始崩潰。帕爾納托基推開身邊的人，獨自走了出來：「北方的王，我們來結束這件事。」',cause:'死在帕爾納托基的劍下',onEnd:dw=>{
-        if(dw){pushLater(el=>ch4End(el,'win'));return '帕爾納托基倒下了。「藍牙」哈拉爾看著你，很久很久，然後下令退兵。';}
-        if(charges()>0){pushLater(el=>ch4End(el,'win'));return '你倒下了……但在你倒下之前，丹麥人的陣線已經崩潰了。';}
+        if(dw){daneVictory();return '帕爾納托基倒下了。「藍牙」哈拉爾看著你，很久很久，然後下令退兵。';}
+        if(charges()>0){daneVictory();return '你倒下了……但在你倒下之前，丹麥人的陣線已經崩潰了。';}
         return '';}});
       return '丹麥人的盾牆被你們打穿了！';}});
   }}));
@@ -3261,7 +3292,7 @@ function freyjaReveal(){
   if(!freyFaithful()||S.flags.hnoss) return '';
   S.flags.hnoss=1;unlock('hnoss');codex('y_hnoss');
   const had=S.heir;if(!had) S.heir={name:'赫諾絲',born:S.turn,trait:'divine'};
-  return `${avatar('hnoss','big')}<p class="story" style="color:var(--gold)">${S.dead?'你閉上眼睛的時候':'那天晚上'}，窗台上的蜂蜜酒杯空了。弗蕾亞站在月光裡，身邊站著一個金色頭髮的年輕女孩。\n\n「她叫赫諾絲。」弗蕾亞說，「我用一顆眼淚生下了她，在神的國度把她養大。你從來沒有在人間另找一個人，所以……她一直在等你。」\n\n女孩走過來，${had?`對${esc(had.name)}點了點頭，然後`:''}握住了你的手。她的眼睛，和她母親一模一樣。</p>`;
+  return `${avatar('hnoss','big')}<p class="story" style="color:var(--gold)">${S.dead?'你閉上眼睛的時候':'那天晚上'}，窗台上的蜂蜜酒杯空了。弗蕾亞站在月光裡，身邊站著一個金色頭髮的年輕女孩。\n\n「她叫赫諾絲，是我們的女兒。」弗蕾亞說，「那天晚上在海邊，我最後一滴眼淚落進了海裡，就成了她。神的孩子長得很慢，她在弗爾克萬格長大，我一直沒有告訴你。」\n\n「神的規矩是這樣的：神的孩子，只能交給一顆從來沒有分給別人的心。」她看著你，「你這一生都沒有在人間另娶，你的心一直是我的。所以今天，我終於可以帶她來見你，也可以把你的王冠交給她。」\n\n女孩走過來，${had?`對${esc(had.name)}點了點頭，然後`:''}握住了你的手。她的眼睛，和她母親一模一樣。</p>`;
 }
 function heirLine(){
   if(!S.heir) return '';
@@ -3278,7 +3309,7 @@ function ch4End(el,kind){
   const scene={win:S.flags.struck?`耶靈的王廳燒起來了。「藍牙」哈拉爾跪在他父親立的大符文石前，把戒指交到你手裡。\n\n${age()} 歲的你站在丹麥的土地上，盔甲上全是別人的血。從來沒有一個北方的王，打到過這裡。\n\n${line}`:`帕爾納托基的劍插在沙灘上。「藍牙」哈拉爾的船，一艘一艘消失在南方的海平線上。\n\n${age()} 歲的你站在海灘上，盔甲上全是別人的血。這是你這輩子打過最大的一仗。\n\n${line}`,
     vassal:`你在丹麥使者面前跪了下來。\n\n王冠還在你頭上。只是從此以後，每年冬天，都有一艘載滿白銀的船往南開。\n\n${line}`,
     lost:`王廳燒起來的時候，你最後看了一眼王座。\n\n二十年前，你是一個只有一把斧頭的年輕人。現在，你又只剩下一把斧頭了。\n\n${line}`,
-    ragnarok:`戰鬥結束時，天空是灰色的，地上全是冰和灰。你拄著斧頭站著，${patron()?`${GODS[patron()].name}就站在你身邊。`:'身邊站著倖存的眾神。'}\n\n然後，你看見了：在灰燼的下面，有一根綠色的嫩芽。\n\n預言說，諸神黃昏之後，新的世界會從海裡升起，倖存的人會在草地上找到眾神的金色棋子。你彎下腰，撿起了一顆。\n\n${line}`,
+    ragnarok:`${S.flags.warDone?'你打退了丹麥人，又撐過了世界的最後一天。':''}戰鬥結束時，天空是灰色的，地上全是冰和灰。你拄著斧頭站著，${patron()?`${GODS[patron()].name}就站在你身邊。`:'身邊站著倖存的眾神。'}\n\n然後，你看見了：在灰燼的下面，有一根綠色的嫩芽。\n\n預言說，諸神黃昏之後，新的世界會從海裡升起，倖存的人會在草地上找到眾神的金色棋子。你彎下腰，撿起了一顆。\n\n${line}`,
     ragfall:`你倒下的時候，看見奧丁也倒下了，索爾也倒下了。冰和火吞沒了一切。\n\n但預言說，在灰燼裡，會有一棵樹活下來，樹裡藏著兩個人。他們會記得你的名字。\n\n${line}`,
     lokiside:`你握住了洛基的手。他笑了，笑得像個孩子。\n\n那一天，彩虹橋斷了，瓦爾哈拉燒了。新的世界升起來的時候，王座上坐著的，是你。\n\n只是每到晚上，你都會聽見渡鴉在窗外，叫著你的名字。\n\n${line}`,
     abdicate:`你在法石前摘下王冠，放在${S.heir?esc(S.heir.name):'繼承人'}的頭上。雅爾們一個一個跪了下來。\n\n${S.heir&&S.heir.trait?{war:'新王拔出劍，向全挪威宣誓：丹麥人來的那一天，他會站在最前面。',song:'新王在加冕宴上唱了一首歌，唱的是你的一生。很多人哭了。',peace:'新王用撒克遜話、丹麥話和挪威話各說了一次誓言。幾年後，丹麥人沒有打過來，而是派人來談和。',sea:'新王第二天就上了船。他說，北海的另一邊還有很多地方，你還沒去過。',champ:`你最信任的勇士戴上了王冠。${['astrid','gudrun','una'].includes(S.heir.champ)?'她':'他'}說，會像當年跟著你一樣，守著這個王國。`,divine:'新王的眼睛閃著金光。從那天起，挪威的麥子每一年都長得特別好。'}[S.heir.trait]||'':''}\n\n你回到了當年那片海灘，在一間小屋裡住了下來。\n\n${line}`}[kind];
@@ -3595,13 +3626,13 @@ function axeThrow(){
       $('#m-ok').onclick=closeModal;render();
     };
     if(S.mini==='react'){
-      let pos=0,dir=1,raf=0,last=0,over=false;const zone=S.relaxed?[38,62]:[43,57];
+      let pos=0,dir=1,raf=0,last=0,over=false;const zone=S.relaxed?[34,66]:[40,60];
       const drawR=()=>{el.innerHTML=`<p class="eyebrow">長屋之夜 · 擲斧</p><h2>第 ${n+1} / 3 斧</h2><p class="hint">準星在靶上晃來晃去。對準靶心的時候丟出去！</p>
         <div class="rowbar"><i class="zone" style="left:${zone[0]}%;width:${zone[1]-zone[0]}%"></i><i class="needle" id="ax-n"></i></div>
         <p class="story" style="font-size:13px;color:var(--muted)">${log2[0]||'　'}</p><button class="primary" id="ax-b">丟！</button>`;
         $('#ax-b').onclick=throwIt;};
-      const tick=t=>{if(over)return;pos+=dir*.12*(t-last);last=t;if(pos>100){pos=100;dir=-1;}if(pos<0){pos=0;dir=1;}const e=$('#ax-n');if(e)e.style.left=pos+'%';raf=requestAnimationFrame(tick);};
-      const throwIt=()=>{const ok=pos>=zone[0]&&pos<=zone[1];if(ok)hit++;n++;log2.unshift(ok?'「咚！」正中靶心。':'斧頭飛偏了。');if(n>=3){over=true;cancelAnimationFrame(raf);mgKey=null;finish();return;}drawR();};
+      const tick=t=>{if(over)return;pos+=dir*.055*(t-last);last=t;if(pos>100){pos=100;dir=-1;}if(pos<0){pos=0;dir=1;}const e=$('#ax-n');if(e)e.style.left=pos+'%';raf=requestAnimationFrame(tick);};
+      const throwIt=()=>{const ok=pos>=zone[0]&&pos<=zone[1];if(ok)hit++;n++;const before=dir>0?pos<zone[0]:pos>zone[1];log2.unshift(ok?'「咚！」正中靶心。':`斧頭飛偏了：${before?'丟得太早':'丟得太晚'}，準星${pos<zone[0]?'還在左邊':'已經跑到右邊'}。`);if(n>=3){over=true;cancelAnimationFrame(raf);mgKey=null;finish();return;}drawR();};
       mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();throwIt();}};
       drawR();raf=requestAnimationFrame(t=>{last=t;tick(t);});
     }else{
