@@ -1114,13 +1114,13 @@ function foeStats(key,mul){
 }
 // 洛基的變形者：每場一次，隨機變成一種動物
 const SHIFTS=[
-  {id:'salmon',name:'鮭魚',fx:d=>{d.reveal=1;return '你「啵」一聲變成一條鮭魚，從對方的胯下滑了過去。他一斧砍在泥巴上，腳一滑摔了個四腳朝天。\n（這回合誰都沒受傷；他爬起來的下一招，你看得清清楚楚）';},round:1},
-  {id:'fly',name:'蒼蠅',fx:d=>{d.reveal=2;d.weak=2;return '你變成一隻蒼蠅，嗡嗡嗡地繞著他的鼻孔飛。他氣得對空氣亂揮，鬍子都拍掉了一撮。\n（接下來 2 招都看得清清楚楚，他的傷害 -30%）';}},
-  {id:'seal',name:'海豹',fx:d=>{d.disarm=1;d.reveal=1;return '你變成一隻肥海豹，一口叼走他的武器，拍著鰭滑走了。他只能舉著盾牌，一邊追一邊罵。\n（下一招他只能格擋）';}},
-  {id:'mare',name:'母馬',fx:d=>{d.stunNext=true;addLoyalty(2);return '你變成一匹漂亮的母馬，還對他眨了眨眼。他整個人僵住，圍觀的人笑到跪在地上。\n（他下一回合會愣住；這件事會在長屋裡被講好幾年，忠誠 +2）';}},
+  {id:'salmon',name:'鮭魚',fx:d=>{d.reveal=1;return d.beast?'你「啵」一聲變成一條鮭魚，從牠的肚子底下滑了過去。牠一口咬在泥巴上，腳一滑摔了個四腳朝天。\n（這回合誰都沒受傷；牠爬起來的下一招，你看得清清楚楚）':'你「啵」一聲變成一條鮭魚，從對方的胯下滑了過去。他一斧砍在泥巴上，腳一滑摔了個四腳朝天。\n（這回合誰都沒受傷；他爬起來的下一招，你看得清清楚楚）';},round:1},
+  {id:'fly',name:'蒼蠅',fx:d=>{d.reveal=2;d.weak=2;return d.beast?'你變成一隻蒼蠅，嗡嗡嗡地繞著牠的鼻子飛。牠氣得對空氣亂咬，咬到自己的舌頭。\n（接下來 2 招都看得清清楚楚，牠的傷害 -30%）':'你變成一隻蒼蠅，嗡嗡嗡地繞著他的鼻孔飛。他氣得對空氣亂揮，鬍子都拍掉了一撮。\n（接下來 2 招都看得清清楚楚，他的傷害 -30%）';}},
+  {id:'seal',name:'海豹',fx:d=>{d.disarm=1;d.reveal=1;return d.beast?'你變成一隻肥海豹，一屁股坐在牠的鼻子上。牠嗆得直打噴嚏，只能縮著身子往後退。\n（下一招牠只能退守）':'你變成一隻肥海豹，一口叼走他的武器，拍著鰭滑走了。他只能舉著盾牌，一邊追一邊罵。\n（下一招他只能格擋）';}},
+  {id:'mare',name:'母馬',fx:d=>{d.stunNext=true;addLoyalty(2);return d.beast?'你變成一匹漂亮的母馬，對牠甩了甩尾巴。牠歪著頭看你，完全搞不清楚發生了什麼事。圍觀的人笑到跪在地上。\n（牠下一回合會愣住；這件事會在長屋裡被講好幾年，忠誠 +2）':'你變成一匹漂亮的母馬，還對他眨了眨眼。他整個人僵住，圍觀的人笑到跪在地上。\n（他下一回合會愣住；這件事會在長屋裡被講好幾年，忠誠 +2）';}},
 ];
 function lokiShift(d,base){
-  const sh=pick(SHIFTS);favor('loki',2);
+  d.beast=!!base.beast;const sh=pick(SHIFTS);favor('loki',2);
   const m=meta();m.shapes=m.shapes||{};if(!m.shapes[sh.id]){m.shapes[sh.id]=1;saveMeta(m);}if(SHIFTS.every(x=>m.shapes[x.id]))unlock('loki_zoo');
   const t=sh.fx(d);
   if(sh.round||sh.id==='seal'){
@@ -1133,7 +1133,7 @@ function lokiShift(d,base){
     d.sure=true;if(d.reveal>0)d.reveal--;d.shown=d.intent;d.feintNext=keep;
     d.hint=pick(HINT[base.beast?'beast':'human'][d.shown]);
   }else if(sh.id==='fly'){d.sure=true;d.reveal--;d.shown=d.intent;d.hint=pick(HINT[base.beast?'beast':'human'][d.shown]);}
-  else if(sh.id==='mare'){d.sure=true;d.hint='他看著你，嘴巴張得大大的，完全忘了要出招。';}
+  else if(sh.id==='mare'){d.sure=true;d.hint=base.beast?'牠歪著頭看你，完全忘了要撲上來。':'他看著你，嘴巴張得大大的，完全忘了要出招。';}
   d.log.unshift(`<b>ᛚ ${sh.name}</b>　${t.replace('\n','<br>')}`);
 }
 function duel(key,o){
@@ -1191,29 +1191,30 @@ function duel(key,o){
       const E=d.stun?0:d.atk*rnd(.9,1.1)*(d.weak>0?.7:1);
       if(d.weak>0) d.weak--;
       let toF=0,toP=0,t='';
+      const bt=(h,b)=>base.beast?b:h;
       const pierce=d.pierce||d.rage>0;
       d.feintNext=false;
       if(pm==='F'){
         d.feintUsed=true;d.feintNext=true;favor('loki',3);
-        t='你擺出要劈的架勢，又在最後一刻收手。對方撲了個空，露出破綻。';
+        t=bt('你擺出要劈的架勢，又在最後一刻收手。對方撲了個空，露出破綻。','你擺出要劈的架勢，又在最後一刻收手。牠撲了個空，摔在地上。');
       }else if(pm==='R'){
         const fl=Math.random()<flinch;
         d.buff=has('warcry')?2.5:2.2;d.pierce=true;d.cd=3;
-        if(fl) t='你仰天怒吼，對方被震住了，愣在原地！';
-        else{toP=em==='H'?E*1.3:em==='Q'?E:0;t=em==='B'?'你仰天怒吼，對方只是舉盾觀望。':`你仰天怒吼，但對方沒被嚇住，趁機${MV[em]}。`;}
+        if(fl) t=bt('你仰天怒吼，對方被震住了，愣在原地！','你仰天怒吼，牠被嚇住了，夾著尾巴愣在原地！');
+        else{toP=em==='H'?E*1.3:em==='Q'?E:0;t=em==='B'?bt('你仰天怒吼，對方只是舉盾觀望。','你仰天怒吼，牠往後縮了縮，豎著毛盯著你。'):bt(`你仰天怒吼，但對方沒被嚇住，趁機${MV[em]}。`,`你仰天怒吼，但牠沒被嚇住，趁機${{H:'整個撲了上來',Q:'撲上來咬了一口'}[em]}。`);}
       }else{
         const hb=1.4*(has('breaker')?(mastered('breaker')?1.7:1.4):1)*(eff('str')>=6?1.2:1);
         const q=has('swift')?1.3:1;
         switch(pm+em){
-          case 'HB':toF=P*hb;t='你一斧劈開了對方的盾牌！';break;
-          case 'HQ':toP=E;t='你蓄力太慢，被對方搶先砍中。';break;
-          case 'HH':toF=P*1.2;toP=E*1.2;t='兩把武器狠狠對撞，雙方都見了血。';break;
-          case 'QH':toF=P*q;t='你在對方舉起武器前搶先出手！';break;
-          case 'QQ':toF=P*.7*q;toP=E*.7;t='你們互相搶攻，各自劃出一道傷口。';break;
-          case 'QB':if(pierce){toF=P*q;t='你的攻勢撞穿了盾牌！';}else{toP=E*.8;t='你的快攻撞上盾牌，被反手一擊。';}break;
-          case 'BQ':toF=P*(has('ironwall')?1.4:.9);t='你擋下攻擊，順勢反擊！';break;
-          case 'BH':toP=E*1.2;t='對方的重擊砸穿了你的格擋。';break;
-          case 'BB':S.hp=Math.min(maxHp(),S.hp+2);d.hp=Math.min(d.max,d.hp+2);t='雙方都在防守，繞著圈喘口氣。';break;
+          case 'HB':toF=P*hb;t=bt('你一斧劈開了對方的盾牌！','牠縮起身子想躲，你一斧砍了下去！');break;
+          case 'HQ':toP=E;t=bt('你蓄力太慢，被對方搶先砍中。','你蓄力太慢，被牠搶先咬了一口。');break;
+          case 'HH':toF=P*1.2;toP=E*1.2;t=bt('兩把武器狠狠對撞，雙方都見了血。','你劈下去的同時，牠也整個撲了上來，雙方都見了血。');break;
+          case 'QH':toF=P*q;t=bt('你在對方舉起武器前搶先出手！','你在牠撲上來之前搶先出手！');break;
+          case 'QQ':toF=P*.7*q;toP=E*.7;t=bt('你們互相搶攻，各自劃出一道傷口。','你的刀和牠的牙同時見了血。');break;
+          case 'QB':if(pierce){toF=P*q;t=bt('你的攻勢撞穿了盾牌！','你的攻勢撞開了牠的防備！');}else{toP=E*.8;t=bt('你的快攻撞上盾牌，被反手一擊。','你的快攻被牠閃開，反被咬了一口。');}break;
+          case 'BQ':toF=P*(has('ironwall')?1.4:.9);t=bt('你擋下攻擊，順勢反擊！','你用盾擋下牠的撲咬，順勢反擊！');break;
+          case 'BH':toP=E*1.2;t=bt('對方的重擊砸穿了你的格擋。','牠整個撲上來，撞穿了你的格擋。');break;
+          case 'BB':S.hp=Math.min(maxHp(),S.hp+2);d.hp=Math.min(d.max,d.hp+2);t=bt('雙方都在防守，繞著圈喘口氣。','你和牠互相盯著，繞著圈喘口氣。');break;
         }
         if(pm==='H'&&toF>0&&eff('str')>=12&&d.hp<=d.max*.25){toF=d.hp;t+='一斧斬落！';}
         if(pm==='H'&&toF>0&&gt('thor',3)&&Math.random()<.3){d.stunNext=true;t+='雷聲炸響，對方被震得愣在原地！';}
@@ -1230,7 +1231,7 @@ function duel(key,o){
         else if(hk&&hk.oath&&!d.hakonUsed&&!o.hunt){d.hakonUsed=true;toP=Math.min(toP,S.hp-1);t+='哈康撲上來，替你擋下了這一擊！';}
         else if(qd('thorfinn')&&hasC('thorfinn')&&!d.thorfUsed&&!o.hunt){d.thorfUsed=true;toP=Math.min(toP,S.hp-1);t+='托爾芬撲上來，替你擋下了這一擊！';}
       }
-      if(d.stun){toP=0;if(pm==='H'||pm==='Q'){toF=Math.max(toF,Math.round(P));t='對方還沒回過神，你結結實實地砍中了他！';}else if(pm==='B')t='對方還沒回過神，你卻只是舉著盾看他。';else t='對方還沒回過神！'+t;}
+      if(d.stun){toP=0;if(pm==='H'||pm==='Q'){toF=Math.max(toF,Math.round(P));t=bt('對方還沒回過神，你結結實實地砍中了他！','牠還沒回過神，你結結實實地砍中了牠！');}else if(pm==='B')t=bt('對方還沒回過神，你卻只是舉著盾看他。','牠還沒回過神，你卻只是舉著盾看牠。');else t=bt('對方還沒回過神！','牠還沒回過神！')+t;}
       d.hp-=toF;S.hp-=toP;
       if('HQB'.includes(pm)){d.pc=d.pc||{};d.pc[pm]=(d.pc[pm]||0)+1;}
       if(base.king&&!d.wind&&d.hp>0&&d.hp<d.max*.35){d.wind=1;const h=Math.round(d.max*.15);d.hp+=h;t+=`老王退了一步，深深吸了一口氣。他年輕時的樣子，好像又回來了。（對方 +${h}）`;}if(toF||toP)sfx(toF>=toP?'hit':'clash');
@@ -3634,12 +3635,13 @@ const FAME_EVENTS=[
     ch:[...['hakon','astrid','thorfinn','sven','bragi','einar','gudrun','ragnar','osric','knut','una'].map(id=>({t:`派${CHAMPS[id].name}去`,show:()=>{const c=champ(id);return !!(c&&c.bond>=60&&!isJarlId(id));},fx:()=>{codex('h_varangian');const c=champ(id);S.flags.varang={id,t:S.turn+12,c:{...c}};removeChamp(id);S.silver+=60;return `${CHAMPS[id].name}上了南下的船，回頭朝你揮了揮手。\n銀幣 +60（三年後，${CHAMPS[id].name}會回來）`;}})),
         {t:'「我的人留在北方。」',fx:()=>'招兵官有禮貌地鞠了個躬，走了。'}]},
 ];
+const cP=id=>['astrid','gudrun','una'].includes(id)?'她':'他';
 function varangReturn(){
-  const v=S.flags.varang;if(!v||S.turn<v.t||v.back) return false;
+  const v=S.flags.varang;if(!v||S.turn<v.t||v.back) return false;const P=cP(v.id);
   v.back=1;
-  if(S.champions.length>=7){S.silver+=150;note('米克拉加德的金子',`${CHAMPS[v.id].name}的信從南方寄來，附上了一袋金子。他說，他在那裡過得很好，不回來了。\n銀幣 +150`,'名人來訪');return true;}
+  if(S.champions.length>=7){S.silver+=150;note('米克拉加德的金子',`${CHAMPS[v.id].name}的信從南方寄來，附上了一袋金子。${P}說，${P}在那裡過得很好，不回來了。\n銀幣 +150`,'名人來訪');return true;}
   S.champions.push({...v.c,skill:Math.min(5,(v.c.skill||0)+2),bond:Math.max(v.c.bond,90)});S.silver+=150;
-  note('從南方回來的人',`${CHAMPS[v.id].name}回來了，曬得黝黑，脖子上掛著金鍊子，身上多了好幾道新傷。\n\n「皇帝的宮殿有金子做的樹，樹上有會唱歌的金鳥。」他把一袋金子丟在桌上，「但我還是比較喜歡這裡。」\n<span class="good">${CHAMPS[v.id].name}回來了（戰技 +2），銀幣 +150</span>`,'名人來訪');
+  note('從南方回來的人',`${CHAMPS[v.id].name}回來了，曬得黝黑，脖子上掛著金鍊子，身上多了好幾道新傷。\n\n「皇帝的宮殿有金子做的樹，樹上有會唱歌的金鳥。」${P}把一袋金子丟在桌上，「但我還是比較喜歡這裡。」\n<span class="good">${CHAMPS[v.id].name}回來了（戰技 +2），銀幣 +150</span>`,'名人來訪');
   return true;
 }
 
