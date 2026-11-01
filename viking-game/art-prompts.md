@@ -120,3 +120,14 @@ An ornate decorative portrait frame, vertical 3:4, Viking Age Norse knotwork car
 |---|---|---|---|
 | 42 | sc_kiss_m | 男主角版 | Moonlit northern beach under green aurora. The goddess Freyja, long golden braided hair, falcon-feather cloak, golden Brísingamen necklace, a single golden tear on her cheek, stands on tiptoe to softly kiss a tall rugged Viking warrior king in fur cloak and chainmail. His hand gently cups her face. Two large grey forest cats rest nearby on the rocks. Tender, emotional, romantic, not explicit. |
 | 43 | sc_kiss_f | 女主角版 | Moonlit northern beach under green aurora. The goddess Freyja, long golden braided hair, falcon-feather cloak, golden Brísingamen necklace, a single golden tear on her cheek, stands on tiptoe to softly kiss a tall Viking shieldmaiden queen with braided hair, fur cloak and chainmail, who gently holds her hands. Two large grey forest cats rest nearby on the rocks. Tender, emotional, romantic, not explicit. |
+
+## 補充：新勇士與諸神黃昏（4 張）
+
+人物先貼「人物用」共用風格，場景先貼「場景用」共用風格，再接下面的描述。
+
+| # | 檔名 | 內容 | 描述 |
+|---|---|---|---|
+| 44 | c_bjorn | 「鐵甲」比約恩（人物） | A young Viking berserker in his early twenties, son of the red-bearded berserker Ragnar, the same wild red hair and beard but younger and leaner, wearing a heavy ring-mail shirt that looks unbreakable, biting the rim of a battered shield, fierce grin, sea and longships behind him. |
+| 45 | c_sigrid | 盾女西格麗德（人物） | A proud young shieldmaiden around twenty, a jarl's daughter, dark blonde hair in a thick braid, a richly painted round shield with her father's sigil, fine chainmail and a blue wool cloak, confident half-smile, a law stone and a crowd of onlookers behind her. |
+| 46 | sc_einherjar | 英靈助戰（場景） | Ragnarök battlefield in endless snow under a burning red sky. From a golden break in the storm clouds, hundreds of glowing ghostly einherjar warriors of Valhalla ride and march down a shining rainbow bridge to join a small band of living Viking warriors with round shields. Ahead, frost giants and a giant wolf. Epic, awe-inspiring, hopeful in the darkness. |
+| 47 | sc_ragfall | 倒在諸神黃昏（場景） | Aftermath of Ragnarök: a world of ash, ice and dying fire, a dark red sun sinking. A fallen Viking ruler lies in the ash with a broken shield; beside them, a weary Norse god kneels, and they look into each other's eyes with quiet despair. Ruined halls and a fallen world tree in the background. Tragic, solemn, beautiful. |
