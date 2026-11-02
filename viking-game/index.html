@@ -3712,6 +3712,8 @@ function heirLine(){
   return `<p class="story" style="color:var(--frost)">繼承人${esc(h.name)}${h.trait?`，${tr.line}`:''}。${lost?`${esc(h.name)}跟著你逃進了山裡。總有一天，會有人把王冠拿回來的。`:S.dead?`你的王冠，傳給了${esc(h.name)}。`:''}</p>`;
 }
 // 倒在諸神黃昏：和最親的那位神，最後對看一眼
+// 倒在諸神黃昏：每位神各一張，還沒畫的先用通用的那張
+const ragfallArt=()=>{const p=patron()||(S.flags.lokiNo?'odin':'none');const k='sc_ragfall_'+p;return ART_HAVE.has(k)?k:'sc_ragfall';};
 function ragfallScene(line){
   const p=patron()||(S.flags.lokiNo?'odin':null);
   const g={
@@ -3736,7 +3738,7 @@ function ch4End(el,kind){
     ragfall:ragfallScene(line),
     lokiside:`你握住了洛基的手。他笑了，笑得像個孩子。\n\n那一天，彩虹橋斷了，瓦爾哈拉燒了。新的世界升起來的時候，王座上坐著的，是你。\n\n只是每到晚上，你都會聽見渡鴉在窗外，叫著你的名字。\n\n${line}`,
     abdicate:`你在法石前摘下王冠，放在${S.heir?esc(S.heir.name):'繼承人'}的頭上。雅爾們一個一個跪了下來。\n\n${S.heir&&S.heir.trait?{war:'新王拔出劍，向全挪威宣誓：丹麥人來的那一天，他會站在最前面。',song:'新王在加冕宴上唱了一首歌，唱的是你的一生。很多人哭了。',peace:'新王用撒克遜話、丹麥話和挪威話各說了一次誓言。幾年後，丹麥人沒有打過來，而是派人來談和。',sea:'新王第二天就上了船。他說，北海的另一邊還有很多地方，你還沒去過。',champ:`你最信任的勇士戴上了王冠。${['astrid','gudrun','una'].includes(S.heir.champ)?'她':'他'}說，會像當年跟著你一樣，守著這個王國。`,divine:'新王的眼睛閃著金光。從那天起，挪威的麥子每一年都長得特別好。'}[S.heir.trait]||'':''}\n\n你回到了當年那片海灘，在一間小屋裡住了下來。\n\n${line}`}[kind];
-  endScreen(el,`${kind==='ragfall'&&ART_HAVE.has('sc_ragfall')?sceneImg('sc_ragfall'):portrait({stage:3,size:'small'})}
+  endScreen(el,`${kind==='ragfall'&&ART_HAVE.has(ragfallArt())?sceneImg(ragfallArt()):portrait({stage:3,size:'small'})}
   <p class="eyebrow">第四章終章 · ${title}</p><h2>${esc(S.name)}</h2>
   <p class="story">${scene}</p>${!['lost','lokiside'].includes(kind)?freyjaReveal():''}
   <p class="quote">${{win:'「母親，這一次，你一定看見了。」',vassal:'「……母親，對不起。」',lost:'「活著回來，或者別回來。……我回來了，母親。」',ragnarok:'「母親，世界重新開始了。」',ragfall:'「母親……我來了。」',lokiside:'「母親，你會原諒我嗎？」',abdicate:'「母親，我回家了。」'}[kind]}</p>

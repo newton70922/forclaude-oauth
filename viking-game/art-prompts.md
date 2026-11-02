@@ -10,7 +10,66 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ 還需要的圖（v0.7，可以一次全部給 ChatGPT）
+## ★ 新的待畫清單：每位神的「倒在諸神黃昏」（6 張，橫式 16:9）
+
+死在諸神黃昏時，結局圖會依你的守護神換成對應的那一張；還沒畫的，先用現在那張通用的（奧丁）代替。
+
+倒下的主角刻意畫成戴頭盔、半側背對鏡頭、看不出男女，這樣男女主角都能用同一張。每一段都已經包含共用風格，整段直接貼給 ChatGPT 就好。
+
+| # | 檔名 | 用在哪裡 | 比例 |
+|---|---|---|---|
+| 1 | sc_ragfall_odin | 倒在諸神黃昏（奧丁） | 16:9 |
+| 2 | sc_ragfall_thor | 倒在諸神黃昏（索爾） | 16:9 |
+| 3 | sc_ragfall_tyr | 倒在諸神黃昏（提爾） | 16:9 |
+| 4 | sc_ragfall_freyja | 倒在諸神黃昏（弗蕾亞） | 16:9 |
+| 5 | sc_ragfall_loki | 倒在諸神黃昏（洛基） | 16:9 |
+| 6 | sc_ragfall_none | 倒在諸神黃昏（沒有守護神） | 16:9 |
+
+### 1. sc_ragfall_odin（奧丁）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A fallen Viking ruler lies in the ash and snow, seen from behind and slightly to the side, face hidden by an iron helmet and a fur cloak so that the ruler could be a man or a woman, a broken round shield and an axe beside them. Odin, the one-eyed old god in a wide-brimmed hat and dark blue cloak, kneels beside the fallen ruler and looks only at them, his single eye empty of light, while the enormous shadow of the wolf Fenrir falls over both of them, its open jaws rising behind. The end of the world: ruined burning halls, a fallen world tree, a dark red sun. Tragic, solemn, beautiful.
+```
+
+### 2. sc_ragfall_thor（索爾）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A fallen Viking ruler lies in the ash and snow, seen from behind and slightly to the side, face hidden by an iron helmet and a fur cloak so that the ruler could be a man or a woman, a broken round shield and an axe beside them. Thor, red-bearded, bloodied, glances back at the fallen ruler one last time as he charges toward the colossal World Serpent rising from a raging sea; his hammer Mjölnir, its lightning flickering out, spins slowly through the air above them. The end of the world: ruined burning halls, a fallen world tree, a dark red sun. Tragic, solemn, beautiful.
+```
+
+### 3. sc_ragfall_tyr（提爾）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A fallen Viking ruler lies in the ash and snow, seen from behind and slightly to the side, face hidden by an iron helmet and a fur cloak so that the ruler could be a man or a woman, a broken round shield and an axe beside them. Tyr, the one-handed war god, sits quietly beside the fallen ruler on the ice, his sword planted upright in the ice next to them, his missing hand wrapped in an old leather cuff; in the dark distance the glowing eyes of the hellhound Garm approach. Calm, loyal, waiting together. The end of the world: ruined burning halls, a fallen world tree, a dark red sun. Tragic, solemn, beautiful.
+```
+
+### 4. sc_ragfall_freyja（弗蕾亞）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A fallen Viking ruler lies in the ash and snow, seen from behind and slightly to the side, face hidden by an iron helmet and a fur cloak so that the ruler could be a man or a woman, a broken round shield and an axe beside them. Freyja, golden-haired goddess, her falcon-feather cloak half burned, holds the fallen ruler in her arms and weeps; her tears fall into the ash without turning to gold; walls of fire close in from every side and the fire giant's burning sword glows in the distance. The end of the world: ruined burning halls, a fallen world tree, a dark red sun. Tragic, solemn, beautiful.
+```
+
+### 5. sc_ragfall_loki（洛基）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A fallen Viking ruler lies in the ash and snow, seen from behind and slightly to the side, face hidden by an iron helmet and a fur cloak so that the ruler could be a man or a woman, a broken round shield and an axe beside them. Loki, the lean red-haired trickster god with scarred lips, crouches before the fallen ruler, for once not smiling, looking at them with quiet sorrow; behind him, an army of frost giants waits on the ice for him to return. The end of the world: ruined burning halls, a fallen world tree, a dark red sun. Tragic, solemn, beautiful.
+```
+
+### 6. sc_ragfall_none（沒有守護神）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A fallen Viking ruler lies in the ash and snow, seen from behind and slightly to the side, face hidden by an iron helmet and a fur cloak so that the ruler could be a man or a woman, a broken round shield and an axe beside them. The fallen ruler is completely alone on a vast empty battlefield; no god is near, only wind carrying ash and snow across the ice, distant figures of gods and giants fighting far away in the firelight, small and unreachable. The end of the world: ruined burning halls, a fallen world tree, a dark red sun. Tragic, solemn, beautiful.
+```
+
+---
+
+## ✅ v0.7 的圖（已全部收到）
 
 目前清單上的圖**全部收到了**，都已經放進遊戲。下面每一張都已經把共用風格寫進去了，整段複製貼上就能畫，不用再另外貼「共用風格」。
 
