@@ -278,6 +278,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .snowgrid.five button{font-size:20px}
 .snowgrid button.can{border-color:var(--gold)}
 .snowgrid button:disabled{opacity:.85;color:var(--bone);font-size:18px}
+.kingfig{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-areas:". head ." "shield chest arm" ". legs .";gap:6px;max-width:300px;margin:10px auto}
+.kingfig .kp{padding:12px 4px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--bone);font-size:13px}
+.kingfig .kp-head{grid-area:head;border-radius:50%}.kingfig .kp-chest{grid-area:chest;padding:22px 4px}.kingfig .kp-arm{grid-area:arm}.kingfig .kp-shield{grid-area:shield}.kingfig .kp-legs{grid-area:legs}
 .saga{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:4px 0 8px;background:var(--panel2)}
 .saga .epi{font-family:'Noto Serif TC',serif;font-size:22px;color:var(--gold)}
 .saga small{color:var(--muted)}
@@ -724,6 +727,7 @@ const ACH={
   ori_sailor:{name:'划槳的王',desc:'以船工的身分稱王。',hint:'以船工的身分稱王。'},
   ori_skald:{name:'唱自己的歌',desc:'以詩人之子的身分稱王。',hint:'以詩人之子的身分稱王。'},
   hunter6:{name:'北境的獵人',desc:'獵過狼、野豬、熊、麋鹿、山貓和海象。',hint:'在深入獵捕裡，獵過每一種野獸。'},
+  king_awake:{name:'王者之戰',desc:'擊敗覺醒的老王哈夫丹。',hint:'打倒老王兩次。'},
   strawdeath:{name:'稻草之死',desc:'在床上老死。',hint:'不是每個維京人都死在戰場上。',secret:1},
 };
 const SKINS={base:{name:'無畫框'},frost:{name:'霜狼畫框',need:'deathless'},hero:{name:'英雄畫框',need:'hero_king'},raven:{name:'渡鴉畫框',need:'three_crowns'},paint:{name:'血色畫框',need:'kill_sven'},gold:{name:'金淚畫框',need:'freyja_wed'}};
@@ -954,7 +958,7 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
 const ART_HAVE=new Set(['c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven']);
-const CHAMP_ART={bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
+const CHAMP_ART={halfdan2:'v_halfdan2',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
 const artKey=id=>CHAMP_ART[id]||id;
@@ -1122,6 +1126,7 @@ const HUNT={
 /* ================= 單挑 ================= */
 const MV={H:'重擊',Q:'快攻',B:'格擋',R:'怒吼'};
 function habitW(f,d){
+  if(f.king&&d.awake) return [.45,.3,.25];
   const w=f.w.slice();
   const set=(m,p)=>{const i='HQB'.indexOf(m);for(let j=0;j<3;j++)w[j]=j===i?p:(1-p)/2;};
   switch(f.hab){
@@ -1169,6 +1174,46 @@ function lokiShift(d,base){
   else if(sh.id==='mare'){d.sure=true;d.hint=base.beast?'牠歪著頭看你，完全忘了要撲上來。':'他看著你，嘴巴張得大大的，完全忘了要出招。';}
   d.log.unshift(`<b>ᛚ ${sh.name}</b>　${t.replace('\n','<br>')}`);
 }
+// 老王覺醒：反應型撐住威壓；解謎型憑神恩看穿他的力量湧向哪裡
+const KING_LINES=['「你以為我是怎麼成為國王的？」','「你以為，我是怎麼統治挪威三十年的？」','「三十年前，我也站在你現在的位置。」'];
+const KING_PARTS={
+  arm:{name:'握劍的右臂',stop:'你一斧砍向他的手腕，他的劍偏了。',signs:['他握劍的指節發白，劍尖微微發抖。','他右肩的肌肉一塊一塊鼓了起來。']},
+  shield:{name:'舉盾的左臂',stop:'你一腳踢在他的盾牌邊緣，盾牌歪了。',signs:['他的盾牌往上抬了一寸，邊緣對準了你的臉。','他左手的皮護腕繃得快要裂開。']},
+  legs:{name:'雙腿',stop:'你掃向他的腳踝，他的步子亂了。',signs:['他腳下的木板發出吱嘎一聲。','他的膝蓋微微彎了下去，像是要撲出來。']},
+  chest:{name:'胸口',stop:'你一拳打在他的胸口，那口氣散了。',signs:['他深深吸了一口氣，胸膛鼓得像風箱。','他的鎖子甲隨著呼吸，一起一伏得越來越快。']},
+  head:{name:'雙眼',stop:'你朝他的眼睛甩了一把灰，他眨了眨眼。',signs:['他的眼睛盯著你的喉嚨，一眨也不眨。','他的眼神突然變得很冷，像冬天的峽灣。']},
+};
+function kingAwaken(el,d,done){
+  const line=pick(KING_LINES),art=hasArt('halfdan2')?'halfdan2':'halfdan';
+  const head=`<p class="eyebrow">生死單挑 · 王者覺醒</p><h2>老王站了起來</h2>${avatar(art,'big')}
+  <p class="story">老王哈夫丹倒在地上。你以為一切都結束了。\n\n然後，他笑了。他用劍撐著地，一點一點站了起來。王廳裡的火把全都暗了一下。\n\n<b>${line}</b></p>`;
+  if(S.mini==='react'){
+    // 一直被往下壓的指針，要連點把它撐在金色區域裡
+    let v=60,inT=0,t0=0,last=0,raf=0,over=false;const T=5000,zone=S.relaxed?[30,80]:[40,75];
+    el.innerHTML=head+`<p class="hint">他的威壓像一座山一樣壓下來。<b>連續點「挺住！」</b>，把指針撐在金色區域裡，撐越久越好。</p>
+      <div class="rowbar"><i class="zone" style="left:${zone[0]}%;width:${zone[1]-zone[0]}%"></i><i class="needle" id="kw-n" style="left:60%"></i></div>
+      <div class="swtime"><i id="kw-t"></i></div><button class="primary big" id="kw-b">挺住！</button>`;
+    const push=()=>{if(!over){v=Math.min(100,v+8);sfx('drum');}};
+    $('#kw-b').onclick=push;mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();push();}};
+    const tk=t=>{if(over)return;if(!t0){t0=t;last=t;}const dt=t-last;last=t;v=Math.max(0,v-dt*(.02+(t-t0)/T*.015)*(S.relaxed?.75:1));if(v>=zone[0]&&v<=zone[1])inT+=dt;
+      const n=$('#kw-n');if(n)n.style.left=v+'%';const bar=$('#kw-t');if(bar)bar.style.width=Math.max(0,100-(t-t0)/T*100)+'%';
+      if(t-t0>=T){over=true;mgKey=null;const f=inT/T;done(f>=.7?0:f>=.4?1:2);return;}raf=requestAnimationFrame(tk);};
+    raf=requestAnimationFrame(tk);
+  }else{
+    // 解謎型：看徵兆，找出力量湧向哪裡，三次
+    const g=Object.keys(GODS).filter(k=>gt(k,1)).sort((a,b)=>(S.favor[b]||0)-(S.favor[a]||0))[0];
+    const keys=Object.keys(KING_PARTS).sort(()=>Math.random()-.5).slice(0,3);let i=0,ok=0;const L=[];
+    const drawP=()=>{
+      if(i>=3){done(ok===3?0:ok===2?1:2);return;}
+      const k=keys[i],sign=pick(KING_PARTS[k].signs);
+      el.innerHTML=head+`<p class="hint">${g?`${GODS[g].name}的神恩讓你看見了：`:'你咬著牙，死死盯著他：'}他的力量正在湧向身體的某一處。<b>${sign}</b><small>第 ${i+1}/3 次 · 選出力量湧向的地方，阻止它。</small></p>
+      <div class="kingfig">${Object.entries(KING_PARTS).map(([pk,p])=>`<button class="kp kp-${pk}" data-kp="${pk}">${p.name}</button>`).join('')}</div>
+      <ol class="dlog">${L.slice(-3).reverse().map(l=>`<li>${l}</li>`).join('')}</ol>`;
+      el.querySelectorAll('[data-kp]').forEach(b=>b.onclick=()=>{const pk=b.dataset.kp;if(pk===k){ok++;L.push(`<span class="good">${KING_PARTS[k].stop}</span>`);sfx('hit');}else{L.push(`<span class="bad">你看錯了，力量湧向的是${KING_PARTS[k].name}。</span>`);sfx('bad');}i++;drawP();});
+    };
+    drawP();
+  }
+}
 function duel(key,o){
   codex({ragnar:'h_berserker',holmS:'h_shieldmaiden',astrid:'h_shieldmaiden',palna:'h_jomsvikings',fenrir:'y_fenrir',fenrirG:'y_fenrir'}[key]);
   pushModal(el=>{
@@ -1178,6 +1223,13 @@ function duel(key,o){
     let acc=.4+eff('wit')*.06+(has('mindread')?(mastered('mindread')?.3:.2):0)+(gt('odin',1)?.05:0);
     if(base.king) acc-=has('mindread')?.15:.3;
     acc=clamp(acc,.2,base.king?.5:.9);
+    // 老王的第二階段
+    const awaken=()=>kingAwaken(el,d,res=>{
+      const R=[{hp:.6,atk:1.15,acc:.8,t:'你挺直了背，迎著他的目光。他眼裡閃過一絲意外。'},{hp:.8,atk:1.3,acc:.75,t:'你的膝蓋晃了一下，但你沒有倒下。'},{hp:1,atk:1.45,acc:.7,t:'他的威壓像一座山一樣壓下來，你差點跪了下去。'}][res];
+      d.awaking=false;d.awake=true;d.hp=Math.round(d.max*R.hp);d.atk*=R.atk;acc=Math.max(acc,R.acc);
+      d.name='覺醒的老王哈夫丹';
+      d.log.unshift(`${R.t}<b style="color:var(--ember)">老王的攻擊變猛了。但他太驕傲了，不再隱藏自己的招式。</b>`);
+      choose();draw();});
     const flinch=clamp(.25+eff('pre')*.05+(eff('pre')>=6?.1:0)+(has('warcry')?.15:0),.25,.9);
     const knows=S.known[key]||eff('wit')>=12||gt('odin',3);
     const choose=()=>{
@@ -1190,8 +1242,10 @@ function duel(key,o){
     };
     choose();
     const draw=()=>{
+      if(d.awaking){awaken();return;}
+      const fa=d.awake&&hasArt('halfdan2')?'halfdan2':FOE_ART[key];
       el.innerHTML=`<p class="eyebrow">${o.lethal?'生死單挑':'比武 · 點到為止'}</p><h2>${esc(S.name)} 對 ${d.name}</h2>
-      ${FOE_ART[key]&&hasArt(FOE_ART[key])?avatar(FOE_ART[key],'big'):''}${o.intro&&!d.log.length?`<p class="story">${o.intro}</p>`:''}
+      ${fa&&hasArt(fa)?avatar(fa,'big'):''}${o.intro&&!d.log.length?`<p class="story">${o.intro}</p>`:''}
       <div class="fighters">
         <div class="fighter"><b>${esc(S.name)}</b><div class="track"><div class="fill" style="width:${clamp(S.hp/maxHp(),0,1)*100}%"></div></div><span class="num">${Math.max(0,S.hp)} / ${maxHp()}${d.buff>1?' · 蓄勢待發':''}${d.rage?` · 狂暴（${d.rage}）`:''}</span></div>
         <div class="fighter foe"><b>${d.name}</b><div class="track"><div class="fill" style="width:${Math.max(0,d.hp)/d.max*100}%"></div></div><span class="num">${Math.max(0,d.hp)} / ${d.max}</span></div>
@@ -1267,9 +1321,10 @@ function duel(key,o){
       if(d.stun){toP=0;if(pm==='H'||pm==='Q'){toF=Math.max(toF,Math.round(P));t=bt('對方還沒回過神，你結結實實地砍中了他！','牠還沒回過神，你結結實實地砍中了牠！');}else if(pm==='B')t=bt('對方還沒回過神，你卻只是舉著盾看他。','牠還沒回過神，你卻只是舉著盾看牠。');else t=bt('對方還沒回過神！','牠還沒回過神！')+t;}
       d.hp-=toF;S.hp-=toP;
       if('HQB'.includes(pm)){d.pc=d.pc||{};d.pc[pm]=(d.pc[pm]||0)+1;}
-      if(base.king&&!d.wind&&d.hp>0&&d.hp<d.max*.35){d.wind=1;const h=Math.round(d.max*.15);d.hp+=h;t+=`老王退了一步，深深吸了一口氣。他年輕時的樣子，好像又回來了。（對方 +${h}）`;}if(toF||toP)sfx(toF>=toP?'hit':'clash');
+      if(base.king&&!d.awake&&!d.wind&&d.hp>0&&d.hp<d.max*.35){d.wind=1;const h=Math.round(d.max*.15);d.hp+=h;t+=`老王退了一步，深深吸了一口氣。他年輕時的樣子，好像又回來了。（對方 +${h}）`;}if(toF||toP)sfx(toF>=toP?'hit':'clash');
       d.hit=toF>0;d.last=em;d.lastP=pm;d.qs=em==='Q'?d.qs+1:0;
       d.log.unshift(`${t}${toF?` <span style="color:var(--ember)">對方 -${toF}</span>`:''}${toP?` <span style="color:var(--blood)">你 -${toP}</span>`:''}`);
+      if(base.king&&!d.awake&&d.hp<=0&&S.hp>0){d.hp=1;d.awaking=true;draw();return;}
       const fled=o.retreatAt&&d.hp>0&&d.hp<=d.max*o.retreatAt;
       if(d.hp<=0||fled||S.hp<=0){
         d.over=true;
@@ -2618,7 +2673,8 @@ function winterDuels(){
 function kingDuel(intro){
   duel('king',{lethal:true,xp:50,intro:'老王哈夫丹從王座上站起來，拔出了一把比你年紀還老的劍。\n「我年輕時，也像你一樣。」\n\n你沒有時間喘口氣。',cause:'死在老王哈夫丹的劍下',onEnd:w2=>{
     if(!w2){log('倒在老王的劍下。');return '你的戰士把你拖了出去，攻城失敗了。';}
-    return '老王單膝跪地，把劍放在你的腳邊。\n'+takeSeat(R('winter'),'連敗御衛長與老王');}});
+    unlock('king_awake');
+    return '老王單膝跪地，喘著氣，把劍放在你的腳邊。他抬起頭看著你，眼神裡沒有恨，只有一點點的欣慰。\n\n「……好。挪威，交給你了。」\n\n他抓住你的手，力氣大得不像個老人：「但你給我記住。好好對待我的子民。要是讓我在瓦爾哈拉聽見他們在哭……我會親自下來，把這頂王冠拿回去。」\n\n'+takeSeat(R('winter'),'連敗御衛長與老王');}});
 }
 function afterLordWin(r){
   if(r.id==='red'){pushModal(svenFate(r));return '赫羅爾夫跪倒在地，斧頭脫手。';}
