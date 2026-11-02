@@ -278,6 +278,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .snowgrid.five button{font-size:20px}
 .snowgrid button.can{border-color:var(--gold)}
 .snowgrid button:disabled{opacity:.85;color:var(--bone);font-size:18px}
+.sealwrap{display:grid;grid-template-columns:3fr 1fr;gap:12px;align-items:center;max-width:320px;margin:10px auto}
+.seal{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.seal button{aspect-ratio:1;background:var(--panel2);border:1px solid var(--line);border-radius:6px;font-family:var(--f-rune);font-size:26px;color:var(--gold)}
+.seal button.can{border-color:var(--ember)}
+.seal button.hole{background:transparent;border-style:dashed}
+.seal.goal{gap:2px;opacity:.75}
+.seal.goal i{aspect-ratio:1;display:grid;place-items:center;font-style:normal;font-family:var(--f-rune);font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:3px}
 .kingfig{display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-areas:". head ." "shield chest arm" ". legs .";gap:6px;max-width:300px;margin:10px auto}
 .kingfig .kp{padding:12px 4px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--bone);font-size:13px}
 .kingfig .kp-head{grid-area:head;border-radius:50%}.kingfig .kp-chest{grid-area:chest;padding:22px 4px}.kingfig .kp-arm{grid-area:arm}.kingfig .kp-shield{grid-area:shield}.kingfig .kp-legs{grid-area:legs}
@@ -1175,13 +1182,13 @@ function lokiShift(d,base){
   d.log.unshift(`<b>ᛚ ${sh.name}</b>　${t.replace('\n','<br>')}`);
 }
 // 老王覺醒：反應型撐住威壓；解謎型憑神恩看穿他的力量湧向哪裡
-const KING_LINES=['「你以為我是怎麼成為國王的？」','「你以為，我是怎麼統治挪威三十年的？」','「三十年前，我也站在你現在的位置。」'];
+const KING_LINES=['「你以為我是怎麼成為國王的？……我殺過的人，比你見過的還多！」','「你以為，我是怎麼統治挪威三十年的？靠的可不是運氣！」','「三十年前，我也站在你現在的位置。但當年的國王，可沒有我這麼強！」'];
 const KING_PARTS={
-  arm:{name:'握劍的右臂',stop:'你一斧砍向他的手腕，他的劍偏了。',signs:['他握劍的指節發白，劍尖微微發抖。','他右肩的肌肉一塊一塊鼓了起來。']},
-  shield:{name:'舉盾的左臂',stop:'你一腳踢在他的盾牌邊緣，盾牌歪了。',signs:['他的盾牌往上抬了一寸，邊緣對準了你的臉。','他左手的皮護腕繃得快要裂開。']},
-  legs:{name:'雙腿',stop:'你掃向他的腳踝，他的步子亂了。',signs:['他腳下的木板發出吱嘎一聲。','他的膝蓋微微彎了下去，像是要撲出來。']},
-  chest:{name:'胸口',stop:'你一拳打在他的胸口，那口氣散了。',signs:['他深深吸了一口氣，胸膛鼓得像風箱。','他的鎖子甲隨著呼吸，一起一伏得越來越快。']},
-  head:{name:'雙眼',stop:'你朝他的眼睛甩了一把灰，他眨了眨眼。',signs:['他的眼睛盯著你的喉嚨，一眨也不眨。','他的眼神突然變得很冷，像冬天的峽灣。']},
+  arm:{name:'握劍的右臂',stop:'你一斧砍向他的手腕，他的劍偏了。',signs:['他握劍的指節發白，劍尖微微發抖。','他右肩的肌肉一塊一塊鼓了起來。'],fake:'他故意把劍舉得高高的，劍尖在你眼前晃來晃去。'},
+  shield:{name:'舉盾的左臂',stop:'你一腳踢在他的盾牌邊緣，盾牌歪了。',signs:['他的盾牌往上抬了一寸，邊緣對準了你的臉。','他左手的皮護腕繃得快要裂開。'],fake:'他故意把盾牌重重敲了兩下，眼睛卻一直盯著別的地方。'},
+  legs:{name:'雙腿',stop:'你掃向他的腳踝，他的步子亂了。',signs:['他腳下的木板發出吱嘎一聲。','他的膝蓋微微彎了下去，像是要撲出來。'],fake:'他故意大聲跺了一下腳，像是要讓你看見。'},
+  chest:{name:'胸口',stop:'你一拳打在他的胸口，那口氣散了。',signs:['他深深吸了一口氣，胸膛鼓得像風箱。','他的鎖子甲隨著呼吸，一起一伏得越來越快。'],fake:'他故意挺起胸膛，大聲地哈哈笑。'},
+  head:{name:'雙眼',stop:'你朝他的眼睛甩了一把灰，他眨了眨眼。',signs:['他的眼睛盯著你的喉嚨，一眨也不眨。','他的眼神突然變得很冷，像冬天的峽灣。'],fake:'他故意朝你眨了眨眼，嘴角掛著笑。'},
 };
 function kingAwaken(el,d,done){
   const line=pick(KING_LINES),art=hasArt('halfdan2')?'halfdan2':'halfdan';
@@ -1200,16 +1207,38 @@ function kingAwaken(el,d,done){
       if(t-t0>=T){over=true;mgKey=null;const f=inT/T;done(f>=.7?0:f>=.4?1:2);return;}raf=requestAnimationFrame(tk);};
     raf=requestAnimationFrame(tk);
   }else{
-    // 解謎型：看徵兆，找出力量湧向哪裡，三次
+    // 解謎型：兩次看穿（有假動作），最後用守護神的符文封住他
     const g=Object.keys(GODS).filter(k=>gt(k,1)).sort((a,b)=>(S.favor[b]||0)-(S.favor[a]||0))[0];
-    const keys=Object.keys(KING_PARTS).sort(()=>Math.random()-.5).slice(0,3);let i=0,ok=0;const L=[];
+    const keys=Object.keys(KING_PARTS).sort(()=>Math.random()-.5);let i=0,ok=0;const L=[];
+    const fin=()=>done(ok===3?0:ok===2?1:2);
     const drawP=()=>{
-      if(i>=3){done(ok===3?0:ok===2?1:2);return;}
-      const k=keys[i],sign=pick(KING_PARTS[k].signs);
-      el.innerHTML=head+`<p class="hint">${g?`${GODS[g].name}的神恩讓你看見了：`:'你咬著牙，死死盯著他：'}他的力量正在湧向身體的某一處。<b>${sign}</b><small>第 ${i+1}/3 次 · 選出力量湧向的地方，阻止它。</small></p>
+      if(i>=2){seal();return;}
+      const k=keys[i],fk=keys[i+2];
+      const signs=[pick(KING_PARTS[k].signs),KING_PARTS[fk].fake].sort(()=>Math.random()-.5);
+      el.innerHTML=head+`<p class="hint">${g?`${GODS[g].name}的神恩讓你看見了：`:'你咬著牙，死死盯著他：'}他的力量正在湧向身體的某一處。<br>• ${signs[0]}<br>• ${signs[1]}<small>${i===0?'老狐狸會故意做給你看。真正的力量，藏在他控制不了的地方。':''}第 ${i+1}/3 步 · 選出力量真正湧向的地方，阻止它。</small></p>
       <div class="kingfig">${Object.entries(KING_PARTS).map(([pk,p])=>`<button class="kp kp-${pk}" data-kp="${pk}">${p.name}</button>`).join('')}</div>
       <ol class="dlog">${L.slice(-3).reverse().map(l=>`<li>${l}</li>`).join('')}</ol>`;
-      el.querySelectorAll('[data-kp]').forEach(b=>b.onclick=()=>{const pk=b.dataset.kp;if(pk===k){ok++;L.push(`<span class="good">${KING_PARTS[k].stop}</span>`);sfx('hit');}else{L.push(`<span class="bad">你看錯了，力量湧向的是${KING_PARTS[k].name}。</span>`);sfx('bad');}i++;drawP();});
+      el.querySelectorAll('[data-kp]').forEach(b=>b.onclick=()=>{const pk=b.dataset.kp;
+        if(pk===k){ok++;L.push(`<span class="good">${KING_PARTS[k].stop}</span>`);sfx('hit');}
+        else L.push(`<span class="bad">${pk===fk?'你上當了，那是他故意做給你看的。':'你看錯了。'}力量真正湧向的是${KING_PARTS[k].name}。</span>`),sfx('bad');
+        i++;drawP();});
+    };
+    // 第三步：滑塊拼圖，把符文拼回原位，封住他的力量
+    const seal=()=>{
+      const R=['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ'];const goal=[...R,null];let b=goal.slice(),hole=8,prev=-1,moves=0;const limit=20;
+      const nb=h=>{const x=h%3,y=Math.floor(h/3);return [[1,0],[-1,0],[0,1],[0,-1]].map(([dx,dy])=>[x+dx,y+dy]).filter(([a,c])=>a>=0&&c>=0&&a<3&&c<3).map(([a,c])=>c*3+a);};
+      for(let n=0,steps=ri(8,12);n<steps;n++){const o=nb(hole).filter(j=>j!==prev);const j=pick(o);b[hole]=b[j];b[j]=null;prev=hole;hole=j;}
+      if(b.every((v,j)=>v===goal[j])){const j=nb(hole)[0];b[hole]=b[j];b[j]=null;hole=j;}
+      const drawS=msg=>{
+        el.innerHTML=head+`<p class="hint">${g?`用${GODS[g].name}的符文`:'用你母親護身符上的符文'}封住他的力量！點空格旁邊的符文石，把它推進空格，排回右邊的樣子。<small>第 3/3 步 · 步數 ${moves}/${limit}${msg?'　'+msg:''}</small></p>
+        <div class="sealwrap"><div class="seal">${b.map((v,j)=>`<button data-sl="${j}" class="${v?'':'hole'} ${nb(hole).includes(j)?'can':''}">${v||''}</button>`).join('')}</div>
+        <div class="seal goal">${goal.map(v=>`<i>${v||''}</i>`).join('')}</div></div>
+        <ol class="dlog">${L.slice(-3).reverse().map(l=>`<li>${l}</li>`).join('')}</ol>`;
+        el.querySelectorAll('[data-sl]').forEach(btn=>btn.onclick=()=>{const j=+btn.dataset.sl;if(!nb(hole).includes(j))return;b[hole]=b[j];b[j]=null;hole=j;moves++;sfx('drum');
+          if(b.every((v,x)=>v===goal[x])){ok++;L.push('<span class="good">符文合上的那一刻，一道光從他胸口炸開。他踉蹌了一步。</span>');setTimeout(fin,600);drawS('封印完成！');return;}
+          if(moves>=limit){L.push('<span class="bad">符文還沒拼完，封印就碎了。</span>');fin();return;}drawS();});
+      };
+      drawS();
     };
     drawP();
   }

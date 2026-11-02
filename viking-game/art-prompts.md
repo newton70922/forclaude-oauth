@@ -131,3 +131,9 @@ An ornate decorative portrait frame, vertical 3:4, Viking Age Norse knotwork car
 | 45 | c_sigrid | 盾女西格麗德（人物） | A proud young shieldmaiden around twenty, a jarl's daughter, dark blonde hair in a thick braid, a richly painted round shield with her father's sigil, fine chainmail and a blue wool cloak, confident half-smile, a law stone and a crowd of onlookers behind her. |
 | 46 | sc_einherjar | 英靈助戰（場景） | Ragnarök battlefield in endless snow under a burning red sky. From a golden break in the storm clouds, hundreds of glowing ghostly einherjar warriors of Valhalla ride and march down a shining rainbow bridge to join a small band of living Viking warriors with round shields. Ahead, frost giants and a giant wolf. Epic, awe-inspiring, hopeful in the darkness. |
 | 47 | sc_ragfall | 倒在諸神黃昏（場景） | Aftermath of Ragnarök: a world of ash, ice and dying fire, a dark red sun sinking. A fallen Viking ruler lies in the ash with a broken shield; beside them, a weary Norse god kneels, and they look into each other's eyes with quiet despair. Ruined halls and a fallen world tree in the background. Tragic, solemn, beautiful. |
+
+## 補充：覺醒的老王（1 張，人物用）
+
+| # | 檔名 | 內容 | 描述 |
+|---|---|---|---|
+| 48 | v_halfdan2 | 覺醒的老王哈夫丹 | Old King Halfdan of Norway awakened for his last battle: around seventy but suddenly towering and terrifying, long white beard and hair blown back by an unseen wind, eyes blazing with cold fire, iron crown, fur mantle thrown off, an ancient notched sword raised, embers and snow swirling around him in a dark royal hall, an aura of overwhelming authority. Majestic, intimidating, legendary. |
