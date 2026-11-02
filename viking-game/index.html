@@ -271,6 +271,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .ctabs button{flex:1;min-width:52px;padding:8px 4px;background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);font-size:14px;position:relative;white-space:nowrap}
 .ctabs button[aria-selected="true"]{color:var(--bone);border-bottom-color:var(--ember)}
 .ctabs .dot{position:absolute;top:6px;right:8px;width:6px;height:6px;border-radius:50%;background:var(--ember)}
+.snowgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:270px;margin:10px auto}
+.snowgrid.four{grid-template-columns:repeat(4,1fr)}
+.snowgrid.five{grid-template-columns:repeat(5,1fr);max-width:300px}
+.snowgrid button{aspect-ratio:1;background:#1c2a31;border:1px solid var(--line);border-radius:6px;font-size:24px;color:var(--frost)}
+.snowgrid.five button{font-size:20px}
+.snowgrid button.can{border-color:var(--gold)}
+.snowgrid button:disabled{opacity:.85;color:var(--bone);font-size:18px}
 .saga{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:4px 0 8px;background:var(--panel2)}
 .saga .epi{font-family:'Noto Serif TC',serif;font-size:22px;color:var(--gold)}
 .saga small{color:var(--muted)}
@@ -3855,19 +3862,71 @@ function glima(cid){
         $('#m-ok').onclick=closeModal;$('#m-ok').focus();render();return;}
       const opts=['push','pull','brace'].filter(x=>x!==last);const mv=pick(opts);
       // 反應型要在倒數內出手；解謎型沒有時間壓力
-      const tell=pick(GL_TELL[mv]);
+      const ST={push:'往前頂',pull:'往後拉',brace:'站穩不動'};
+      const other=last||pick(['push','pull','brace'].filter(x=>x!==mv));const two=[mv,other].sort(()=>Math.random()-.5);
+      const tell=react?pick(GL_TELL[mv]):`${n}的重心晃了一下：看起來可能要<b>${ST[two[0]]}</b>，也可能要<b>${ST[two[1]]}</b>。${last?'':`<small>聽說${n}摔角從不連用同一招。</small>`}`;
       el.innerHTML=`<p class="eyebrow">長屋之夜 · 摔角</p><h2>你 ${me} : ${him} ${n}</h2>
       ${!me&&!him?`<p class="story">${n}脫掉上衣，抓住了你的腰帶：「來吧，老大。」三戰兩勝。</p>`:''}
       <p class="hint">${tell}<small>往前頂的人怕被絆，往後拉的人怕被推，站穩的人怕被拉。</small></p>${react?'<div class="swtime"><i id="gl-t"></i></div>':''}
       <div class="moves sw">${Object.entries(GLIMA).map(([k,x])=>`<button class="move" data-gl="${k}"><b>${x.name}</b></button>`).join('')}</div>
       <ol class="dlog">${L.slice(-3).reverse().map(l=>`<li>${l}</li>`).join('')}</ol>`;
       const act=k=>{if(done)return;cancelAnimationFrame(raf);const ok=k===GL_FOE[mv];last=mv;
-        if(ok){me++;L.push(`你${GLIMA[k].name}得正是時候，把${n}摔倒在稻草上！`);}else{him++;L.push(k?`你想${GLIMA[k].name}，但${n}早有準備，把你摔了出去。`:`你慢了一步，${n}一把把你摔了出去。`);}
+        if(ok){me++;L.push(`${n}${ST[mv]}，你${GLIMA[k].name}得正是時候，把${n}摔倒在稻草上！`);}else{him++;L.push(k?`${n}${ST[mv]}，你卻想${GLIMA[k].name}，被摔了出去。`:`${n}${ST[mv]}，你慢了一步，被一把摔了出去。`);}
         sfx(ok?'hit':'bad');draw();};
       el.querySelectorAll('[data-gl]').forEach(b=>b.onclick=()=>act(b.dataset.gl));
       if(react){const T=(S.relaxed?3.2:2.2)*1000,t0=performance.now();const tk=t=>{const f=1-(t-t0)/T;const bar=$('#gl-t');if(bar)bar.style.width=Math.max(0,f*100)+'%';if(f<=0){act(null);return;}raf=requestAnimationFrame(tk);};raf=requestAnimationFrame(tk);}
     };
     draw();
+  });
+}
+// 雪球大戰：反應型打地鼠；解謎型看數字找躲起來的孩子
+function snowball(){
+  pushModal(el=>{
+    const react=S.mini==='react';let done=false;
+    const finish=w=>{done=true;mgKey=null;addLoyalty(w?6:4);el.innerHTML=`<p class="eyebrow">冬 · 雪球大戰</p><h2>${w?'你贏了':'你被埋了'}</h2><div class="res">${w?'最後一個孩子舉起雙手投降，笑得滿臉通紅。他們的父母在旁邊拍手，說首領的準頭比年輕的時候還好。\n<span class="good">忠誠 +6</span>':'二十個孩子一起撲上來，把你埋進了雪堆裡，只露出一顆頭。孩子們的父母笑到站不起來。\n忠誠 +4（大家都喜歡看首領出糗）'}</div><button class="primary" id="m-ok">繼續</button>`;$('#m-ok').onclick=closeModal;$('#m-ok').focus();render();};
+    if(react){
+      const N=8,T=S.relaxed?1100:800;let k=0,hit=0,cur=-1,timer=0;
+      const pop=()=>{if(done)return;if(k>=N){finish(hit>=6);return;}k++;cur=ri(0,8);draw();timer=setTimeout(()=>{cur=-1;draw();setTimeout(pop,250);},T);};
+      const draw=()=>{el.innerHTML=`<p class="eyebrow">冬 · 雪球大戰</p><h2>打中 ${hit} / ${N}</h2><p class="hint">孩子們從雪堆後面探出頭來。在他們縮回去之前，用雪球打中他們！</p>
+        <div class="snowgrid">${Array.from({length:9},(_,i)=>`<button data-sn="${i}" aria-label="雪堆 ${i+1}">${i===cur?'🧒':'❄'}</button>`).join('')}</div>`;
+        el.querySelectorAll('[data-sn]').forEach(b=>b.onclick=()=>{if(done||+b.dataset.sn!==cur)return;hit++;cur=-1;clearTimeout(timer);sfx('hit');draw();setTimeout(pop,250);});};
+      setTimeout(pop,400);draw();
+    }else{
+      const W=4,K=3;const kids=new Set();while(kids.size<K)kids.add(ri(0,W*W-1));const shown={};let balls=7,found=0;
+      const near=i=>{const x=i%W,y=Math.floor(i/W);let c=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){if(!dx&&!dy)continue;const nx=x+dx,ny=y+dy;if(nx>=0&&ny>=0&&nx<W&&ny<W&&kids.has(ny*W+nx))c++;}return c;};
+      const draw=()=>{el.innerHTML=`<p class="eyebrow">冬 · 雪球大戰</p><h2>找到 ${found} / ${K} 個孩子</h2><p class="hint">三個孩子躲在雪堆後面。丟空的雪堆會顯示旁邊（包括斜對角）躲了幾個孩子。<small>還剩 ${balls} 顆雪球</small></p>
+        <div class="snowgrid four">${Array.from({length:W*W},(_,i)=>`<button data-sn="${i}" ${i in shown?'disabled':''}>${i in shown?(shown[i]==='k'?'🧒':shown[i]):'❄'}</button>`).join('')}</div>`;
+        el.querySelectorAll('[data-sn]').forEach(b=>b.onclick=()=>{const i=+b.dataset.sn;if(done||i in shown)return;balls--;if(kids.has(i)){shown[i]='k';found++;sfx('hit');}else shown[i]=near(i);
+          if(found>=K){finish(true);return;}if(balls<=0){finish(false);return;}draw();});};
+      draw();
+    }
+  });
+}
+// 追山羊：反應型點跳來跳去的羊；解謎型把羊逼到角落（牠每兩步要停下來啃一次靴子）
+function goatChase(){
+  pushModal(el=>{
+    const react=S.mini==='react';let done=false;
+    const finish=w=>{done=true;mgKey=null;if(w)gainXp(6);else favor('loki',2);el.innerHTML=`<p class="eyebrow">冬 · 山羊又來了</p><h2>${w?'抓到了！':'牠跑了'}</h2><div class="res">${w?'你撲上去，一把抱住了山羊。牠嘴裡還叼著你的另一隻靴子，一臉無辜地看著你。\n<span class="good">經驗 +6</span>':'山羊一頭鑽進了豬圈，從另一頭溜走了。你光著一隻腳站在雪地裡。族人說，這是洛基的山羊。'}</div><button class="primary" id="m-ok">繼續</button>`;$('#m-ok').onclick=closeModal;$('#m-ok').focus();render();};
+    if(react){
+      let pos=ri(0,8),got=0,timer=0;const need=3,end=Date.now()+(S.relaxed?14000:10000);
+      const hop=()=>{if(done)return;if(Date.now()>end){finish(false);return;}let n;do{n=ri(0,8);}while(n===pos);pos=n;draw();timer=setTimeout(hop,S.relaxed?900:650);};
+      const draw=()=>{el.innerHTML=`<p class="eyebrow">冬 · 山羊又來了</p><h2>抓住 ${got} / ${need} 次</h2><p class="hint">山羊在長屋裡跳來跳去。趁牠停下來的時候撲上去！要抓住牠三次，牠才會放棄。</p>
+        <div class="snowgrid">${Array.from({length:9},(_,i)=>`<button data-gt="${i}">${i===pos?'🐐':''}</button>`).join('')}</div>`;
+        el.querySelectorAll('[data-gt]').forEach(b=>b.onclick=()=>{if(done||+b.dataset.gt!==pos)return;got++;sfx('hit');clearTimeout(timer);if(got>=need){finish(true);return;}hop();});};
+      draw();timer=setTimeout(hop,S.relaxed?900:650);
+    }else{
+      const W=5;const rocks=new Set();while(rocks.size<3){const r=ri(0,W*W-1);if(r!==0&&r!==W*W-1)rocks.add(r);}
+      let me=0,goat=W*W-1,steps=0,limit=18;
+      const xy=i=>[i%W,Math.floor(i/W)],dist=(a,b)=>{const [ax,ay]=xy(a),[bx,by]=xy(b);return Math.abs(ax-bx)+Math.abs(ay-by);};
+      const nbs=i=>{const [x,y]=xy(i);return [[1,0],[-1,0],[0,1],[0,-1]].map(([dx,dy])=>[x+dx,y+dy]).filter(([a,b])=>a>=0&&b>=0&&a<W&&b<W).map(([a,b])=>b*W+a).filter(j=>!rocks.has(j));};
+      const draw=msg=>{el.innerHTML=`<p class="eyebrow">冬 · 山羊又來了</p><h2>步數 ${steps} / ${limit}</h2><p class="hint">把山羊逼到角落抓住牠。你每走一步，牠就逃一步；不過牠每逃兩步，就會停下來啃一次你的靴子。<small>▲ 是乾草堆，誰都過不去。${msg||''}</small></p>
+        <div class="snowgrid five">${Array.from({length:W*W},(_,i)=>`<button data-gm="${i}" ${nbs(me).includes(i)?'class="can"':''}>${i===me?'🧔':i===goat?'🐐':rocks.has(i)?'▲':''}</button>`).join('')}</div>`;
+        el.querySelectorAll('[data-gm]').forEach(b=>b.onclick=()=>{const i=+b.dataset.gm;if(done||!nbs(me).includes(i))return;me=i;steps++;
+          if(me===goat){finish(true);return;}
+          if(steps%3!==0){const opts=nbs(goat).filter(j=>j!==me);if(opts.length){opts.sort((a,b)=>dist(b,me)-dist(a,me));if(dist(opts[0],me)>=dist(goat,me))goat=opts[0];}}
+          if(steps>=limit){finish(false);return;}draw(steps%3===0?'　山羊停下來啃靴子了！':'');});};
+      draw();
+    }
   });
 }
 function axeThrow(){
@@ -3892,10 +3951,10 @@ function axeThrow(){
     }else{
       // 解謎型：距離 + 風 + 斧頭重量，算出要用幾分力
       const drawP=()=>{
-        const d=ri(6,10),w=pick([['迎面吹來的風',1],['背後吹來的風',-1],['沒有風',0]]),ax=pick([['老哈康的重斧',1],['普通的手斧',0],['輕巧的飛斧',-1]]);
+        const d=ri(6,10),w=pick([['長屋的門開著，有迎面吹來的風',1],['長屋的門開著，風從你背後吹過來',-1],['長屋的門關著，沒有風',0]]),ax=pick([['老哈康的重斧',1],['普通的手斧',0],['輕巧的飛斧',-1]]);
         const ans=d+w[1]+ax[1];const opts=[ans,ans+1,ans-1,ans+2].sort(()=>Math.random()-.5);
         el.innerHTML=`<p class="eyebrow">長屋之夜 · 擲斧</p><h2>第 ${n+1} / 3 斧</h2>
-        <p class="hint">靶在 <b>${d}</b> 步外。長屋的門開著，有${w[0]}；你手上拿的是${ax[0]}。<small>規則：用的力氣 = 距離，迎風 +1、順風 -1，重斧 +1、輕斧 -1</small></p>
+        <p class="hint">靶在 <b>${d}</b> 步外。${w[0]}；你手上拿的是${ax[0]}。<small>靶多遠就用幾分力。不過風向和斧頭的輕重，都會讓需要的力氣多一點或少一點。</small></p>
         <div class="runepad">${opts.map(v=>`<button data-ax="${v}"><b>${v}</b><small>分力</small></button>`).join('')}</div>
         <p class="story" style="font-size:13px;color:var(--muted)">${log2[0]||'　'}</p>`;
         el.querySelectorAll('[data-ax]').forEach(b=>b.onclick=()=>{const ok=+b.dataset.ax===ans;if(ok)hit++;n++;log2.unshift(ok?'「咚！」正中靶心。':`斧頭${+b.dataset.ax>ans?'飛過了靶，插在牆上':'掉在靶前面'}。（應該用 ${ans} 分力）`);if(n>=3)finish();else drawP();});
@@ -3922,7 +3981,7 @@ function storyNight(){
 // 冬天的小事件（輕鬆的）
 const WINTER_EVENTS=[
   {id:'w_snow',phase:[2,3,4],cd:1,cond:()=>winterNow()&&cdOk('w_snow',8),kind:'冬',title:'雪球大戰',text:'孩子們在長屋外丟雪球。一顆雪球不偏不倚地砸在你的後腦勺上。\n\n全場安靜。丟雪球的小孩已經嚇得臉都白了。',
-    ch:[{t:'抓一把雪，加入戰局',fx:()=>{addLoyalty(5);return '你被二十個小孩圍攻，最後倒在雪地裡投降。孩子們的父母在旁邊笑到站不起來。\n忠誠 +5';}},{t:'板著臉走開',fx:()=>'你走開的時候，又一顆雪球砸了過來。'}]},
+    ch:[{t:'抓一把雪，加入戰局',fx:()=>{snowball();return null;}},{t:'板著臉走開',fx:()=>'你走開的時候，又一顆雪球砸了過來。'}]},
   {id:'w_bear',once:1,phase:[2,3,4],cond:()=>winterNow()&&hasC('ragnar'),kind:'冬',title:'拉格納和熊',text:'有人跑來報告：拉格納喝醉了，跑進林子裡說要跟熊摔角。\n\n而且他找到了一頭熊。',
     ch:[{t:'衝過去救他',fx:()=>{bond('ragnar',8);S.food+=8;return '你趕到的時候，拉格納正騎在熊背上唱歌。熊看起來比他還害怕。\n那天晚上大家吃了熊肉。糧食 +8，拉格納好感 +8';}},{t:'「他會沒事的。」',fx:()=>{bond('ragnar',2);return '第二天，拉格納扛著一張熊皮回來了，身上一道傷都沒有。沒有人知道發生了什麼事。';}}]},
   {id:'w_poem',once:1,phase:[2,3,4],cond:()=>winterNow()&&hasC('bragi'),kind:'冬',title:'布拉吉的情詩',text:'布拉吉神秘兮兮地把你拉到角落：「我寫了一首情詩，要送給織布女的女兒。你聽聽看。」\n\n「妳的眼睛像……像兩條烤得剛好的鯡魚……」',
@@ -3932,7 +3991,7 @@ const WINTER_EVENTS=[
   {id:'w_beard',once:1,phase:[2,3,4],cond:()=>winterNow()&&S.champions.length>=2,kind:'冬',title:'鬍子比賽',text:'冬天太無聊，戰士們辦了一場「誰的鬍子最長」比賽。冠軍可以喝第一杯酒。\n\n大家都在看你的鬍子。',
     ch:[{t:'參賽',fx:()=>{if(Math.random()<.4){addFame(2);return '你贏了。冠軍的獎品是第一杯酒，和一把綁鬍子的銀扣。\n名聲 +2';}return '你輸給了一個老槳手。他的鬍子長到可以塞進褲腰。';}},{t:'當評審',fx:()=>{addLoyalty(3);return '你一本正經地量了每個人的鬍子。最後，你把冠軍頒給了一個根本沒鬍子的小孩。全場大笑。\n忠誠 +3';}}]},
   {id:'w_goat',phase:[2,3,4],cd:1,cond:()=>winterNow()&&cdOk('w_goat',12),kind:'冬',title:'山羊又來了',text:'山羊又跑進長屋了。這一次，牠吃掉了你的靴子。',
-    ch:[{t:'追！',fx:()=>{gainXp(4);return '你追了半個部落，最後在豬圈裡抓到牠。牠嘴裡還叼著你的另一隻靴子。\n經驗 +4';}},{t:'算了，給牠吃吧',fx:()=>{favor('loki',2);return '你光著一隻腳走了一整天。族人說，這是洛基的山羊。'}}]},
+    ch:[{t:'追！',fx:()=>{goatChase();return null;}},{t:'算了，給牠吃吧',fx:()=>{favor('loki',2);return '你光著一隻腳走了一整天。族人說，這是洛基的山羊。'}}]},
   {id:'w_fish',phase:[2,3,4],cd:1,cond:()=>winterNow()&&cdOk('w_fish',8),kind:'冬',title:'冰上釣魚',text:'峽灣結冰了。族人在冰上鑿了洞，坐在旁邊釣魚。',
     ch:[{t:'一起去釣',fx:()=>{const f=ri(4,9);S.food+=f;addLoyalty(1);return `你在冰上坐了一整天，屁股都凍僵了。\n糧食 +${f}，忠誠 +1`;}},{t:'不了，太冷',fx:()=>'你回到火堆旁邊。'}]},
 ];
