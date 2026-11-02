@@ -1,0 +1,171 @@
+<title>北境雄心天賦樹</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Runic&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@600;900&display=swap">
+<style>
+/* Layout：五系並排成五欄（窄螢幕自動換行，手機一系一段），每欄由上而下五階，最後一階是頂點；下方是不需前置的通用天賦、神授與勇士傳授。單一深色主題，和遊戲一致。 */
+:root{
+  --bg:#0f1417;--panel:#172025;--panel2:#1e2a30;--line:#2c3a42;--bone:#e9e0cf;--muted:#97a3a5;
+  --ember:#d47a3b;--gold:#cfab5c;--frost:#8fbfcf;--blood:#b5432f;
+  --f-display:"Noto Serif TC","Songti TC",serif;--f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;--f-rune:"Noto Sans Runic",serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--bone);font-family:var(--f-body);line-height:1.6;font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--ember);margin:0}
+h1{font-family:var(--f-display);font-size:clamp(28px,5vw,40px);margin:4px 0 6px;text-wrap:balance}
+h2{font-family:var(--f-display);font-size:22px;margin:0 0 4px}
+.lead{color:var(--muted);max-width:48em;margin:0}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:20px 0 26px}
+.rules div{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px;font-size:14px}
+.rules b{display:block;font-family:var(--f-display);font-size:16px;color:var(--gold)}
+.tree{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.why{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:6px;padding:12px 16px;margin:0 0 24px;font-size:14px;max-width:60em}
+.why b{color:var(--gold)}
+.why ul{margin:6px 0 0;padding-left:1.2em}
+.branch{display:grid;gap:0;align-content:start;min-width:0}
+.bhead{display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--panel2);border:1px solid var(--line);border-radius:6px 6px 0 0}
+.bhead .r{font-family:var(--f-rune);font-size:28px;color:var(--ember);line-height:1}
+.bhead b{font-family:var(--f-display);font-size:18px;display:block}
+.bhead small{color:var(--muted);font-size:12px}
+.nodes{display:grid;gap:14px;padding:14px 12px;border:1px solid var(--line);border-top:0;border-radius:0 0 6px 6px;position:relative}
+.nodes::before{content:"";position:absolute;left:24px;top:22px;bottom:30px;width:2px;background:var(--line)}
+.node{position:relative;padding-left:30px}
+.node::before{content:"";position:absolute;left:6px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--muted)}
+.node .t{font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.node b{display:block;font-family:var(--f-display);font-size:16px}
+.node p{margin:2px 0 0;font-size:13px;color:#c9c0b0}
+.node.pick::before{background:var(--ember);border-color:var(--ember)}
+.node.cap::before{width:18px;height:18px;left:4px;top:5px;border-radius:3px;transform:rotate(45deg);border-color:var(--gold);background:#3a2f17}
+.node.cap b{color:var(--gold)}
+.node.cap.pick::before{background:var(--gold)}
+.section{margin-top:30px}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:10px}
+.chip{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 12px;font-size:13px}
+.chip b{display:block;font-family:var(--f-display);font-size:15px}
+.chip .src{color:var(--frost);font-size:12px}
+.chip.pick{border-color:var(--ember)}
+.build{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
+.build button{background:var(--panel);border:1px solid var(--line);color:var(--bone);border-radius:16px;padding:5px 14px;font:inherit;font-size:14px;cursor:pointer}
+.build button[aria-pressed="true"]{border-color:var(--ember);color:var(--ember)}
+.build-note{color:var(--muted);font-size:14px;margin:0 0 14px;min-height:1.6em}
+:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">北境雄心 · 概念圖</p>
+  <h1>五系天賦樹</h1>
+  <p class="lead">取代現在「升級時從 3 個隨機天賦裡挑 1 個」。五條路各 5 階，同一條路要從上往下學；第 5 階是頂點天賦，效果最強。另外有不需前置的通用天賦，以及從神明、勇士那裡得到的天賦。</p>
+
+  <div class="rules">
+    <div><b>每 2 級選 1 個</b>第 2、4、6、8、10、12 級……自己選，不再隨機。主線大約能拿 6 個，第四章還能繼續拿。</div>
+    <div><b>由上而下</b>同一系要先學前一階才能學下一階。通用天賦隨時可學。</div>
+    <div><b>學不完是刻意的</b>6 個剛好能把一系練到頂點再旁修一點，或兩系各練一半。不同玩法走不同流派，重玩才有意思。</div>
+    <div><b>不只靠升級</b>神明「神選」和勇士「誓約」會額外送天賦，不佔升級的名額。</div>
+  </div>
+
+  <div class="why"><b>怎麼讓「不打架」的天賦也有人選</b>
+    <ul>
+      <li>經濟獨立成一整系「豐饒之道」，頂點天賦會把部落的規模直接換成你的能力點，越到後面越強。</li>
+      <li>每個經濟天賦都換算得出價值：例如「營造者」一局大約省下 200 銀幣和 6 季時間，等於多出 6 次行動。</li>
+      <li>v0.2.5 會同時加重軍餉、提高征服收入、讓部落升級更值得，錢不再用不完，經濟天賦才有意義。</li>
+    </ul></div>
+  <h2>看看幾種流派</h2>
+  <p class="lead" style="font-size:14px">點一下，圖上會標出那條路線會學的 6 個天賦。</p>
+  <div class="build" id="builds"></div>
+  <p class="build-note" id="build-note"></p>
+
+  <div class="tree" id="tree"></div>
+
+  <div class="section">
+    <h2>通用天賦</h2>
+    <p class="lead" style="font-size:14px">不需要前置，隨時可以學，但一樣佔升級的名額。</p>
+    <div class="chips" id="general"></div>
+  </div>
+  <div class="section">
+    <h2>神授天賦</h2>
+    <p class="lead" style="font-size:14px">某位神的神恩達到「神選」時直接獲得，不佔名額。眾神全部都能信，但每位神看重的事不一樣。</p>
+    <div class="chips" id="gods"></div>
+  </div>
+  <div class="section">
+    <h2>勇士傳授</h2>
+    <p class="lead" style="font-size:14px">勇士的好感達到 80「誓約」時，會教你一招。不佔名額，也可以跳過前置直接學到某一系的天賦。</p>
+    <div class="chips" id="champs"></div>
+  </div>
+</div>
+
+<script>
+'use strict';
+const BR=[
+  {id:'str',rune:'ᚦ',name:'狂戰之道',sub:'單挑輸出 · 打得最痛',nodes:[
+    ['破盾者','重擊破對方格擋時，傷害 +40%'],
+    ['狂戰士','生命低於 40% 時，傷害 ×1.5'],
+    ['處刑人','對手生命低於 30% 時，傷害 ×1.4'],
+    ['戰吼者','怒吼更容易震住對手、蓄力更強；部隊戰力 +8%'],
+    ['伯瑟克之怒','每場單挑一次可以發狂 3 回合：每一擊都無視格擋，但你受到的傷害 +30%']]},
+  {id:'con',rune:'ᚢ',name:'鐵壁之道',sub:'存活 · 最難殺死',nodes:[
+    ['鐵骨','生命上限 +15，留下舊傷的機率減半'],
+    ['自癒','每季多回復 4 點生命，休養必定治好一道舊傷'],
+    ['鐵壁','格擋反擊傷害大增，受到的傷害 -10%'],
+    ['盾牆統帥','守城與包抄時，部隊傷亡 -25%；精兵更不容易戰死'],
+    ['不死之軀','祈福上限 +1（英雄難度也適用）']]},
+  {id:'wit',rune:'ᚨ',name:'渡鴉之道',sub:'詭計與情報 · 以巧取勝',nodes:[
+    ['讀心','看穿對手意圖的機率 +20%'],
+    ['戰術家','夜襲成功率 +10%，包抄更有效'],
+    ['迅捷','快攻傷害 +30%'],
+    ['斥候網','地圖上所有敵人的戰力一清二楚；敵人來襲前一季就會收到警告'],
+    ['千面','你也能使出假動作：擺出一招的架勢，實際出另一招']]},
+  {id:'pre',rune:'ᛏ',name:'王者之道',sub:'統帥與人心 · 靠別人打天下',nodes:[
+    ['天生領袖','招募費用 -25%，統御上限 +6'],
+    ['說客','結盟、說服、逼宮的成功率提高'],
+    ['操練官','操練效果 +50%，更容易練出精兵'],
+    ['精兵之主','精兵戰力 3.5 → 4.5，打勝仗時晉升的人數加倍'],
+    ['萬人之王','勇士好感不再自然下降；決鬥代理人可以派兩位勇士輪番上場']]},
+  {id:'eco',rune:'ᚠ',name:'豐饒之道',sub:'經濟與建設 · 越後面越強',nodes:[
+    ['豐收之手','糧食產量 +50%，設宴的效果加倍'],
+    ['營造者','建造、升級與部落擴建的費用 -30%，而且不消耗一季'],
+    ['商路','每塊你的土地每季 +4 銀幣，盟友的上貢加倍'],
+    ['軍需官','軍餉減半，每季糧食消耗 -1'],
+    ['黃金時代','部落每擴建一級，你永久 +1 點能力（之前擴建的也算）；部落還能擴建到第 6 級「傳說之都」']]},
+];
+const GENERAL=[
+  ['海狼','突襲戰利品 +40%'],['掠奪者','突襲勝利名聲 +4，惡名增加減半'],['恐懼之名','惡名 40 以上時部隊戰力 +15%'],
+  ['沉穩','忠誠的自然下降減半'],['詩人之血','獲得的名聲 +30%'],['獵人本色','狩獵傳說野獸時傷害 +30%，戰利品更好'],
+];
+const GODS=[
+  ['奧丁 · 渡鴉之眼','一眼看穿所有對手的習慣','解讀符文、單挑時看穿對手、聽吟遊詩人唱歌'],
+  ['索爾 · 雷霆一擊','重擊命中時，有機率讓對手愣住一回合','打勝仗、守住部落、獵殺巨獸'],
+  ['提爾 · 誓約之手','生死單挑時不會被一擊倒下（每場一次）','公平分贓、接受單挑不強攻、遵守承諾'],
+  ['弗蕾亞 · 女神殿堂','祈福更容易獲得；死後可去弗蕾亞的殿堂，解鎖另一種結局','設宴、分糧、祭祀'],
+  ['洛基 · 變形者','單挑時可以「換招」一次；但洛基偶爾會惡作劇','夜襲、騙人的選項、高惡名'],
+];
+const CHAMPS=[
+  ['哈康','教你「破盾者」','好感誓約後傳授'],['阿斯特麗德','教你「盾牆統帥」（跳過前置）','好感誓約後傳授'],
+  ['埃納','教你「讀心」','好感誓約後傳授'],['布拉吉','教你「詩人之血」','好感誓約後傳授'],['拉格納','教你「伯瑟克之怒」（跳過前置）','好感誓約後傳授'],
+  ['古德倫','教你「營造者」（跳過前置）','好感誓約後傳授'],
+];
+const BUILDS={
+  '血斧狂戰':{picks:['str-0','str-1','str-2','str-3','str-4','gen-0'],note:'親手砍出一條路。單挑最痛，但很吃血，倒下的風險也最高。'},
+  '不倒盾王':{picks:['con-0','con-1','con-2','con-3','con-4','pre-0'],note:'最難殺死，還多一次祈福。想拿「一次都沒倒下」成就的首選。'},
+  '渡鴉智者':{picks:['wit-0','wit-1','wit-2','wit-3','wit-4','gen-3'],note:'看穿、夜襲、假動作。不靠蠻力，靠讓對手猜錯。'},
+  '金髮統帥':{picks:['pre-0','pre-1','pre-2','pre-3','pre-4','gen-4'],note:'你本人不必最強，精兵和勇士替你打天下，決鬥也能派代理人上場。'},
+  '豐收之主':{picks:['eco-0','eco-1','eco-2','eco-3','eco-4','pre-0'],note:'前期最弱、後期最強：部落擴建到傳說之都時，等於多出 6 點能力。第四章的最佳路線。'},
+  '海狼惡名':{picks:['gen-0','gen-1','gen-2','str-0','str-1','wit-0'],note:'搶得多、殺得狠，走高惡名路線。報酬最高，但要扛住賞金獵人和討伐軍。'},
+};
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let active=null;
+function render(){
+  const P=new Set(active?BUILDS[active].picks:[]);
+  document.getElementById('tree').innerHTML=BR.map(b=>`<section class="branch"><div class="bhead"><span class="r">${b.rune}</span><div><b>${b.name}</b><small>${b.sub}</small></div></div>
+    <div class="nodes">${b.nodes.map((n,i)=>`<div class="node ${i===4?'cap':''} ${P.has(b.id+'-'+i)?'pick':''}"><span class="t">${i===4?'頂點':'第 '+(i+1)+' 階'}</span><b>${esc(n[0])}</b><p>${esc(n[1])}</p></div>`).join('')}</div></section>`).join('');
+  document.getElementById('general').innerHTML=GENERAL.map((g,i)=>`<div class="chip ${P.has('gen-'+i)?'pick':''}"><b>${esc(g[0])}</b>${esc(g[1])}</div>`).join('');
+  document.getElementById('gods').innerHTML=GODS.map(g=>`<div class="chip"><b>${esc(g[0])}</b>${esc(g[1])}<br><span class="src">神喜歡：${esc(g[2])}</span></div>`).join('');
+  document.getElementById('champs').innerHTML=CHAMPS.map(c=>`<div class="chip"><b>${esc(c[0])}</b>${esc(c[1])}<br><span class="src">${esc(c[2])}</span></div>`).join('');
+  document.getElementById('builds').innerHTML=Object.keys(BUILDS).map(k=>`<button data-b="${k}" aria-pressed="${k===active}">${k}</button>`).join('')+`<button data-b="" aria-pressed="${!active}">清除</button>`;
+  document.getElementById('build-note').textContent=active?BUILDS[active].note:'';
+  document.querySelectorAll('[data-b]').forEach(x=>x.onclick=()=>{active=x.dataset.b||null;render();});
+}
+render();
+</script>
