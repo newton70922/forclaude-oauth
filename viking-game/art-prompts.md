@@ -10,6 +10,118 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
+## ★ 還需要的圖（v0.7，可以一次全部給 ChatGPT）
+
+目前遊戲裡還缺 **12 張**。下面每一張都已經把共用風格寫進去了，整段複製貼上就能畫，不用再另外貼「共用風格」。
+
+- 人物和怪物：直式 3:4。
+- 場景：橫式 16:9。
+- 畫好後照**檔名**命名（例如 `m_hrym.png`），一次傳給我，或分幾批傳都可以。
+- 還沒到的圖，遊戲會先用符文圖示代替，不影響遊玩。
+
+| # | 檔名 | 用在哪裡 | 比例 |
+|---|---|---|---|
+| 1 | sc_kiss_m | 弗蕾亞的吻（男主角） | 16:9 |
+| 2 | sc_kiss_f | 弗蕾亞的吻（女主角） | 16:9 |
+| 3 | c_bjorn | 勇士「鐵甲」比約恩 | 3:4 |
+| 4 | c_sigrid | 勇士盾女西格麗德 | 3:4 |
+| 5 | v_halfdan2 | 覺醒的老王（老王第二階段） | 3:4 |
+| 6 | sc_einherjar | 諸神黃昏開場：英靈助戰 | 16:9 |
+| 7 | sc_ragfall | 結局：倒在諸神黃昏 | 16:9 |
+| 8 | m_hrym | 諸神黃昏第 1 輪：霜巨人首領赫列姆 | 3:4 |
+| 9 | m_garm | 諸神黃昏第 2 輪／提爾線：冥犬加姆 | 3:4 |
+| 10 | m_jormun | 諸神黃昏第 2 輪／索爾線：世界巨蛇耶夢加得 | 3:4 |
+| 11 | m_fenrir | 奧丁線、洛基線、無信仰線：巨狼芬里爾 | 3:4 |
+| 12 | m_surtr | 弗蕾亞線：火巨人蘇爾特 | 3:4 |
+
+**優先順序**：8～12（諸神黃昏三連戰的怪物）> 6、7 > 3、4、5 > 1、2。
+
+### 1. sc_kiss_m
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Moonlit northern beach under green aurora. The goddess Freyja, long golden braided hair, falcon-feather cloak, golden Brísingamen necklace, a single golden tear on her cheek, stands on tiptoe to softly kiss a tall rugged Viking warrior king in fur cloak and chainmail. His hand gently cups her face. Two large grey forest cats rest nearby on the rocks. Tender, emotional, romantic, not explicit.
+```
+
+### 2. sc_kiss_f
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Moonlit northern beach under green aurora. The goddess Freyja, long golden braided hair, falcon-feather cloak, golden Brísingamen necklace, a single golden tear on her cheek, stands on tiptoe to softly kiss a tall Viking shieldmaiden queen with braided hair, fur cloak and chainmail, who gently holds her hands. Two large grey forest cats rest nearby on the rocks. Tender, emotional, romantic, not explicit.
+```
+
+### 3. c_bjorn
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic warm golden-hour rim light with cold blue shadows. Softly blurred background of a misty fjord, longships or a timber longhouse. Highly detailed fur, wool, leather, iron, silver and braided hair. Gritty, grounded, believable faces. Vertical 3:4 portrait, chest-up, the character looking toward the viewer. No text, no letters, no watermark, no frame, no modern objects.
+A young Viking berserker in his early twenties, son of the red-bearded berserker Ragnar, the same wild red hair and beard but younger and leaner, wearing a heavy ring-mail shirt that looks unbreakable, biting the rim of a battered shield, fierce grin, sea and longships behind him.
+```
+
+### 4. c_sigrid
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic warm golden-hour rim light with cold blue shadows. Softly blurred background of a misty fjord, longships or a timber longhouse. Highly detailed fur, wool, leather, iron, silver and braided hair. Gritty, grounded, believable faces. Vertical 3:4 portrait, chest-up, the character looking toward the viewer. No text, no letters, no watermark, no frame, no modern objects.
+A proud young shieldmaiden around twenty, a jarl's daughter, dark blonde hair in a thick braid, a richly painted round shield with her father's sigil, fine chainmail and a blue wool cloak, confident half-smile, a law stone and a crowd of onlookers behind her.
+```
+
+### 5. v_halfdan2
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic warm golden-hour rim light with cold blue shadows. Highly detailed fur, wool, leather, iron, silver and braided hair. Gritty, grounded, believable faces. Vertical 3:4 portrait, chest-up, the character looking toward the viewer. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway awakened for his last battle: around seventy but suddenly towering and terrifying, long white beard and hair blown back by an unseen wind, eyes blazing with cold fire, iron crown, fur mantle thrown off, an ancient notched sword raised, embers and snow swirling around him in a dark royal hall, an aura of overwhelming authority. Majestic, intimidating, legendary.
+```
+
+### 6. sc_einherjar
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Ragnarök battlefield in endless snow under a burning red sky. From a golden break in the storm clouds, hundreds of glowing ghostly einherjar warriors of Valhalla ride and march down a shining rainbow bridge to join a small band of living Viking warriors with round shields. Ahead, frost giants and a giant wolf. Epic, awe-inspiring, hopeful in the darkness.
+```
+
+### 7. sc_ragfall
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Aftermath of Ragnarök: a world of ash, ice and dying fire, a dark red sun sinking. A fallen Viking ruler lies in the ash with a broken shield; beside them, a weary Norse god kneels, and they look into each other's eyes with quiet despair. Ruined halls and a fallen world tree in the background. Tragic, solemn, beautiful.
+```
+
+### 8. m_hrym（霜巨人首領赫列姆）
+
+```
+Cinematic photorealistic digital painting, Norse mythology, Ragnarök. Dramatic cold blue light with a burning red glow on the horizon, swirling snow and ice crystals. Highly detailed textures of ice, frost, stone and fur. Vertical 3:4 portrait, chest-up, the creature looking down toward the viewer as if the viewer is tiny. No text, no letters, no watermark, no frame, no modern objects.
+Hrym, the colossal leader of the frost giants: a towering giant with skin like cracked blue-grey glacier ice, a beard of icicles, frost-white eyes, wearing crude armor of whale bone and frozen furs, holding a huge iron-bound shield made from a ship's hull and a club of black ice. Behind him, the ship Naglfar made of dead men's nails emerges from the frozen sea. Overwhelming, ancient, merciless.
+```
+
+### 9. m_garm（冥犬加姆）
+
+```
+Cinematic photorealistic digital painting, Norse mythology, Ragnarök. Dramatic cold blue light with a burning red glow on the horizon, swirling snow and ice crystals. Highly detailed textures of fur, frost, blood and stone. Vertical 3:4 portrait, head and chest, the creature looking straight at the viewer. No text, no letters, no watermark, no frame, no modern objects.
+Garm, the monstrous hound that guards the gates of Hel: an enormous black wolf-like dog with a blood-soaked chest, matted fur hung with icicles from the frozen rivers of the underworld, glowing pale eyes, snarling jaws dripping red, a broken chain around its neck, bursting out of a dark cave mouth (Gnipahellir) in a cliff of black ice. Terrifying, feral, otherworldly.
+```
+
+### 10. m_jormun（世界巨蛇耶夢加得）
+
+```
+Cinematic photorealistic digital painting, Norse mythology, Ragnarök. Dramatic stormy light, green poison mist, lightning in black clouds, enormous waves. Highly detailed textures of scales, sea water and venom. Vertical 3:4 composition, the serpent's head and rising neck filling the frame, looking down at the viewer. No text, no letters, no watermark, no frame, no modern objects.
+Jörmungandr, the World Serpent, rising out of a raging sea: a gigantic sea serpent with barnacle-crusted dark green and black scales, huge ridged head, cold yellow eyes, fangs dripping glowing green venom that turns into poisonous fog, a tiny Viking longship in the waves below to show its immense scale. Apocalyptic, colossal, awe-inspiring.
+```
+
+### 11. m_fenrir（巨狼芬里爾）
+
+```
+Cinematic photorealistic digital painting, Norse mythology, Ragnarök. Dramatic burning red sky with cold blue shadows, swirling ash and snow. Highly detailed fur, iron and fire textures. Vertical 3:4 portrait, head and chest, the wolf looking straight at the viewer. No text, no letters, no watermark, no frame, no modern objects.
+Fenrir, the giant wolf, freed at last: an impossibly huge grey-black wolf with fiery amber eyes, jaws open so wide the upper jaw seems to touch the sky, broken links of the magical ribbon-chain Gleipnir still hanging from its neck, a sword-scar in its mouth, fire glowing in its throat, standing on a shattered battlefield. Primal fury, the end of the world.
+```
+
+### 12. m_surtr（火巨人蘇爾特）
+
+```
+Cinematic photorealistic digital painting, Norse mythology, Ragnarök. Dramatic hellish orange and red firelight against deep black smoke, flying embers and ash. Highly detailed textures of molten rock, flame and blackened iron. Vertical 3:4 portrait, chest-up, the giant looking down toward the viewer as if the viewer is tiny. No text, no letters, no watermark, no frame, no modern objects.
+Surtr, the fire giant lord of Muspelheim: a towering giant whose body is cracked black volcanic rock with molten lava glowing through the cracks, a crown of flames, burning eyes, holding a flaming sword brighter than the sun, the rainbow bridge Bifröst breaking and burning behind him. Majestic, apocalyptic, unstoppable.
+```
+
+---
+
 ## 共用風格（每張都貼）
 
 人物用：
@@ -112,7 +224,7 @@ An ornate decorative portrait frame, vertical 3:4, Viking Age Norse knotwork car
 - **第三、四批**是錦上添花。
 - **第五批**可有可無，不畫的話會繼續用現在的程式邊框。
 
-## 補充：弗蕾亞的吻（2 張，橫式 16:9）
+## 補充：弗蕾亞的吻（2 張，橫式 16:9）（已合併到最上面的「還需要的圖」）
 
 先貼「場景用」共用風格，再接下面的描述。檔名照表格。
 
