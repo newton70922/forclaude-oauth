@@ -3458,6 +3458,8 @@ function ch4Tick(){
   OS.forEach(o=>{if(!S.os[o.id])S.os[o.id]={st:'free',cd:0,def:o.def};});
   if(osOwns('tara'))addFame(2);if(areaOwned('eng'))addFame(1);
   for(const k in S.os){if(S.os[k].cd>0)S.os[k].cd--;}
+  // 丹麥警戒度：每季都會慢慢升高，越晚升得越快
+  if(!S.flags.envoy&&!S.flags.ragna) addAlert(1+Math.floor(t/8));
   // 叛亂：每年秋天擲一次
   if(t>0&&S.turn%4===2&&S.turn>=(S.flags.noRebelT||0)){
     const p=.06+(S.loyalty<40?.15:0)+(S.infamy>=40?.08:0);
@@ -3482,7 +3484,6 @@ function ch4Tick(){
   if(S.heir&&!S.heir.trait&&S.turn-S.heir.born>=8){pushLater(eventModal(EV_RAISE));return true;}
   if(!S.spouse&&!S.heir&&t>=16&&!S.flags.adoptAsk){S.flags.adoptAsk=1;pushLater(eventModal(EV_ADOPT));return true;}
   // 丹麥警戒度：你在海外越鬧越大，藍牙就越坐不住
-  if(!S.flags.envoy&&!S.flags.ragna) addAlert(1);
   if(!S.flags.rumor&&daneAlert()>=40){S.flags.rumor=1;pushLater(el=>resultView(el,'南方的傳言',`從丹麥來的商人在市集上壓低聲音說話。\n\n「藍牙聽說了，」他們說，「聽說北方有一群野蠻人，搶了${S.flags.osRaids?'修道院':'港口'}，還佔了別人的城。他在耶靈的王廳裡問了三次你的名字。」\n\n<span class="bad">丹麥人開始注意你了。你在海外每打下一座城、每搶一次，他們就更警戒一分。</span>\n（王國頁可以看到丹麥的警戒度；現在也可以開始「備戰」）`,'丹麥'));return true;}
   if(!S.flags.omenShown&&daneAlert()>=70){
     S.flags.omen=1;S.flags.omenShown=1;S.flags.omenT=S.turn;
