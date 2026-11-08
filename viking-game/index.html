@@ -270,6 +270,17 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .kcrow button.ok{border-color:#6a9a5b;color:#9fd18c}
 .kcrow button.bad{border-color:var(--blood);color:var(--blood)}
 .kclues{margin:6px 0 10px;padding-left:18px}
+.beat{position:relative;height:280px;max-width:220px;margin:8px auto;border:1px solid var(--line);border-radius:10px;background:var(--bg);overflow:hidden}
+.beatline{position:absolute;left:0;right:0;height:3px;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.beat span{position:absolute;left:50%;transform:translateX(-50%);font-family:var(--f-rune);font-size:30px;color:var(--frost)}
+.beat span.hit{color:var(--gold)}.beat span.bad{color:var(--blood)}
+.rootgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:320px;margin:8px auto}
+.rootgrid button,.rootgrid i{aspect-ratio:1;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--bone);font:inherit;font-size:15px;display:grid;place-items:center;padding:0}
+.rootgrid i.rock{color:var(--muted);border-style:dashed}
+.rootgrid button.can{border-color:var(--gold)}
+.rootgrid button.on{background:rgba(207,171,92,.22);color:var(--gold)}
+.rootgrid button.last{background:var(--gold);color:var(--bg)}
+.rootgrid button.start{background:#2e5a3a;color:#cfe8c0;font-family:var(--f-rune);font-size:20px}
 .kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:300px;margin:8px auto}
 .kgrid button{width:100%;min-height:80px;aspect-ratio:1;padding:0;border-radius:10px;border:1px solid var(--line);background:var(--bg);cursor:pointer;transition:background .08s}
 .kgrid button.gold{background:var(--gold);box-shadow:0 0 18px var(--gold)}
@@ -1224,10 +1235,10 @@ const KING_PARTS={
   head:{name:'雙眼',stop:'你朝他的眼睛甩了一把灰，他眨了眨眼。',signs:['他的眼睛盯著你的喉嚨，一眨也不眨。','他的眼神突然變得很冷，像冬天的峽灣。'],fake:'他故意朝你眨了眨眼，嘴角掛著笑。'},
 };
 // 反應型小遊戲開始前：先看規則，按「準備好了」再倒數 3、2、1
-function readyPage(el,head,rules,go){
-  el.innerHTML=head+`<div class="res" style="font-size:15px;line-height:1.9">${rules}</div><button class="primary" id="rd-ok">準備好了</button>`;
+function readyPage(el,head,rules,go,noCount){
+  el.innerHTML=head+`<div class="res" style="font-size:15px;line-height:1.9">${rules}</div><button class="primary" id="rd-ok">${noCount?'開始':'準備好了'}</button>`;
   $('#rd-ok').focus();
-  $('#rd-ok').onclick=()=>{let n=3;const tick=()=>{if(n===0){go();return;}el.innerHTML=head+`<p class="cine-big" style="font-size:56px;margin:40px 0">${n}</p>`;sfx('drum');n--;setTimeout(tick,650);};tick();};
+  $('#rd-ok').onclick=()=>{if(noCount){go();return;}let n=3;const tick=()=>{if(n===0){go();return;}el.innerHTML=head+`<p class="cine-big" style="font-size:56px;margin:40px 0">${n}</p>`;sfx('drum');n--;setTimeout(tick,650);};tick();};
 }
 function kingAwaken(el,d,done){
   const [l1,l2]=pick(KING_LINES),art=hasArt('halfdan2')?'halfdan2':'halfdan';
@@ -1288,6 +1299,59 @@ function kingAwakenGame(el,d,done){
     };
     drawP();
   }
+}
+/* ---------- 最終決戰的兩個新小遊戲 ---------- */
+// 反應型「符文節拍」：符文從上面落下來，落到金線的那一刻出手。越後面越快
+function runeBeat(el,head,done){
+  const N=12,fall=(S.relaxed?1700:1400),gaps=[];let t=0;for(let i=0;i<N;i++){t+=Math.max(380,720-i*30)*(S.relaxed?1.25:1);gaps.push(t);}
+  const notes=gaps.map((at,i)=>({at,rune:pick(['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ']),j:null}));
+  let t0=0,raf=0,over=false,hits=0,perf=0;const H=280,LINE=240,win=S.relaxed?200:150;
+  el.innerHTML=head+`<div class="beat"><i class="beatline" style="top:${LINE}px"></i><div id="bt-notes"></div></div>
+    <div class="res" id="bt-res" style="text-align:center;min-height:26px"></div><button class="primary big" id="bt-tap">出手！</button>`;
+  const box=$('#bt-notes');
+  const end=()=>{if(over)return;over=true;cancelAnimationFrame(raf);mgKey=null;const r=$('#bt-res');if(r)r.textContent=`${N} 個節拍，抓到 ${hits} 個`;
+    setTimeout(()=>done(hits>=N-1?'perfect':hits>=Math.ceil(N*.6)?'good':'miss'),800);};
+  const tap=()=>{if(over||!t0)return;const now=performance.now()-t0;
+    const c=notes.filter(n=>n.j===null).sort((a,b)=>Math.abs(a.at-now)-Math.abs(b.at-now))[0];if(!c)return;
+    const dt=Math.abs(c.at-now);if(dt<=win){c.j=dt<=win*.5?'p':'g';hits++;if(c.j==='p')perf++;sfx('clash');}else if(dt<=win*2.2){c.j='x';sfx('bad');}};
+  const frame=ts=>{if(over)return;if(!t0)t0=ts;const now=ts-t0;
+    box.innerHTML=notes.filter(n=>n.j===null&&now>=n.at-fall&&now<=n.at+win).map(n=>`<span style="top:${LINE*(1-(n.at-now)/fall)-18}px">${n.rune}</span>`).join('')
+      +notes.filter(n=>n.j&&now-n.at<350).map(n=>`<span class="${n.j==='x'?'bad':'hit'}" style="top:${LINE-18}px">${n.j==='x'?'✕':'✦'}</span>`).join('');
+    notes.forEach(n=>{if(n.j===null&&now>n.at+win)n.j='m';});
+    if(now>gaps[N-1]+500){end();return;}raf=requestAnimationFrame(frame);};
+  $('#bt-tap').onclick=tap;mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();tap();}};
+  raf=requestAnimationFrame(frame);
+}
+// 解謎型「世界樹之根」：從世界樹出發，一筆連過所有格子（不能走斜、每格只走一次）。沒有時間限制
+function worldRoot(el,head,done){
+  const W=5,H=5,nb=i=>{const x=i%W,y=Math.floor(i/W);return [[1,0],[-1,0],[0,1],[0,-1]].map(([a,b])=>[x+a,y+b]).filter(([a,b])=>a>=0&&b>=0&&a<W&&b<H).map(([a,b])=>b*W+a);};
+  // 先隨機找一條走遍全部格子的路，再把最後幾格變成石頭，保證一定有解
+  let path=null;
+  for(let tries=0;tries<60&&!path;tries++){
+    const start=ri(0,W*H-1),seen=new Set([start]),p=[start];let steps=0;
+    const go=()=>{if(p.length===W*H)return true;if(++steps>4000)return false;const cur=p[p.length-1];
+      const opts=nb(cur).filter(j=>!seen.has(j)).map(j=>[j,nb(j).filter(k=>!seen.has(k)).length+Math.random()*.8]).sort((a,b)=>a[1]-b[1]);
+      for(const [j] of opts){seen.add(j);p.push(j);if(go())return true;seen.delete(j);p.pop();}return false;};
+    if(go())path=p;
+  }
+  const rocks=new Set(path.slice(-ri(2,4)));const start=path[0],open=W*H-rocks.size;
+  let trail=[start],backs=0,over=false;const MAXB=10;
+  const draw=msg=>{
+    el.innerHTML=head+`<div class="rootgrid">${Array.from({length:W*H},(_,i)=>{const k=trail.indexOf(i);
+      if(rocks.has(i))return `<i class="rock">▲</i>`;
+      const cls=i===start?'start':k>=0?(k===trail.length-1?'on last':'on'):nb(trail[trail.length-1]).includes(i)?'can':'';
+      return `<button data-rt="${i}" class="${cls}">${i===start?'ᛉ':k>=0?k+1:''}</button>`;}).join('')}</div>
+      <div class="row" style="justify-content:space-between"><span class="num">連到 ${trail.length}/${open} 格　回頭 ${backs}/${MAXB}</span><button class="ghost" id="rt-give">放棄</button></div>
+      <p class="hint" style="min-height:22px">${msg||''}</p>`;
+    el.querySelectorAll('[data-rt]').forEach(b=>b.onclick=()=>tapR(+b.dataset.rt));
+    $('#rt-give').onclick=()=>{if(over)return;over=true;done('miss');};
+  };
+  const tapR=i=>{if(over)return;const last=trail[trail.length-1];
+    if(i===last&&trail.length>1){trail.pop();backs++;sfx('drum');if(backs>MAXB){over=true;draw('根斷了。');setTimeout(()=>done('miss'),700);return;}draw();return;}
+    if(trail.includes(i)||!nb(last).includes(i))return;trail.push(i);sfx('clash');
+    if(trail.length===open){over=true;draw('世界樹的根連起來了！');setTimeout(()=>done(backs<=2?'perfect':'good'),700);return;}
+    if(!nb(i).some(j=>!rocks.has(j)&&!trail.includes(j)))draw('走不下去了。點最後一格，往回退。');else draw();};
+  draw();
 }
 /* ---------- 王者連斬（老王第二階段） ---------- */
 const KC={
@@ -1384,6 +1448,33 @@ function kingCombo(el,d,done){
     draw();
   }
 }
+// 諸神黃昏的怪物絕招（反應型 r／解謎型 p），以及最終宿敵的覺醒
+const SIG={
+  hrym:{name:'冰柱連砸',line:'赫列姆舉起冰柱，一下接一下地砸了下來！',r:'ring',p:'shields'},
+  garm:{name:'瘋狂連撲',line:'加姆的眼睛紅了，從四面八方撲了過來！',r:'dodge',p:'puzzle'},
+  jormun:{name:'毒霧',line:'耶夢加得吐出了一片毒霧，什麼都看不清了！',r:'runes',p:'lock'},
+  surtr:{name:'焚世之劍',line:'蘇爾特舉起燃燒的劍，整片天空都燒了起來！',r:'charge',p:'pairs'},
+  fenrirG:{name:'撕裂',line:'芬里爾張開了嘴，上顎頂著天，下顎貼著地！',r:'runes',p:'lock'},
+};
+const FINAL_SIG={name:'最後一擊',line:'這是世界的最後一天。牠用盡全部的力氣，朝你撲了過來！',r:'beat',p:'root'};
+const SIG_RULE={
+  ring:'圓圈縮到和中間的圓重疊時，按「反擊！」（或空白鍵）。這次圈縮得更快。',
+  dodge:'看清楚攻擊從哪裡來，往另一邊閃（也可以用方向鍵）。這次有 4 下，而且更快。',
+  runes:'照順序輸入畫面上的符文（可以用方向鍵）。這次更長，時間也更短。',
+  charge:'按「蓄力」開始，力道升到金色區域時按「出手」，停在中間的橘色是完美的一擊。這次金色區域更窄。',
+  shields:'擺盾牌擋住每一條攻擊線：一面盾能同時擋住它那一行和那一列，▲ 是礁石。這次格子更大。',
+  puzzle:'把所有符文石都轉回朝上。點一塊，它和上下左右相鄰的石頭都會轉 90°。這次更亂。',
+  lock:'猜出破綻的順序：四個不重複的符文，這次有六個符文可以選。● 是符文和位置都對，○ 是符文對、位置錯。',
+  pairs:'翻牌，找出成對的符文。這次牌更多。',
+  beat:'符文會從上面落下來。落到金線上的那一刻，按「出手！」（或空白鍵）。一共 12 拍，越後面越快。',
+  root:'從世界樹（ᛉ）出發，一格一格連過所有的格子：每格只能走一次，不能走斜的，▲ 是石頭。走錯了，點最後一格就能往回退（最多 10 次）。沒有時間限制。',
+};
+const FINAL2={
+  fenrirG:['芬里爾倒在冰上……然後，牠身上最後一條鎖鏈，「啪」的一聲斷了。','巨狼仰天長嚎，連太陽都被吞進了牠的嘴裡！','掙斷鎖鏈的芬里爾'],
+  surtr:['蘇爾特跪了下去……可是他手裡的劍，燒得更旺了。','「凡人，我會讓整個世界陪你一起燒！」','燃盡世界的蘇爾特'],
+  garm:['加姆倒下了……冥界的門，在牠身後打開了。','亡者的嚎叫灌滿了牠的身體，牠又站了起來！','冥門大開的加姆'],
+  jormun:['巨蛇沉進了海裡……海面突然安靜了下來。','整片大海翻了過來，耶夢加得張開了吞下世界的嘴！','吞海的耶夢加得'],
+};
 function duel(key,o){
   codex({ragnar:'h_berserker',holmS:'h_shieldmaiden',astrid:'h_shieldmaiden',palna:'h_jomsvikings',fenrir:'y_fenrir',fenrirG:'y_fenrir'}[key]);
   pushModal(el=>{
@@ -1391,9 +1482,11 @@ function duel(key,o){
     const d={name:base.name,max:fs.max,atk:fs.atk*(o.hunt&&has('huntsman')?1:1),buff:1,cd:0,log:[],over:false,qs:0,last:null,lastP:null,hit:false,pierce:false,stood:false,rage:0,rageUsed:false,feintUsed:false,feintNext:false,hakonUsed:false};
     d.hp=d.max;
     if(o.awakeStart&&base.king){d.hp=1;d.awaking=true;}
+    if(o.preHit){d.hp=Math.round(d.hp*(1-o.preHit));}
     let acc=.4+eff('wit')*.06+(has('mindread')?(mastered('mindread')?.3:.2):0)+(gt('odin',1)?.05:0);
     if(base.king) acc-=has('mindread')?.15:.3;
     acc=clamp(acc,.2,base.king?(has('mindread')?.7:.6):.9);
+    if(o.rag) acc=(has('mindread')||gt('odin',1))?.8:.75;
     // 老王的第二階段
     const awaken=()=>kingAwaken(el,d,res=>{
       const R=[{hp:.8,atk:1.1,acc:.8,t:'你挺直了背，迎著他的目光。他眼裡閃過一絲意外。'},{hp:.8,atk:1.2,acc:.75,t:'你的膝蓋晃了一下，但你沒有倒下。'},{hp:.8,atk:1.35,acc:.7,t:'他的威壓像一座山一樣壓下來，你差點跪了下去。'}][res];
@@ -1416,6 +1509,8 @@ function duel(key,o){
     const draw=()=>{
       if(d.awaking){awaken();return;}
       if(d.comboDue&&!d.over){d.comboDue=false;kingCombo(el,d,afterCombo);return;}
+      if(d.p2due){d.p2due=false;finalAwaken();return;}
+      if(d.sigDue&&!d.over){d.sigDue=false;runSig();return;}
       const fa=d.awake&&hasArt('halfdan2')?'halfdan2':FOE_ART[key];
       el.innerHTML=`<p class="eyebrow">${o.lethal?'生死單挑':'比武 · 點到為止'}</p><h2>${esc(S.name)} 對 ${d.name}</h2>
       ${fa&&hasArt(fa)?avatar(fa,'big'):''}${o.intro&&!d.log.length?`<p class="story">${o.intro}</p>`:''}
@@ -1489,6 +1584,7 @@ function duel(key,o){
         if(eff('con')>=12&&!d.stood){d.stood=true;toP=S.hp-1;t+='你咬著牙，硬是沒有倒下！';}
         else if(gt('tyr',3)&&!d.tyrUsed){d.tyrUsed=true;toP=S.hp-1;t+='提爾的手托住了你，你沒有倒下！';}
         else if(hk&&hk.oath&&!d.hakonUsed&&!o.hunt){d.hakonUsed=true;toP=Math.min(toP,S.hp-1);t+='哈康撲上來，替你擋下了這一擊！';}
+        else if(o.kingGuard&&d.p2&&!d.kgUsed){d.kgUsed=true;toP=Math.min(toP,S.hp-1);t+='哈夫丹的雙斧從旁邊劈了過來，替你擋下了這一擊！';}
         else if(S.flags.spGuard&&key==='palna'&&!d.spGuard){d.spGuard=true;toP=Math.min(toP,S.hp-1);t+='托爾芬撲上來，替你擋下了這一擊！';}
         else if(qd('thorfinn')&&hasC('thorfinn')&&!d.thorfUsed&&!o.hunt){d.thorfUsed=true;toP=Math.min(toP,S.hp-1);t+='托爾芬撲上來，替你擋下了這一擊！';}
       }
@@ -1501,6 +1597,8 @@ function duel(key,o){
       if(base.king&&d.awake&&d.hp>0&&S.hp>0){d.aTurn++;if(d.aTurn%2===0&&d.cmbI<3)d.comboDue=true;}
       d.log.unshift(`${t}${toF?` <span style="color:var(--ember)">對方 -${toF}</span>`:''}${toP?` <span style="color:var(--blood)">你 -${toP}</span>`:''}`);
       if(base.king&&!d.awake&&d.hp<=0&&S.hp>0){d.hp=1;d.awaking=true;draw();return;}
+      if(o.final&&!d.p2&&d.hp<=0&&S.hp>0){d.hp=1;d.p2due=true;draw();return;}
+      if(d.hp>0&&S.hp>0&&!d.sigDone&&(d.p2?FINAL_SIG:o.sig)&&d.hp<=d.max*(d.p2?.3:.5)){d.sigDone=true;d.sigDue=true;}
       settle();draw();
     };
     // 連斬結束：擋錯的每一刀都吃一下；全擋下來就反擊（同樣最多四分之一）
@@ -1517,6 +1615,41 @@ function duel(key,o){
       d.hp-=toF;S.hp-=toP;sfx(toF?'hit':'bad');
       d.log.unshift(`<b style="color:var(--ember)">王者連斬</b>　${t}${toF?` <span style="color:var(--ember)">對方 -${toF}</span>`:''}${toP?` <span style="color:var(--blood)">你 -${toP}</span>`:''}`);
       settle();draw();
+    };
+    // 怪物的絕招：先看規則，再玩加強版小遊戲
+    const runSig=()=>{
+      const sg=d.p2?FINAL_SIG:o.sig,react=S.mini==='react',game=react?sg.r:sg.p;
+      const hdr=()=>`<p class="eyebrow">生死單挑 · 絕招</p><h2>${d.name}：${sg.name}</h2>`;
+      readyPage(el,hdr(),`${sg.line}\n\n${SIG_RULE[game]}`,()=>{
+        if(game==='beat')runeBeat(el,hdr(),afterSig);
+        else if(game==='root')worldRoot(el,hdr(),afterSig);
+        else makeMinis(el,hdr,afterSig,()=>true,{round:9},0,S.relaxed?1.6:1,()=>'',()=>'miss',1)[game]();
+      },!react);
+    };
+    const afterSig=grade=>{
+      mgKey=null;
+      const g=typeof grade==='object'?(grade.partial>=.6?'good':'miss'):['jackpot','second'].includes(grade)?'perfect':grade;
+      let toP=0,toF=0,t;const big=d.atk*1.6;
+      if(g==='perfect'){toF=Math.round(pDmg()*1.5);t='你完全擋下了牠的絕招，還趁機回敬了一記！';}
+      else if(g==='good'){toP=Math.max(1,Math.round(big*.4-eff('con')*.6));t='你擋下了大半，還是被餘勁掃到。';}
+      else{toP=Math.max(1,Math.round(big-eff('con')*.6));t='絕招結結實實地打在你身上！';}
+      if(o.lethal&&S.hp-toP<=0&&d.hp-toF>0){
+        if(eff('con')>=12&&!d.stood){d.stood=true;toP=S.hp-1;t+='你咬著牙，硬是沒有倒下！';}
+        else if(gt('tyr',3)&&!d.tyrUsed){d.tyrUsed=true;toP=S.hp-1;t+='提爾的手托住了你，你沒有倒下！';}
+        else if(o.kingGuard&&d.p2&&!d.kgUsed){d.kgUsed=true;toP=S.hp-1;t+='哈夫丹的雙斧從旁邊劈了過來，替你擋下了這一擊！';}
+      }
+      d.hp-=toF;S.hp-=toP;sfx(toF?'hit':'bad');
+      d.log.unshift(`<b style="color:var(--ember)">${(d.p2?FINAL_SIG:o.sig).name}</b>　${t}${toF?` <span style="color:var(--ember)">對方 -${toF}</span>`:''}${toP?` <span style="color:var(--blood)">你 -${toP}</span>`:''}`);
+      if(o.final&&!d.p2&&d.hp<=0&&S.hp>0){d.hp=1;d.p2due=true;draw();return;}
+      settle();draw();
+    };
+    // 最終宿敵倒下一次之後：覺醒
+    const finalAwaken=()=>{
+      const F=FINAL2[key]||FINAL2.fenrirG;
+      cineView(el,[{art:[FOE_ART[key]],text:F[0]},{art:[FOE_ART[key]],text:F[1],big:1,shake:1,btn:'迎戰'}],()=>{
+        d.p2=true;d.hp=Math.round(d.max*.6);d.atk*=1.25*(o.kingGuard?.8:1);d.name=F[2];d.sigDone=false;
+        d.log.unshift(`<b style="color:var(--ember)">${F[2]}</b>　牠的攻擊變猛了。${o.kingGuard?'哈夫丹站到了你的身邊：「這一下，我陪你。」':''}`);
+        choose();draw();},'生死單挑 · 最終覺醒');
     };
     const settle=()=>{
       const fled=o.retreatAt&&d.hp>0&&d.hp<=d.max*o.retreatAt;
@@ -1551,6 +1684,156 @@ function pickProxy(foeKey,o,exclude){
 }
 const proxyHp=c=>Math.round(45+CHAMPS[c.id].pow*4+(c.skill||0)*6+(c.oath?10:0)+(c.id==='bjorn'?20:0));
 const proxyDmg=c=>(7+CHAMPS[c.id].pow*1.3+(c.skill||0)*2.2)*(gt('tyr',2)?1.2:1)*(relPartner(c.id)?1.1:1);
+// 代理人單挑和諸神黃昏的絕招共用的小遊戲。hard=1 是加強版
+function makeMinis(el,header,apply,defend,st,skill,relax,logHtml,fail,hard){
+  // 反應型：閃避三連擊
+  const dodge=()=>{
+    const SW=[['左邊','R','→','刀從左邊橫掃過來！'],['右邊','L','←','刀從右邊砍過來！'],['頭頂','D','↓','斧頭從頭頂劈下來！'],['腳下','U','↑','刀貼著地面掃向腳踝！']];
+    const NS=hard?4:3;const seq=Array.from({length:NS},()=>pick(SW));const W=(hard?1450:1950+skill*150)*relax;let i=0,ok=0,done=false,timer=0;
+    const end=()=>{done=true;clearTimeout(timer);mgKey=null;apply(ok===NS?'perfect':ok>=NS-1?'good':'miss');};
+    const show=()=>{
+      el.innerHTML=header()+`<div class="dodge"><b>${seq[i][3]}</b><small>第 ${i+1}/${NS} 刀　閃過 ${ok}</small></div>
+      <div class="seapad dodgepad"><button data-v="U" aria-label="往上跳">↑ 跳</button><button data-v="L" aria-label="往左閃">← 左</button><button data-v="R" aria-label="往右閃">右 →</button><button data-v="D" aria-label="蹲低">↓ 蹲</button></div>
+      <div class="mg-time"><i id="mg-bar" style="transition:width ${W}ms linear"></i></div>`+logHtml();
+      requestAnimationFrame(()=>{const bar=$('#mg-bar');if(bar)bar.style.width='0%';});
+      el.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>pressD(b.dataset.v));
+      timer=setTimeout(()=>next(false),W);
+    };
+    const next=hit=>{if(done)return;clearTimeout(timer);if(hit)ok++;i++;if(i>=NS)end();else setTimeout(()=>{if(!done)show();},250);};
+    const pressD=v=>{if(done)return;next(v===seq[i][1]);};
+    mgKey=e=>{const m={ArrowUp:'U',ArrowDown:'D',ArrowLeft:'L',ArrowRight:'R'}[e.key];if(m){e.preventDefault();pressD(m);}};
+    setTimeout(show,300);
+  };
+  // 反應型：蓄力一擊
+  const charge=()=>{
+    const T=(hard?1100:1300)/relax,good=hard?[74,94]:[68,97],zone=hard?[83,88]:[81-skill,90+skill];let t0=0,raf=0,done=false,started=false;
+    el.innerHTML=header()+`<div class="chargebar"><i class="zone" style="left:${good[0]}%;width:${good[1]-good[0]}%"></i><i class="zone perfect" style="left:${zone[0]}%;width:${zone[1]-zone[0]}%"></i><i class="fillc" id="cg-f"></i></div>
+    <p class="story" style="font-size:13px;color:var(--muted);margin:0">停在金色區域：命中；停在中間的橘色：完美的一擊。</p>
+    <button class="primary big" id="mg-tap">蓄力</button>`+logHtml();
+    const end=g=>{if(done)return;done=true;cancelAnimationFrame(raf);mgKey=null;apply(g);};
+    const val=()=>(performance.now()-t0)/T*100;
+    const frame=()=>{const v=val();const f=$('#cg-f');if(f)f.style.width=Math.min(100,v)+'%';if(v>106){end({partial:0});return;}raf=requestAnimationFrame(frame);};
+    const tap=()=>{if(done)return;if(!started){started=true;t0=performance.now();$('#mg-tap').textContent='出手！';raf=requestAnimationFrame(frame);return;}
+      const v=val();end(v>=zone[0]&&v<=zone[1]?'perfect':v>=good[0]&&v<=good[1]?'good':{partial:v<good[0]?v/100*.6:0});};
+    $('#mg-tap').onclick=tap;$('#mg-tap').focus();
+    mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();tap();}};
+  };
+  // 解謎型：擺盾牌（擋住每一條攻擊線）
+  const shields=()=>{
+    const n=hard?5:4;const nr=hard?3:st.round<3?2:3,nc=2;
+    let rows,cols,rocks,need=0;
+    for(let tries=0;tries<300;tries++){
+      rows=[];while(rows.length<nr){const r=ri(0,n-1);if(!rows.includes(r))rows.push(r);}
+      cols=[];while(cols.length<nc){const c=ri(0,n-1);if(!cols.includes(c))cols.push(c);}
+      rocks=new Set();const cross=[];rows.forEach(r=>cols.forEach(c=>cross.push(r*n+c)));
+      const kr=ri(1,Math.min(3,cross.length-1));while(rocks.size<kr)rocks.add(pick(cross));
+      while(rocks.size<kr+1){const x=ri(0,n*n-1);rocks.add(x);}
+      // 暴力找最少盾牌數
+      const free=[...Array(n*n).keys()].filter(i=>!rocks.has(i));
+      const covers=set=>rows.every(r=>set.some(i=>Math.floor(i/n)===r))&&cols.every(c=>set.some(i=>i%n===c));
+      const comb=(k,start,cur)=>{if(cur.length===k)return covers(cur);for(let j=start;j<free.length;j++){cur.push(free[j]);if(comb(k,j+1,cur))return true;cur.pop();}return false;};
+      need=0;for(let k=1;k<=nr+nc;k++){if(comb(k,0,[])){need=k;break;}}
+      if(need&&need<nr+nc) break;
+    }
+    const placed=new Set();let toggles=0,done=false;
+    const covered=()=>rows.every(r=>[...placed].some(i=>Math.floor(i/n)===r))&&cols.every(c=>[...placed].some(i=>i%n===c));
+    const drawS=()=>{
+      el.innerHTML=header()+`<div class="shieldgrid"><i></i>${Array.from({length:n},(_,c)=>`<i class="arr">${cols.includes(c)?'↓':''}</i>`).join('')}
+      ${Array.from({length:n},(_,r)=>`<i class="arr">${rows.includes(r)?'→':''}</i>${Array.from({length:n},(_,c)=>{const i=r*n+c;const hot=rows.includes(r)||cols.includes(c);return rocks.has(i)?`<i class="rock">▲</i>`:`<button data-s2="${i}" class="${placed.has(i)?'on':''} ${hot?'hot':''}" aria-label="第 ${r+1} 行第 ${c+1} 列${placed.has(i)?'，已放盾牌':''}">${placed.has(i)?'🛡':''}</button>`;}).join('')}`).join('')}</div>
+      <div class="row" style="justify-content:space-between"><span class="num">盾牌 ${placed.size}/${need}　一面盾能同時擋住它那一行和那一列；▲ 是礁石，放不了盾</span><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
+      el.querySelectorAll('[data-s2]').forEach(b=>b.onclick=()=>{if(done)return;const i=+b.dataset.s2;if(placed.has(i))placed.delete(i);else if(placed.size<need)placed.add(i);else return;toggles++;
+        if(placed.size===need&&covered()){done=true;apply(toggles<=need+1?'perfect':'good');return;}drawS();});
+      $('#mg-give').onclick=()=>{if(done)return;done=true;apply(fail());};
+    };
+    drawS();
+  };
+  // 解謎型：符文鎖（猜順序）
+  const lock=()=>{
+    const R=hard?['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ']:['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ'];const code=R.slice().sort(()=>Math.random()-.5).slice(0,4);const limit=(hard?7:6)+Math.min(2,skill);
+    let cur=[],hist=[],done=false;
+    const score=g=>{let b=0,w=0;g.forEach((x,i)=>{if(code[i]===x)b++;else if(code.includes(x))w++;});return [b,w];};
+    const drawL=()=>{
+      el.innerHTML=header()+`<div class="lockhist">${hist.map(([g,[b,w]])=>`<div><span>${g.join(' ')}</span><b>${'●'.repeat(b)}${'○'.repeat(w)}${!b&&!w?'—':''}</b></div>`).join('')||'<div><small>還沒有猜過</small></div>'}</div>
+      <div class="seq">${[0,1,2,3].map(i=>`<span>${cur[i]||''}</span>`).join('')}</div>
+      <div class="runepad">${R.map(r=>`<button data-r2="${r}" ${cur.includes(r)?'disabled':''}><b>${r}</b></button>`).join('')}</div>
+      <div class="row" style="justify-content:space-between;margin-top:8px"><span class="num">第 ${hist.length+1}/${limit} 次（3 次內猜中算完美）　● 符文和位置都對　○ 符文對、位置錯</span>
+      <span><button class="ghost" id="lk-back">退一格</button> <button class="primary" id="lk-go" ${cur.length<4?'disabled':''}>猜</button></span></div>
+      <div class="row" style="justify-content:flex-end;margin-top:6px"><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
+      el.querySelectorAll('[data-r2]').forEach(b=>b.onclick=()=>{if(cur.length<4){cur.push(b.dataset.r2);drawL();}});
+      $('#lk-back').onclick=()=>{cur.pop();drawL();};
+      $('#mg-give').onclick=()=>{if(done)return;done=true;apply(fail());};
+      $('#lk-go').onclick=()=>{if(done||cur.length<4)return;const sc=score(cur);hist.push([cur,sc]);cur=[];
+        if(sc[0]===4){done=true;apply(hist.length===1?'jackpot':hist.length===2?'second':hist.length<=3?'perfect':'good');return;}
+        if(hist.length>=limit){done=true;apply(defend()?'miss':{partial:.3});return;}drawL();};
+    };
+    drawL();
+  };
+  // 解謎型：符文配對
+  const pairs=()=>{
+    const np=hard?8:st.round<2?5:6;const R=['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ'];const use=R.sort(()=>Math.random()-.5).slice(0,np);
+    const cards=[...use,...use].sort(()=>Math.random()-.5);const got=new Set();let open=[],tries=0,done=false,lockUI=false;const limit=np*2+skill,perfect=np+2;
+    const drawC=()=>{
+      el.innerHTML=header()+`<div class="cards">${cards.map((r,i)=>`<button data-cd="${i}" class="${got.has(i)?'got':open.includes(i)?'open':''}" aria-label="第 ${i+1} 張牌${got.has(i)||open.includes(i)?'：'+r:''}">${got.has(i)||open.includes(i)?r:'ᛜ'}</button>`).join('')}</div>
+      <div class="row" style="justify-content:space-between"><span class="num">翻牌 ${tries}/${limit}　${np} 次全對：一擊重創・${perfect} 次內：完美・${limit} 次內：成功</span><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
+      $('#mg-give').onclick=()=>{if(done)return;done=true;apply(fail());};
+      el.querySelectorAll('[data-cd]').forEach(b=>b.onclick=()=>{const i=+b.dataset.cd;if(done||lockUI||got.has(i)||open.includes(i))return;open.push(i);
+        if(open.length===2){tries++;const [x,y]=open;if(cards[x]===cards[y]){got.add(x);got.add(y);open=[];
+            if(got.size===cards.length){done=true;if(tries<=perfect)st.pb=1.3;if(tries<=np){st.pb=2;st.flaw=1;}apply(tries<=perfect?'perfect':'good');return;}}
+          else{lockUI=true;drawC();setTimeout(()=>{open=[];lockUI=false;if(tries>=limit){done=true;apply(defend()?'miss':{partial:got.size/cards.length});return;}drawC();},700);return;}
+          if(tries>=limit){done=true;apply(defend()?'miss':{partial:got.size/cards.length});return;}}
+        drawC();});
+    };
+    drawC();
+  };
+  const ring=()=>{
+    const T=hard?1100:1400,win=(hard?65:90+skill*20)*relax;
+    const tHit=T*.7;let t0=0,done=false,raf=0;
+    el.innerHTML=header()+`<div class="ring-stage"><div class="ring-target"></div><div class="ring" id="ring"></div></div>
+    <button class="primary big" id="mg-tap">反擊！</button>`+logHtml();
+    const ringEl=$('#ring');
+    const end=g=>{if(done)return;done=true;cancelAnimationFrame(raf);mgKey=null;apply(g);};
+    const tap=()=>{const dt=Math.abs(performance.now()-t0-tHit);end(dt<win*.5?'perfect':dt<win?'good':'miss');};
+    const frame=now=>{if(!t0)t0=now;const e=now-t0;const r=Math.max(0,100*(1-e/T));ringEl.style.transform=`translate(-50%,-50%) scale(${r/100})`;if(e>T+250){end('miss');return;}raf=requestAnimationFrame(frame);};
+    $('#mg-tap').onclick=tap;$('#mg-tap').focus();
+    mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();tap();}};
+    setTimeout(()=>{raf=requestAnimationFrame(frame);},350);
+  };
+  const runes=()=>{
+    const n=hard?7:Math.min(6,4+Math.floor(st.round/4));
+    const seq=Array.from({length:n},()=>ri(0,3));
+    const T=(hard?2200+n*330:2400+n*380+skill*300)*relax;let pos=0,done=false,t0=performance.now(),timer=0;
+    el.innerHTML=header()+`<div class="seq">${seq.map((k,i)=>`<span data-i="${i}">${RUNE_KEYS[k][0]}</span>`).join('')}</div>
+    <div class="mg-time"><i id="mg-bar"></i></div>
+    <div class="runepad">${RUNE_KEYS.map((k,i)=>`<button data-k="${i}" aria-label="符文 ${k[0]}（${k[2]}）"><b>${k[0]}</b><small>${k[2]}</small></button>`).join('')}</div>`+logHtml();
+    const end=g=>{if(done)return;done=true;clearInterval(timer);mgKey=null;apply(g);};
+    const press=k=>{if(done)return;if(k===seq[pos]){el.querySelector(`.seq [data-i="${pos}"]`).classList.add('ok');pos++;if(pos>=n){end(performance.now()-t0<T*.6?'perfect':'good');}}else{el.querySelector(`.seq [data-i="${pos}"]`).classList.add('bad');end({partial:pos/n});}};
+    el.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>press(+b.dataset.k));
+    mgKey=e=>{const i=RUNE_KEYS.findIndex(k=>k[1]===e.key);if(i>=0){e.preventDefault();press(i);}};
+    timer=setInterval(()=>{const e=performance.now()-t0;const bar=$('#mg-bar');if(bar)bar.style.width=Math.max(0,100*(1-e/T))+'%';if(e>T)end({partial:pos/n});},50);
+  };
+  const puzzle=()=>{
+    const size=hard?3:st.round<2?2:3;const k=hard?ri(5,6):size===2?ri(2,3):ri(3,5);
+    const N=size*size;const rot=Array(N).fill(0);
+    const nb=i=>{const x=i%size,y=Math.floor(i/size);return [i,...[[1,0],[-1,0],[0,1],[0,-1]].map(([a,b])=>[x+a,y+b]).filter(([a,b])=>a>=0&&b>=0&&a<size&&b<size).map(([a,b])=>b*size+a)];};
+    const clicks=[];while(clicks.length<k){const c=ri(0,N-1);if(!clicks.includes(c))clicks.push(c);}
+    clicks.forEach(c=>nb(c).forEach(j=>rot[j]=(rot[j]+1)%4));
+    if(rot.every(r=>r===0)) rot[0]=1;
+    const limit=k+Math.max(3,k)+skill;let moves=0,done=false;const hist=[];
+    const drawP=()=>{
+      el.innerHTML=header()+`<p class="hint" style="margin:0">點一塊符文石，它和上下左右相鄰的石頭都會逆時針轉 90°。把全部轉回朝上（ᛏ 尖端向上）。<small>按錯了可以按「復原」，會多花一步。</small></p>
+      <div class="tiles" style="grid-template-columns:repeat(${size},var(--tile))">${rot.map((r,i)=>`<button class="tile ${r===0?'up':''}" data-t="${i}" aria-label="符文石 ${i+1}，${['朝上','朝右','朝下','朝左'][r]}"><span style="transform:rotate(${r*90}deg)">ᛏ</span></button>`).join('')}</div>
+      <div class="row" style="justify-content:space-between"><span class="num">步數 ${moves} / ${limit}　${k} 步內：完美（傷害加成）・${limit} 步內：成功</span><span><button class="ghost" id="mg-undo" ${hist.length?'':'disabled'}>復原</button> <button class="ghost" id="mg-give">放棄這回合</button></span></div>`+logHtml();
+      el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{if(done)return;moves++;hist.push(+b.dataset.t);nb(+b.dataset.t).forEach(j=>rot[j]=(rot[j]+3)%4);
+        if(rot.every(r=>r===0)){done=true;if(moves<=k)st.pb=1.3;apply(moves<=k?'perfect':'good');return;}
+        if(moves>=limit){done=true;apply(defend()?'miss':{partial:0});return;}drawP();});
+      $('#mg-give').onclick=()=>{if(done)return;done=true;apply(defend()?'miss':{partial:0});};
+      $('#mg-undo').onclick=()=>{if(done||!hist.length)return;moves++;nb(hist.pop()).forEach(j=>rot[j]=(rot[j]+1)%4);
+        if(moves>=limit){done=true;apply(defend()?'miss':{partial:0});return;}drawP();};
+    };
+    drawP();
+  };
+  return {dodge,charge,shields,lock,pairs,ring,runes,puzzle};
+}
 function proxyDuel(foeKey,cid,o,used,carry){
   pushModal(el=>{
     const fs=foeStats(foeKey,o.mul);
@@ -1618,152 +1901,7 @@ function proxyDuel(foeKey,cid,o,used,carry){
       $('#mg-go').onclick=()=>({ring,dodge,runes,charge,rotate:puzzle,shields,lock,pairs})[g]();$('#mg-go').focus();
     };
     const fail=()=>defend()?'miss':{partial:0};
-    // 反應型：閃避三連擊
-    const dodge=()=>{
-      const SW=[['左邊','R','→','刀從左邊橫掃過來！'],['右邊','L','←','刀從右邊砍過來！'],['頭頂','D','↓','斧頭從頭頂劈下來！'],['腳下','U','↑','刀貼著地面掃向腳踝！']];
-      const seq=Array.from({length:3},()=>pick(SW));const W=(1950+skill*150)*relax;let i=0,ok=0,done=false,timer=0;
-      const end=()=>{done=true;clearTimeout(timer);mgKey=null;apply(ok===3?'perfect':ok===2?'good':'miss');};
-      const show=()=>{
-        el.innerHTML=header()+`<div class="dodge"><b>${seq[i][3]}</b><small>第 ${i+1}/3 刀　閃過 ${ok}</small></div>
-        <div class="seapad dodgepad"><button data-v="U" aria-label="往上跳">↑ 跳</button><button data-v="L" aria-label="往左閃">← 左</button><button data-v="R" aria-label="往右閃">右 →</button><button data-v="D" aria-label="蹲低">↓ 蹲</button></div>
-        <div class="mg-time"><i id="mg-bar" style="transition:width ${W}ms linear"></i></div>`+logHtml();
-        requestAnimationFrame(()=>{const bar=$('#mg-bar');if(bar)bar.style.width='0%';});
-        el.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>pressD(b.dataset.v));
-        timer=setTimeout(()=>next(false),W);
-      };
-      const next=hit=>{if(done)return;clearTimeout(timer);if(hit)ok++;i++;if(i>=3)end();else setTimeout(()=>{if(!done)show();},250);};
-      const pressD=v=>{if(done)return;next(v===seq[i][1]);};
-      mgKey=e=>{const m={ArrowUp:'U',ArrowDown:'D',ArrowLeft:'L',ArrowRight:'R'}[e.key];if(m){e.preventDefault();pressD(m);}};
-      setTimeout(show,300);
-    };
-    // 反應型：蓄力一擊
-    const charge=()=>{
-      const T=1300/relax,good=[68,97],zone=[81-skill,90+skill];let t0=0,raf=0,done=false,started=false;
-      el.innerHTML=header()+`<div class="chargebar"><i class="zone" style="left:${good[0]}%;width:${good[1]-good[0]}%"></i><i class="zone perfect" style="left:${zone[0]}%;width:${zone[1]-zone[0]}%"></i><i class="fillc" id="cg-f"></i></div>
-      <p class="story" style="font-size:13px;color:var(--muted);margin:0">停在金色區域：命中；停在中間的橘色：完美的一擊。</p>
-      <button class="primary big" id="mg-tap">蓄力</button>`+logHtml();
-      const end=g=>{if(done)return;done=true;cancelAnimationFrame(raf);mgKey=null;apply(g);};
-      const val=()=>(performance.now()-t0)/T*100;
-      const frame=()=>{const v=val();const f=$('#cg-f');if(f)f.style.width=Math.min(100,v)+'%';if(v>106){end({partial:0});return;}raf=requestAnimationFrame(frame);};
-      const tap=()=>{if(done)return;if(!started){started=true;t0=performance.now();$('#mg-tap').textContent='出手！';raf=requestAnimationFrame(frame);return;}
-        const v=val();end(v>=zone[0]&&v<=zone[1]?'perfect':v>=good[0]&&v<=good[1]?'good':{partial:v<good[0]?v/100*.6:0});};
-      $('#mg-tap').onclick=tap;$('#mg-tap').focus();
-      mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();tap();}};
-    };
-    // 解謎型：擺盾牌（擋住每一條攻擊線）
-    const shields=()=>{
-      const n=4;const nr=st.round<3?2:3,nc=2;
-      let rows,cols,rocks,need=0;
-      for(let tries=0;tries<300;tries++){
-        rows=[];while(rows.length<nr){const r=ri(0,n-1);if(!rows.includes(r))rows.push(r);}
-        cols=[];while(cols.length<nc){const c=ri(0,n-1);if(!cols.includes(c))cols.push(c);}
-        rocks=new Set();const cross=[];rows.forEach(r=>cols.forEach(c=>cross.push(r*n+c)));
-        const kr=ri(1,Math.min(3,cross.length-1));while(rocks.size<kr)rocks.add(pick(cross));
-        while(rocks.size<kr+1){const x=ri(0,n*n-1);rocks.add(x);}
-        // 暴力找最少盾牌數
-        const free=[...Array(n*n).keys()].filter(i=>!rocks.has(i));
-        const covers=set=>rows.every(r=>set.some(i=>Math.floor(i/n)===r))&&cols.every(c=>set.some(i=>i%n===c));
-        const comb=(k,start,cur)=>{if(cur.length===k)return covers(cur);for(let j=start;j<free.length;j++){cur.push(free[j]);if(comb(k,j+1,cur))return true;cur.pop();}return false;};
-        need=0;for(let k=1;k<=nr+nc;k++){if(comb(k,0,[])){need=k;break;}}
-        if(need&&need<nr+nc) break;
-      }
-      const placed=new Set();let toggles=0,done=false;
-      const covered=()=>rows.every(r=>[...placed].some(i=>Math.floor(i/n)===r))&&cols.every(c=>[...placed].some(i=>i%n===c));
-      const drawS=()=>{
-        el.innerHTML=header()+`<div class="shieldgrid"><i></i>${Array.from({length:n},(_,c)=>`<i class="arr">${cols.includes(c)?'↓':''}</i>`).join('')}
-        ${Array.from({length:n},(_,r)=>`<i class="arr">${rows.includes(r)?'→':''}</i>${Array.from({length:n},(_,c)=>{const i=r*n+c;const hot=rows.includes(r)||cols.includes(c);return rocks.has(i)?`<i class="rock">▲</i>`:`<button data-s2="${i}" class="${placed.has(i)?'on':''} ${hot?'hot':''}" aria-label="第 ${r+1} 行第 ${c+1} 列${placed.has(i)?'，已放盾牌':''}">${placed.has(i)?'🛡':''}</button>`;}).join('')}`).join('')}</div>
-        <div class="row" style="justify-content:space-between"><span class="num">盾牌 ${placed.size}/${need}　一面盾能同時擋住它那一行和那一列；▲ 是礁石，放不了盾</span><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
-        el.querySelectorAll('[data-s2]').forEach(b=>b.onclick=()=>{if(done)return;const i=+b.dataset.s2;if(placed.has(i))placed.delete(i);else if(placed.size<need)placed.add(i);else return;toggles++;
-          if(placed.size===need&&covered()){done=true;apply(toggles<=need+1?'perfect':'good');return;}drawS();});
-        $('#mg-give').onclick=()=>{if(done)return;done=true;apply(fail());};
-      };
-      drawS();
-    };
-    // 解謎型：符文鎖（猜順序）
-    const lock=()=>{
-      const R=['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ'];const code=R.slice().sort(()=>Math.random()-.5).slice(0,4);const limit=6+Math.min(2,skill);
-      let cur=[],hist=[],done=false;
-      const score=g=>{let b=0,w=0;g.forEach((x,i)=>{if(code[i]===x)b++;else if(code.includes(x))w++;});return [b,w];};
-      const drawL=()=>{
-        el.innerHTML=header()+`<div class="lockhist">${hist.map(([g,[b,w]])=>`<div><span>${g.join(' ')}</span><b>${'●'.repeat(b)}${'○'.repeat(w)}${!b&&!w?'—':''}</b></div>`).join('')||'<div><small>還沒有猜過</small></div>'}</div>
-        <div class="seq">${[0,1,2,3].map(i=>`<span>${cur[i]||''}</span>`).join('')}</div>
-        <div class="runepad">${R.map(r=>`<button data-r2="${r}" ${cur.includes(r)?'disabled':''}><b>${r}</b></button>`).join('')}</div>
-        <div class="row" style="justify-content:space-between;margin-top:8px"><span class="num">第 ${hist.length+1}/${limit} 次（3 次內猜中算完美）　● 符文和位置都對　○ 符文對、位置錯</span>
-        <span><button class="ghost" id="lk-back">退一格</button> <button class="primary" id="lk-go" ${cur.length<4?'disabled':''}>猜</button></span></div>
-        <div class="row" style="justify-content:flex-end;margin-top:6px"><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
-        el.querySelectorAll('[data-r2]').forEach(b=>b.onclick=()=>{if(cur.length<4){cur.push(b.dataset.r2);drawL();}});
-        $('#lk-back').onclick=()=>{cur.pop();drawL();};
-        $('#mg-give').onclick=()=>{if(done)return;done=true;apply(fail());};
-        $('#lk-go').onclick=()=>{if(done||cur.length<4)return;const sc=score(cur);hist.push([cur,sc]);cur=[];
-          if(sc[0]===4){done=true;apply(hist.length===1?'jackpot':hist.length===2?'second':hist.length<=3?'perfect':'good');return;}
-          if(hist.length>=limit){done=true;apply(defend()?'miss':{partial:.3});return;}drawL();};
-      };
-      drawL();
-    };
-    // 解謎型：符文配對
-    const pairs=()=>{
-      const np=st.round<2?5:6;const R=['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ','ᚷ','ᚹ'];const use=R.sort(()=>Math.random()-.5).slice(0,np);
-      const cards=[...use,...use].sort(()=>Math.random()-.5);const got=new Set();let open=[],tries=0,done=false,lockUI=false;const limit=np*2+skill,perfect=np+2;
-      const drawC=()=>{
-        el.innerHTML=header()+`<div class="cards">${cards.map((r,i)=>`<button data-cd="${i}" class="${got.has(i)?'got':open.includes(i)?'open':''}" aria-label="第 ${i+1} 張牌${got.has(i)||open.includes(i)?'：'+r:''}">${got.has(i)||open.includes(i)?r:'ᛜ'}</button>`).join('')}</div>
-        <div class="row" style="justify-content:space-between"><span class="num">翻牌 ${tries}/${limit}　${np} 次全對：一擊重創・${perfect} 次內：完美・${limit} 次內：成功</span><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
-        $('#mg-give').onclick=()=>{if(done)return;done=true;apply(fail());};
-        el.querySelectorAll('[data-cd]').forEach(b=>b.onclick=()=>{const i=+b.dataset.cd;if(done||lockUI||got.has(i)||open.includes(i))return;open.push(i);
-          if(open.length===2){tries++;const [x,y]=open;if(cards[x]===cards[y]){got.add(x);got.add(y);open=[];
-              if(got.size===cards.length){done=true;if(tries<=perfect)st.pb=1.3;if(tries<=np){st.pb=2;st.flaw=1;}apply(tries<=perfect?'perfect':'good');return;}}
-            else{lockUI=true;drawC();setTimeout(()=>{open=[];lockUI=false;if(tries>=limit){done=true;apply(defend()?'miss':{partial:got.size/cards.length});return;}drawC();},700);return;}
-            if(tries>=limit){done=true;apply(defend()?'miss':{partial:got.size/cards.length});return;}}
-          drawC();});
-      };
-      drawC();
-    };
-    const ring=()=>{
-      const T=1400,win=(90+skill*20)*relax;
-      const tHit=T*.7;let t0=0,done=false,raf=0;
-      el.innerHTML=header()+`<div class="ring-stage"><div class="ring-target"></div><div class="ring" id="ring"></div></div>
-      <button class="primary big" id="mg-tap">反擊！</button>`+logHtml();
-      const ringEl=$('#ring');
-      const end=g=>{if(done)return;done=true;cancelAnimationFrame(raf);mgKey=null;apply(g);};
-      const tap=()=>{const dt=Math.abs(performance.now()-t0-tHit);end(dt<win*.5?'perfect':dt<win?'good':'miss');};
-      const frame=now=>{if(!t0)t0=now;const e=now-t0;const r=Math.max(0,100*(1-e/T));ringEl.style.transform=`translate(-50%,-50%) scale(${r/100})`;if(e>T+250){end('miss');return;}raf=requestAnimationFrame(frame);};
-      $('#mg-tap').onclick=tap;$('#mg-tap').focus();
-      mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();tap();}};
-      setTimeout(()=>{raf=requestAnimationFrame(frame);},350);
-    };
-    const runes=()=>{
-      const n=Math.min(6,4+Math.floor(st.round/4));
-      const seq=Array.from({length:n},()=>ri(0,3));
-      const T=(2400+n*380+skill*300)*relax;let pos=0,done=false,t0=performance.now(),timer=0;
-      el.innerHTML=header()+`<div class="seq">${seq.map((k,i)=>`<span data-i="${i}">${RUNE_KEYS[k][0]}</span>`).join('')}</div>
-      <div class="mg-time"><i id="mg-bar"></i></div>
-      <div class="runepad">${RUNE_KEYS.map((k,i)=>`<button data-k="${i}" aria-label="符文 ${k[0]}（${k[2]}）"><b>${k[0]}</b><small>${k[2]}</small></button>`).join('')}</div>`+logHtml();
-      const end=g=>{if(done)return;done=true;clearInterval(timer);mgKey=null;apply(g);};
-      const press=k=>{if(done)return;if(k===seq[pos]){el.querySelector(`.seq [data-i="${pos}"]`).classList.add('ok');pos++;if(pos>=n){end(performance.now()-t0<T*.6?'perfect':'good');}}else{el.querySelector(`.seq [data-i="${pos}"]`).classList.add('bad');end({partial:pos/n});}};
-      el.querySelectorAll('[data-k]').forEach(b=>b.onclick=()=>press(+b.dataset.k));
-      mgKey=e=>{const i=RUNE_KEYS.findIndex(k=>k[1]===e.key);if(i>=0){e.preventDefault();press(i);}};
-      timer=setInterval(()=>{const e=performance.now()-t0;const bar=$('#mg-bar');if(bar)bar.style.width=Math.max(0,100*(1-e/T))+'%';if(e>T)end({partial:pos/n});},50);
-    };
-    const puzzle=()=>{
-      const size=st.round<2?2:3;const k=size===2?ri(2,3):ri(3,5);
-      const N=size*size;const rot=Array(N).fill(0);
-      const nb=i=>{const x=i%size,y=Math.floor(i/size);return [i,...[[1,0],[-1,0],[0,1],[0,-1]].map(([a,b])=>[x+a,y+b]).filter(([a,b])=>a>=0&&b>=0&&a<size&&b<size).map(([a,b])=>b*size+a)];};
-      const clicks=[];while(clicks.length<k){const c=ri(0,N-1);if(!clicks.includes(c))clicks.push(c);}
-      clicks.forEach(c=>nb(c).forEach(j=>rot[j]=(rot[j]+1)%4));
-      if(rot.every(r=>r===0)) rot[0]=1;
-      const limit=k+Math.max(3,k)+skill;let moves=0,done=false;const hist=[];
-      const drawP=()=>{
-        el.innerHTML=header()+`<p class="hint" style="margin:0">點一塊符文石，它和上下左右相鄰的石頭都會逆時針轉 90°。把全部轉回朝上（ᛏ 尖端向上）。<small>按錯了可以按「復原」，會多花一步。</small></p>
-        <div class="tiles" style="grid-template-columns:repeat(${size},var(--tile))">${rot.map((r,i)=>`<button class="tile ${r===0?'up':''}" data-t="${i}" aria-label="符文石 ${i+1}，${['朝上','朝右','朝下','朝左'][r]}"><span style="transform:rotate(${r*90}deg)">ᛏ</span></button>`).join('')}</div>
-        <div class="row" style="justify-content:space-between"><span class="num">步數 ${moves} / ${limit}　${k} 步內：完美（傷害加成）・${limit} 步內：成功</span><span><button class="ghost" id="mg-undo" ${hist.length?'':'disabled'}>復原</button> <button class="ghost" id="mg-give">放棄這回合</button></span></div>`+logHtml();
-        el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{if(done)return;moves++;hist.push(+b.dataset.t);nb(+b.dataset.t).forEach(j=>rot[j]=(rot[j]+3)%4);
-          if(rot.every(r=>r===0)){done=true;if(moves<=k)st.pb=1.3;apply(moves<=k?'perfect':'good');return;}
-          if(moves>=limit){done=true;apply(defend()?'miss':{partial:0});return;}drawP();});
-        $('#mg-give').onclick=()=>{if(done)return;done=true;apply(defend()?'miss':{partial:0});};
-        $('#mg-undo').onclick=()=>{if(done||!hist.length)return;moves++;nb(hist.pop()).forEach(j=>rot[j]=(rot[j]+1)%4);
-          if(moves>=limit){done=true;apply(defend()?'miss':{partial:0});return;}drawP();};
-      };
-      drawP();
-    };
+    const {dodge,charge,shields,lock,pairs,ring,runes,puzzle}=makeMinis(el,header,g=>apply(g),defend,st,skill,relax,logHtml,fail,0);
     const finish=win=>{
       mgKey=null;let tail='';
       if(win){c.skill=Math.min(5,(c.skill||0)+1);bond(cid,10);S.stats.duels++;S.stats.proxyW=(S.stats.proxyW||0)+1;if(S.stats.proxyW>=5)unlock('proxy5');tail=`<span class="good">${C.name}贏了！</span>\n${C.name}的戰技 +1，好感 +10`;}
@@ -3090,11 +3228,12 @@ function osActs(o){
   const g=S.os[o.id],A=[];
   const frozen=S.flags.ragna&&!S.flags.ragDone?'芬布爾之冬：海面結冰了，船出不去':null;
   const winter=S.turn%4===3&&!osOwns('orkney')&&bl('shipyard')<2?'冬天的北海太危險，船出不去（拿下奧克尼，或把龍頭船塢升到 2 級）':null;
-  const need=frozen||winter||(!bl('dock')?'要先在部落蓋好碼頭':fieldMen()<10?'出海至少要 10 名能出征的戰士':null);
+  const mourn=S.turn<(S.flags.mournT||0)?`舉國哀悼中：這一年不出征（還有 ${S.flags.mournT-S.turn} 季）`:null;
+  const need=mourn||frozen||winter||(!bl('dock')?'要先在部落蓋好碼頭':fieldMen()<10?'出海至少要 10 名能出征的戰士':null);
   if(o.kind==='explore'){
     const w=S.flags.west||0;
     if(w>=3) return {info:'你的船到過世界的盡頭。文蘭的葡萄，到現在還有人在講。',A};
-    A.push({t:['往西航行，找冒煙的山','繼續往西，找綠色的冰','再往西，去沒人去過的地方'][w],note:'不打仗，只有大海和未知。會帶上 6 名戰士',dis:frozen||winter||(bl('dock')<2&&!osOwns('orkney')?'要碼頭 2 級，或拿下奧克尼':fieldMen()<6?'需要 6 名能出征的戰士':null),run:()=>expedition(o,()=>explore(),true)});
+    A.push({t:['往西航行，找冒煙的山','繼續往西，找綠色的冰','再往西，去沒人去過的地方'][w],note:'不打仗，只有大海和未知。會帶上 6 名戰士',dis:mourn||frozen||winter||(bl('dock')<2&&!osOwns('orkney')?'要碼頭 2 級，或拿下奧克尼':fieldMen()<6?'需要 6 名能出征的戰士':null),run:()=>expedition(o,()=>explore(),true)});
     return {info:'',A};
   }
   if(o.kind==='strike'){
@@ -3653,13 +3792,31 @@ function ragHintTick(){
   pushLater(el=>{el.innerHTML=`<p class="story" style="margin-top:6px">${t}</p><button class="primary" id="m-ok">繼續</button>`;$('#m-ok').onclick=closeModal;$('#m-ok').focus();});
   return true;
 }
+// 饒了老王的話：第四章幾年後，他在農莊安詳離世
+function kingDeath(){
+  S.flags.kingDead=1;S.flags.mournT=S.turn+4;addLoyalty(10);log('老王哈夫丹在農莊離世，舉國哀悼一年。');
+  pushLater(el=>cineView(el,[
+    {art:['sc_k_news','halfdan'],text:'使者在雪地裡跑了三天，才到王廳。\n\n「老王走了。」他說，「在睡夢中走的。」'},
+    {art:['sc_k_farm','halfdan'],text:'農莊的人說，前一晚，他坐在門口，看著峽灣看了很久。\n\n有人問他在看什麼。\n\n他說：「看春天什麼時候來。」',btn:'……'},
+    {art:['sc_k_farm','halfdan'],text:'你下令，舉國哀悼一年。\n\n<span class="good">族人感念你。忠誠 +10</span>\n<span class="bad">這一年，不出征海外。</span>（丹麥人的警戒，這一年也不會自己升高）'},
+  ],closeModal,'第四章 · 老王'));
+  pushLater(eventModal({kind:'老王',art:'halfdan',title:'老王的後事',text:'老王的遺體運回了維斯特福爾。所有人都在等你決定，要怎麼送他最後一程。',ch:[
+    {t:'船葬：讓他躺在龍頭船上，點火送出海',note:'200 銀幣　名聲 +20、奧丁的神恩 +10',ok:()=>S.silver>=200,fx:()=>{S.silver-=200;addFame(20);favor('odin',10);S.flags.kingBurial='ship';
+      pushModal(el=>resultView(el,'船葬','龍頭船載著老王，燒著火，慢慢漂向海的盡頭。岸上的人一直站到看不見火光，才有人開始唱歌。\n<span class="good">名聲 +20，奧丁的神恩 +10</span>','老王','sc_k_ship'));return null;}},
+    {t:'立塚刻碑：堆起大土丘，立一塊刻著他名字的符文石',note:'120 銀幣、30 糧食　忠誠 +10，接下來兩年不會有叛亂',ok:()=>S.silver>=120&&S.food>=30,fx:()=>{S.silver-=120;S.food-=30;addLoyalty(10);S.flags.noRebelT=Math.max(S.flags.noRebelT||0,S.turn+8);S.flags.kingBurial='mound';
+      pushModal(el=>resultView(el,'立塚刻碑','符文石上刻著：「哈夫丹，挪威之王。他守了這片土地三十年。」\n\n從那天起，常常有人帶著孩子去土丘上坐一坐。\n<span class="good">忠誠 +10，接下來兩年不會有叛亂</span>','老王','sc_k_mound'));return null;}},
+    {t:'讓他的親衛隊抬棺',note:'50 銀幣　精兵 +8',ok:()=>S.silver>=50,fx:()=>{S.silver-=50;S.elite+=8;S.men+=8;S.flags.kingBurial='guard';
+      pushModal(el=>resultView(el,'親衛隊抬棺','跟了老王三十年的老兵們，一路把棺木抬上了山。下山的時候，他們走到你面前，一個接一個跪了下來。\n\n「老王說過，要我們跟著你。」\n<span class="good">精兵 +8</span>','老王','sc_k_guard'));return null;}},
+    {t:'簡單下葬',show:()=>S.silver<50,fx:()=>{S.flags.kingBurial='simple';return '你拿不出更多的錢了。老王被安靜地葬在了他的農莊旁邊。';}},
+  ]}));
+}
 function ch4Tick(){
   const t=P4();
   OS.forEach(o=>{if(!S.os[o.id])S.os[o.id]={st:'free',cd:0,def:o.def};});
   if(osOwns('tara'))addFame(2);if(areaOwned('eng'))addFame(1);
   for(const k in S.os){if(S.os[k].cd>0)S.os[k].cd--;}
   // 丹麥警戒度：每季都會慢慢升高，越晚升得越快
-  if(!S.flags.envoy&&!S.flags.ragna) addAlert(1+Math.floor(t/8));
+  if(!S.flags.envoy&&!S.flags.ragna&&!(S.turn<(S.flags.mournT||0))) addAlert(1+Math.floor(t/8));
   // 叛亂：每年秋天擲一次
   if(t>0&&S.turn%4===2&&S.turn>=(S.flags.noRebelT||0)){
     const p=.06+(S.loyalty<40?.15:0)+(S.infamy>=40?.08:0);
@@ -3690,6 +3847,7 @@ function ch4Tick(){
     pushLater(el=>resultView(el,'預兆',omenText(),'ᛞ 預兆'));return true;
   }
   if(daneRecall()) return true;
+  if(S.flags.kingFate==='spared'&&!S.flags.kingDead&&(t>=7||S.flags.ragna)){kingDeath();return true;}
   if(S.spouse&&spouseDayTick()) return true;
   if(ragHintTick()) return true;
   if(S.flags.ragna&&!S.flags.ragDone){
@@ -3733,15 +3891,22 @@ function ragnaOmen(){
 const FIMBUL_TXT=['夏天沒有來。雪下到了長屋的屋簷，狼群在夜裡繞著木牆嚎叫。','太陽一天只露臉一下子，就又縮回了灰色的雲後面。老人們說，那頭狼在追著太陽跑。','海面結了冰，冰上站著一個很高很高的影子，看了你的王廳很久，然後往北走了。','孩子們問你，春天什麼時候會來。你答不出來。'];
 // 神話之戰的對手
 const RAG_FOE={odin:['fenrirG','芬里爾','巨狼掙斷了繩子，朝奧丁撲去。在預言裡，奧丁會死在這一刻。這一次，你擋在了前面。'],thor:['jormun','耶夢加得','世界巨蛇從海裡昇起，毒霧遮住了天空。索爾在你身邊舉起了錘子：「一起上！」'],tyr:['garm','加姆','冥界的看門犬衝出了洞穴。提爾說：「我只剩一隻手。另一隻，借我用。」'],freyja:['surtr','蘇爾特','火巨人揮著燃燒的劍走了過來。弗蕾亞站在你身後：「別讓他碰到我的哥哥。」'],none:['fenrirG','芬里爾','巨狼掙斷了繩子。眾神和凡人站在同一邊，看著牠走過來。']};
-// 諸神黃昏：防線 → 大戰 → 三輪連戰（一輪比一輪有名）
+// 諸神黃昏：防線 → 大戰 → 四輪連戰（一輪比一輪有名，最後一隻會覺醒）
 const RAG_ROUND2={garm:['garm','冥犬加姆','冥界的看門犬衝出了洞穴，身上還掛著冥河的冰。'],jormun:['jormun','耶夢加得','世界巨蛇從海裡昇起，毒霧遮住了半邊天。']};
 function ragRush(final,fline,fn){
   const r2=RAG_ROUND2[final==='garm'?'jormun':'garm'];
-  const heal=t=>{const h=Math.round(maxHp()*(.3+(S.spouse?.1:0)));S.hp=Math.min(maxHp(),Math.max(S.hp,1)+h);return `\n\n${t}\n<span class="good">生命 +${h}</span>`;};
+  const r3=final==='surtr'?['fenrirG','巨狼芬里爾','巨狼芬里爾掙斷了繩子，朝你撲了過來。']:['surtr','火巨人蘇爾特','火巨人蘇爾特從南方的天空走了下來，每一步，都把冰原燒成了水。'];
+  const K=S.flags.kingRag;// 'met'：覺醒的老王；'unmet'：騎馬的老王
+  const pre=n=>K==='met'?.15:K==='unmet'&&n<4?.1:0;
+  const kLine=(n,name)=>K==='met'?`\n<span class="good">哈夫丹的雙斧先劈了上去！${name}少了 15% 的血。</span>`
+    :K==='unmet'?(n<4?`\n<span class="good">哈夫丹的劍先砍了上去！${name}少了 10% 的血。</span>`:`\n哈夫丹第一個衝了上去，卻被${name}一眼看穿，一擊打飛了出去。他撐著劍站起來，渾身是血：「……接下來，交給你了。」`):'';
+  const heal=t=>{const h=Math.round(maxHp()*(.2+(S.spouse?.1:0)));S.hp=Math.min(maxHp(),Math.max(S.hp,1)+h);return `\n\n${t}\n<span class="good">生命 +${h}</span>`;};
   const fall=next=>{if(charges()>0){if(S.blessings>0)S.blessings--;else S.amulet=false;S.hp=Math.round(maxHp()*.4);pushLater(next);return '你倒下了。一隻冰冷的手抓住你的手腕，把你從灰燼裡拉了起來。是女武神。\n「還沒結束。」她說。\n<span class="bad">用掉了一次祈福</span>';}return '';};
-  const round3=()=>duel(final,{lethal:true,xp:80,intro:`<b>第三輪</b>　${fline}`,cause:`死在${fn}的口中`,onEnd:w=>w?(pushLater(el=>ch4End(el,'ragnarok')),`${fn}倒下了。整個世界安靜了下來。`):(charges()>0?(pushLater(el=>ch4End(el,'ragnarok')),'你倒下了。但在你倒下之前，你的斧頭已經砍進了牠的喉嚨。'):'')});
-  const round2=()=>duel(r2[0],{lethal:true,xp:60,intro:`<b>第二輪</b>　${r2[2]}`,cause:`死在${r2[1]}的口中`,onEnd:w=>w?(pushLater(round3),`${r2[1]}倒下了。${heal(ragAidLine(2))}`):fall(round3)});
-  duel('hrym',{lethal:true,xp:50,intro:'<b>第一輪</b>　霜巨人的首領赫列姆從納吉爾法船上跳了下來，冰原裂開了一條縫。他舉起一根比桅杆還粗的冰柱：「凡人，你是第一個。」',cause:'被霜巨人赫列姆砸進了冰裡',onEnd:w=>w?(pushLater(round2),`赫列姆倒下了，冰原震了一下。${heal(ragAidLine(1))}`):fall(round2)});
+  const R=(n,k,name,line,cause,next,o2)=>()=>duel(k,{lethal:true,rag:1,mul:1.2,xp:40+n*10,preHit:pre(n),sig:SIG[k],intro:`<b>第${'一二三四'[n-1]}輪</b>　${line}${kLine(n,name)}`,cause,...(o2||{}),onEnd:next});
+  const round4=R(4,final,fn,fline,`死在${fn}的口中`,w=>w?(pushLater(el=>ch4End(el,'ragnarok')),`${fn}倒下了。整個世界安靜了下來。`):(charges()>0?(pushLater(el=>ch4End(el,'ragnarok')),'你倒下了。但在你倒下之前，你的斧頭已經砍進了牠的喉嚨。'):''),{final:1,kingGuard:K==='met'});
+  const round3=R(3,r3[0],r3[1],r3[2],`死在${r3[1]}的手下`,w=>w?(pushLater(round4),`${r3[1]}倒下了。${heal(ragAidLine(2))}`):fall(round4));
+  const round2=R(2,r2[0],r2[1],r2[2],`死在${r2[1]}的口中`,w=>w?(pushLater(round3),`${r2[1]}倒下了。${heal(ragAidLine(2))}`):fall(round3));
+  R(1,'hrym','赫列姆','霜巨人的首領赫列姆從納吉爾法船上跳了下來，冰原裂開了一條縫。他舉起一根比桅杆還粗的冰柱：「凡人，你是第一個。」','被霜巨人赫列姆砸進了冰裡',w=>w?(pushLater(round2),`赫列姆倒下了，冰原震了一下。${heal(ragAidLine(1))}`):fall(round2))();
 }
 // 諸神黃昏時，伴侶會做的事
 const SPOUSE_RAG={
@@ -3758,6 +3923,22 @@ function ragAidLine(n){
   const god={odin:['奧丁的渡鴉從天上俯衝下來，啄瞎了巨人的眼睛。','奧丁把長矛擲了出去，劃出一道白光。'],thor:['一道閃電從天上劈下來，正好落在你的身邊。','索爾的錘子從你頭頂飛過去，又飛了回來。'],tyr:['提爾用僅剩的那隻手扶住了你：「站好。還沒完。」','提爾的劍指著前方：「誓言還沒兌現。」'],freyja:['女武神們從天上俯衝下來，把倒下的戰士一個一個扶起來。','弗蕾亞的手放在你的傷口上，傷口慢慢合起來了。']}[p]||['英靈們從天上衝下來，替你擋住了一擊。','一個從瓦爾哈拉回來的老戰士把你拉了起來。'];
   return god[n-1]+(S.spouse&&SPOUSE_RAG[S.spouse]?'\n'+SPOUSE_RAG[S.spouse]:'');
 }
+// 老王在諸神黃昏歸來：饒了他、而且有遵守承諾（忠誠 80、戰士 60、勇士 4 位）就會覺醒
+const kingRagMet=()=>S.loyalty>=80&&S.men>=60&&S.champions.length>=4;
+function kingRagPages(){
+  const f=S.flags.kingFate;if(!f) return null;
+  if(f==='dead'){const g=patron()&&patron()!=='loki'?GODS[patron()].name:'奧丁';S.flags.kingRag='dead';
+    return [{art:['sc_k_gods','halfdan2'],text:`你在英靈戰士裡，看見了老王哈夫丹。\n\n他沒有看你。他直接走過你的身邊，走到${g}的面前。${g}朝他點了點頭，像在迎接一個老朋友。`}];}
+  const met=kingRagMet();S.flags.kingRag=met?'met':'unmet';
+  const P=[{art:['sc_k_bifrost','halfdan'],text:'彩虹橋上，一支英靈騎兵走在最前面。帶頭的那個人，白髮、持劍，騎著一匹灰馬。\n\n是老王哈夫丹。'},
+    {art:['sc_k_bifrost','halfdan'],text:'他的目光，從你的戰士臉上一張一張地掃過去。\n\n最後，停在了你的身上。'}];
+  if(met) P.push({art:['halfdan2'],text:'「……你有遵守承諾呢。」',big:1},
+    {art:['v_halfdan3','halfdan2'],text:'他翻身下馬，把劍插進了冰裡，從背後抽出兩把斧頭。\n\n然後，他仰天狂笑。'},
+    {art:['sc_k_axes','v_halfdan3','halfdan2'],text:'「挪威的哈夫丹在此！哪個巨人，想先來？」',big:1,shake:1},
+    {art:['sc_k_axes','v_halfdan3','halfdan2'],text:'他一個人，守住了整座彩虹橋。巨人的屍體在他腳下堆成了小山，剩下的巨人，竟然沒有一個敢踏上橋。\n\n<span class="good">巨人大軍 -25%。接下來的每一輪單挑，他都會先替你砍上一斧。</span>'});
+  else P.push({art:['sc_k_charge','halfdan'],text:'他朝你點了點頭，什麼都沒說。然後拔出劍，帶著英靈騎兵衝進了巨人的陣中，砍倒了一大片。\n\n<span class="good">巨人大軍 -10%。前三輪單挑，他都會先替你砍上一劍。</span>'});
+  return P;
+}
 function ragnarok(){
   S.flags.ragDone=1;S.flags.ragFight=1;
   const p=patron();
@@ -3765,9 +3946,11 @@ function ragnarok(){
   const aid=Object.keys(GODS).reduce((m,g)=>m*(gt(g,3)?.88:gt(g,2)?.95:1),1);
   const def=Math.round(260*lf()*D().foe*(1-Math.min(.15,S.fame/2000))*aid*(S.flags.ragnarVan?.92:1)*(S.spouse?.92:1));
   const [fk,fn,fline]=RAG_FOE[p||'none'];
+  const kp=kingRagPages(),kMul=S.flags.kingRag==='met'?.75:S.flags.kingRag==='unmet'?.9:1;
   pushLater(el=>resultView(el,'諸神黃昏',`號角聲從天邊傳來，那是海姆達爾的號角。\n\n霜巨人從北方的冰原上走下來，火巨人從南方的天空燒過來。天邊的雲裂開了，一道金色的光照下來：瓦爾哈拉的英靈戰士，一排一排地從彩虹橋上走了下來，站到了你的戰士身邊。\n\n${p?`${GODS[p].name}站在你的身邊。`:'眾神站在你的身後。'}${S.spouse&&SPOUSE_RAG[S.spouse]?'\n'+SPOUSE_RAG[S.spouse]:''}${S.fame>=150?'\n挪威各地的人，聽說你要在這裡迎戰，全都趕來了。':''}\n\n先守住防線。`,'ᛞ 諸神黃昏','sc_einherjar'));
+  if(kp) pushLater(el=>cineView(el,kp,closeModal,'諸神黃昏 · 彩虹橋'));
   pushLater(shieldWallFn({title:'冰原上的防線',rag:1,...spouseShield(),onEnd:sc=>{
-    battle({title:'諸神黃昏',def:def*(1.15-sc*.06),defend:true,intro:'巨人的大軍撞上了你們的防線。',foeNote:'霜巨人與火巨人的大軍',cause:'倒在諸神黃昏的戰場上',onEnd:w=>{
+    battle({title:'諸神黃昏',def:def*kMul*(1.15-sc*.06),defend:true,intro:'巨人的大軍撞上了你們的防線。',foeNote:'霜巨人與火巨人的大軍',cause:'倒在諸神黃昏的戰場上',onEnd:w=>{
       if(!w){pushLater(el=>ch4End(el,'ragfall'));return '<span class="bad">防線碎了。冰和火淹沒了一切。</span>';}
       ragRush(fk,fline,fn);
       return '巨人的陣線被你們撕開了！可是，真正的怪物還在後面。';}});
@@ -3776,7 +3959,8 @@ function ragnarok(){
 const spouseShield=()=>['astrid','bragi','thorfinn','sigrid'].includes(S.spouse)?{bonus:1,bonusTxt:{astrid:'阿斯特麗德的盾牌和你的扣在一起',bragi:'布拉吉的戰歌讓所有人站穩了腳步',thorfinn:'托爾芬一直站在你的右邊',sigrid:'西格麗德帶人守住了左翼'}[S.spouse]}:{};
 const EV_LOKI_RAG={kind:'ᛚ 洛基',art:'loki',title:'騙子的邀請',text:'諸神黃昏的那天早上，洛基站在冰原上，身後是霜巨人的大軍。他朝你伸出手：\n\n「我們是朋友，對吧？那些神把我綁在石頭上，讓毒蛇的毒液滴在我臉上，滴了一千年。現在輪到他們了。」\n\n「站到我這邊來。新的世界，需要一個國王。」',
   ch:[{t:'握住他的手',note:'結束這一局',fx:()=>{pushLater(el=>ch4End(el,'lokiside'));return null;}},
-      {t:'「對不起，朋友。」',note:'和眾神站在一起，對抗洛基的大軍',fx:()=>{favor('odin',20);S.flags.lokiNo=1;const def=Math.round(240*lf()*D().foe);
+      {t:'「對不起，朋友。」',note:'和眾神站在一起，對抗洛基的大軍',fx:()=>{favor('odin',20);S.flags.lokiNo=1;const kp=kingRagPages(),kMul=S.flags.kingRag==='met'?.75:S.flags.kingRag==='unmet'?.9:1;const def=Math.round(240*lf()*D().foe*kMul);
+        if(kp) pushLater(el=>cineView(el,kp,closeModal,'諸神黃昏 · 彩虹橋'));
         pushLater(shieldWallFn({title:'冰原上的防線',rag:1,...spouseShield(),onEnd:sc=>{battle({title:'諸神黃昏',def:def*(1.15-sc*.06),defend:true,intro:'洛基笑了，笑得很難過。然後他舉起手，巨人們衝了過來。',cause:'倒在諸神黃昏的戰場上',onEnd:w=>{
           if(!w){pushLater(el=>ch4End(el,'ragfall'));return '<span class="bad">盾牆碎了。</span>';}
           ragRush('fenrirG','洛基的兒子，巨狼芬里爾，朝你走了過來。遠處，洛基一個人坐在冰上，看著你。','芬里爾');

@@ -10,6 +10,95 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
+## ★ v0.8 第二批：老王的晚年與諸神黃昏（10 張）
+
+老王離世、後事、諸神黃昏歸來的分鏡用圖。還沒畫好之前，遊戲會先用老王現有的立繪代替。每一段都已經包含共用風格，整段直接貼給 ChatGPT 就好。
+
+| # | 檔名 | 內容 | 用在哪裡 | 比例 |
+|---|---|---|---|---|
+| 1 | sc_k_news | 使者帶來死訊 | 老王離世 第 1 頁 | 16:9 |
+| 2 | sc_k_farm | 農莊門口的空椅子 | 老王離世 第 2、3 頁 | 16:9 |
+| 3 | sc_k_ship | 船葬 | 後事：船葬 | 16:9 |
+| 4 | sc_k_mound | 立塚刻碑 | 後事：立塚刻碑 | 16:9 |
+| 5 | sc_k_guard | 親衛隊抬棺 | 後事：親衛隊抬棺 | 16:9 |
+| 6 | sc_k_bifrost | 彩虹橋上，騎馬歸來的老王 | 諸神黃昏：老王歸來 | 16:9 |
+| 7 | sc_k_charge | 老王率英靈騎兵衝陣 | 諸神黃昏：沒有覺醒 | 16:9 |
+| 8 | sc_k_axes | 覺醒的老王一人守住彩虹橋 | 諸神黃昏：覺醒（張飛守長阪橋） | 16:9 |
+| 9 | sc_k_gods | 處決的老王去見神 | 諸神黃昏：處決過老王 | 16:9 |
+| 10 | v_halfdan3 | 覺醒的老王：雙斧狂戰士（人物） | 諸神黃昏：覺醒 | 3:4 |
+
+### 1. sc_k_news（使者帶來死訊）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A young Viking messenger, exhausted, covered in snow and frost, kneels before the high throne of a dark royal hall lit by a few torches, delivering grave news; the ruler on the throne is only a dark silhouette seen from behind. Quiet, heavy, sorrowful.
+```
+
+### 2. sc_k_farm（農莊門口的空椅子）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Early morning at a small turf-roofed farmhouse on the shore of a quiet fjord in late winter: an empty wooden chair by the open door, an old fur cloak and a walking staff left on it, the fjord calm and pale, the first thin light of spring on the snowy mountains. Peaceful, bittersweet, beautiful.
+```
+
+### 3. sc_k_ship（船葬）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A Viking ship funeral at dusk: a burning longship carrying an old king's body drifts out onto a calm dark sea, flames and sparks rising into the twilight sky; on the rocky shore, a large silent crowd with torches watches it go. Majestic, solemn, mythic.
+```
+
+### 4. sc_k_mound（立塚刻碑）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A great grass-covered burial mound on a hill above a fjord, with a tall carved runestone in front of it, painted with red and black knotwork and a crowned figure; a few villagers and a child sit quietly on the slope in soft evening light. Calm, enduring, respectful.
+```
+
+### 5. sc_k_guard（親衛隊抬棺）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A procession of grim, grey-bearded Viking veteran housecarls in mail and fur, carrying a carved wooden coffin draped with a red cloak and an old king's notched sword, up a snowy mountain path; behind them a long line of mourners with torches. Loyal, heavy, honorable.
+```
+
+### 6. sc_k_bifrost（彩虹橋上，騎馬歸來的老王）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Ragnarök: an endless frozen battlefield under a burning red sky, the shining rainbow bridge Bifröst arching down from golden clouds, armies of frost giants on the ice. Old King Halfdan of Norway (around seventy, long wild white hair and beard, gold knotwork crown), now a glowing einherjar warrior of Valhalla, rides a grey horse at the head of a column of ghostly golden einherjar cavalry coming down the rainbow bridge; he holds his ancient sword, and his eyes sweep over the living Viking army below as if inspecting them. Awe-inspiring, solemn, heroic.
+```
+
+### 7. sc_k_charge（老王率英靈騎兵衝陣）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Ragnarök: an endless frozen battlefield under a burning red sky, the shining rainbow bridge Bifröst arching down from golden clouds, armies of frost giants on the ice. Old King Halfdan of Norway (around seventy, long wild white hair and beard, gold knotwork crown), a glowing einherjar warrior on a grey horse, leads a charge of ghostly golden cavalry straight into a horde of towering frost giants, his sword raised, giants falling around the charge, snow and ice exploding. Heroic, dynamic, epic.
+```
+
+### 8. sc_k_axes（覺醒的老王一人守住彩虹橋）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Ragnarök: an endless frozen battlefield under a burning red sky, the shining rainbow bridge Bifröst arching down from golden clouds, armies of frost giants on the ice. Old King Halfdan of Norway (around seventy, long wild white hair and beard, gold knotwork crown) in his awakened berserker form stands ALONE in the middle of the broken rainbow bridge, holding two magnificent customized battle axes (blades engraved with crown motifs, runes glowing ice-blue, hafts wrapped in iron chain from his old throne); a mountain of slain frost giants lies piled at his feet, and the entire giant army on the far side hesitates, afraid to step onto the bridge. Wild white hair blown back, eyes blazing, laughing madly. Overwhelming presence, terrifying pressure, legendary.
+```
+
+### 9. sc_k_gods（處決的老王去見神）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Ragnarök: an endless frozen battlefield under a burning red sky, the shining rainbow bridge Bifröst arching down from golden clouds, armies of frost giants on the ice. Old King Halfdan of Norway (around seventy, long wild white hair and beard, gold knotwork crown), a glowing einherjar warrior, walks past a living Viking ruler (seen from behind, face hidden) without looking at them, and approaches a tall Norse god in a wide-brimmed hat and dark blue cloak (Odin), who nods to him like an old friend; ghostly warriors all around. Dignified, distant, a quiet sting.
+```
+
+### 10. v_halfdan3（覺醒的老王：雙斧狂戰士（人物））
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic warm golden-hour rim light with cold blue shadows. Highly detailed fur, wool, leather, iron, silver and braided hair. Gritty, grounded, believable faces. Vertical 3:4 portrait, chest-up, the character looking toward the viewer. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway (around seventy, long wild white hair and beard, gold knotwork crown) reborn in Valhalla as a berserker: no longer frail, powerful and terrifying, torn royal mantle over scarred bare shoulders, the crown chipped on one side, wild white hair and beard flying, eyes blazing with cold light, a mad grin; he holds two magnificent customized battle axes crossed in front of him (blades engraved with crown motifs, runes glowing ice-blue, hafts wrapped in iron chain); snow and embers swirl on a burning battlefield behind him. Madness, overwhelming strength, legendary king-berserker.
+```
+
+---
+
 ## ★ v0.8 第一批：老王的電影分鏡（10 張，橫式 16:9）
 
 老王的覺醒、戰敗、處決或饒命，現在都改成一頁一張圖的分鏡。這 10 張還沒畫好之前，遊戲會先用老王現有的立繪代替，不影響遊玩。每一段都已經包含共用風格，整段直接貼給 ChatGPT 就好。
