@@ -107,9 +107,9 @@ Old King Halfdan of Norway (around seventy, long white hair and beard, gold knot
 
 ---
 
-## ★ v0.8 第一批：老王的電影分鏡（10 張，橫式 16:9）
+## ✅ v0.8 第一批：老王的電影分鏡（10 張，已全部收到）
 
-**還缺 5 張：sc_k_face、sc_k_hall、sc_k_exec、sc_k_spare、sc_coronation_self。**
+**第一批 10 張全部收到了，都已經放進遊戲。**
 
 老王的覺醒、戰敗、處決或饒命，現在都改成一頁一張圖的分鏡。這 10 張還沒畫好之前，遊戲會先用老王現有的立繪代替，不影響遊玩。每一段都已經包含共用風格，整段直接貼給 ChatGPT 就好。
 
@@ -120,11 +120,11 @@ Old King Halfdan of Norway (around seventy, long white hair and beard, gold knot
 | 3 | sc_k_slip | 特寫：撐劍想站，劍尖滑開 （✅ 已收到）| 戰敗第 2 頁 |
 | 4 | sc_k_push | 低角度：劍被推到你的腳邊 （✅ 已收到）| 戰敗第 3 頁 |
 | 5 | sc_k_people | 從老王背後：望向門口擠滿的族人 （✅ 已收到）| 戰敗第 4 頁 |
-| 6 | sc_k_face | 臉部特寫：……好好待他們 | 戰敗第 5 頁 |
-| 7 | sc_k_hall | 遠景：空蕩王廳，老王獨自跪著 | 戰敗第 6 頁 |
-| 8 | sc_k_exec | 處決：斧影落在他身上 | 處決 |
-| 9 | sc_k_spare | 饒命：一跛一跛走出王廳的背影 | 饒命 |
-| 10 | sc_coronation_self | 處決後：自己戴上王冠 | 第三章結局（處決老王時） |
+| 6 | sc_k_face | 臉部特寫：……好好待他們 （✅ 已收到）| 戰敗第 5 頁 |
+| 7 | sc_k_hall | 遠景：空蕩王廳，老王獨自跪著 （✅ 已收到）| 戰敗第 6 頁 |
+| 8 | sc_k_exec | 處決：斧影落在他身上 （✅ 已收到）| 處決 |
+| 9 | sc_k_spare | 饒命：一跛一跛走出王廳的背影 （✅ 已收到）| 饒命 |
+| 10 | sc_coronation_self | 處決後：自己戴上王冠 （✅ 已收到）| 第三章結局（處決老王時） |
 
 ### 1. sc_k_rise（老王覺醒前：撐劍喘氣、冷笑）
 

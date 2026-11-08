@@ -731,7 +731,7 @@ const ACH={
   hnoss:{name:'女神的女兒',desc:'弗蕾亞帶來了你們的女兒。',hint:'有些人值得等一輩子。',secret:1},
   freyja_wed:{name:'金色的眼淚',desc:'成為弗蕾亞的伴侶。',hint:'傳說弗蕾亞一直在找一個人。',secret:1,reward:'畫框「金淚畫框」'},
   grey:{name:'白髮蒼蒼',desc:'活到 55 歲。',hint:'活到 55 歲。'},
-  end4_win:{name:'王的歲月',desc:'撐過第四章的最後一戰。',hint:'在第四章打贏最後一戰。'},
+  end4_win:{name:'王的歲月',desc:'撐過第四章的最後一戰。',hint:'在第四章打贏最後一戰。',reward:'傳承「藍牙的戒指」'},
   end4_sea:{name:'北海之王',desc:'擁有三塊海外領地，打退丹麥人。',hint:'擁有三塊海外領地時，打退丹麥人。'},
   end4_cross:{name:'受洗之王',desc:'受洗之後，打退丹麥人。',hint:'受洗之後，打退丹麥人。'},
   end4_gods:{name:'舊神的守護者',desc:'被神選中、不受洗，打退丹麥人。',hint:'不受洗、被一位神選中，打退丹麥人。'},
@@ -739,7 +739,8 @@ const ACH={
   end4_guard:{name:'挪威的守護者',desc:'打退丹麥人。',hint:'不屬於其他結局時，打退丹麥人。'},
   end4_vassal:{name:'附庸之王',desc:'向丹麥下跪。',hint:'向丹麥國王下跪。'},
   end4_lost:{name:'失國之王',desc:'被丹麥人奪走王國。',hint:'兩次擋不住丹麥大軍。'},
-  end4_ragnarok:{name:'黃昏之後',desc:'在諸神黃昏中活下來。',hint:'和眾神並肩，撐過世界的最後一天。',secret:1},
+  end4_ragnarok:{name:'黃昏之後',desc:'在諸神黃昏中活下來。',hint:'和眾神並肩，撐過世界的最後一天。',secret:1,reward:'傳承「世界樹的種子」'},
+  king_return:{name:'你有遵守承諾呢',desc:'老王在諸神黃昏重生覺醒。',hint:'饒了老王，並且守住他的託付。',secret:1,reward:'傳承「老王的劍」'},
   end4_ragfall:{name:'與諸神同眠',desc:'倒在諸神黃昏的戰場上。',hint:'和眾神一起，倒在世界的最後一天。',secret:1},
   end4_loki:{name:'騙子的盟友',desc:'在諸神黃昏站到洛基那一邊。',hint:'有些朋友，會在世界末日向你伸出手。',secret:1},
   end4_abdicate:{name:'交出王冠的王',desc:'在丹麥人來之前傳位給繼承人。',hint:'在還站得穩的時候，把王冠交給下一代。'},
@@ -767,8 +768,9 @@ const ACH={
   king_awake:{name:'王者之戰',desc:'擊敗覺醒的老王哈夫丹。',hint:'打倒老王兩次。'},
   strawdeath:{name:'稻草之死',desc:'在床上老死。',hint:'不是每個維京人都死在戰場上。',secret:1},
 };
-const SKINS={base:{name:'無畫框'},frost:{name:'霜狼畫框',need:'deathless'},hero:{name:'英雄畫框',need:'hero_king'},raven:{name:'渡鴉畫框',need:'three_crowns'},paint:{name:'血色畫框',need:'kill_sven'},gold:{name:'金淚畫框',need:'freyja_wed'}};
-const LEGACY={none:{name:'不帶',desc:'白手起家。'},axe:{name:'祖傳戰斧',desc:'力量 +1',need:'first_king'},chart:{name:'老水手的海圖',desc:'起始銀幣 +20',need:'end_sea'},song:{name:'詩人傳唱',desc:'起始名聲 +10',need:'end_kind'},blood:{name:'英雄血脈',desc:'所有能力 +1',need:'hero_king'}};
+const SKINS={base:{name:'無畫框',desc:'沒有加成'},frost:{name:'霜狼畫框',need:'deathless',desc:'生命上限 +6'},hero:{name:'英雄畫框',need:'hero_king',desc:'單挑傷害 +2'},raven:{name:'渡鴉畫框',need:'three_crowns',desc:'看穿對手 +5%'},paint:{name:'血色畫框',need:'kill_sven',desc:'突襲戰利品 +10%'},gold:{name:'金淚畫框',need:'freyja_wed',desc:'神恩獲得 +15%'}};
+const frameIs=k=>!!(S&&S.look&&S.look.skinId===k);
+const LEGACY={none:{name:'不帶',desc:'白手起家。'},axe:{name:'祖傳戰斧',desc:'力量 +1',need:'first_king'},chart:{name:'老水手的海圖',desc:'起始銀幣 +20',need:'end_sea'},song:{name:'詩人傳唱',desc:'起始名聲 +10',need:'end_kind'},blood:{name:'英雄血脈',desc:'所有能力 +1',need:'hero_king'},ring:{name:'藍牙的戒指',desc:'起始同伴 +2',need:'end4_win'},seed:{name:'世界樹的種子',desc:'祈福上限 +1',need:'end4_ragnarok'},sword:{name:'老王的劍',desc:'每場生死單挑，一定撐得過第一次致命傷',need:'king_return'}};
 const HEROES={
   m:{name:'維京戰士',art:['art/m1.webp','art/m2.webp','art/m3.webp','art/mk.webp']},
   f:{name:'盾女',art:['art/f1.webp','art/f2.webp','art/f3.webp','art/fk.webp']},
@@ -841,9 +843,9 @@ const champ=id=>S.champions.find(c=>c.id===id);
 const ownsR=id=>S.reg[id]&&S.reg[id].st==='yours';
 const bl=id=>S.bld[id]||0;
 const eff=k=>Math.max(1,S.st[k]-(S.wounded>0?1:0));
-const maxHp=()=>Math.max(12,20+S.st.con*6+(has('ironbody')?15:0)-S.scars*6-((S.ageLv||0)>=3?10:0));
+const maxHp=()=>Math.max(12,20+S.st.con*6+(frameIs('frost')?6:0)+(has('ironbody')?15:0)-S.scars*6-((S.ageLv||0)>=3?10:0));
 const xpNeed=()=>20+S.lvl*15;
-const maxBless=()=>D().bless+(has('undying')?1:0)+(S.qdone&&S.qdone.una?1:0)+(S.favor&&S.favor.freyja>=100?1:0);
+const maxBless=()=>D().bless+(S.legacy==='seed'?1:0)+(has('undying')?1:0)+(S.qdone&&S.qdone.una?1:0)+(S.favor&&S.favor.freyja>=100?1:0);
 const charges=()=>(S.amulet?1:0)+S.blessings;
 const year=()=>Math.floor(S.turn/4)+1;
 const age=()=>19+Math.floor(S.turn/4);
@@ -896,7 +898,7 @@ function armyPower(){
   return Math.round(p);
 }
 const leadMul=()=>eff('str')>=9?1.3:1.2;
-const pDmg=()=>4+(S.flags.wayland?3:0)+eff('str')*2+bl('smithy')+(hasC('gudrun')?2:0)+(qd('gudrun')?2:0);
+const pDmg=()=>4+(frameIs('hero')?2:0)+(S.flags.wayland?3:0)+eff('str')*2+bl('smithy')+(hasC('gudrun')?2:0)+(qd('gudrun')?2:0);
 const recruitCost=()=>Math.max(3,Math.round(8*(1-[0,.15,.3,.4][bl('barracks')])*(has('leader')?.75:1)*(ownsR('market')?.75:1)*(osOwns('mercia')?.8:1)*(S.phase>=2?fameRecruit():1)));
 const costMul=()=>(has('builder')?(mastered('builder')?.6:.7):1)*(ownsR('market')?.9:1);
 function income(){
@@ -994,7 +996,7 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
-const ART_HAVE=new Set(['c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip']);
+const ART_HAVE=new Set(['c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare']);
 const CHAMP_ART={halfdan2:'v_halfdan2',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
@@ -1483,7 +1485,7 @@ function duel(key,o){
     d.hp=d.max;
     if(o.awakeStart&&base.king){d.hp=1;d.awaking=true;}
     if(o.preHit){d.hp=Math.round(d.hp*(1-o.preHit));}
-    let acc=.4+eff('wit')*.06+(has('mindread')?(mastered('mindread')?.3:.2):0)+(gt('odin',1)?.05:0);
+    let acc=.4+(frameIs('raven')?.05:0)+eff('wit')*.06+(has('mindread')?(mastered('mindread')?.3:.2):0)+(gt('odin',1)?.05:0);
     if(base.king) acc-=has('mindread')?.15:.3;
     acc=clamp(acc,.2,base.king?(has('mindread')?.7:.6):.9);
     if(o.rag) acc=(has('mindread')||gt('odin',1))?.8:.75;
@@ -1582,6 +1584,7 @@ function duel(key,o){
       if(o.lethal&&S.hp-toP<=0&&d.hp-toF>0){
         const hk=champ('hakon');
         if(eff('con')>=12&&!d.stood){d.stood=true;toP=S.hp-1;t+='你咬著牙，硬是沒有倒下！';}
+        else if(S.legacy==='sword'&&!d.swordUsed){d.swordUsed=true;toP=S.hp-1;t+='老王的劍在你手裡嗡嗡作響。你沒有倒下！';}
         else if(gt('tyr',3)&&!d.tyrUsed){d.tyrUsed=true;toP=S.hp-1;t+='提爾的手托住了你，你沒有倒下！';}
         else if(hk&&hk.oath&&!d.hakonUsed&&!o.hunt){d.hakonUsed=true;toP=Math.min(toP,S.hp-1);t+='哈康撲上來，替你擋下了這一擊！';}
         else if(o.kingGuard&&d.p2&&!d.kgUsed){d.kgUsed=true;toP=Math.min(toP,S.hp-1);t+='哈夫丹的雙斧從旁邊劈了過來，替你擋下了這一擊！';}
@@ -1635,6 +1638,7 @@ function duel(key,o){
       else{toP=Math.max(1,Math.round(big-eff('con')*.6));t='絕招結結實實地打在你身上！';}
       if(o.lethal&&S.hp-toP<=0&&d.hp-toF>0){
         if(eff('con')>=12&&!d.stood){d.stood=true;toP=S.hp-1;t+='你咬著牙，硬是沒有倒下！';}
+        else if(S.legacy==='sword'&&!d.swordUsed){d.swordUsed=true;toP=S.hp-1;t+='老王的劍在你手裡嗡嗡作響。你沒有倒下！';}
         else if(gt('tyr',3)&&!d.tyrUsed){d.tyrUsed=true;toP=S.hp-1;t+='提爾的手托住了你，你沒有倒下！';}
         else if(o.kingGuard&&d.p2&&!d.kgUsed){d.kgUsed=true;toP=S.hp-1;t+='哈夫丹的雙斧從旁邊劈了過來，替你擋下了這一擊！';}
       }
@@ -2494,6 +2498,7 @@ const gt=(g,n)=>S.faith!=='cross'&&godTier(g)>=n;
 function favor(g,n){
   if(!n||!S||S.faith==='cross') return;
   if(n>0&&wx('aurora')) n=Math.round(n*1.5);
+  if(n>0&&frameIs('gold')) n=Math.round(n*1.15);
   S.favor=S.favor||{odin:0,thor:0,tyr:0,freyja:0,loki:0};
   const b=godTier(g);S.favor[g]=clamp((S.favor[g]||0)+n,0,100);const a=godTier(g);
   if(a<=b) return;
@@ -2930,7 +2935,7 @@ function upgradeTribe(){
 
 /* ================= 地區行動 ================= */
 function rdef(r){const g=S.reg[r.id];const t=infTier();return Math.round(g.def*(r.kind==='seat'?lf():wf())*D().foe*(t>=3?1.25:t>=2?1.15:1));}
-const lootMul=()=>(S&&S.phase>=2?seasonLootMul():1)*(gt('loki',2)?1.1:1)*(qd('sven')&&hasC('sven')?1.15:1)*(qd('knut')&&hasC('knut')?1.1:1)*[1,1.25,1.4,1.6][bl('dock')]*(has('seawolf')?1.4:1)*(has('breaker')?1.1:1)*(hasC('knut')?1.2:1)*(ownsR('red')?1.2:1);
+const lootMul=()=>(S&&S.phase>=2?seasonLootMul():1)*(frameIs('paint')?1.1:1)*(gt('loki',2)?1.1:1)*(qd('sven')&&hasC('sven')?1.15:1)*(qd('knut')&&hasC('knut')?1.1:1)*[1,1.25,1.4,1.6][bl('dock')]*(has('seawolf')?1.4:1)*(has('breaker')?1.1:1)*(hasC('knut')?1.2:1)*(ownsR('red')?1.2:1);
 const allyChance=()=>clamp((hasC('sigrid')?.05:0)+(qd('sigrid')?.1:0)+[0,0,0,.08,.12][fameTier()]+(S.flags.allyBonus?.15:0)+(qd('osric')?.15:0)+.08+eff('pre')*.035+eff('wit')*.02+[0,.1,.15,.2][bl('hall')]+(has('tongue')?.12:0)+(hasC('osric')?.1:0)+(eff('pre')>=12?.1:0)-(S.infamy>=40?.15:0),.05,.85);
 const abdicateChance=()=>Math.min(.6,(fameTier()>=3?.05:0)+(qd('osric')?.1:0)+.05+eff('pre')*.025+allies()*.08+(S.loyalty>=70?.1:0)+(has('tongue')?.1:0));
 const scareChance=()=>clamp(.25+eff('pre')*.02+(S.infamy>=80?.15:0)+(gt('loki',2)?.1:0),.05,.8);
@@ -3929,7 +3934,7 @@ function kingRagPages(){
   const f=S.flags.kingFate;if(!f) return null;
   if(f==='dead'){const g=patron()&&patron()!=='loki'?GODS[patron()].name:'奧丁';S.flags.kingRag='dead';
     return [{art:['sc_k_gods','halfdan2'],text:`你在英靈戰士裡，看見了老王哈夫丹。\n\n他沒有看你。他直接走過你的身邊，走到${g}的面前。${g}朝他點了點頭，像在迎接一個老朋友。`}];}
-  const met=kingRagMet();S.flags.kingRag=met?'met':'unmet';
+  const met=kingRagMet();S.flags.kingRag=met?'met':'unmet';if(met)unlock('king_return');
   const P=[{art:['sc_k_bifrost','halfdan'],text:'彩虹橋上，一支英靈騎兵走在最前面。帶頭的那個人，白髮、持劍，騎著一匹灰馬。\n\n是老王哈夫丹。'},
     {art:['sc_k_bifrost','halfdan'],text:'他的目光，從你的戰士臉上一張一張地掃過去。\n\n最後，停在了你的身上。'}];
   if(met) P.push({art:['halfdan2'],text:'「……你有遵守承諾呢。」',big:1},
@@ -4785,8 +4790,7 @@ function showTitle(){
   const L=NEW.look;
   const seg=(lbl,key,opts)=>`<div class="seg"><span>${lbl}</span>${opts.map(([v,n,dis])=>`<button data-look="${key}" data-v="${v}" aria-pressed="${String(L[key])===String(v)}" ${dis?'disabled':''}>${n}</button>`).join('')}</div>`;
   $('#looks').innerHTML=`<div class="heroes">${Object.entries(HEROES).map(([k,h])=>`<button class="hero" data-look="sex" data-v="${k}" aria-pressed="${L.sex===k}">${portrait({look:{...L,sex:k},stage:L.stage})}<b>${h.name}</b></button>`).join('')}</div>
-    ${seg('預覽','stage',STAGE_NAME.map((n,i)=>[i,n]))}
-    ${seg('畫框','skinId',Object.entries(SKINS).map(([k,sk])=>[k,sk.name,!okNeed(sk.need)]))}
+    ${seg('畫框','skinId',Object.entries(SKINS).map(([k,sk])=>[k,`${sk.name}<small style="display:block;font-size:11px;opacity:.75">${sk.desc}</small>`,!okNeed(sk.need)]))}
     ${Object.values(SKINS).some(sk=>!okNeed(sk.need))?`<small class="lockhint">${Object.values(SKINS).filter(sk=>!okNeed(sk.need)).map(sk=>`${sk.name}：${ACH[sk.need].secret?ACH[sk.need].hint:`達成「${ACH[sk.need].name}」（${ACH[sk.need].hint}）`}`).join('<br>')}</small>`:''}`;
   $('#looks').querySelectorAll('[data-look]').forEach(b=>b.onclick=()=>{const k=b.dataset.look;let v=b.dataset.v;if(k==='stage')v=+v;L[k]=v;showTitle();});
   $('#minis').innerHTML=`<button class="opt" data-mini="react" aria-pressed="${NEW.mini==='react'}"><b>反應型</b><small>四種小遊戲輪流出現：看準時機反擊、閃避三連擊、限時符文連擊、蓄力一擊。考驗反應和手速。</small></button>
@@ -4839,6 +4843,7 @@ $('#btn-start').onclick=()=>{
   if(S.legacy==='chart') S.silver+=20;
   if(S.legacy==='song') S.fame+=10;
   if(S.legacy==='blood') for(const k in S.st) S.st[k]++;
+  if(S.legacy==='ring') S.men+=2;
   S.hp=maxHp();
   REGIONS.forEach(r=>S.reg[r.id]={st:'free',cd:0,def:r.def});
   log('離開故鄉的峽灣，搭上南下的商船。');
