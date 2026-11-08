@@ -270,6 +270,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .kcrow button.ok{border-color:#6a9a5b;color:#9fd18c}
 .kcrow button.bad{border-color:var(--blood);color:var(--blood)}
 .kclues{margin:6px 0 10px;padding-left:18px}
+.kgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:300px;margin:8px auto}
+.kgrid button{width:100%;min-height:80px;aspect-ratio:1;padding:0;border-radius:10px;border:1px solid var(--line);background:var(--bg);cursor:pointer;transition:background .08s}
+.kgrid button.gold{background:var(--gold);box-shadow:0 0 18px var(--gold)}
+.kgrid button.red{background:var(--blood);box-shadow:0 0 18px var(--blood)}
 .kclues li{margin:3px 0}
 .avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:50% 20%;border:1px solid var(--line);float:left;margin:0 10px 4px 0}
 .avatar.foe-sm{float:right;width:56px;height:56px;margin:-46px 0 6px 10px;border:2px solid var(--ember)}
@@ -1230,7 +1234,7 @@ function kingAwakenGame(el,d,done){
   const head=`<p class="eyebrow">生死單挑 · 王者覺醒</p><h2>老王覺醒了</h2>`;
   if(S.mini==='react'){
     // 一直被往下壓的指針，要連點把它撐在金色區域裡
-    let v=60,inT=0,t0=0,last=0,raf=0,over=false;const T=5000,zone=S.relaxed?[30,80]:[40,75];
+    let v=60,inT=0,t0=0,last=0,raf=0,over=false;const T=4000,zone=S.relaxed?[45,78]:[55,75];
     el.innerHTML=head+`<p class="hint">他的威壓像一座山一樣壓下來。<b>連續點「挺住！」</b>，把指針撐在金色區域裡，撐越久越好。</p>
       <div class="rowbar"><i class="zone" style="left:${zone[0]}%;width:${zone[1]-zone[0]}%"></i><i class="needle" id="kw-n" style="left:60%"></i></div>
       <div class="swtime"><i id="kw-t"></i></div><button class="primary big" id="kw-b">挺住！</button>`;
@@ -1283,57 +1287,76 @@ const KC={
   sweep:{name:'橫掃',def:'後跳',key:'ArrowDown',arrow:'↓',tells:['他把劍收到腰側，身子往後一擰。','劍刃貼著膝蓋的高度，橫著揮了過來。','他的肩膀往旁邊一沉。']},
   thrust:{name:'突刺',def:'側閃',key:'ArrowRight',arrow:'→',tells:['他的劍尖對準了你的胸口。','他的肩膀往前一送，整個人跟著撲了過來。','他把劍收到耳邊，劍尖朝前。']},
 };
-// 解謎型：給幾條線索，剛好只能推出一種劍路（盡量不直接講「第幾刀是什麼」）
+// 解謎型：給 4～7 條要互相組合才推得出來的線索，剛好只有一種劍路（不直接講「第幾刀是什麼」）
 function kcClues(seq){
   const K=Object.keys(KC),n=seq.length,N=k=>KC[k].name,cnt=(s,k)=>s.filter(x=>x===k).length;
   const all=[];(function g(p){if(p.length===n){all.push(p);return;}K.forEach(k=>g([...p,k]));})([]);
-  const pool=[];
-  if(seq.every((x,i)=>!i||x!==seq[i-1]))pool.push({t:'他不會連續兩刀用同一招。',f:s=>s.every((x,i)=>!i||x!==s[i-1]),w:3});
-  K.forEach(k=>{const c=cnt(seq,k);pool.push({t:c?`${N(k)}一共出現 ${c} 次。`:`這一套裡沒有${N(k)}。`,f:s=>cnt(s,k)===c,w:3});});
-  pool.push(seq[0]===seq[n-1]?{t:'第一刀和最後一刀是同一招。',f:s=>s[0]===s[n-1],w:2}:{t:'第一刀和最後一刀不是同一招。',f:s=>s[0]!==s[n-1],w:2});
-  K.forEach(a=>K.forEach(b=>{if(a===b)return;const I=seq.map((x,i)=>x===a?i:-1).filter(i=>i>=0);
-    if(I.length&&I.every(i=>i<n-1&&seq[i+1]===b))pool.push({t:`每次${N(a)}之後，下一刀一定是${N(b)}。`,f:s=>s.map((x,i)=>x===a?i:-1).filter(i=>i>=0).every(i=>i<n-1&&s[i+1]===b),w:3});}));
-  for(let i=0;i<n;i++)K.forEach(k=>{if(seq[i]!==k)pool.push({t:`第 ${i+1} 刀不是${N(k)}。`,f:s=>s[i]!==k,w:1});});
-  for(let i=0;i<n;i++)pool.push({t:`第 ${i+1} 刀是${N(seq[i])}。`,f:s=>s[i]===seq[i],w:0});
+  const pool=[],add=(t,f,w)=>pool.push({t,f,w});
+  for(let i=0;i<n;i++)for(let j=i+2;j<n;j++){if(seq[i]===seq[j])add(`第 ${i+1} 刀和第 ${j+1} 刀是同一招。`,s=>s[i]===s[j],2);else add(`第 ${i+1} 刀和第 ${j+1} 刀不一樣。`,s=>s[i]!==s[j],2);}
+  K.forEach((a,ai)=>K.forEach((b,bi)=>{if(bi<=ai)return;const d=cnt(seq,a)-cnt(seq,b);
+    if(d===0)add(`${N(a)}和${N(b)}出現的次數一樣。`,s=>cnt(s,a)===cnt(s,b),3);
+    else if(d>0)add(`${N(a)}比${N(b)}多出現 ${d} 次。`,s=>cnt(s,a)-cnt(s,b)===d,3);
+    else add(`${N(b)}比${N(a)}多出現 ${-d} 次。`,s=>cnt(s,b)-cnt(s,a)===-d,3);}));
+  K.forEach(k=>{const c=cnt(seq,k);add(c?`${N(k)}一共出現 ${c} 次。`:`這一套裡沒有${N(k)}。`,s=>cnt(s,k)===c,2);});
+  const fol=(s,a,b)=>s.some((x,i)=>i<n-1&&x===a&&s[i+1]===b);
+  K.forEach(a=>K.forEach(b=>{if(!fol(seq,a,b)&&seq.slice(0,-1).includes(a))add(a===b?`他從不連續兩刀都用${N(a)}。`:`${N(a)}後面，從來不會接${N(b)}。`,s=>!fol(s,a,b),3);}));
+  const firstI=(s,k)=>s.indexOf(k);
+  K.forEach(a=>K.forEach(b=>{if(a===b||!seq.includes(a)||!seq.includes(b))return;const fb=firstI(seq,b);
+    if(seq.every((x,i)=>x!==a||i>fb))add(`所有的${N(a)}，都在第一次${N(b)}之後。`,s=>{const f=firstI(s,b);return f>=0&&s.includes(a)&&s.every((x,i)=>x!==a||i>f);},3);}));
+  K.forEach(k=>{const c=cnt(seq.slice(0,3),k);if(c>=1)add(`前三刀裡，有 ${c} 刀是${N(k)}。`,s=>cnt(s.slice(0,3),k)===c,2);
+    const c2=cnt(seq.slice(-3),k);if(c2>=1)add(`最後三刀裡，有 ${c2} 刀是${N(k)}。`,s=>cnt(s.slice(-3),k)===c2,2);});
+  const run=s=>{let m=1,c=1;for(let i=1;i<s.length;i++){c=s[i]===s[i-1]?c+1:1;m=Math.max(m,c);}return m;};
+  const r=run(seq);if(r<n)add(r===1?'他不會連續兩刀用同一招。':`他最多只會連續 ${r} 刀用同一招。`,s=>run(s)===r,2);
+  const neg=[];for(let i=0;i<n;i++)K.forEach(k=>{if(seq[i]!==k)neg.push({t:`第 ${i+1} 刀不是${N(k)}。`,f:s=>s[i]!==k,w:1});});
   let best=null;
-  for(let tries=0;tries<40;tries++){
-    let cand=all.slice();const used=[];
-    while(cand.length>1&&used.length<7){
-      const opts=pool.filter(c=>!used.includes(c)).map(c=>({c,n:cand.filter(c.f).length})).filter(x=>x.n<cand.length&&x.n>=1);
+  for(let tries=0;tries<(n>=7?20:14);tries++){
+    let cand=all.slice();const used=[];let negUsed=0;
+    while(cand.length>1&&used.length<8){
+      const P=pool.concat(negUsed<1?neg:[]).filter(c=>!used.includes(c));
+      const opts=[];for(const c of P){const k=cand.filter(c.f).length;if(k<cand.length&&k>=1)opts.push({c,k});}
       if(!opts.length)break;
-      const direct=opts.filter(x=>x.c.w===0),soft=opts.filter(x=>x.c.w>0);
-      const use=soft.length&&!(used.length>=4&&direct.length)?soft:opts;
-      use.sort((a,b)=>a.n-b.n||b.c.w-a.c.w);const ch=pick(use.slice(0,3)).c;
-      used.push(ch);cand=cand.filter(ch.f);
+      // 不挑刪最多的那條：從中段挑，讓每條線索單看都推不出答案、要互相組合
+      opts.sort((a,b)=>a.k-b.k);const lo=n>=6?0:Math.floor(opts.length*.15),hi=Math.max(lo+1,Math.floor(opts.length*(n>=6?.4:.6)));
+      let ch=pick(opts.slice(lo,hi));if(cand.length<=6)ch=pick(opts.slice(0,Math.min(3,opts.length)));
+      used.push(ch.c);if(ch.c.w===1)negUsed++;cand=cand.filter(ch.c.f);
     }
-    if(cand.length===1&&(!best||used.length<best.length))best=used.slice();
+    const MX=n>=6?7:6;if(cand.length===1&&used.length>=4&&used.length<=MX&&(!best||Math.abs(used.length-5)<Math.abs(best.length-5)))best=used.slice();
+    if(best&&best.length===5)break;
   }
-  return (best||seq.map((k,i)=>({t:`第 ${i+1} 刀是${N(k)}。`}))).sort(()=>Math.random()-.5).map(c=>c.t);
+  return best?best.sort(()=>Math.random()-.5).map(c=>c.t):null;
 }
 function kingCombo(el,d,done){
   const n=d.cmbLen[Math.min(d.cmbI,2)];d.cmbI++;
   const K=Object.keys(KC);
   // 劍路至少要混兩種招式，同一招不能佔太多刀（不然一條線索就講完了）
-  const okSeq=q=>K.every(k=>q.filter(x=>x===k).length<=(n<=4?2:3));
+  const okSeq=q=>K.every(k=>q.filter(x=>x===k).length<=3);
   let seq;do{seq=Array.from({length:n},()=>pick(K));}while(!okSeq(seq));
   const head=`<p class="eyebrow">生死單挑 · 王者連斬</p><h2>${d.name}</h2>`;
   if(S.mini==='react'){
-    let i=0,wrong=0,raf=0,t0=0,over=false;const T=(S.relaxed?2.2:1.5)*1000;const res=[];
-    const ans=k=>{if(over)return;cancelAnimationFrame(raf);const ok=k===seq[i];if(!ok)wrong++;res.push(ok);sfx(ok?'clash':'bad');i++;
-      if(i>=n){over=true;mgKey=null;draw();setTimeout(()=>done({wrong,n}),700);}else draw();};
-    const draw=()=>{
-      el.innerHTML=head+`<p class="story">他的劍連成了一片，${n} 刀一刀接著一刀砍過來！</p>
-      <div class="res" style="text-align:center;font-size:20px;letter-spacing:4px">${res.map(x=>x?'🛡':'✕').join('')}${'・'.repeat(n-res.length)}</div>
-      ${i<n?`<p class="hint">${pick(KC[seq[i]].tells)}</p><div class="swtime"><i id="kc-t"></i></div>`:`<p class="hint">${wrong?`有 ${wrong} 刀沒擋住！`:'全部擋下來了！'}</p>`}
-      <div class="moves sw">${K.map(k=>`<button class="move" data-kc="${k}" ${i>=n?'disabled':''}><b>${KC[k].arrow} ${KC[k].def}</b><small>對付${KC[k].name}</small></button>`).join('')}</div>`;
-      el.querySelectorAll('[data-kc]').forEach(b=>b.onclick=()=>ans(b.dataset.kc));
-      if(i<n){t0=performance.now();const tk=t=>{if(over)return;const f=1-(t-t0)/T;const bar=$('#kc-t');if(bar)bar.style.width=Math.max(0,f*100)+'%';if(f<=0){ans(null);return;}raf=requestAnimationFrame(tk);};raf=requestAnimationFrame(tk);}
+    // 反應型「看穿虛實」：金光是真的破綻，要點；紅光是假動作，別碰。每道光只亮一下
+    const reds=Math.round(n/2),order=[...Array(n).fill('g'),...Array(reds).fill('r')].sort(()=>Math.random()-.5);
+    if(order[0]==='r'){const j=order.indexOf('g');order[j]='r';order[0]='g';}
+    let i=-1,cell=-1,lit=false,missed=0,fooled=0,hit=0,timer=0,over=false;const res=[];
+    const base=(S.relaxed?1.1:.8)*1000;
+    const grid=()=>`<div class="kgrid">${Array.from({length:9},(_,j)=>`<button data-kg="${j}" class="${lit&&j===cell?(order[i]==='g'?'gold':'red'):''}"></button>`).join('')}</div>`;
+    const draw=msg=>{
+      el.innerHTML=head+`<p class="story">他的劍連成了一片！<b style="color:var(--gold)">金光</b>是真的破綻，點它；<b style="color:var(--blood)">紅光</b>是他的假動作，別碰。</p>
+      <div class="res" style="text-align:center;font-size:20px;letter-spacing:4px;min-height:30px">${res.join('')}${'・'.repeat(Math.max(0,n-hit-missed))}</div>
+      ${grid()}<p class="hint" style="text-align:center;min-height:24px">${msg||''}</p>`;
+      el.querySelectorAll('[data-kg]').forEach(b=>b.onclick=()=>tap(+b.dataset.kg));
     };
-    mgKey=e=>{const k=K.find(k=>KC[k].key===e.key);if(k){e.preventDefault();ans(k);}};
-    draw();
+    const end=()=>{over=true;clearTimeout(timer);draw(missed+fooled?`有 ${missed+fooled} 下沒擋住！`:'全部看穿了！');setTimeout(()=>done({wrong:missed+fooled,n}),800);};
+    const next=()=>{if(over)return;lit=false;draw();i++;if(i>=order.length){end();return;}
+      timer=setTimeout(()=>{if(over)return;let c;do{c=ri(0,8);}while(c===cell);cell=c;lit=true;draw();
+        const dur=Math.max(base*.75,base*(1-i*.02));
+        timer=setTimeout(()=>{if(!lit)return;lit=false;if(order[i]==='g'){missed++;res.push('✕');sfx('bad');}next();},dur);},380+ri(0,260));};
+    const tap=j=>{if(over||!lit||j!==cell)return;clearTimeout(timer);lit=false;
+      if(order[i]==='g'){hit++;res.push('🛡');sfx('clash');}else{fooled++;res.push('🩸');sfx('bad');}next();};
+    draw('準備……');timer=setTimeout(next,900);
   }else{
     // 解謎型：沒有時間限制，照線索推出整套劍路
-    let clues=kcClues(seq);for(let t=0;t<20&&clues.length<2;t++){do{seq=Array.from({length:n},()=>pick(K));}while(!okSeq(seq));clues=kcClues(seq);}
+    let clues=kcClues(seq);for(let t=0;t<10&&!clues;t++){do{seq=Array.from({length:n},()=>pick(K));}while(!okSeq(seq));clues=kcClues(seq);}
+    if(!clues)clues=seq.map((k,j)=>`第 ${j+1} 刀是${KC[k].name}。`);
     const pickd=Array(n).fill(null);let shown=false;
     const draw=()=>{
       el.innerHTML=head+`<p class="story">他擺出了起手式。這一套是 ${n} 刀。你從他的架勢裡讀出了這些：</p>
@@ -1361,7 +1384,7 @@ function duel(key,o){
     // 老王的第二階段
     const awaken=()=>kingAwaken(el,d,res=>{
       const R=[{hp:.8,atk:1.1,acc:.8,t:'你挺直了背，迎著他的目光。他眼裡閃過一絲意外。'},{hp:.8,atk:1.2,acc:.75,t:'你的膝蓋晃了一下，但你沒有倒下。'},{hp:.8,atk:1.35,acc:.7,t:'他的威壓像一座山一樣壓下來，你差點跪了下去。'}][res];
-      d.awaking=false;d.awake=true;d.hp=Math.round(d.max*R.hp);d.cmbLen=[[3,4,5],[3,4,5],[4,5,5]][res];d.cmbI=0;d.aTurn=0;d.atk*=R.atk;acc=Math.max(acc,R.acc);
+      d.awaking=false;d.awake=true;d.hp=Math.round(d.max*R.hp);d.cmbLen=[[5,6,7],[5,6,7],[6,7,7]][res];d.cmbI=0;d.aTurn=0;d.atk*=R.atk;acc=Math.max(acc,R.acc);
       d.name='覺醒的老王哈夫丹';
       d.log.unshift(`${R.t}<b style="color:var(--ember)">老王的攻擊變猛了。但他太驕傲了，不再隱藏自己的招式。</b>`);
       choose();draw();});
@@ -1469,9 +1492,9 @@ function duel(key,o){
     };
     // 連斬結束：擋錯的每一刀都吃一下；全擋下來就反擊（同樣最多四分之一）
     const afterCombo=r=>{
-      let toP=r.wrong*Math.max(1,Math.round(d.atk*.55-eff('con')*.6)),toF=0,t;
+      let toP=r.wrong*Math.max(1,Math.round(d.atk*.45-eff('con')*.6)),toF=0,t;
       if(!r.wrong){toF=Math.min(Math.round(pDmg()*1.8),Math.round(d.max*.25));t='整套連斬全被你擋了下來！他收劍的那一瞬間，你一斧砍了進去。';}
-      else t=r.wrong===r.n?`${r.n} 刀，你一刀都沒擋住。`:`${r.n} 刀裡，有 ${r.wrong} 刀你沒擋住。`;
+      else t=r.wrong>=r.n?`${r.n} 刀的連斬，你一刀都沒擋住。`:`${r.n} 刀的連斬，有 ${r.wrong} 下你沒擋住。`;
       if(o.lethal&&S.hp-toP<=0&&d.hp-toF>0){
         const hk=champ('hakon');
         if(eff('con')>=12&&!d.stood){d.stood=true;toP=S.hp-1;t+='你咬著牙，硬是沒有倒下！';}
