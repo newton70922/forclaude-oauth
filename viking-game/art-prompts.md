@@ -10,7 +10,96 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ 新的待畫清單：每位神的「倒在諸神黃昏」（6 張，橫式 16:9）
+## ★ v0.8 第一批：老王的電影分鏡（10 張，橫式 16:9）
+
+老王的覺醒、戰敗、處決或饒命，現在都改成一頁一張圖的分鏡。這 10 張還沒畫好之前，遊戲會先用老王現有的立繪代替，不影響遊玩。每一段都已經包含共用風格，整段直接貼給 ChatGPT 就好。
+
+| # | 檔名 | 內容 | 用在哪裡 |
+|---|---|---|---|
+| 1 | sc_k_rise | 老王覺醒前：撐劍喘氣、冷笑 | 覺醒第 1 頁 |
+| 2 | sc_k_kneel | 老王力氣用盡、跪倒 | 戰敗第 1 頁 |
+| 3 | sc_k_slip | 特寫：撐劍想站，劍尖滑開 | 戰敗第 2 頁 |
+| 4 | sc_k_push | 低角度：劍被推到你的腳邊 | 戰敗第 3 頁 |
+| 5 | sc_k_people | 從老王背後：望向門口擠滿的族人 | 戰敗第 4 頁 |
+| 6 | sc_k_face | 臉部特寫：……好好待他們 | 戰敗第 5 頁 |
+| 7 | sc_k_hall | 遠景：空蕩王廳，老王獨自跪著 | 戰敗第 6 頁 |
+| 8 | sc_k_exec | 處決：斧影落在他身上 | 處決 |
+| 9 | sc_k_spare | 饒命：一跛一跛走出王廳的背影 | 饒命 |
+| 10 | sc_coronation_self | 處決後：自己戴上王冠 | 第三章結局（處決老王時） |
+
+### 1. sc_k_rise（老王覺醒前：撐劍喘氣、冷笑）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and wild white hair, a gold crown with knotwork, dark red-and-black wool robes embroidered with gold Norse knotwork, an ancient notched sword. Inside a great dark Viking royal hall with carved wooden pillars, a high carved throne and dying torches. He is on one knee, leaning heavily on his sword planted in the stone floor, breathing hard, blood at the corner of his mouth, slowly pushing himself up; his head is lowered but his eyes look up with a cold, knowing smile. The torches around him flicker and dim. Tense, ominous, the calm before the storm.
+```
+
+### 2. sc_k_kneel（老王力氣用盡、跪倒）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and wild white hair, a gold crown with knotwork, dark red-and-black wool robes embroidered with gold Norse knotwork, an ancient notched sword. Inside a great dark Viking royal hall with carved wooden pillars, a high carved throne and dying torches. After a brutal duel he has collapsed onto one knee, not in surrender but because his legs simply gave out: torn robes, cuts and bruises, chest heaving, one hand pressed on the floor. Exhausted, heavy, tragic.
+```
+
+### 3. sc_k_slip（特寫：撐劍想站，劍尖滑開）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and wild white hair, a gold crown with knotwork, dark red-and-black wool robes embroidered with gold Norse knotwork, an ancient notched sword. Close-up of his old, scarred, trembling hand gripping the hilt of his ancient notched sword; the sword tip is slipping sideways across the blood-streaked stone floor as he fails to push himself up. Shallow depth of field, dim torchlight. Intimate, painful.
+```
+
+### 4. sc_k_push（低角度：劍被推到你的腳邊）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and wild white hair, a gold crown with knotwork, dark red-and-black wool robes embroidered with gold Norse knotwork, an ancient notched sword. Low ground-level angle across the stone floor of a dark royal hall: his ancient sword slides toward the worn leather boots of the standing victor in the foreground; in the background, slightly out of focus, the kneeling old king lets go of it, his hand still open. Quiet, symbolic, the end of an era.
+```
+
+### 5. sc_k_people（從老王背後：望向門口擠滿的族人）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and wild white hair, a gold crown with knotwork, dark red-and-black wool robes embroidered with gold Norse knotwork, an ancient notched sword. Over-the-shoulder view from behind the kneeling old king: he looks toward the open doors of the great hall, where a crowd of his people has gathered in the cold blue light outside: women, children, old warriors and farmers, peeking in silently, worried. Emotional, quiet, full of meaning.
+```
+
+### 6. sc_k_face（臉部特寫：……好好待他們）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and wild white hair, a gold crown with knotwork, dark red-and-black wool robes embroidered with gold Norse knotwork, an ancient notched sword. Extreme close-up of his face: head lowered, wild white hair falling over half his face, eyes empty and wet, lips slightly parted as he speaks his last words as king; warm torchlight on one side, cold shadow on the other. Regret, defeat, acceptance.
+```
+
+### 7. sc_k_hall（遠景：空蕩王廳，老王獨自跪著）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and wild white hair, a gold crown with knotwork, dark red-and-black wool robes embroidered with gold Norse knotwork, an ancient notched sword. Wide shot of the vast, nearly empty royal hall: the old king kneels small and alone in the middle of the floor in a pool of fading torchlight, motionless; the victor stands a few steps away as a dark silhouette, back to the viewer; long shadows, embers drifting. Silent, frozen in time, like the end of a film.
+```
+
+### 8. sc_k_exec（處決：斧影落在他身上）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and wild white hair, a gold crown with knotwork, dark red-and-black wool robes embroidered with gold Norse knotwork, an ancient notched sword. Inside a great dark Viking royal hall with carved wooden pillars, a high carved throne and dying torches. He kneels with his head bowed and his eyes closed, calm, not resisting; the long shadow of a raised axe, held by the victor out of frame, falls across him on the floor. No blood, no gore. Solemn, heavy, final.
+```
+
+### 9. sc_k_spare（饒命：一跛一跛走出王廳的背影）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and wild white hair, a gold crown with knotwork, dark red-and-black wool robes embroidered with gold Norse knotwork, an ancient notched sword. Seen from behind, he limps slowly out through the great doors of the hall toward the cold blue daylight, no longer carrying his sword, one hand on the doorframe; outside, his people silently step aside to make way for him. Dignified, bittersweet.
+```
+
+### 10. sc_coronation_self（處決後：自己戴上王冠）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Inside a great dark Viking royal hall with carved wooden pillars, a high carved throne and dying torches. A lone Viking ruler, seen from behind and slightly to the side so their face cannot be seen (could be a man or a woman), stands before the high throne and lifts a gold crown onto their own head with both hands; nobody else is near; an old notched sword leans against the side of the throne; the hall is silent and cold. Powerful, lonely, ambitious.
+```
+
+---
+
+## ✅ 每位神的「倒在諸神黃昏」（6 張，已全部收到）
 
 **6 張全部收到了，都已經放進遊戲。**
 
