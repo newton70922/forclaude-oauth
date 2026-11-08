@@ -3807,12 +3807,12 @@ function kingDeath(){
   ],closeModal,'第四章 · 老王'));
   pushLater(eventModal({kind:'老王',art:'halfdan',title:'老王的後事',text:'老王的遺體運回了維斯特福爾。所有人都在等你決定，要怎麼送他最後一程。',ch:[
     {t:'船葬：讓他躺在龍頭船上，點火送出海',note:'200 銀幣　名聲 +20、奧丁的神恩 +10',ok:()=>S.silver>=200,fx:()=>{S.silver-=200;addFame(20);favor('odin',10);S.flags.kingBurial='ship';
-      pushModal(el=>resultView(el,'船葬','龍頭船載著老王，燒著火，慢慢漂向海的盡頭。岸上的人一直站到看不見火光，才有人開始唱歌。\n<span class="good">名聲 +20，奧丁的神恩 +10</span>','老王','sc_k_ship'));return null;}},
+      pushModal(el=>resultView(el,'船葬','出殯前，你把當年他推到你腳邊的那把劍，放回了他的手裡。\n\n龍頭船載著老王，燒著火，慢慢漂向海的盡頭。岸上的人一直站到看不見火光，才有人開始唱歌。\n<span class="good">名聲 +20，奧丁的神恩 +10</span>','老王','sc_k_ship'));return null;}},
     {t:'立塚刻碑：堆起大土丘，立一塊刻著他名字的符文石',note:'120 銀幣、30 糧食　忠誠 +10，接下來兩年不會有叛亂',ok:()=>S.silver>=120&&S.food>=30,fx:()=>{S.silver-=120;S.food-=30;addLoyalty(10);S.flags.noRebelT=Math.max(S.flags.noRebelT||0,S.turn+8);S.flags.kingBurial='mound';
-      pushModal(el=>resultView(el,'立塚刻碑','符文石上刻著：「哈夫丹，挪威之王。他守了這片土地三十年。」\n\n從那天起，常常有人帶著孩子去土丘上坐一坐。\n<span class="good">忠誠 +10，接下來兩年不會有叛亂</span>','老王','sc_k_mound'));return null;}},
+      pushModal(el=>resultView(el,'立塚刻碑','出殯前，你把當年他推到你腳邊的那把劍，放回了他的棺木上。\n\n符文石上刻著：「哈夫丹，挪威之王。他守了這片土地三十年。」\n\n從那天起，常常有人帶著孩子去土丘上坐一坐。\n<span class="good">忠誠 +10，接下來兩年不會有叛亂</span>','老王','sc_k_mound'));return null;}},
     {t:'讓他的親衛隊抬棺',note:'50 銀幣　精兵 +8',ok:()=>S.silver>=50,fx:()=>{S.silver-=50;S.elite+=8;S.men+=8;S.flags.kingBurial='guard';
-      pushModal(el=>resultView(el,'親衛隊抬棺','跟了老王三十年的老兵們，一路把棺木抬上了山。下山的時候，他們走到你面前，一個接一個跪了下來。\n\n「老王說過，要我們跟著你。」\n<span class="good">精兵 +8</span>','老王','sc_k_guard'));return null;}},
-    {t:'簡單下葬',show:()=>S.silver<50,fx:()=>{S.flags.kingBurial='simple';return '你拿不出更多的錢了。老王被安靜地葬在了他的農莊旁邊。';}},
+      pushModal(el=>resultView(el,'親衛隊抬棺','出殯前，你把當年他推到你腳邊的那把劍，放回了他的棺木上。\n\n跟了老王三十年的老兵們，一路把棺木抬上了山。下山的時候，他們走到你面前，一個接一個跪了下來。\n\n「老王說過，要我們跟著你。」\n<span class="good">精兵 +8</span>','老王','sc_k_guard'));return null;}},
+    {t:'簡單下葬',show:()=>S.silver<50,fx:()=>{S.flags.kingBurial='simple';return '你拿不出更多的錢了。出殯前，你把當年他推到你腳邊的那把劍，放回了他的棺木上。\n\n老王被安靜地葬在了他的農莊旁邊。';}},
   ]}));
 }
 function ch4Tick(){
