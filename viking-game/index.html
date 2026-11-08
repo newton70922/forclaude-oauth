@@ -1223,6 +1223,12 @@ const KING_PARTS={
   chest:{name:'胸口',stop:'你一拳打在他的胸口，那口氣散了。',signs:['他深深吸了一口氣，胸膛鼓得像風箱。','他的鎖子甲隨著呼吸，一起一伏得越來越快。'],fake:'他故意挺起胸膛，大聲地哈哈笑。'},
   head:{name:'雙眼',stop:'你朝他的眼睛甩了一把灰，他眨了眨眼。',signs:['他的眼睛盯著你的喉嚨，一眨也不眨。','他的眼神突然變得很冷，像冬天的峽灣。'],fake:'他故意朝你眨了眨眼，嘴角掛著笑。'},
 };
+// 反應型小遊戲開始前：先看規則，按「準備好了」再倒數 3、2、1
+function readyPage(el,head,rules,go){
+  el.innerHTML=head+`<div class="res" style="font-size:15px;line-height:1.9">${rules}</div><button class="primary" id="rd-ok">準備好了</button>`;
+  $('#rd-ok').focus();
+  $('#rd-ok').onclick=()=>{let n=3;const tick=()=>{if(n===0){go();return;}el.innerHTML=head+`<p class="cine-big" style="font-size:56px;margin:40px 0">${n}</p>`;sfx('drum');n--;setTimeout(tick,650);};tick();};
+}
 function kingAwaken(el,d,done){
   const [l1,l2]=pick(KING_LINES),art=hasArt('halfdan2')?'halfdan2':'halfdan';
   cineView(el,[
@@ -1233,9 +1239,10 @@ function kingAwaken(el,d,done){
 function kingAwakenGame(el,d,done){
   const head=`<p class="eyebrow">生死單挑 · 王者覺醒</p><h2>老王覺醒了</h2>`;
   if(S.mini==='react'){
+    readyPage(el,head,`他的威壓像一座山一樣壓下來。\n\n<b>連續點「挺住！」</b>（或空白鍵），把指針撐在<b style="color:var(--gold)">金色區域</b>裡。\n不點的話，指針會一直往左掉，而且越掉越快。\n一共 4 秒，撐在金色裡越久越好。`,()=>{
     // 一直被往下壓的指針，要連點把它撐在金色區域裡
     let v=60,inT=0,t0=0,last=0,raf=0,over=false;const T=4000,zone=S.relaxed?[45,78]:[55,75];
-    el.innerHTML=head+`<p class="hint">他的威壓像一座山一樣壓下來。<b>連續點「挺住！」</b>，把指針撐在金色區域裡，撐越久越好。</p>
+    el.innerHTML=head+`<p class="hint">挺住！</p>
       <div class="rowbar"><i class="zone" style="left:${zone[0]}%;width:${zone[1]-zone[0]}%"></i><i class="needle" id="kw-n" style="left:60%"></i></div>
       <div class="swtime"><i id="kw-t"></i></div><button class="primary big" id="kw-b">挺住！</button>`;
     const push=()=>{if(!over){v=Math.min(100,v+8);sfx('drum');}};
@@ -1244,6 +1251,7 @@ function kingAwakenGame(el,d,done){
       const n=$('#kw-n');if(n)n.style.left=v+'%';const bar=$('#kw-t');if(bar)bar.style.width=Math.max(0,100-(t-t0)/T*100)+'%';
       if(t-t0>=T){over=true;mgKey=null;const f=inT/T;done(f>=.7?0:f>=.4?1:2);return;}raf=requestAnimationFrame(tk);};
     raf=requestAnimationFrame(tk);
+    });
   }else{
     // 解謎型：兩次看穿（有假動作），最後用守護神的符文封住他
     const g=Object.keys(GODS).filter(k=>gt(k,1)).sort((a,b)=>(S.favor[b]||0)-(S.favor[a]||0))[0];
@@ -1329,30 +1337,35 @@ function kingCombo(el,d,done){
   const n=d.cmbLen[Math.min(d.cmbI,2)];d.cmbI++;
   const K=Object.keys(KC);
   // 劍路至少要混兩種招式，同一招不能佔太多刀（不然一條線索就講完了）
-  const okSeq=q=>K.every(k=>q.filter(x=>x===k).length<=3);
+  const okSeq=q=>K.every(k=>q.filter(x=>x===k).length<=Math.max(3,Math.ceil(n/3)+1));
   let seq;do{seq=Array.from({length:n},()=>pick(K));}while(!okSeq(seq));
   const head=`<p class="eyebrow">生死單挑 · 王者連斬</p><h2>${d.name}</h2>`;
   if(S.mini==='react'){
-    // 反應型「看穿虛實」：金光是真的破綻，要點；紅光是假動作，別碰。每道光只亮一下
+    // 反應型「看穿虛實」：金光是真的破綻，要點；紅光是假動作，別碰。最多兩格同時亮
     const reds=Math.round(n/2),order=[...Array(n).fill('g'),...Array(reds).fill('r')].sort(()=>Math.random()-.5);
     if(order[0]==='r'){const j=order.indexOf('g');order[j]='r';order[0]='g';}
-    let i=-1,cell=-1,lit=false,missed=0,fooled=0,hit=0,timer=0,over=false;const res=[];
-    const base=(S.relaxed?1.1:.8)*1000;
-    const grid=()=>`<div class="kgrid">${Array.from({length:9},(_,j)=>`<button data-kg="${j}" class="${lit&&j===cell?(order[i]==='g'?'gold':'red'):''}"></button>`).join('')}</div>`;
-    const draw=msg=>{
-      el.innerHTML=head+`<p class="story">他的劍連成了一片！<b style="color:var(--gold)">金光</b>是真的破綻，點它；<b style="color:var(--blood)">紅光</b>是他的假動作，別碰。</p>
-      <div class="res" style="text-align:center;font-size:20px;letter-spacing:4px;min-height:30px">${res.join('')}${'・'.repeat(Math.max(0,n-hit-missed))}</div>
-      ${grid()}<p class="hint" style="text-align:center;min-height:24px">${msg||''}</p>`;
-      el.querySelectorAll('[data-kg]').forEach(b=>b.onclick=()=>tap(+b.dataset.kg));
+    const life=(S.relaxed?.8:.6)*1000,gap=S.relaxed?[450,550]:[300,400];
+    const lit={};let k=0,missed=0,fooled=0,hit=0,last=-1,over=false,spawnT=0;const res=[];
+    const paint=()=>{
+      const g=el.querySelector('.kgrid');if(!g)return;
+      g.querySelectorAll('[data-kg]').forEach(b=>{const L=lit[b.dataset.kg];b.className=L?(L.t==='g'?'gold':'red'):'';});
+      const r=el.querySelector('#kc-res');if(r)r.innerHTML=`${res.join('')}${'・'.repeat(Math.max(0,n-hit-missed))}`;
     };
-    const end=()=>{over=true;clearTimeout(timer);draw(missed+fooled?`有 ${missed+fooled} 下沒擋住！`:'全部看穿了！');setTimeout(()=>done({wrong:missed+fooled,n}),800);};
-    const next=()=>{if(over)return;lit=false;draw();i++;if(i>=order.length){end();return;}
-      timer=setTimeout(()=>{if(over)return;let c;do{c=ri(0,8);}while(c===cell);cell=c;lit=true;draw();
-        const dur=Math.max(base*.75,base*(1-i*.02));
-        timer=setTimeout(()=>{if(!lit)return;lit=false;if(order[i]==='g'){missed++;res.push('✕');sfx('bad');}next();},dur);},380+ri(0,260));};
-    const tap=j=>{if(over||!lit||j!==cell)return;clearTimeout(timer);lit=false;
-      if(order[i]==='g'){hit++;res.push('🛡');sfx('clash');}else{fooled++;res.push('🩸');sfx('bad');}next();};
-    draw('準備……');timer=setTimeout(next,900);
+    const finish=()=>{if(over)return;over=true;clearTimeout(spawnT);
+      const h=el.querySelector('#kc-msg');if(h)h.textContent=missed+fooled?`有 ${missed+fooled} 下沒擋住！`:'全部看穿了！';
+      setTimeout(()=>done({wrong:missed+fooled,n,react:1}),900);};
+    const check=()=>{if(k>=order.length&&!Object.keys(lit).length)finish();};
+    const spawn=()=>{if(over)return;if(k>=order.length){check();return;}
+      const free=[...Array(9).keys()].filter(c=>!lit[c]&&c!==last);const c=pick(free);last=c;const t=order[k++];
+      lit[c]={t,timer:setTimeout(()=>{if(!lit[c])return;delete lit[c];if(t==='g'){missed++;res.push('✕');sfx('bad');}paint();check();},life)};
+      paint();spawnT=setTimeout(spawn,ri(gap[0],gap[1]));};
+    const tap=c=>{const L=lit[c];if(over||!L)return;clearTimeout(L.timer);delete lit[c];
+      if(L.t==='g'){hit++;res.push('🛡');sfx('clash');}else{fooled++;res.push('🩸');sfx('bad');}paint();check();};
+    const startGame=()=>{
+      el.innerHTML=head+`<div class="res" id="kc-res" style="text-align:center;font-size:18px;letter-spacing:3px;min-height:30px"></div>
+      <div class="kgrid">${Array.from({length:9},(_,j)=>`<button data-kg="${j}"></button>`).join('')}</div><p class="hint" id="kc-msg" style="text-align:center;min-height:24px"></p>`;
+      el.querySelectorAll('[data-kg]').forEach(b=>b.onclick=()=>tap(+b.dataset.kg));paint();spawnT=setTimeout(spawn,300);};
+    readyPage(el,head,`老王擺出了連斬的架勢！\n\n九宮格會一格一格亮起來，有時候兩格同時亮：\n• <b style="color:var(--gold)">金光</b>是真的破綻：趁它消失前點下去，擋下這一刀。\n• <b style="color:var(--blood)">紅光</b>是他的假動作：千萬別碰。\n\n這一套一共 ${n} 刀。漏掉金光或點到紅光，都會吃一刀。`,startGame);
   }else{
     // 解謎型：沒有時間限制，照線索推出整套劍路
     let clues=kcClues(seq);for(let t=0;t<10&&!clues;t++){do{seq=Array.from({length:n},()=>pick(K));}while(!okSeq(seq));clues=kcClues(seq);}
@@ -1384,7 +1397,7 @@ function duel(key,o){
     // 老王的第二階段
     const awaken=()=>kingAwaken(el,d,res=>{
       const R=[{hp:.8,atk:1.1,acc:.8,t:'你挺直了背，迎著他的目光。他眼裡閃過一絲意外。'},{hp:.8,atk:1.2,acc:.75,t:'你的膝蓋晃了一下，但你沒有倒下。'},{hp:.8,atk:1.35,acc:.7,t:'他的威壓像一座山一樣壓下來，你差點跪了下去。'}][res];
-      d.awaking=false;d.awake=true;d.hp=Math.round(d.max*R.hp);d.cmbLen=[[5,6,7],[5,6,7],[6,7,7]][res];d.cmbI=0;d.aTurn=0;d.atk*=R.atk;acc=Math.max(acc,R.acc);
+      d.awaking=false;d.awake=true;d.hp=Math.round(d.max*R.hp);d.cmbLen=S.mini==='react'?[[8,10,12],[8,10,12],[10,12,12]][res]:[[5,6,7],[5,6,7],[6,7,7]][res];d.cmbI=0;d.aTurn=0;d.atk*=R.atk;acc=Math.max(acc,R.acc);
       d.name='覺醒的老王哈夫丹';
       d.log.unshift(`${R.t}<b style="color:var(--ember)">老王的攻擊變猛了。但他太驕傲了，不再隱藏自己的招式。</b>`);
       choose();draw();});
@@ -1492,7 +1505,7 @@ function duel(key,o){
     };
     // 連斬結束：擋錯的每一刀都吃一下；全擋下來就反擊（同樣最多四分之一）
     const afterCombo=r=>{
-      let toP=r.wrong*Math.max(1,Math.round(d.atk*.45-eff('con')*.6)),toF=0,t;
+      let toP=r.wrong*Math.max(1,Math.round(d.atk*(r.react?.3:.45)-eff('con')*.6)),toF=0,t;
       if(!r.wrong){toF=Math.min(Math.round(pDmg()*1.8),Math.round(d.max*.25));t='整套連斬全被你擋了下來！他收劍的那一瞬間，你一斧砍了進去。';}
       else t=r.wrong>=r.n?`${r.n} 刀的連斬，你一刀都沒擋住。`:`${r.n} 刀的連斬，有 ${r.wrong} 下你沒擋住。`;
       if(o.lethal&&S.hp-toP<=0&&d.hp-toF>0){
