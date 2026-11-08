@@ -3933,9 +3933,11 @@ function kingRagPages(){
   const P=[{art:['sc_k_bifrost','halfdan'],text:'彩虹橋上，一支英靈騎兵走在最前面。帶頭的那個人，白髮、持劍，騎著一匹灰馬。\n\n是老王哈夫丹。'},
     {art:['sc_k_bifrost','halfdan'],text:'他的目光，從你的戰士臉上一張一張地掃過去。\n\n最後，停在了你的身上。'}];
   if(met) P.push({art:['halfdan2'],text:'「……你有遵守承諾呢。」',big:1},
-    {art:['v_halfdan3','halfdan2'],text:'他翻身下馬，把劍插進了冰裡，從背後抽出兩把斧頭。\n\n然後，他仰天狂笑。'},
-    {art:['sc_k_axes','v_halfdan3','halfdan2'],text:'「挪威的哈夫丹在此！哪個巨人，想先來？」',big:1,shake:1},
-    {art:['sc_k_axes','v_halfdan3','halfdan2'],text:'他一個人，守住了整座彩虹橋。巨人的屍體在他腳下堆成了小山，剩下的巨人，竟然沒有一個敢踏上橋。\n\n<span class="good">巨人大軍 -25%。接下來的每一輪單挑，他都會先替你砍上一斧。</span>'});
+    {art:['v_halfdan3','halfdan2'],text:'他翻身下馬，把劍插進了冰裡，從背後緩緩抽出兩把斧頭。\n\n然後，一句話都沒說，獨自走到了你的盾牆前面。'},
+    {art:['v_halfdan3','halfdan2'],text:'他用斧刃在冰上，慢慢劃出一道長長的線。\n\n然後站在線後，等著。'},
+    {art:['sc_k_axes','v_halfdan3','halfdan2'],text:'巨人衝了過來。第一個踏過那條線的，還沒看清他的動作，就倒下了。\n\n第二個、第三個……線前面的屍體越堆越高，他的步子，一次都沒有亂。'},
+    {art:['sc_k_axes','v_halfdan3','halfdan2'],text:'他回頭，看了巨人大軍一眼。\n\n「……下一個。」',big:1,shake:1},
+    {art:['sc_k_advance','sc_k_axes','v_halfdan3','halfdan2'],text:'沒有一個巨人，敢再靠近那條線。\n\n於是老王跨過了線，一步、一步，朝巨人大軍走了過去。巨人們，一步一步地往後退。\n\n<span class="good">巨人大軍 -25%。接下來的每一輪單挑，他都會先替你砍上一斧。</span>'});
   else P.push({art:['sc_k_charge','halfdan'],text:'他朝你點了點頭，什麼都沒說。然後拔出劍，帶著英靈騎兵衝進了巨人的陣中，砍倒了一大片。\n\n<span class="good">巨人大軍 -10%。前三輪單挑，他都會先替你砍上一劍。</span>'});
   return P;
 }

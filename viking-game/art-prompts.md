@@ -10,7 +10,7 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.8 第二批：老王的晚年與諸神黃昏（10 張）
+## ★ v0.8 第二批：老王的晚年與諸神黃昏（11 張）
 
 老王離世、後事、諸神黃昏歸來的分鏡用圖。還沒畫好之前，遊戲會先用老王現有的立繪代替。每一段都已經包含共用風格，整段直接貼給 ChatGPT 就好。
 
@@ -23,9 +23,10 @@
 | 5 | sc_k_guard | 親衛隊抬棺 | 後事：親衛隊抬棺 | 16:9 |
 | 6 | sc_k_bifrost | 彩虹橋上，騎馬歸來的老王 | 諸神黃昏：老王歸來 | 16:9 |
 | 7 | sc_k_charge | 老王率英靈騎兵衝陣 | 諸神黃昏：沒有覺醒 | 16:9 |
-| 8 | sc_k_axes | 覺醒的老王一人守住彩虹橋 | 諸神黃昏：覺醒（張飛守長阪橋） | 16:9 |
+| 8 | sc_k_axes | 重生的老王，一人擋住巨人大軍 | 諸神黃昏：達標（畫線擋敵） | 16:9 |
+| 8b | sc_k_advance | 老王一步一步走向巨人大軍 | 諸神黃昏：達標（最後一頁） | 16:9 |
 | 9 | sc_k_gods | 處決的老王去見神 | 諸神黃昏：處決過老王 | 16:9 |
-| 10 | v_halfdan3 | 覺醒的老王：雙斧狂戰士（人物） | 諸神黃昏：覺醒 | 3:4 |
+| 10 | v_halfdan3 | 重生的老王：雙斧（人物） | 諸神黃昏：覺醒 | 3:4 |
 
 ### 1. sc_k_news（使者帶來死訊）
 
@@ -76,11 +77,18 @@ Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th ce
 Ragnarök: an endless frozen battlefield under a burning red sky, the shining rainbow bridge Bifröst arching down from golden clouds, armies of frost giants on the ice. Old King Halfdan of Norway (around seventy, long wild white hair and beard, gold knotwork crown), a glowing einherjar warrior on a grey horse, leads a charge of ghostly golden cavalry straight into a horde of towering frost giants, his sword raised, giants falling around the charge, snow and ice exploding. Heroic, dynamic, epic.
 ```
 
-### 8. sc_k_axes（覺醒的老王一人守住彩虹橋）
+### 8. sc_k_axes（重生的老王，一人擋住巨人大軍）
 
 ```
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-Ragnarök: an endless frozen battlefield under a burning red sky, the shining rainbow bridge Bifröst arching down from golden clouds, armies of frost giants on the ice. Old King Halfdan of Norway (around seventy, long wild white hair and beard, gold knotwork crown) in his awakened berserker form stands ALONE in the middle of the broken rainbow bridge, holding two magnificent customized battle axes (blades engraved with crown motifs, runes glowing ice-blue, hafts wrapped in iron chain from his old throne); a mountain of slain frost giants lies piled at his feet, and the entire giant army on the far side hesitates, afraid to step onto the bridge. Wild white hair blown back, eyes blazing, laughing madly. Overwhelming presence, terrifying pressure, legendary.
+Ragnarök: an endless frozen battlefield under a burning red sky, golden light breaking through storm clouds far behind. Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown), reborn as a glowing einherjar warrior, stands ALONE on the ice in front of a long line he has carved into the ice with his axe, holding two magnificent customized battle axes (blades engraved with crown motifs, runes glowing ice-blue, hafts wrapped in iron chain from his old throne), blood dripping from the blades into the snow; in front of the line lies a mountain of slain frost giants, and the whole giant army has stopped a short distance away, afraid to come closer. His face is calm and cold, his breathing steady, utterly composed, the stillness of a predator. Quiet, lethal, overwhelming presence, deeply respected.
+```
+
+### 8b. sc_k_advance（老王一步一步走向巨人大軍）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Ragnarök: an endless frozen battlefield under a burning red sky, golden light breaking through storm clouds far behind. Seen from behind and low: Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown), reborn as a glowing einherjar warrior, holding two magnificent customized battle axes (blades engraved with crown motifs, runes glowing ice-blue, hafts wrapped in iron chain from his old throne) loosely at his sides, steps calmly over a line carved into the ice and walks slowly toward an enormous army of towering frost giants; the front rank of giants is stepping BACKWARD, shields raised, afraid. Slain giants lie behind him along the line. One old man, an entire army retreating. Calm, inevitable, awe-inspiring.
 ```
 
 ### 9. sc_k_gods（處決的老王去見神）
@@ -90,11 +98,11 @@ Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th ce
 Ragnarök: an endless frozen battlefield under a burning red sky, the shining rainbow bridge Bifröst arching down from golden clouds, armies of frost giants on the ice. Old King Halfdan of Norway (around seventy, long wild white hair and beard, gold knotwork crown), a glowing einherjar warrior, walks past a living Viking ruler (seen from behind, face hidden) without looking at them, and approaches a tall Norse god in a wide-brimmed hat and dark blue cloak (Odin), who nods to him like an old friend; ghostly warriors all around. Dignified, distant, a quiet sting.
 ```
 
-### 10. v_halfdan3（覺醒的老王：雙斧狂戰士（人物））
+### 10. v_halfdan3（重生的老王：雙斧，人物）
 
 ```
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic warm golden-hour rim light with cold blue shadows. Highly detailed fur, wool, leather, iron, silver and braided hair. Gritty, grounded, believable faces. Vertical 3:4 portrait, chest-up, the character looking toward the viewer. No text, no letters, no watermark, no frame, no modern objects.
-Old King Halfdan of Norway (around seventy, long wild white hair and beard, gold knotwork crown) reborn in Valhalla as a berserker: no longer frail, powerful and terrifying, torn royal mantle over scarred bare shoulders, the crown chipped on one side, wild white hair and beard flying, eyes blazing with cold light, a mad grin; he holds two magnificent customized battle axes crossed in front of him (blades engraved with crown motifs, runes glowing ice-blue, hafts wrapped in iron chain); snow and embers swirl on a burning battlefield behind him. Madness, overwhelming strength, legendary king-berserker.
+Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown) reborn in Valhalla: no longer frail, powerful and dangerous, a torn royal mantle over scarred shoulders, the crown chipped on one side, long white hair and beard stirred by the wind; he holds two magnificent customized battle axes (blades engraved with crown motifs, runes glowing ice-blue, hafts wrapped in iron chain from his old throne) crossed low in front of him. His expression is calm, cold and unreadable, eyes steady and piercing, no smile: the quiet certainty of a king who has never lost a fight he chose. Snow and embers drift on a burning battlefield behind him. Composed, lethal, deeply respected.
 ```
 
 ---
