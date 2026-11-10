@@ -277,6 +277,16 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .kcrow button.ok{border-color:#6a9a5b;color:#9fd18c}
 .kcrow button.bad{border-color:var(--blood);color:var(--blood)}
 .kclues{margin:6px 0 10px;padding-left:18px}
+.bline{position:relative;height:14px;border-radius:7px;background:#3a2326;border:1px solid var(--line);overflow:hidden;margin:10px 0 2px}
+.bline i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#7a4a22,var(--ember));transition:width .6s ease}
+.bline::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(255,255,255,.35)}
+.blab{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}
+.bsteps{display:flex;gap:6px;margin:0 0 8px;font-size:12px;color:var(--muted)}
+.bsteps span{flex:1;text-align:center;padding:3px 0;border-bottom:2px solid var(--line)}
+.bsteps span.on{color:var(--gold);border-color:var(--gold)}
+.bchamp{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.bchamp button{padding:5px 10px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--bone);font:inherit;font-size:13px;cursor:pointer}
+.bchamp button[aria-pressed=true]{border-color:var(--gold);color:var(--gold)}
 .beat{position:relative;height:280px;max-width:220px;margin:8px auto;border:1px solid var(--line);border-radius:10px;background:var(--bg);overflow:hidden}
 .beatline{position:absolute;left:0;right:0;height:3px;background:var(--gold);box-shadow:0 0 12px var(--gold)}
 .beat span{position:absolute;left:50%;transform:translateX(-50%);font-family:var(--f-rune);font-size:30px;color:var(--frost)}
@@ -1941,6 +1951,8 @@ function scouted(defend){return !!S.flags.daneScout&&!!S.flags.envoy||eff('wit')
 function battle(o){
   pushModal(el=>{
     let lead=S.hp>maxHp()*.35;
+    // 小型突襲一按就結束；其他的大戰分成三個回合
+    const big=!o.raid&&!/^突襲/.test(o.title);let van=null;
     const draw=()=>{
       const p=armyPower()*(lead?leadMul():1);
       const nightP=clamp(.15+eff('wit')*.035+(eff('wit')>=9?.08:0)+(wx('fog')?.15:0)+(qd('einar')&&hasC('einar')?.05:0)+(hasC('einar')?.08:0)+(has('tactician')?.1:0)+(gt('loki',1)?.05:0)+(S.flags.rowNight?.1:0),.1,.9);
@@ -1951,28 +1963,72 @@ function battle(o){
       <div class="vs"><div><span>我方戰力</span><b>${Math.round(p)}</b><small>出戰 ${m.fm} 人（精兵 ${m.e}・老兵 ${m.v}）${garrison()?` · 駐守 ${Math.min(garrison(),S.men)}`:''}${S.champions.length?` · 勇士 ${S.champions.length}`:''}</small></div>
       <div><span>敵方戰力</span><b>${est}</b><small>${o.foeNote||(scouted(o.defend)?'已探明':'只能估個大概')}</small></div></div>
       <label class="lead"><input type="checkbox" id="b-lead" ${lead?'checked':''}> 親自上陣：戰力 ×${leadMul()}，但你會受傷（生命 ${S.hp}/${maxHp()}）</label>
+      ${big?`<div class="bsteps"><span class="on">一　接敵</span><span>二　混戰</span><span>三　決勝</span></div>`:''}
+      ${big&&S.champions.length?`<p class="story" style="font-size:13px;margin:0">派誰打頭陣？戰力會更高；可是打輸的話，他可能回不來。</p>
+      <div class="bchamp"><button data-van="" aria-pressed="${!van}">不指派</button>${S.champions.map(c=>`<button data-van="${c.id}" aria-pressed="${van===c.id}">${CHAMPS[c.id].name} ×${(1+CHAMPS[c.id].pow*.008).toFixed(2)}</button>`).join('')}</div>`:''}
       <div class="choices">
         ${o.defend?`<button class="choice" data-t="hold"><b>據守木牆</b><small>戰力 ×${(1.3*[1,1.15,1.3,1.45][bl('tower')]).toFixed(2)}，傷亡較輕</small></button>`:''}
         <button class="choice" data-t="charge"><b>正面衝鋒</b><small>戰力 ×${(1+eff('str')*.03).toFixed(2)}（看力量），傷亡較重</small></button>
         <button class="choice" data-t="night"><b>夜襲</b><small>${rate(nightP)}：成功戰力 ×1.8${o.raid?'、戰利品更多':''}；失敗戰力 ×0.5，你也更容易受重傷</small></button>
         <button class="choice" data-t="flank" ${m.fm<8?'disabled':''}><b>包抄</b><small>${m.fm<8?'需要至少 8 名出戰的戰士':`戰力 ×${(1.05+eff('wit')*.02+(has('tactician')?.1:0)).toFixed(2)}（看智謀），傷亡較輕，敵人可能潰逃`}</small></button>
+        ${big?`<button class="ghost" id="b-auto">交給副手指揮（直接看結果）</button>`:''}
         ${o.cancel?`<button class="ghost" id="b-cancel">先撤回，再做準備</button>`:''}
       </div>`;
       $('#b-lead').onchange=e=>{lead=e.target.checked;draw();};
       if(o.cancel) $('#b-cancel').onclick=closeModal;
-      el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>resolve(b.dataset.t,nightP));
+      el.querySelectorAll('[data-van]').forEach(b=>b.onclick=()=>{van=b.dataset.van||null;draw();});
+      if(big) $('#b-auto').onclick=()=>resolve(o.defend?'hold':'charge',nightP);
+      el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>big?round2(b.dataset.t,nightP):resolve(b.dataset.t,nightP));
     };
-    const resolve=(t,nightP)=>{
+    // ---- 三回合：接敵 → 混戰 → 決勝 ----
+    const tMul=(t,nightOk)=>t==='hold'?1.3*[1,1.15,1.3,1.45][bl('tower')]:t==='charge'?1+eff('str')*.03:t==='night'?(nightOk?1.8:.5):1.05+eff('wit')*.02+(has('tactician')?.1:0);
+    const baseP=()=>armyPower()*(lead?leadMul():1)*(o.defend&&has('ironwall')?1.15:1)*(o.defend&&hasC('sigrid')?1.1:1)*(van&&hasC(van)?1+CHAMPS[van].pow*.008:1);
+    const lineHTML=(ratio,step)=>`<div class="bsteps">${['一　接敵','二　混戰','三　決勝'].map((n,i)=>`<span class="${i===step?'on':''}">${n}</span>`).join('')}</div>
+      <div class="bline"><i style="width:${clamp(50+(ratio-1)*70,6,94)}%"></i></div><div class="blab"><span>我方</span><span>${ratio>=1.12?'我方壓著打':ratio>=1?'我方稍佔上風':ratio>=.9?'敵方稍佔上風':'敵方壓著打'}</span><span>敵方</span></div>`;
+    const B_MOVE={wing:{tell:['敵軍的左翼壓了上來，想把你們包進去。','敵人的騎手繞向了你們的側面。'],name:'補強兩翼'},
+      center:{tell:['敵軍把最壯的人都擠到了中間，準備一口氣衝破你們。','對面的鼓聲急了起來，中路的盾牌一面接一面往前頂。'],name:'穩住中路'},
+      feint:{tell:['敵軍突然往後退，陣形看起來亂了。','對面有人丟下盾牌轉身就跑，跑得有點太整齊。'],name:'按兵不動'}};
+    const round2=(t,nightP)=>{
+      S.flags.rowNight=0;
+      const nightOk=t==='night'?Math.random()<nightP:null;
+      const def=o.def*1.09;let ratio=baseP()*tMul(t,nightOk)/def;
+      const open={hold:'你們在木牆後排成盾牆，一步也不退。',charge:lead?'你第一個衝出去，戰士們吼叫著跟上。':'戰士們吼叫著衝向敵陣。',night:nightOk?'夜色掩護了你們，敵人在睡夢中驚醒。':'一隻狗吠了起來，夜襲被發現，你們一頭撞進了陷阱。',flank:'你把人分成兩路，從側面包了過去。'}[t];
+      const K=Object.keys(B_MOVE),real=pick(K),acc=clamp(.5+eff('wit')*.03+(scouted(o.defend)?.15:0),.5,.9);
+      const shown=Math.random()<acc?real:pick(K.filter(k=>k!==real));
+      sfx('clash');
+      el.innerHTML=`<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,1)}
+      <p class="story">${open}${van&&hasC(van)?`\n${CHAMPS[van].name}衝在最前面。`:''}</p>
+      <p class="hint">${pick(B_MOVE[shown].tell)}<small>看清敵軍動向的機率 ${pct(acc)}（看智謀和斥候）</small></p>
+      <div class="choices">${K.map(k=>`<button class="choice" data-r2="${k}"><b>${B_MOVE[k].name}</b><small>${{wing:'敵人想包抄的話，這樣擋得住',center:'敵人要硬衝中路的話，這樣頂得住',feint:'敵人假裝敗退的話，不追就不會中計'}[k]}</small></button>`).join('')}</div>`;
+      el.querySelectorAll('[data-r2]').forEach(b=>b.onclick=()=>{const ok=b.dataset.r2===real;ratio*=ok?1.08:.9;round3(t,nightOk,ratio,ok,real);});
+    };
+    const round3=(t,nightOk,ratio,ok,real)=>{
+      sfx(ok?'hit':'bad');
+      const txt=ok?{wing:'你早一步把人調到兩翼，敵人的包抄撞上了盾牆。',center:'中路的戰士咬著牙頂住了，敵人的衝鋒被硬生生擋了下來。',feint:'你沒有追。埋伏在兩側的敵人白等了一場。'}[real]
+        :{wing:'敵人從側面包了進來，你們的陣腳亂了。',center:'中路被衝開了一個口子。',feint:'你的人追了出去，一頭撞進了埋伏。'}[real];
+      el.innerHTML=`<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,2)}
+      <p class="story"><span class="${ok?'good':'bad'}">${txt}</span>\n\n兩邊都殺紅了眼。現在，該決定怎麼收尾了。</p>
+      <div class="choices">
+        <button class="choice" data-r3="steady"><b>穩紮穩打</b><small>守住現在的局面：佔上風時更穩，落後時很難翻盤</small></button>
+        <button class="choice" data-r3="allin"><b>全軍壓上</b><small>賭一把：落後時還有機會逆轉；贏了敵軍會全線潰散，但傷亡更重</small></button>
+        <button class="choice" data-r3="retreat"><b>撤退</b><small>認輸，但傷亡減半，族人也不會太怪你</small></button>
+      </div>`;
+      el.querySelectorAll('[data-r3]').forEach(b=>b.onclick=()=>resolve(t,0,{nightOk,ratio,end:b.dataset.r3}));
+    };
+    const resolve=(t,nightP,ext)=>{
       S.flags.rowNight=0;
       let p=armyPower()*(lead?leadMul():1),cas=1,nightOk=null;const lines=[];
       if(o.defend&&has('ironwall')) p*=1.15;
       if(o.defend&&hasC('sigrid')) p*=1.1;
       if(t==='hold'){p*=1.3*[1,1.15,1.3,1.45][bl('tower')];cas=.7;lines.push('你們在木牆後排成盾牆，一步也不退。');}
       if(t==='charge'){p*=1+eff('str')*.03;cas=1.4;lines.push(lead?'你第一個衝出去，戰士們吼叫著跟上。':'戰士們吼叫著衝向敵陣。');}
-      if(t==='night'){nightOk=Math.random()<nightP;if(nightOk)favor('loki',6);p*=nightOk?1.8:.5;cas=nightOk?.6:1.3;lines.push(nightOk?'夜色掩護了你們，敵人在睡夢中驚醒。':'一隻狗吠了起來，夜襲被發現，你們一頭撞進了陷阱。');}
+      if(t==='night'){nightOk=ext?ext.nightOk:Math.random()<nightP;if(nightOk)favor('loki',6);p*=nightOk?1.8:.5;cas=nightOk?.6:1.3;lines.push(nightOk?'夜色掩護了你們，敵人在睡夢中驚醒。':'一隻狗吠了起來，夜襲被發現，你們一頭撞進了陷阱。');}
       if(t==='flank'){p*=1.05+eff('wit')*.02+(has('tactician')?.1:0);cas=.85;lines.push('你把人分成兩路，從側面包了過去。');}
-      const ratio=p/o.def;
-      const win=Math.random()<clamp(.5+(ratio-1)*2.2,.03,.97);
+      const ratio=ext?ext.ratio:p/o.def;
+      const win=ext?(ext.end==='retreat'?false:Math.random()<clamp(.5+(ratio-1)*(ext.end==='steady'?4:1.5),.03,.97)):Math.random()<clamp(.5+(ratio-1)*2.2,.03,.97);
+      if(ext){lines.length=0;if(ext.end==='allin'){cas*=1.3;lines.push(win?'你把所有人都壓了上去。敵軍撐不住，全線潰散了。':'你把所有人都壓了上去，可是沒能衝開敵陣。');}
+        else if(ext.end==='steady')lines.push(win?'你們一步一步往前推，把敵人慢慢擠了出去。':'你們守得很穩，可是敵人實在太多，陣線還是被壓垮了。');
+        else{cas*=.5;lines.push('你下令撤退。隊伍退得很整齊。');}}
       const m=fieldMix();
       if(m.fm>=15) cas*=.85;
       if(hasC('astrid')) cas*=.7;
@@ -1984,7 +2040,8 @@ function battle(o){
       lost=takeLosses(Math.min(lost,m.fm),has('shieldlord')?.25:.5);
       S.stats.fallen+=lost;
       if(lost) lines.push(`${lost} 名戰士沒能回來。`);
-      if(!win&&S.champions.length&&Math.random()<.15){const pool=S.champions.filter(c=>!c.oath);const c=pool.length?pick(pool):null;if(c){removeChamp(c.id);(S.stats.lostC||(S.stats.lostC=[])).push(CHAMPS[c.id].name);lines.push(`<span class="bad">勇士${CHAMPS[c.id].name}戰死了。</span>`);log(`勇士${CHAMPS[c.id].name}戰死沙場。`);}}
+      if(ext&&van&&hasC(van)&&win){bond(van,5);lines.push(`${CHAMPS[van].name}打頭陣立了大功（好感 +5）。`);}
+      if(!win&&S.champions.length&&!(ext&&ext.end==='retreat')&&Math.random()<(ext&&van&&hasC(van)?.25:.15)){const pool=ext&&van&&hasC(van)?[champ(van)].filter(c=>!c.oath):S.champions.filter(c=>!c.oath);const c=pool.length?pick(pool):null;if(c){removeChamp(c.id);(S.stats.lostC||(S.stats.lostC=[])).push(CHAMPS[c.id].name);lines.push(`<span class="bad">勇士${CHAMPS[c.id].name}戰死了。</span>`);log(`勇士${CHAMPS[c.id].name}戰死沙場。`);}}
       if(win){
         const mm=fieldMix();
         const dbl=has('elitemaster')?2:1;
@@ -1993,8 +2050,9 @@ function battle(o){
         const prR=Math.min(pr,recruits());if(prR>0){S.vets+=prR;lines.push(`${prR} 名新兵在這一仗後成了老兵。`);}
         const peV=Math.min(pe,S.vets);if(peV>0){S.vets-=peV;S.elite+=peV;lines.push(`${peV} 名老兵立下戰功，晉升為精兵。`);}
         S.stats.battles++;bondAll(3);addLoyalty(2);favor('thor',o.defend?6:2);
+        if(ext&&ext.end==='allin'){addFame(3);lines.push('<span class="good">這一仗打得漂亮，名聲 +3</span>');}
       }else if(has('oldfox')){bondAll(-2);S.flags.lastLoss=S.turn;lines.push('你早就安排好退路，撤退得井井有條。族人沒怪你。');}
-      else{const ll=Math.round((lead?18:12)*((S.prep||{}).temple||S.flags.noLoyLoss?.5:1));bondAll(-5);loseLoyalty(ll);S.flags.lastLoss=S.turn;lines.push(`<span class="bad">敗仗讓族人抬不起頭（忠誠 -${ll}）。</span>`);}
+      else{const ll=Math.round((lead?18:12)*((S.prep||{}).temple||S.flags.noLoyLoss?.5:1)*(ext&&ext.end==='retreat'?.5:1));bondAll(-5);loseLoyalty(ll);S.flags.lastLoss=S.turn;lines.push(`<span class="bad">敗仗讓族人抬不起頭（忠誠 -${ll}）。</span>`);}
       S.lastBattle=S.turn;
       if(lead){
         let dmg=Math.max(1,Math.round(o.def*rnd(.12,.22)*(win?.6:1.1)*(nightOk===false&&!has('oldfox')?1.5:1)-eff('con')*.5));
