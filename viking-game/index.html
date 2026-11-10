@@ -446,6 +446,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <div class="field"><span class="lbl">出身</span><div class="opts" id="bgs"></div></div>
         <div class="field"><span class="lbl">難度</span><div class="opts" id="diffs"></div></div>
         <div class="field" id="legacy-field"><span class="lbl">傳承（前人留給你的東西）</span><div class="opts" id="legacies"></div></div>
+        <div class="field" id="ch-field" hidden><span class="lbl">從哪一章開始（打到過的章節才能選）</span><div class="opts" id="chs"></div></div>
         <div class="row"><button class="primary" id="btn-start">揚帆出發</button></div>
         <details class="ach" id="codex-box"><summary id="codex-sum">北境百科</summary><div class="ach-list" id="codex-list"></div></details>
         <details class="ach" id="ach-box"><summary id="ach-sum">成就</summary><div class="ach-list" id="ach-list"></div><div class="ach-tools" id="ach-tools"></div></details>
@@ -1042,6 +1043,7 @@ function note(title,html,eyebrow,art){pushModal(el=>resultView(el,title,html,eye
 function checkPost(){
   if(!S||S.dead||S.won) return;
   if(S.pts>0||S.talentPicks>0){pushModal(levelUpModal);return;}
+  if(S.flags.chArmy) chMuster();
   if(S.phase===3&&seatsHeld()>=4){pushModal(coronation);return;}
   tipCheck();
 }
@@ -2114,7 +2116,7 @@ function verdicts(){
 function sagaHTML(){
   const [,ep,why]=EPITHETS.find(e=>e[0]());
   return `<p class="eyebrow" style="margin-top:8px">薩迦</p>
-  <div class="saga"><div class="epi">「${ep}」${esc(S.name)}</div><small>人們這樣叫你，因為${why()}。</small></div>
+  <div class="saga"><div class="epi">「${ep}」${esc(S.name)}</div><small>人們這樣叫你，因為${why()}。${S.flags.skipCh?`（這一局從第 ${S.flags.skipCh} 章開始）`:''}</small></div>
   ${S.phase>=4?heirLine():''}
   <div class="verdicts">${verdicts().map(([who,l])=>`<div><b>${who}</b><span>${l}</span></div>`).join('')}</div>
   ${S.flags.monument?`<p class="story" style="color:var(--gold)">一千年後，你的符文石還立在那裡。上面刻著：「${esc(S.name)}王立此石，紀念自己。他統一了挪威，渡過了大海。」</p>`:''}
@@ -2877,7 +2879,7 @@ function foundTribe(){
     <button class="primary" id="m-ok">立起旗幟</button>`;
     $('#m-ok').onclick=()=>{
       S.tribe=($('#in-tribe').value.trim()||'渡鴉谷').slice(0,8);
-      S.silver-=40;S.phase=2;S.loyalty=60;S.tab='act';S.lastBattle=S.turn;
+      S.silver-=40;S.phase=2;S.loyalty=60;S.tab='act';S.lastBattle=S.turn;markCh(2);
       log(`在海灣邊建立了部落「${S.tribe}」。`);
       resultView(el,'部落建立了',`<span class="good">${esc(S.tribe)}</span>的旗幟在海風裡飄了起來。\n\n消息傳開後，開始有人來投靠你。接下來：\n・在「部落」頁蓋建築、決定怎麼分贓\n・招募戰士，出兵突襲。每季都要發軍餉，老兵和精兵領得比較多\n・操練能把新兵練成老兵，兵營 2 級後還能練出精兵\n・族人的忠誠很重要：他們越信服你，越可能在你倒下時為你祈福`,'第二章');
       passTime();render();
@@ -2885,7 +2887,7 @@ function foundTribe(){
   });
 }
 function declare(){
-  S.phase=3;S.p3turn=S.turn+1;
+  S.phase=3;S.p3turn=S.turn+1;markCh(3);
   log('向挪威各地宣告了自己的名字。');
   note('群雄並起',`你派出使者，帶著${esc(S.tribe)}的旗幟走遍挪威的峽灣。\n\n拉德的雅爾西格德把使者趕了出去。鷹巢峰的布倫希爾德笑了，說想看看你有多能打。維斯特福爾的老王哈夫丹什麼也沒說。\n\n還有一個人聽見你的名字就砸了酒杯：<em>赫羅爾夫</em>。他在海岸建了紅帆營，發誓要燒掉你的部落。\n\n<span class="good">目標：征服或結盟四大勢力，成為挪威之王。</span>\n佔領的土地每塊要留人駐守，出戰的人會變少。\n好感 60 以上的勇士，可以在領主要求單挑時替你上場。`,'第三章','sc_ch3');
   passTime();
@@ -3128,8 +3130,8 @@ function coronation(el){
   log('在維斯特福爾加冕，成為挪威之王。');
   unlock('first_king');unlock(eid);unlock(ORI().ach);
   if(S.diff==='hero') unlock('hero_king');
-  if(!S.stats.revived) unlock('deathless');
-  if(S.stats.infMax!==undefined&&S.stats.infMax<=20) unlock('clean');
+  if(!S.stats.revived&&!S.flags.skipCh) unlock('deathless');
+  if(S.stats.infMax!==undefined&&S.stats.infMax<=20&&!S.flags.skipCh) unlock('clean');
   const m=meta();m.ends=m.ends||{};m.ends[eid]=1;saveMeta(m);
   if(Object.keys(m.ends).length>=3) unlock('three_crowns');
   endScreen(el,`${(S.flags.kingFate==='dead'?sceneImg('sc_coronation_self'):sceneImg('sc_coronation'))||portrait({stage:3,size:'small'})}
@@ -3184,7 +3186,7 @@ const law=k=>(S.laws||[]).includes(k);
 const crossed=()=>S.faith==='cross';
 
 function startCh4(){
-  S.won=false;S.phase=4;S.p4turn=S.turn;S.tab='act';
+  S.won=false;S.phase=4;S.p4turn=S.turn;S.tab='act';markCh(4);
   S.os=S.os||{};OS.forEach(o=>{if(!S.os[o.id])S.os[o.id]={st:'free',cd:0,def:o.def};});
   S.laws=S.laws||[];S.jarls=S.jarls||{};
   Q.length=0;nextModal();
@@ -4782,8 +4784,63 @@ document.addEventListener('keydown',e=>{
   if((e.key==='Enter'||e.key===' ')&&e.target.matches('.node')){e.preventDefault();e.target.dispatchEvent(new MouseEvent('click',{bubbles:true}));}
 });
 
+/* ================= 章節選擇 ================= */
+const CH_NAMES=['','第一章　孤身闖蕩','第二章　部落首領','第三章　挪威的挑戰者','第四章　王的歲月'];
+const CH_DESC=['','','剛插旗建立部落','部落已經站穩，準備挑戰各方勢力','剛戴上王冠'];
+function chUnlocked(n){const a=meta().ach;return n===1||!!(a._all||a['_ch'+n]||a.first_king||Object.keys(a).some(k=>k.startsWith('end4_')));}
+function markCh(n){const m=meta();if(m.ach['_ch'+n])return;m.ach['_ch'+n]=Date.now();saveMeta(m);}
+// 各章開局的標準進度（參考一般玩家打到那一章時的狀態）
+const CH_PRESET={
+  2:{turn:18,lvl:5,silver:70,food:25,fame:30,men:3,vets:0,elite:0,tlv:1,bld:{},champs:0,bless:0},
+  3:{turn:42,lvl:9,silver:160,food:70,fame:90,men:30,vets:10,elite:3,tlv:3,bld:{longhouse:2,granary:1,smithy:1,barracks:1,dock:1,altar:1,hall:1},champs:2,bless:1},
+  4:{turn:64,lvl:12,silver:320,food:130,fame:200,men:55,vets:22,elite:15,tlv:5,bld:{longhouse:3,granary:2,smithy:2,barracks:2,dock:2,altar:2,hall:2,tower:1,market:1},champs:3,bless:2,loyalty:80},
+};
+const CH_CHAMPS=['hakon','astrid','thorfinn','una','bragi','einar','gudrun','ragnar','knut','osric','bjorn','sigrid'];
+function chSetup(el,n){
+  const P=CH_PRESET[n],opt={tribe:'渡鴉谷',champs:[],king:'spared',god:''};
+  const draw=()=>{
+    el.innerHTML=`<p class="eyebrow">${CH_NAMES[n]}</p><h2>前情設定</h2>
+    <p class="story">這一局從中途開始。先決定幾件前面發生過的事。能力點數和天賦，等一下再自己分配；你帶得動多少戰士，要看你的威望。</p>
+    <div class="field"><label for="cs-tribe">部落的名字</label><input id="cs-tribe" maxlength="8" value="${esc(opt.tribe)}"></div>
+    ${P.champs?`<div class="field"><span class="lbl">帶哪 ${P.champs} 位勇士（已選 ${opt.champs.length}/${P.champs}）</span><div class="opts">${CH_CHAMPS.map(c=>`<button class="opt" data-cc="${c}" aria-pressed="${opt.champs.includes(c)}" ${!opt.champs.includes(c)&&opt.champs.length>=P.champs?'disabled':''}><b>${CHAMPS[c].name}</b><small>${CHAMPS[c].ab}</small></button>`).join('')}</div></div>`:''}
+    ${n>=4?`<div class="field"><span class="lbl">老王哈夫丹的下場</span><div class="opts">${[['spared','饒了他','他回農莊終老'],['dead','處決了他','你自己戴上了王冠'],['','他自己讓位','沒有和他單挑']].map(([k,t,d])=>`<button class="opt" data-ck="${k}" aria-pressed="${opt.king===k}"><b>${t}</b><small>${d}</small></button>`).join('')}</div></div>
+    <div class="field"><span class="lbl">你最常拜的神</span><div class="opts">${[['','沒有特別拜哪一位','']].concat(Object.keys(GODS).map(g=>[g,GODS[g].name,'神恩從 70 開始'])).map(([k,t,d])=>`<button class="opt" data-cg="${k}" aria-pressed="${opt.god===k}"><b>${t}</b><small>${d}</small></button>`).join('')}</div></div>`:''}
+    <button class="primary" id="cs-go" ${opt.champs.length<P.champs?'disabled':''}>開始</button>`;
+    $('#cs-tribe').oninput=e=>{opt.tribe=e.target.value;};
+    el.querySelectorAll('[data-cc]').forEach(b=>b.onclick=()=>{const c=b.dataset.cc;opt.champs=opt.champs.includes(c)?opt.champs.filter(x=>x!==c):[...opt.champs,c];draw();});
+    el.querySelectorAll('[data-ck]').forEach(b=>b.onclick=()=>{opt.king=b.dataset.ck;draw();});
+    el.querySelectorAll('[data-cg]').forEach(b=>b.onclick=()=>{opt.god=b.dataset.cg;draw();});
+    $('#cs-go').onclick=()=>{if(opt.champs.length<P.champs)return;opt.tribe=(opt.tribe.trim()||'渡鴉谷').slice(0,8);applyChapter(n,opt);closeModal();render();};
+  };
+  draw();
+}
+function chMuster(first){
+  const A=S.flags.chArmy;if(!A)return;
+  const cap=Math.min(housing(),command()),men=Math.min(A.men,cap),f=A.men?men/A.men:0;
+  S.men=men;S.vets=Math.floor(A.vets*f);S.elite=Math.floor(A.elite*f);
+  if(!first){delete S.flags.chArmy;S.hp=maxHp();toast(men<A.men?`戰士集結完畢：${men} 人（威望或住房不夠，帶不動更多）`:`戰士集結完畢：${men} 人`);render();}
+}
+function applyChapter(n,opt){
+  const P=CH_PRESET[n];
+  S.flags.skipCh=n;S.turn=P.turn;S.favor=S.favor||{odin:0,thor:0,tyr:0,freyja:0,loki:0};
+  for(let l=1;l<P.lvl;l++){S.lvl++;S.pts+=D().pts;if(S.lvl%2===0)S.talentPicks++;}
+  S.silver+=P.silver;S.food+=P.food;S.fame+=P.fame;S.tribe=opt.tribe;S.phase=2;S.loyalty=P.loyalty||60;S.tlv=P.tlv;S.bld={...P.bld};
+  S.men+=P.men;S.vets=P.vets;S.elite=P.elite;S.lastBattle=S.turn;S.lastRaid=S.turn-4;S.flags.ingrid=1;
+  opt.champs.forEach(c=>addChamp(c,70));
+  if(n>=3){S.phase=3;S.p3turn=S.turn+1;}
+  if(n>=4){['grey','red','winter','village'].forEach(r=>S.reg[r].st='yours');S.reg.eagle.st='ally';S.rival.attacks=3;S.rival.fate='被你打敗，離開了挪威';
+    if(opt.king)S.flags.kingFate=opt.king;if(opt.god)S.favor[opt.god]=70;}
+  // 戰士要等能力點數分配完才集結（帶得動多少人，要看威望）
+  S.flags.chArmy={men:S.men,vets:S.vets,elite:S.elite};chMuster(true);
+  S.blessings=Math.min(maxBless(),P.bless);S.hp=maxHp();
+  log(`這一局從${CH_NAMES[n].replace('　','「')}」開始。`);
+  if(n>=4){startCh4();return;}
+  note(CH_NAMES[n],n===2?`你已經闖蕩了好幾年，存下了第一筆錢，也有幾個人願意跟著你。\n\n你在海灣邊找到一塊向陽的坡地，把斧頭劈進橡樹樁：從今天起，這裡是<span class="good">${esc(S.tribe)}</span>。\n\n接下來：蓋建築、招募戰士、出兵突襲，把部落養大。`
+    :`<span class="good">${esc(S.tribe)}</span>已經是海岸上數一數二的部落。\n\n你派出使者，帶著你的旗幟走遍挪威的峽灣。拉德的雅爾、鷹巢峰的女首領、紅帆營的赫羅爾夫，還有維斯特福爾的老王，都聽見了你的名字。\n\n接下來：拿下四方勢力，戴上王冠。`,'章節開局',n===2?'sc_ch2':'sc_ch3');
+}
+
 /* ================= 開始畫面 ================= */
-const NEW={bg:'smith',diff:'normal',legacy:'none',mini:'react',relaxed:false,look:{sex:'m',skinId:'base',stage:0}};
+const NEW={bg:'smith',diff:'normal',legacy:'none',mini:'react',relaxed:false,chapter:1,look:{sex:'m',skinId:'base',stage:0}};
 function showTitle(){
   $('#game-screen').hidden=true;$('#title-screen').hidden=false;
   const m=meta();const okNeed=n=>!n||m.ach[n];
@@ -4804,6 +4861,11 @@ function showTitle(){
   $('#diffs').querySelectorAll('[data-diff]').forEach(b=>b.onclick=()=>{NEW.diff=b.dataset.diff;showTitle();});
   const legs=Object.entries(LEGACY).filter(([k,l])=>okNeed(l.need));
   $('#legacy-field').hidden=legs.length<2;
+  const chOpen=[1,2,3,4].filter(chUnlocked);if(!chOpen.includes(NEW.chapter))NEW.chapter=1;
+  $('#ch-field').hidden=chOpen.length<2;
+  $('#chs').innerHTML=[1,2,3,4].map(n=>`<button class="opt" data-ch="${n}" aria-pressed="${n===NEW.chapter}" ${chUnlocked(n)?'':'disabled'}><b>${CH_NAMES[n]}</b><small>${n===1?'從頭開始':chUnlocked(n)?CH_DESC[n]:'還沒打到這一章'}</small></button>`).join('');
+  $('#chs').querySelectorAll('[data-ch]').forEach(b=>b.onclick=()=>{NEW.chapter=+b.dataset.ch;showTitle();});
+  const h1=document.querySelector('.title-hero h1');if(h1&&!h1.dataset.tap){h1.dataset.tap='1';let taps=0,tm=0;h1.onclick=()=>{taps++;clearTimeout(tm);tm=setTimeout(()=>taps=0,1500);if(taps>=5){taps=0;const mm=meta();mm.ach._all=Date.now();saveMeta(mm);toast('已解鎖全部章節');showTitle();}};}
   $('#legacies').innerHTML=legs.map(([k,l])=>`<button class="opt" data-leg="${k}" aria-pressed="${k===NEW.legacy}"><b>${l.name}</b><small>${l.desc}</small></button>`).join('');
   $('#legacies').querySelectorAll('[data-leg]').forEach(b=>b.onclick=()=>{NEW.legacy=b.dataset.leg;showTitle();});
   $('#codex-sum').textContent=`北境百科 ${Object.keys(m.codex||{}).filter(k=>CODEX_ALL[k]).length}/${Object.keys(CODEX_ALL).length}`;
@@ -4847,6 +4909,7 @@ $('#btn-start').onclick=()=>{
   S.hp=maxHp();
   REGIONS.forEach(r=>S.reg[r.id]={st:'free',cd:0,def:r.def});
   log('離開故鄉的峽灣，搭上南下的商船。');
+  if(NEW.chapter>1){const n=NEW.chapter;S.noTips=true;$('#title-screen').hidden=true;$('#game-screen').hidden=false;window.scrollTo(0,0);render();pushModal(el=>chSetup(el,n));return;}
   startGame();
   note('離開峽灣',`峽灣的冬天又長又冷。你是<em>${esc(name)}</em>，${bg.name}，十九歲，除了一把斧頭什麼都沒有。\n\n${ORIGIN[bg.id].open}\n\n母親把一枚刻著符文的護身符掛在你脖子上：「活著回來，或者別回來。」\n\n你搭上一艘南下的商船。這片海岸四分五裂：各地的雅爾互相攻伐，老王的權威早已名存實亡。總要有人把挪威統一起來。`,`第一章 · ${D().name}難度`,'sc_ch1');
 };
