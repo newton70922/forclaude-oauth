@@ -107,6 +107,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px}
 .main{min-width:0;display:grid;gap:14px;align-content:start}
 .goal{border-left:3px solid var(--ember);padding:8px 12px;background:var(--panel);font-size:14px}
+.sumcard{margin-top:8px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);font-size:13px;cursor:pointer}
+.sumcard .sumrow{display:flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline}
+.sumcard .sumrow b{font-family:var(--f-display);font-size:13px;color:var(--muted);font-weight:600}
+.sumcard .up{color:#9fd18c}.sumcard .dn{color:var(--blood)}
+.sumcard .sumbody{margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);color:var(--muted);line-height:1.8}
+.sumcard .warn{color:var(--blood);display:block}
+.sumcard .more{margin-left:auto;color:var(--muted);font-size:12px}
 .goal b{color:var(--ember);font-weight:700}
 .goal .prog{color:var(--muted);font-variant-numeric:tabular-nums}
 .tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);overflow-x:auto}
@@ -470,6 +477,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <aside class="side card" id="side"></aside>
         <main class="main">
           <div class="goal" id="goal"></div>
+          <div id="sumcard"></div>
           <nav class="tabs" id="tabs" role="tablist"></nav>
           <div id="pane"></div>
           <section class="chron"><h3>編年史</h3><ol id="log"></ol></section>
@@ -1077,8 +1085,9 @@ function passTime(quiet){
   S.turn++;
   rollWeather();
   const [si,fi]=income();
-  S.silver+=si;S.food+=fi-upkeep();
+  const up0=upkeep();S.silver+=si;S.food+=fi-up0;
   const wg=wages();
+  S.sumPend={n:((S.sumPend&&S.sumPend.n)||0)+1,si:((S.sumPend&&S.sumPend.si)||0)+si,fi:((S.sumPend&&S.sumPend.fi)||0)+fi,up:((S.sumPend&&S.sumPend.up)||0)+up0,wg:((S.sumPend&&S.sumPend.wg)||0)+wg};
   if(wg){
     S.silver-=wg;
     if(S.silver<0){S.silver=0;loseLoyalty(10);desert(.1);log('發不出軍餉，有戰士走了。');}
@@ -4748,6 +4757,7 @@ function render(){
     `<span class="chip"><span>祈福</span><span class="bless">${Array.from({length:maxBless()},(_,i)=>`<i class="${i<charges()?'on':''}">ᚱ</i>`).join('')}</span></span>`;
   $('#side').innerHTML=charHTML();
   $('#goal').innerHTML=goalHTML();
+  sumRender();
   const tabs=S.phase>=4?[['act','行動'],['map','挪威'],['sea','海外'],['tribe','王國'],['char','角色']]:[['act','行動'],['map','地圖'],['tribe','部落'],['char','角色']];
   $('#tabs').innerHTML=tabs.map(([k,n])=>`<button role="tab" class="tab-${k}" aria-selected="${S.tab===k}" data-tab="${k}">${n}${k==='char'&&(S.pts>0||S.talentPicks>0)?'<span class="dot"></span>':''}</button>`).join('');
   let pane='';
@@ -4784,6 +4794,34 @@ document.addEventListener('keydown',e=>{
   if((e.key==='Enter'||e.key===' ')&&e.target.matches('.node')){e.preventDefault();e.target.dispatchEvent(new MouseEvent('click',{bubbles:true}));}
 });
 
+/* ---------- 每季結算摘要（主畫面上的小卡，不用按繼續） ---------- */
+let sumOpen=false;
+const SUM_KEYS=[['silver','銀幣'],['food','糧食'],['fame','名聲'],['loyalty','忠誠'],['infamy','惡名'],['men','戰士'],['dane','丹麥警戒']];
+const sumSnap=()=>({silver:S.silver,food:S.food,fame:S.fame,loyalty:S.loyalty,infamy:S.infamy,men:S.men,dane:Math.round(S.dane||0)});
+function sumRender(){
+  const box=$('#sumcard');if(!box||!S)return;
+  // 等這一季的事件都處理完（沒有彈窗）才結算，這樣事件造成的變化也算在裡面
+  if(S.sumPend&&!modalOpen){
+    const now=sumSnap(),p=S.snap,P=S.sumPend;S.snap=now;S.sumPend=null;sumOpen=false;
+    if(p){const d={};for(const k in now)d[k]=now[k]-p[k];S.sum={n:P.n,d,si:P.si,fi:P.fi,up:P.up,wg:P.wg};}
+  }
+  if(!S.snap) S.snap=sumSnap();
+  const m=S.sum;if(!m||S.dead||S.won){box.innerHTML='';return;}
+  const sign=v=>v>0?`+${v}`:`−${-v}`;
+  const parts=SUM_KEYS.filter(([k])=>m.d[k]).map(([k,n])=>{const v=m.d[k];const bad=['infamy','dane'].includes(k)?v>0:v<0;return `<span class="${bad?'dn':'up'}">${k==='men'&&S.phase===1?'同伴':n} ${sign(v)}</span>`;});
+  // 現在就看得到的危險
+  const W=[];const [si,fi]=income();const net=fi-upkeep();
+  if(net<0&&S.food/(-net)<3) W.push(`糧食只夠再撐 ${Math.max(0,Math.floor(S.food/(-net)))} 季`);
+  if(S.phase>1&&wages()>0&&S.silver+si<wages()) W.push('下一季發不出軍餉');
+  if(S.phase>1&&S.men>command()) W.push('戰士超過你帶得動的人數，忠誠會一直掉');
+  if(S.phase>1&&S.loyalty<30) W.push('忠誠太低，戰士會在夜裡開溜');
+  const oS=m.d.silver-(m.si-m.wg),oF=m.d.food-(m.fi-m.up);
+  const body=`銀幣：收入 +${m.si}${m.wg?`、軍餉 −${m.wg}`:''}${oS?`、行動與事件 ${sign(oS)}`:''}<br>糧食：收成 +${m.fi}、吃掉 −${m.up}${oF?`、行動與事件 ${sign(oF)}`:''}`;
+  box.innerHTML=`<div class="sumcard" id="sum-box"><div class="sumrow"><b>${m.n>1?`過去 ${m.n} 季結算`:'上一季結算'}</b>${parts.join('')||'<span>沒有變化</span>'}<span class="more">${sumOpen?'收起':'明細'}</span></div>
+    ${W.map(w=>`<span class="warn">⚠ ${w}</span>`).join('')}${sumOpen?`<div class="sumbody">${body}</div>`:''}</div>`;
+  $('#sum-box').onclick=()=>{sumOpen=!sumOpen;sumRender();};
+}
+
 /* ================= 章節選擇 ================= */
 const CH_NAMES=['','第一章　孤身闖蕩','第二章　部落首領','第三章　挪威的挑戰者','第四章　王的歲月'];
 const CH_DESC=['','','剛插旗建立部落','部落已經站穩，準備挑戰各方勢力','剛戴上王冠'];
@@ -4818,6 +4856,7 @@ function chMuster(first){
   const A=S.flags.chArmy;if(!A)return;
   const cap=Math.min(housing(),command()),men=Math.min(A.men,cap),f=A.men?men/A.men:0;
   S.men=men;S.vets=Math.floor(A.vets*f);S.elite=Math.floor(A.elite*f);
+  S.snap=sumSnap();S.sum=null;S.sumPend=null;
   if(!first){delete S.flags.chArmy;S.hp=maxHp();toast(men<A.men?`戰士集結完畢：${men} 人（威望或住房不夠，帶不動更多）`:`戰士集結完畢：${men} 人`);render();}
 }
 function applyChapter(n,opt){
