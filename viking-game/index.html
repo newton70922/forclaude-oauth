@@ -84,6 +84,24 @@ details.ach summary{cursor:pointer;font-family:var(--f-display);font-weight:600}
 .hall .hrow small{grid-column:2 / 4;color:var(--muted)}
 .hall textarea{width:100%;min-height:60px;margin:6px 0;background:var(--bg);color:var(--bone);border:1px solid var(--line);border-radius:5px;padding:6px;font:12px monospace;box-sizing:border-box}
 .hall .hmsg{color:var(--muted);margin:6px 0}
+.gtabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+.gtabs button{padding:6px 10px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--bone);font:inherit;font-size:13px;cursor:pointer}
+.gtabs button[aria-pressed=true]{border-color:var(--gold);color:var(--gold)}
+.ggrid{display:grid;gap:8px;grid-template-columns:repeat(3,1fr)}
+.ggrid.wide{grid-template-columns:repeat(2,1fr)}
+.gcell{position:relative;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--bg);padding:0;cursor:pointer;aspect-ratio:3/4}
+.ggrid.wide .gcell{aspect-ratio:16/9}
+.gcell img{width:100%;height:100%;object-fit:cover;display:block}
+.gcell.lock{cursor:default}.gcell.lock img{filter:brightness(0);opacity:.45}
+.gcell span{position:absolute;left:0;right:0;bottom:0;padding:3px 6px;font-size:11px;background:rgba(0,0,0,.6);color:var(--bone);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gbig img{width:100%;border-radius:8px;display:block}
+.tlist{display:grid;gap:8px}
+.titem{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.titem b{flex:1;font-family:var(--f-display);font-size:15px}
+.titem small{display:block;font-family:var(--f-body);font-size:12px;color:var(--muted);font-weight:400}
+.titem.lock{opacity:.5}
+.titem button{padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--bone);font:inherit;font-size:13px;cursor:pointer}
+.titem button:disabled{opacity:.4;cursor:default}
 .hallnote{margin:12px 0;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-size:14px}
 .hallnote b{color:var(--gold);font-family:var(--f-display);font-size:20px}
 .hallnote textarea{width:100%;min-height:54px;margin-top:6px;background:var(--panel);color:var(--bone);border:1px solid var(--line);border-radius:5px;padding:6px;font:12px monospace;box-sizing:border-box}
@@ -477,6 +495,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <div class="field" id="legacy-field"><span class="lbl">傳承（前人留給你的東西）</span><div class="opts" id="legacies"></div></div>
         <div class="field" id="ch-field" hidden><span class="lbl">從哪一章開始（打到過的章節才能選）</span><div class="opts" id="chs"></div></div>
         <div class="row"><button class="primary" id="btn-start">揚帆出發</button></div>
+        <div class="row" style="gap:8px"><button class="ghost" id="btn-train">訓練場</button><button class="ghost" id="btn-gal">回憶畫廊</button></div>
         <details class="ach" id="hall-box"><summary id="hall-sum">英靈殿（排行榜）</summary><div id="hall-body"></div></details>
         <details class="ach" id="codex-box"><summary id="codex-sum">北境百科</summary><div class="ach-list" id="codex-list"></div></details>
         <details class="ach" id="ach-box"><summary id="ach-sum">成就</summary><div class="ach-list" id="ach-list"></div><div class="ach-tools" id="ach-tools"></div></details>
@@ -849,9 +868,9 @@ async function initRemote(){
 }
 function backupCode(){return btoa(unescape(encodeURIComponent(JSON.stringify(meta()))));}
 function restoreCode(code){try{const m=JSON.parse(decodeURIComponent(escape(atob(code.trim()))));if(!m||!m.ach)return false;saveMeta(mergeMeta(meta(),m));return true;}catch(e){return false;}}
-function unlock(id){if(S){S.runAch=S.runAch||{};S.runAch[id]=1;}const m=meta();if(m.ach[id])return;m.ach[id]=Date.now();saveMeta(m);toast(`成就解鎖：${ACH[id].name}`);sfx('ok');}
+function unlock(id){if(S&&S.sandbox)return;if(S){S.runAch=S.runAch||{};S.runAch[id]=1;}const m=meta();if(m.ach[id])return;m.ach[id]=Date.now();saveMeta(m);toast(`成就解鎖：${ACH[id].name}`);sfx('ok');}
 function save(){
-  if(!S||S.dead||S.won) return;
+  if(!S||S.dead||S.won||S.sandbox) return;
   S.savedAt=Date.now();const json=JSON.stringify(S);
   try{localStorage.setItem(SAVE,json);}catch(e){}
   if(remote.db){clearTimeout(remoteSaveT);remoteSaveT=setTimeout(()=>{remote.save={json,at:S?S.savedAt:Date.now()};rwrite('save',{json,at:remote.save.at});},1500);}
@@ -1034,15 +1053,23 @@ const CHAMP_ART={halfdan2:'v_halfdan2',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
 const artKey=id=>CHAMP_ART[id]||id;
 const hasArt=id=>ART_HAVE.has(artKey(id));
-const avatar=(id,cls='')=>hasArt(id)?`<img class="avatar ${cls}" src="art/${artKey(id)}.webp" alt="">`:'';
+const avatar=(id,cls='')=>hasArt(id)?(artSeen(artKey(id)),`<img class="avatar ${cls}" src="art/${artKey(id)}.webp" alt="">`):'';
 const FOE_ART={hrym:'m_hrym',fenrirG:'m_fenrir',jormun:'m_jormun',garm:'m_garm',surtr:'m_surtr',holmB:'bjorn',holmS:'sigrid',palna:'palna',king:'halfdan',ragnar:'ragnar',astrid:'astrid',sven1:'sven',svenA:'sven',sven:'sven',knutD:'knut',egill:'egill'};
-const sceneImg=k=>ART_HAVE.has(k)?`<div class="scene"><img src="art/${k}.webp" alt=""></div>`:'';
+const SEEN_MEMO={};
+function seenMark(k){
+  if(SEEN_MEMO[k]||(S&&S.sandbox)) return;SEEN_MEMO[k]=1;
+  const m=meta();m.codex=m.codex||{};if(m.codex[k]) return;m.codex[k]=1;
+  clearTimeout(seenMark.t);seenMark.t=setTimeout(()=>saveMeta(meta()),800);
+}
+const seenHas=k=>{const m=meta();return !!((m.codex&&m.codex[k])||m.ach._all);};
+const artSeen=k=>seenMark('_a_'+k),markGame=k=>seenMark('_g_'+k);
+const sceneImg=k=>ART_HAVE.has(k)?(artSeen(k),`<div class="scene"><img src="art/${k}.webp" alt=""></div>`):'';
 // 電影分鏡：一頁一張圖、一兩句話，按「繼續」翻頁。art 可以給好幾個，用第一張已經畫好的
 function cineView(el,pages,done,eyebrow){
   let i=0;
   const pickArt=a=>[].concat(a||[]).find(k=>k.startsWith('sc_')?ART_HAVE.has(k):hasArt(k));
   const show=()=>{
-    const p=pages[i],a=pickArt(p.art);
+    const p=pages[i],a=pickArt(p.art);if(a&&a.startsWith('sc_'))artSeen(a);
     const img=a?(a.startsWith('sc_')?`<div class="scene${p.dim?' dim':''}"><img src="art/${a}.webp" alt=""></div>`:avatar(a,'big')):'';
     el.innerHTML=`<div class="${p.shake?'cine-shake':''}">${img}${eyebrow?`<p class="eyebrow">${eyebrow}</p>`:''}${p.title?`<h2>${p.title}</h2>`:''}
       <p class="${p.big?'cine-big':'cine-txt'}">${p.text}</p><button class="primary" id="cn-ok">${p.btn||'繼續'}</button></div>`;
@@ -1073,6 +1100,7 @@ function resultView(el,title,html,eyebrow,art){
 function note(title,html,eyebrow,art){pushModal(el=>resultView(el,title,html,eyebrow,art));}
 function checkPost(){
   if(!S||S.dead||S.won) return;
+  if(S.sandbox){trainReset();if(!modalOpen)pushModal(trainMenu);return;}
   if(S.pts>0||S.talentPicks>0){pushModal(levelUpModal);return;}
   if(S.flags.chArmy) chMuster();
   if(S.phase===3&&seatsHeld()>=4){pushModal(coronation);return;}
@@ -1105,6 +1133,7 @@ function tipCheck(){
 
 /* ================= 時間推進 ================= */
 function passTime(quiet){
+  if(S.sandbox) return;
   S.turn++;
   rollWeather();
   const [si,fi]=income();
@@ -1284,6 +1313,7 @@ function kingAwaken(el,d,done){
   ],()=>kingAwakenGame(el,d,done),'生死單挑 · 王者覺醒');
 }
 function kingAwakenGame(el,d,done){
+  markGame('awaken');
   const head=`<p class="eyebrow">生死單挑 · 王者覺醒</p><h2>老王覺醒了</h2>`;
   if(S.mini==='react'){
     readyPage(el,head,`他的威壓像一座山一樣壓下來。\n\n<b>連續點「挺住！」</b>（或空白鍵），把指針撐在<b style="color:var(--gold)">金色區域</b>裡。\n不點的話，指針會一直往左掉，而且越掉越快。\n一共 4 秒，撐在金色裡越久越好。`,()=>{
@@ -1434,6 +1464,7 @@ function kcClues(seq){
   return best?best.sort(()=>Math.random()-.5).map(c=>c.t):null;
 }
 function kingCombo(el,d,done){
+  markGame('combo');
   const n=d.cmbLen[Math.min(d.cmbI,2)];d.cmbI++;
   const K=Object.keys(KC);
   // 劍路至少要混兩種招式，同一招不能佔太多刀（不然一條線索就講完了）
@@ -1515,7 +1546,7 @@ function duel(key,o){
   const ambMode=FOES[key]&&(FOES[key].king||o.rag)?'boss':'battle';
   codex({ragnar:'h_berserker',holmS:'h_shieldmaiden',astrid:'h_shieldmaiden',palna:'h_jomsvikings',fenrir:'y_fenrir',fenrirG:'y_fenrir'}[key]);
   pushModal(el=>{
-    ambSet(ambMode);
+    ambSet(ambMode);markGame('duel');
     const fs=foeStats(key,o.mul);const base=fs.base;
     const d={name:base.name,max:fs.max,atk:fs.atk*(o.hunt&&has('huntsman')?1:1),buff:1,cd:0,log:[],over:false,qs:0,last:null,lastP:null,hit:false,pierce:false,stood:false,rage:0,rageUsed:false,feintUsed:false,feintNext:false,hakonUsed:false};
     d.hp=d.max;
@@ -1657,7 +1688,7 @@ function duel(key,o){
     };
     // 怪物的絕招：先看規則，再玩加強版小遊戲
     const runSig=()=>{
-      const sg=d.p2?FINAL_SIG:o.sig,react=S.mini==='react',game=react?sg.r:sg.p;
+      const sg=d.p2?FINAL_SIG:o.sig,react=S.mini==='react',game=react?sg.r:sg.p;markGame(game);markGame(game+'_h');
       const hdr=()=>`<p class="eyebrow">生死單挑 · 絕招</p><h2>${d.name}：${sg.name}</h2>`;
       readyPage(el,hdr(),`${sg.line}\n\n${SIG_RULE[game]}`,()=>{
         if(game==='beat')runeBeat(el,hdr(),afterSig);
@@ -1935,7 +1966,7 @@ function proxyDuel(foeKey,cid,o,used,carry){
     const between=()=>{
       mgKey=null;
       const pool=POOL[mode][defend()?'d':'a'].filter(g=>g!==st.lastGame||POOL[mode][defend()?'d':'a'].length===1);
-      const g=pick(pool);st.lastGame=g;
+      const g=pick(pool);st.lastGame=g;markGame(g);
       const h=typeof GAME_HINT[g]==='function'?GAME_HINT[g]():GAME_HINT[g];
       el.innerHTML=header()+`<p class="hint">${defend()?`<b>${fs.base.name}要出手了。</b>`:'<b>對方露出破綻！</b>'}${h}</p>
       <button class="primary" id="mg-go">${defend()?'準備迎擊':'發動攻擊'}</button>`+logHtml();
@@ -2006,7 +2037,7 @@ function battle(o){
       center:{tell:['敵軍把最壯的人都擠到了中間，準備一口氣衝破你們。','對面的鼓聲急了起來，中路的盾牌一面接一面往前頂。'],name:'穩住中路'},
       feint:{tell:['敵軍突然往後退，陣形看起來亂了。','對面有人丟下盾牌轉身就跑，跑得有點太整齊。'],name:'按兵不動'}};
     const round2=(t,nightP)=>{
-      S.flags.rowNight=0;
+      S.flags.rowNight=0;markGame('battle3');
       const nightOk=t==='night'?Math.random()<nightP:null;
       const def=o.def*1.09;let ratio=baseP()*tMul(t,nightOk)/def;
       const open={hold:'你們在木牆後排成盾牆，一步也不退。',charge:lead?'你第一個衝出去，戰士們吼叫著跟上。':'戰士們吼叫著衝向敵陣。',night:nightOk?'夜色掩護了你們，敵人在睡夢中驚醒。':'一隻狗吠了起來，夜襲被發現，你們一頭撞進了陷阱。',flank:'你把人分成兩路，從側面包了過去。'}[t];
@@ -2102,6 +2133,7 @@ function addBlessing(){
   return `<span class="blessed">ᚱ 族人在祭壇石上為你刻下一道祈福符文。祈福 ${charges()}/${maxBless()}</span>`;
 }
 function triggerFall(cause){
+  if(S.sandbox){S.hp=1;return;}
   S.lastCause=cause;
   pushModal(charges()>0?ritualModal:deathModal);
 }
@@ -2687,6 +2719,7 @@ function runeMemory(o){
 
 /* ================= 國王棋（7×7 布蘭杜布） ================= */
 function tafl(o){
+  markGame('tafl');
   codex('h_tafl');
   pushModal(el=>{
     const N=7,TH=24,CORNERS=[0,6,42,48];
@@ -3116,15 +3149,16 @@ function kingDuel(intro){
     return '老王的劍，掉在了石板上。';}});
 }
 // 老王戰敗之後：一段分鏡，然後由你決定他的命運
-function kingFall(el){
-  cineView(el,[
+const KING_FALL_PAGES=[
     {art:['sc_k_slip','halfdan'],text:'老王用劍撐著地，想站起來。\n\n劍尖在石板上，滑開了。'},
     {art:['sc_k_kneel','halfdan'],text:'他的膝蓋一軟，跪了下去。\n\n那不是在向你低頭。他只是……站不起來了。'},
     {art:['sc_k_push','halfdan'],text:'他看著那把劍，看了很久。\n\n然後，把它推到了你的腳邊。'},
     {art:['sc_k_people','halfdan'],text:'他抬起頭，望向王廳門口。那裡擠滿了探頭進來的族人。\n\n他看了他們很久，然後慢慢轉回來，看著你。'},
     {art:['sc_k_face','halfdan'],text:'「……好好待他們。」',big:1},
     {art:['sc_k_hall','halfdan'],text:'之後，他一句話都沒有再說。\n\n就那樣跪在那裡，低頭看著王廳的地板，像在看自己的三十年。',btn:'……'},
-  ],kingFate,'維斯特福爾 · 王廳');
+  ];
+function kingFall(el){
+  cineView(el,KING_FALL_PAGES,kingFate,'維斯特福爾 · 王廳');
 }
 function kingFate(el){
   el.innerHTML=`${sceneImg('sc_k_hall')||(hasArt('halfdan')?avatar('halfdan','big'):'')}<p class="eyebrow">維斯特福爾 · 王廳</p><h2>老王的命運</h2>
@@ -4142,7 +4176,7 @@ const SW_ACTS={
 const RAG_SW={up:['霜巨人舉起一塊比房子還大的冰塊，朝你們砸了下來。','天上下起了火雨。','巨人們把整棵樹連根拔起，往你們這邊丟。'],down:['火巨人的劍掃過地面，一道火牆貼著地燒了過來。','冰原裂開了，刺骨的寒氣從地底下往上衝。','巨狼的爪子從盾牌下面掏了進來。'],push:['巨狼弓起身子，整個撲進了陣線。','一群霜巨人並肩衝了過來，地面在發抖。','巨蛇的尾巴橫掃過來，像一堵牆。']};
 function shieldWallFn(o){
   return el=>{
-    ambSet('battle');
+    ambSet('battle');markGame('shieldwall');
     const TL=o.rag?RAG_SW:Object.fromEntries(Object.entries(SW_ACTS).map(([k,x])=>[k,x.tells]));
     const N=6-(o.bonus||0);const seq=Array.from({length:N},()=>{const k=pick(Object.keys(SW_ACTS));return [k,pick(TL[k])];});
     const react=S.mini==='react';const T=(S.relaxed?3.4:2.4)*1000;let i=0,score=0,raf=0,t0=0,over=false;const res=[];
@@ -4402,7 +4436,7 @@ const CODEX={
   },
 };
 const CODEX_ALL=Object.assign({},...Object.values(CODEX));
-function codex(id){if(!CODEX_ALL[id])return;const m=meta();m.codex=m.codex||{};if(m.codex[id])return;m.codex[id]=1;saveMeta(m);toast(`北境百科：${CODEX_ALL[id][0]}`);if(Object.keys(m.codex).length>=Object.keys(CODEX_ALL).length)unlock('codex_all');}
+function codex(id){if(!CODEX_ALL[id]||(S&&S.sandbox))return;const m=meta();m.codex=m.codex||{};if(m.codex[id])return;m.codex[id]=1;saveMeta(m);toast(`北境百科：${CODEX_ALL[id][0]}`);if(Object.keys(m.codex).filter(k=>CODEX_ALL[k]).length>=Object.keys(CODEX_ALL).length)unlock('codex_all');}
 function codexHTML(){
   const m=meta().codex||{};
   return Object.entries(CODEX).map(([cat,es])=>`<p class="eyebrow" style="margin:8px 0 4px">${cat}</p>${Object.entries(es).map(([k,[n,t]])=>m[k]?`<div class="on"><b>${n}</b><small>${t}</small></div>`:`<div><b>？？？</b><small>在遊戲中遇見後解鎖</small></div>`).join('')}`).join('');
@@ -4553,6 +4587,7 @@ const GLIMA={
 const GL_FOE={push:'trip',pull:'push',brace:'pull'};
 const GL_TELL={push:GLIMA.trip.tells,pull:GLIMA.push.tells,brace:GLIMA.pull.tells};
 function glima(cid){
+  markGame('glima');
   pushModal(el=>{
     const n=CHAMPS[cid].name,react=S.mini==='react';let me=0,him=0,last=null,timer=0,raf=0,done=false;const L=[];
     const draw=()=>{
@@ -4580,6 +4615,7 @@ function glima(cid){
 }
 // 雪球大戰：反應型打地鼠；解謎型看數字找躲起來的孩子
 function snowball(){
+  markGame('snow');
   pushModal(el=>{
     const react=S.mini==='react';let done=false;
     const finish=w=>{done=true;mgKey=null;addLoyalty(w?6:4);el.innerHTML=`<p class="eyebrow">冬 · 雪球大戰</p><h2>${w?'你贏了':'你被埋了'}</h2><div class="res">${w?'最後一個孩子舉起雙手投降，笑得滿臉通紅。他們的父母在旁邊拍手，說首領的準頭比年輕的時候還好。\n<span class="good">忠誠 +6</span>':'二十個孩子一起撲上來，把你埋進了雪堆裡，只露出一顆頭。孩子們的父母笑到站不起來。\n忠誠 +4（大家都喜歡看首領出糗）'}</div><button class="primary" id="m-ok">繼續</button>`;$('#m-ok').onclick=closeModal;$('#m-ok').focus();render();};
@@ -4603,6 +4639,7 @@ function snowball(){
 }
 // 追山羊：反應型點跳來跳去的羊；解謎型把羊逼到角落（牠每兩步要停下來啃一次靴子）
 function goatChase(){
+  markGame('goat');
   pushModal(el=>{
     const react=S.mini==='react';let done=false;
     const finish=w=>{done=true;mgKey=null;if(w)gainXp(6);else favor('loki',2);el.innerHTML=`<p class="eyebrow">冬 · 山羊又來了</p><h2>${w?'抓到了！':'牠跑了'}</h2><div class="res">${w?'你撲上去，一把抱住了山羊。牠嘴裡還叼著你的另一隻靴子，一臉無辜地看著你。\n<span class="good">經驗 +6</span>':'山羊一頭鑽進了豬圈，從另一頭溜走了。你光著一隻腳站在雪地裡。族人說，這是洛基的山羊。'}</div><button class="primary" id="m-ok">繼續</button>`;$('#m-ok').onclick=closeModal;$('#m-ok').focus();render();};
@@ -4629,6 +4666,7 @@ function goatChase(){
   });
 }
 function axeThrow(){
+  markGame('axe');
   pushModal(el=>{
     let n=0,hit=0;const log2=[];
     const finish=()=>{
@@ -4908,6 +4946,96 @@ document.addEventListener('keydown',e=>{
   if((e.key==='Enter'||e.key===' ')&&e.target.matches('.node')){e.preventDefault();e.target.dispatchEvent(new MouseEvent('click',{bubbles:true}));}
 });
 
+/* ================= 回憶畫廊 ================= */
+const GAL_NAME={v_halfdan:'老王哈夫丹',v_halfdan2:'覺醒的老王',v_halfdan3:'重生的老王',v_harald:'「藍牙」哈拉爾',v_palna:'帕爾納托基',g_hnoss:'赫諾絲',
+  sc_ch1:'第一章　孤身闖蕩',sc_ch2:'第二章　插旗之地',sc_ch3:'第三章　群雄並起',sc_ch4:'第四章　王的歲月',sc_coronation:'加冕',sc_coronation_self:'自己戴上王冠',sc_danes:'丹麥大軍',sc_longhouse:'長屋之夜',
+  sc_ragnarok:'諸神黃昏',sc_tears:'弗蕾亞的眼淚',sc_valhalla:'瓦爾哈拉',sc_kiss_m:'弗蕾亞之吻',sc_kiss_f:'弗蕾亞之吻',sc_einherjar:'英靈助戰',sc_ragfall:'倒在諸神黃昏',
+  sc_ragfall_odin:'與奧丁同眠',sc_ragfall_thor:'與索爾同眠',sc_ragfall_tyr:'與提爾同眠',sc_ragfall_freyja:'與弗蕾亞同眠',sc_ragfall_loki:'洛基的道別',sc_ragfall_none:'只有風聲',
+  sc_k_rise:'老王撐劍站起',sc_k_kneel:'跪倒',sc_k_slip:'劍尖滑開',sc_k_push:'把劍推到你腳邊',sc_k_people:'望向族人',sc_k_face:'……好好待他們',sc_k_hall:'空蕩的王廳',sc_k_exec:'處決',sc_k_spare:'走出王廳',
+  sc_k_news:'使者報喪',sc_k_farm:'農莊的空椅子',sc_k_ship:'船葬',sc_k_mound:'立塚刻碑',sc_k_guard:'親衛隊抬棺',sc_k_bifrost:'彩虹橋上的老王',sc_k_charge:'英靈騎兵衝陣',sc_k_axes:'一人擋住巨人大軍',sc_k_advance:'走向巨人大軍',sc_k_gods:'去見奧丁'};
+function galName(k){
+  if(GAL_NAME[k]) return GAL_NAME[k];
+  const id=Object.keys(CHAMP_ART).find(i=>CHAMP_ART[i]===k);
+  if(id) return (CHAMPS[id]&&CHAMPS[id].name)||(SPOUSES[id]&&SPOUSES[id].name)||(GODS[id]&&GODS[id].name)||k;
+  const f=Object.keys(FOE_ART).find(i=>FOE_ART[i]===k);return f&&FOES[f]?FOES[f].name:k;
+}
+const GAL_TABS=[['人物',k=>/^(c_|s_|v_)/.test(k),0],['眾神與怪物',k=>/^(g_|m_[a-z])/.test(k)&&!/^m[1-3k]$/.test(k),0],['場景',k=>/^sc_/.test(k)&&!/^sc_k_/.test(k),1],['老王的故事',k=>/^sc_k_/.test(k),1]];
+function galView(el){
+  let tab=0,big=null;
+  const keys=[...ART_HAVE].filter(k=>GAL_TABS.some(t=>t[1](k)));
+  const draw=()=>{
+    const seen=keys.filter(k=>seenHas('_a_'+k)).length;
+    if(big){el.innerHTML=`<p class="eyebrow">回憶畫廊</p><h2>${galName(big)}</h2><div class="gbig"><img src="art/${big}.webp" alt=""></div><button class="primary" id="g-back" style="margin-top:12px">回到畫廊</button>`;$('#g-back').onclick=()=>{big=null;draw();};return;}
+    const T=GAL_TABS[tab],list=keys.filter(T[1]);
+    el.innerHTML=`<p class="eyebrow">回憶畫廊</p><h2>收集進度 ${seen} / ${keys.length}</h2>
+    <div class="gtabs">${GAL_TABS.map((t,i)=>`<button data-gt="${i}" aria-pressed="${i===tab}">${t[0]} ${keys.filter(t[1]).filter(k=>seenHas('_a_'+k)).length}/${keys.filter(t[1]).length}</button>`).join('')}</div>
+    ${tab===3?`<div class="gtabs"><button id="g-rise" ${seenHas('_a_sc_k_rise')||seenHas('_a_v_halfdan2')?'':'disabled'}>重播：老王覺醒</button><button id="g-fall" ${seenHas('_a_sc_k_kneel')?'':'disabled'}>重播：老王倒下</button></div>`:''}
+    <div class="ggrid ${T[2]?'wide':''}">${list.map(k=>seenHas('_a_'+k)?`<button class="gcell" data-gk="${k}"><img loading="lazy" src="art/${k}.webp" alt=""><span>${galName(k)}</span></button>`:`<div class="gcell lock"><img loading="lazy" src="art/${k}.webp" alt=""><span>？？？</span></div>`).join('')}</div>
+    <button class="ghost" id="g-x" style="margin-top:12px">關閉</button>`;
+    el.querySelectorAll('[data-gt]').forEach(b=>b.onclick=()=>{tab=+b.dataset.gt;draw();});
+    el.querySelectorAll('[data-gk]').forEach(b=>b.onclick=()=>{big=b.dataset.gk;draw();$('#modal').scrollTop=0;});
+    $('#g-x').onclick=closeModal;
+    if(tab===3){
+      $('#g-rise').onclick=()=>{const [l1,l2]=pick(KING_LINES);cineView(el,[{art:['sc_k_rise','halfdan'],text:`老王哈夫丹倒在地上。你以為一切都結束了。\n\n然後，他用劍撐著地，一點一點站了起來。王廳裡的火把，全都暗了一下。\n\n他低低地冷笑了一聲：\n「${l1}」`,btn:'……'},{art:['halfdan2'],text:`「${l2}」`,big:1,shake:1}],draw,'回憶 · 王者覺醒');};
+      $('#g-fall').onclick=()=>cineView(el,KING_FALL_PAGES,draw,'回憶 · 維斯特福爾王廳');
+    }
+  };
+  draw();
+}
+
+/* ================= 訓練場 ================= */
+// 用一個不存檔的練習角色，把小遊戲和戰鬥拿出來單獨練。只列出正式遊戲裡遇過的
+function trainStart(){
+  S={v:SAVE_V,sandbox:true,noTips:true,diff:'normal',name:'練習生',look:{sex:NEW.look.sex,skinId:'base'},legacy:'none',mini:NEW.mini,relaxed:NEW.relaxed,bg:'smith',turn:1,phase:3,lvl:12,xp:0,pts:0,talentPicks:0,talents:[],st:{str:10,con:10,wit:9,pre:8},hp:0,scars:0,wounded:0,
+    silver:500,food:200,fame:100,infamy:0,loyalty:70,men:40,vets:15,elite:8,champions:[],amulet:false,blessings:0,tribe:'訓練場',tlv:3,bld:{longhouse:3,hall:2,smithy:1},policy:'big',reg:{},sel:'village',tab:'act',
+    rival:{fate:'',attacks:3},flags:{},known:{},log:[],trainLog:[],favor:{odin:0,thor:0,tyr:0,freyja:0,loki:0},master:{},
+    stats:{duels:0,raids:0,battles:0,revived:0,fallen:0,blessGained:0,bears:0,fair:0,greedy:0,atone:0,infMax:0},mercy:0,cruel:0,p3turn:0,lastBattle:0,lastRaid:-99,dead:false,won:false,lastCause:''};
+  REGIONS.forEach(r=>S.reg[r.id]={st:'free',cd:0,def:r.def});trainReset();
+  $('#title-screen').hidden=true;$('#game-screen').hidden=false;window.scrollTo(0,0);render();pushModal(trainMenu);
+}
+function trainReset(){
+  S.men=40;S.vets=15;S.elite=8;S.xp=0;S.lvl=12;S.pts=0;S.talentPicks=0;S.loyalty=70;S.scars=0;S.wounded=0;S.silver=500;S.food=200;S.dead=false;
+  if(!hasC('ragnar'))addChamp('ragnar',60);if(!hasC('astrid'))addChamp('astrid',60);S.hp=maxHp();
+}
+const TRAIN=[
+  ['duel','單挑：林間強盜','看提示出招',()=>duel('bandit',{lethal:false,xp:0,onEnd:w=>w?'練習結束：你贏了。':'練習結束：你輸了。'})],
+  ['combo','單挑：老王哈夫丹','從覺醒開始，包含王者連斬',()=>duel('king',{lethal:false,awakeStart:true,xp:0,intro:'老王哈夫丹拔出了一把比你年紀還老的劍。',onEnd:w=>w?'練習結束：你打倒了覺醒的老王。':'練習結束：你被老王打倒了。'})],
+  ['battle3','部隊戰（三回合）','接敵、混戰、決勝',()=>battle({title:'守衛訓練場',defend:true,def:Math.round(armyPower()*1.25),onEnd:w=>w?'練習結束：守住了。':'練習結束：沒守住。'})],
+  ['shieldwall','盾牆','看清敵人的動作，下對命令',()=>pushModal(shieldWallFn({title:'訓練：盾牆',onEnd:()=>{}}))],
+  ['glima','摔角','和拉格納比一場',()=>glima('ragnar')],['axe','擲斧','',()=>axeThrow()],['snow','雪球大戰','',()=>snowball()],['goat','抓山羊','',()=>goatChase()],
+  ['tafl','國王棋','',()=>tafl({title:'訓練：國王棋',wager:0,onEnd:()=>''})],
+];
+const TRAIN_MINI=[['ring','縮圈反擊','r'],['dodge','閃避','r'],['runes','符文記憶','r'],['charge','蓄力一擊','r'],['puzzle','轉符文石','p'],['shields','擺盾牌','p'],['lock','符文鎖（猜順序）','p'],['pairs','符文配對','p'],['beat','符文節拍','r',1],['root','世界樹之根','p',1]];
+function trainMenu(el){
+  const draw=()=>{
+    const seenN=TRAIN.filter(t=>seenHas('_g_'+t[0])).length+TRAIN_MINI.filter(t=>seenHas('_g_'+t[0])).length;
+    el.innerHTML=`<p class="eyebrow">訓練場</p><h2>想練什麼？</h2>
+    <p class="story" style="font-size:13px">這裡的輸贏不算數，也不會存檔。只會列出你在正式遊戲裡遇過的項目（${seenN}/${TRAIN.length+TRAIN_MINI.length}）。</p>
+    <div class="seg" style="margin-bottom:6px"><span>玩法</span><button data-tm="react" aria-pressed="${S.mini==='react'}">反應型</button><button data-tm="puzzle" aria-pressed="${S.mini==='puzzle'}">解謎型</button></div>
+    <p class="eyebrow" style="margin-top:10px">戰鬥與活動</p>
+    <div class="tlist">${TRAIN.map((t,i)=>seenHas('_g_'+t[0])?`<div class="titem"><b>${t[1]}${t[2]?`<small>${t[2]}</small>`:''}</b><button data-tr="${i}">開始</button></div>`:`<div class="titem lock"><b>？？？<small>還沒遇過</small></b></div>`).join('')}</div>
+    <p class="eyebrow" style="margin-top:14px">小遊戲</p>
+    <div class="tlist">${TRAIN_MINI.map(t=>seenHas('_g_'+t[0])?`<div class="titem"><b>${t[1]}<small>${t[2]==='r'?'反應型':'解謎型'}</small></b><button data-tg="${t[0]}" data-th="0">${t[3]?'開始':'一般'}</button>${t[3]?'':`<button data-tg="${t[0]}" data-th="1" ${seenHas('_g_'+t[0]+'_h')?'':'disabled'}>加強</button>`}</div>`:`<div class="titem lock"><b>？？？<small>還沒遇過</small></b></div>`).join('')}</div>
+    <button class="ghost" id="t-x" style="margin-top:14px">離開訓練場</button>`;
+    el.querySelectorAll('[data-tm]').forEach(b=>b.onclick=()=>{S.mini=b.dataset.tm;draw();});
+    el.querySelectorAll('[data-tr]').forEach(b=>b.onclick=()=>{trainReset();TRAIN[+b.dataset.tr][3]();closeModal();});
+    el.querySelectorAll('[data-tg]').forEach(b=>b.onclick=()=>runMini(b.dataset.tg,b.dataset.th==='1'));
+    $('#t-x').onclick=()=>{S=null;Q.length=0;modalOpen=false;$('#modal').hidden=true;showTitle();};
+  };
+  const runMini=(g,hard)=>{
+    const T=TRAIN_MINI.find(t=>t[0]===g),hdr=()=>`<p class="eyebrow">訓練場</p><h2>${T[1]}${hard?'（加強版）':''}</h2>`;
+    const res=grade=>{mgKey=null;const gr=typeof grade==='object'?(grade.partial>=.6?'good':'miss'):['jackpot','second'].includes(grade)?'perfect':grade;
+      el.innerHTML=hdr()+`<div class="res">${{perfect:'<span class="good">完美！</span>',good:'成功。',miss:'<span class="bad">失敗。</span>'}[gr]||'結束。'}</div>
+      <button class="primary" id="t-again">再來一次</button> <button class="ghost" id="t-back">回訓練場</button>`;
+      $('#t-again').onclick=()=>runMini(g,hard);$('#t-back').onclick=draw;};
+    readyPage(el,hdr(),hard||T[3]?SIG_RULE[g]:SIG_RULE[g].replace(/這次[^。]*。$/,''),()=>{
+      if(g==='beat')runeBeat(el,hdr(),res);else if(g==='root')worldRoot(el,hdr(),res);
+      else makeMinis(el,hdr,res,()=>true,{round:hard?9:1},0,S.relaxed?1.6:1,()=>'',()=>'miss',hard?1:0)[g]();
+    },T[2]==='p');
+  };
+  draw();
+}
+
 /* ================= 英靈殿（排行榜） ================= */
 // 自己的紀錄存在這台裝置，也會寫到雲端（寫得進去的人才有）；朋友的紀錄用「薩迦碼」請主人登錄
 const HALL_KEY='na-hall-v1';
@@ -4923,7 +5051,7 @@ function hallScore(){
   return Math.round((base+Math.floor(S.fame/10)+lands+deeds)*mul);
 }
 function hallRecord(){
-  if(!S) return null;
+  if(!S||S.sandbox) return null;
   S.runId=S.runId||(Date.now().toString(36)+Math.random().toString(36).slice(2,6));
   const dead=S.dead&&!(S.phase>=4&&S.flags.endKind);let ep='';try{ep=EPITHETS.find(e=>e[0]())[1];}catch(e){}
   const t=dead?(S.lastCause||'倒在半路上'):S.phase<4?ending()[1]:ch4Ending(S.flags.endKind||'win')[1];
@@ -5123,6 +5251,7 @@ function showTitle(){
   $('#legacies').innerHTML=legs.map(([k,l])=>`<button class="opt" data-leg="${k}" aria-pressed="${k===NEW.legacy}"><b>${l.name}</b><small>${l.desc}</small></button>`).join('');
   $('#legacies').querySelectorAll('[data-leg]').forEach(b=>b.onclick=()=>{NEW.legacy=b.dataset.leg;showTitle();});
   hallRender();
+  $('#btn-train').onclick=trainStart;$('#btn-gal').onclick=()=>pushModal(galView);
   $('#codex-sum').textContent=`北境百科 ${Object.keys(m.codex||{}).filter(k=>CODEX_ALL[k]).length}/${Object.keys(CODEX_ALL).length}`;
   $('#codex-list').innerHTML=codexHTML();
   const got=Object.keys(ACH).filter(k=>m.ach[k]).length;
@@ -5172,7 +5301,7 @@ function boot(data){
   if(data&&data.S&&data.S.v===SAVE_V){S=data.S;startGame();return;}
   showTitle();
 }
-window.claude?.hot?.snapshot?.(()=>({S:S&&!S.dead&&!S.won?S:null}));
+window.claude?.hot?.snapshot?.(()=>({S:S&&!S.dead&&!S.won&&!S.sandbox?S:null}));
 window.claude?.hot?.ready?window.claude.hot.ready(boot):boot(window.claude?.hot?.data??{});
 initRemote();
 </script>
