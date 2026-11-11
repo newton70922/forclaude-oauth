@@ -1060,8 +1060,8 @@ function nextModal(){
   ins=0;mgKey=null;
   const fn=Q.shift();
   const m=$('#modal');
-  if(!fn){modalOpen=false;m.hidden=true;render();checkPost();return;}
-  modalOpen=true;m.hidden=false;m.scrollTop=0;
+  if(!fn){modalOpen=false;m.hidden=true;ambAuto();render();checkPost();return;}
+  modalOpen=true;m.hidden=false;m.scrollTop=0;ambAuto();
   fn($('#mbody'));
   render();
 }
@@ -1512,8 +1512,10 @@ const FINAL2={
   jormun:['巨蛇沉進了海裡……海面突然安靜了下來。','整片大海翻了過來，耶夢加得張開了吞下世界的嘴！','吞海的耶夢加得'],
 };
 function duel(key,o){
+  const ambMode=FOES[key]&&(FOES[key].king||o.rag)?'boss':'battle';
   codex({ragnar:'h_berserker',holmS:'h_shieldmaiden',astrid:'h_shieldmaiden',palna:'h_jomsvikings',fenrir:'y_fenrir',fenrirG:'y_fenrir'}[key]);
   pushModal(el=>{
+    ambSet(ambMode);
     const fs=foeStats(key,o.mul);const base=fs.base;
     const d={name:base.name,max:fs.max,atk:fs.atk*(o.hunt&&has('huntsman')?1:1),buff:1,cd:0,log:[],over:false,qs:0,last:null,lastP:null,hit:false,pierce:false,stood:false,rage:0,rageUsed:false,feintUsed:false,feintNext:false,hakonUsed:false};
     d.hp=d.max;
@@ -1874,6 +1876,7 @@ function makeMinis(el,header,apply,defend,st,skill,relax,logHtml,fail,hard){
 }
 function proxyDuel(foeKey,cid,o,used,carry){
   pushModal(el=>{
+    ambSet('battle');
     const fs=foeStats(foeKey,o.mul);
     const c=champ(cid);const C=CHAMPS[cid];
     const st={foe:carry?carry.foe:fs.max,fmax:fs.max,atk:fs.atk,chp:proxyHp(c),cmax:proxyHp(c),dmg:proxyDmg(c),round:0,log:[],phase:'intro'};
@@ -1963,6 +1966,7 @@ document.addEventListener('keydown',e=>{if(mgKey)mgKey(e);});
 function scouted(defend){return !!S.flags.daneScout&&!!S.flags.envoy||eff('wit')>=9||hasC('einar')||has('scoutnet')||(defend&&bl('tower')>0);}
 function battle(o){
   pushModal(el=>{
+    ambSet('battle');
     let lead=S.hp>maxHp()*.35;
     // 小型突襲一按就結束；其他的大戰分成三個回合
     const big=!o.raid&&!/^突襲/.test(o.title);let van=null;
@@ -4138,6 +4142,7 @@ const SW_ACTS={
 const RAG_SW={up:['霜巨人舉起一塊比房子還大的冰塊，朝你們砸了下來。','天上下起了火雨。','巨人們把整棵樹連根拔起，往你們這邊丟。'],down:['火巨人的劍掃過地面，一道火牆貼著地燒了過來。','冰原裂開了，刺骨的寒氣從地底下往上衝。','巨狼的爪子從盾牌下面掏了進來。'],push:['巨狼弓起身子，整個撲進了陣線。','一群霜巨人並肩衝了過來，地面在發抖。','巨蛇的尾巴橫掃過來，像一堵牆。']};
 function shieldWallFn(o){
   return el=>{
+    ambSet('battle');
     const TL=o.rag?RAG_SW:Object.fromEntries(Object.entries(SW_ACTS).map(([k,x])=>[k,x.tells]));
     const N=6-(o.bonus||0);const seq=Array.from({length:N},()=>{const k=pick(Object.keys(SW_ACTS));return [k,pick(TL[k])];});
     const react=S.mini==='react';const T=(S.relaxed?3.4:2.4)*1000;let i=0,score=0,raf=0,t0=0,over=false;const res=[];
@@ -4698,6 +4703,7 @@ function sfx(k){
   try{
     AC=AC||new (window.AudioContext||window.webkitAudioContext)();
     if(AC.state==='suspended') AC.resume();
+    if(AMB.want){const w=AMB.want;AMB.want=null;ambSet(w);}
     const t=AC.currentTime,g=AC.createGain();g.connect(AC.destination);
     const tone=(type,f1,f2,dur,vol)=>{const o=AC.createOscillator();o.type=type;o.frequency.setValueAtTime(f1,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+dur);const gg=AC.createGain();gg.gain.setValueAtTime(vol,t);gg.gain.exponentialRampToValueAtTime(.001,t+dur);o.connect(gg);gg.connect(g);o.start(t);o.stop(t+dur);};
     const noise=(dur,vol,hp)=>{const b=AC.createBuffer(1,AC.sampleRate*dur,AC.sampleRate);const d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=(Math.random()*2-1)*(1-i/d.length);const s=AC.createBufferSource();s.buffer=b;const f=AC.createBiquadFilter();f.type='highpass';f.frequency.value=hp;const gg=AC.createGain();gg.gain.value=vol;s.connect(f);f.connect(gg);gg.connect(g);s.start(t);};
@@ -4712,6 +4718,40 @@ function sfx(k){
     else if(k==='coin'){tone('triangle',1400,null,.08,.2);setTimeout(()=>tone('triangle',1900,null,.12,.2),60);}
   }catch(e){}
 }
+
+/* ---------- 環境音（程式合成，不用音檔）：海浪、風聲、戰鼓 ---------- */
+const ambOn=()=>{try{return localStorage.getItem('na-amb')!=='0';}catch(e){return true;}};
+const AMB={mode:null,nodes:null,drumT:0,want:null,beat:0};
+function ambInit(){
+  if(AMB.nodes||!AC) return;
+  const len=AC.sampleRate*4,buf=AC.createBuffer(1,len,AC.sampleRate),d=buf.getChannelData(0);
+  let last=0;for(let i=0;i<len;i++){const w=Math.random()*2-1;last=(last+.02*w)/1.02;d[i]=last*3.5;}
+  AMB.master=AC.createGain();AMB.master.gain.value=.5;AMB.master.connect(AC.destination);
+  // 噪音 → 濾波 → 起伏（慢速 LFO）→ 音量（看現在是什麼情境）
+  const mk=(type,freq,q,rate,depth)=>{const src=AC.createBufferSource();src.buffer=buf;src.loop=true;const f=AC.createBiquadFilter();f.type=type;f.frequency.value=freq;f.Q.value=q;
+    const g1=AC.createGain();g1.gain.value=.6;const g2=AC.createGain();g2.gain.value=0;src.connect(f);f.connect(g1);g1.connect(g2);g2.connect(AMB.master);src.start();
+    const o=AC.createOscillator();o.frequency.value=rate;const og=AC.createGain();og.gain.value=depth;o.connect(og);og.connect(g1.gain);o.start();return {f,g2};};
+  AMB.nodes={sea:mk('lowpass',420,.5,.11,.4),wind:mk('bandpass',700,1.2,.07,.35)};
+  const wo=AC.createOscillator();wo.frequency.value=.05;const wg=AC.createGain();wg.gain.value=240;wo.connect(wg);wg.connect(AMB.nodes.wind.f.frequency);wo.start();
+}
+function ambThump(v){const t=AC.currentTime,o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.setValueAtTime(78,t);o.frequency.exponentialRampToValueAtTime(42,t+.22);
+  g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+.32);o.connect(g);g.connect(AMB.master);o.start(t);o.stop(t+.35);}
+function ambSet(mode){
+  if(!ambOn()||!soundOn()) mode='off';
+  if(!AC){AMB.want=mode;return;}// 瀏覽器要等玩家點過一次才准出聲
+  try{
+    ambInit();if(AMB.mode===mode) return;AMB.mode=mode;
+    const L={off:[0,0],sea:[.1,.012],autumn:[.065,.04],winter:[.02,.09],battle:[.03,.05],boss:[0,.075]}[mode]||[0,0],t=AC.currentTime;
+    AMB.nodes.sea.g2.gain.setTargetAtTime(L[0],t,1.2);AMB.nodes.wind.g2.gain.setTargetAtTime(L[1],t,1.2);
+    clearInterval(AMB.drumT);AMB.beat=0;
+    if(mode==='battle'||mode==='boss'){const ms=mode==='boss'?640:920;
+      AMB.drumT=setInterval(()=>{if(document.hidden||!AC)return;AMB.beat++;ambThump(mode==='boss'?.5:.3);if(mode==='boss'&&AMB.beat%4===3)setTimeout(()=>ambThump(.32),ms/2);},ms);}
+  }catch(e){}
+}
+// 沒有戰鬥時跟著季節走：春夏是海浪，秋天起風，冬天只剩風聲
+function ambAuto(){ambSet(!S||!$('#title-screen').hidden?'sea':['sea','sea','autumn','winter'][S.turn%4]);}
+document.addEventListener('pointerdown',()=>{if(AC||!soundOn()||!ambOn())return;try{AC=new (window.AudioContext||window.webkitAudioContext)();ambAuto();}catch(e){}},{passive:true});
+document.addEventListener('visibilitychange',()=>{if(AMB.master&&AC)AMB.master.gain.setTargetAtTime(document.hidden?0:.5,AC.currentTime,.3);});
 
 /* ================= 主角立繪 ================= */
 function portrait(o={}){
@@ -4751,6 +4791,7 @@ function charHTML(){
   else if(ct==='gods') body=S.phase>=2||Object.values(S.favor||{}).some(v=>v>0)?godsHTML():'<div class="list"><small>眾神還沒有注意到你。</small></div>';
   else body=`<div class="sec-h">設定</div>
   <div class="seg"><span>音效</span><button data-set="sound" data-v="1" aria-pressed="${soundOn()}">開</button><button data-set="sound" data-v="0" aria-pressed="${!soundOn()}">關</button></div>
+  <div class="seg"><span>環境音</span><button data-set="amb" data-v="1" aria-pressed="${ambOn()}">開</button><button data-set="amb" data-v="0" aria-pressed="${!ambOn()}">關</button></div>
   <div class="seg"><span>提示</span><button data-set="tips" data-v="1" aria-pressed="${!S.noTips}">開</button><button data-set="tips" data-v="0" aria-pressed="${!!S.noTips}">關</button></div>
   <div class="seg"><span>代理人</span><button data-set="mini" data-v="react" aria-pressed="${S.mini==='react'}">反應型</button><button data-set="mini" data-v="puzzle" aria-pressed="${S.mini==='puzzle'}">解謎型</button></div>
   ${S.mini==='react'?`<div class="seg"><span>判定</span><button data-set="relaxed" data-v="0" aria-pressed="${!S.relaxed}">標準</button><button data-set="relaxed" data-v="1" aria-pressed="${!!S.relaxed}">放寬</button></div>`:''}`;
@@ -4860,7 +4901,7 @@ document.addEventListener('click',e=>{
   if(d.b){const b=B(d.b),l=bl(d.b),[cs,cf]=bldCost(b,l);if(S.tlv>=b.tl&&l<bldMax()&&S.silver>=cs&&S.food>=cf)build(d.b);return;}
   if(d.pol){S.policy=d.pol;render();return;}
   if(d.tl){const u=tribeUp();if(u&&S.silver>=u.cost[0]&&S.food>=u.cost[1]&&bldCount()>=u.need)upgradeTribe();return;}
-  if(d.set){if(d.set==='tips'){S.noTips=d.v==='0';}else if(d.set==='sound'){try{localStorage.setItem('na-sound',d.v);}catch(e){}if(d.v==='1')sfx('ok');}else if(d.set==='mini')S.mini=d.v;else S.relaxed=d.v==='1';render();return;}
+  if(d.set){if(d.set==='tips'){S.noTips=d.v==='0';}else if(d.set==='sound'){try{localStorage.setItem('na-sound',d.v);}catch(e){}if(d.v==='1')sfx('ok');AMB.mode=null;ambAuto();}else if(d.set==='amb'){try{localStorage.setItem('na-amb',d.v);}catch(e){}AMB.mode=null;ambAuto();}else if(d.set==='mini')S.mini=d.v;else S.relaxed=d.v==='1';render();return;}
   if(d.s&&S.pts>0){const k=d.s;S.st[k]++;S.pts--;if(k==='con')S.hp+=6;render();return;}
 });
 document.addEventListener('keydown',e=>{
@@ -5055,7 +5096,7 @@ function applyChapter(n,opt){
 /* ================= 開始畫面 ================= */
 const NEW={bg:'smith',diff:'normal',legacy:'none',mini:'react',relaxed:false,chapter:1,look:{sex:'m',skinId:'base',stage:0}};
 function showTitle(){
-  $('#game-screen').hidden=true;$('#title-screen').hidden=false;
+  $('#game-screen').hidden=true;$('#title-screen').hidden=false;ambAuto();
   const m=meta();const okNeed=n=>!n||m.ach[n];
   const L=NEW.look;
   const seg=(lbl,key,opts)=>`<div class="seg"><span>${lbl}</span>${opts.map(([v,n,dis])=>`<button data-look="${key}" data-v="${v}" aria-pressed="${String(L[key])===String(v)}" ${dis?'disabled':''}>${n}</button>`).join('')}</div>`;
