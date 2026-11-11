@@ -75,6 +75,18 @@ details.ach summary{cursor:pointer;font-family:var(--f-display);font-weight:600}
 .ach-tools textarea{width:100%;min-height:64px;background:var(--bg);color:var(--bone);border:1px solid var(--line);border-radius:4px;padding:8px;font:12px/1.4 ui-monospace,Menlo,monospace;word-break:break-all}
 .ach-tools .row button{padding:6px 12px;font-size:13px}
 .ach-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin-top:10px;font-size:13px}
+.hall{margin-top:10px;font-size:13px}
+.hall .hrow{display:grid;grid-template-columns:26px 1fr auto;gap:2px 8px;align-items:baseline;background:var(--bg);border-radius:5px;padding:8px 10px;margin-bottom:6px}
+.hall .hrow.me{outline:1px solid var(--gold)}
+.hall .hrow i{font-style:normal;color:var(--muted);font-family:var(--f-display)}
+.hall .hrow b{font-family:var(--f-display);font-size:15px}
+.hall .hrow .sc{font-family:var(--f-display);font-size:17px;color:var(--gold)}
+.hall .hrow small{grid-column:2 / 4;color:var(--muted)}
+.hall textarea{width:100%;min-height:60px;margin:6px 0;background:var(--bg);color:var(--bone);border:1px solid var(--line);border-radius:5px;padding:6px;font:12px monospace;box-sizing:border-box}
+.hall .hmsg{color:var(--muted);margin:6px 0}
+.hallnote{margin:12px 0;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-size:14px}
+.hallnote b{color:var(--gold);font-family:var(--f-display);font-size:20px}
+.hallnote textarea{width:100%;min-height:54px;margin-top:6px;background:var(--panel);color:var(--bone);border:1px solid var(--line);border-radius:5px;padding:6px;font:12px monospace;box-sizing:border-box}
 .ach-list div{background:var(--bg);border-radius:5px;padding:8px 10px;display:grid}
 .ach-list div.on b{color:var(--gold)}
 .ach-list small{color:var(--muted)}
@@ -465,6 +477,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <div class="field" id="legacy-field"><span class="lbl">傳承（前人留給你的東西）</span><div class="opts" id="legacies"></div></div>
         <div class="field" id="ch-field" hidden><span class="lbl">從哪一章開始（打到過的章節才能選）</span><div class="opts" id="chs"></div></div>
         <div class="row"><button class="primary" id="btn-start">揚帆出發</button></div>
+        <details class="ach" id="hall-box"><summary id="hall-sum">英靈殿（排行榜）</summary><div id="hall-body"></div></details>
         <details class="ach" id="codex-box"><summary id="codex-sum">北境百科</summary><div class="ach-list" id="codex-list"></div></details>
         <details class="ach" id="ach-box"><summary id="ach-sum">成就</summary><div class="ach-list" id="ach-list"></div><div class="ach-tools" id="ach-tools"></div></details>
       </div>
@@ -802,7 +815,7 @@ let toastT=0;
 
 /* ================= 存檔與成就 ================= */
 // 成就與存檔：本機一份，Claude 帳號（artifact 資料庫的私人空間）一份，兩邊合併
-const remote={db:null,uid:null,busy:{},pending:{},save:null,ready:false};
+const remote={db:null,rdb:null,uid:null,owner:false,busy:{},pending:{},save:null,ready:false};
 let META_CACHE=null,remoteSaveT=0;
 function localMeta(){try{const m=JSON.parse(localStorage.getItem(META));return m&&m.ach?m:null;}catch(e){return null;}}
 function mergeMeta(a,b){const m={ach:{...(a&&a.ach)},ends:{...(a&&a.ends)},shapes:{...(a&&a.shapes)},codex:{...(a&&a.codex)}};if(b){for(const k in b.ach||{})m.ach[k]=m.ach[k]||b.ach[k];for(const k in b.ends||{})m.ends[k]=1;for(const k in b.shapes||{})m.shapes[k]=1;for(const k in b.codex||{})m.codex[k]=1;}return m;}
@@ -824,7 +837,7 @@ async function initRemote(){
     if(!db||!user) return;
     const uid=await user.id();
     if(!uid) return;
-    remote.db=db;remote.uid=uid;
+    remote.db=db;remote.rdb=db;remote.uid=uid;try{remote.owner=!!(await user.isOwner());}catch(e){remote.owner=false;}hallSync();
     const [m,sv]=await Promise.all([db.doc(rpath('meta')).get(),db.doc(rpath('save')).get()]);
     const merged=mergeMeta(meta(),m.exists?m.data():null);
     META_CACHE=merged;try{localStorage.setItem(META,JSON.stringify(merged));}catch(e){}
@@ -836,7 +849,7 @@ async function initRemote(){
 }
 function backupCode(){return btoa(unescape(encodeURIComponent(JSON.stringify(meta()))));}
 function restoreCode(code){try{const m=JSON.parse(decodeURIComponent(escape(atob(code.trim()))));if(!m||!m.ach)return false;saveMeta(mergeMeta(meta(),m));return true;}catch(e){return false;}}
-function unlock(id){const m=meta();if(m.ach[id])return;m.ach[id]=Date.now();saveMeta(m);toast(`成就解鎖：${ACH[id].name}`);sfx('ok');}
+function unlock(id){if(S){S.runAch=S.runAch||{};S.runAch[id]=1;}const m=meta();if(m.ach[id])return;m.ach[id]=Date.now();saveMeta(m);toast(`成就解鎖：${ACH[id].name}`);sfx('ok');}
 function save(){
   if(!S||S.dead||S.won) return;
   S.savedAt=Date.now();const json=JSON.stringify(S);
@@ -2202,7 +2215,9 @@ function summaryHTML(){
   return `<div class="summary">${items.map(([k,v])=>`<div><span>${k}</span><b>${v}</b></div>`).join('')}</div>`;
 }
 function endScreen(el,html){
-  el.innerHTML=html+`<button class="primary" id="m-restart">開始新的傳奇</button>`;
+  const run=hallRecord();
+  el.innerHTML=html+hallNote(run)+`<button class="primary" id="m-restart">開始新的傳奇</button>`;
+  hallNoteBind(run);
   clearSave();
   $('#m-restart').onclick=()=>{S=null;Q.length=0;modalOpen=false;$('#modal').hidden=true;showTitle();};
 }
@@ -4186,7 +4201,7 @@ function ragfallScene(line){
   return `${g}\n\n<span class="bad">那一天，彩虹橋斷了，瓦爾哈拉燒了。世界樹在火裡發出最後一聲哀嚎，然後倒了下來。海水淹過了挪威的每一條峽灣，淹過了你的王廳、你的城牆、你的名字。</span>\n\n但預言說，在灰燼裡，會有一棵樹活下來，樹裡藏著兩個人。他們會記得你的名字。\n\n${line}`;
 }
 function ch4End(el,kind){
-  Q.length=0;
+  Q.length=0;S.flags.endKind=kind;
   const [eid,title,line]=ch4Ending(kind);
   if(['lost','vassal','ragfall','lokiside'].includes(kind)) S.dead=true; else S.won=true;
   if(kind==='ragnarok') S.flags.ragWon=1;
@@ -4852,6 +4867,107 @@ document.addEventListener('keydown',e=>{
   if((e.key==='Enter'||e.key===' ')&&e.target.matches('.node')){e.preventDefault();e.target.dispatchEvent(new MouseEvent('click',{bubbles:true}));}
 });
 
+/* ================= 英靈殿（排行榜） ================= */
+// 自己的紀錄存在這台裝置，也會寫到雲端（寫得進去的人才有）；朋友的紀錄用「薩迦碼」請主人登錄
+const HALL_KEY='na-hall-v1';
+const hallLocal=()=>{try{const a=JSON.parse(localStorage.getItem(HALL_KEY));return Array.isArray(a)?a:[];}catch(e){return [];}};
+const hallSaveLocal=a=>{try{localStorage.setItem(HALL_KEY,JSON.stringify(a.slice(0,40)));}catch(e){}};
+let hallCloud=[],hallMsg='',hallMine=false;
+function hallScore(){
+  const k=S.flags.endKind,dead=S.dead&&!(S.phase>=4&&k);
+  const base=dead?(S.phase>=4?100:0):S.phase<4?100:({ragnarok:400,win:200,abdicate:150,ragfall:250,lokiside:250,lost:100,vassal:100})[k]??100;
+  const lands=REGIONS.filter(r=>S.reg[r.id].st==='yours').length*5+(S.os?osYours().length*10:0);
+  const deeds=Object.keys(S.runAch||{}).length*10;
+  const mul=({easy:.8,normal:1,hero:1.5})[S.diff]*(S.stats.revived?1:1.2)*(S.flags.skipCh?.7:1);
+  return Math.round((base+Math.floor(S.fame/10)+lands+deeds)*mul);
+}
+function hallRecord(){
+  if(!S) return null;
+  S.runId=S.runId||(Date.now().toString(36)+Math.random().toString(36).slice(2,6));
+  const dead=S.dead&&!(S.phase>=4&&S.flags.endKind);let ep='';try{ep=EPITHETS.find(e=>e[0]())[1];}catch(e){}
+  const t=dead?(S.lastCause||'倒在半路上'):S.phase<4?ending()[1]:ch4Ending(S.flags.endKind||'win')[1];
+  const run={id:S.runId,n:S.name,ep,t,s:hallScore(),d:S.diff,y:age(),a:Date.now(),c:S.flags.skipCh||0};
+  const L=hallLocal().filter(r=>r.id!==run.id);L.push(run);L.sort((a,b)=>b.s-a.s);hallSaveLocal(L);
+  hallPush();
+  return run;
+}
+// 把這台裝置上自己的紀錄寫到雲端（每人一份文件）。寫不進去就安靜放棄，改用薩迦碼
+async function hallPush(){
+  if(!remote.rdb||!remote.uid||remote.hallNo) return;
+  try{await remote.rdb.doc('hall/'+remote.uid).set({runs:hallLocal().slice(0,20),at:Date.now()});remote.hallOk=true;}
+  catch(e){remote.hallNo=true;}
+}
+async function hallSync(){
+  if(!remote.rdb) return;
+  try{
+    const [a,b]=await Promise.all([remote.rdb.collection('hall').get(),remote.rdb.collection('hallx').get()]);
+    const out=[];
+    a.docs.forEach(d=>{const x=d.data();(x&&Array.isArray(x.runs)?x.runs:[]).forEach(r=>out.push({...r,u:d.id}));});
+    b.docs.forEach(d=>{const r=d.data();if(r)out.push({...r,g:1});});
+    hallCloud=out.map(hallClean).filter(Boolean);
+    // 換裝置時，把雲端上自己的紀錄拿回來
+    const mine=hallCloud.filter(r=>r.u===remote.uid),L=hallLocal();let ch=false;
+    mine.forEach(r=>{if(!L.some(x=>x.id===r.id)){const {u,...rest}=r;L.push(rest);ch=true;}});
+    if(ch){L.sort((x,y)=>y.s-x.s);hallSaveLocal(L);}else if(L.length&&L.length!==mine.length)hallPush();
+  }catch(e){}
+  if(!$('#title-screen').hidden) hallRender();
+}
+// 別人寫的資料不能直接相信：檢查型別、長度和範圍
+function hallClean(r){
+  if(!r||typeof r!=='object'||typeof r.id!=='string'||typeof r.n!=='string') return null;
+  const str=(v,n)=>String(v==null?'':v).slice(0,n),num=(v,a,b)=>Math.max(a,Math.min(b,Math.round(+v||0)));
+  return {id:str(r.id,24),n:str(r.n,8),ep:str(r.ep,12),t:str(r.t,20),s:num(r.s,0,5000),d:['easy','normal','hero'].includes(r.d)?r.d:'normal',y:num(r.y,0,120),a:num(r.a,0,4e12),c:num(r.c,0,4),u:r.u?str(r.u,64):undefined,g:r.g?1:undefined};
+}
+// 薩迦碼：NA1.<內容>.<檢查碼>。檢查碼只防打錯字，不防竄改
+const hallSum=t=>{let h=7;for(let i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))>>>0;return h.toString(36).slice(-4);};
+function hallCode(run){const {u,g,...r}=run;const body=btoa(unescape(encodeURIComponent(JSON.stringify(r))));return `NA1.${body}.${hallSum(body)}`;}
+function hallParse(code){
+  try{const m=String(code).trim().match(/NA1\.([A-Za-z0-9+/=]+)\.([a-z0-9]+)/);if(!m||hallSum(m[1])!==m[2])return null;
+    return hallClean(JSON.parse(decodeURIComponent(escape(atob(m[1])))));}catch(e){return null;}
+}
+function hallNote(run){
+  if(!run) return '';
+  return `<div class="hallnote">這一局的分數：<b>${run.s}</b>　已記入英靈殿。
+    <br><small style="color:var(--muted)">想登上大家的排行榜，把下面的薩迦碼傳給分享這個遊戲給你的人。${remote.owner?'（你是主人，你的紀錄會自動上榜。）':''}</small>
+    <textarea id="hall-code" readonly>${hallCode(run)}</textarea><button class="ghost" id="hall-copy">複製薩迦碼</button></div>`;
+}
+function hallNoteBind(run){
+  const b=$('#hall-copy');if(!b||!run) return;
+  b.onclick=()=>{const t=$('#hall-code');t.focus();t.select();let ok=false;try{ok=document.execCommand('copy');}catch(e){}
+    if(navigator.clipboard)navigator.clipboard.writeText(t.value).then(()=>{b.textContent='已複製';},()=>{b.textContent=ok?'已複製':'請長按上面的文字複製';});else b.textContent=ok?'已複製':'請長按上面的文字複製';};
+}
+function hallAll(){
+  const map={};
+  hallCloud.forEach(r=>{map[r.id]=r;});
+  hallLocal().map(hallClean).filter(Boolean).forEach(r=>{map[r.id]={...(map[r.id]||{}),...r,me:1};});
+  if(remote.uid) Object.values(map).forEach(r=>{if(r.u===remote.uid)r.me=1;});
+  return Object.values(map).sort((a,b)=>b.s-a.s||b.a-a.a);
+}
+function hallRender(){
+  const box=$('#hall-body');if(!box) return;
+  const all=hallAll(),list=(hallMine?all.filter(r=>r.me):all).slice(0,50);
+  $('#hall-sum').textContent=`英靈殿（排行榜）${all.length?` · ${all.length} 筆`:''}`;
+  const dn={easy:'輕鬆',normal:'標準',hero:'英雄'};
+  box.innerHTML=`<div class="hall">
+    <div class="seg" style="margin-bottom:8px"><span>顯示</span><button data-hm="0" aria-pressed="${!hallMine}">全部</button><button data-hm="1" aria-pressed="${hallMine}">只看我的</button></div>
+    ${list.length?list.map((r,i)=>`<div class="hrow ${r.me?'me':''}"><i>${i+1}</i><b>${r.ep?`「${esc(r.ep)}」`:''}${esc(r.n)}</b><span class="sc">${r.s}</span>
+      <small>${esc(r.t)} · ${dn[r.d]} · ${r.y} 歲${r.c?` · 從第 ${r.c} 章開始`:''}${r.a?` · ${new Date(r.a).toLocaleDateString('zh-TW')}`:''}${r.me?' · 你':''}</small></div>`).join('')
+      :'<p class="hmsg">還沒有紀錄。打完一局（稱王、第四章結局，或是倒下）就會記在這裡。</p>'}
+    <p class="hmsg">${remote.rdb?(remote.owner||remote.hallOk?'你的紀錄會自動上榜。':'你的紀錄存在這台裝置。想上大家的排行榜，把結局畫面的薩迦碼傳給分享這個遊戲的人。'):'登入 Claude 帳號後，才看得到大家的排行榜；現在只顯示這台裝置的紀錄。'}</p>
+    ${remote.owner?`<div><b>登錄朋友的薩迦</b><textarea id="hall-in" placeholder="把朋友傳來的薩迦碼貼在這裡（NA1. 開頭）"></textarea><button class="ghost" id="hall-add">登錄</button> <span class="hmsg" id="hall-msg">${hallMsg}</span></div>`:''}
+  </div>`;
+  box.querySelectorAll('[data-hm]').forEach(b=>b.onclick=()=>{hallMine=b.dataset.hm==='1';hallRender();});
+  const add=$('#hall-add');
+  if(add) add.onclick=async()=>{
+    const r=hallParse($('#hall-in').value);
+    if(!r){hallMsg='這串薩迦碼看起來不對，請確認有完整複製。';hallRender();return;}
+    const {u,g,...body}=r;
+    try{await remote.rdb.doc('hallx/'+r.id.replace(/[^A-Za-z0-9_-]/g,'')).set(body);hallMsg=`已登錄：${r.n}（${r.s} 分）`;await hallSync();}
+    catch(e){hallMsg='登錄失敗，請稍後再試。';}
+    hallRender();
+  };
+}
+
 /* ---------- 每季結算摘要（主畫面上的小卡，不用按繼續） ---------- */
 let sumOpen=false;
 const SUM_KEYS=[['silver','銀幣'],['food','糧食'],['fame','名聲'],['loyalty','忠誠'],['infamy','惡名'],['men','戰士'],['dane','丹麥警戒']];
@@ -4965,6 +5081,7 @@ function showTitle(){
   const h1=document.querySelector('.title-hero h1');if(h1&&!h1.dataset.tap){h1.dataset.tap='1';let taps=0,tm=0;h1.onclick=()=>{taps++;clearTimeout(tm);tm=setTimeout(()=>taps=0,1500);if(taps>=5){taps=0;const mm=meta();mm.ach._all=Date.now();saveMeta(mm);toast('已解鎖全部章節');showTitle();}};}
   $('#legacies').innerHTML=legs.map(([k,l])=>`<button class="opt" data-leg="${k}" aria-pressed="${k===NEW.legacy}"><b>${l.name}</b><small>${l.desc}</small></button>`).join('');
   $('#legacies').querySelectorAll('[data-leg]').forEach(b=>b.onclick=()=>{NEW.legacy=b.dataset.leg;showTitle();});
+  hallRender();
   $('#codex-sum').textContent=`北境百科 ${Object.keys(m.codex||{}).filter(k=>CODEX_ALL[k]).length}/${Object.keys(CODEX_ALL).length}`;
   $('#codex-list').innerHTML=codexHTML();
   const got=Object.keys(ACH).filter(k=>m.ach[k]).length;
