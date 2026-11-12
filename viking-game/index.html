@@ -4174,6 +4174,7 @@ function aidLines(){
 }
 // 打退丹麥人：被神選中的人，故事還沒完
 function daneVictory(){
+  if(!S.flags.struck) pushLater(el=>cineView(el,[{art:['sc_dane_victory','harald'],text:'丹麥人的陣線垮了。\n\n「藍牙」哈拉爾站在龍頭船的船頭，回頭看著海灘，看了很久。\n\n然後他舉起手，下令退兵。'}],closeModal,'丹麥戰爭'));
   if(ragnaOk()&&!S.flags.ragna){
     S.flags.ragna=1;S.flags.fimbulT=S.turn;
     pushLater(el=>resultView(el,'勝利之後','丹麥人的船還沒消失在海平線上，族人就已經開始唱歌了。那天晚上，整個挪威都在喝酒。\n\n只有你一個人站在海邊。\n\n風停了。海浪停了。連海鷗都不叫了。你聽見北方傳來一聲很長、很長的號角。\n\n<span class="good">丹麥人被打退了。</span>','丹麥戰爭'));
@@ -4193,12 +4194,42 @@ function strikeJelling(m){
       return '';}});
     return '丹麥人的防線崩潰了！';}});
 }
+// 丹麥大軍到來之前的戰前會議：聽大家怎麼說，再決定怎麼打
+const COUNCIL_LINE={ragnar:'拉格納一拳捶在桌上：「想那麼多幹嘛？衝上去砍就對了！」',astrid:'阿斯特麗德指著海灘：「盾牆排在哪裡，決定我們能活多少人。」',bragi:'布拉吉撥了一下琴弦：「不管怎麼打，我都會寫成歌。贏了是戰歌，輸了是輓歌。」',
+  thorfinn:'托爾芬什麼都沒說，只是一直在磨他的斧頭。',knut:'克努特瞇著眼看地圖：「他們的船會停在哪裡？我想半夜去看看。」',einar:'埃納說：「海灘東邊的林子，藏得下我的人。」',hakon:'老哈康說：「我打過三次丹麥人。他們最怕的，是打不完的仗。」',
+  gudrun:'古德倫說：「給我十天，每個人都會有一把新斧頭。」',una:'烏娜說：「我會把草藥和繃帶都備好。希望用不到那麼多。」',osric:'古托姆壓低聲音：「藍牙手下的雅爾，不是每一個都想替他賣命。」',
+  bjorn:'比約恩拍了拍身上的鎖子甲：「讓我站第一排。」',sigrid:'西格麗德說：「我父親的人已經在路上了。」',sven:'赫羅爾夫說：「我的紅帆船隊可以從側面繞過去。」'};
+function warCouncil(el,go){
+  const who=S.champions.map(c=>c.id).filter(id=>COUNCIL_LINE[id]).sort(()=>Math.random()-.5).slice(0,3);
+  const pages=[{art:['sc_war_council','harald'],text:`丹麥人的船，三天之內就會到。\n\n王廳的長桌上，攤開了一張羊皮地圖。雅爾和勇士們擠在桌邊，誰也不讓誰。${who.length?'\n\n'+who.map(id=>COUNCIL_LINE[id]).join('\n'):''}`}];
+  if(S.spouse==='gunnhild') pages.push({art:['sc_war_gunnhild','gunnhild'],text:'貢希爾德把一根手指，按在了地圖上的海灘。\n\n「我父親每一次都這樣打，」她說，「先讓約姆斯維京人衝正面，讓你以為那就是全部。真正的主力，會從這裡上岸。」\n\n整張桌子都安靜了下來。'});
+  else if(S.spouse==='sweyn') pages.push({art:['sc_war_sweyn','sweyn'],text:'斯韋恩把匕首插在了地圖上的海灘。\n\n「我父親打仗，三十年都是同一套，」他冷笑了一聲，「先讓約姆斯維京人衝正面，等你把人都調過去，主力再從這裡上岸。」\n\n整張桌子都安靜了下來。'});
+  else if(S.spouse&&SPOUSES[S.spouse]) pages.push({art:[S.spouse],text:`所有人都說完了。${SPOUSES[S.spouse].name}一直站在你旁邊，等到最後才開口：\n\n「不管你決定怎麼打，我都在。」`});
+  cineView(el,pages,()=>{
+    const fireP=clamp(.3+eff('wit')*.04+(hasC('knut')||S.spouse==='knut'?.1:0)+(hasC('einar')?.05:0),.3,.85);
+    el.innerHTML=`${sceneImg('sc_war_council')}<p class="eyebrow">丹麥戰爭 · 戰前會議</p><h2>你決定怎麼打？</h2><p class="story">所有人都看著你。</p>
+    <div class="choices">
+      <button class="choice" data-wp="beach"><b>在海灘上決戰</b><small>把盾牆排在沙灘上，不讓他們站穩腳步。盾牆會先守住一次</small></button>
+      <button class="choice" data-wp="fjord"><b>誘敵進峽灣</b><small>放他們進來，在窄處夾擊。丹麥大軍 −10%；可是半個城會被燒，忠誠 −5</small></button>
+      <button class="choice" data-wp="fire"><b>夜燒敵船</b><small>${rate(fireP)}（看智謀）：成功的話丹麥大軍 −20%；失敗會折損人手，丹麥人也會更警覺</small></button>
+    </div>`;
+    el.querySelectorAll('[data-wp]').forEach(b=>b.onclick=()=>{const k=b.dataset.wp;S.flags.warPlan=k;let t;
+      if(k==='beach') t='你把手掌按在地圖的海灘上：「就在這裡。一步都不讓他們上岸。」\n<span class="good">盾牆會先守住一次</span>';
+      else if(k==='fjord'){S.flags.spouseWar=(S.flags.spouseWar||1)*.9;loseLoyalty(5);t='你下令撤空海邊的房子，把人都藏進峽灣兩側的山坡。丹麥人上岸時，會以為你們逃了。\n<span class="good">丹麥大軍 −10%</span>　<span class="bad">海邊的房子保不住了，忠誠 −5</span>';}
+      else if(chk(fireP)){S.flags.spouseWar=(S.flags.spouseWar||1)*.8;favor('loki',6);t='半夜，幾條小船摸進了丹麥人的錨地。火從第一條船燒到第二條，再燒到第三條。天亮的時候，海面上漂滿了燒黑的木頭。\n<span class="good">丹麥大軍 −20%</span>';}
+      else{const l=takeLosses(Math.min(4,S.men),.5);S.flags.spouseWar=(S.flags.spouseWar||1)*1.05;t=`去放火的人被發現了。${l?`${l} 個人沒有回來。`:''}丹麥人把船拉得更開，守夜的人多了一倍。\n<span class="bad">丹麥大軍 +5%</span>`;}
+      resultView(el,'天亮了',t,'丹麥戰爭 · 戰前會議',ART_HAVE.has('sc_beach_wall')?'sc_beach_wall':'sc_danes');
+      $('#m-ok').onclick=()=>{go();closeModal();};});
+  },'丹麥戰爭 · 戰前會議');
+}
 function finalWar(){
   const tries=S.flags.daneTry||0;
+  if(!tries&&!S.flags.council){S.flags.council=1;pushLater(el=>warCouncil(el,finalWar));return;}
   const help=spouseWarHelp();
   const def=Math.round(daneDef()*(tries?.85:1));
   pushLater(el=>resultView(el,tries?'丹麥人又來了':'丹麥大軍',`${tries?'丹麥人在海邊過了一個冬天，又回來了。這一次，他們的人少了一些，但也更狠了。':'海面上全是船帆，多到數不清。「藍牙」哈拉爾的龍頭船停在最前面，船頭站著約姆斯堡的維京人首領帕爾納托基。'}\n\n${aidLines().join('\n')}${help}\n\n先在海灘上排好盾牆。`,'丹麥戰爭','sc_danes'));
-  pushLater(shieldWallFn({title:'海灘上的盾牆',...(S.flags.spSong?{bonus:1,bonusTxt:'布拉吉的戰歌響徹海灘'}:{}),onEnd:sc=>{
+  const swB=(S.flags.spSong?1:0)+(S.flags.warPlan==='beach'&&!tries?1:0);
+  pushLater(shieldWallFn({title:'海灘上的盾牆',...(swB?{bonus:swB,bonusTxt:[S.flags.spSong?'布拉吉的戰歌響徹海灘':'',S.flags.warPlan==='beach'&&!tries?'盾牆早就在沙灘上排好了':''].filter(Boolean).join('；')}:{}),onEnd:sc=>{
     const m=1.15-sc*.06;
     battle({title:'丹麥戰爭',def:def*m,defend:true,intro:`盾牆${sc>=5?'像山一樣立在海灘上':sc>=3?'晃了幾下，但撐住了':'被撞開了好幾個缺口'}。丹麥人衝上來了。`,foeNote:'「藍牙」哈拉爾的大軍',cause:'死在丹麥人的斧頭下',onEnd:w=>{
       if(!w){S.flags.daneTry=tries+1;if(tries>=1){pushLater(el=>ch4End(el,'lost'));return '<span class="bad">王廳的大門被撞開了。</span>';}
@@ -5005,7 +5036,7 @@ document.addEventListener('keydown',e=>{
 });
 
 /* ================= 回憶畫廊 ================= */
-const GAL_NAME={v_halfdan:'老王哈夫丹',v_halfdan2a:'覺醒的老王（第一型態）',v_halfdan2c:'完全覺醒的老王',v_halfdan2:'覺醒的老王（第二型態）',v_halfdan3:'重生的老王',v_harald:'「藍牙」哈拉爾',v_palna:'帕爾納托基',g_hnoss:'赫諾絲',
+const GAL_NAME={sc_war_council:'戰前會議',sc_war_gunnhild:'貢希爾德的講解',sc_war_sweyn:'斯韋恩的講解',sc_beach_wall:'海灘上的盾牆',sc_dane_victory:'藍牙退兵',v_halfdan:'老王哈夫丹',v_halfdan2a:'覺醒的老王（第一型態）',v_halfdan2c:'完全覺醒的老王',v_halfdan2:'覺醒的老王（第二型態）',v_halfdan3:'重生的老王',v_harald:'「藍牙」哈拉爾',v_palna:'帕爾納托基',g_hnoss:'赫諾絲',
   sc_ch1:'第一章　孤身闖蕩',sc_ch2:'第二章　插旗之地',sc_ch3:'第三章　群雄並起',sc_ch4:'第四章　王的歲月',sc_coronation:'加冕',sc_coronation_self:'自己戴上王冠',sc_danes:'丹麥大軍',sc_longhouse:'長屋之夜',
   sc_ragnarok:'諸神黃昏',sc_tears:'弗蕾亞的眼淚',sc_valhalla:'瓦爾哈拉',sc_kiss_m:'弗蕾亞之吻',sc_kiss_f:'弗蕾亞之吻',sc_einherjar:'英靈助戰',sc_ragfall:'倒在諸神黃昏',
   sc_ragfall_odin:'與奧丁同眠',sc_ragfall_thor:'與索爾同眠',sc_ragfall_tyr:'與提爾同眠',sc_ragfall_freyja:'與弗蕾亞同眠',sc_ragfall_loki:'洛基的道別',sc_ragfall_none:'只有風聲',
