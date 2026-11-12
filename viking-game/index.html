@@ -319,6 +319,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .bsteps{display:flex;gap:6px;margin:0 0 8px;font-size:12px;color:var(--muted)}
 .bsteps span{flex:1;text-align:center;padding:3px 0;border-bottom:2px solid var(--line)}
 .bsteps span.on{color:var(--gold);border-color:var(--gold)}
+.lanes{display:grid;gap:8px;margin:8px 0}
+.lane{display:grid;grid-template-columns:52px 1fr auto;gap:8px;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+.lane b{font-family:var(--f-display)}.lane span{font-size:13px}.lane span.dim{color:var(--muted)}
+.lctl{display:flex;align-items:center;gap:6px}
+.lctl button{width:34px;height:34px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--bone);font:inherit;font-size:18px;cursor:pointer}
+.lctl button:disabled{opacity:.35}
+.lctl i{font-style:normal;min-width:44px;text-align:center;font-family:var(--f-display);font-size:17px;color:var(--gold)}
 .bchamp{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
 .bchamp button{padding:5px 10px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--bone);font:inherit;font-size:13px;cursor:pointer}
 .bchamp button[aria-pressed=true]{border-color:var(--gold);color:var(--gold)}
@@ -2049,29 +2056,45 @@ function battle(o){
     const baseP=()=>armyPower()*(lead?leadMul():1)*(o.defend&&has('ironwall')?1.15:1)*(o.defend&&hasC('sigrid')?1.1:1)*(van&&hasC(van)?1+CHAMPS[van].pow*.008:1);
     const lineHTML=(ratio,step)=>`<div class="bsteps">${['一　接敵','二　混戰','三　決勝'].map((n,i)=>`<span class="${i===step?'on':''}">${n}</span>`).join('')}</div>
       <div class="bline"><i style="width:${clamp(50+(ratio-1)*70,6,94)}%"></i></div><div class="blab"><span>我方</span><span>${ratio>=1.12?'我方壓著打':ratio>=1?'我方稍佔上風':ratio>=.9?'敵方稍佔上風':'敵方壓著打'}</span><span>敵方</span></div>`;
-    const B_MOVE={wing:{tell:['敵軍的左翼壓了上來，想把你們包進去。','敵人的騎手繞向了你們的側面。'],name:'補強兩翼'},
-      center:{tell:['敵軍把最壯的人都擠到了中間，準備一口氣衝破你們。','對面的鼓聲急了起來，中路的盾牌一面接一面往前頂。'],name:'穩住中路'},
-      feint:{tell:['敵軍突然往後退，陣形看起來亂了。','對面有人丟下盾牌轉身就跑，跑得有點太整齊。'],name:'按兵不動'}};
+    // 第二回合「調度預備隊」：三條戰線，敵軍的壓力只看得到一部分，自己決定預備隊怎麼放
+    const LANES=['左翼','中路','右翼'];
     const round2=(t,nightP)=>{
       S.flags.rowNight=0;markGame('battle3');
       const nightOk=t==='night'?Math.random()<nightP:null;
       const def=o.def*1.09;let ratio=baseP()*tMul(t,nightOk)/def;
       const open={hold:'你們在木牆後排成盾牆，一步也不退。',charge:lead?'你第一個衝出去，戰士們吼叫著跟上。':'戰士們吼叫著衝向敵陣。',night:nightOk?'夜色掩護了你們，敵人在睡夢中驚醒。':'一隻狗吠了起來，夜襲被發現，你們一頭撞進了陷阱。',flank:'你把人分成兩路，從側面包了過去。'}[t];
-      const K=Object.keys(B_MOVE),real=pick(K),acc=clamp(.5+eff('wit')*.03+(scouted(o.defend)?.15:0),.5,.9);
-      const shown=Math.random()<acc?real:pick(K.filter(k=>k!==real));
+      // 敵軍總共 8 隊，你只有 6 隊預備隊（打頭陣的勇士算 2 隊）
+      const foe=pick([[4,2,2],[5,2,1],[3,3,2],[4,3,1],[6,1,1],[4,4,0],[5,3,0]]).slice().sort(()=>Math.random()-.5);
+      const pSee=eff('wit')>=15?1:clamp(.25+eff('wit')*.03+(scouted(o.defend)?.2:0),.25,.85);
+      const seen=foe.map(()=>Math.random()<pSee);
+      const fuzzy=v=>{const g=clamp(v+pick([-1,0,0,1]),0,6);return g<=1?'人不多':g<=3?'人不少':'黑壓壓一片';};
+      const hint=foe.map((v,i)=>seen[i]?`敵軍 ${v} 隊`:`${fuzzy(v)}（看不清楚）`);
+      const mine=[0,0,0],R=6;let champLane=-1;const hero=van&&hasC(van)?van:null;
       sfx('clash');
-      el.innerHTML=`<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,1)}
-      <p class="story">${open}${van&&hasC(van)?`\n${CHAMPS[van].name}衝在最前面。`:''}</p>
-      <p class="hint">${pick(B_MOVE[shown].tell)}<small>看清敵軍動向的機率 ${pct(acc)}（看智謀和斥候）</small></p>
-      <div class="choices">${K.map(k=>`<button class="choice" data-r2="${k}"><b>${B_MOVE[k].name}</b><small>${{wing:'敵人想包抄的話，這樣擋得住',center:'敵人要硬衝中路的話，這樣頂得住',feint:'敵人假裝敗退的話，不追就不會中計'}[k]}</small></button>`).join('')}</div>`;
-      el.querySelectorAll('[data-r2]').forEach(b=>b.onclick=()=>{const ok=b.dataset.r2===real;ratio*=ok?1.08:.9;round3(t,nightOk,ratio,ok,real);});
+      const draw2=()=>{
+        const left=R-mine[0]-mine[1]-mine[2];
+        el.innerHTML=`<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,1)}
+        <p class="story">${open}\n\n戰線拉開了。你手上還有 <b>${R}</b> 隊預備隊，要放到哪裡？每條戰線上，你的隊數不比敵軍少，就守得住。</p>
+        <div class="lanes">${LANES.map((n,i)=>`<div class="lane"><b>${n}</b><span class="${seen[i]?'':'dim'}">${hint[i]}</span>
+          <div class="lctl"><button data-lm="${i}" ${mine[i]?'':'disabled'}>−</button><i>${mine[i]}${champLane===i?' +2':''}</i><button data-lp="${i}" ${left?'':'disabled'}>＋</button></div></div>`).join('')}</div>
+        ${hero?`<div class="bchamp"><span style="font-size:13px;color:var(--muted);align-self:center">${CHAMPS[hero].name}（算 2 隊）守：</span>${LANES.map((n,i)=>`<button data-lc="${i}" aria-pressed="${champLane===i}">${n}</button>`).join('')}</div>`:''}
+        <p class="hint" style="margin-top:6px">還沒放的預備隊：${left} 隊<small>看清敵軍每條戰線的機率 ${pct(pSee)}（看智謀和斥候）</small></p>
+        <button class="primary" id="r2-go">就這樣打</button>`;
+        el.querySelectorAll('[data-lp]').forEach(b=>b.onclick=()=>{mine[+b.dataset.lp]++;draw2();});
+        el.querySelectorAll('[data-lm]').forEach(b=>b.onclick=()=>{mine[+b.dataset.lm]--;draw2();});
+        el.querySelectorAll('[data-lc]').forEach(b=>b.onclick=()=>{champLane=champLane===+b.dataset.lc?-1:+b.dataset.lc;draw2();});
+        $('#r2-go').onclick=()=>{
+          const held=foe.map((v,i)=>mine[i]+(champLane===i?2:0)>=v),n=held.filter(Boolean).length;
+          ratio*=[.85,.93,1.04,1.12][n];
+          const txt=LANES.map((nm,i)=>`${nm}：你 ${mine[i]+(champLane===i?2:0)} 隊，敵軍 ${foe[i]} 隊，<span class="${held[i]?'good':'bad'}">${held[i]?'守住了':'被衝開了'}</span>`).join('\n');
+          round3(t,nightOk,ratio,txt,n);};
+      };
+      draw2();
     };
-    const round3=(t,nightOk,ratio,ok,real)=>{
-      sfx(ok?'hit':'bad');
-      const txt=ok?{wing:'你早一步把人調到兩翼，敵人的包抄撞上了盾牆。',center:'中路的戰士咬著牙頂住了，敵人的衝鋒被硬生生擋了下來。',feint:'你沒有追。埋伏在兩側的敵人白等了一場。'}[real]
-        :{wing:'敵人從側面包了進來，你們的陣腳亂了。',center:'中路被衝開了一個口子。',feint:'你的人追了出去，一頭撞進了埋伏。'}[real];
+    const round3=(t,nightOk,ratio,txt,n)=>{
+      sfx(n>=2?'hit':'bad');
       el.innerHTML=`<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,2)}
-      <p class="story"><span class="${ok?'good':'bad'}">${txt}</span>\n\n兩邊都殺紅了眼。現在，該決定怎麼收尾了。</p>
+      <p class="story">${txt}\n\n${['三條戰線全垮了。','只剩一條戰線還撐著。','三條戰線守住了兩條。','三條戰線全都守住了！'][n]}兩邊都殺紅了眼。現在，該決定怎麼收尾了。</p>
       <div class="choices">
         <button class="choice" data-r3="steady"><b>穩紮穩打</b><small>守住現在的局面：佔上風時更穩，落後時很難翻盤</small></button>
         <button class="choice" data-r3="allin"><b>全軍壓上</b><small>賭一把：落後時還有機會逆轉；贏了敵軍會全線潰散，但傷亡更重</small></button>
