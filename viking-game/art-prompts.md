@@ -10,6 +10,149 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
+## ★ v0.10 劇情擴充（16 張，規劃中）
+
+這一批是配合「老王三型態、丹麥戰前會議、海外三大戰役」的新劇情。**劇情還在跟你確認中**，如果之後設計有調整，我會同步改這裡的提示詞。想先生成也可以，建議的優先順序是 A → B → C。
+
+| # | 檔名 | 內容 | 比例 |
+|---|---|---|---|
+| 1 | v_halfdan2a | 第一型態：剛覺醒 | 3:4 |
+| 2 | v_halfdan2c | 第三型態：完全覺醒 | 3:4 |
+| 3 | sc_war_council | 戰前會議：長桌上的地圖 | 16:9 |
+| 4 | sc_war_gunnhild | 貢希爾德講解她父親的打法 | 16:9 |
+| 5 | sc_war_sweyn | 斯韋恩講解他父親的打法 | 16:9 |
+| 6 | sc_beach_wall | 海灘上的盾牆 | 16:9 |
+| 7 | sc_dane_victory | 打退丹麥人：藍牙退兵 | 16:9 |
+| 8 | sc_york_1 | 約克：兩個國王的內戰 | 16:9 |
+| 9 | sc_york_2 | 約克：城牆下的決戰 | 16:9 |
+| 10 | sc_york_3 | 約克：進城 | 16:9 |
+| 11 | sc_wessex_1 | 威塞克斯：躲進沼澤的國王 | 16:9 |
+| 12 | sc_wessex_2 | 威塞克斯：盾牆對盾牆 | 16:9 |
+| 13 | sc_wessex_3 | 威塞克斯：兩個王的談判 | 16:9 |
+| 14 | sc_paris_1 | 巴黎：塞納河上的橋塔 | 16:9 |
+| 15 | sc_paris_2 | 巴黎：圍城的冬天 | 16:9 |
+| 16 | sc_paris_3 | 巴黎：一車一車的銀子 | 16:9 |
+
+### A. 老王覺醒的三個型態（人物 3:4）
+
+**1. v_halfdan2a（第一型態：剛覺醒）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic warm golden-hour rim light with cold blue shadows. Highly detailed fur, wool, leather, iron, silver and braided hair. Gritty, grounded, believable faces. Vertical 3:4 portrait, chest-up, the character looking toward the viewer. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and wild white hair, a gold crown with knotwork, dark red-and-black wool robes embroidered with gold Norse knotwork, an ancient notched sword. In a dark royal hall with dying torches. FIRST STAGE of his awakening: he has just risen, breathing hard, the first faint embers drifting around him, his eyes beginning to glow with a cold light, grip tightening on his sword. Controlled, dangerous, the storm only starting.
+```
+
+**2. v_halfdan2c（第三型態：完全覺醒）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic warm golden-hour rim light with cold blue shadows. Highly detailed fur, wool, leather, iron, silver and braided hair. Gritty, grounded, believable faces. Vertical 3:4 portrait, chest-up, the character looking toward the viewer. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and wild white hair, a gold crown with knotwork, dark red-and-black wool robes embroidered with gold Norse knotwork, an ancient notched sword. In a dark royal hall with dying torches. FINAL STAGE of his awakening, the most powerful: his fur mantle thrown off, white hair and beard lifted by an unseen wind, eyes blazing with cold white fire, faint glowing runes along his sword blade, a ring of embers and snow swirling around him, every torch in the hall bent toward him. His face stays calm and cold, not shouting. Overwhelming, majestic, terrifying authority.
+```
+
+### B. 丹麥大軍：戰前會議與決戰（場景 16:9）
+
+**3. sc_war_council（戰前會議：長桌上的地圖）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A Viking war council at night in a royal hall: a Viking ruler seen from behind (face hidden, could be a man or a woman, fur cloak and a simple crown) stands at the head of a long table covered with a hide map of a fjord, wooden ship tokens and daggers marking positions; around the table, grim jarls and champions lean in, arguing, torchlight on their faces. Tense, focused, the night before a great battle.
+```
+
+**4. sc_war_gunnhild（貢希爾德講解她父親的打法）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A Viking war council at night: a Danish princess in her early twenties (golden hair under a fine veil, rich red dress with gold embroidery, gold jewelry) leans over a hide map on a long table, pointing firmly at a beach with one finger and looking up at the warriors around her, serious and confident, explaining her father's battle plan; jarls and champions listen closely, a Viking ruler seen from behind in the foreground. Torchlight, tension, intelligence.
+```
+
+**5. sc_war_sweyn（斯韋恩講解他父親的打法）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A Viking war council at night: a Danish prince in his mid-twenties (blond hair, a distinctive forked beard, blue cloak with gold trim over chainmail) plants a dagger into a hide map on a long table, marking a beach, and looks around at the warriors with a sharp, knowing half-smile, explaining his father's battle plan; jarls and champions listen closely, a Viking ruler seen from behind in the foreground. Torchlight, tension, ambition.
+```
+
+**6. sc_beach_wall（海灘上的盾牆）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+WIDE SHOT. Dawn on a Norwegian beach: a long Viking shield wall of hundreds of warriors, round shields locked, spears forward, stands on the sand facing the sea; out on the grey water, an enormous Danish fleet of dragon-headed longships fills the fjord, the first ships already grinding onto the shore and warriors leaping into the surf. Cold light, sea spray, the moment before impact.
+```
+
+**7. sc_dane_victory（打退丹麥人：藍牙退兵）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+After the battle on a Norwegian beach at sunset: broken shields and beached longships; an old Danish king (about sixty, grey beard, heavy gold crown, rich fur mantle) stands at the prow of his retreating dragon ship, looking back at the shore in silence; on the beach, exhausted Viking warriors raise their weapons and a ruler seen from behind watches the fleet leave. Bittersweet victory, relief, respect between enemies.
+```
+
+### C. 海外三大戰役（場景 16:9）
+
+**8. sc_york_1（約克：兩個國王的內戰）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The old Roman walls of York (Eoforwic) in Anglo-Saxon England, 9th century, under a grey sky: on the walls and in front of the gate, two rival Northumbrian kings' warbands with different banners are fighting EACH OTHER, the gate half-open and unguarded; in the foreground, on a low hill, Viking scouts crouch in the grass watching the chaos, longships on the river Ouse behind them. Opportunity, irony, tension.
+```
+
+**9. sc_york_2（約克：城牆下的決戰）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+WIDE SHOT. Viking warriors storm a breach in the crumbling Roman stone walls of York: ladders, a battering ram at the gate, Anglo-Saxon defenders with round shields and spears on the wall, arrows in the air, smoke rising from thatched roofs inside. Brutal, chaotic, epic siege.
+```
+
+**10. sc_york_3（約克：進城）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Inside captured York: Viking warriors walk through a street of timber and stone buildings past silent townsfolk; in a ruined Roman hall with broken columns, a Viking ruler seen from behind stands before a frightened young Anglo-Saxon noble who kneels and offers a crown on a cushion. Power, unease, a new order.
+```
+
+**11. sc_wessex_1（威塞克斯：躲進沼澤的國王）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The misty marshes of Athelney in Wessex at dawn: a small island of reeds and alder trees with a hidden palisade and a few campfires; a young Anglo-Saxon king in a plain cloak (Alfred, late twenties, thin, thoughtful, a simple gold circlet) looks out over the fog while a handful of loyal warriors sharpen spears. Far away across the water, Viking torches search the shore. Quiet, desperate, stubborn hope.
+```
+
+**12. sc_wessex_2（威塞克斯：盾牆對盾牆）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+WIDE SHOT. The battle of two shield walls on a green chalk hillside in Wessex: a long Viking shield wall on the left and a long Anglo-Saxon shield wall on the right (dragon banner of Wessex, a golden wyvern) crash together, spears and axes over the shield rims, both lines straining, a white chalk horse carved on the hill behind them. Evenly matched, exhausting, historic.
+```
+
+**13. sc_wessex_3（威塞克斯：兩個王的談判）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A tent on a battlefield in Wessex at dusk: across a rough wooden table, a Viking ruler seen from behind (face hidden, could be a man or a woman, fur cloak and a simple crown) sits facing the young Anglo-Saxon king Alfred (thin, thoughtful, simple gold circlet, mud on his cloak), who looks straight back, unbroken; between them a treaty parchment, a cross and a silver arm-ring; guards of both sides stand tense behind. Two rulers measuring each other. Quiet, intelligent, heavy with consequence.
+```
+
+**14. sc_paris_1（巴黎：塞納河上的橋塔）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+WIDE SHOT. Paris in the 9th century: the fortified island city (Île de la Cité) in the river Seine, with stone walls, church towers and two fortified bridges with wooden towers blocking the river; a huge fleet of Viking longships fills the river below the bridge, unable to pass, Frankish defenders with crossbows and banners on the towers. Grey morning light, scale, an impossible obstacle.
+```
+
+**15. sc_paris_2（巴黎：圍城的冬天）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A Viking siege camp outside the walls of Paris in winter: rows of tents and beached longships in the mud, siege engines and a half-built wooden tower, warriors huddled around fires, some sick and coughing, snow falling; in the distance the walls and bridge towers of Paris still stand, banners flying. Cold, exhausting, a test of patience.
+```
+
+**16. sc_paris_3（巴黎：一車一車的銀子）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Outside the gates of Paris: a line of Frankish ox-carts loaded with chests of silver coins and church treasures is driven out across the bridge under white banners; Frankish nobles and a bishop watch with bitter faces; in the foreground a Viking ruler seen from behind (face hidden, could be a man or a woman, fur cloak and a simple crown) watches the silver being weighed on great scales by grinning Viking warriors. Triumph, greed, humiliation of a kingdom.
+```
+
+---
+
 ## ★ v0.8 第二批：老王的晚年與諸神黃昏（11 張）
 
 **這一輪要畫的（第二輪）**：#6、#7、#8、#8b、#9 照新的提示詞重畫；#10 v_halfdan3 還沒畫。重畫的重點：
