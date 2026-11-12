@@ -3550,17 +3550,67 @@ function relicEvent(o){
         {t:'留下來',show:()=>!!st,fx:()=>{if(S.flags['relic_'+st])return '你把它收進了王廳。它很美，但你已經有一個了。';S.flags['relic_'+st]=1;S.st[st]++;return st==='wit'?'你每天晚上都翻幾頁。雖然看不懂字，但你開始懂得南方人在想什麼。\n<span class="good">智謀 +1</span>':'修士教你的人讀寫、記帳，也教你南方國王的規矩。\n<span class="good">威望 +1</span>';}},
         {t:'還給修士，換贖金',fx:()=>{const v=ri(15,25);S.silver+=v;addFame(6);addInfamy(-4);return `修道院派人送來了贖金，還為你唸了一段禱詞。\n銀幣 +${v}，名聲 +6，惡名 -4`;}}]});
 }
-function osConquer(o,m){
+// 海外三大戰役：約克、威塞克斯、巴黎。第一次去打時有一段劇情和一個關鍵決定
+const CAMP={
+  york:{title:'約克 · 兩個國王',pages:[
+      {art:['sc_york_1'],text:'約克的城牆是羅馬人留下來的，又高又厚。\n\n可是你的斥候回來的時候，在笑。\n\n「城裡有兩個國王，」他說，「奧斯伯特和艾拉。為了那頂王冠，他們正在城門口互砍。」'}],
+    ch:[{t:'趁亂直接攻城',note:'守軍正忙著打自己人：敵方戰力 −15%',fx:()=>({m:.85,line:'你沒有等。城門口的兩群人還在互砍，你的人已經爬上了城牆。'})},
+      {t:'在城外等他們兩敗俱傷',note:'多吃一季的糧（糧食 −20）：敵方戰力 −30%。但他們也可能先聯手',fx:()=>{S.food=Math.max(0,S.food-20);return Math.random()<.2?{m:1.1,line:'你等了一季。可是兩個國王一聽說維京人就在城外，竟然握手言和了。\n<span class="bad">敵方戰力 +10%</span>'}:{m:.7,line:'你等了一季。城裡的喊殺聲，一天比一天小。'};}},
+      {t:'幫艾拉打奧斯伯特，事後讓他替你管約克',note:'敵方戰力 −40%；戰利品減半，但丹麥人會以為這只是撒克遜人的內戰（丹麥警戒少加 3）',fx:()=>{S.flags.yorkPuppet=1;return {m:.6,line:'你派人送了一句話進城。半夜，艾拉替你打開了側門。'};}}],
+    intro:'約克的城牆下，到處都是喊殺聲。',art:'sc_york_2',
+    won:sp=>{if(!S.flags.yorkPuppet)return '';const back=Math.round(sp/2);S.silver-=back;addAlert(-3);return `\n金庫分了一半給艾拉（銀幣 −${back}）；丹麥人沒有太注意這件事。`;},
+    end:()=>({art:['sc_york_3'],text:S.flags.yorkPuppet?'艾拉跪在羅馬人留下的大廳裡，雙手捧著王冠。\n\n「約克是你的，」他說，「我只求留在這裡，替你看著它。」\n\n你知道他說的是真話。至少今天是。':'你走進羅馬人留下的大廳。\n\n兩個國王的王冠，並排放在同一張桌上。到最後，誰也沒有戴上它。'})},
+  wessex:{title:'威塞克斯 · 沼澤裡的國王',pages:[
+      {art:['sc_wessex_2','sc_ch4'],text:'你們在威塞克斯上岸，一路打到了國王的行宮。\n\n可是行宮是空的。爐火還是熱的，桌上的麥酒喝了一半。\n\n阿佛烈不見了。'},
+      {art:['sc_wessex_1'],text:'有人說，他帶著幾十個人，躲進了西邊的沼澤。那片沼澤，連當地人都會迷路。\n\n只要他還活著，威塞克斯就不算是你的。'}],
+    ch:[{t:'燒掉沼澤周圍的村子，逼他出來',note:'敵方戰力 −15%；惡名 +10，丹麥警戒 +3',fx:()=>{addInfamy(10);addAlert(3);return {m:.85,line:'火燒了三天。第四天早上，阿佛烈帶著人走出了沼澤。他沒有穿盔甲，可是每一個跟著他的人，眼睛都是紅的。'};}},
+      {t:'派斥候進沼澤，慢慢找',note:()=>`${rate(clamp(.3+eff('wit')*.05+(hasC('einar')?.15:0),.3,.9))}（看智謀）：找到的話敵方戰力 −25%；找不到，他會先找到你們`,fx:()=>chk(clamp(.3+eff('wit')*.05+(hasC('einar')?.15:0),.3,.9))?{m:.75,line:'你的斥候在蘆葦裡趴了五個晚上，終於看見了那個小島上的營火。天亮之前，你的人已經把島圍住了。'}:{m:1.1,line:'你的斥候一個都沒有回來。第六天半夜，阿佛烈的人從霧裡衝進了你的營地。\n<span class="bad">敵方戰力 +10%</span>'}},
+      {t:'放話出去：你願意和他談',note:()=>`${rate(clamp(geldChance(O('wessex'))+.25,.1,.9))}：談成的話不用再打，他每季付你丹麥金；談不成就只能硬打`,fx:()=>chk(clamp(geldChance(O('wessex'))+.25,.1,.9))?{talk:'wessex'}:{m:1,line:'阿佛烈的回信只有一句話：「威塞克斯不賣。」'}}],
+    intro:'阿佛烈走出了沼澤，身後是他從三個郡召來的民兵。兩道盾牆，在白堊丘陵上撞在了一起。',art:'sc_wessex_2',
+    end:()=>({art:['sc_wessex_3'],text:'阿佛烈坐在你的對面，斗篷上還沾著沼澤的泥。\n\n他輸了。可是他看你的眼神，一點都沒有變。\n\n「你拿走了我的王國，」他說，「可是你拿不走撒克遜人。」'})},
+  paris:{title:'巴黎 · 圍城',pages:[
+      {art:['sc_paris_1'],text:'塞納河上橫著兩座橋，橋頭各有一座木塔。你的船隊擠在橋下，一條都過不去。\n\n巴黎，就在橋的另一邊。'},
+      {art:['sc_paris_2'],text:()=>{const l=takeLosses(Math.min(3,Math.max(0,S.men-10)),.3);return `圍城拖過了冬天。營裡開始有人咳嗽，然後，開始有人死。${l?`\n<span class="bad">${l} 名戰士病死了。</span>`:''}\n\n法蘭克人站在城牆上，天天往下看。`;}}],
+    ch:[{t:'強攻橋塔',note:'硬碰硬。打下來的話，名聲再 +10',fx:()=>{S.flags.parisStorm=1;return {m:1,line:'你下令把最大的那條船裝滿乾草，點上火，推向橋塔。'};}},
+      {t:'把船拖上岸，從陸地繞過去',note:'多花一季的糧（糧食 −25）：敵方戰力 −20%',fx:()=>{S.food=Math.max(0,S.food-25);return {m:.8,line:'你的人用圓木當滾輪，把船一條一條拖過了河灣。法蘭克人在城牆上看著，一句話都說不出來。'};}},
+      {t:'繼續圍下去，等他們拿銀子來換',note:()=>`${rate(clamp(geldChance(O('paris'))+.2,.1,.9))}：成功的話拿到贖金就走；不成的話還是得打`,fx:()=>chk(clamp(geldChance(O('paris'))+.2,.1,.9))?{talk:'paris'}:{m:1,line:'法蘭克人沒有派人出來。城牆上的旗子，比昨天還多。'}}],
+    intro:'橋塔上的弩箭像雨一樣落下來。',art:'sc_paris_2',
+    won:()=>{if(!S.flags.parisStorm)return '';addFame(10);return '\n你是從正面打進巴黎的。名聲再 +10';},
+    end:()=>null},
+};
+function campaign(o,m){
+  const C=CAMP[o.id];
+  pushModal(el=>cineView(el,C.pages.map(p=>({...p,text:typeof p.text==='function'?p.text():p.text})),()=>{
+    el.innerHTML=`<p class="eyebrow">${C.title}</p><h2>你打算怎麼做？</h2>
+    <div class="choices">${C.ch.map((c,i)=>`<button class="choice" data-cp="${i}"><b>${c.t}</b><small>${typeof c.note==='function'?c.note():c.note}</small></button>`).join('')}</div>`;
+    el.querySelectorAll('[data-cp]').forEach(b=>b.onclick=()=>{
+      const r=C.ch[+b.dataset.cp].fx();
+      if(r.talk){campTalk(el,o);return;}
+      resultView(el,o.name,r.line,C.title,C.art&&ART_HAVE.has(C.art)?C.art:undefined);
+      $('#m-ok').onclick=()=>{osConquer(o,m*r.m,C.intro);closeModal();};});
+  },C.title));
+}
+// 談成了：不用打，直接拿到丹麥金或贖金
+function campTalk(el,o){
+  const g=S.os[o.id];addAlert(6);
+  if(o.id==='paris'){g.st='paid';S.silver+=200;addFame(25);unlock('paris');log('法蘭克人付了贖金。');
+    cineView(el,[{art:['sc_paris_3'],text:'城門開了。出來的不是軍隊，是牛車。\n\n一車、兩車……整整七車的白銀和教堂的金器，從橋上推了過來。法蘭克的主教站在旁邊，臉色比雪還白。\n\n<span class="good">銀幣 +200，名聲 +25</span>'}],()=>{passTime();closeModal();},CAMP.paris.title);}
+  else{codex('h_danegeld');g.st='tribute';S.silver+=100;addFame(15);unlock('danegeld');log('威塞克斯答應付丹麥金。');
+    cineView(el,[{art:['sc_wessex_3'],text:'阿佛烈走出了沼澤，一個人，沒有帶劍。\n\n你們隔著一張桌子坐了一整夜。天亮的時候，他在羊皮紙上按下了戒指。\n\n「我付錢，是為了讓我的人活到能把你們趕走的那一天，」他說，「你最好記住這句話。」\n\n<span class="good">銀幣 +100，名聲 +15；之後每季丹麥金 +6 銀幣</span>'}],()=>{passTime();closeModal();},CAMP.wessex.title);}
+}
+function osConquer(o,m,intro){
   const g=S.os[o.id];
-  battle({title:`${o.kind==='siege'?'圍攻':'攻打'}${o.name}`,def:osDef(o)*m,intro:o.desc,cause:`死在${o.name}的城牆下`,onEnd:w=>{
+  if(CAMP[o.id]&&!S.flags['camp_'+o.id]){S.flags['camp_'+o.id]=1;campaign(o,m);return;}
+  battle({title:`${o.kind==='siege'?'圍攻':'攻打'}${o.name}`,def:osDef(o)*m,intro:intro||o.desc,cause:`死在${o.name}的城牆下`,onEnd:w=>{
     if(!w){g.cd=3;g.def+=6;return `${o.name}守住了。你們退回了船上。`;}
     hakonFalls();missedChamp(o);
     addAlert(5);
     if(o.kind==='siege'){g.st='sacked';const s=Math.round(300*osLootMul()*(has('executioner')?1.5:1));S.silver+=s;addFame(40);addInfamy(15);unlock('paris');log('洗劫了巴黎。');
-      return `你們從塞納河上衝進了巴黎。教堂的銀屋頂、國王的金庫，搬了整整三天。\n銀幣 +${s}，名聲 +40，惡名 +15`;}
+      return `你們從塞納河上衝進了巴黎。教堂的銀屋頂、國王的金庫，搬了整整三天。\n銀幣 +${s}，名聲 +40，惡名 +15${CAMP.paris.won()}`;}
     g.st='yours';const sp=Math.round(o.loot[0]*1.5*(has('executioner')?1.5:1));S.silver+=sp;addFame(o.kind==='kingdom'?30:12);log(`拿下了${o.name}。`);
     if(o.area&&areaOwned(o.area)){const A2=OS_AREAS[o.area];unlock('area_'+o.area);pushLater(el=>resultView(el,A2.name,`${o.land}的最後一塊土地也插上了你的旗。人們開始叫你「${A2.name}」。\n<span class="good">${A2.fx}</span>`,'海外'));}
-    return `${o.name}插上了你的旗。\n搶走金庫：銀幣 +${sp}，名聲 +${o.kind==='kingdom'?30:12}\n之後每季銀幣 ${o.inc[0]}、糧食 ${o.inc[1]}，要留 4 人駐守`;}});
+    const C=CAMP[o.id],extra=C&&C.won?C.won(sp):'';const ep=C&&C.end&&C.end();if(ep)pushLater(el=>cineView(el,[ep],closeModal,C.title));
+    return `${o.name}插上了你的旗。\n搶走金庫：銀幣 +${sp}，名聲 +${o.kind==='kingdom'?30:12}${extra}\n之後每季銀幣 ${o.inc[0]}、糧食 ${o.inc[1]}，要留 4 人駐守`;}});
 }
 function danegeld(o){
   const g=S.os[o.id];
@@ -5036,7 +5086,7 @@ document.addEventListener('keydown',e=>{
 });
 
 /* ================= 回憶畫廊 ================= */
-const GAL_NAME={sc_war_council:'戰前會議',sc_war_gunnhild:'貢希爾德的講解',sc_war_sweyn:'斯韋恩的講解',sc_beach_wall:'海灘上的盾牆',sc_dane_victory:'藍牙退兵',v_halfdan:'老王哈夫丹',v_halfdan2a:'覺醒的老王（第一型態）',v_halfdan2c:'完全覺醒的老王',v_halfdan2:'覺醒的老王（第二型態）',v_halfdan3:'重生的老王',v_harald:'「藍牙」哈拉爾',v_palna:'帕爾納托基',g_hnoss:'赫諾絲',
+const GAL_NAME={sc_york_1:'約克：兩個國王',sc_york_2:'約克：城牆下',sc_york_3:'約克：進城',sc_wessex_1:'沼澤裡的國王',sc_wessex_2:'盾牆對盾牆',sc_wessex_3:'兩個王的談判',sc_paris_1:'塞納河上的橋塔',sc_paris_2:'圍城的冬天',sc_paris_3:'一車一車的銀子',sc_war_council:'戰前會議',sc_war_gunnhild:'貢希爾德的講解',sc_war_sweyn:'斯韋恩的講解',sc_beach_wall:'海灘上的盾牆',sc_dane_victory:'藍牙退兵',v_halfdan:'老王哈夫丹',v_halfdan2a:'覺醒的老王（第一型態）',v_halfdan2c:'完全覺醒的老王',v_halfdan2:'覺醒的老王（第二型態）',v_halfdan3:'重生的老王',v_harald:'「藍牙」哈拉爾',v_palna:'帕爾納托基',g_hnoss:'赫諾絲',
   sc_ch1:'第一章　孤身闖蕩',sc_ch2:'第二章　插旗之地',sc_ch3:'第三章　群雄並起',sc_ch4:'第四章　王的歲月',sc_coronation:'加冕',sc_coronation_self:'自己戴上王冠',sc_danes:'丹麥大軍',sc_longhouse:'長屋之夜',
   sc_ragnarok:'諸神黃昏',sc_tears:'弗蕾亞的眼淚',sc_valhalla:'瓦爾哈拉',sc_kiss_m:'弗蕾亞之吻',sc_kiss_f:'弗蕾亞之吻',sc_einherjar:'英靈助戰',sc_ragfall:'倒在諸神黃昏',
   sc_ragfall_odin:'與奧丁同眠',sc_ragfall_thor:'與索爾同眠',sc_ragfall_tyr:'與提爾同眠',sc_ragfall_freyja:'與弗蕾亞同眠',sc_ragfall_loki:'洛基的道別',sc_ragfall_none:'只有風聲',
