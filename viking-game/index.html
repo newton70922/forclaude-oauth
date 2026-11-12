@@ -102,6 +102,11 @@ details.ach summary{cursor:pointer;font-family:var(--f-display);font-weight:600}
 .titem.lock{opacity:.5}
 .titem button{padding:6px 10px;border-radius:6px;border:1px solid var(--line);background:var(--panel);color:var(--bone);font:inherit;font-size:13px;cursor:pointer}
 .titem button:disabled{opacity:.4;cursor:default}
+.famcard{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px;margin-bottom:10px;font-size:14px}
+.famcard b{display:block;font-family:var(--f-display);font-size:18px}
+.famcard small{color:var(--muted)}
+.famcard p{margin:8px 0 0;line-height:1.7}
+.famcard i{font-style:normal;color:var(--gold);font-size:12px;display:block}
 .hallnote{margin:12px 0;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);font-size:14px}
 .hallnote b{color:var(--gold);font-family:var(--f-display);font-size:20px}
 .hallnote textarea{width:100%;min-height:54px;margin-top:6px;background:var(--panel);color:var(--bone);border:1px solid var(--line);border-radius:5px;padding:6px;font:12px monospace;box-sizing:border-box}
@@ -553,10 +558,10 @@ const STAT={str:'力量',con:'體魄',wit:'智謀',pre:'威望'};
 const STAT_RUNE={str:'ᚦ',con:'ᚢ',wit:'ᚨ',pre:'ᛏ'};
 const STAT_DESC={str:'單挑傷害、部隊戰力',con:'生命上限、減少受到的傷害',wit:'看穿對手、夜襲、談判',pre:'統御人數、震懾、結盟'};
 const MILES={
-  str:{6:'重擊破盾的傷害 +20%',9:'親自上陣時，部隊戰力 ×1.3',12:'斬首：對手生命低於 25% 時，重擊命中直接擊倒'},
-  con:{6:'留下舊傷的機率減半',9:'每季自然回血加倍',12:'不倒：每場生死單挑，致命一擊時保留 1 點生命'},
-  wit:{6:'有些事件會多出新的選項',9:'夜襲成功率 +15%，看清敵方確切戰力',12:'單挑時一眼看穿對手的習慣'},
-  pre:{6:'怒吼更容易震住對手',9:'有名的勇士會主動來找你',12:'統御上限 ×1.5，結盟成功率 +10%'},
+  str:{6:'重擊破盾的傷害 +20%',9:'親自上陣時，部隊戰力 ×1.3',12:'斬首：對手生命低於 25% 時，重擊命中直接擊倒',15:'震撼：重擊命中時，有機會震得對手下一回合出不了招',18:'斬首的門檻提高到 35%'},
+  con:{6:'留下舊傷的機率減半',9:'每季自然回血加倍',12:'不倒：每場生死單挑，致命一擊時保留 1 點生命',15:'回氣：每場單挑，生命掉到四成以下時回復一次',18:'「不倒」每場可以發動兩次'},
+  wit:{6:'有些事件會多出新的選項',9:'夜襲成功率 +15%，看清敵方確切戰力',12:'單挑時一眼看穿對手的習慣',15:'部隊戰時，一定看得清敵軍每條戰線的動向',18:'單挑看穿對手的機率上限 +5%'},
+  pre:{6:'怒吼更容易震住對手',9:'有名的勇士會主動來找你',12:'統御上限 ×1.5，結盟成功率 +10%',15:'親自上陣時，部隊傷亡 −20%',18:'開戰時，敵軍有機會先動搖（戰力 −10%）'},
 };
 const SEASON=['春','夏','秋','冬'];
 const BGS=[
@@ -1554,8 +1559,8 @@ function duel(key,o){
     if(o.preHit){d.hp=Math.round(d.hp*(1-o.preHit));}
     let acc=.4+(frameIs('raven')?.05:0)+eff('wit')*.06+(has('mindread')?(mastered('mindread')?.3:.2):0)+(gt('odin',1)?.05:0);
     if(base.king) acc-=has('mindread')?.15:.3;
-    acc=clamp(acc,.2,base.king?(has('mindread')?.7:.6):.9);
-    if(o.rag) acc=(has('mindread')||gt('odin',1))?.8:.75;
+    const w18=eff('wit')>=18?.05:0;acc=clamp(acc,.2,(base.king?(has('mindread')?.7:.6):.9)+w18);
+    if(o.rag) acc=((has('mindread')||gt('odin',1))?.8:.75)+w18;
     // 老王的第二階段
     const awaken=()=>kingAwaken(el,d,res=>{
       const R=[{hp:.8,atk:1.1,acc:.8,t:'你挺直了背，迎著他的目光。他眼裡閃過一絲意外。'},{hp:.8,atk:1.2,acc:.75,t:'你的膝蓋晃了一下，但你沒有倒下。'},{hp:.8,atk:1.35,acc:.7,t:'他的威壓像一座山一樣壓下來，你差點跪了下去。'}][res];
@@ -1640,7 +1645,8 @@ function duel(key,o){
           case 'BH':toP=E*1.2;t=bt('對方的重擊砸穿了你的格擋。','牠整個撲上來，撞穿了你的格擋。');break;
           case 'BB':S.hp=Math.min(maxHp(),S.hp+2);d.hp=Math.min(d.max,d.hp+2);t=bt('雙方都在防守，繞著圈喘口氣。','你和牠互相盯著，繞著圈喘口氣。');break;
         }
-        if(pm==='H'&&toF>0&&eff('str')>=12&&d.hp<=d.max*.25){toF=d.hp;t+='一斧斬落！';}
+        if(pm==='H'&&toF>0&&eff('str')>=12&&d.hp<=d.max*(eff('str')>=18?.35:.25)){toF=d.hp;t+='一斧斬落！';}
+        if(pm==='H'&&toF>0&&eff('str')>=15&&!d.stunNext&&Math.random()<.25){d.stunNext=true;t+='這一斧震得對方站都站不穩！';}
         if(pm==='H'&&toF>0&&gt('thor',3)&&Math.random()<.3){d.stunNext=true;t+='雷聲炸響，對方被震得愣在原地！';}
         if(pm!=='B'){d.buff=1;d.pierce=false;}
         if(d.cd>0) d.cd--;
@@ -1650,7 +1656,7 @@ function duel(key,o){
       toF=Math.round(toF);
       if(o.lethal&&S.hp-toP<=0&&d.hp-toF>0){
         const hk=champ('hakon');
-        if(eff('con')>=12&&!d.stood){d.stood=true;toP=S.hp-1;t+='你咬著牙，硬是沒有倒下！';}
+        if(eff('con')>=12&&(d.stoodN||0)<(eff('con')>=18?2:1)){d.stoodN=(d.stoodN||0)+1;d.stood=true;toP=S.hp-1;t+='你咬著牙，硬是沒有倒下！';}
         else if(S.legacy==='sword'&&!d.swordUsed){d.swordUsed=true;toP=S.hp-1;t+='老王的劍在你手裡嗡嗡作響。你沒有倒下！';}
         else if(gt('tyr',3)&&!d.tyrUsed){d.tyrUsed=true;toP=S.hp-1;t+='提爾的手托住了你，你沒有倒下！';}
         else if(hk&&hk.oath&&!d.hakonUsed&&!o.hunt){d.hakonUsed=true;toP=Math.min(toP,S.hp-1);t+='哈康撲上來，替你擋下了這一擊！';}
@@ -1661,6 +1667,7 @@ function duel(key,o){
       if(d.stun){toP=0;if(pm==='H'||pm==='Q'){toF=Math.max(toF,Math.round(P));t=bt('對方還沒回過神，你結結實實地砍中了他！','牠還沒回過神，你結結實實地砍中了牠！');}else if(pm==='B')t=bt('對方還沒回過神，你卻只是舉著盾看他。','牠還沒回過神，你卻只是舉著盾看牠。');else t=bt('對方還沒回過神！','牠還沒回過神！')+t;}
       if(base.king&&d.awake)toF=Math.min(toF,Math.round(d.max*.25));
       d.hp-=toF;S.hp-=toP;
+      if(eff('con')>=15&&!d.conHeal&&S.hp>0&&S.hp<maxHp()*.4){d.conHeal=true;const h=Math.round(maxHp()*.25);S.hp+=h;t+=`你深吸一口氣，站穩了腳步（生命 +${h}）。`;}
       if('HQB'.includes(pm)){d.pc=d.pc||{};d.pc[pm]=(d.pc[pm]||0)+1;}
       if(base.king&&!d.awake&&!d.wind&&d.hp>0&&d.hp<d.max*.35){d.wind=1;const h=Math.round(d.max*.15);d.hp+=h;t+=`老王退了一步，深深吸了一口氣。他年輕時的樣子，好像又回來了。（對方 +${h}）`;}if(toF||toP)sfx(toF>=toP?'hit':'clash');
       d.hit=toF>0;d.last=em;d.lastP=pm;d.qs=em==='Q'?d.qs+1:0;
@@ -1678,7 +1685,7 @@ function duel(key,o){
       else t=r.wrong>=r.n?`${r.n} 刀的連斬，你一刀都沒擋住。`:`${r.n} 刀的連斬，有 ${r.wrong} 下你沒擋住。`;
       if(o.lethal&&S.hp-toP<=0&&d.hp-toF>0){
         const hk=champ('hakon');
-        if(eff('con')>=12&&!d.stood){d.stood=true;toP=S.hp-1;t+='你咬著牙，硬是沒有倒下！';}
+        if(eff('con')>=12&&(d.stoodN||0)<(eff('con')>=18?2:1)){d.stoodN=(d.stoodN||0)+1;d.stood=true;toP=S.hp-1;t+='你咬著牙，硬是沒有倒下！';}
         else if(gt('tyr',3)&&!d.tyrUsed){d.tyrUsed=true;toP=S.hp-1;t+='提爾的手托住了你，你沒有倒下！';}
         else if(hk&&hk.oath&&!d.hakonUsed){d.hakonUsed=true;toP=S.hp-1;t+='哈康撲上來，替你擋下了最後一刀！';}
       }
@@ -1704,7 +1711,7 @@ function duel(key,o){
       else if(g==='good'){toP=Math.max(1,Math.round(big*.4-eff('con')*.6));t='你擋下了大半，還是被餘勁掃到。';}
       else{toP=Math.max(1,Math.round(big-eff('con')*.6));t='絕招結結實實地打在你身上！';}
       if(o.lethal&&S.hp-toP<=0&&d.hp-toF>0){
-        if(eff('con')>=12&&!d.stood){d.stood=true;toP=S.hp-1;t+='你咬著牙，硬是沒有倒下！';}
+        if(eff('con')>=12&&(d.stoodN||0)<(eff('con')>=18?2:1)){d.stoodN=(d.stoodN||0)+1;d.stood=true;toP=S.hp-1;t+='你咬著牙，硬是沒有倒下！';}
         else if(S.legacy==='sword'&&!d.swordUsed){d.swordUsed=true;toP=S.hp-1;t+='老王的劍在你手裡嗡嗡作響。你沒有倒下！';}
         else if(gt('tyr',3)&&!d.tyrUsed){d.tyrUsed=true;toP=S.hp-1;t+='提爾的手托住了你，你沒有倒下！';}
         else if(o.kingGuard&&d.p2&&!d.kgUsed){d.kgUsed=true;toP=S.hp-1;t+='哈夫丹的雙斧從旁邊劈了過來，替你擋下了這一擊！';}
@@ -1998,6 +2005,7 @@ function scouted(defend){return !!S.flags.daneScout&&!!S.flags.envoy||eff('wit')
 function battle(o){
   pushModal(el=>{
     ambSet('battle');
+    if(eff('pre')>=18&&Math.random()<.3) o={...o,def:o.def*.9,intro:`${o.intro?o.intro+'\n\n':''}<span class="good">敵軍遠遠看見你的旗幟，陣腳先亂了（敵方戰力 −10%）。</span>`};
     let lead=S.hp>maxHp()*.35;
     // 小型突襲一按就結束；其他的大戰分成三個回合
     const big=!o.raid&&!/^突襲/.test(o.title);let van=null;
@@ -2080,6 +2088,7 @@ function battle(o){
       const m=fieldMix();
       if(m.fm>=15) cas*=.85;
       if(hasC('astrid')) cas*=.7;
+      if(lead&&eff('pre')>=15) cas*=.8;
       if(S.spouse==='astrid') cas*=.85;
       if(qd('astrid')&&hasC('astrid')) cas*=.9;
       if(has('shieldlord')&&(t==='hold'||t==='flank')) cas*=mastered('shieldlord')?.6:.75;
@@ -2914,6 +2923,9 @@ function actions(){
       const jc=S.champions.some(c=>c.bond>=60&&!isJarl(c)),jlands=REGIONS.some(r=>S.reg[r.id].st==='yours'&&!S.jarls[r.id])||osYours().some(o=>!S.jarls[o.id]);
       A.push({id:'jarl',name:'冊封雅爾',desc:'把一塊土地交給一位勇士鎮守。',gain:'不會叛變、收入 +50%',dis:!jc?'需要好感 60 以上、還沒受封的勇士':!jlands?'沒有可以冊封的土地':null,run:jarlModal});
       if(S.heir&&(S.heir.trait||S.heir.champ)&&!S.flags.warDone&&!(S.flags.ragna&&!S.flags.ragDone)) A.push({id:'abdicate4',name:'傳位給繼承人',desc:`把王冠交給${esc(S.heir.name)}，結束你的統治。`,gain:'結束這一局（另一種結局）',dis:P4()<10?`王位還沒坐穩（${10-P4()} 季後）`:null,run:()=>pushModal(eventModal({kind:'傳位',title:'交出王冠？',text:`你看著${esc(S.heir.name)}，想起了自己十九歲時的樣子。\n\n王冠一旦交出去，就拿不回來了。`,ch:[{t:'傳位',fx:()=>{pushLater(el=>ch4End(el,'abdicate'));return null;}},{t:'還不是時候',fx:()=>'你把王冠戴了回去。'}]}))});
+      if(S.flags.rumor&&!S.flags.envoy&&!S.flags.warDone&&!S.flags.ragna) A.push({id:'appease',name:'派使者安撫藍牙',desc:'送一船禮物去丹麥，讓藍牙暫時放心（150 銀幣）。丹麥警戒 −15，一年只能做一次。',gain:'不消耗時間',
+        dis:S.turn<(S.flags.appeaseT||0)?`使者才剛回來（還要 ${S.flags.appeaseT-S.turn} 季）`:S.silver<150?'銀幣不夠':null,
+        run:()=>{S.silver-=150;S.flags.appeaseT=S.turn+4;addAlert(-15);log('派使者帶著禮物去安撫藍牙。');note('使者回來了',`使者帶著一船的毛皮、琥珀和銀器去了耶靈。\n\n「藍牙收下了禮物，」他回來說，「還笑了。可是他笑的時候，一直在看牆上的地圖。」\n<span class="good">丹麥警戒 −15（現在 ${daneAlert()}/100）</span>`,'丹麥','harald');render();}});
       if(S.flags.rumor&&!S.flags.warDone&&!S.flags.ragna) A.push({id:'prep',name:'備戰',desc:'花大錢準備丹麥戰爭：要塞、船隊、收買雅爾、神殿、糧草。',gain:'選定之前不消耗時間',run:prepModal});
       if(!S.spouse) A.push({id:'spouse',name:'王的婚事',desc:S.flags.freyWed?'你是弗蕾亞的伴侶。要在人間另娶一個伴侶，生下繼承人嗎？':'選一個伴侶，生下繼承人。',gain:'一輩子只能決定一次',run:spouseModal});
     }else A.push({id:'gomap',key:p===3,name:'出兵',desc:p===2?'打開地圖，選一個地方突襲。':'打開地圖：突襲、征服或結盟。',gain:'選定目標前不消耗時間',run:()=>{S.tab='map';render();}});
@@ -3491,7 +3503,7 @@ function osRaid(o,m){
     if(!w){g.cd=2;return '你們被打回了船上。';}
     const pol=POLICY[S.policy];const gross=Math.round(o.loot[0]*rnd(.85,1.15)*osLootMul());const s=Math.round(gross*pol.take);const f=o.loot[1];
     S.silver+=s;S.food+=f;g.cd=4;g.def+=4;S.stats.raids++;S.lastRaid=S.turn;addFame(8);addInfamy(o.inf);addLoyalty(pol.loy);bondAll(pol.bond);
-    S.flags.osRaids=(S.flags.osRaids||0)+1;missedChamp(o);hakonFalls();addAlert(4);
+    S.flags.osRaids=(S.flags.osRaids||0)+1;missedChamp(o);hakonFalls();addAlert(2);
     if(o.dane){S.flags.hedeby=1;addAlert(30);}
     if(o.cross&&Math.random()<.6) pushLater(relicEvent(o));
     log(`突襲${o.name}，搶到 ${gross} 銀幣。`);
@@ -3510,7 +3522,7 @@ function osConquer(o,m){
   battle({title:`${o.kind==='siege'?'圍攻':'攻打'}${o.name}`,def:osDef(o)*m,intro:o.desc,cause:`死在${o.name}的城牆下`,onEnd:w=>{
     if(!w){g.cd=3;g.def+=6;return `${o.name}守住了。你們退回了船上。`;}
     hakonFalls();missedChamp(o);
-    addAlert(8);
+    addAlert(5);
     if(o.kind==='siege'){g.st='sacked';const s=Math.round(300*osLootMul()*(has('executioner')?1.5:1));S.silver+=s;addFame(40);addInfamy(15);unlock('paris');log('洗劫了巴黎。');
       return `你們從塞納河上衝進了巴黎。教堂的銀屋頂、國王的金庫，搬了整整三天。\n銀幣 +${s}，名聲 +40，惡名 +15`;}
     g.st='yours';const sp=Math.round(o.loot[0]*1.5*(has('executioner')?1.5:1));S.silver+=sp;addFame(o.kind==='kingdom'?30:12);log(`拿下了${o.name}。`);
@@ -3943,7 +3955,7 @@ function ch4Tick(){
   if(osOwns('tara'))addFame(2);if(areaOwned('eng'))addFame(1);
   for(const k in S.os){if(S.os[k].cd>0)S.os[k].cd--;}
   // 丹麥警戒度：每季都會慢慢升高，越晚升得越快
-  if(!S.flags.envoy&&!S.flags.ragna&&!(S.turn<(S.flags.mournT||0))) addAlert(1+Math.floor(t/8));
+  if(!S.flags.envoy&&!S.flags.ragna&&!(S.turn<(S.flags.mournT||0))) addAlert(1+Math.floor(t/12));
   // 叛亂：每年秋天擲一次
   if(t>0&&S.turn%4===2&&S.turn>=(S.flags.noRebelT||0)){
     const p=.06+(S.loyalty<40?.15:0)+(S.infamy>=40?.08:0);
@@ -4688,7 +4700,7 @@ function axeThrow(){
     }else{
       // 解謎型：距離 + 風 + 斧頭重量，算出要用幾分力
       const drawP=()=>{
-        const d=ri(6,10),w=pick([['長屋的門開著，有迎面吹來的風',1],['長屋的門開著，風從你背後吹過來',-1],['長屋的門關著，沒有風',0]]),ax=pick([['老哈康的重斧',1],['普通的手斧',0],['輕巧的飛斧',-1]]);
+        const d=ri(6,10),w=pick([['長屋的門開著，有迎面吹來的風',1],['長屋的門開著，風從你背後吹過來',-1],['長屋的門關著，沒有風',0]]),ax=pick([[hasC('hakon')?'老哈康的重斧':'借來的重斧',1],['普通的手斧',0],['輕巧的飛斧',-1]]);
         const ans=d+w[1]+ax[1];const opts=[ans,ans+1,ans-1,ans+2].sort(()=>Math.random()-.5);
         el.innerHTML=`<p class="eyebrow">長屋之夜 · 擲斧</p><h2>第 ${n+1} / 3 斧</h2>
         <p class="hint">靶在 <b>${d}</b> 步外。${w[0]}；你手上拿的是${ax[0]}。<small>靶多遠就用幾分力。不過風向和斧頭的輕重，都會讓需要的力氣多一點或少一點。</small></p>
@@ -4801,18 +4813,30 @@ function portrait(o={}){
 }
 
 /* ================= 畫面 ================= */
-const CTABS=[['me','能力'],['tal','天賦'],['champ','勇士'],['gods','眾神'],['set','設定']];
+const CTABS=[['me','能力'],['tal','天賦'],['champ','勇士'],['fam','家人'],['gods','眾神'],['set','設定']];
+function famHTML(){
+  const k=S.spouse,sp=k&&SPOUSES[k];let h='<div class="sec-h">家人</div>';
+  if(S.flags.freyWed) h+=`<div class="famcard">${hasArt('freyja')?avatar('freyja','big'):''}<b>弗蕾亞</b><small>愛與戰爭的女神 · 你在神的國度的伴侶</small></div>`;
+  if(sp){const yrs=Math.floor((S.turn-(S.flags.marT??S.turn))/4);
+    h+=`<div class="famcard">${hasArt(k)?avatar(k,'big'):''}<b>${sp.name}</b><small>${sp.who||'和你並肩作戰的勇士'} · 成婚${yrs<1?'還不到一年':` ${yrs} 年`}</small>
+      <p>${sp.desc}</p><p><i>平時</i>${sp.fx}</p>
+      ${S.flags.rumor&&SPOUSE_WAR[k]?`<p><i>丹麥人打來時</i>${SPOUSE_WAR[k][0]}</p>`:''}${S.flags.ragna&&SPOUSE_RAG[k]?`<p><i>諸神黃昏</i>${SPOUSE_RAG[k]}</p>`:''}</div>`;}
+  else if(!S.flags.freyWed) h+='<div class="list"><small>你還沒有成家。</small></div>';
+  if(S.heir){const hy=Math.floor((S.turn-S.heir.born)/4),tr=S.heir.trait&&HEIR_TRAIT[S.heir.trait];
+    h+=`<div class="famcard"><b>繼承人：${esc(S.heir.name)}</b><small>${hy} 歲${tr?` · ${tr.name}`:''}</small>${tr?`<p>${tr.line}。</p>`:'<p>還小，還看不出將來會是什麼樣的人。</p>'}</div>`;}
+  return h;
+}
 function charHTML(){
   const bg=BGS.find(b=>b.id===S.bg);
   const title=S.won||S.phase>=4?'挪威之王':['','孤身闖蕩','部落首領','挪威的挑戰者'][S.phase];
   const tierI=infTier(),tier=INF_TIER[tierI];
   const ct=S.ctab||'me';
   const dot={me:S.pts>0,tal:S.talentPicks>0};
-  const tabs=`<div class="ctabs" role="tablist">${CTABS.map(([k,n])=>`<button role="tab" data-ct="${k}" aria-selected="${ct===k}">${n}${dot[k]?'<span class="dot"></span>':''}</button>`).join('')}</div>`;
+  const tabs=`<div class="ctabs" role="tablist">${CTABS.filter(([k])=>k!=='fam'||S.phase>=4||S.spouse||S.heir).map(([k,n])=>`<button role="tab" data-ct="${k}" aria-selected="${ct===k}">${n}${dot[k]?'<span class="dot"></span>':''}</button>`).join('')}</div>`;
   let body='';
   if(ct==='me') body=`
   <div class="stats">${Object.keys(STAT).map(k=>`<div class="stat"><span class="r">${STAT_RUNE[k]}</span><div>${STAT[k]}<small>${STAT_DESC[k]}</small>
-    ${[6,9,12].map(t=>`<span class="mile ${S.st[k]>=t?'on':''}">${t}：${S.st[k]>=t?MILES[k][t]:'？？？'}</span>`).join('')}</div>
+    ${[6,9,12,15,18].map(t=>`<span class="mile ${S.st[k]>=t?'on':''}">${t}：${S.st[k]>=t?MILES[k][t]:'？？？'}</span>`).join('')}</div>
     <span class="v ${S.wounded?'low':''}">${eff(k)}</span>
     ${S.pts>0?`<button class="plus" data-s="${k}" aria-label="提升${STAT[k]}">+</button>`:'<span></span>'}</div>`).join('')}</div>
   <div class="sec-h">祈福 · 倒下時能再站起來的次數</div>
@@ -4826,6 +4850,7 @@ function charHTML(){
   ${S.talents.some(t=>TALENTS[t].old)?`<div class="list">${S.talents.filter(t=>TALENTS[t].old).map(t=>`<div><b>${TALENTS[t].name}（舊版）</b><small>${TALENTS[t].desc}</small></div>`).join('')}</div>`:''}`;
   else if(ct==='champ') body=S.champions.length?`<div class="sec-h">勇士 · ${S.champions.length}</div><div class="list">${S.champions.map(c=>`<div class="${hasArt(c.id)?'withav':''}">${avatar(c.id)}<b>${CHAMPS[c.id].name}<span class="bond" title="好感 ${c.bond}"><i style="width:${c.bond}%"></i></span> <small style="display:inline">好感 ${c.bond}${c.oath?' · 已立誓':c.bond>=60?' · 可當代理人':''}${c.skill?` · 戰技 ${c.skill}`:''}</small></b><small>${champAb(c.id)} · 戰力 +${champPow(c)}${c.bond>=60?'（好感加成）':''}</small></div>`).join('')}</div>
   ${relHTML()}<div class="list"><small>好感 60：戰力 ×1.5、能當決鬥代理人，也可能找你幫忙完成心願。好感 80：立下誓約，教你一招。</small></div>`:'<div class="list"><small>還沒有勇士跟隨你。名聲越響，越多人會來投靠。</small></div>';
+  else if(ct==='fam') body=famHTML();
   else if(ct==='gods') body=S.phase>=2||Object.values(S.favor||{}).some(v=>v>0)?godsHTML():'<div class="list"><small>眾神還沒有注意到你。</small></div>';
   else body=`<div class="sec-h">設定</div>
   <div class="seg"><span>音效</span><button data-set="sound" data-v="1" aria-pressed="${soundOn()}">開</button><button data-set="sound" data-v="0" aria-pressed="${!soundOn()}">關</button></div>
