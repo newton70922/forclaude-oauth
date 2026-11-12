@@ -1053,7 +1053,7 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
 const ART_HAVE=new Set(['c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news']);
-const CHAMP_ART={halfdan2:'v_halfdan2',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
+const CHAMP_ART={halfdan2:'v_halfdan2',halfdan2a:'v_halfdan2a',halfdan2c:'v_halfdan2c',halfdan3:'v_halfdan3',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
 const artKey=id=>CHAMP_ART[id]||id;
@@ -1310,11 +1310,18 @@ function readyPage(el,head,rules,go,noCount){
   $('#rd-ok').focus();
   $('#rd-ok').onclick=()=>{if(noCount){go();return;}let n=3;const tick=()=>{if(n===0){go();return;}el.innerHTML=head+`<p class="cine-big" style="font-size:56px;margin:40px 0">${n}</p>`;sfx('drum');n--;setTimeout(tick,650);};tick();};
 }
+// 老王的三個型態：阻止他的小遊戲每失敗一步，就多覺醒一層
+const KING_FORM=[{art:['halfdan2a','halfdan2'],name:'覺醒的老王哈夫丹'},{art:['halfdan2'],name:'覺醒的老王哈夫丹・第二型態',txt:'你沒能攔住。\n\n他的力量又漲了一截，王廳裡的火把，全都朝他偏了過去。'},
+  {art:['halfdan2c','halfdan2'],name:'完全覺醒的老王哈夫丹',txt:'你還是沒能攔住。\n\n他甩開肩上的毛皮，白髮被一陣看不見的風吹了起來。現在站在你面前的，是三十年前統一挪威的那個人。'}];
+const kingFormPage=(el,n,next)=>cineView(el,[{art:KING_FORM[n].art,text:KING_FORM[n].txt,shake:1}],next,'生死單挑 · 王者覺醒');
 function kingAwaken(el,d,done){
   const [l1,l2]=pick(KING_LINES),art=hasArt('halfdan2')?'halfdan2':'halfdan';
-  cineView(el,[
+  cineView(el,d.retry?[
+    {art:['halfdan'],text:'老王哈夫丹坐在王座上，看著你走進來。\n\n「又是你。」\n\n他站了起來，劍一直握在手裡，沒有收回鞘裡過。',btn:'……'},
+    {art:KING_FORM[0].art,text:'「這一次，我不陪你熱身了。」',big:1,shake:1,btn:'迎戰'},
+  ]:[
     {art:['sc_k_rise','halfdan'],text:`老王哈夫丹倒在地上。你以為一切都結束了。\n\n然後，他用劍撐著地，一點一點站了起來。王廳裡的火把，全都暗了一下。\n\n他低低地冷笑了一聲：\n「${l1}」`,btn:'……'},
-    {art:[art],text:`「${l2}」`,big:1,shake:1,btn:'迎戰'},
+    {art:KING_FORM[0].art,text:`「${l2}」`,big:1,shake:1,btn:'迎戰'},
   ],()=>kingAwakenGame(el,d,done),'生死單挑 · 王者覺醒');
 }
 function kingAwakenGame(el,d,done){
@@ -1331,14 +1338,15 @@ function kingAwakenGame(el,d,done){
     $('#kw-b').onclick=push;mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();push();}};
     const tk=t=>{if(over)return;if(!t0){t0=t;last=t;}const dt=t-last;last=t;v=Math.max(0,v-dt*(.02+(t-t0)/T*.015)*(S.relaxed?.75:1));if(v>=zone[0]&&v<=zone[1])inT+=dt;
       const n=$('#kw-n');if(n)n.style.left=v+'%';const bar=$('#kw-t');if(bar)bar.style.width=Math.max(0,100-(t-t0)/T*100)+'%';
-      if(t-t0>=T){over=true;mgKey=null;const f=inT/T;done(f>=.7?0:f>=.4?1:2);return;}raf=requestAnimationFrame(tk);};
+      if(t-t0>=T){over=true;mgKey=null;const f=inT/T,r=f>=.7?0:f>=.4?1:2;if(!r)done(0);else kingFormPage(el,1,()=>r===1?done(1):kingFormPage(el,2,()=>done(2)));return;}raf=requestAnimationFrame(tk);};
     raf=requestAnimationFrame(tk);
     });
   }else{
     // 解謎型：兩次看穿（有假動作），最後用守護神的符文封住他
     const g=Object.keys(GODS).filter(k=>gt(k,1)).sort((a,b)=>(S.favor[b]||0)-(S.favor[a]||0))[0];
     const keys=Object.keys(KING_PARTS).sort(()=>Math.random()-.5);let i=0,ok=0;const L=[];
-    const fin=()=>done(ok===3?0:ok===2?1:2);
+    let fails=0;const fin=()=>done(Math.min(2,fails));
+    const failStep=next=>{fails++;if(fails<=2)kingFormPage(el,fails,next);else next();};
     const drawP=()=>{
       if(i>=2){seal();return;}
       const k=keys[i],fk=keys[i+2];
@@ -1348,7 +1356,7 @@ function kingAwakenGame(el,d,done){
       <ol class="dlog">${L.slice(-3).reverse().map(l=>`<li>${l}</li>`).join('')}</ol>`;
       el.querySelectorAll('[data-kp]').forEach(b=>b.onclick=()=>{const pk=b.dataset.kp;
         if(pk===k){ok++;L.push(`<span class="good">${KING_PARTS[k].stop}</span>`);sfx('hit');}
-        else L.push(`<span class="bad">${pk===fk?'你上當了，那是他故意做給你看的。':'你看錯了。'}力量真正湧向的是${KING_PARTS[k].name}。</span>`),sfx('bad');
+        else{L.push(`<span class="bad">${pk===fk?'你上當了，那是他故意做給你看的。':'你看錯了。'}力量真正湧向的是${KING_PARTS[k].name}。</span>`);sfx('bad');failStep(()=>{i++;drawP();});return;}
         i++;drawP();});
     };
     // 第三步：滑塊拼圖，把符文拼回原位，封住他的力量
@@ -1364,7 +1372,7 @@ function kingAwakenGame(el,d,done){
         <ol class="dlog">${L.slice(-3).reverse().map(l=>`<li>${l}</li>`).join('')}</ol>`;
         el.querySelectorAll('[data-sl]').forEach(btn=>btn.onclick=()=>{const j=+btn.dataset.sl;if(!nb(hole).includes(j))return;b[hole]=b[j];b[j]=null;hole=j;moves++;sfx('drum');
           if(b.every((v,x)=>v===goal[x])){ok++;L.push('<span class="good">符文合上的那一刻，一道光從他胸口炸開。他踉蹌了一步。</span>');setTimeout(fin,600);drawS('封印完成！');return;}
-          if(moves>=limit){L.push('<span class="bad">符文還沒拼完，封印就碎了。</span>');fin();return;}drawS();});
+          if(moves>=limit){L.push('<span class="bad">符文還沒拼完，封印就碎了。</span>');failStep(fin);return;}drawS();});
       };
       drawS();
     };
@@ -1555,7 +1563,7 @@ function duel(key,o){
     const fs=foeStats(key,o.mul);const base=fs.base;
     const d={name:base.name,max:fs.max,atk:fs.atk*(o.hunt&&has('huntsman')?1:1),buff:1,cd:0,log:[],over:false,qs:0,last:null,lastP:null,hit:false,pierce:false,stood:false,rage:0,rageUsed:false,feintUsed:false,feintNext:false,hakonUsed:false};
     d.hp=d.max;
-    if(o.awakeStart&&base.king){d.hp=1;d.awaking=true;}
+    if(o.awakeStart&&base.king){d.hp=1;d.awaking=true;d.retry=!!o.retry;}
     if(o.preHit){d.hp=Math.round(d.hp*(1-o.preHit));}
     let acc=.4+(frameIs('raven')?.05:0)+eff('wit')*.06+(has('mindread')?(mastered('mindread')?.3:.2):0)+(gt('odin',1)?.05:0);
     if(base.king) acc-=has('mindread')?.15:.3;
@@ -1564,8 +1572,8 @@ function duel(key,o){
     // 老王的第二階段
     const awaken=()=>kingAwaken(el,d,res=>{
       const R=[{hp:.8,atk:1.1,acc:.8,t:'你挺直了背，迎著他的目光。他眼裡閃過一絲意外。'},{hp:.8,atk:1.2,acc:.75,t:'你的膝蓋晃了一下，但你沒有倒下。'},{hp:.8,atk:1.35,acc:.7,t:'他的威壓像一座山一樣壓下來，你差點跪了下去。'}][res];
-      d.awaking=false;d.awake=true;d.hp=Math.round(d.max*R.hp);d.cmbLen=S.mini==='react'?[[8,10,12],[8,10,12],[10,12,12]][res]:[[5,6,7],[5,6,7],[6,7,7]][res];d.cmbI=0;d.aTurn=0;d.atk*=R.atk;acc=Math.max(acc,R.acc);
-      d.name='覺醒的老王哈夫丹';
+      d.awaking=false;d.awake=true;d.form=res;d.hp=Math.round(d.max*(d.retry?1:R.hp));d.cmbLen=S.mini==='react'?[[8,10,12],[8,10,12],[10,12,12]][res]:[[5,6,7],[5,6,7],[6,7,7]][res];d.cmbI=0;d.aTurn=0;d.atk*=R.atk;acc=Math.max(acc,R.acc);
+      d.name=KING_FORM[res].name;
       d.log.unshift(`${R.t}<b style="color:var(--ember)">老王的攻擊變猛了。但他太驕傲了，不再隱藏自己的招式。</b>`);
       choose();draw();});
     const flinch=clamp(.25+eff('pre')*.05+(eff('pre')>=6?.1:0)+(has('warcry')?.15:0),.25,.9);
@@ -1585,7 +1593,7 @@ function duel(key,o){
       if(d.comboDue&&!d.over){d.comboDue=false;kingCombo(el,d,afterCombo);return;}
       if(d.p2due){d.p2due=false;finalAwaken();return;}
       if(d.sigDue&&!d.over){d.sigDue=false;runSig();return;}
-      const fa=d.awake&&hasArt('halfdan2')?'halfdan2':FOE_ART[key];
+      const fa=d.awake?(KING_FORM[d.form||0].art.find(hasArt)||FOE_ART[key]):FOE_ART[key];
       el.innerHTML=`<p class="eyebrow">${o.lethal?'生死單挑':'比武 · 點到為止'}</p><h2>${esc(S.name)} 對 ${d.name}</h2>
       ${fa&&hasArt(fa)?avatar(fa,'big'):''}${o.intro&&!d.log.length?`<p class="story">${o.intro}</p>`:''}
       <div class="fighters">
@@ -3148,14 +3156,16 @@ function takeSeat(r,how){
   return `<span class="good">${r.name}歸你了。${sp?`金庫裡的銀幣 +${sp}，`:''}名聲 +15，忠誠 +5</span>${r.perk?`\n特產：${r.perk}`:''}`;
 }
 function winterDuels(){
+  if(S.flags.kingLost){kingDuel('');return;}
   duel('wilfred',{lethal:true,xp:40,intro:'御衛長托爾格擋在王廳門口，身後是老王的王座。',cause:'死在維斯特福爾王廳的門口',onEnd:w=>{
     if(!w){log('倒在王廳門口。');return '你的戰士把你拖了出去，攻城失敗了。';}
     kingDuel('托爾格倒下了。王廳深處，有人站了起來。');
     return '托爾格倒下了。王廳深處，有人站了起來。';}});
 }
 function kingDuel(intro){
-  duel('king',{lethal:true,xp:50,intro:'老王哈夫丹從王座上站起來，拔出了一把比你年紀還老的劍。\n「我年輕時，也像你一樣。」\n\n你沒有時間喘口氣。',cause:'死在老王哈夫丹的劍下',onEnd:w2=>{
-    if(!w2){log('倒在老王的劍下。');return '你的戰士把你拖了出去，攻城失敗了。';}
+  const again=!!S.flags.kingLost;
+  duel('king',{lethal:true,xp:50,awakeStart:again,retry:again,intro:again?'御衛長的位置空著。王廳深處，老王哈夫丹已經在等你了。':'老王哈夫丹從王座上站起來，拔出了一把比你年紀還老的劍。\n「我年輕時，也像你一樣。」\n\n你沒有時間喘口氣。',cause:'死在老王哈夫丹的劍下',onEnd:w2=>{
+    if(!w2){S.flags.kingLost=(S.flags.kingLost||0)+1;log('倒在老王的劍下。');return '你的戰士把你拖了出去，攻城失敗了。';}
     unlock('king_awake');
     pushModal(kingFall);
     return '老王的劍，掉在了石板上。';}});
@@ -4972,7 +4982,7 @@ document.addEventListener('keydown',e=>{
 });
 
 /* ================= 回憶畫廊 ================= */
-const GAL_NAME={v_halfdan:'老王哈夫丹',v_halfdan2:'覺醒的老王',v_halfdan3:'重生的老王',v_harald:'「藍牙」哈拉爾',v_palna:'帕爾納托基',g_hnoss:'赫諾絲',
+const GAL_NAME={v_halfdan:'老王哈夫丹',v_halfdan2a:'覺醒的老王（第一型態）',v_halfdan2c:'完全覺醒的老王',v_halfdan2:'覺醒的老王（第二型態）',v_halfdan3:'重生的老王',v_harald:'「藍牙」哈拉爾',v_palna:'帕爾納托基',g_hnoss:'赫諾絲',
   sc_ch1:'第一章　孤身闖蕩',sc_ch2:'第二章　插旗之地',sc_ch3:'第三章　群雄並起',sc_ch4:'第四章　王的歲月',sc_coronation:'加冕',sc_coronation_self:'自己戴上王冠',sc_danes:'丹麥大軍',sc_longhouse:'長屋之夜',
   sc_ragnarok:'諸神黃昏',sc_tears:'弗蕾亞的眼淚',sc_valhalla:'瓦爾哈拉',sc_kiss_m:'弗蕾亞之吻',sc_kiss_f:'弗蕾亞之吻',sc_einherjar:'英靈助戰',sc_ragfall:'倒在諸神黃昏',
   sc_ragfall_odin:'與奧丁同眠',sc_ragfall_thor:'與索爾同眠',sc_ragfall_tyr:'與提爾同眠',sc_ragfall_freyja:'與弗蕾亞同眠',sc_ragfall_loki:'洛基的道別',sc_ragfall_none:'只有風聲',
