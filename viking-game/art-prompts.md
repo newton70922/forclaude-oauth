@@ -186,7 +186,7 @@ Outside the gates of Paris: a line of Frankish ox-carts loaded with chests of si
 
 ## ★ v0.8 第二批：老王的晚年與諸神黃昏（11 張）
 
-**這一輪要畫的（第二輪）**：#6、#7、#8、#8b、#9 照新的提示詞重畫；#10 v_halfdan3 還沒畫。重畫的重點：
+**目前還缺的**：#8b sc_k_advance（巨人要明顯在**往後退**）、#10 v_halfdan3。第二輪收到的 5 張已放進遊戲：#6、#7、#8、#9，另外一張「老王背對鏡頭、巨人正衝過來」改名為 sc_k_line，用在「巨人衝了過來」那一頁。重畫的重點：
 - 鏡頭拉遠，老王在畫面裡要小，重點是兩軍的規模。
 - 彩虹橋是英靈戰士走下來的那座「光之橋」，不是天上另外一道彩虹。
 - 所有人的視線方向要對：我方看向橋、巨人看向我方或老王。
@@ -203,11 +203,12 @@ Outside the gates of Paris: a line of Frankish ox-carts loaded with chests of si
 | 3 | sc_k_ship | 船葬 （✅ 已收到）| 後事：船葬 | 16:9 |
 | 4 | sc_k_mound | 立塚刻碑 （✅ 已收到）| 後事：立塚刻碑 | 16:9 |
 | 5 | sc_k_guard | 親衛隊抬棺 （✅ 已收到）| 後事：親衛隊抬棺 | 16:9 |
-| 6 | sc_k_bifrost | 彩虹橋：兩軍對峙，老王率英靈騎兵從橋上下來（重畫） | 諸神黃昏：老王歸來 | 16:9 |
-| 7 | sc_k_charge | 拉遠：英靈騎兵楔形衝進巨人大軍（重畫） | 諸神黃昏：沒有覺醒 | 16:9 |
-| 8 | sc_k_axes | 峽口畫線：老王一人擋住巨人大軍（重畫） | 諸神黃昏：達標（畫線擋敵） | 16:9 |
-| 8b | sc_k_advance | 俯視：老王走向後退的巨人大軍（重畫） | 諸神黃昏：達標（最後一頁） | 16:9 |
-| 9 | sc_k_gods | 處決版：老王走過你身邊，去見奧丁（重畫） | 諸神黃昏：處決過老王 | 16:9 |
+| 6 | sc_k_bifrost | 彩虹橋：兩軍對峙，老王率英靈騎兵從橋上下來 （✅ 已收到）| 諸神黃昏：老王歸來 | 16:9 |
+| 7 | sc_k_charge | 拉遠：英靈騎兵楔形衝進巨人大軍 （✅ 已收到）| 諸神黃昏：沒有覺醒 | 16:9 |
+| 8 | sc_k_axes | 峽口畫線：老王一人擋住巨人大軍 （✅ 已收到）|
+| 8a | sc_k_line | 老王背對鏡頭，巨人正衝向那條線 （✅ 已收到，原本當 8b 畫的那張）| 諸神黃昏：達標（巨人衝過來） | 16:9 | 諸神黃昏：達標（畫線擋敵） | 16:9 |
+| 8b | sc_k_advance | 俯視：老王走向後退的巨人大軍（還缺：上一張的巨人看起來是往前衝，不是後退） | 諸神黃昏：達標（最後一頁） | 16:9 |
+| 9 | sc_k_gods | 處決版：老王走過你身邊，去見奧丁 （✅ 已收到）| 諸神黃昏：處決過老王 | 16:9 |
 | 10 | v_halfdan3 | 重生的老王：雙斧（人物） | 諸神黃昏：覺醒 | 3:4 |
 
 ### 1. sc_k_news（使者帶來死訊）
@@ -270,7 +271,7 @@ WIDE SHOT FROM SLIGHTLY ABOVE. The Ragnarök battlefield: an endless frozen plai
 
 ```
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-HIGH-ANGLE, SLIGHTLY TOP-DOWN VIEW FROM BEHIND AND ABOVE. The Ragnarök battlefield: an endless frozen plain under a burning red sky. Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle), reborn as a glowing einherjar warrior with a faint golden aura is seen ENTIRELY FROM BEHIND — his back, head, arms, legs and feet ALL face away from the viewer — walking calmly forward across a line carved in the ice, holding two magnificent long-hafted Dane axes, one in each hand (each haft reaches his shoulder, each bearded blade is as big as a man's head — weapons that need two hands for a normal man; blades engraved with crown motifs, runes glowing ice-blue, hafts wrapped in iron chain from his old throne, a short length of chain hanging from each haft's end) low at his sides, blood dripping from the blades. Ahead of him, a vast horde of frost giants, ALL of them facing toward him, is stepping BACKWARD in fear, shields raised. Behind him, following in silence, a column of glowing golden einherjar warriors he brought down from Bifröst. Slain giants lie heaped along the line on both sides of his path. The king is small in the frame; the retreating giant horde is the point. Calm, inevitable, awe-inspiring.
+HIGH-ANGLE, SLIGHTLY TOP-DOWN VIEW FROM BEHIND AND ABOVE. The Ragnarök battlefield: an endless frozen plain under a burning red sky. Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle), reborn as a glowing einherjar warrior with a faint golden aura is seen ENTIRELY FROM BEHIND — his back, head, arms, legs and feet ALL face away from the viewer — walking calmly forward across a line carved in the ice, holding two magnificent long-hafted Dane axes, one in each hand (each haft reaches his shoulder, each bearded blade is as big as a man's head — weapons that need two hands for a normal man; blades engraved with crown motifs, runes glowing ice-blue, hafts wrapped in iron chain from his old throne, a short length of chain hanging from each haft's end) low at his sides, blood dripping from the blades. Ahead of him, a vast horde of frost giants, ALL of them facing toward him, is RETREATING in fear: leaning back, stumbling backward, heels digging into the snow, some turning to flee, shields raised defensively, mouths closed, eyes wide with dread; a wide empty gap of untouched snow opens between the king and the nearest giants, and it keeps growing. NOT charging, NOT running toward him. Behind him, following in silence, a column of glowing golden einherjar warriors he brought down from Bifröst. Slain giants lie heaped along the line on both sides of his path. The king is small in the frame; the retreating giant horde is the point. Calm, inevitable, awe-inspiring.
 ```
 
 ### 9. sc_k_gods（處決版：老王走過你身邊，去見奧丁）
