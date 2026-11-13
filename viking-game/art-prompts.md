@@ -10,6 +10,37 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
+## ★ v0.11 劇情補圖（3 張）
+
+劇情已經做進遊戲了，圖到之前會先用頭像或純文字代替。
+
+| # | 檔名 | 內容 | 比例 | 出現的地方 |
+|---|---|---|---|---|
+| 1 | c_thorstein | 第一個同伴：灰鬍子托爾斯坦 | 3:4 | 第一次招募同伴時的加入場景 |
+| 2 | sc_q_astrid | 阿斯特麗德把父親的盾牌碎片放在你面前 | 16:9 | 阿斯特麗德的心事「父親的仇人」開頭 |
+| 3 | sc_q_sigrid | 西格麗德打贏後，老雅爾父親抱住她 | 16:9 | 西格麗德的心事「父親的官司」打贏之後 |
+
+**1. c_thorstein（灰鬍子托爾斯坦）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic warm golden-hour rim light with cold blue shadows. Highly detailed fur, wool, leather, iron, silver and braided hair. Gritty, grounded, believable faces. Vertical 3:4 portrait, chest-up, the character looking toward the viewer. No text, no letters, no watermark, no frame, no modern objects.
+Thorstein, a veteran Viking oarsman in his late fifties: a broad, heavy-shouldered man with a long grey beard in two thick braids, weathered sun-and-salt skin, deep crow's feet, a broken nose, huge calloused hands resting on the haft of an old notched bearded axe. Plain undyed wool tunic, a worn sealskin vest, a faded red-and-black arm ring from a royal ship he once rowed on. Sitting in a dim smoky tavern corner, a horn cup on the table in front of him. Calm, watchful, quietly amused eyes; a man who has seen everything and is hard to impress. Not a king, not a warlord: an old sailor with dignity.
+```
+
+**2. sc_q_astrid（盾牌碎片）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Inside a Viking longhouse at night, firelight. The shieldmaiden Astrid (late twenties, long thick blonde braid over one shoulder, sides of the head shaved with small braids, chainmail and leather vest, a thin scar across one eyebrow) stands at a rough wooden table and places a broken, battered piece of an old round shield on it — weathered paint, a different faded sigil from her own raven shield, splintered edges, an old axe cut. Across the table, a Viking leader seen from behind (face hidden, fur cloak, could be a man or a woman). Astrid's face is hard and quiet, holding back grief and anger. Her own raven shield leans against the bench behind her.
+```
+
+**3. sc_q_sigrid（父親的擁抱）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+An outdoor Viking law assembly (thing) on a grey windy day, a tall standing law stone in the middle, a silent crowd of farmers and warriors in a wide ring. In the foreground, the young shieldmaiden Sigrid (around twenty, dark blonde thick braid, richly painted round shield with her father's sigil, fine chainmail, blue wool cloak) has just won a duel: her elderly jarl father, white-haired and frail, leaning on a walking stick, embraces her tightly; her shield hangs loose from her arm, her eyes closed. Behind them, a defeated one-eyed old duelist sits on the ground, alive, his sword dropped. Emotional, quiet, proud.
+```
+
 ## ★ v0.10 劇情擴充（16 張）
 
 這一批是配合「老王三型態、丹麥戰前會議、海外三大戰役」的新劇情，劇情已經做進遊戲了。圖還沒到之前，遊戲會先用現有的圖或純文字代替。建議的生成順序是 A → B → C。

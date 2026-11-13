@@ -657,6 +657,7 @@ const FOES={
   ragnar:{name:'狂戰士拉格納',hp:72,atk:16,w:[.6,.25,.15],hab:'rage',tip:'血越少越瘋，幾乎只剩重劈。'},
   holm:{name:'雅爾的決鬥者',hp:56,atk:13.5,w:[.4,.3,.3],tip:'按規矩打，重擊和快攻各半。'},
   holmY:{name:'少年托瓦爾德',hp:46,atk:12,w:[.25,.5,.25],hab:'chain',tip:'年輕氣盛，快攻之後喜歡連著再快攻。'},
+  onund:{name:'獨臂奧諾德',hp:62,atk:13,w:[.3,.2,.5],hab:'guard',tip:'只剩一隻手，卻把盾牌用得比誰都狠。你一舉盾，他就會用力砸下來。'},
   holmV:{name:'老決鬥者烏爾夫',hp:62,atk:13,w:[.3,.2,.5],hab:'guard',tip:'打過四十場霍姆岡。你一舉盾，他就會用力砸下來。'},
   holmB:{name:'「鐵甲」比約恩',hp:64,atk:15.5,w:[.55,.3,.15],hab:'rage',tip:'咬著盾牌邊緣上場，一受傷就只會重劈。'},
   holmS:{name:'盾女西格麗德',hp:56,atk:13.5,w:[.2,.3,.5],hab:'astrid',tip:'舉盾之後，總是接一記快攻。'},
@@ -2254,7 +2255,8 @@ const EPITHETS=[
   [()=>gt('odin',3),'渡鴉',()=>'奧丁的渡鴉一直跟著你的船'],
   [()=>gt('loki',3),'狐狸',()=>'連洛基都覺得你很有趣'],
   [()=>gt('tyr',3),'公正',()=>'你在法石前立下的誓言，一次都沒破過'],
-  [()=>S.flags.abdicated,'不流血者',()=>'你沒動一刀一劍，就讓老王摘下了王冠'],
+  [()=>S.flags.abdicated&&!S.flags.hallWar,'不流血者',()=>'你沒動一刀一劍，就讓老王摘下了王冠'],
+  [()=>S.flags.abdicated&&S.flags.hallWar,'先刀後禮者',()=>'你先帶著刀劍去，再帶著旗幟去，老王才摘下了王冠'],
   [()=>allies()>=2,'結盟者',()=>'你用盟約把挪威綁在了一起'],
   [()=>age()>=55,'白髮',()=>'你活得比大多數維京人都久'],
   [()=>S.won&&!S.stats.revived,'無瑕',()=>'你一次都沒有倒下'],
@@ -2281,7 +2283,9 @@ function verdicts(){
   if(rf.includes('斧下')) V.push(['赫羅爾夫的老母親',`「${P}殺了我兒子。」她沒有哭，「可是，是我兒子先笑${P}的。」`]);
   else if(rf.includes('效忠')) V.push(['赫羅爾夫',`「我說${P}一輩子${ORI().q}。」他灌了一口酒，「這句話，我收回了一輩子。」`]);
   else if(S.phase===1) V.push(['赫羅爾夫','「我早就說過了。」赫羅爾夫說完這句話，卻一整晚沒再開口。']);
-  else if(won) V.push(['老王哈夫丹',S.flags.abdicated?`「把王冠交給${P}，是我這輩子做過最聰明的事。」`:`「挪威需要一個年輕的王。我只是沒想到，是這麼凶的一個。」`]);
+  else if(won&&S.flags.kingFate==='dead') V.push(['王廳的老侍從',`「老王把劍推到${P}腳邊的那一刻，我就知道結局了。」他停了一下，「${P}本來可以不用那樣做的。」`]);
+  else if(won&&S.flags.kingDead) V.push(['農莊的老牧人',`「老王走以前，常常坐在門口，往王廳的方向看。」他說，「他說，${P}比他想的還要好。」`]);
+  else if(won) V.push(['老王哈夫丹',S.flags.abdicated?(S.flags.hallWar?`「${P}第一次來，帶著刀；第二次來，帶著旗。」他笑了笑，「我喜歡第二次的${P}。」`:`「把王冠交給${P}，是我這輩子做過最聰明的事。」`):`「挪威需要一個年輕的王。我只是沒想到，是這麼凶的一個。」`]);
   else if(S.phase>=4&&!won) V.push(['一位雅爾',`「${P}當過王。這一點，誰也拿不走。」`]);
   else if(old) V.push(['一位雅爾',`「${P}終於走了。」他舉起角杯，又放下，「峽灣以後會安靜很多。」`]);
   else V.push(['一位雅爾',`「${P}要是再多活幾年，我們今天就得向${P}下跪了。」`]);
@@ -3068,7 +3072,7 @@ function mateJoin(){
   const dk={yield:'「碼頭那天，我看見了。」他說，「雅爾的兒子踢翻你的箱子，你彎腰撿了起來。」\n\n「年輕人大多會拔斧頭。拔了，就死在那裡。」',
     win:'「碼頭那天，我看見了。你把雅爾的兒子打趴在地上。」他搖搖頭，「那小子會回來找你的。你需要一個替你看著背後的人。」',
     lose:'「碼頭那天，我看見了。你打輸了。」他頓了一下，「可是你敢動手。」'}[S.flags.dock]||'「我聽說過你。」他抬起頭，「那個說要當國王的年輕人。」';
-  pushModal(eventModal({kind:'同伴',title:'灰鬍子托爾斯坦',text:`酒館角落坐著一個灰鬍子的老槳手，兩隻手掌上全是老繭。大家都叫他<em>托爾斯坦</em>。據說他年輕時在老王哈夫丹的船上划過槳，打過的仗比這間酒館裡所有人加起來都多。\n\n你把 12 枚銀幣放在他面前。他沒有碰。\n\n${dk}\n\n他把銀幣推回給你：「我替一個王划過槳。再替一個，也無妨。」\n\n「不過我有一條規矩：搶可以，燒可以。孩子不行。」`,
+  pushModal(eventModal({kind:'同伴',art:'c_thorstein',title:'灰鬍子托爾斯坦',text:`酒館角落坐著一個灰鬍子的老槳手，兩隻手掌上全是老繭。大家都叫他<em>托爾斯坦</em>。據說他年輕時在老王哈夫丹的船上划過槳，打過的仗比這間酒館裡所有人加起來都多。\n\n你把 12 枚銀幣放在他面前。他沒有碰。\n\n${dk}\n\n他把銀幣推回給你：「我替一個王划過槳。再替一個，也無妨。」\n\n「不過我有一條規矩：搶可以，燒可以。孩子不行。」`,
     ch:[{t:'「成交。」',fx:()=>{return '托爾斯坦站起來，比你高了半個頭。他拍了拍你的肩膀，力氣大得讓你晃了一下。\n\n<span class="good">托爾斯坦成了你的第一個同伴。他沒收你的錢。</span>';}}]}));
   S.flags.mate=1;S.men++;log('灰鬍子托爾斯坦成了你的第一個同伴。');passTime();
 }
@@ -3152,6 +3156,29 @@ const abdicateChance=()=>Math.min(.6,(fameTier()>=3?.05:0)+(qd('osric')?.1:0)+.0
 const scareChance=()=>clamp(.25+eff('pre')*.02+(S.infamy>=80?.15:0)+(gt('loki',2)?.1:0),.05,.8);
 const estOf=v=>scouted()?`${Math.round(v)}`:`${Math.round(v*.85)}–${Math.round(v*1.15)}`;
 const estTxt=r=>estOf(rdef(r));
+function rDesc(r){
+  const st=S.reg[r.id].st,f=S.flags,rf=S.rival.fate||'';
+  if(st==='rebel') return r.desc;
+  if(st==='ally') return {grey:'雅爾西格德是你的盟友。他還是那麼驕傲，但每次見面都會先舉杯。',eagle:'布倫希爾德是你的盟友。山頂的人提到你，會說「那個讓她心服的人」。'}[r.id]||r.desc;
+  if(st!=='yours') return r.desc;
+  switch(r.id){
+    case 'village': return f.vSaved&&!f.vBetray?'村口還掛著你殺的那頭狼的皮。漁民照樣出海，只是現在會把一部分漁獲送到你的長屋。'
+      :f.vRaid&&!f.vAmend?'漁民、鹹魚，和一面你的旗幟。村民看見你的人，還是會把孩子拉回屋裡。':'漁民、鹹魚，和一面你的旗幟。';
+    case 'abbey': return '神殿還在，祭司們照樣唱歌。只是祭品裡，現在有一份要送到你的手上。';
+    case 'forest': return '強盜的老巢被清空了。現在走這條林道的，是商人。';
+    case 'market': return '集市照樣熱鬧，只是每一筆買賣，都要繳你一份稅。';
+    case 'marsh': return '霧還是終年不散。村民現在把草藥送到你的長屋。';
+    case 'grey': return '西格德的橡木長廳，現在掛著你的旗幟。';
+    case 'eagle': return '鷹巢峰插上了你的旗。山頂的風還是那麼大。';
+    case 'red': return rf.includes('效忠')?'紅帆船隊改掛了你的旗。赫羅爾夫跪下效忠以後，還是不太愛跟你說話。'
+      :rf.includes('斧下')?'赫羅爾夫死在你的斧下。紅帆船隊現在聽你的號令。'
+      :rf.includes('亂軍')?'赫羅爾夫死在亂軍之中。紅帆船隊改掛了你的旗。':'紅帆船隊現在聽你的號令。';
+    case 'winter': return f.kingFate==='dead'?'王廳是你的了。老王的劍，靠在王座旁邊。'
+      :f.kingFate==='spared'?'王廳是你的了。老王哈夫丹回到了他的農莊。'
+      :f.abdicated?'王廳是你的了。王冠是老王親手交給你的。':'王廳是你的了。';
+  }
+  return r.desc;
+}
 function regionActs(r){
   const g=S.reg[r.id],A=[];
   if(S.phase===1) return {info:'你孤身一人，還動不了這裡。先累積銀幣和名聲，建立自己的部落。',A};
@@ -3214,6 +3241,7 @@ function scare(r){
 function conquer(r){
   const g=S.reg[r.id];
   battle({title:`征服${r.name}`,def:rdef(r),cancel:true,intro:r.desc,cause:`死在攻打${r.name}的城牆下`,foeNote:r.lord?`${r.lord}的軍隊`:'',onEnd:w=>{
+    if(r.id==='winter') S.flags.hallWar=1;
     if(!w){log(`進攻${r.name}失敗。`);return '你們被打退了。';}
     if(r.kind==='minor'){g.st='yours';addFame(6);addInfamy(3);const sp=Math.round(r.loot[0]*1.5*(has('executioner')?1.5:1));S.silver+=sp;log(`佔領了${r.name}。`);return `${r.name}插上了${esc(S.tribe)}的旗幟。${r.id==='village'&&S.flags.vRaid&&!S.flags.vAmend?'村民看著你的旗幟。有幾個人認得你的臉。':''}\n搶走金庫：銀幣 +${sp}，名聲 +6\n之後每季產出銀幣 ${r.inc[0]}、糧食 ${r.inc[1]}${r.perk?`\n特產：${r.perk}`:''}`;}
     pushModal(lordChoice(r));
@@ -3322,7 +3350,11 @@ function allyEagle(){
   passTime();
 }
 function abdicate(){
-  if(chk(abdicateChance())){S.mercy++;S.flags.abdicated=1;unlock('bloodless');note('讓位',`你獨自走進王廳，把三方勢力的旗幟放在老王腳邊。\n\n哈夫丹看了很久，摘下王冠：「挪威需要一個年輕的王。」\n\n`+takeSeat(R('winter'),'不流血地'),'維斯特福爾');}
+  if(chk(abdicateChance())){S.mercy++;S.flags.abdicated=1;const war=!!S.flags.hallWar;if(!war)unlock('bloodless');
+    const txt=!war?'你獨自走進王廳，把三方勢力的旗幟放在老王腳邊。\n\n哈夫丹看了很久，摘下王冠：「挪威需要一個年輕的王。」'
+      :S.flags.kingLost?'你獨自走進王廳。上一次你來的時候，是被你的戰士拖出去的。\n\n哈夫丹看著你放在他腳邊的三面旗幟，又看了看你身上還沒好的傷：「上次你帶著刀劍來，這次帶著旗幟。」\n\n他摘下王冠：「挪威需要一個年輕的王。學得快的那種。」'
+      :'你獨自走進王廳。牆上還留著上次攻城時的焦痕。\n\n哈夫丹看著你放在他腳邊的三面旗幟：「上次你帶著刀劍來，這次帶著旗幟。」\n\n他沉默了很久，摘下王冠：「挪威需要一個年輕的王。」';
+    note('讓位',txt+'\n\n'+takeSeat(R('winter'),war?'逼老王讓位':'不流血地'),'維斯特福爾');}
   else{S.reg.winter.def+=6;S.reg.winter.cd=3;note('被拒絕','老王冷笑：「要王冠，就自己來拿。」\n<span class="bad">王廳加強了防備</span>','維斯特福爾');}
   passTime();
 }
@@ -4455,8 +4487,8 @@ const QUESTS={
     go:(done)=>{duel('hunter',{lethal:true,xp:18,intro:'強盜頭子拔出了刀：「老頭的朋友？一起埋了吧。」',cause:'死在一座老墳前',onEnd:w=>w?done():''});},goNote:'生死單挑',
     win:'哈康跪在墳前，把你們打過的每一仗都說了一遍。說完，他站起來，眼睛是紅的：「他會很驕傲。我也是。」',reward:'老兵之魂：老兵的戰力 2 → 2.4'},
   astrid:{a:'父親的仇人',at:'阿斯特麗德把一塊破舊的盾牌碎片放在你面前：「這是我父親的。殺他的人叫獨臂奧諾德，現在是某個雅爾的打手。」\n\n「我不需要你幫我殺他。我需要你讓我去。」',
-    b:'獨臂奧諾德',bt:'你們找到了奧諾德。他比傳說中老，但仍然很危險。阿斯特麗德握緊了盾牌：「這一戰，讓我來。」',
-    go:(done)=>{proxyDuel('holmV','astrid',{deathRate:.3,onEnd:w=>w?done():'阿斯特麗德被抬了回來。她一整個月都沒說話。',onGiveUp:()=>{}},[]);},goNote:'由阿斯特麗德當決鬥代理人',
+    sa:'sc_q_astrid',b:'獨臂奧諾德',bt:'你們找到了奧諾德。他比傳說中老，但仍然很危險。阿斯特麗德握緊了盾牌：「這一戰，讓我來。」',
+    go:(done)=>{proxyDuel('onund','astrid',{deathRate:.3,onEnd:w=>w?done():'阿斯特麗德被抬了回來。她一整個月都沒說話。',onGiveUp:()=>{}},[]);},goNote:'由阿斯特麗德當決鬥代理人',
     win:'奧諾德倒下時，阿斯特麗德沒有歡呼。她只是把父親的盾牌碎片埋在了他身邊，然後回頭看你：「謝謝你讓我自己來。」',reward:'盾牆大師：部隊傷亡再 -10%'},
   thorfinn:{a:'沉默的理由',at:'你第一次聽見托爾芬主動說話：「我有一個哥哥。他死的那天，我發誓再也不說多餘的話。」\n\n「他埋在北邊的海岬上。我想……讓他見見你。」',
     b:'海岬上的墳',bt:'海岬上的風很大。托爾芬在一塊小小的石堆前站了很久，然後回頭看你：「你可以替我跟他說幾句話嗎？我……說不出口。」',
@@ -4495,7 +4527,7 @@ const QUESTS={
     go:(done)=>{pushModal(eventModal({kind:'勇士',title:'海島上的墳',text:'你要怎麼讓拉格納下船？',ch:[{t:'「你兒子在等你。」',note:hasC('ragnar')?'':'（拉格納不在隊上，比約恩只能自己去）',fx:()=>{done();return null;}},{t:'把他從船上踹下去',fx:()=>{done();return null;}}]}));},goNote:'',
     win:'拉格納跪在墳前，哭得像個孩子。比約恩站在他身後，第一次伸手搭在父親的肩膀上。\n\n回程的船上，父子倆一句話都沒說，但一直坐在一起。',reward:'父子同心：比約恩和拉格納同隊時，兩人戰力各 +3'},
   sigrid:{a:'父親的官司',at:'西格麗德收到一封信，臉色變得很難看。「我父親又跟人打官司了，」她說，「這次對方請了一個從沒輸過的決鬥者。他老了，打不贏的。」\n\n「我想回去替他打。陪我去，好嗎？」',
-    b:'沒輸過的決鬥者',bt:'對方的決鬥者是個獨眼的老兵，據說四十場霍姆岡從沒輸過。西格麗德深吸了一口氣，舉起了盾。',
+    sw:'sc_q_sigrid',b:'沒輸過的決鬥者',bt:'對方的決鬥者是個獨眼的老兵，據說四十場霍姆岡從沒輸過。西格麗德深吸了一口氣，舉起了盾。',
     go:(done)=>{proxyDuel('holmV','sigrid',{deathRate:.2,onEnd:w=>w?done():'西格麗德輸了。她父親沒有罵她，只是摸了摸她的頭。',onGiveUp:()=>{}},[]);},goNote:'由西格麗德當決鬥代理人',
     win:'老兵倒下的時候，整個法石前都安靜了。西格麗德的父親拄著拐杖走過來，抱住了她。\n\n「我一直以為，我需要一個兒子。」老雅爾說。',reward:'雅爾之女：她父親成了你的盟友，結盟成功率再 +10%'},
   knut:{a:'老同夥',at:'克努特臉色很難看：「我以前的同夥，打著我的名號在南邊搶村子。現在大家都以為是我幹的，也以為是你縱容的。」\n\n「我要親手收拾他們。你跟不跟？」',
@@ -4518,14 +4550,15 @@ function questTick(){
 const isJarlId=id=>!!(S.jarls&&Object.values(S.jarls).includes(id));
 function questA(id){
   const q=QUESTS[id],n=CHAMPS[id].name;
-  return eventModal({kind:`${n}的心事`,art:id,title:q.a,text:q.at.replace('{QUEST}',ORI().quest),ch:[
+  const sc=q.sa&&ART_HAVE.has(q.sa);
+  return eventModal({kind:`${n}的心事`,art:sc?undefined:id,scene:sc?q.sa:undefined,title:q.a,text:q.at.replace('{QUEST}',ORI().quest),ch:[
     {t:'「好，我們一起去。」',fx:()=>{S.quest[id]={st:'go',t:S.turn+2};bond(id,5);return `${n}點點頭。\n<span class="good">兩季後出發（${n}好感 +5）</span>`;}},
     {t:'「現在不行。」',fx:()=>{S.quest[id]={st:'later',t:S.turn};bond(id,-5);return `${n}沒再說什麼。\n${n}好感 -5（一年後${cP(id)}也許會再提）`;}}]});
 }
 function questB(id){
   const q=QUESTS[id],n=CHAMPS[id].name;
   const done=()=>{S.quest[id].st='done';if(id==='knut')addInfamy(-10);S.qdone[id]=1;bond(id,20);addFame(6);unlock('quest_any');if(Object.keys(S.qdone).length>=5)unlock('quest5');log(`完成了${n}的心願。`);
-    pushLater(el=>resultView(el,`${n}覺醒`,`${q.win}\n<span class="good">${q.reward}\n${n}好感 +20，名聲 +6</span>`,`${n}的心事`,id));return '';};
+    pushLater(el=>resultView(el,`${n}覺醒`,`${q.win}\n<span class="good">${q.reward}\n${n}好感 +20，名聲 +6</span>`,`${n}的心事`,q.sw&&ART_HAVE.has(q.sw)?q.sw:id));return '';};
   return eventModal({kind:`${n}的心事`,art:id,title:q.b,text:q.bt,ch:[
     {t:'動手',note:typeof q.goNote==='function'?q.goNote():q.goNote,fx:()=>{q.go(()=>{done();return `<span class="good">${n}的心願完成了。</span>`;});return null;}},
     {t:'改天再來',fx:()=>{return `${n}嘆了口氣：「好吧。」\n（兩季後還可以再試）`;}}]});
@@ -5058,7 +5091,7 @@ function mapHTML(){
   </svg>
   <div class="legend"><span><i style="background:var(--muted)"></i>無主／敵方</span><span><i style="background:var(--gold)"></i>你的土地</span><span><i style="background:var(--frost)"></i>盟友</span><span><i style="background:#7a5236"></i>戒備中</span><span>◆ 大勢力</span></div></div>
   <div class="card region"><div class="row" style="justify-content:space-between"><h3>${sel.name}</h3><span class="pill" style="color:${col(g)}">${stTxt}</span></div>
-    <p class="story" style="color:var(--muted)">${sel.desc}</p>
+    <p class="story" style="color:var(--muted)">${rDesc(sel)}</p>
     <div class="meta">${g.st==='free'&&S.phase>1?`<span>防備 <b>${estTxt(sel)}</b></span><span>你的戰力 <b>${armyPower()}</b>（親自上陣 ${Math.round(armyPower()*leadMul())}）</span>`:''}</div>
     ${ra.info?`<p class="story">${ra.info}</p>`:''}
     ${ra.A.length?`<div class="choices">${ra.A.map((a,i)=>`<button class="choice" data-ra="${i}" ${a.dis||!a.run?'disabled':''}><b>${a.t}</b><small>${a.dis||a.note||''}</small></button>`).join('')}</div>`:''}
