@@ -1080,7 +1080,7 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
-const ART_HAVE=new Set(['c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news','sc_k_bifrost','sc_k_charge','sc_k_axes','sc_k_line','sc_k_gods']);
+const ART_HAVE=new Set(['c_thorstein','sc_q_astrid','sc_q_sigrid','v_halfdan2a','v_halfdan2c','c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news','sc_k_bifrost','sc_k_charge','sc_k_axes','sc_k_line','sc_k_gods']);
 const CHAMP_ART={halfdan2:'v_halfdan2',halfdan2a:'v_halfdan2a',halfdan2c:'v_halfdan2c',halfdan3:'v_halfdan3',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
@@ -4558,7 +4558,7 @@ function questA(id){
 function questB(id){
   const q=QUESTS[id],n=CHAMPS[id].name;
   const done=()=>{S.quest[id].st='done';if(id==='knut')addInfamy(-10);S.qdone[id]=1;bond(id,20);addFame(6);unlock('quest_any');if(Object.keys(S.qdone).length>=5)unlock('quest5');log(`完成了${n}的心願。`);
-    pushLater(el=>resultView(el,`${n}覺醒`,`${q.win}\n<span class="good">${q.reward}\n${n}好感 +20，名聲 +6</span>`,`${n}的心事`,q.sw&&ART_HAVE.has(q.sw)?q.sw:id));return '';};
+    pushModal(el=>resultView(el,`${n}覺醒`,`${q.win}\n<span class="good">${q.reward}\n${n}好感 +20，名聲 +6</span>`,`${n}的心事`,q.sw&&ART_HAVE.has(q.sw)?q.sw:id));return '';};
   return eventModal({kind:`${n}的心事`,art:id,title:q.b,text:q.bt,ch:[
     {t:'動手',note:typeof q.goNote==='function'?q.goNote():q.goNote,fx:()=>{q.go(()=>{done();return `<span class="good">${n}的心願完成了。</span>`;});return null;}},
     {t:'改天再來',fx:()=>{return `${n}嘆了口氣：「好吧。」\n（兩季後還可以再試）`;}}]});
@@ -5184,7 +5184,7 @@ const GAL_NAME={sc_york_1:'約克：兩個國王',sc_york_2:'約克：城牆下'
   sc_ragnarok:'諸神黃昏',sc_tears:'弗蕾亞的眼淚',sc_valhalla:'瓦爾哈拉',sc_kiss_m:'弗蕾亞之吻',sc_kiss_f:'弗蕾亞之吻',sc_einherjar:'英靈助戰',sc_ragfall:'倒在諸神黃昏',
   sc_ragfall_odin:'與奧丁同眠',sc_ragfall_thor:'與索爾同眠',sc_ragfall_tyr:'與提爾同眠',sc_ragfall_freyja:'與弗蕾亞同眠',sc_ragfall_loki:'洛基的道別',sc_ragfall_none:'只有風聲',
   sc_k_rise:'老王撐劍站起',sc_k_kneel:'跪倒',sc_k_slip:'劍尖滑開',sc_k_push:'把劍推到你腳邊',sc_k_people:'望向族人',sc_k_face:'……好好待他們',sc_k_hall:'空蕩的王廳',sc_k_exec:'處決',sc_k_spare:'走出王廳',
-  sc_k_news:'使者報喪',sc_k_farm:'農莊的空椅子',sc_k_ship:'船葬',sc_k_mound:'立塚刻碑',sc_k_guard:'親衛隊抬棺',sc_k_bifrost:'彩虹橋上的老王',sc_k_charge:'英靈騎兵衝陣',sc_k_line:'守住那條線',sc_k_axes:'一人擋住巨人大軍',sc_k_advance:'走向巨人大軍',sc_k_gods:'去見奧丁'};
+  sc_k_news:'使者報喪',sc_k_farm:'農莊的空椅子',sc_k_ship:'船葬',sc_k_mound:'立塚刻碑',sc_k_guard:'親衛隊抬棺',sc_k_bifrost:'彩虹橋上的老王',sc_k_charge:'英靈騎兵衝陣',sc_k_line:'守住那條線',c_thorstein:'灰鬍子托爾斯坦',sc_q_astrid:'父親的盾牌碎片',sc_q_sigrid:'父親的擁抱',sc_k_axes:'一人擋住巨人大軍',sc_k_advance:'走向巨人大軍',sc_k_gods:'去見奧丁'};
 function galName(k){
   if(GAL_NAME[k]) return GAL_NAME[k];
   const id=Object.keys(CHAMP_ART).find(i=>CHAMP_ART[i]===k);
