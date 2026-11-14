@@ -82,11 +82,11 @@ An outdoor Viking law assembly (thing) on a grey windy day, a tall standing law 
 |---|---|---|---|
 | 1 | v_halfdan2a | 第一型態：剛覺醒 （✅ 已收到）| 3:4 |
 | 2 | v_halfdan2c | 第三型態：完全覺醒 （✅ 已收到）| 3:4 |
-| 3 | sc_war_council | 戰前會議：長桌上的地圖 | 16:9 |
-| 4 | sc_war_gunnhild | 貢希爾德講解她父親的打法 | 16:9 |
-| 5 | sc_war_sweyn | 斯韋恩講解他父親的打法 | 16:9 |
-| 6 | sc_beach_wall | 海灘上的盾牆 | 16:9 |
-| 7 | sc_dane_victory | 打退丹麥人：藍牙退兵 | 16:9 |
+| 3 | sc_war_council | 戰前會議：長桌上的地圖 （✅ 已收到）| 16:9 |
+| 4 | sc_war_gunnhild | 貢希爾德講解她父親的打法 （✅ 已收到）| 16:9 |
+| 5 | sc_war_sweyn | 斯韋恩講解他父親的打法 （✅ 已收到）| 16:9 |
+| 6 | sc_beach_wall | 海灘上的盾牆 （✅ 已收到）| 16:9 |
+| 7 | sc_dane_victory | 打退丹麥人：藍牙退兵 （✅ 已收到）| 16:9 |
 | 8 | sc_york_1 | 約克：兩個國王的內戰 | 16:9 |
 | 9 | sc_york_2 | 約克：城牆下的決戰 | 16:9 |
 | 10 | sc_york_3 | 約克：進城 | 16:9 |
