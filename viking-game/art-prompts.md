@@ -10,7 +10,7 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ 重畫：有疑慮的圖（3 張＋還缺的 2 張）
+## ★ 重畫：有疑慮的圖（5 張＋還缺的 2 張）
 
 三型態的毛皮要一致：**第一、第二型態都還披著毛皮，第三型態才甩開**（遊戲文字是第三型態「甩開肩上的毛皮」）。
 
@@ -19,6 +19,8 @@
 | R1 | v_halfdan2a | 嘴巴張開，看起來像在低吼；老王要沉穩、閉著嘴 | 高 |
 | R2 | v_halfdan2 | 第二型態已經沒有毛皮，和第三型態「甩開毛皮」矛盾 | 高 |
 | R3 | sc_k_gods | 老王沒有英靈的金光，看起來不像「從英靈戰士裡走出來」 | 低（可不畫） |
+| R4 | sc_york_3b | 新圖：沒扶植傀儡的約克結局需要另一張（現在不放圖） | 中 |
+| R5 | sc_wessex_0 | 新圖：空蕩的行宮（原本借用盾牆圖，劇情對不上，現在不放圖） | 中 |
 | — | sc_k_advance | 還缺（巨人要往後退，提示詞見下方 v0.8 第二批 #8b） | 中 |
 | — | v_halfdan3 | 還缺（重生後的雙斧老王，提示詞見下方 v0.8 第二批 #10） | 中 |
 
@@ -41,6 +43,24 @@ Old King Halfdan of Norway: around seventy, long white beard and long white hair
 ```
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 WIDE SHOT on the Viking side of the Ragnarök battlefield; the giant horde is far away in the background on the RIGHT. In the LEFT foreground, a Viking ruler seen from behind (face hidden, could be a man or a woman) stands to one side, watching, left out. Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle) has clearly come back as one of the einherjar: his whole figure is edged with the SAME golden glow as the rows of glowing golden einherjar warriors behind him, as if he just stepped out of their ranks. He walks past the ruler without looking at them, toward Odin, who stands in front of the descending rainbow bridge: one-eyed, wide-brimmed hat, dark blue cloak, spear in hand, two ravens on his shoulders. Odin smiles slightly and clasps forearms with the king like an old friend; the king bows his head slightly in respect. Behind Odin stand the other gods (red-bearded Thor with his hammer, one-handed Tyr, golden-haired Freyja). Dignified and warm between them, a quiet sting for the ruler left behind.
+```
+
+**R4. sc_york_3b（約克：兩頂王冠，誰也沒戴上）**（新，可選）
+
+用在：打下約克但**沒有**扶植傀儡的結局。原本的 sc_york_3 是「有人跪著獻上王冠」，只適合扶植艾拉的路線。
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Inside captured York, 9th century: a ruined Roman hall with broken columns, a cracked mosaic floor and grey light falling through a collapsed roof. On a rough wooden table in the middle stand TWO different Anglo-Saxon royal crowns side by side, one slightly dented, both unclaimed; nobody kneels, nobody wears them. A Viking ruler seen from behind (face hidden, could be a man or a woman, fur cloak and a simple crown) stands a few steps away looking down at them; Viking warriors linger at the doorway; through the broken arches, the conquered town is quiet, smoke rising. Empty, ironic, a new order.
+```
+
+**R5. sc_wessex_0（威塞克斯：空蕩的行宮）**（新，可選）
+
+用在：「一路打到了國王的行宮，可是行宮是空的」。原本這頁借用了盾牆對盾牆的圖，和劇情對不上（那時候還沒開打），所以先改成不放圖。
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+An abandoned Anglo-Saxon royal hall in Wessex, 9th century, at dusk: a long timber hall with carved posts and hanging tapestries, the hearth fire in the middle still burning low, a long table with half-finished cups of ale, bread and an overturned bench, a fine cloak left behind on a chair; the great doors stand wide open. Viking warriors have just burst in with axes and torches and stop, confused, looking around the empty room. The king is gone. Eerie, puzzling, the hunt begins.
 ```
 
 ## ✅ v0.11 劇情補圖（3 張，已全部收到）
@@ -87,11 +107,11 @@ An outdoor Viking law assembly (thing) on a grey windy day, a tall standing law 
 | 5 | sc_war_sweyn | 斯韋恩講解他父親的打法 （✅ 已收到）| 16:9 |
 | 6 | sc_beach_wall | 海灘上的盾牆 （✅ 已收到）| 16:9 |
 | 7 | sc_dane_victory | 打退丹麥人：藍牙退兵 （✅ 已收到）| 16:9 |
-| 8 | sc_york_1 | 約克：兩個國王的內戰 | 16:9 |
-| 9 | sc_york_2 | 約克：城牆下的決戰 | 16:9 |
-| 10 | sc_york_3 | 約克：進城 | 16:9 |
-| 11 | sc_wessex_1 | 威塞克斯：躲進沼澤的國王 | 16:9 |
-| 12 | sc_wessex_2 | 威塞克斯：盾牆對盾牆 | 16:9 |
+| 8 | sc_york_1 | 約克：兩個國王的內戰 （✅ 已收到）| 16:9 |
+| 9 | sc_york_2 | 約克：城牆下的決戰 （✅ 已收到）| 16:9 |
+| 10 | sc_york_3 | 約克：進城 （✅ 已收到）| 16:9 |
+| 11 | sc_wessex_1 | 威塞克斯：躲進沼澤的國王 （✅ 已收到）| 16:9 |
+| 12 | sc_wessex_2 | 威塞克斯：盾牆對盾牆 （✅ 已收到）| 16:9 |
 | 13 | sc_wessex_3 | 威塞克斯：兩個王的談判 | 16:9 |
 | 14 | sc_paris_1 | 巴黎：塞納河上的橋塔 | 16:9 |
 | 15 | sc_paris_2 | 巴黎：圍城的冬天 | 16:9 |
