@@ -1,0 +1,339 @@
+<title>北境雄心畫風樣張</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Runic&family=Noto+Sans+TC:wght@400;700&family=Noto+Serif+TC:wght@900&display=swap">
+<style>
+/* Layout：三張樣張並排（手機時直排），每張下面寫優缺點。刻意單一深色主題，和遊戲一致。 */
+:root{
+  --bg:#0f1417;--panel:#172025;--line:#2c3a42;--bone:#e9e0cf;--muted:#97a3a5;--ember:#d47a3b;
+  --f-display:"Noto Serif TC","Songti TC",serif;--f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;--f-rune:"Noto Sans Runic",serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--bone);font-family:var(--f-body);line-height:1.65;font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 48px}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--ember);margin:0}
+h1{font-family:var(--f-display);font-size:clamp(28px,5vw,40px);margin:4px 0 6px;text-wrap:balance}
+.lead{color:var(--muted);max-width:44em;margin:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:24px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;display:grid;align-content:start;min-width:0}
+.card svg{display:block;width:100%;height:auto;max-width:100%}
+.body{padding:14px 16px 18px;display:grid;gap:8px}
+.tag{display:flex;align-items:baseline;gap:10px}
+.tag b{font-family:var(--f-display);font-size:30px;color:var(--ember);line-height:1}
+.tag h2{font-family:var(--f-display);font-size:20px;margin:0}
+.body p{margin:0;font-size:14px}
+.body .pro{color:#cfab5c}.body .con{color:var(--muted)}
+.rec{font-size:12px;color:#1a0f08;background:var(--ember);border-radius:10px;padding:1px 8px;margin-left:auto;align-self:center;white-space:nowrap}
+.foot{margin-top:22px;color:var(--muted);font-size:14px;max-width:46em}
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">北境雄心 · 主角立繪</p>
+  <h1>三種畫風樣張</h1>
+  <p class="lead">同一個角色畫成三種畫風：側剃頭、頭側刺著瓦克努特（奧丁之結）、眼周塗黑、右眉有一道舊疤、編鬍。五官位置三張都一樣，只換表現手法。</p>
+  <div class="grid">
+    <article class="card"><div id="art-a"></div><div class="body">
+      <div class="tag"><b>A</b><h2>半寫實向量插畫</h2></div>
+      <p class="pro">漸層和柔和的陰影堆出臉部立體感，最接近手遊的角色頭像卡。</p>
+      <p class="con">細節最多，改髮色、膚色時最容易跑掉。陰影太軟的話，凶悍感會被稀釋。</p>
+    </div></article>
+    <article class="card"><div id="art-b"></div><div class="body">
+      <div class="tag"><b>B</b><h2>圖像小說風</h2><span class="rec">我推薦</span></div>
+      <p class="pro">粗黑輪廓加大塊硬陰影，眉骨、顴骨、下顎刻得很深，最容易畫出狠勁，和遊戲的暗色介面也最搭。</p>
+      <p class="con">比較「漫畫」，寫實感不如 A。</p>
+    </div></article>
+    <article class="card"><div id="art-c"></div><div class="body">
+      <div class="tag"><b>C</b><h2>北歐木刻風</h2></div>
+      <p class="pro">像刻在符文石或木板上的版畫，只用墨色和一抹紅，風格最獨特、最「北歐」。</p>
+      <p class="con">單色線條比較冷，人味最少，表情也不如 A、B 好讀。</p>
+    </div></article>
+  </div>
+  <p class="foot">選定畫風後，正式版會照同樣的手法做出男女各三種髮型、四種髮色、三種膚色、三階段換裝，以及會隨舊傷增加的疤痕。</p>
+</div>
+
+<script>
+'use strict';
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+
+/* ---------- 共用的臉部結構 ---------- */
+const P={
+  head:'M150,56 C110,56 90,84 90,124 C90,148 92,168 97,188 C102,214 120,238 150,248 C180,238 198,214 203,188 C208,168 210,148 210,124 C210,84 190,56 150,56 Z',
+  earL:'M93,138 C80,133 75,150 79,165 C82,179 90,185 98,182 Z',
+  earR:'M207,138 C220,133 225,150 221,165 C218,179 210,185 202,182 Z',
+  neck:'M116,212 L184,212 L192,270 L108,270 Z',
+  neckShadow:'M116,224 C130,246 170,246 184,224 L187,254 C170,262 130,262 113,254 Z',
+  torso:'M0,360 L0,316 C24,290 70,276 110,266 L190,266 C230,276 276,290 300,316 L300,360 Z',
+  cap:'M90,124 C90,84 110,56 150,56 C190,56 210,84 210,124 C201,112 188,104 172,100 C160,97 140,97 128,100 C112,104 99,112 90,124 Z',
+  strip:'M127,101 C126,82 130,62 138,57 C146,54 154,54 162,57 C170,62 174,82 173,101 C164,97 136,97 127,101 Z',
+  browL:'M98,139 C110,127 130,128 146,140 L144,147 C130,138 114,136 100,145 Z',
+  browR:'M202,139 C190,127 170,128 154,140 L156,147 C170,138 186,136 200,145 Z',
+  socketL:'M100,144 C114,136 132,138 146,146 C141,160 116,163 103,156 Z',
+  socketR:'M200,144 C186,136 168,138 154,146 C159,160 184,163 197,156 Z',
+  eyeL:'M109,151 C116,145 132,144 141,149 C133,155 118,156 109,151 Z',
+  eyeR:'M191,151 C184,145 168,144 159,149 C167,155 182,156 191,151 Z',
+  lidL:'M106,150 C115,141 132,140 143,147',
+  lidR:'M194,150 C185,141 168,140 157,147',
+  frown:'M146,139 L148,151 M154,139 L152,151',
+  kohl:'M92,141 C120,135 180,135 208,141 L206,160 C180,155 120,155 94,160 Z',
+  drips:'M113,160 L111,179 M121,161 L120,184 M129,160 L129,176',
+  noseShade:'M154,146 C156,160 159,176 163,189 C159,193 154,193 150,191 C152,176 152,160 152,146 Z',
+  noseLine:'M146,149 C144,165 142,178 138,190',
+  noseTip:'M137,190 C139,183 146,185 150,189 C154,185 161,183 163,190 C165,198 157,201 150,198 C143,201 135,198 137,190 Z',
+  cheekL:'M99,176 C109,186 120,190 129,192 C120,201 107,199 100,190 Z',
+  cheekR:'M201,176 C191,186 180,190 171,192 C180,201 193,199 200,190 Z',
+  scar:'M163,122 L180,170',
+  scarStitch:'M166,130 l7,-2 M169,140 l7,-2 M172,150 l7,-2 M175,160 l7,-2',
+  mouth:'M132,217 C140,214 160,214 168,217 C160,221 140,221 132,217 Z',
+  mustache:'M150,199 C137,197 123,204 117,220 C115,231 119,240 124,247 C126,233 133,224 150,213 C167,224 174,233 176,247 C181,240 185,231 183,220 C177,204 163,197 150,199 Z',
+  beard:'M97,184 C98,212 108,232 120,246 C130,264 140,292 150,316 C160,292 170,264 180,246 C192,232 202,212 203,184 C197,200 190,215 182,228 C176,239 168,243 160,233 L150,226 L140,233 C132,243 124,239 118,228 C110,215 103,200 97,184 Z',
+  beardBraid:'M143,300 L157,300 L155,350 L145,350 Z',
+  pendant:'M140,320 h20 v6 h-6 v8 h8 l-4,11 h-16 l-4,-11 h8 v-8 h-6 Z',
+};
+function furHalf(R,left){
+  const pts=[];const n=20;
+  for(let i=0;i<=n;i++){
+    const t=i/n;const x=left?t*134:300-t*134;
+    const base=298-t*30;
+    pts.push([x,base-(i%2?9+R()*6:R()*3)]);
+  }
+  const inner=left?[[118,360]]:[[182,360]];
+  const start=left?[[0,360],[0,312]]:[[300,360],[300,312]];
+  return 'M'+[...start,...pts,...inner].map(p=>p.map(v=>v.toFixed(1)).join(',')).join(' L')+' Z';
+}
+function strands(R,n,f){let s='';for(let i=0;i<n;i++)s+=f(R);return s;}
+function beardLines(R){const x0=100+R()*100,y0=186+R()*40;const pull=(150-x0)*.45;
+  const x1=x0+pull*.5+(R()-.5)*10,y1=y0+30+R()*30,x2=x0+pull+(R()-.5)*8,y2=y0+60+R()*70;
+  return `M${x0.toFixed(1)},${y0.toFixed(1)} Q${x1.toFixed(1)},${y1.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)} `;}
+function mustLines(R){const side=R()<.5?-1:1;const x0=150+side*(2+R()*14),y0=200+R()*8;
+  return `M${x0.toFixed(1)},${y0.toFixed(1)} Q${(x0+side*14).toFixed(1)},${(y0+10).toFixed(1)} ${(x0+side*(18+R()*10)).toFixed(1)},${(y0+30+R()*14).toFixed(1)} `;}
+function hairLines(R){const x=129+R()*42;const tx=150+(x-150)*.55;return `M${x.toFixed(1)},101 Q${((x+tx)/2+(R()-.5)*4).toFixed(1)},80 ${tx.toFixed(1)},57 `;}
+function furLines(R){const left=R()<.5;const x=left?6+R()*120:174+R()*120;const t=left?x/134:(300-x)/134;const y=298-t*30+R()*50;
+  return `M${x.toFixed(1)},${y.toFixed(1)} l${((R()-.5)*6).toFixed(1)},${(-8-R()*8).toFixed(1)} `;}
+function braid(cx,cy,ex,ey,n,fill,stroke,sw){
+  let s='';for(let i=0;i<n;i++){const t=i/(n-1);const x=cx+(ex-cx)*t,y=cy+(ey-cy)*t;const a=Math.atan2(ey-cy,ex-cx)*180/Math.PI;
+    s+=`<ellipse cx="${(x+(i%2?3:-3)).toFixed(1)}" cy="${y.toFixed(1)}" rx="8.5" ry="6.2" transform="rotate(${(a-90+(i%2?25:-25)).toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})" fill="${fill}" ${stroke?`stroke="${stroke}" stroke-width="${sw}"`:''}/>`;}
+  return s;
+}
+function valknut(cx,cy,r,attrs){
+  let s='';for(let k=0;k<3;k++){const ox=cx+[-.28,.28,0][k]*r,oy=cy+[.16,.16,-.32][k]*r;
+    const pts=[0,1,2].map(j=>{const a=-Math.PI/2+j*2*Math.PI/3;return `${(ox+Math.cos(a)*r*.62).toFixed(1)},${(oy+Math.sin(a)*r*.62).toFixed(1)}`;}).join(' ');
+    s+=`<polygon points="${pts}" fill="none" ${attrs}/>`;}
+  return s;
+}
+const RUNES='ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗᛚᛜᛞᛟ';
+
+/* ---------- A：半寫實向量 ---------- */
+function artA(){
+  const R=rng(11),id='a';
+  const C={skin:'#c9946f',light:'#ecc19c',shadow:'#7e523b',deep:'#4a2c20',hair:'#6e3f22',hairD:'#341b10',hairL:'#b0703f',fur:'#5d4532',furD:'#2e2118',furL:'#9a7a58'};
+  return `<svg viewBox="0 0 300 360" role="img" aria-label="畫風 A：半寫實向量插畫">
+  <defs>
+    <radialGradient id="${id}bg" cx="40%" cy="30%" r="80%"><stop offset="0" stop-color="#2d3d45"/><stop offset=".6" stop-color="#151d22"/><stop offset="1" stop-color="#0a0e10"/></radialGradient>
+    <radialGradient id="${id}sk" cx="40%" cy="36%" r="72%"><stop offset="0" stop-color="${C.light}"/><stop offset=".5" stop-color="${C.skin}"/><stop offset="1" stop-color="${C.shadow}"/></radialGradient>
+    <linearGradient id="${id}nk" x1="0" x2="1"><stop offset="0" stop-color="${C.skin}"/><stop offset="1" stop-color="${C.shadow}"/></linearGradient>
+    <linearGradient id="${id}hr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${C.hairL}"/><stop offset=".5" stop-color="${C.hair}"/><stop offset="1" stop-color="${C.hairD}"/></linearGradient>
+    <linearGradient id="${id}mt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9aa4ab"/><stop offset="1" stop-color="#4c555c"/></linearGradient>
+    <linearGradient id="${id}gd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ead9a0"/><stop offset="1" stop-color="#8a6c2c"/></linearGradient>
+    <filter id="${id}b2" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2"/></filter>
+    <filter id="${id}b5" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
+    <filter id="${id}b1"><feGaussianBlur stdDeviation=".7"/></filter>
+    <pattern id="${id}mail" width="7" height="6" patternUnits="userSpaceOnUse"><rect width="7" height="6" fill="#3a4248"/><path d="M0,3 a3.5,3 0 0 1 7,0" fill="none" stroke="#8a949b" stroke-width="1.3"/></pattern>
+    <pattern id="${id}stub" width="2.4" height="2.4" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r=".45" fill="${C.hairD}"/></pattern>
+    <clipPath id="${id}cb"><path d="${P.beard}"/></clipPath><clipPath id="${id}cm"><path d="${P.mustache}"/></clipPath>
+    <clipPath id="${id}cs"><path d="${P.strip}"/></clipPath><clipPath id="${id}ch"><path d="${P.head}"/></clipPath>
+    <clipPath id="${id}cel"><path d="${P.eyeL}"/></clipPath><clipPath id="${id}cer"><path d="${P.eyeR}"/></clipPath>
+  </defs>
+  <rect width="300" height="360" fill="url(#${id}bg)"/>
+  <circle cx="232" cy="120" r="80" fill="#8fbfcf" opacity=".06" filter="url(#${id}b5)"/>
+  <path d="${P.torso}" fill="url(#${id}mail)"/>
+  <path d="${furHalf(rng(3),true)}" fill="${C.fur}"/><path d="${furHalf(rng(4),false)}" fill="${C.fur}"/>
+  <path d="${strands(R,90,furLines)}" stroke="${C.furL}" stroke-width="1.6" stroke-linecap="round" opacity=".55"/>
+  <path d="${strands(R,60,furLines)}" stroke="${C.furD}" stroke-width="1.8" stroke-linecap="round" opacity=".7"/>
+  ${braid(208,128,232,318,17,`url(#${id}hr)`,C.hairD,1)}
+  <rect x="222" y="244" width="20" height="7" rx="2" fill="url(#${id}gd)" transform="rotate(-10 236 250)"/>
+  <path d="${P.neck}" fill="url(#${id}nk)"/>
+  <path d="${P.neckShadow}" fill="${C.deep}" opacity=".55" filter="url(#${id}b2)"/>
+  <text x="176" y="258" font-family="var(--f-rune)" font-size="9" fill="#1f2c35" opacity=".8" transform="rotate(-78 176 258)">ᚢᛚᚠᚱ</text>
+  <path d="M140,268 C138,298 142,312 150,318 C158,312 162,298 160,268" fill="none" stroke="url(#${id}gd)" stroke-width="1.6"/>
+  <path d="${P.pendant}" fill="url(#${id}mt)" stroke="#2a3035" stroke-width="1"/><circle cx="150" cy="317" r="3" fill="none" stroke="url(#${id}gd)" stroke-width="1.6"/>
+  <path d="${P.earL}" fill="${C.skin}"/><path d="${P.earR}" fill="${C.shadow}"/>
+  <path d="M85,150 C84,160 86,168 91,172" stroke="${C.deep}" stroke-width="1.5" fill="none" opacity=".6"/>
+  <path d="${P.head}" fill="url(#${id}sk)"/>
+  <g clip-path="url(#${id}ch)">
+    <path d="${P.cap}" fill="url(#${id}stub)" opacity=".45"/>
+    <path d="${P.cap}" fill="${C.hairD}" opacity=".18"/>
+    <g filter="url(#${id}b1)" opacity=".8">${valknut(110,95,26,'stroke="#22323c" stroke-width="2.4"')}
+      <path d="M96,118 C100,124 104,128 108,136 M190,80 C196,92 200,104 202,118" stroke="#22323c" stroke-width="2" fill="none" stroke-dasharray="3 3"/></g>
+    <g filter="url(#${id}b2)" fill="${C.deep}">
+      <path d="${P.socketL}" opacity=".55"/><path d="${P.socketR}" opacity=".7"/>
+      <path d="${P.noseShade}" opacity=".45"/><path d="${P.cheekL}" opacity=".35"/><path d="${P.cheekR}" opacity=".55"/>
+      <path d="M190,110 C206,140 206,190 196,214 L212,214 L212,100 Z" opacity=".45"/>
+    </g>
+    <g filter="url(#${id}b5)" fill="#fff3e0"><ellipse cx="128" cy="112" rx="16" ry="8" opacity=".25"/><ellipse cx="147" cy="170" rx="3" ry="14" opacity=".35"/><ellipse cx="116" cy="172" rx="9" ry="5" opacity=".25"/></g>
+    <path d="M206,110 C212,140 210,170 204,190" stroke="#8fbfcf" stroke-width="3" fill="none" opacity=".35" filter="url(#${id}b2)"/>
+  </g>
+  <path d="${P.kohl}" fill="#121212" opacity=".72" filter="url(#${id}b1)"/>
+  <path d="${P.drips}" stroke="#121212" stroke-width="3" stroke-linecap="round" opacity=".6" filter="url(#${id}b1)"/>
+  <path d="${P.eyeL}" fill="#d9ccbe"/><path d="${P.eyeR}" fill="#cbbdaf"/>
+  <g clip-path="url(#${id}cel)"><circle cx="127" cy="150" r="5" fill="#5f8496"/><circle cx="127" cy="150" r="2.3" fill="#0d0d0d"/><rect x="105" y="140" width="40" height="5" fill="#000" opacity=".3"/></g>
+  <g clip-path="url(#${id}cer)"><circle cx="173" cy="150" r="5" fill="#5f8496"/><circle cx="173" cy="150" r="2.3" fill="#0d0d0d"/><rect x="155" y="140" width="40" height="5" fill="#000" opacity=".3"/></g>
+  <circle cx="125.5" cy="148.6" r="1.1" fill="#fff"/><circle cx="171.5" cy="148.6" r="1.1" fill="#fff"/>
+  <path d="${P.lidL}" stroke="#1a0f0b" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="${P.lidR}" stroke="#1a0f0b" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="${P.browL}" fill="url(#${id}hr)"/><path d="${P.browR}" fill="url(#${id}hr)"/>
+  <path d="${P.frown}" stroke="${C.deep}" stroke-width="1.6" opacity=".7" stroke-linecap="round"/>
+  <path d="${P.noseLine}" stroke="${C.shadow}" stroke-width="1.5" fill="none" opacity=".7"/>
+  <path d="${P.noseTip}" fill="${C.shadow}" opacity=".55"/><ellipse cx="143" cy="194" rx="3.4" ry="2" fill="${C.deep}"/><ellipse cx="157" cy="194" rx="3.4" ry="2" fill="${C.deep}"/>
+  <path d="${P.scar}" stroke="#d29a86" stroke-width="3.2" stroke-linecap="round"/><path d="${P.scar}" stroke="#7b3f32" stroke-width="1.1"/>
+  <path d="${P.scarStitch}" stroke="#7b3f32" stroke-width="1" opacity=".7"/>
+  <path d="${P.beard}" fill="url(#${id}hr)"/>
+  <g clip-path="url(#${id}cb)"><path d="${strands(R,70,beardLines)}" stroke="${C.hairL}" stroke-width="1.2" fill="none" opacity=".6"/><path d="${strands(R,60,beardLines)}" stroke="${C.hairD}" stroke-width="1.4" fill="none" opacity=".7"/></g>
+  ${braid(150,296,150,350,6,`url(#${id}hr)`,C.hairD,1)}
+  <rect x="140" y="312" width="20" height="7" rx="2" fill="url(#${id}gd)"/><rect x="141" y="334" width="18" height="6" rx="2" fill="url(#${id}gd)"/>
+  <path d="${P.mouth}" fill="#3e1c12"/><path d="M132,217 C138,222 162,222 168,217" stroke="#2a120b" stroke-width="1.4" fill="none"/>
+  <path d="${P.mustache}" fill="url(#${id}hr)"/>
+  <g clip-path="url(#${id}cm)"><path d="${strands(R,40,mustLines)}" stroke="${C.hairD}" stroke-width="1.2" fill="none" opacity=".7"/></g>
+  <path d="${P.strip}" fill="url(#${id}hr)"/>
+  <g clip-path="url(#${id}cs)"><path d="${strands(R,40,hairLines)}" stroke="${C.hairL}" stroke-width="1.2" fill="none" opacity=".6"/><path d="${strands(R,30,hairLines)}" stroke="${C.hairD}" stroke-width="1.4" fill="none" opacity=".7"/></g>
+  </svg>`;
+}
+
+/* ---------- B：圖像小說 ---------- */
+function artB(){
+  const R=rng(11),id='b',K='#120d0b',ow='stroke="#120d0b" stroke-width="3.4" stroke-linejoin="round"';
+  const C={skin:'#d29a72',sh:'#8c5a3e',hair:'#7a3f20',hairS:'#3d1d0e',fur:'#5a4230',furS:'#2b1f16',bg:'#7e2e24',bg2:'#a8402d'};
+  return `<svg viewBox="0 0 300 360" role="img" aria-label="畫風 B：圖像小說風">
+  <defs>
+    <pattern id="${id}dot" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.4" fill="${K}"/></pattern>
+    <pattern id="${id}dotL" width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="3.5" cy="3.5" r="1.9" fill="#000" opacity=".35"/></pattern>
+    <pattern id="${id}mail" width="8" height="7" patternUnits="userSpaceOnUse"><rect width="8" height="7" fill="#58626a"/><path d="M0,3.5 a4,3.5 0 0 1 8,0" fill="none" stroke="${K}" stroke-width="1.6"/></pattern>
+    <clipPath id="${id}cb"><path d="${P.beard}"/></clipPath><clipPath id="${id}cs"><path d="${P.strip}"/></clipPath><clipPath id="${id}ch"><path d="${P.head}"/></clipPath>
+  </defs>
+  <rect width="300" height="360" fill="${C.bg}"/>
+  <circle cx="150" cy="140" r="118" fill="${C.bg2}"/>
+  <rect width="300" height="360" fill="url(#${id}dotL)"/>
+  <path d="M20,40 l10,6 l-6,4 Z M262,70 l12,-2 l-4,9 Z M40,250 l9,4 l-7,5 Z M268,236 l10,5 l-8,3 Z" fill="${K}"/>
+  <path d="${P.torso}" fill="url(#${id}mail)" ${ow}/>
+  <path d="${furHalf(rng(3),true)}" fill="${C.fur}" ${ow}/><path d="${furHalf(rng(4),false)}" fill="${C.fur}" ${ow}/>
+  <path d="M0,340 C40,326 90,326 118,340 L118,360 L0,360 Z M300,340 C260,326 210,326 182,340 L182,360 L300,360 Z" fill="${C.furS}"/>
+  <path d="${strands(R,40,furLines)}" stroke="${K}" stroke-width="2.4" stroke-linecap="round"/>
+  ${braid(208,128,232,318,17,C.hair,K,2.4)}
+  <rect x="222" y="244" width="20" height="8" fill="#cfab5c" ${ow} transform="rotate(-10 236 250)"/>
+  <path d="${P.neck}" fill="${C.skin}" ${ow}/>
+  <path d="M150,248 L184,226 L190,268 L160,268 Z" fill="${C.sh}"/>
+  <path d="${P.neckShadow}" fill="${C.sh}"/>
+  <path d="${P.neckShadow}" fill="url(#${id}dot)" opacity=".5"/>
+  <path d="M140,268 C138,298 142,312 150,318 C158,312 162,298 160,268" fill="none" stroke="${K}" stroke-width="2.2"/>
+  <path d="${P.pendant}" fill="#9aa6ae" ${ow}/>
+  <path d="${P.earL}" fill="${C.skin}" ${ow}/><path d="${P.earR}" fill="${C.sh}" ${ow}/>
+  <path d="${P.head}" fill="${C.skin}"/>
+  <g clip-path="url(#${id}ch)">
+    <path d="M150,56 C190,56 210,84 210,124 C210,150 208,170 203,190 C198,214 182,238 150,248 C178,220 186,190 184,160 C182,120 172,80 150,56 Z" fill="${C.sh}"/>
+    <path d="M168,80 C190,100 196,150 190,190 C186,208 178,224 166,236" fill="none" stroke="url(#${id}dot)" stroke-width="12" opacity=".6"/>
+    <path d="${P.cap}" fill="${C.hairS}" opacity=".55"/>
+    <path d="${P.cap}" fill="url(#${id}dot)" opacity=".35"/>
+    ${valknut(110,95,26,`stroke="${K}" stroke-width="3"`)}
+    <path d="M96,118 C100,124 104,128 108,136" stroke="${K}" stroke-width="2.4" fill="none" stroke-dasharray="4 3"/>
+    <path d="${P.socketL}" fill="${C.sh}"/><path d="${P.socketR}" fill="${K}"/>
+    <path d="${P.cheekL}" fill="${C.sh}"/><path d="${P.cheekR}" fill="${K}" opacity=".85"/>
+    <path d="${P.noseShade}" fill="${C.sh}"/>
+  </g>
+  <path d="${P.head}" fill="none" ${ow} stroke-width="4"/>
+  <path d="${P.kohl}" fill="${K}"/>
+  <path d="${P.drips}" stroke="${K}" stroke-width="3.4" stroke-linecap="round"/>
+  <path d="${P.eyeL}" fill="#e8dccb" ${ow} stroke-width="2"/><path d="${P.eyeR}" fill="#d9c9b5" ${ow} stroke-width="2"/>
+  <circle cx="127" cy="150" r="3.6" fill="${K}"/><circle cx="173" cy="150" r="3.6" fill="${K}"/>
+  <circle cx="126" cy="149" r="1" fill="#fff"/><circle cx="172" cy="149" r="1" fill="#fff"/>
+  <path d="${P.lidL}" stroke="${K}" stroke-width="3.6" fill="none" stroke-linecap="round"/><path d="${P.lidR}" stroke="${K}" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+  <path d="${P.browL}" fill="${C.hairS}" ${ow} stroke-width="2.4"/><path d="${P.browR}" fill="${C.hairS}" ${ow} stroke-width="2.4"/>
+  <path d="${P.frown}" stroke="${K}" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M100,104 L112,110 M200,104 L188,110" stroke="${K}" stroke-width="2" stroke-linecap="round"/>
+  <path d="${P.noseLine}" stroke="${K}" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M137,190 C139,183 146,185 150,189 C154,185 161,183 163,190" stroke="${K}" stroke-width="2.6" fill="none"/>
+  <ellipse cx="143" cy="194" rx="3.6" ry="2.2" fill="${K}"/><ellipse cx="157" cy="194" rx="3.6" ry="2.2" fill="${K}"/>
+  <path d="${P.scar}" stroke="#e7b9a6" stroke-width="4" stroke-linecap="round"/><path d="${P.scar}" stroke="${K}" stroke-width="1.6"/>
+  <path d="${P.scarStitch}" stroke="${K}" stroke-width="1.6"/>
+  <path d="${P.beard}" fill="${C.hair}" ${ow}/>
+  <g clip-path="url(#${id}cb)"><path d="M150,226 L160,233 C168,243 176,239 182,228 C192,215 198,202 203,186 L210,250 L150,330 Z" fill="${C.hairS}"/>
+    <path d="${strands(R,26,beardLines)}" stroke="${K}" stroke-width="2.2" fill="none" stroke-linecap="round"/></g>
+  ${braid(150,296,150,350,6,C.hair,K,2.4)}
+  <rect x="140" y="312" width="20" height="8" fill="#cfab5c" ${ow}/><rect x="141" y="334" width="18" height="7" fill="#cfab5c" ${ow}/>
+  <path d="${P.mouth}" fill="${K}"/>
+  <path d="${P.mustache}" fill="${C.hair}" ${ow}/>
+  <path d="M150,213 C167,224 174,233 176,247 C181,240 185,231 183,220 C177,206 165,201 156,200 Z" fill="${C.hairS}"/>
+  <path d="${strands(R,10,mustLines)}" stroke="${K}" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="${P.strip}" fill="${C.hair}" ${ow}/>
+  <g clip-path="url(#${id}cs)"><path d="M150,54 C164,56 174,80 173,101 L150,98 Z" fill="${C.hairS}"/><path d="${strands(R,12,hairLines)}" stroke="${K}" stroke-width="2.2" fill="none" stroke-linecap="round"/></g>
+  </svg>`;
+}
+
+/* ---------- C：北歐木刻 ---------- */
+function artC(){
+  const R=rng(11),id='c',K='#1b1714',PA='#e6dcc8',RED='#9e2b20',ow=`stroke="${K}" stroke-width="3.2" stroke-linejoin="round"`;
+  return `<svg viewBox="0 0 300 360" role="img" aria-label="畫風 C：北歐木刻風">
+  <defs>
+    <pattern id="${id}h" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="5" height="2" fill="${K}"/></pattern>
+    <pattern id="${id}hh" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><rect width="5" height="2.4" fill="${K}"/><rect width="2.4" height="5" fill="${K}"/></pattern>
+    <pattern id="${id}hl" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(-20)"><rect width="7" height="1.2" fill="${K}"/></pattern>
+    <pattern id="${id}mail" width="9" height="8" patternUnits="userSpaceOnUse"><path d="M0,4 a4.5,4 0 0 1 9,0" fill="none" stroke="${K}" stroke-width="1.8"/></pattern>
+    <clipPath id="${id}cb"><path d="${P.beard}"/></clipPath><clipPath id="${id}cs"><path d="${P.strip}"/></clipPath><clipPath id="${id}ch"><path d="${P.head}"/></clipPath>
+    <clipPath id="${id}fr"><rect x="12" y="12" width="276" height="336"/></clipPath>
+  </defs>
+  <rect width="300" height="360" fill="${PA}"/>
+  <g clip-path="url(#${id}fr)">
+    ${Array.from({length:36},(_,i)=>{const a=i*10*Math.PI/180;return `<path d="M150,140 L${(150+Math.cos(a)*260).toFixed(1)},${(140+Math.sin(a)*260).toFixed(1)}" stroke="${K}" stroke-width="${i%2?1:2.2}" opacity=".5"/>`;}).join('')}
+    <circle cx="150" cy="140" r="104" fill="${PA}"/>
+    <circle cx="150" cy="140" r="104" fill="none" stroke="${K}" stroke-width="2"/>
+    <path d="${P.torso}" fill="${PA}" ${ow}/><path d="${P.torso}" fill="url(#${id}mail)"/>
+    <path d="${furHalf(rng(3),true)}" fill="${K}"/><path d="${furHalf(rng(4),false)}" fill="${K}"/>
+    <path d="${strands(R,60,furLines)}" stroke="${PA}" stroke-width="1.8" stroke-linecap="round"/>
+    ${braid(208,128,232,318,17,K,PA,1.6)}
+    <path d="${P.neck}" fill="${PA}" ${ow}/>
+    <path d="M150,248 L184,226 L190,268 L160,268 Z" fill="url(#${id}h)"/>
+    <path d="${P.neckShadow}" fill="url(#${id}hh)"/>
+    <text x="176" y="258" font-family="var(--f-rune)" font-size="10" fill="${K}" transform="rotate(-78 176 258)">ᚢᛚᚠᚱ</text>
+    <path d="M140,268 C138,298 142,312 150,318 C158,312 162,298 160,268" fill="none" stroke="${K}" stroke-width="2"/>
+    <path d="${P.pendant}" fill="${K}"/>
+    <path d="${P.earL}" fill="${PA}" ${ow}/><path d="${P.earR}" fill="url(#${id}h)" ${ow}/>
+    <path d="${P.head}" fill="${PA}"/>
+    <g clip-path="url(#${id}ch)">
+      <path d="M150,56 C190,56 210,84 210,124 C210,150 208,170 203,190 C198,214 182,238 150,248 C178,220 186,190 184,160 C182,120 172,80 150,56 Z" fill="url(#${id}h)"/>
+      <path d="${P.cap}" fill="url(#${id}hl)"/>
+      ${valknut(110,95,26,`stroke="${RED}" stroke-width="3"`)}
+      <path d="${P.socketL}" fill="url(#${id}h)"/><path d="${P.socketR}" fill="url(#${id}hh)"/>
+      <path d="${P.cheekL}" fill="url(#${id}h)"/><path d="${P.cheekR}" fill="url(#${id}hh)"/>
+      <path d="${P.noseShade}" fill="url(#${id}h)"/>
+    </g>
+    <path d="${P.head}" fill="none" ${ow} stroke-width="3.8"/>
+    <path d="${P.kohl}" fill="${RED}"/>
+    <path d="${P.drips}" stroke="${RED}" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="${P.eyeL}" fill="${PA}" ${ow} stroke-width="2"/><path d="${P.eyeR}" fill="${PA}" ${ow} stroke-width="2"/>
+    <circle cx="127" cy="150" r="3.4" fill="${K}"/><circle cx="173" cy="150" r="3.4" fill="${K}"/>
+    <path d="${P.lidL}" stroke="${K}" stroke-width="3.6" fill="none" stroke-linecap="round"/><path d="${P.lidR}" stroke="${K}" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+    <path d="${P.browL}" fill="${K}"/><path d="${P.browR}" fill="${K}"/>
+    <path d="${P.frown}" stroke="${K}" stroke-width="2.6" stroke-linecap="round"/>
+    <path d="${P.noseLine}" stroke="${K}" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M137,190 C139,183 146,185 150,189 C154,185 161,183 163,190" stroke="${K}" stroke-width="2.6" fill="none"/>
+    <ellipse cx="143" cy="194" rx="3.6" ry="2.2" fill="${K}"/><ellipse cx="157" cy="194" rx="3.6" ry="2.2" fill="${K}"/>
+    <path d="${P.scar}" stroke="${K}" stroke-width="2.4"/><path d="${P.scarStitch}" stroke="${K}" stroke-width="1.6"/>
+    <path d="${P.beard}" fill="${K}"/>
+    <g clip-path="url(#${id}cb)"><path d="${strands(R,34,beardLines)}" stroke="${PA}" stroke-width="1.7" fill="none" stroke-linecap="round"/></g>
+    ${braid(150,296,150,350,6,K,PA,1.6)}
+    <rect x="140" y="312" width="20" height="7" fill="${PA}" stroke="${K}" stroke-width="2"/><rect x="141" y="334" width="18" height="6" fill="${PA}" stroke="${K}" stroke-width="2"/>
+    <path d="${P.mouth}" fill="${PA}" stroke="${K}" stroke-width="2"/>
+    <path d="${P.mustache}" fill="${K}"/>
+    <path d="${strands(R,14,mustLines)}" stroke="${PA}" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    <path d="${P.strip}" fill="${K}"/>
+    <g clip-path="url(#${id}cs)"><path d="${strands(R,16,hairLines)}" stroke="${PA}" stroke-width="1.6" fill="none" stroke-linecap="round"/></g>
+  </g>
+  <rect x="7" y="7" width="286" height="346" fill="none" stroke="${K}" stroke-width="3"/>
+  <rect x="12" y="12" width="276" height="336" fill="none" stroke="${K}" stroke-width="1.4"/>
+  <rect x="60" y="334" width="180" height="20" fill="${PA}" stroke="${K}" stroke-width="1.6"/>
+  <text x="150" y="348" text-anchor="middle" font-family="var(--f-rune)" font-size="11" fill="${K}" letter-spacing="3">ᚾᛟᚱᚦᚱ ᚺᛖᛁᛗᚱ</text>
+  </svg>`;
+}
+document.getElementById('art-a').innerHTML=artA();
+document.getElementById('art-b').innerHTML=artB();
+document.getElementById('art-c').innerHTML=artC();
+</script>
