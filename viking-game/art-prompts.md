@@ -10,6 +10,39 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
+## ★ 重畫：有疑慮的圖（3 張＋還缺的 2 張）
+
+三型態的毛皮要一致：**第一、第二型態都還披著毛皮，第三型態才甩開**（遊戲文字是第三型態「甩開肩上的毛皮」）。
+
+| # | 檔名 | 為什麼要重畫 | 優先 |
+|---|---|---|---|
+| R1 | v_halfdan2a | 嘴巴張開，看起來像在低吼；老王要沉穩、閉著嘴 | 高 |
+| R2 | v_halfdan2 | 第二型態已經沒有毛皮，和第三型態「甩開毛皮」矛盾 | 高 |
+| R3 | sc_k_gods | 老王沒有英靈的金光，看起來不像「從英靈戰士裡走出來」 | 低（可不畫） |
+| — | sc_k_advance | 還缺（巨人要往後退，提示詞見下方 v0.8 第二批 #8b） | 中 |
+| — | v_halfdan3 | 還缺（重生後的雙斧老王，提示詞見下方 v0.8 第二批 #10） | 中 |
+
+**R1. v_halfdan2a（第一型態：剛覺醒，閉著嘴）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic warm golden-hour rim light with cold blue shadows. Highly detailed fur, wool, leather, iron, silver and braided hair. Gritty, grounded, believable faces. Vertical 3:4 portrait, chest-up, the character looking toward the viewer. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and long white hair, the same gold knotwork crown, dark red-and-black wool robes embroidered with gold Norse knotwork, a heavy dark fur mantle over both shoulders, and his ancient royal longsword: long and heavy, notched and etched with faded runes, with a gold knotwork crossguard and a crowned wolf-head pommel. In a dark royal hall with dying torches. FIRST STAGE of his awakening: he has just risen to his feet, holding the sword upright in front of his chest with both hands; the first faint embers drift around him and his pale eyes are just beginning to glow with a cold light. His MOUTH IS CLOSED, lips pressed together, jaw set; his face is calm, cold and unreadable, not angry, not shouting, not snarling. The fur mantle is still on his shoulders. Controlled, dangerous, the storm only starting.
+```
+
+**R2. v_halfdan2（第二型態：力量又漲一截，還披著毛皮）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic warm golden-hour rim light with cold blue shadows. Highly detailed fur, wool, leather, iron, silver and braided hair. Gritty, grounded, believable faces. Vertical 3:4 portrait, chest-up, the character looking toward the viewer. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway: around seventy, long white beard and long white hair, the same gold knotwork crown, dark red-and-black wool robes embroidered with gold Norse knotwork, a heavy dark fur mantle over both shoulders, and his ancient royal longsword: long and heavy, notched and etched with faded runes, with a gold knotwork crossguard and a crowned wolf-head pommel. In a dark royal hall. SECOND STAGE of his awakening, stronger than the first: he stands tall with the longsword raised and ready, the heavy fur mantle STILL ON BOTH SHOULDERS, his white hair and beard starting to stir in an unseen wind; his eyes glow brighter with cold white light; embers and a few snowflakes swirl around him; every torch flame in the hall leans toward him as if pulled. His mouth is closed, his face calm and cold, no shouting. Rising, inevitable power.
+```
+
+**R3. sc_k_gods（處決版：老王走過你身邊，去見奧丁）**（可不畫）
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+WIDE SHOT on the Viking side of the Ragnarök battlefield; the giant horde is far away in the background on the RIGHT. In the LEFT foreground, a Viking ruler seen from behind (face hidden, could be a man or a woman) stands to one side, watching, left out. Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle) has clearly come back as one of the einherjar: his whole figure is edged with the SAME golden glow as the rows of glowing golden einherjar warriors behind him, as if he just stepped out of their ranks. He walks past the ruler without looking at them, toward Odin, who stands in front of the descending rainbow bridge: one-eyed, wide-brimmed hat, dark blue cloak, spear in hand, two ravens on his shoulders. Odin smiles slightly and clasps forearms with the king like an old friend; the king bows his head slightly in respect. Behind Odin stand the other gods (red-bearded Thor with his hammer, one-handed Tyr, golden-haired Freyja). Dignified and warm between them, a quiet sting for the ruler left behind.
+```
+
 ## ✅ v0.11 劇情補圖（3 張，已全部收到）
 
 劇情已經做進遊戲了，圖到之前會先用頭像或純文字代替。
