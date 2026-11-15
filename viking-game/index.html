@@ -1254,7 +1254,7 @@ function takeLosses(l,eliteW){
   return l;
 }
 function randomEvent(){
-  const pool=[...EVENTS,...MYTH_EVENTS,...CH4_EVENTS,EV_RIVAL,...FAME_EVENTS,...WINTER_EVENTS].filter(e=>(!e.once||!S.flags['ev_'+e.id])&&(e.phase.includes(S.phase)||(S.phase===4&&e.phase.includes(3)))&&(!e.cond||e.cond()));
+  const pool=[...EVENTS,...MYTH_EVENTS,...CH4_EVENTS,EV_RIVAL,...FAME_EVENTS,...WINTER_EVENTS].filter(e=>(!e.once||!S.flags['ev_'+e.id])&&!(CHAMPS[e.id]&&(hasC(e.id)||(S.stats.lostC||[]).includes(CHAMPS[e.id].name)))&&(e.phase.includes(S.phase)||(S.phase===4&&e.phase.includes(3)))&&(!e.cond||e.cond()));
   if(!pool.length) return;
   const e=pick(pool);
   if(e.once) S.flags['ev_'+e.id]=1;
@@ -1854,7 +1854,7 @@ function makeMinis(el,header,apply,defend,st,skill,relax,logHtml,fail,hard){
     const placed=new Set();let toggles=0,done=false;
     const covered=()=>rows.every(r=>[...placed].some(i=>Math.floor(i/n)===r))&&cols.every(c=>[...placed].some(i=>i%n===c));
     const drawS=()=>{
-      el.innerHTML=header()+`<div class="shieldgrid"><i></i>${Array.from({length:n},(_,c)=>`<i class="arr">${cols.includes(c)?'↓':''}</i>`).join('')}
+      el.innerHTML=header()+`<div class="shieldgrid" style="grid-template-columns:28px repeat(${n},1fr);max-width:${n>4?310:260}px"><i></i>${Array.from({length:n},(_,c)=>`<i class="arr">${cols.includes(c)?'↓':''}</i>`).join('')}
       ${Array.from({length:n},(_,r)=>`<i class="arr">${rows.includes(r)?'→':''}</i>${Array.from({length:n},(_,c)=>{const i=r*n+c;const hot=rows.includes(r)||cols.includes(c);return rocks.has(i)?`<i class="rock">▲</i>`:`<button data-s2="${i}" class="${placed.has(i)?'on':''} ${hot?'hot':''}" aria-label="第 ${r+1} 行第 ${c+1} 列${placed.has(i)?'，已放盾牌':''}">${placed.has(i)?'🛡':''}</button>`;}).join('')}`).join('')}</div>
       <div class="row" style="justify-content:space-between"><span class="num">盾牌 ${placed.size}/${need}　一面盾能同時擋住它那一行和那一列；▲ 是礁石，放不了盾</span><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
       el.querySelectorAll('[data-s2]').forEach(b=>b.onclick=()=>{if(done)return;const i=+b.dataset.s2;if(placed.has(i))placed.delete(i);else if(placed.size<need)placed.add(i);else return;toggles++;
@@ -1865,21 +1865,21 @@ function makeMinis(el,header,apply,defend,st,skill,relax,logHtml,fail,hard){
   };
   // 解謎型：符文鎖（猜順序）
   const lock=()=>{
-    const R=hard?['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ']:['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ'];const code=R.slice().sort(()=>Math.random()-.5).slice(0,4);const limit=(hard?7:6)+Math.min(2,skill);
+    const L=hard||st.big||S.diff==='hero'?4:3;const R=hard?['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ','ᚲ']:['ᚠ','ᚢ','ᚦ','ᚨ','ᚱ'];const code=R.slice().sort(()=>Math.random()-.5).slice(0,L);const limit=(hard?7:L===3?5:6)+Math.min(2,skill);
     let cur=[],hist=[],done=false;
     const score=g=>{let b=0,w=0;g.forEach((x,i)=>{if(code[i]===x)b++;else if(code.includes(x))w++;});return [b,w];};
     const drawL=()=>{
       el.innerHTML=header()+`<div class="lockhist">${hist.map(([g,[b,w]])=>`<div><span>${g.join(' ')}</span><b>${'●'.repeat(b)}${'○'.repeat(w)}${!b&&!w?'—':''}</b></div>`).join('')||'<div><small>還沒有猜過</small></div>'}</div>
-      <div class="seq">${[0,1,2,3].map(i=>`<span>${cur[i]||''}</span>`).join('')}</div>
+      <div class="seq">${[...Array(L).keys()].map(i=>`<span>${cur[i]||''}</span>`).join('')}</div>
       <div class="runepad">${R.map(r=>`<button data-r2="${r}" ${cur.includes(r)?'disabled':''}><b>${r}</b></button>`).join('')}</div>
       <div class="row" style="justify-content:space-between;margin-top:8px"><span class="num">第 ${hist.length+1}/${limit} 次（3 次內猜中算完美）　● 符文和位置都對　○ 符文對、位置錯</span>
-      <span><button class="ghost" id="lk-back">退一格</button> <button class="primary" id="lk-go" ${cur.length<4?'disabled':''}>猜</button></span></div>
+      <span><button class="ghost" id="lk-back">退一格</button> <button class="primary" id="lk-go" ${cur.length<L?'disabled':''}>猜</button></span></div>
       <div class="row" style="justify-content:flex-end;margin-top:6px"><button class="ghost" id="mg-give">放棄這回合</button></div>`+logHtml();
-      el.querySelectorAll('[data-r2]').forEach(b=>b.onclick=()=>{if(cur.length<4){cur.push(b.dataset.r2);drawL();}});
+      el.querySelectorAll('[data-r2]').forEach(b=>b.onclick=()=>{if(cur.length<L){cur.push(b.dataset.r2);drawL();}});
       $('#lk-back').onclick=()=>{cur.pop();drawL();};
       $('#mg-give').onclick=()=>{if(done)return;done=true;apply(fail());};
-      $('#lk-go').onclick=()=>{if(done||cur.length<4)return;const sc=score(cur);hist.push([cur,sc]);cur=[];
-        if(sc[0]===4){done=true;apply(hist.length===1?'jackpot':hist.length===2?'second':hist.length<=3?'perfect':'good');return;}
+      $('#lk-go').onclick=()=>{if(done||cur.length<L)return;const sc=score(cur);hist.push([cur,sc]);cur=[];
+        if(sc[0]===L){done=true;apply(hist.length===1?'jackpot':hist.length===2?'second':hist.length<=3?'perfect':'good');return;}
         if(hist.length>=limit){done=true;apply(defend()?'miss':{partial:.3});return;}drawL();};
     };
     drawL();
@@ -1955,7 +1955,7 @@ function proxyDuel(foeKey,cid,o,used,carry){
     ambSet('battle');
     const fs=foeStats(foeKey,o.mul);
     const c=champ(cid);const C=CHAMPS[cid];
-    const st={foe:carry?carry.foe:fs.max,fmax:fs.max,atk:fs.atk,chp:proxyHp(c),cmax:proxyHp(c),dmg:proxyDmg(c),round:0,log:[],phase:'intro'};
+    const st={foe:carry?carry.foe:fs.max,fmax:fs.max,atk:fs.atk,chp:proxyHp(c),cmax:proxyHp(c),dmg:proxyDmg(c),round:0,log:[],phase:'intro',big:!!(fs.base.lord||fs.base.king||o.big)};
     const relax=S.relaxed?1.6:1;
     const mode=S.mini||'react';
     const skill=(c.skill||0)+(c.oath?1:0);
@@ -2005,7 +2005,7 @@ function proxyDuel(foeKey,cid,o,used,carry){
       charge:'按「蓄力」開始，力道升到金色區域時按「出手」，停在中間的橘色是完美的一擊。太早沒力，太晚會脫手。',
       rotate:()=>`把所有符文石都轉回朝上，就能${defend()?'擋下並反擊':'打出連擊'}。步數越少越好。`,
       shields:'敵人的攻擊會沿著標了箭頭的行和列打過來。用有限的盾牌，把每一條攻擊線都擋住。',
-      lock:'猜出對方破綻的順序：四個不重複的符文。● 是符文和位置都對，○ 是符文對但位置錯。',
+      lock:()=>`猜出對方破綻的順序：${st.big||S.diff==='hero'?'四':'三'}個不重複的符文。● 是符文和位置都對，○ 是符文對但位置錯。`,
       pairs:'翻開兩張符文牌，一樣就留著。在次數用完前把每一對都找出來。',
     };
     const between=()=>{
@@ -2097,7 +2097,7 @@ function battle(o){
       const draw2=()=>{
         const left=R-mine[0]-mine[1]-mine[2];
         el.innerHTML=`<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,1)}
-        <p class="story">${open}\n\n戰線拉開了。你手上還有 <b>${R}</b> 隊預備隊，要放到哪裡？每條戰線上，你的隊數不比敵軍少，就守得住。</p>
+        <p class="story">${open}\n\n戰線拉開了。你手上還有 <b>${R}</b> 隊預備隊，要放到哪裡？每條戰線上，你的隊數不比敵軍少，就守得住。<b>守住兩條就佔上風</b>；三條全守，要靠打頭陣的勇士。</p>
         <div class="lanes">${LANES.map((n,i)=>`<div class="lane"><b>${n}</b><span class="${seen[i]?'':'dim'}">${hint[i]}</span>
           <div class="lctl"><button data-lm="${i}" ${mine[i]?'':'disabled'}>−</button><i>${mine[i]}${champLane===i?' +2':''}</i><button data-lp="${i}" ${left?'':'disabled'}>＋</button></div></div>`).join('')}</div>
         ${hero?`<div class="bchamp"><span style="font-size:13px;color:var(--muted);align-self:center">${CHAMPS[hero].name}（算 2 隊）守：</span>${LANES.map((n,i)=>`<button data-lc="${i}" aria-pressed="${champLane===i}">${n}</button>`).join('')}</div>`:''}
@@ -4272,7 +4272,7 @@ const EV_LOKI_RAG={kind:'ᛚ 洛基',art:'loki',title:'騙子的邀請',text:'�
         return '洛基看著你，很久很久。「我就知道。」';}}]};
 const EV_ENVOY=()=>(codex('h_bluetooth'),{kind:'丹麥',art:'harald',title:'藍牙的使者',text:`丹麥國王「藍牙」哈拉爾的使者站在王廳中央，連帽子都沒摘。\n\n「我的國王說：挪威從來都是丹麥的。跪下，每年進貢，你還可以繼續戴那頂小王冠。」${S.spouse==='sweyn'?'\n\n斯韋恩在你身邊冷笑了一聲：「我父親老了，老到忘了他兒子住在哪裡。」':S.spouse==='gunnhild'?'\n\n貢希爾德在你身邊冷笑了一聲：「我父親老了，老到忘了他女兒住在哪裡。」':''}`,
   ch:[{t:'「回去告訴他：挪威不跪。」',fx:()=>{S.flags.envoy='war';S.flags.warT=S.turn+4;return '使者走的時候，你讓人把他的帽子釘在了王廳門口。\n<span class="bad">一年後，丹麥大軍就會來。趁現在做好準備。</span>';}},
-      {t:()=>`請${S.spouse==='gunnhild'?'貢希爾德':'斯韋恩'}去跟${S.spouse==='gunnhild'?'她':'他'}父親談`,show:()=>S.spouse==='sweyn'||S.spouse==='gunnhild',fx:()=>{S.flags.envoy='war';S.flags.warT=S.turn+6;S.flags.sweynTalk=1;return (S.spouse==='gunnhild'?'貢希爾德去了丹麥。她回來時一句話都沒說，只是把她父親的戒指丟在桌上':'斯韋恩去了丹麥。他回來時臉上多了一道傷')+'，但帶回了一句話：「他會來，但他會晚一點來，而且帶的人會少一點。」\n<span class="bad">丹麥大軍會在一年半後來</span>';}},
+      {t:()=>`請${S.spouse==='gunnhild'?'貢希爾德':'斯韋恩'}去跟${S.spouse==='gunnhild'?'她':'他'}父親談`,show:()=>S.spouse==='sweyn'||S.spouse==='gunnhild',fx:()=>{S.flags.envoy='war';S.flags.warT=S.turn+6;S.flags.sweynTalk=1;return (S.spouse==='gunnhild'?'貢希爾德去了丹麥。她回來時一句話都沒說，只是把她父親的戒指丟在桌上':'斯韋恩去了丹麥。他回來時臉上多了一道傷')+`，但帶回了一句話：「他會來。但不會馬上來。」\n\n停了一下，又說：「有幾個雅爾不願意跟自己的${S.spouse==='gunnhild'?'公主':'王子'}為敵，他們會留在家裡。」\n<span class="bad">丹麥大軍會在一年半後來</span>`;}},
       {t:'跪下',note:'結束這一局',fx:()=>{pushLater(el=>ch4End(el,'vassal'));return null;}}]});
 const danMul=()=>{
   let m=1;
@@ -4315,7 +4315,7 @@ function daneVictory(){
 }
 const daneDef=()=>220*lf()*D().foe*danMul();
 function strikeJelling(m){
-  const help=spouseWarHelp();if(help)note('出征之前',help.trim(),'丹麥');
+  const help=spouseWarHelp();if(help)note('出征之前',help.trim(),'丹麥',{gunnhild:'sc_war_gunnhild',sweyn:'sc_war_sweyn'}[S.spouse]);
   battle({title:'直搗耶靈',def:daneDef()*1.05*m*(S.flags.spSong?.94:1),intro:'你們的船隊衝進了耶靈的港口。「藍牙」哈拉爾的王廳就在眼前，門口立著那塊巨大的符文石。',foeNote:'「藍牙」哈拉爾的大軍',cause:'死在丹麥的土地上',onEnd:w=>{
     if(!w){S.flags.envoy='war';S.flags.warT=S.turn+2;S.flags.daneTry=0;return '<span class="bad">你們被打回了船上。藍牙會追過來的：丹麥大軍 2 季後來襲。</span>';}
     S.flags.warDone=1;S.flags.struck=1;unlock('jelling');
@@ -4910,26 +4910,44 @@ function axeThrow(){
 function storyNight(){
   const f=S.flags,M=f.mate,T=[];
   const heck=()=>M?'托爾斯坦':S.champions.length?CHAMPS[pick(S.champions).id].name:'一個老槳手';
-  if(S.rival.fate&&S.rival.fate.includes('斧下')) T.push(['我怎麼宰了赫羅爾夫',`那個說你${ORI().q}的人`,'講到最後一斧的時候，長屋裡沒有人歡呼。\n\n一個老人說：「他也是峽灣出來的孩子。」大家安靜地喝完了那一杯。']);
-  else if(S.rival.fate&&S.rival.fate.includes('效忠')) T.push(['赫羅爾夫跪下的那一天','你的宿敵現在坐在台下',`你講到他把斧頭橫放在你腳邊的時候，大家都偷偷往角落看。\n\n赫羅爾夫坐在那裡，自己灌了一大口酒：「講快一點。我還要睡覺。」全長屋笑翻了。`]);
-  else if(f.dock==='yield') T.push(['我彎腰撿箱子的那天','你在碼頭忍下了赫羅爾夫',`你講到自己彎腰撿起木箱的時候，長屋裡安靜了下來。\n\n一個年輕的槳手忍不住問：「你為什麼不打他？」\n\n${M?'托爾斯坦替你回答：「因為那天要是打了，就沒有今天。」':'你想了很久：「因為那天要是打了，就沒有今天。」'}`]);
-  else if(f.dock==='win') T.push(['碼頭上那一拳','你當眾打倒了赫羅爾夫',`你講到那一拳的時候，孩子們都跟著揮起了拳頭。\n\n${M?'托爾斯坦在旁邊補了一句：「他沒講的是，那天晚上他的手腫得連角杯都拿不起來。」大家笑成一團。':'有個孩子問：「後來呢？」你說：「後來，他就一直記恨到現在。」'}`]);
-  else if(f.dock==='lose') T.push(['我輸給赫羅爾夫的那天','你在碼頭被他踩在腳下','你講得很老實：你輸了，被人踩著背嘲笑。\n\n長屋裡沒有人笑。一個瘸了腿的老戰士舉起角杯：「敢輸的人，才有資格贏。」']);
-  if(f.vSaved) T.push(['鹽灘的頭狼','你替漁村殺了頭狼',f.vRaid&&!f.vAmend?`講到村長把錢袋放在你腳邊的時候，你停了下來。\n\n${M?'托爾斯坦低聲說：「你漏了前面那一段。」\n\n':''}你點點頭，把搶過那個村子的事也講了。長屋裡很安靜。講完以後，有人默默給你倒了一杯酒。`:`講到頭狼撲上來的那一下，孩子們全都尖叫起來。\n\n${M?'托爾斯坦哼了一聲：「那頭狼要是知道他現在吃得這麼胖，一定後悔沒先咬一口。」':'你掀起袖子，給大家看手臂上的爪痕。'}`]);
-  else if(f.vRaid) T.push(['第一次搶村子','你搶過鹽灘漁村',`你講到衝進村子的那一刻，講到守衛的矛。\n\n一個孩子舉手問：「那些漁夫後來怎麼了？」\n\n你沒有回答。${M?'托爾斯坦把那個孩子抱到腿上，換了一個話題。':''}`]);
-  if(f.merch) T.push(['胖商人的銀袋','你從強盜刀下救過一個商人','你講到那個胖商人跪在泥地裡發抖的樣子。\n\n坐在角落的一個織布女突然站了起來：「那是我叔叔！他到現在逢人就講這件事！」\n\n大家笑著要她講她叔叔的版本。她叔叔的版本裡，強盜有十個。']);
-  if((f.bountyN||0)>=3) T.push(['林子裡的強盜們',`你接過 ${f.bountyN} 次懸賞`,`你一個一個數：沒有名字的那個、「獨耳」、認得你的那個……\n\n${M?'托爾斯坦接著數下去，數得比你還清楚。':'數到後來，大家幫你一起數。'}最後，連孩子都會背了。`]);
-  if(S.stats.bears) T.push(['徒手……差不多徒手殺熊',`你殺過 ${S.stats.bears} 頭熊`,`你講到熊人立起來的時候，比你高了兩個頭。\n\n${heck()}在旁邊比了一下：「兩個頭？我記得是一個半。」你瞪了他一眼。他改口：「兩個。兩個頭。」`]);
-  if(S.stats.revived) T.push(['我死過一次',`你倒下過 ${S.stats.revived} 次`,'你講到眼前一黑、什麼都聽不見的時候，長屋裡連火堆都好像小聲了。\n\n一個老婦人說：「是我們把你喊回來的。」她說得很肯定。你沒有反駁。']);
-  if(f.freyWed) T.push(['女神的眼淚','關於弗蕾亞的事','你講到那滴金色的眼淚落在你手心的時候，孩子們屏住了呼吸。\n\n講完以後，好幾個女孩子跑去河邊找金色的石頭。']);
-  if(f.west) T.push(['西邊的冒煙的山','你去過冰島','你講到會噴火的山、會冒熱水的地洞。\n\n一個老漁夫說他不信。你說：「那你明年跟我去。」他想了很久，點了頭。']);
-  if(f.kingFate==='spared') T.push(['老王的最後一劍','你饒了老王哈夫丹','你講到老王把劍放在你腳邊的時候，聲音不自覺地放輕了。\n\n'+(M?'托爾斯坦一直看著火堆。他年輕時，在那個人的船上划過槳。':'沒有人打斷你。')]);
-  else if(f.kingFate==='dead') T.push(['老王的最後一劍','老王哈夫丹死在你手上','你講到老王倒下的那一刻，沒有人歡呼。\n\n'+(M?'托爾斯坦站起來，走到外面的雪地裡。過了很久才回來。':'大家安靜地舉起了角杯。')]);
-  T.push(['我離開峽灣的那一天','你十九歲那年','你講到赫羅爾夫的笑聲，講到母親的護身符，講到那句「總有一天，我會當上國王」。\n\n長屋裡的人互相看了一眼，然後一起笑了起來——不是嘲笑。']);
+  // [標題, 副標, 照實講之後的反應, 你講的故事, 加油添醋的版本, 吐槽的人]
+  if(S.rival.fate&&S.rival.fate.includes('斧下')) T.push(['我怎麼宰了赫羅爾夫',`那個說你${ORI().q}的人`,'講完的時候，長屋裡沒有人歡呼。\n\n一個老人說：「他也是峽灣出來的孩子。」大家安靜地喝完了那一杯。',
+    '他跪在地上，滿臉是血，還在笑：「動手啊。」……我動手了。','他跪在地上求我饒命，哭得像個沒斷奶的小孩，鼻涕流到了鬍子上。']);
+  else if(S.rival.fate&&S.rival.fate.includes('效忠')) T.push(['赫羅爾夫跪下的那一天','你的宿敵現在坐在台下','大家都偷偷往角落看。赫羅爾夫坐在那裡，自己灌了一大口酒：「講快一點。我還要睡覺。」\n\n全長屋笑翻了。',
+    '他把斧頭橫放在我腳邊。我們瞪著對方，瞪了很久，誰都沒有先開口。','他抱著我的腿，哭著說要當我的親兄弟。','赫羅爾夫']);
+  else if(f.dock==='yield') T.push(['我彎腰撿箱子的那天','你在碼頭忍下了赫羅爾夫',`長屋裡安靜了下來。一個年輕的槳手忍不住問：「你為什麼不打他？」\n\n${M?'托爾斯坦替你回答：「因為那天要是打了，就沒有今天。」':'你想了很久：「因為那天要是打了，就沒有今天。」'}`,
+    '那天我在碼頭扛箱子。赫羅爾夫一腳踢翻了我的箱子，說我還在替人扛箱子。我的手已經摸到斧柄了。……然後，我彎下腰，把箱子撿了起來。','赫羅爾夫帶了二十個打手，個個比熊還壯。他們圍著我，我一個人，赤手空拳。我只是看了他一眼——他就自己走了。']);
+  else if(f.dock==='win') T.push(['碼頭上那一拳','你當眾打倒了赫羅爾夫',`孩子們都跟著揮起了拳頭。\n\n${M?'托爾斯坦在旁邊補了一句：「他沒講的是，那天晚上他的手腫得連角杯都拿不起來。」大家笑成一團。':'有個孩子問：「後來呢？」你說：「後來，他就一直記恨到現在。」'}`,
+    '他說我還在替人扛箱子。我把箱子放下，跟他說：「那你來扛扛看。」圍觀的人開始吹口哨。然後，他就躺在地上了。','我一拳，他飛過了半個碼頭，掉進海裡。到現在，漁夫還在那片海裡撈他的牙齒。']);
+  else if(f.dock==='lose') T.push(['我輸給赫羅爾夫的那天','你在碼頭被他踩在腳下','長屋裡沒有人笑。一個瘸了腿的老戰士舉起角杯：「敢輸的人，才有資格贏。」',
+    '我輸了。他踩著我的背，笑得整個碼頭都聽得見。我趴在地上，聞到一股魚腥味，跟自己說：記住這個味道。','我讓了他三招，又讓了三招，讓到第十招，他才打中我一拳。那叫輸嗎？那叫風度。']);
+  if(f.vSaved) T.push(['鹽灘的頭狼','你替漁村殺了頭狼',f.vRaid&&!f.vAmend?`${M?'托爾斯坦低聲說：「你漏了前面那一段。」\n\n':''}你點點頭，把搶過那個村子的事也講了。長屋裡很安靜。講完以後，有人默默給你倒了一杯酒。`:`孩子們全都尖叫起來。\n\n${M?'托爾斯坦哼了一聲：「那頭狼要是知道他現在吃得這麼胖，一定後悔沒先咬一口。」':'你掀起袖子，給大家看手臂上的爪痕。'}`,
+    f.vRaid&&!f.vAmend?'村長來找我的時候，手在發抖。他認得我的臉。可是在他眼裡，狼比我更可怕。……那頭狼比一般的狼大了一圈。':'那頭狼比一般的狼大了一圈。牠先咬了兩下試探，第三下整個撲上來。我沒有閃，我讓牠撲——然後把斧頭往上送。',
+    '那不是一頭狼，是一整群。七頭，不，十頭！殺到最後一頭的時候，牠跪下來向我求饒。']);
+  else if(f.vRaid) T.push(['第一次搶村子','你搶過鹽灘漁村',`一個孩子舉手問：「那些漁夫後來怎麼了？」\n\n你沒有回答。${M?'托爾斯坦把那個孩子抱到腿上，換了一個話題。':''}`,
+    '我一個人衝進鹽灘漁村。守衛拿著生鏽的矛擋在門口，打得比誰都拚命。我搶到了銀子，也記住了他的臉。','整座村子的人都拿起了武器，少說一百個！我一個人從村頭打到村尾，打完的時候，連雞都不敢叫。']);
+  if(f.merch) T.push(['胖商人的銀袋','你從強盜刀下救過一個商人','坐在角落的一個織布女突然站了起來：「那是我叔叔！他到現在逢人就講這件事！」\n\n大家笑著要她講她叔叔的版本。她叔叔的版本裡，強盜有十個。',
+    '強盜的刀抵著胖商人的脖子。我說：「放開他，你只會少一隻手。」他沒放。……後來，他真的少了一隻手。','強盜有十個，商人有三百斤重。我一手拎著商人，一手砍強盜，一路砍回了城門口。']);
+  if((f.bountyN||0)>=3) T.push(['林子裡的強盜們',`你接過 ${f.bountyN} 次懸賞`,`${M?'托爾斯坦接著數下去，數得比你還清楚。':'數到後來，大家幫你一起數。'}最後，連孩子都會背了。`,
+    '第一個沒有名字。第二個叫「獨耳」。第三個一看到我就認出來了：「你就是那個專獵我們兄弟的傢伙？」那一刻我才知道，我的名字已經傳進了林子裡。','現在林子裡的強盜一聽到我的名字，就自己把刀丟進河裡。']);
+  if(S.stats.bears) T.push(['徒手……差不多徒手殺熊',`你殺過 ${S.stats.bears} 頭熊`,`${heck()}在旁邊比了一下：「兩個頭？我記得是一個半。」你瞪了他一眼。他改口：「兩個。兩個頭。」`,
+    '熊站起來的時候，比我高了兩個頭。我的斧頭卡在牠的肩膀裡，拔不出來。我手上只剩一把小刀，和最後一口氣。','我根本沒用斧頭。我跟牠摔角，三戰兩勝。第三回合，牠自己拍地認輸。']);
+  if(S.stats.revived) T.push(['我死過一次',`你倒下過 ${S.stats.revived} 次`,'長屋裡連火堆都好像小聲了。\n\n一個老婦人說：「是我們把你喊回來的。」她說得很肯定。你沒有反駁。',
+    '我記得眼前一黑，什麼都聽不見。然後有人在喊我的名字，一聲，兩聲，很多聲。我就順著那些聲音，走了回來。','我走到瓦爾哈拉的門口，女武神說：「你還太年輕，回去吧。」我跟她喝了一杯，才走回來。']);
+  if(f.freyWed) T.push(['女神的眼淚','關於弗蕾亞的事','孩子們屏住了呼吸。講完以後，好幾個女孩子跑去河邊，找金色的石頭。',
+    '她哭的時候，眼淚是金色的。一滴落在我的手心，燙得像火，一整個晚上都沒有涼。','弗蕾亞哭著求我別走。我說：「女神，挪威還需要我。」']);
+  if(f.west) T.push(['西邊的冒煙的山','你去過冰島','一個老漁夫說他不信。你說：「那你明年跟我去。」他想了很久，點了頭。',
+    '那裡的山會噴火，地上的洞會冒熱水。我把手伸進去，差點燙掉一層皮。','那座山噴火的時候，我拿盾牌擋住了岩漿，順便烤了一條魚。']);
+  if(f.kingFate==='spared') T.push(['老王的最後一劍','你饒了老王哈夫丹',(M?'托爾斯坦一直看著火堆。他年輕時，在那個人的船上划過槳。':'沒有人打斷你。'),
+    '老王把劍推到我的腳邊，只說了一句：「好好待他們。」然後一個人，一跛一跛地走出了王廳。','老王一看到我拔斧頭，就自己把王冠摘了下來，雙手捧到我面前。']);
+  else if(f.kingFate==='dead') T.push(['老王的最後一劍','老王哈夫丹死在你手上',(M?'托爾斯坦站起來，走到外面的雪地裡。過了很久才回來。':'大家安靜地舉起了角杯。'),
+    '他沒有求饒。他閉上眼睛，像在等一陣風吹過去。','他跪下來抱著我的腿，求我饒他一命。']);
+  T.push(['我離開峽灣的那一天','你十九歲那年','長屋裡的人互相看了一眼，然後一起笑了起來——不是嘲笑。',
+    `我十九歲，手上只有一把斧頭。赫羅爾夫說我一輩子${ORI().q}。我攥緊拳頭，跟他說：「總有一天，我會當上國王。」`,'那天我就跟整個峽灣的人說：等著，十年後，你們都要向我下跪。結果只花了……嗯，比十年多一點。']);
   const keep=T.pop(),opts=T.sort(()=>Math.random()-.5).slice(0,2).concat([keep]);
-  const tell=([t,sub,real])=>{pushModal(eventModal({kind:'長屋之夜',title:t,text:`你清了清喉嚨，開始講「${t}」。`,
-    ch:[{t:'照實講',fx:()=>{addFame(3);addLoyalty(3);return real+'\n\n名聲 +3，忠誠 +3';}},
-        {t:'加油添醋，越誇張越好',note:()=>rate(.3+eff('wit')*.06),fx:()=>{if(chk(.3+eff('wit')*.06)){addFame(8);addLoyalty(2);return '一頭變成了三頭，一個敵人變成了一百個。大家聽得目瞪口呆，第二天整個峽灣都在傳。\n名聲 +8，忠誠 +2';}addFame(-3);addLoyalty(2);return `講到一半，${heck()}大喊：「才不是這樣！那天你嚇得差點尿褲子！」\n全長屋笑翻了。\n名聲 -3，忠誠 +2`;}},
+  const tell=([t,sub,real,story,tall,who])=>{pushModal(eventModal({kind:'長屋之夜',title:t,text:`你清了清喉嚨，開始講「${t}」。`,
+    ch:[{t:'照實講',fx:()=>{addFame(3);addLoyalty(3);return `「${story}」\n\n${real}\n\n名聲 +3，忠誠 +3`;}},
+        {t:'加油添醋，越誇張越好',note:()=>rate(.3+eff('wit')*.06),fx:()=>{if(chk(.3+eff('wit')*.06)){addFame(8);addLoyalty(2);return `「${tall}」\n\n大家聽得目瞪口呆。第二天，整個峽灣都在傳。\n名聲 +8，忠誠 +2`;}addFame(-3);addLoyalty(2);return `「${tall}」\n\n講到一半，${who||heck()}大喊：「少吹了！明明不是這樣！」\n全長屋笑翻了。\n名聲 -3，忠誠 +2`;}},
         {t:'讓布拉吉來講',show:()=>hasC('bragi'),fx:()=>{addFame(6);bond('bragi',4);return '布拉吉把你的故事唱成了歌。唱到最後，連你自己都差點信了。\n名聲 +6，布拉吉好感 +4';}}]}));};
   pushModal(eventModal({kind:'長屋之夜',title:'講故事之夜',text:'火堆旁坐滿了人，連孩子們都沒睡。大家吵著要你講一個故事。\n\n要講哪一段？',
     ch:opts.map(o=>({t:o[0],note:o[1],fx:()=>{tell(o);return null;}}))}));
