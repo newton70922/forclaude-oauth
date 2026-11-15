@@ -244,7 +244,7 @@ Outside the gates of Paris: a line of Frankish ox-carts loaded with chests of si
 - 所有人的視線方向要對：我方看向橋、巨人看向我方或老王。
 - 老王的劍是一把「長而重的古劍」，有王冠狼頭劍柄、金色繩結護手。
 
-**可選的重畫**（不畫也可以）：第一批的 sc_k_exec、sc_k_hall，見最下面「可選重畫」。
+
 
 老王離世、後事、諸神黃昏歸來的分鏡用圖。還沒畫好之前，遊戲會先用老王現有的立繪代替。每一段都已經包含共用風格，整段直接貼給 ChatGPT 就好。
 
@@ -342,7 +342,7 @@ Old King Halfdan of Norway (around seventy, long white hair and beard, gold knot
 
 ---
 
-## 可選重畫（第一批的兩張，不畫也可以）
+## ✅ 可選重畫（第一批的兩張，已收到）
 
 ### sc_k_exec（處決：腰間不要再掛武器）
 
