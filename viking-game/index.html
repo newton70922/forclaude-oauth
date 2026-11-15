@@ -1208,7 +1208,7 @@ function passTime(quiet){
   }
   if(S.turn%4===0){const a=age();
     if(AGING[a]&&!S.flags['age'+a]){S.flags['age'+a]=1;pushLater(agingModal(a));}
-    if(a>=60&&Math.random()<.1+(a-60)*.05){S.lastCause='在睡夢中老去';pushLater(strawDeathModal);return;}}
+    if(a>=65&&Math.random()<(.05+(a-65)*.025)*(eff('con')>=15?.8:1)*(hasC('una')?.85:1)*(gt('freyja',2)?.85:1)){S.lastCause='在睡夢中老去';pushLater(strawDeathModal);return;}}
   // 斥候網：提前一季警告
   if(has('scoutnet')&&S.phase===3&&S.reg.red.st==='free'&&S.rival.attacks<3&&S.turn+1===S.p3turn+[4,12,20][S.rival.attacks]){log('斥候回報：紅帆船隊下一季會來襲。');toast('斥候回報：紅帆下一季來襲');}
   // 劇情
@@ -2040,13 +2040,21 @@ document.addEventListener('keydown',e=>{if(mgKey)mgKey(e);});
 
 /* ================= 部隊戰 ================= */
 function scouted(defend){return !!S.flags.daneScout&&!!S.flags.envoy||eff('wit')>=9||hasC('einar')||has('scoutnet')||(defend&&bl('tower')>0);}
+// 各地敵人的打法（第二回合的敵軍分佈）
+const FOE_STYLE={
+  '':{mix:1,p:[[4,2,2],[5,2,1],[3,3,2],[4,3,1],[6,1,1],[4,4,0],[5,3,0]]},
+  saxon:{t:'撒克遜人的盾牆排得又長又平，哪一段都不好打。',p:[[3,3,2],[3,2,3],[2,3,3],[4,2,2],[2,4,2],[2,2,4]]},
+  dane:{mix:1,t:'丹麥人習慣把最狠的人集中在一點，往死裡衝。',p:[[6,1,1],[5,2,1],[5,3,0],[6,2,0],[7,1,0]]},
+  frank:{t:'法蘭克騎兵在兩翼打轉，中路反而空了下來。',p:[[4,0,4],[5,1,2],[2,1,5],[4,1,3],[3,1,4],[5,0,3],[3,0,5]]},
+  giant:{mix:1,t:'巨人不排陣，哪裡擠得最多，就往哪裡撞。',p:[[5,3,0],[4,4,0],[6,2,0],[5,2,1]]},
+};
 function battle(o){
   pushModal(el=>{
     ambSet('battle');
     if(eff('pre')>=18&&Math.random()<.3) o={...o,def:o.def*.9,intro:`${o.intro?o.intro+'\n\n':''}<span class="good">敵軍遠遠看見你的旗幟，陣腳先亂了（敵方戰力 −10%）。</span>`};
     let lead=S.hp>maxHp()*.35;
     // 小型突襲一按就結束；其他的大戰分成三個回合
-    const big=!o.raid&&!/^突襲/.test(o.title);let van=null;
+    const big=!o.raid&&!o.quick&&!/^突襲/.test(o.title);let van=null;
     const draw=()=>{
       const p=armyPower()*(lead?leadMul():1);
       const nightP=clamp(.15+eff('wit')*.035+(eff('wit')>=9?.08:0)+(wx('fog')?.15:0)+(qd('einar')&&hasC('einar')?.05:0)+(hasC('einar')?.08:0)+(has('tactician')?.1:0)+(gt('loki',1)?.05:0)+(S.flags.rowNight?.1:0),.1,.9);
@@ -2065,13 +2073,13 @@ function battle(o){
         <button class="choice" data-t="charge"><b>正面衝鋒</b><small>戰力 ×${(1+eff('str')*.03).toFixed(2)}（看力量），傷亡較重</small></button>
         <button class="choice" data-t="night"><b>夜襲</b><small>${rate(nightP)}：成功戰力 ×1.8${o.raid?'、戰利品更多':''}；失敗戰力 ×0.5，你也更容易受重傷</small></button>
         <button class="choice" data-t="flank" ${m.fm<8?'disabled':''}><b>包抄</b><small>${m.fm<8?'需要至少 8 名出戰的戰士':`戰力 ×${(1.05+eff('wit')*.02+(has('tactician')?.1:0)).toFixed(2)}（看智謀），傷亡較輕，敵人可能潰逃`}</small></button>
-        ${big?`<button class="ghost" id="b-auto">交給副手指揮（直接看結果）</button>`:''}
+        ${big?`<button class="ghost" id="b-auto">${(S.flags.mBat||0)>=3?'交給副手指揮（他學會了你的調度，直接看結果）':'交給副手指揮（直接看結果）'}</button>`:''}
         ${o.cancel?`<button class="ghost" id="b-cancel">先撤回，再做準備</button>`:''}
       </div>`;
       $('#b-lead').onchange=e=>{lead=e.target.checked;draw();};
       if(o.cancel) $('#b-cancel').onclick=closeModal;
       el.querySelectorAll('[data-van]').forEach(b=>b.onclick=()=>{van=b.dataset.van||null;draw();});
-      if(big) $('#b-auto').onclick=()=>resolve(o.defend?'hold':'charge',nightP);
+      if(big) $('#b-auto').onclick=()=>resolve(o.defend?'hold':'charge',nightP,null,true);
       el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>big?round2(b.dataset.t,nightP):resolve(b.dataset.t,nightP));
     };
     // ---- 三回合：接敵 → 混戰 → 決勝 ----
@@ -2079,7 +2087,7 @@ function battle(o){
     const baseP=()=>armyPower()*(lead?leadMul():1)*(o.defend&&has('ironwall')?1.15:1)*(o.defend&&hasC('sigrid')?1.1:1)*(van&&hasC(van)?1+CHAMPS[van].pow*.008:1);
     const lineHTML=(ratio,step)=>`<div class="bsteps">${['一　接敵','二　混戰','三　決勝'].map((n,i)=>`<span class="${i===step?'on':''}">${n}</span>`).join('')}</div>
       <div class="bline"><i style="width:${clamp(50+(ratio-1)*70,6,94)}%"></i></div><div class="blab"><span>我方</span><span>${ratio>=1.12?'我方壓著打':ratio>=1?'我方稍佔上風':ratio>=.9?'敵方稍佔上風':'敵方壓著打'}</span><span>敵方</span></div>`;
-    // 第二回合「調度預備隊」：三條戰線，敵軍的壓力只看得到一部分，自己決定預備隊怎麼放
+    // 第二回合「調度預備隊」：三條戰線，敵軍的壓力只看得到一部分，自己決定預備隊怎麼放（敵軍總共 8 隊，預備隊 5～8 隊看兵力比例）
     const LANES=['左翼','中路','右翼'];
     const round2=(t,nightP)=>{
       S.flags.rowNight=0;markGame('battle3');
@@ -2087,17 +2095,18 @@ function battle(o){
       const def=o.def*1.09;let ratio=baseP()*tMul(t,nightOk)/def;
       const open={hold:'你們在木牆後排成盾牆，一步也不退。',charge:lead?'你第一個衝出去，戰士們吼叫著跟上。':'戰士們吼叫著衝向敵陣。',night:nightOk?'夜色掩護了你們，敵人在睡夢中驚醒。':'一隻狗吠了起來，夜襲被發現，你們一頭撞進了陷阱。',flank:'你把人分成兩路，從側面包了過去。'}[t];
       // 敵軍總共 8 隊，你只有 6 隊預備隊（打頭陣的勇士算 2 隊）
-      const foe=pick([[4,2,2],[5,2,1],[3,3,2],[4,3,1],[6,1,1],[4,4,0],[5,3,0]]).slice().sort(()=>Math.random()-.5);
+      const FT=FOE_STYLE[o.foeType]||FOE_STYLE[''];
+      const foe=pick(FT.p).slice();if(FT.mix)foe.sort(()=>Math.random()-.5);
       const pSee=eff('wit')>=15?1:clamp(.25+eff('wit')*.03+(scouted(o.defend)?.2:0),.25,.85);
       const seen=foe.map(()=>Math.random()<pSee);
       const fuzzy=v=>{const g=clamp(v+pick([-1,0,0,1]),0,6);return g<=1?'人不多':g<=3?'人不少':'黑壓壓一片';};
       const hint=foe.map((v,i)=>seen[i]?`敵軍 ${v} 隊`:`${fuzzy(v)}（看不清楚）`);
-      const mine=[0,0,0],R=6;let champLane=-1;const hero=van&&hasC(van)?van:null;
+      const mine=[0,0,0],R=clamp(Math.round(6+(ratio-1)*4),5,8);let champLane=-1;const hero=van&&hasC(van)?van:null;
       sfx('clash');
       const draw2=()=>{
         const left=R-mine[0]-mine[1]-mine[2];
         el.innerHTML=`<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,1)}
-        <p class="story">${open}\n\n戰線拉開了。你手上還有 <b>${R}</b> 隊預備隊，要放到哪裡？每條戰線上，你的隊數不比敵軍少，就守得住。<b>守住兩條就佔上風</b>；三條全守，要靠打頭陣的勇士。</p>
+        <p class="story">${open}${FT.t?'\n\n'+FT.t:''}\n\n戰線拉開了。${R>6?'你的兵比敵人多，':R<6?'你的兵比敵人少，':''}你手上還有 <b>${R}</b> 隊預備隊，要放到哪裡？每條戰線上，你的隊數不比敵軍少，就守得住。<b>守住兩條就佔上風</b>；三條全守，要靠打頭陣的勇士。</p>
         <div class="lanes">${LANES.map((n,i)=>`<div class="lane"><b>${n}</b><span class="${seen[i]?'':'dim'}">${hint[i]}</span>
           <div class="lctl"><button data-lm="${i}" ${mine[i]?'':'disabled'}>−</button><i>${mine[i]}${champLane===i?' +2':''}</i><button data-lp="${i}" ${left?'':'disabled'}>＋</button></div></div>`).join('')}</div>
         ${hero?`<div class="bchamp"><span style="font-size:13px;color:var(--muted);align-self:center">${CHAMPS[hero].name}（算 2 隊）守：</span>${LANES.map((n,i)=>`<button data-lc="${i}" aria-pressed="${champLane===i}">${n}</button>`).join('')}</div>`:''}
@@ -2108,6 +2117,7 @@ function battle(o){
         el.querySelectorAll('[data-lc]').forEach(b=>b.onclick=()=>{champLane=champLane===+b.dataset.lc?-1:+b.dataset.lc;draw2();});
         $('#r2-go').onclick=()=>{
           const held=foe.map((v,i)=>mine[i]+(champLane===i?2:0)>=v),n=held.filter(Boolean).length;
+          if(n>=2){S.flags.mBat=(S.flags.mBat||0)+1;if(S.flags.mBat===3)toast('你的副將學會了怎麼調度預備隊');}
           ratio*=[.85,.93,1.04,1.12][n];
           const txt=LANES.map((nm,i)=>`${nm}：你 ${mine[i]+(champLane===i?2:0)} 隊，敵軍 ${foe[i]} 隊，<span class="${held[i]?'good':'bad'}">${held[i]?'守住了':'被衝開了'}</span>`).join('\n');
           round3(t,nightOk,ratio,txt,n);};
@@ -2125,7 +2135,7 @@ function battle(o){
       </div>`;
       el.querySelectorAll('[data-r3]').forEach(b=>b.onclick=()=>resolve(t,0,{nightOk,ratio,end:b.dataset.r3}));
     };
-    const resolve=(t,nightP,ext)=>{
+    const resolve=(t,nightP,ext,auto)=>{
       S.flags.rowNight=0;
       let p=armyPower()*(lead?leadMul():1),cas=1,nightOk=null;const lines=[];
       if(o.defend&&has('ironwall')) p*=1.15;
@@ -2134,6 +2144,7 @@ function battle(o){
       if(t==='charge'){p*=1+eff('str')*.03;cas=1.4;lines.push(lead?'你第一個衝出去，戰士們吼叫著跟上。':'戰士們吼叫著衝向敵陣。');}
       if(t==='night'){nightOk=ext?ext.nightOk:Math.random()<nightP;if(nightOk)favor('loki',6);p*=nightOk?1.8:.5;cas=nightOk?.6:1.3;lines.push(nightOk?'夜色掩護了你們，敵人在睡夢中驚醒。':'一隻狗吠了起來，夜襲被發現，你們一頭撞進了陷阱。');}
       if(t==='flank'){p*=1.05+eff('wit')*.02+(has('tactician')?.1:0);cas=.85;lines.push('你把人分成兩路，從側面包了過去。');}
+      if(auto&&(S.flags.mBat||0)>=3){p*=1.04;lines.push('副將照你教的方法調度預備隊，守住了兩條戰線。');}
       const ratio=ext?ext.ratio:p/o.def;
       const win=ext?(ext.end==='retreat'?false:Math.random()<clamp(.5+(ratio-1)*(ext.end==='steady'?4:1.5),.03,.97)):Math.random()<clamp(.5+(ratio-1)*2.2,.03,.97);
       if(ext){lines.length=0;if(ext.end==='allin'){cas*=1.3;lines.push(win?'你把所有人都壓了上去。敵軍撐不住，全線潰散了。':'你把所有人都壓了上去，可是沒能衝開敵陣。');}
@@ -2353,7 +2364,7 @@ const AGING={
   45:{lv:2,st:{str:-1,con:-1},text:'你劈柴劈到一半，得停下來揉肩膀。\n\n斧頭還是那把斧頭，只是好像一年比一年重。',fx:'力量 -1，體魄 -1'},
   50:{lv:3,st:{str:-1,con:-1,wit:1},text:'你開始記不清年輕時那些人的臉了。赫羅爾夫當年到底說了什麼？……「{Q}」。對，是這句。\n\n不過，現在誰在說謊，你一眼就看得出來。活得夠久，什麼把戲都見過了。',fx:'力量 -1，體魄 -1，生命上限 -10，智謀 +1'},
   55:{lv:4,st:{str:-1,con:-1,pre:1},text:'孩子們圍著你聽故事。你講到一半，才發現這一段已經講過了。他們沒有說破，只是又笑了一次。\n\n族人開始叫你「老人家」。他們說，這是尊敬。',fx:'力量 -1，體魄 -1，威望 +1'},
-  58:{text:'你夜裡常常醒來，聽著自己的心跳。\n\n維京人不該死在稻草床上。死在床上的人，女武神不會來接。',fx:'60 歲以後，每一年都可能是最後一年'},
+  63:{text:'你夜裡常常醒來，聽著自己的心跳。\n\n維京人不該死在稻草床上。死在床上的人，女武神不會來接。',fx:'65 歲以後，每一年都可能是最後一年'},
 };
 function agingModal(a){
   const g=AGING[a];
@@ -3240,7 +3251,7 @@ function scare(r){
 }
 function conquer(r){
   const g=S.reg[r.id];
-  battle({title:`征服${r.name}`,def:rdef(r),cancel:true,intro:r.desc,cause:`死在攻打${r.name}的城牆下`,foeNote:r.lord?`${r.lord}的軍隊`:'',onEnd:w=>{
+  battle({title:`征服${r.name}`,def:rdef(r),cancel:true,quick:r.kind==='minor',intro:r.desc,cause:`死在攻打${r.name}的城牆下`,foeNote:r.lord?`${r.lord}的軍隊`:'',onEnd:w=>{
     if(r.id==='winter') S.flags.hallWar=1;
     if(!w){log(`進攻${r.name}失敗。`);return '你們被打退了。';}
     if(r.kind==='minor'){g.st='yours';addFame(6);addInfamy(3);const sp=Math.round(r.loot[0]*1.5*(has('executioner')?1.5:1));S.silver+=sp;log(`佔領了${r.name}。`);return `${r.name}插上了${esc(S.tribe)}的旗幟。${r.id==='village'&&S.flags.vRaid&&!S.flags.vAmend?'村民看著你的旗幟。有幾個人認得你的臉。':''}\n搶走金庫：銀幣 +${sp}，名聲 +6\n之後每季產出銀幣 ${r.inc[0]}、糧食 ${r.inc[1]}${r.perk?`\n特產：${r.perk}`:''}`;}
@@ -3564,9 +3575,9 @@ function expedition(o,go,peaceful){
       $('#m-ok').onclick=()=>{go(mult);closeModal();};$('#m-ok').focus();};
     el.innerHTML=header+`<p class="story" style="font-size:14px;color:var(--muted)">${S.mini==='puzzle'?'要親自找航路，還是交給舵手？':'要親自喊槳，還是交給舵手？'}</p>
       <div class="choices"><button class="choice" id="sea-self"><b>${S.mini==='puzzle'?'親自找航路':'親自划'}</b><small>${S.mini==='puzzle'?'走得好可以提早到':'四槳全中：這一戰敵人戰力 -12%、夜襲成功率 +10%'}</small></button>
-      <button class="choice" id="sea-skip"><b>直接出航</b><small>普通的結果，不加分也不扣分</small></button></div>`;
+      <button class="choice" id="sea-skip"><b>${(S.flags.mRow||0)>=3?'交給舵手':'直接出航'}</b><small>${(S.flags.mRow||0)>=3?'他們已經學會了你的方法：這一戰敵人戰力 -6%':'普通的結果，不加分也不扣分'}</small></button></div>`;
     $('#sea-self').onclick=()=>{if(S.mini==='puzzle') seaPuzzle(el,header,land); else rowing(el,header,land);};
-    $('#sea-skip').onclick=()=>land(1);
+    $('#sea-skip').onclick=()=>land((S.flags.mRow||0)>=3?.94:1);
   });
 }
 // 划槳：反應型
@@ -3579,7 +3590,7 @@ function rowing(el,header,done){
   const tick=t=>{if(over)return;pos+=dir*speed*(t-last);last=t;if(pos>100){pos=100;dir=-1;}if(pos<0){pos=0;dir=1;}const n=$('#rw-n');if(n)n.style.left=pos+'%';raf=requestAnimationFrame(tick);};
   const tap=()=>{if(over)return;k++;const ok=pos>=zone[0]&&pos<=zone[1];if(ok)hit++;sfx('drum');
     $('#rw-s').innerHTML=`划槳 ${k}/${N}　${ok?'<span class="good">整齊！</span>':'<span class="bad">亂了</span>'}　（整齊 ${hit}）`;
-    if(k>=N){over=true;cancelAnimationFrame(raf);mgKey=null;if(hit===N)S.flags.rowAll=1;done(hit===N?.88:hit===3?.95:hit===2?1:1.05);return;}
+    if(k>=N){over=true;cancelAnimationFrame(raf);mgKey=null;if(hit===N){S.flags.rowAll=1;S.flags.mRow=(S.flags.mRow||0)+1;if(S.flags.mRow===3)toast('槳手們學會了你的節奏');}done(hit===N?.88:hit===3?.95:hit===2?1:1.05);return;}
     zone=newZone();const z=$('#rw-z');if(z)z.style.left=zone[0]+'%';};
   $('#rw-b').onclick=tap;mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();tap();}};
   raf=requestAnimationFrame(t=>{last=t;tick(t);});
@@ -3604,7 +3615,7 @@ function seaPuzzle(el,header,done){
     <p class="story" style="font-size:13px;color:var(--muted)">已經走了 ${moves}/${limit} 步</p>`;
     el.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>go(b.dataset.d));
   };
-  const go=d=>{p=slide(p,d,rocks);moves++;if(p[0]===goal[0]&&p[1]===goal[1]){mgKey=null;done(moves<=par?.9:moves<=par+2?1:1.05);return;}if(moves>=limit){mgKey=null;done(1.08);return;}draw();};
+  const go=d=>{p=slide(p,d,rocks);moves++;if(p[0]===goal[0]&&p[1]===goal[1]){mgKey=null;if(moves<=par){S.flags.mRow=(S.flags.mRow||0)+1;if(S.flags.mRow===3)toast('舵手學會了你找航路的方法');}done(moves<=par?.9:moves<=par+2?1:1.05);return;}if(moves>=limit){mgKey=null;done(1.08);return;}draw();};
   mgKey=e=>{const m={ArrowUp:'U',ArrowDown:'D',ArrowLeft:'L',ArrowRight:'R'}[e.key];if(m){e.preventDefault();go(m);}};
   draw();
 }
@@ -3681,7 +3692,7 @@ function campTalk(el,o){
 function osConquer(o,m,intro){
   const g=S.os[o.id];
   if(CAMP[o.id]&&!S.flags['camp_'+o.id]){S.flags['camp_'+o.id]=1;campaign(o,m);return;}
-  battle({title:`${o.kind==='siege'?'圍攻':'攻打'}${o.name}`,def:osDef(o)*m,intro:intro||o.desc,cause:`死在${o.name}的城牆下`,onEnd:w=>{
+  battle({title:`${o.kind==='siege'?'圍攻':'攻打'}${o.name}`,def:osDef(o)*m,quick:!(CAMP[o.id]||['kingdom','siege','strike'].includes(o.kind)),foeType:o.area==='eng'?'saxon':o.area==='fra'?'frank':'',intro:intro||o.desc,cause:`死在${o.name}的城牆下`,onEnd:w=>{
     if(!w){g.cd=3;g.def+=6;return `${o.name}守住了。你們退回了船上。`;}
     hakonFalls();missedChamp(o);
     addAlert(5);
@@ -3906,7 +3917,7 @@ function rebel(force){
 }
 function crush(r){
   const g=S.reg[r.id];
-  battle({title:`鎮壓${r.name}`,def:rdef(r),cancel:true,intro:'叛軍在柵欄後面等著你。',cause:`死在${r.name}的叛軍手裡`,onEnd:w=>{
+  battle({title:`鎮壓${r.name}`,def:rdef(r),cancel:true,quick:1,intro:'叛軍在柵欄後面等著你。',cause:`死在${r.name}的叛軍手裡`,onEnd:w=>{
     if(!w)return '叛軍守住了。';
     g.st='yours';g.def=r.def;
     pushModal(eventModal({kind:'叛亂',title:'怎麼處置叛軍首領？',text:`${r.name}的叛軍首領被綁到你面前。`,ch:[
@@ -4166,7 +4177,7 @@ function ch4Tick(){
 function counterAttack(o){
   const g=S.os[o.id];
   pushLater(eventModal({kind:'反攻',title:`${o.land}人反攻${o.name}`,text:`${o.land}的軍隊趁冬天包圍了${o.name}。守城的人派了一條小船，冒著風暴來求援。`,
-    ch:[{t:'派船去救',note:`敵方約 ${Math.round(osDef(o)*.7)}`,fx:()=>{battle({title:`守住${o.name}`,def:osDef(o)*.7,defend:true,intro:'你們趕到時，城牆已經被撞開了一個缺口。',cause:`死在${o.name}的城牆上`,onEnd:w=>w?`${o.land}人退走了。${o.name}還是你的。`:(g.st='free',g.def=o.def,`<span class="bad">${o.name}失守了。</span>`)});return null;}},
+    ch:[{t:'派船去救',note:`敵方約 ${Math.round(osDef(o)*.7)}`,fx:()=>{battle({title:`守住${o.name}`,def:osDef(o)*.7,defend:true,quick:1,intro:'你們趕到時，城牆已經被撞開了一個缺口。',cause:`死在${o.name}的城牆上`,onEnd:w=>w?`${o.land}人退走了。${o.name}還是你的。`:(g.st='free',g.def=o.def,`<span class="bad">${o.name}失守了。</span>`)});return null;}},
         {t:'放棄',fx:()=>{g.st='free';g.def=o.def;addFame(-5);return `<span class="bad">${o.name}失守了。名聲 -5</span>`;}}]}));
 }
 
@@ -4233,28 +4244,56 @@ function kingRagPages(){
     return [{art:['sc_k_gods','halfdan2'],text:`你在英靈戰士裡，看見了老王哈夫丹。\n\n他沒有看你。他直接走過你的身邊，走到了奧丁的面前。眾神站在奧丁的身後。\n\n奧丁朝他點了點頭，像在迎接一個老朋友。`}];}
   const met=kingRagMet();S.flags.kingRag=met?'met':'unmet';if(met)unlock('king_return');
   const P=[{art:['sc_k_bifrost','halfdan'],text:'彩虹橋上，一支英靈騎兵走在最前面。帶頭的那個人，白髮、持劍，騎著一匹白馬。\n\n是老王哈夫丹。'},
-    {art:['sc_k_bifrost','halfdan'],text:'他的目光，從你的戰士臉上一張一張地掃過去。\n\n最後，停在了你的身上。'}];
-  if(met) P.push({art:['sc_k_bifrost','halfdan2'],text:'「……你有遵守承諾呢。」',big:1},
-    {art:['v_halfdan3','halfdan2'],text:'他翻身下馬，把劍插進了冰裡，從背後緩緩抽出兩柄長柄巨斧。\n\n然後，一句話都沒說，獨自走到了盾牆前方、兩座冰崖之間的峽口。'},
-    {art:['v_halfdan3','halfdan2'],text:'他把一柄重斧往下一甩，斧刃劈進冰面，在峽口拖出一道深深的線。冰屑濺起來，又慢慢落下。\n\n然後，他站在線後，等著。'},
+    {art:['sc_k_gaze','sc_k_bifrost','halfdan'],text:'他沒有先去找眾神。\n\n他勒住了馬，從你的戰士臉上，一張一張地看過去。'},
+    {art:['sc_k_eyes','sc_k_bifrost','halfdan'],text:'最後，他的目光停在了你的身上。'}];
+  if(met) P.push({art:['sc_k_promise','sc_k_bifrost','halfdan2'],text:'「……你有遵守承諾呢。」',big:1},
+    {art:['sc_k_dismount','sc_k_bifrost','halfdan2'],text:'他翻身下馬。\n\n經過奧丁身邊的時候，兩個人只互相點了一下頭。'},
+    {art:['sc_k_sword','v_halfdan3','halfdan2'],text:'他把那把劍插進了冰裡。\n\n那是他當年推到你腳邊的劍。'},
+    {art:['sc_k_reach','v_halfdan3','halfdan2'],text:'然後，他的手往背後一抓。'},
+    {art:['v_halfdan3','halfdan2'],text:'兩柄長柄巨斧。\n\n他一句話都沒說，獨自走到了盾牆前方、兩座冰崖之間的峽口。'},
+    {art:['sc_k_drag','v_halfdan3','halfdan2'],text:'他把一柄重斧往下一甩，斧刃劈進冰面，在峽口拖出一道深深的線。冰屑濺起來，又慢慢落下。\n\n然後，他站在線後，等著。'},
     {art:['sc_k_line','sc_k_axes','v_halfdan3','halfdan2'],text:'巨人衝了過來。第一個踏過那條線的，還沒看清他的動作，就倒下了。\n\n第二個、第三個……線前面的屍體越堆越高，他的步子，一次都沒有亂。'},
     {art:['sc_k_axes','v_halfdan3','halfdan2'],text:'他回頭，看了巨人大軍一眼。\n\n「……下一個。」',big:1,shake:1},
     {art:['sc_k_advance','sc_k_axes','v_halfdan3','halfdan2'],text:'沒有一個巨人，敢再靠近那條線。\n\n於是老王跨過了線，一步、一步，朝巨人大軍走了過去。他從彩虹橋帶下來的英靈戰士，默默地跟在他的身後。\n\n巨人們，一步一步地往後退。\n\n<span class="good">巨人大軍 -25%。接下來的每一輪單挑，他都會先替你砍上一斧。</span>'});
   else P.push({art:['sc_k_charge','halfdan'],text:'他朝你點了點頭，什麼都沒說。然後拔出劍，帶著英靈騎兵衝進了巨人的陣中，砍倒了一大片。\n\n<span class="good">巨人大軍 -10%。前三輪單挑，他都會先替你砍上一劍。</span>'});
   return P;
 }
+// 諸神黃昏的開場分鏡：號角 → 巨人陣營 → 洛基 → 我方 → 眾神 → 挪威的人 → 配偶 → 英靈
+function ragOpenPages(p){
+  const P=[{art:['sc_rag_horn','sc_einherjar'],text:'號角聲從天邊傳來。\n\n那是海姆達爾的號角。預言說，這一聲響起，世界就要結束了。'},
+    {art:['sc_rag_giants','sc_einherjar'],text:'霜巨人從北方的冰原上走下來，火巨人從南方的天空燒過來。\n\n冰原的另一頭，黑壓壓的一片，一直排到了天邊。'},
+    {art:['m_surtr'],text:'火巨人的王蘇爾特走在最前面。他手裡的劍，燒得像一輪太陽。'},
+    {art:['m_hrym'],text:'霜巨人赫列姆站在一艘巨大的船上。那艘船，是用死人的指甲拼成的。'},
+    {art:['m_fenrir'],text:'巨狼芬里爾掙斷了繩子。牠張開嘴，上顎頂著天，下顎貼著地。'},
+    {art:['m_jormun'],text:'世界巨蛇耶夢加得從海裡昇了起來。海水漫過了海岸，一路淹到你的腳邊。'},
+    {art:['m_garm'],text:'冥犬加姆衝出了洞穴，身上還掛著冥河的冰。'},
+    {art:['sc_rag_loki','loki'],text:p==='loki'?'走在巨人最前面的，是洛基。\n\n他看見了你，朝你揮了揮手，像在跟老朋友打招呼。':'走在巨人最前面的，是洛基。\n\n他回頭看了你一眼，笑了一下，好像你們很熟。'}];
+  if(p==='loki') return P;
+  P.push({art:['sc_rag_ours','sc_einherjar'],text:`你回頭看。\n\n你的戰士站成了一道盾牆，從冰原的這一頭，排到了那一頭。${S.men} 個人，沒有一個往後看。`});
+  const G={odin:['sc_rag_odin','奧丁騎著八條腿的斯雷普尼爾，從天上的裂縫衝了下來。兩隻渡鴉在他頭上盤旋。'],
+    thor:['sc_rag_thor','雷聲先到了。然後是兩頭山羊拉的戰車，和索爾手裡的錘子。'],
+    tyr:['sc_rag_tyr','提爾只剩一隻手。他用那隻手舉著劍，身後跟著一排一排不說話的戰士。'],
+    freyja:['sc_rag_freyja','弗蕾亞的戰車由兩隻大貓拉著，女武神跟在她的身後。戰場上倒下的人，有一半是她的。']};
+  const order=p&&G[p]?[p,...Object.keys(G).filter(g=>g!==p)]:Object.keys(G);
+  order.forEach(g=>P.push({art:[G[g][0],g],text:G[g][1]+(g===p?`\n\n${GODS[g].name}走到了你的身邊。`:'')}));
+  if(S.fame>=150) P.push({art:['sc_rag_people','sc_einherjar'],text:`挪威各地的人，聽說你要在這裡迎戰，全都趕來了。\n\n漁夫拿著魚叉，農夫扛著乾草叉，連鹽灘的老村長都來了。${S.flags.mate?'\n\n托爾斯坦也來了，肩上扛著那把老斧頭。':''}`});
+  if(S.spouse&&SPOUSE_RAG[S.spouse]) P.push({art:[S.spouse],text:SPOUSE_RAG[S.spouse]});
+  P.push({art:['sc_einherjar'],text:'天邊的雲裂開了，一道金色的光照了下來。\n\n瓦爾哈拉的英靈戰士，一排一排地從彩虹橋上走了下來，站到了你的戰士身邊。'});
+  P.push({art:['sc_einherjar'],text:'先守住防線。',big:1});
+  return P;
+}
 function ragnarok(){
   S.flags.ragDone=1;S.flags.ragFight=1;
   const p=patron();
-  if(p==='loki'){pushLater(eventModal(EV_LOKI_RAG));return;}
+  if(p==='loki'){pushLater(el=>cineView(el,ragOpenPages(p),closeModal,'ᛞ 諸神黃昏'));pushLater(eventModal(EV_LOKI_RAG));return;}
   const aid=Object.keys(GODS).reduce((m,g)=>m*(gt(g,3)?.88:gt(g,2)?.95:1),1);
   const def=Math.round(260*lf()*D().foe*(1-Math.min(.15,S.fame/2000))*aid*(S.flags.ragnarVan?.92:1)*(S.spouse?.92:1));
   const [fk,fn,fline]=RAG_FOE[p||'none'];
   const kp=kingRagPages(),kMul=S.flags.kingRag==='met'?.75:S.flags.kingRag==='unmet'?.9:1;
-  pushLater(el=>resultView(el,'諸神黃昏',`號角聲從天邊傳來，那是海姆達爾的號角。\n\n霜巨人從北方的冰原上走下來，火巨人從南方的天空燒過來。天邊的雲裂開了，一道金色的光照下來：瓦爾哈拉的英靈戰士，一排一排地從彩虹橋上走了下來，站到了你的戰士身邊。\n\n${p?`${GODS[p].name}站在你的身邊。`:'眾神站在你的身後。'}${S.spouse&&SPOUSE_RAG[S.spouse]?'\n'+SPOUSE_RAG[S.spouse]:''}${S.fame>=150?'\n挪威各地的人，聽說你要在這裡迎戰，全都趕來了。':''}\n\n先守住防線。`,'ᛞ 諸神黃昏','sc_einherjar'));
+  pushLater(el=>cineView(el,ragOpenPages(p),closeModal,'ᛞ 諸神黃昏'));
   if(kp) pushLater(el=>cineView(el,kp,closeModal,'諸神黃昏 · 彩虹橋'));
   pushLater(shieldWallFn({title:'冰原上的防線',rag:1,...spouseShield(),onEnd:sc=>{
-    battle({title:'諸神黃昏',def:def*kMul*(1.15-sc*.06),defend:true,intro:'巨人的大軍撞上了你們的防線。',foeNote:'霜巨人與火巨人的大軍',cause:'倒在諸神黃昏的戰場上',onEnd:w=>{
+    battle({title:'諸神黃昏',def:def*kMul*(1.15-sc*.06),defend:true,foeType:'giant',intro:'巨人的大軍撞上了你們的防線。',foeNote:'霜巨人與火巨人的大軍',cause:'倒在諸神黃昏的戰場上',onEnd:w=>{
       if(!w){pushLater(el=>ch4End(el,'ragfall'));return '<span class="bad">防線碎了。冰和火淹沒了一切。</span>';}
       ragRush(fk,fline,fn);
       return '巨人的陣線被你們撕開了！可是，真正的怪物還在後面。';}});
@@ -4265,7 +4304,7 @@ const EV_LOKI_RAG={kind:'ᛚ 洛基',art:'loki',title:'騙子的邀請',text:'�
   ch:[{t:'握住他的手',note:'結束這一局',fx:()=>{pushLater(el=>ch4End(el,'lokiside'));return null;}},
       {t:'「對不起，朋友。」',note:'和眾神站在一起，對抗洛基的大軍',fx:()=>{favor('odin',20);S.flags.lokiNo=1;const kp=kingRagPages(),kMul=S.flags.kingRag==='met'?.75:S.flags.kingRag==='unmet'?.9:1;const def=Math.round(240*lf()*D().foe*kMul);
         if(kp) pushLater(el=>cineView(el,kp,closeModal,'諸神黃昏 · 彩虹橋'));
-        pushLater(shieldWallFn({title:'冰原上的防線',rag:1,...spouseShield(),onEnd:sc=>{battle({title:'諸神黃昏',def:def*(1.15-sc*.06),defend:true,intro:'洛基笑了，笑得很難過。然後他舉起手，巨人們衝了過來。',cause:'倒在諸神黃昏的戰場上',onEnd:w=>{
+        pushLater(shieldWallFn({title:'冰原上的防線',rag:1,...spouseShield(),onEnd:sc=>{battle({title:'諸神黃昏',def:def*(1.15-sc*.06),defend:true,foeType:'giant',intro:'洛基笑了，笑得很難過。然後他舉起手，巨人們衝了過來。',cause:'倒在諸神黃昏的戰場上',onEnd:w=>{
           if(!w){pushLater(el=>ch4End(el,'ragfall'));return '<span class="bad">盾牆碎了。</span>';}
           ragRush('fenrirG','洛基的兒子，巨狼芬里爾，朝你走了過來。遠處，洛基一個人坐在冰上，看著你。','芬里爾');
           return '巨人的陣線被你們撕開了！';}});}}));
@@ -4316,7 +4355,7 @@ function daneVictory(){
 const daneDef=()=>220*lf()*D().foe*danMul();
 function strikeJelling(m){
   const help=spouseWarHelp();if(help)note('出征之前',help.trim(),'丹麥',{gunnhild:'sc_war_gunnhild',sweyn:'sc_war_sweyn'}[S.spouse]);
-  battle({title:'直搗耶靈',def:daneDef()*1.05*m*(S.flags.spSong?.94:1),intro:'你們的船隊衝進了耶靈的港口。「藍牙」哈拉爾的王廳就在眼前，門口立著那塊巨大的符文石。',foeNote:'「藍牙」哈拉爾的大軍',cause:'死在丹麥的土地上',onEnd:w=>{
+  battle({title:'直搗耶靈',foeType:'dane',def:daneDef()*1.05*m*(S.flags.spSong?.94:1),intro:'你們的船隊衝進了耶靈的港口。「藍牙」哈拉爾的王廳就在眼前，門口立著那塊巨大的符文石。',foeNote:'「藍牙」哈拉爾的大軍',cause:'死在丹麥的土地上',onEnd:w=>{
     if(!w){S.flags.envoy='war';S.flags.warT=S.turn+2;S.flags.daneTry=0;return '<span class="bad">你們被打回了船上。藍牙會追過來的：丹麥大軍 2 季後來襲。</span>';}
     S.flags.warDone=1;S.flags.struck=1;unlock('jelling');
     duel('palna',{lethal:true,xp:60,intro:'王廳的大門被撞開了。帕爾納托基擋在哈拉爾的王座前：「要過去，先過我這一關。」',cause:'死在帕爾納托基的劍下',onEnd:dw=>{
@@ -4361,7 +4400,7 @@ function finalWar(){
   const swB=(S.flags.spSong?1:0)+(S.flags.warPlan==='beach'&&!tries?1:0);
   pushLater(shieldWallFn({title:'海灘上的盾牆',...(swB?{bonus:swB,bonusTxt:[S.flags.spSong?'布拉吉的戰歌響徹海灘':'',S.flags.warPlan==='beach'&&!tries?'盾牆早就在沙灘上排好了':''].filter(Boolean).join('；')}:{}),onEnd:sc=>{
     const m=1.15-sc*.06;
-    battle({title:'丹麥戰爭',def:def*m,defend:true,intro:`盾牆${sc>=5?'像山一樣立在海灘上':sc>=3?'晃了幾下，但撐住了':'被撞開了好幾個缺口'}。丹麥人衝上來了。`,foeNote:'「藍牙」哈拉爾的大軍',cause:'死在丹麥人的斧頭下',onEnd:w=>{
+    battle({title:'丹麥戰爭',def:def*m,defend:true,foeType:'dane',intro:`盾牆${sc>=5?'像山一樣立在海灘上':sc>=3?'晃了幾下，但撐住了':'被撞開了好幾個缺口'}。丹麥人衝上來了。`,foeNote:'「藍牙」哈拉爾的大軍',cause:'死在丹麥人的斧頭下',onEnd:w=>{
       if(!w){S.flags.daneTry=tries+1;if(tries>=1){pushLater(el=>ch4End(el,'lost'));return '<span class="bad">王廳的大門被撞開了。</span>';}
         S.flags.warT=S.turn+2;const ls=Math.floor(S.silver*.4);S.silver-=ls;loseLoyalty(10);return `<span class="bad">你們退回了王廳。丹麥人燒了半個城，搶走了 ${ls} 銀幣。忠誠 -10\n他們還會再來。</span>`;}
       S.flags.warDone=1;
@@ -4496,7 +4535,7 @@ const QUESTS={
     win:'托爾芬第一次在你面前哭了。哭完，他擦了擦臉，對你說了很長的一段話，長到你都快記不住了。',reward:'守護者：每場生死單挑，托爾芬會替你擋下一次致命傷'},
   sven:{a:'父親的船',at:'赫羅爾夫喝了一口酒，盯著火堆：「我父親死後，故鄉的新雅爾把他的紅帆船拿走了。那艘船，是我小時候學划槳的地方。」\n\n他咧嘴一笑：「{QUEST}」',
     b:'紅帆船',bt:'故鄉的峽灣還是那麼冷。新雅爾的人守在碼頭上，那艘紅帆船就停在他們身後。',
-    go:(done)=>{battle({title:'奪回紅帆船',def:40*wf()*D().foe,cancel:false,intro:'碼頭上的守衛舉起了矛。',cause:'死在故鄉的碼頭上',onEnd:w=>w?done():'你們沒能靠近那艘船。'});},goNote:'部隊戰',
+    go:(done)=>{battle({title:'奪回紅帆船',quick:1,def:40*wf()*D().foe,cancel:false,intro:'碼頭上的守衛舉起了矛。',cause:'死在故鄉的碼頭上',onEnd:w=>w?done():'你們沒能靠近那艘船。'});},goNote:'部隊戰',
     win:'赫羅爾夫站在紅帆船的船頭，像個孩子一樣大笑：「我們以前在這上面打過架，你還記得嗎？」\n\n你記得。那天你輸了。',reward:'紅帆：突襲戰利品 +15%，他不再讓你的惡名增加'},
   una:{a:'霧沼的女巫',at:'烏娜的手在發抖：「霧沼的水變黑了。是我年輕時的對頭，那個女巫在水裡下了咒。」\n\n「我需要你幫我記住解咒的符文。我老了，記不住那麼長的咒語了。」',
     b:'解咒',bt:'霧沼的中央，黑色的水在冒泡。烏娜開始唸咒，把符文一個一個交給你：「跟著我，一個都不能錯。」',
@@ -4532,7 +4571,7 @@ const QUESTS={
     win:'老兵倒下的時候，整個法石前都安靜了。西格麗德的父親拄著拐杖走過來，抱住了她。\n\n「我一直以為，我需要一個兒子。」老雅爾說。',reward:'雅爾之女：她父親成了你的盟友，結盟成功率再 +10%'},
   knut:{a:'老同夥',at:'克努特臉色很難看：「我以前的同夥，打著我的名號在南邊搶村子。現在大家都以為是我幹的，也以為是你縱容的。」\n\n「我要親手收拾他們。你跟不跟？」',
     b:'疤面的名號',bt:'克努特的老同夥在一座燒了一半的村子裡喝酒。他們看見克努特，笑了：「疤面！你也來分一杯？」',
-    go:(done)=>{battle({title:'收拾老同夥',def:30*wf()*D().foe,intro:'克努特第一個拔出了刀。',cause:'死在一群強盜手裡',onEnd:w=>w?done():'他們跑了。克努特氣得砸爛了一張桌子。'});},goNote:'部隊戰',
+    go:(done)=>{battle({title:'收拾老同夥',quick:1,def:30*wf()*D().foe,intro:'克努特第一個拔出了刀。',cause:'死在一群強盜手裡',onEnd:w=>w?done():'他們跑了。克努特氣得砸爛了一張桌子。'});},goNote:'部隊戰',
     win:'克努特把老同夥的頭目綁到村民面前，讓他們自己處置。村民們看克努特的眼神，第一次不是恐懼。',reward:'疤面的名聲：突襲戰利品 +10%，惡名 -10'},
 };
 function questTick(){

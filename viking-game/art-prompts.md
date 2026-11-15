@@ -10,9 +10,150 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ✅ 所有圖片都已收到
+## ★ v0.12 諸神黃昏開場與老王出場（17 張）
 
-目前清單上的圖全部到齊、已放進遊戲。之後有新劇情需要配圖時，會加在這裡。
+劇情分頁已經做進遊戲了。圖還沒到之前，開場會先用英靈戰士圖、怪物和眾神立繪代替，老王的分頁先用彩虹橋圖和雙斧立繪代替。
+
+另外保留中：第三章老王覺醒的圖（等截圖再改）、配偶在大戰中的圖（玩過再決定）。
+
+| # | 檔名 | 內容 | 用在 | 比例 |
+|---|---|---|---|---|
+| 1 | sc_rag_horn | 海姆達爾吹響號角 | 開場第 1 頁 | 16:9 |
+| 2 | sc_rag_giants | 巨人大軍全景 | 開場第 2 頁 | 16:9 |
+| 3 | sc_rag_loki | 洛基走在巨人最前面 | 開場：巨人陣營的最後一頁（最常拜洛基的話，接著就是他的邀請） | 16:9 |
+| 4 | sc_rag_ours | 我方的盾牆 | 開場：「你回頭看」 | 16:9 |
+| 5 | sc_rag_odin | 奧丁騎斯雷普尼爾衝下來 | 開場：眾神（奧丁） | 16:9 |
+| 6 | sc_rag_thor | 索爾的山羊戰車 | 開場：眾神（索爾） | 16:9 |
+| 7 | sc_rag_tyr | 提爾帶著戰士行軍 | 開場：眾神（提爾） | 16:9 |
+| 8 | sc_rag_freyja | 弗蕾亞的貓車與女武神 | 開場：眾神（弗蕾亞） | 16:9 |
+| 9 | sc_rag_people | 挪威各地的人趕來了 | 開場：名聲夠高時，挪威各地的人 | 16:9 |
+| 10 | sc_k_gaze | 老王勒馬，看過戰士的臉 | 老王出場第 2 頁 | 16:9 |
+| 11 | sc_k_eyes | 目光停在你身上 | 老王出場第 3 頁 | 16:9 |
+| 12 | sc_k_promise | 「……你有遵守承諾呢。」 | 老王出場第 4 頁 | 16:9 |
+| 13 | sc_k_dismount | 翻身下馬，與奧丁點頭 | 老王出場第 5 頁 | 16:9 |
+| 14 | sc_k_sword | 把劍插進冰裡 | 老王出場第 6 頁 | 16:9 |
+| 15 | sc_k_reach | 手往背後一抓 | 老王出場第 7 頁 | 16:9 |
+| 16 | sc_k_drag | 開戰前：劈出那條線 | 老王出場：拖線那一頁（還沒開打） | 16:9 |
+| 17 | v_halfdan3 | 重生的雙斧老王（重畫：動態版） | 老王拿雙斧那幾頁、圖鑑 | 3:4 |
+
+**1. sc_rag_horn（海姆達爾吹響號角）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+EPIC WIDE SHOT. At the top of the shimmering rainbow bridge Bifröst, at the very edge of Asgard, the watchman god Heimdall (tall, white-gold armor, golden teeth, long cloak) blows the enormous curved horn Gjallarhorn; the sound visibly ripples through the red clouds like a shockwave. Far below lies the frozen world, tiny and dark. Ominous, final, awe-inspiring.
+```
+
+**2. sc_rag_giants（巨人大軍全景）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+EPIC WIDE SHOT. The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. The giant host fills the plain to the horizon, ALL facing toward the viewer: towering blue-grey frost giants marching from the north on the left, burning fire giants under a sky of flame on the right; among them, the silhouette of a gigantic wolf and, in the sea behind, the coils of a world serpent; a huge dark ship looms in the mist. The scale is overwhelming. Doom, dread.
+```
+
+**3. sc_rag_loki（洛基走在巨人最前面）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. At the very front of the giant army walks Loki: slender, sharp-featured, long red hair, thin scars across his lips, dark green and black clothes, no armor. He has turned to look back over his shoulder straight at the viewer with a knowing, almost friendly half-smile, as if greeting an old friend. Behind him, the endless ranks of frost and fire giants wait for his signal. Charming, unsettling, tragic.
+```
+
+**4. sc_rag_ours（我方的盾牆）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+WIDE SHOT FROM BEHIND. The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. A Viking ruler seen from behind (face hidden, could be a man or a woman, fur cloak and a simple crown) looks along an immense Viking shield wall that stretches across the ice from one edge of the frame to the other: thousands of warriors, round shields locked, spears up, banners of the north snapping in the wind, all facing the giant host far away on the horizon. Nobody looks back. Quiet resolve before the storm.
+```
+
+**5. sc_rag_odin（奧丁騎斯雷普尼爾衝下來）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. Odin bursts down through a crack in the burning clouds riding Sleipnir, his eight-legged grey horse, at full gallop: one-eyed, long grey beard, wide-brimmed hat, dark blue cloak streaming, the spear Gungnir in his hand, two black ravens circling above him. Below, the armies look up. Majestic, fierce, divine.
+```
+
+**6. sc_rag_thor（索爾的山羊戰車）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. Lightning strikes first across the whole sky; then Thor's war chariot, pulled by two huge wild goats, races across the clouds above the battlefield: red-bearded, muscular, iron gloves, the short-handled hammer Mjölnir raised and crackling with lightning. The giants below flinch. Loud, powerful, thunderous.
+```
+
+**7. sc_rag_tyr（提爾帶著戰士行軍）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. The one-handed war god Tyr marches across the ice at the head of long silent columns of warriors: stern, dark-bearded, simple iron helmet, his right wrist ending in a wrapped stump, a straight sword held in his left hand. No banners, no shouting; only discipline and courage. Grim, honorable, unbreakable.
+```
+
+**8. sc_rag_freyja（弗蕾亞的貓車與女武神）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. Freyja arrives in a chariot pulled by two enormous grey forest cats, golden hair flowing, a falcon-feather cloak and a golden necklace, a sword in her hand; behind her, a host of valkyries on winged horses descends from the clouds. Beautiful, fierce, the goddess who claims half of the slain.
+```
+
+**9. sc_rag_people（挪威各地的人趕來了）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. Ordinary Norwegians stream down the snowy hills to join the army: fishermen with harpoons, farmers with pitchforks and wood axes, an old village elder leaning on a staff, women with spears, boys carrying shields for their fathers, torches in the dusk. They are not warriors, but they came. Humble, moving, hopeful.
+```
+
+**10. sc_k_gaze（老王勒馬，看過戰士的臉）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. At the foot of the rainbow bridge, Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle), reborn as an einherjar warrior: his whole figure edged with a soft golden glow, sits on a white horse with the reins pulled in, his ancient royal longsword (long and heavy, notched, faded runes on the blade, gold knotwork crossguard, crowned wolf-head pommel) at his hip. He is slowly looking along the front rank of the Viking shield wall, from face to face; the warriors look up at him in silent awe. The gods stand a little apart in the background, waiting. Calm, solemn, a king inspecting his people.
+```
+
+**11. sc_k_eyes（目光停在你身上）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+OVER-THE-SHOULDER SHOT from behind a Viking ruler (face hidden, could be a man or a woman, fur cloak and a simple crown) looking up at Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle), reborn as an einherjar warrior: his whole figure edged with a soft golden glow, mounted on a white horse. His gaze rests directly on the ruler: steady, measuring, unreadable. Golden light behind him, snow drifting between them. Intimate, tense, quiet.
+```
+
+**12. sc_k_promise（「……你有遵守承諾呢。」）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+CLOSE-UP of Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle), reborn as an einherjar warrior: his whole figure edged with a soft golden glow, on horseback, looking down at the viewer. The faintest smile touches the corner of his mouth, barely there; his eyes soften for a moment. Not laughing, not speaking loudly: a quiet, respected old king acknowledging that a promise was kept. Warm golden light against the red sky. Deeply moving, restrained.
+```
+
+**13. sc_k_dismount（翻身下馬，與奧丁點頭）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle), reborn as an einherjar warrior: his whole figure edged with a soft golden glow swings down from his white horse onto the ice, his ancient royal longsword (long and heavy, notched, faded runes on the blade, gold knotwork crossguard, crowned wolf-head pommel) at his hip. As he walks past, Odin (one-eyed, wide-brimmed hat, dark blue cloak, spear, two ravens) stands a few steps away; the two exchange a single brief nod, like old comrades, nothing more. Dignified, understated.
+```
+
+**14. sc_k_sword（把劍插進冰裡）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+MEDIUM SHOT. Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle), reborn as an einherjar warrior: his whole figure edged with a soft golden glow drives his ancient royal longsword (long and heavy, notched, faded runes on the blade, gold knotwork crossguard, crowned wolf-head pommel) point-first into the ice with both hands on the pommel; cracks spread through the ice around the blade, ice dust rising. His head is slightly bowed, as if leaving the sword behind with a memory. Solemn, symbolic.
+```
+
+**15. sc_k_reach（手往背後一抓）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+MEDIUM SHOT FROM THE SIDE AND BEHIND. Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle), reborn as an einherjar warrior: his whole figure edged with a soft golden glow: his longsword stands planted in the ice beside him; he reaches over his shoulder with one hand and grips the haft of one of two magnificent long-hafted Dane axes (each haft reaches his shoulder, each bearded blade as big as a man's head, crown motifs on the blades, runes glowing ice-blue, hafts wrapped in iron chain with a short length of chain hanging from each end), both strapped crossed on his back. The moment just before he draws them. Tension, anticipation.
+```
+
+**16. sc_k_drag（開戰前：劈出那條線）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+WIDE SHOT. The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. A NARROW PASS between two towering frozen cliffs; beyond the pass, far away, the giant horde is still approaching. The snow in the pass is clean and EMPTY: no bodies yet, the battle has not begun. Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle), reborn as an einherjar warrior: his whole figure edged with a soft golden glow stands alone in the mouth of the pass holding two magnificent long-hafted Dane axes (each haft reaches his shoulder, each bearded blade as big as a man's head, crown motifs on the blades, runes glowing ice-blue, hafts wrapped in iron chain with a short length of chain hanging from each end); he has just swung one axe straight down, its blade biting into the ice and dragging a long, deep line across the pass, ice shards flying. Calm, alone, a challenge to the whole army.
+```
+
+**17. v_halfdan3（重生的雙斧老王（重畫：動態版））**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic warm golden-hour rim light with cold blue shadows. Highly detailed fur, wool, leather, iron, silver and braided hair. Gritty, grounded, believable faces. Vertical 3:4 portrait, LOW-ANGLE FULL-BODY shot, the character striding toward the viewer. No text, no letters, no watermark, no frame, no modern objects.
+Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle), reborn as an einherjar warrior: his whole figure edged with a soft golden glow, striding straight toward the viewer across a burning, snow-swept battlefield, two magnificent long-hafted Dane axes (each haft reaches his shoulder, each bearded blade as big as a man's head, crown motifs on the blades, runes glowing ice-blue, hafts wrapped in iron chain with a short length of chain hanging from each end), swinging one forward and one back with the motion of his stride; his torn royal mantle flies behind him, snow and ice shards kicked up at his feet, embers swirling, the runes on the blades blazing ice-blue. His face is calm, cold and unreadable, mouth closed, eyes piercing: no shouting, no grin. Dynamic, unstoppable, legendary.
+```
 
 <details><summary>已完成的重畫提示詞（留存）</summary>
 
