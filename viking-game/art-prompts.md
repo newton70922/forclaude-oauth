@@ -10,18 +10,15 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ 重畫：有疑慮的圖（5 張＋還缺的 1 張）
+## ★ 還缺的圖（1 張）
 
-三型態的毛皮要一致：**第一、第二型態都還披著毛皮，第三型態才甩開**（遊戲文字是第三型態「甩開肩上的毛皮」）。
+重畫區的 R1–R5 都已收到並放進遊戲。目前只剩：
 
-| # | 檔名 | 為什麼要重畫 | 優先 |
-|---|---|---|---|
-| R1 | v_halfdan2a | 嘴巴張開，看起來像在低吼；老王要沉穩、閉著嘴 | 高 |
-| R2 | v_halfdan2 | 第二型態已經沒有毛皮，和第三型態「甩開毛皮」矛盾 | 高 |
-| R3 | sc_k_gods | 老王沒有英靈的金光，看起來不像「從英靈戰士裡走出來」 | 低（可不畫） |
-| R4 | sc_york_3b | 新圖：沒扶植傀儡的約克結局需要另一張（現在不放圖） | 中 |
-| R5 | sc_wessex_0 | 新圖：空蕩的行宮（原本借用盾牆圖，劇情對不上，現在不放圖） | 中 |
-| — | v_halfdan3 | 還缺（重生後的雙斧老王，提示詞見下方 v0.8 第二批 #10） | 中 |
+| 檔名 | 內容 | 提示詞 |
+|---|---|---|
+| v_halfdan3 | 重生後拿雙斧的老王（人物 3:4） | 見下方「v0.8 第二批」#10 |
+
+<details><summary>已完成的重畫提示詞（留存）</summary>
 
 **R1. v_halfdan2a（第一型態：剛覺醒，閉著嘴）**
 
@@ -61,6 +58,8 @@ Inside captured York, 9th century: a ruined Roman hall with broken columns, a cr
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 An abandoned Anglo-Saxon royal hall in Wessex, 9th century, at dusk: a long timber hall with carved posts and hanging tapestries, the hearth fire in the middle still burning low, a long table with half-finished cups of ale, bread and an overturned bench, a fine cloak left behind on a chair; the great doors stand wide open. Viking warriors have just burst in with axes and torches and stop, confused, looking around the empty room. The king is gone. Eerie, puzzling, the hunt begins.
 ```
+
+</details>
 
 ## ✅ v0.11 劇情補圖（3 張，已全部收到）
 
