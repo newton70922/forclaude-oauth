@@ -1080,7 +1080,7 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
-const ART_HAVE=new Set(['sc_wessex_1','sc_wessex_2','sc_york_1','sc_york_2','sc_york_3','sc_beach_wall','sc_dane_victory','sc_war_council','sc_war_gunnhild','sc_war_sweyn','c_thorstein','sc_q_astrid','sc_q_sigrid','v_halfdan2a','v_halfdan2c','c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news','sc_k_bifrost','sc_k_charge','sc_k_axes','sc_k_line','sc_k_gods']);
+const ART_HAVE=new Set(['sc_k_advance','sc_paris_1','sc_paris_2','sc_paris_3','sc_wessex_3','sc_wessex_1','sc_wessex_2','sc_york_1','sc_york_2','sc_york_3','sc_beach_wall','sc_dane_victory','sc_war_council','sc_war_gunnhild','sc_war_sweyn','c_thorstein','sc_q_astrid','sc_q_sigrid','v_halfdan2a','v_halfdan2c','c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news','sc_k_bifrost','sc_k_charge','sc_k_axes','sc_k_line','sc_k_gods']);
 const CHAMP_ART={halfdan2:'v_halfdan2',halfdan2a:'v_halfdan2a',halfdan2c:'v_halfdan2c',halfdan3:'v_halfdan3',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
@@ -3654,7 +3654,7 @@ const CAMP={
     ch:[{t:'強攻橋塔',note:'硬碰硬。打下來的話，名聲再 +10',fx:()=>{S.flags.parisStorm=1;return {m:1,line:'你下令把最大的那條船裝滿乾草，點上火，推向橋塔。'};}},
       {t:'把船拖上岸，從陸地繞過去',note:'多花一季的糧（糧食 −25）：敵方戰力 −20%',fx:()=>{S.food=Math.max(0,S.food-25);return {m:.8,line:'你的人用圓木當滾輪，把船一條一條拖過了河灣。法蘭克人在城牆上看著，一句話都說不出來。'};}},
       {t:'繼續圍下去，等他們拿銀子來換',note:()=>`${rate(clamp(geldChance(O('paris'))+.2,.1,.9))}：成功的話拿到贖金就走；不成的話還是得打`,fx:()=>chk(clamp(geldChance(O('paris'))+.2,.1,.9))?{talk:'paris'}:{m:1,line:'法蘭克人沒有派人出來。城牆上的旗子，比昨天還多。'}}],
-    intro:'橋塔上的弩箭像雨一樣落下來。',art:'sc_paris_2',
+    intro:'橋塔上的弩箭像雨一樣落下來。',art:'sc_paris_1',
     won:()=>{if(!S.flags.parisStorm)return '';addFame(10);return '\n你是從正面打進巴黎的。名聲再 +10';},
     end:()=>null},
 };
@@ -3676,7 +3676,7 @@ function campTalk(el,o){
   if(o.id==='paris'){g.st='paid';S.silver+=200;addFame(25);unlock('paris');log('法蘭克人付了贖金。');
     cineView(el,[{art:['sc_paris_3'],text:'城門開了。出來的不是軍隊，是牛車。\n\n一車、兩車……整整七車的白銀和教堂的金器，從橋上推了過來。法蘭克的主教站在旁邊，臉色比雪還白。\n\n<span class="good">銀幣 +200，名聲 +25</span>'}],()=>{passTime();closeModal();},CAMP.paris.title);}
   else{codex('h_danegeld');g.st='tribute';S.silver+=100;addFame(15);unlock('danegeld');log('威塞克斯答應付丹麥金。');
-    cineView(el,[{art:['sc_wessex_3'],text:'阿佛烈走出了沼澤，一個人，沒有帶劍。\n\n你們隔著一張桌子坐了一整夜。天亮的時候，他在羊皮紙上按下了戒指。\n\n「我付錢，是為了讓我的人活到能把你們趕走的那一天，」他說，「你最好記住這句話。」\n\n<span class="good">銀幣 +100，名聲 +15；之後每季丹麥金 +6 銀幣</span>'}],()=>{passTime();closeModal();},CAMP.wessex.title);}
+    cineView(el,[{art:['sc_wessex_1'],text:'阿佛烈走出了沼澤，一個人，沒有帶劍。\n\n你們隔著一張桌子坐了一整夜。天亮的時候，他在羊皮紙上按下了戒指。\n\n「我付錢，是為了讓我的人活到能把你們趕走的那一天，」他說，「你最好記住這句話。」\n\n<span class="good">銀幣 +100，名聲 +15；之後每季丹麥金 +6 銀幣</span>'}],()=>{passTime();closeModal();},CAMP.wessex.title);}
 }
 function osConquer(o,m,intro){
   const g=S.os[o.id];

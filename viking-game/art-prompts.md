@@ -10,7 +10,7 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ 重畫：有疑慮的圖（5 張＋還缺的 2 張）
+## ★ 重畫：有疑慮的圖（5 張＋還缺的 1 張）
 
 三型態的毛皮要一致：**第一、第二型態都還披著毛皮，第三型態才甩開**（遊戲文字是第三型態「甩開肩上的毛皮」）。
 
@@ -21,7 +21,6 @@
 | R3 | sc_k_gods | 老王沒有英靈的金光，看起來不像「從英靈戰士裡走出來」 | 低（可不畫） |
 | R4 | sc_york_3b | 新圖：沒扶植傀儡的約克結局需要另一張（現在不放圖） | 中 |
 | R5 | sc_wessex_0 | 新圖：空蕩的行宮（原本借用盾牆圖，劇情對不上，現在不放圖） | 中 |
-| — | sc_k_advance | 還缺（巨人要往後退，提示詞見下方 v0.8 第二批 #8b） | 中 |
 | — | v_halfdan3 | 還缺（重生後的雙斧老王，提示詞見下方 v0.8 第二批 #10） | 中 |
 
 **R1. v_halfdan2a（第一型態：剛覺醒，閉著嘴）**
@@ -94,7 +93,7 @@ Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th ce
 An outdoor Viking law assembly (thing) on a grey windy day, a tall standing law stone in the middle, a silent crowd of farmers and warriors in a wide ring. In the foreground, the young shieldmaiden Sigrid (around twenty, dark blonde thick braid, richly painted round shield with her father's sigil, fine chainmail, blue wool cloak) has just won a duel: her elderly jarl father, white-haired and frail, leaning on a walking stick, embraces her tightly; her shield hangs loose from her arm, her eyes closed. Behind them, a defeated one-eyed old duelist sits on the ground, alive, his sword dropped. Emotional, quiet, proud.
 ```
 
-## ★ v0.10 劇情擴充（16 張）
+## ✅ v0.10 劇情擴充（16 張，已全部收到）
 
 這一批是配合「老王三型態、丹麥戰前會議、海外三大戰役」的新劇情，劇情已經做進遊戲了。圖還沒到之前，遊戲會先用現有的圖或純文字代替。建議的生成順序是 A → B → C。
 
@@ -112,10 +111,10 @@ An outdoor Viking law assembly (thing) on a grey windy day, a tall standing law 
 | 10 | sc_york_3 | 約克：進城 （✅ 已收到）| 16:9 |
 | 11 | sc_wessex_1 | 威塞克斯：躲進沼澤的國王 （✅ 已收到）| 16:9 |
 | 12 | sc_wessex_2 | 威塞克斯：盾牆對盾牆 （✅ 已收到）| 16:9 |
-| 13 | sc_wessex_3 | 威塞克斯：兩個王的談判 | 16:9 |
-| 14 | sc_paris_1 | 巴黎：塞納河上的橋塔 | 16:9 |
-| 15 | sc_paris_2 | 巴黎：圍城的冬天 | 16:9 |
-| 16 | sc_paris_3 | 巴黎：一車一車的銀子 | 16:9 |
+| 13 | sc_wessex_3 | 威塞克斯：兩個王的談判 （✅ 已收到）| 16:9 |
+| 14 | sc_paris_1 | 巴黎：塞納河上的橋塔 （✅ 已收到）| 16:9 |
+| 15 | sc_paris_2 | 巴黎：圍城的冬天 （✅ 已收到）| 16:9 |
+| 16 | sc_paris_3 | 巴黎：一車一車的銀子 （✅ 已收到）| 16:9 |
 
 ### A. 老王覺醒的三個型態（人物 3:4）
 
@@ -239,7 +238,7 @@ Outside the gates of Paris: a line of Frankish ox-carts loaded with chests of si
 
 ## ★ v0.8 第二批：老王的晚年與諸神黃昏（11 張）
 
-**目前還缺的**：#8b sc_k_advance（巨人要明顯在**往後退**）、#10 v_halfdan3。第二輪收到的 5 張已放進遊戲：#6、#7、#8、#9，另外一張「老王背對鏡頭、巨人正衝過來」改名為 sc_k_line，用在「巨人衝了過來」那一頁。重畫的重點：
+**目前還缺的**：#10 v_halfdan3。第二輪收到的 5 張已放進遊戲：#6、#7、#8、#9，另外一張「老王背對鏡頭、巨人正衝過來」改名為 sc_k_line，用在「巨人衝了過來」那一頁。重畫的重點：
 - 鏡頭拉遠，老王在畫面裡要小，重點是兩軍的規模。
 - 彩虹橋是英靈戰士走下來的那座「光之橋」，不是天上另外一道彩虹。
 - 所有人的視線方向要對：我方看向橋、巨人看向我方或老王。
@@ -260,7 +259,7 @@ Outside the gates of Paris: a line of Frankish ox-carts loaded with chests of si
 | 7 | sc_k_charge | 拉遠：英靈騎兵楔形衝進巨人大軍 （✅ 已收到）| 諸神黃昏：沒有覺醒 | 16:9 |
 | 8 | sc_k_axes | 峽口畫線：老王一人擋住巨人大軍 （✅ 已收到）|
 | 8a | sc_k_line | 老王背對鏡頭，巨人正衝向那條線 （✅ 已收到，原本當 8b 畫的那張）| 諸神黃昏：達標（巨人衝過來） | 16:9 | 諸神黃昏：達標（畫線擋敵） | 16:9 |
-| 8b | sc_k_advance | 俯視：老王走向後退的巨人大軍（還缺：上一張的巨人看起來是往前衝，不是後退） | 諸神黃昏：達標（最後一頁） | 16:9 |
+| 8b | sc_k_advance | 俯視：老王走向後退的巨人大軍 （✅ 已收到）| 諸神黃昏：達標（最後一頁） | 16:9 |
 | 9 | sc_k_gods | 處決版：老王走過你身邊，去見奧丁 （✅ 已收到）| 諸神黃昏：處決過老王 | 16:9 |
 | 10 | v_halfdan3 | 重生的老王：雙斧（人物） | 諸神黃昏：覺醒 | 3:4 |
 
