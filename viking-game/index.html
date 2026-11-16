@@ -572,10 +572,10 @@ const MILES={
 };
 const SEASON=['春','夏','秋','冬'];
 const BGS=[
-  {id:'smith',name:'鐵匠之子',st:'str',desc:'從小掄錘，臂力過人。'},
-  {id:'hunter',name:'雪林獵人',st:'wit',desc:'懂得讀出獵物的下一步。'},
-  {id:'sailor',name:'船工',st:'con',desc:'挨過無數風浪，骨頭像橡木。'},
-  {id:'skald',name:'詩人之子',st:'pre',desc:'說起話來讓人想追隨。'},
+  {id:'smith',name:'鐵匠之子',st:'str',desc:'從小掄錘，臂力過人。',perk:'鐵匠鋪便宜 25%，單挑傷害 +1'},
+  {id:'hunter',name:'雪林獵人',st:'wit',desc:'懂得讀出獵物的下一步。',perk:'打獵收穫更多，部隊戰更容易看清敵陣'},
+  {id:'sailor',name:'船工',st:'con',desc:'挨過無數風浪，骨頭像橡木。',perk:'不怕風暴，划船更容易'},
+  {id:'skald',name:'詩人之子',st:'pre',desc:'說起話來讓人想追隨。',perk:'名聲漲得更快，講故事更唬得住人'},
 ];
 const TALENTS={
   breaker:{name:'破盾者',desc:'重擊破對方格擋時，傷害 +40%',rider:'突襲戰利品 +10%'},
@@ -982,7 +982,7 @@ function armyPower(){
   return Math.round(p);
 }
 const leadMul=()=>eff('str')>=9?1.3:1.2;
-const pDmg=()=>4+(frameIs('hero')?2:0)+(S.flags.wayland?3:0)+eff('str')*2+bl('smithy')+(hasC('gudrun')?2:0)+(qd('gudrun')?2:0);
+const pDmg=()=>4+(S.bg==='smith'?1:0)+(S.bg==='smith'&&S.flags.heirloom?1:0)+(frameIs('hero')?2:0)+(S.flags.wayland?3:0)+eff('str')*2+bl('smithy')+(hasC('gudrun')?2:0)+(qd('gudrun')?2:0);
 const recruitCost=()=>Math.max(3,Math.round(8*(1-[0,.15,.3,.4][bl('barracks')])*(has('leader')?.75:1)*(ownsR('market')?.75:1)*(osOwns('mercia')?.8:1)*(S.phase>=2?fameRecruit():1)));
 const costMul=()=>(has('builder')?(mastered('builder')?.6:.7):1)*(ownsR('market')?.9:1);
 function income(){
@@ -1012,7 +1012,7 @@ function upkeep(){return Math.round((S.phase===1?1+Math.ceil(S.men/2):Math.max(1
 function wages(){if(S.phase===1)return 0;return Math.round(D().wage*(Math.ceil(recruits()/3)+Math.ceil(S.vets/2)+S.elite*(has('shieldlord')?.5:1))*(has('quarter')?.5:1));}
 function loseLoyalty(n){let k=n*D().loy;if(has('leader'))k*=.75;S.loyalty=clamp(Math.round(S.loyalty-k),0,100);}
 function addLoyalty(n){S.loyalty=clamp(S.loyalty+n,0,100);}
-function addFame(n){if(n>0)n=Math.round(n*((has('skaldblood')?(mastered('skaldblood')?1.5:1.3):1)+(has('berserk')?.15:0)));S.fame=Math.max(0,S.fame+n);}
+function addFame(n){if(n>0)n=Math.round(n*((has('skaldblood')?(mastered('skaldblood')?1.5:1.3):1)+(has('berserk')?.15:0)+(S.bg==='skald'?.15+(S.flags.heirloom?.05:0):0)));S.fame=Math.max(0,S.fame+n);}
 function addInfamy(n){if(n>0){if(has('raider'))n=Math.ceil(n/2);n=Math.round(n*(1+S.infamy/200));}S.infamy=clamp(S.infamy+n,0,100);S.stats.infMax=Math.max(S.stats.infMax??0,S.infamy);if(S.infamy>=100)unlock('infamous');}
 function bond(id,n){const c=champ(id);if(!c)return;if(n<0&&has('kingofmen'))return;c.bond=clamp(c.bond+n,0,100);checkOath(c);}
 function bondAll(n){S.champions.forEach(c=>bond(c.id,n));}
@@ -1253,8 +1253,41 @@ function takeLosses(l,eliteW){
   }
   return l;
 }
+const ORI_EVENTS=[
+  {id:'o_smith1',once:1,phase:[2,3],cond:()=>S.bg==='smith',kind:'出身',title:'斷掉的祖傳寶劍',text:'一位路過的雅爾找上門，從布包裡拿出一把斷成兩截的劍：「這是我祖父的劍。聽說你是鐵匠的兒子，修得好嗎？」\n\n你摸了摸斷口。鋼是好鋼，只是老了。',
+    ch:[{t:'照原樣修好',fx:()=>{addFame(8);S.flags.allyBonus=1;return '你花了三天，一點一點把斷口接回去，連劍柄上的磨痕都留著。\n\n雅爾握著劍，很久沒說話：「祖父要是看見，會以為它從來沒斷過。」\n<span class="good">名聲 +8，下一次結盟更容易</span>';}},
+        {t:'熔掉，重打一把更好的',fx:()=>{S.silver+=35;addFame(3);return '你把它熔了，加進新鋼，打出一把更輕、更利的劍。\n\n雅爾看了很久：「這不是我祖父的劍了。」他頓了一下，「可是比我祖父的劍好。」他多付了一袋銀子。\n<span class="good">銀幣 +35，名聲 +3</span>';}}]},
+  {id:'o_smith2',once:1,phase:[3,4],cond:()=>S.bg==='smith',kind:'出身',title:'鐵砧上的記號',text:'集市上，一個行商在賣一座舊鐵砧。你走過去，突然停下了腳步。\n\n鐵砧的側面刻著一個小小的記號：是你父親的記號。上面還有一個凹痕，是當年赫羅爾夫那一腳踢出來的。',
+    ch:[{t:'買下來（30 銀幣）',ok:()=>S.silver>=30,fx:()=>{S.silver-=30;S.flags.anvil=1;S.flags.heirloom=1;return '你把鐵砧扛回了自己的鐵匠鋪，放在最中間。\n\n第一次在上面打鐵的時候，聲音跟小時候一模一樣。\n<span class="good">單挑傷害 +1（父親的鐵砧）</span>';}},
+        {t:'問他是從哪裡來的',fx:()=>{addFame(2);return '行商說，是從北邊一個峽灣收來的。那個鐵匠鋪早就沒人了。\n\n你站在那裡很久，最後還是走了。有些東西，記得就好。';}}]},
+  {id:'o_hunter1',once:1,phase:[1,2],cond:()=>S.bg==='hunter',kind:'出身',title:'雪地裡的白狐',text:'清晨，你在領地邊的雪地上看見了一隻白狐。\n\n牠停下來看著你，一點都不怕。那身毛，跟當年被赫羅爾夫搶走的那張一模一樣。',
+    ch:[{t:'拉弓',fx:()=>{S.silver+=25;return '一箭。白狐倒在雪地裡，血在白毛上暈開。\n\n這張皮賣了好價錢。只是那天晚上，你夢見了小時候的獵屋。\n<span class="good">銀幣 +25</span>';}},
+        {t:'放下弓，看著牠走',fx:()=>{favor('freyja',8);addLoyalty(3);return '白狐又看了你一眼，慢慢走進了林子裡。\n\n後來，族人說常常在村子附近看見一隻白狐。孩子們說，牠是來保佑你的。\n<span class="good">弗蕾亞神恩 +8，忠誠 +3</span>';}}]},
+  {id:'o_hunter2',once:1,phase:[3,4],cond:()=>S.bg==='hunter',kind:'出身',title:'雪林的狼王',text:'北邊的村子派人來求救：一群狼連著三個冬天叼走他們的羊。領頭的是一頭灰狼，大家都叫牠「狼王」。\n\n你蹲下來看了看雪地上的腳印。牠很聰明，從不走同一條路。',
+    ch:[{t:'親自去追',note:'生死單挑',fx:()=>{duel('wolf',{lethal:true,mul:1.6,xp:20,name:'雪林的狼王',intro:'你在山脊上等了兩天。第三天黃昏，牠從你預料的那條路走了出來。',cause:'被雪林的狼王咬死在山脊上',onEnd:w=>{if(!w)return '';addFame(10);S.food+=20;addLoyalty(4);return '狼王倒在雪地裡。你沒有剝牠的皮，把牠埋在了山脊上。\n\n北邊的村子送來了二十袋糧食。\n<span class="good">名聲 +10，糧食 +20，忠誠 +4</span>';}});return null;}},
+        {t:'教村民怎麼設陷阱',fx:()=>{addLoyalty(5);addFame(3);return '你花了一個月，教他們看腳印、設套索。第二年冬天，狼群再也沒有來。\n<span class="good">忠誠 +5，名聲 +3</span>';}}]},
+  {id:'o_sailor1',once:1,phase:[2,3],cond:()=>S.bg==='sailor',kind:'出身',title:'當年的老槳手',text:'一艘破舊的長船靠岸了。船頭站著幾個滿臉風霜的老人。\n\n「還記得我們嗎？」帶頭的那個笑著說，「當年你划第三槳，老是跟不上鼓聲。」\n\n是你年輕時一起划槳的老夥伴。',
+    ch:[{t:'「上岸吧，這裡就是你們的家。」',fx:()=>{S.men+=4;S.vets=(S.vets||0)+2;S.flags.crew=1;return '他們把那艘破船拖上了岸，修了一整個冬天。春天出海的時候，他們划得比年輕人還好。\n<span class="good">戰士 +4（其中 2 名是老兵）</span>';}},
+        {t:'請他們喝一頓酒',fx:()=>{addLoyalty(4);addFame(2);return '那天晚上，你們唱著當年划船的歌，一直唱到天亮。\n<span class="good">忠誠 +4，名聲 +2</span>';}}]},
+  {id:'o_sailor2',once:1,phase:[3,4],cond:()=>S.bg==='sailor',kind:'出身',title:'看得見的風暴',text:'天空還是晴的，但你聞到了風裡的鹹味，看見海鳥全往內陸飛。\n\n三天之內，會有一場大風暴。別人都還不知道。',
+    ch:[{t:'派人通知沿岸的漁村',fx:()=>{addLoyalty(6);addInfamy(-5);addFame(4);return '漁民們半信半疑地把船拖上了岸。第三天，風暴來了，一條船都沒少。\n\n從此，沿岸的人出海前，都會先派人來問你天氣。\n<span class="good">忠誠 +6，惡名 -5，名聲 +4</span>';}},
+        {t:'趁敵人躲風暴的時候出手',fx:()=>{S.silver+=40;addInfamy(6);favor('loki',4);return '風暴前的最後一個晚上，你帶人摸進了對岸的港口。等他們發現的時候，你們已經滿載而歸，風暴也正好把追兵擋在了後面。\n<span class="good">銀幣 +40</span>　<span class="bad">惡名 +6</span>';}}]},
+  {id:'o_skald1',once:1,phase:[2,3],cond:()=>S.bg==='skald',kind:'出身',title:'詩人的挑戰',text:'在法石前，一位有名的詩人當眾向你下了戰帖：「聽說你是詩人的兒子。那就來比一場罵陣吧，輸的人要把自己的豎琴燒掉。」\n\n圍觀的人越來越多。',
+    ch:[{t:'接受挑戰',note:()=>rate(.45+eff('wit')*.03+eff('pre')*.03),fx:()=>{if(chk(.45+eff('wit')*.03+eff('pre')*.03)){addFame(12);return '他罵你的出身，你罵他的鬍子；他罵你的斧頭，你罵他的詩。最後一句，你用的是他自己的韻腳。\n\n全場安靜了一秒，然後爆出笑聲。他自己把豎琴丟進了火裡。\n<span class="good">名聲 +12</span>';}addFame(-3);return '你卡在第三輪，一個韻腳都想不出來。他笑著拍了拍你的肩膀：「你父親比你厲害。」\n<span class="bad">名聲 -3</span>';}},
+        {t:'「我現在用斧頭寫詩。」',fx:()=>{addFame(3);addInfamy(2);return '你把斧頭插在他面前的地上。他看了很久，自己收起了豎琴。\n<span class="good">名聲 +3</span>，惡名 +2';}}]},
+  {id:'o_skald2',once:1,phase:[3,4],cond:()=>S.bg==='skald',kind:'出身',title:'父親沒寫完的歌',text:'一位老商人帶來一張發黃的羊皮紙：「這是你父親當年寫的歌，他說等找到值得唱的人，再把它寫完。」\n\n歌只寫了一半。歌裡的英雄，還沒有名字。',
+    ch:[{t:'把它寫完',fx:()=>{addFame(10);if(hasC('bragi'))bond('bragi',6);return '你在長屋裡坐了一整夜，把剩下的歌寫完了。英雄的名字，你寫的是自己的。\n\n第二天，整個峽灣都在唱這首歌。'+(hasC('bragi')?'\n布拉吉說，這是他聽過最好的一首。':'')+'\n<span class="good">名聲 +10</span>';}},
+        {t:'讓它留著空白',fx:()=>{addLoyalty(4);return '你把羊皮紙收進了箱子。有些歌，不該由自己來寫。\n\n也許有一天，你的孩子會把它寫完。\n<span class="good">忠誠 +4</span>';}}]},
+  {id:'o_home',once:1,phase:[3,4],cond:()=>S.turn>=40,kind:'出身',title:'衣錦還鄉',text:()=>{
+    const o=ORI(),rf=S.rival.fate||'',mom=age()<50;
+    const item={smith:'父親的鐵匠鋪還在。'+(S.flags.anvil?'鐵砧早就被你帶走了，爐子卻還留著父親的手印。':'那座鐵砧還在，上面還有赫羅爾夫那一腳踢出來的凹痕。'),hunter:'獵屋還在林子邊。牆上掛著你小時候的第一把弓，弦已經斷了。',sailor:'你第一次划槳的那條舊船，還倒扣在沙灘上，船底長滿了貝殼。',skald:'父親的豎琴還掛在牆上，少了兩根弦。'}[S.bg];
+    const jarl=rf.includes('斧下')?'雅爾站在碼頭上，看著你的船靠岸。他是赫羅爾夫的父親。他什麼都沒說，轉身走了。':rf.includes('效忠')?'雅爾親自到碼頭來迎接你：「我兒子說，你是他見過最好的王。」他頓了一下，「他從來不誇人。」':'當年的雅爾已經老了。他看見你的旗幟，摘下了帽子。';
+    return `你的船隊駛進了故鄉的峽灣。\n\n${jarl}\n\n${mom?'母親站在家門口。她比你記得的還要矮，頭髮全白了。\n\n「我說過，活著回來，或者別回來。」她伸手摸了摸你的臉，「你回來了。」':'母親已經不在了。她葬在家後面的小山坡上，墳前放著一束新摘的花。村裡的人說，她每年冬天都會到碼頭上等一艘船。'}\n\n${item}`;},
+    ch:[{t:'把它帶走',fx:()=>{S.flags.heirloom=1;addFame(10);return `你把它帶回了自己的王廳。\n<span class="good">名聲 +10；${{smith:'單挑傷害 +1',hunter:'部隊戰更容易看清敵陣',sailor:'划船更容易',skald:'名聲漲得更快'}[S.bg]}</span>`;}},
+        {t:'留在這裡',fx:()=>{addLoyalty(6);addFame(10);return '有些東西，就該留在原來的地方。\n\n離開的時候，你在母親的門口放下了一袋銀子和一頂舊帽子。那是你十九歲那年戴的。\n<span class="good">名聲 +10，忠誠 +6</span>';}}]},
+];
 function randomEvent(){
-  const pool=[...EVENTS,...MYTH_EVENTS,...CH4_EVENTS,EV_RIVAL,...FAME_EVENTS,...WINTER_EVENTS].filter(e=>(!e.once||!S.flags['ev_'+e.id])&&!(CHAMPS[e.id]&&(hasC(e.id)||(S.stats.lostC||[]).includes(CHAMPS[e.id].name)))&&(e.phase.includes(S.phase)||(S.phase===4&&e.phase.includes(3)))&&(!e.cond||e.cond()));
+  const pool=[...EVENTS,...MYTH_EVENTS,...CH4_EVENTS,EV_RIVAL,...FAME_EVENTS,...WINTER_EVENTS,...ORI_EVENTS].filter(e=>(!e.once||!S.flags['ev_'+e.id])&&!(CHAMPS[e.id]&&(hasC(e.id)||(S.stats.lostC||[]).includes(CHAMPS[e.id].name)))&&(e.phase.includes(S.phase)||(S.phase===4&&e.phase.includes(3)))&&(!e.cond||e.cond()));
   if(!pool.length) return;
   const e=pick(pool);
   if(e.once) S.flags['ev_'+e.id]=1;
@@ -1518,7 +1551,7 @@ function kingCombo(el,d,done){
     // 反應型「看穿虛實」：金光是真的破綻，要點；紅光是假動作，別碰。最多兩格同時亮
     const reds=Math.round(n/2),order=[...Array(n).fill('g'),...Array(reds).fill('r')].sort(()=>Math.random()-.5);
     if(order[0]==='r'){const j=order.indexOf('g');order[j]='r';order[0]='g';}
-    const life=(S.relaxed?.8:.6)*1000,gap=S.relaxed?[450,550]:[300,400];
+    const life=(S.relaxed?.9:.7)*1000,gap=S.relaxed?[450,550]:[300,400];
     const lit={};let k=0,missed=0,fooled=0,hit=0,last=-1,over=false,spawnT=0;const res=[];
     const paint=()=>{
       const g=el.querySelector('.kgrid');if(!g)return;
@@ -2097,7 +2130,7 @@ function battle(o){
       // 敵軍總共 8 隊，你只有 6 隊預備隊（打頭陣的勇士算 2 隊）
       const FT=FOE_STYLE[o.foeType]||FOE_STYLE[''];
       const foe=pick(FT.p).slice();if(FT.mix)foe.sort(()=>Math.random()-.5);
-      const pSee=eff('wit')>=15?1:clamp(.25+eff('wit')*.03+(scouted(o.defend)?.2:0),.25,.85);
+      const pSee=eff('wit')>=15?1:clamp(.25+eff('wit')*.03+(scouted(o.defend)?.2:0)+(S.bg==='hunter'?.15+(S.flags.heirloom?.05:0):0),.25,.9);
       const seen=foe.map(()=>Math.random()<pSee);
       const fuzzy=v=>{const g=clamp(v+pick([-1,0,0,1]),0,6);return g<=1?'人不多':g<=3?'人不少':'黑壓壓一片';};
       const hint=foe.map((v,i)=>seen[i]?`敵軍 ${v} 隊`:`${fuzzy(v)}（看不清楚）`);
@@ -2483,9 +2516,12 @@ const EVENTS=[
   vEvent('wreck',{title:'海灘上的沉船',text:'暴風雨過後，一艘商船的殘骸被沖上了海灘，貨箱散了一地。',
     ch:[{t:'動手搜刮',note:()=>rate(.35+eff('wit')*.07),fx:()=>{if(chk(.35+eff('wit')*.07)){S.st.str++;return '你在船艙裡摸到一把用油布包好的好劍。\n<span class="good">力量 +1</span>';}S.silver+=6;return '大部分東西都泡爛了，只撿到幾枚銀幣。\n銀幣 +6';}},
         {t:'仔細檢查船底的暗格',show:()=>eff('wit')>=6,fx:()=>{S.silver+=22;return '船底有個走私用的暗格，裡面是一袋銀子。\n<span class="good">銀幣 +22</span>';}},
+        {t:'拆下船上的鐵件',show:()=>S.bg==='smith',fx:()=>{S.silver+=15;return '別人只看見爛木頭，你看見的是一船好鐵：船釘、鉚釘、錨鍊。你拆了一整個下午。\n<span class="good">銀幣 +15</span>';}},
+        {t:'看看這艘船是怎麼沉的',show:()=>S.bg==='sailor',fx:()=>{addFame(6);addInfamy(-3);return '你摸了摸船底。裂口太整齊了，是有人從裡面鑿穿的。\n\n你把這件事告訴了漁民。後來他們都說，你是真正懂船的人。\n<span class="good">名聲 +6，惡名 -3</span>';}},
         {t:'通報漁村村長',fx:()=>{S.flags.vHelp=1;addFame(4);addInfamy(-5);return '村長把東西分給了失去家人的漁民。大家記住了你。\n名聲 +4，惡名 -5';}}]}),
   vEvent('framed',{title:'被偷的漁網',text:'村民堵住你的路：「昨晚漁網被割走了，有人看見一個外地人！」他們手裡拿著船槳和魚叉。',
     ch:[{t:'賠他們 8 銀幣了事',ok:()=>S.silver>=8,fx:()=>{S.silver-=8;return '村民嘀咕著散了。';}},
+        {t:'蹲下來看腳印',show:()=>S.bg==='hunter',fx:()=>{addFame(6);addInfamy(-5);return '腳印一深一淺，是個跛腳的人，鞋底沾著鹽灘才有的白泥。你沿著腳印走到鄰村的船屋，割網的人還在裡面數魚。\n<span class="good">名聲 +6，惡名 -5</span>';}},
         {t:'找出真正的小偷',note:()=>rate(.3+eff('wit')*.07),fx:()=>{if(chk(.3+eff('wit')*.07)){addFame(6);addInfamy(-5);return '你在鄰村的船屋裡找到了漁網和割網的人。村民向你道歉。\n<span class="good">名聲 +6，惡名 -5</span>';}addInfamy(6);return '你找不到證據，村民更加認定是你。\n<span class="bad">惡名 +6</span>';}},
         {t:'揍出一條路',fx:()=>{addInfamy(10);addFame(2);favor('loki',4);return '你打翻了三個人。從此村民看到你就關門。\n<span class="bad">惡名 +10</span>';}}]}),
   vEvent('treasure',{title:'老船長的藏寶圖',cond:()=>S.silver>=10,text:'酒館角落的老船長壓低聲音：「十枚銀幣，這張圖就是你的。圖上標著強盜埋寶的地方。」',
@@ -2493,6 +2529,7 @@ const EVENTS=[
         {t:'不信這種東西',fx:()=>'老船長哼了一聲，繼續喝他的酒。'}]}),
   {id:'drunk',phase:[1],cd:1,cond:()=>cdOk('drunk',6),title:'醉漢挑釁',text:'一個滿身酒氣的漁夫搖搖晃晃地擋住你：「外地人，敢不敢跟我比劃比劃？」',
     ch:[{t:'陪他玩玩',note:'比武，點到為止',fx:()=>{duel('drunk',{lethal:false,xp:6,onEnd:w=>{if(w){addFame(3);return '醉漢躺在地上打呼。圍觀的人笑成一團。\n名聲 +3';}return '你居然輸給了一個醉漢。';}});return null;}},
+        {t:'編一首打油詩回敬他',show:()=>S.bg==='skald',fx:()=>{addFame(4);return '你當場編了四句，把他的鼻子、他的船和他的酒量全罵了一遍。圍觀的人笑到拍桌子，醉漢自己也笑了，還請你喝了一杯。\n<span class="good">名聲 +4</span>';}},
         {t:'繞開他',fx:()=>'醉漢在你背後罵了幾句。'}]},
   vEvent('wolves',{title:'村長的請求',cond:()=>S.fame>=8,text:()=>(S.flags.vRaid?'鹽灘漁村的村長站在你面前。他認得你的臉——就是你，帶著斧頭衝進過他的村子。\n\n他的手在發抖，聲音卻很穩：「狼群叼走了我們的羊。我們……找不到別人了。」'+(S.flags.mate?'\n\n托爾斯坦看了你一眼，什麼也沒說。':'')
       :S.flags.vHelp?'鹽灘漁村的村長笑著迎上來：「沉船那次的事，大家都還記得。」\n\n笑容很快就沒了：「狼群叼走了我們的羊。你能幫忙嗎？我們湊了一點錢。」'
@@ -3018,7 +3055,7 @@ function actions(){
     A.push({id:'feast',name:'設宴',desc:'花 15 銀幣、6 糧食，讓族人喝個痛快。',gain:S.turn-(S.flags.feastT??-99)<4?'剛辦過宴會，效果有限':`忠誠 +${has('harvest')?16:8}，勇士好感 +3`,dis:S.silver<15||S.food<6?'需要 15 銀幣、6 糧食':null,
       run:()=>{S.silver-=15;S.food-=6;const fresh=S.turn-(S.flags.feastT??-99)>=4;if(fresh)favor('freyja',3);const g=(fresh?8:3)*(has('harvest')?2:1)*(osOwns('rouen')?2:1);addLoyalty(g);if(fresh)bondAll(3);addFame(2);S.flags.feastT=S.turn;log('在長屋設宴，酒灌到天亮。');toast(`忠誠 +${g}`);passTime();}});
   }
-  const hm=(has('huntsman')?1.5:1)*(ownsR('forest')?1.5:1);
+  const hm=(has('huntsman')?1.5:1)*(ownsR('forest')?1.5:1)*(S.bg==='hunter'?1.3:1);
   A.push({id:'hunt',name:'深入獵捕',desc:`進深山追獵大型野獸。生死單挑。${S.lvl>=3?'可能遇到灰熊、麋鹿、山貓'+(bl('dock')?'，或是海邊的海象':''):'多半是狼、野豬或麋鹿'}。`,gain:`糧食約 +${Math.round((6+(p>1?Math.floor(S.men/3):0))*hm)}，毛皮、鹿角、象牙能換銀幣`,run:()=>{
     const pool=S.lvl>=3?['wolf','boar','bear','bear','elk','lynx',...(bl('dock')?['walrus']:[])]:['wolf','boar','boar','elk'];
     const k=pick(pool),H=HUNT[k];
@@ -3136,7 +3173,7 @@ function recruitModal(){
   });
 }
 const bldMax=()=>S.tlv>=4?3:S.tlv>=3?2:1;
-const bldCost=(b,l)=>[Math.round(b.cost[0]*[1,2,3.5][l]*costMul()),Math.round(b.cost[1]*[1,2,3.5][l])];
+const bldCost=(b,l)=>[Math.round(b.cost[0]*[1,2,3.5][l]*costMul()*(b.id==='smithy'&&S.bg==='smith'?.75:1)),Math.round(b.cost[1]*[1,2,3.5][l])];
 const tribeUp=()=>{const u=TRIBE_UP[S.tlv-1];if(!u||(u.golden&&!has('golden')))return null;return {cost:[Math.round(u.cost[0]*costMul()),u.cost[1]],need:u.need};};
 function build(id){
   const b=B(id),l=bl(id),[s,f]=bldCost(b,l);
@@ -3559,7 +3596,7 @@ function explore(){
 function addXpSafe(n){gainXp(n);}
 /* ---------- 出航 ---------- */
 const SEA_EVENTS=[
-  {t:'風暴',run:()=>{if(chk(.35+eff('wit')*.05+(S.flags.iceNav?.3:0))){return ['天黑得像傍晚，浪比桅杆還高。你看出風向不對，提早下令收帆，船隊一艘都沒少。',1];}const l=Math.max(1,Math.round(S.men*.05));takeLosses(l,.5);return [`天黑得像傍晚，浪比桅杆還高。有一艘船翻了。<span class="bad">戰士 -${l}</span>`,1.05];}},
+  {t:'風暴',run:()=>{if(chk(.35+eff('wit')*.05+(S.flags.iceNav?.3:0)+(S.bg==='sailor'?.35:0))){return ['天黑得像傍晚，浪比桅杆還高。你看出風向不對，提早下令收帆，船隊一艘都沒少。',1];}const l=Math.max(1,Math.round(S.men*.05));takeLosses(l,.5);return [`天黑得像傍晚，浪比桅杆還高。有一艘船翻了。<span class="bad">戰士 -${l}</span>`,1.05];}},
   {t:'濃霧',run:()=>chk(.3+eff('wit')*.05+(S.flags.iceNav?.3:0))?['霧濃得看不見船頭。你跟著海鳥的叫聲，找到一條沒人知道的水道。<span class="good">你們會從敵人沒想到的地方上岸</span>',.85]:['霧濃得看不見船頭。你們在海上繞了三天，上岸時人人都累垮了。<span class="bad">敵人有時間準備</span>',1.1]},
   {t:'海蛇',run:()=>{favor('thor',3);return ['船邊的海水突然翻起來，一條比長屋還長的背脊滑了過去。戰士們拚命敲盾牌，喊著索爾的名字。那東西沉下去了。\n索爾的神恩 +3',1];}},
   {t:'鯨群',run:()=>{S.food+=10;return ['一群鯨魚跟著船隊游了一整天。最小的那頭被你們拖上了船。<span class="good">糧食 +10</span>',1];}},
@@ -3582,7 +3619,7 @@ function expedition(o,go,peaceful){
 }
 // 划槳：反應型
 function rowing(el,header,done){
-  const N=4,W=S.relaxed?30:22;let k=0,hit=0,pos=0,dir=1,raf=0,over=false,last=performance.now();
+  const N=4,W=(S.relaxed?30:22)+(S.bg==='sailor'?6+(S.flags.heirloom?3:0):0);let k=0,hit=0,pos=0,dir=1,raf=0,over=false,last=performance.now();
   const speed=(S.relaxed?.09:.12);const newZone=()=>{const l=pick([8,39,70])+ri(-4,4);return [l,l+W];};let zone=newZone();
   el.innerHTML=header+`<p class="hint">跟著鼓聲划槳：指針進到金色區域時按「划！」（或空白鍵）。每划一槳，金色區域的位置都會換。</p>
     <div class="rowbar"><i class="zone" id="rw-z" style="left:${zone[0]}%;width:${W}%"></i><i class="needle" id="rw-n"></i></div>
@@ -4986,7 +5023,7 @@ function storyNight(){
   const keep=T.pop(),opts=T.sort(()=>Math.random()-.5).slice(0,2).concat([keep]);
   const tell=([t,sub,real,story,tall,who])=>{pushModal(eventModal({kind:'長屋之夜',title:t,text:`你清了清喉嚨，開始講「${t}」。`,
     ch:[{t:'照實講',fx:()=>{addFame(3);addLoyalty(3);return `「${story}」\n\n${real}\n\n名聲 +3，忠誠 +3`;}},
-        {t:'加油添醋，越誇張越好',note:()=>rate(.3+eff('wit')*.06),fx:()=>{if(chk(.3+eff('wit')*.06)){addFame(8);addLoyalty(2);return `「${tall}」\n\n大家聽得目瞪口呆。第二天，整個峽灣都在傳。\n名聲 +8，忠誠 +2`;}addFame(-3);addLoyalty(2);return `「${tall}」\n\n講到一半，${who||heck()}大喊：「少吹了！明明不是這樣！」\n全長屋笑翻了。\n名聲 -3，忠誠 +2`;}},
+        {t:'加油添醋，越誇張越好',note:()=>rate(.3+eff('wit')*.06+(S.bg==='skald'?.15:0)),fx:()=>{if(chk(.3+eff('wit')*.06+(S.bg==='skald'?.15:0))){addFame(8);addLoyalty(2);return `「${tall}」\n\n大家聽得目瞪口呆。第二天，整個峽灣都在傳。\n名聲 +8，忠誠 +2`;}addFame(-3);addLoyalty(2);return `「${tall}」\n\n講到一半，${who||heck()}大喊：「少吹了！明明不是這樣！」\n全長屋笑翻了。\n名聲 -3，忠誠 +2`;}},
         {t:'讓布拉吉來講',show:()=>hasC('bragi'),fx:()=>{addFame(6);bond('bragi',4);return '布拉吉把你的故事唱成了歌。唱到最後，連你自己都差點信了。\n名聲 +6，布拉吉好感 +4';}}]}));};
   pushModal(eventModal({kind:'長屋之夜',title:'講故事之夜',text:'火堆旁坐滿了人，連孩子們都沒睡。大家吵著要你講一個故事。\n\n要講哪一段？',
     ch:opts.map(o=>({t:o[0],note:o[1],fx:()=>{tell(o);return null;}}))}));
@@ -5526,7 +5563,7 @@ function showTitle(){
   $('#minis').querySelectorAll('[data-mini]').forEach(b=>b.onclick=()=>{NEW.mini=b.dataset.mini;showTitle();});
   $('#relax-row').hidden=NEW.mini!=='react';
   $('#in-relax').checked=NEW.relaxed;$('#in-relax').onchange=e=>{NEW.relaxed=e.target.checked;};
-  $('#bgs').innerHTML=BGS.map(b=>`<button class="opt" data-bg="${b.id}" aria-pressed="${b.id===NEW.bg}"><b>${b.name}</b><small>${b.desc}</small><span class="tag">${STAT[b.st]} +2</span></button>`).join('');
+  $('#bgs').innerHTML=BGS.map(b=>`<button class="opt" data-bg="${b.id}" aria-pressed="${b.id===NEW.bg}"><b>${b.name}</b><small>${b.desc}</small><span class="tag">${STAT[b.st]} +2・${b.perk}</span></button>`).join('');
   $('#bgs').querySelectorAll('[data-bg]').forEach(b=>b.onclick=()=>{NEW.bg=b.dataset.bg;showTitle();});
   $('#diffs').innerHTML=Object.entries(DIFF).map(([k,d])=>`<button class="opt" data-diff="${k}" aria-pressed="${k===NEW.diff}"><b>${d.name}</b><small>${d.desc}</small></button>`).join('');
   $('#diffs').querySelectorAll('[data-diff]').forEach(b=>b.onclick=()=>{NEW.diff=b.dataset.diff;showTitle();});
