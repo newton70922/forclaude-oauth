@@ -10,6 +10,45 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
+## ★ 出身卡片的圖示（4 張，木刻版畫風格）
+
+用在：建立角色的「你的出身」卡片右下角，做成半透明浮水印。黑底、單色就好，我會自己去背和調透明度。圖到之前先用線條圖示代替。
+
+| # | 檔名 | 內容 | 比例 |
+|---|---|---|---|
+| 1 | o_smith | 鐵匠之子：鐵鎚與鐵砧 | 1:1 |
+| 2 | o_hunter | 雪林獵人：弓與箭 | 1:1 |
+| 3 | o_sailor | 船工：龍頭船 | 1:1 |
+| 4 | o_skald | 詩人之子：豎琴 | 1:1 |
+
+**1. o_smith（鐵匠之子：鐵鎚與鐵砧）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A heavy blacksmith's hammer resting across a Norse anvil, a few sparks flying, tongs leaning against the anvil.
+```
+
+**2. o_hunter（雪林獵人：弓與箭）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A Norse hunting longbow with a single arrow nocked, a white fox tail hanging from the bow, a few pine needles.
+```
+
+**3. o_sailor（船工：龍頭船）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A Viking longship seen from the side with a carved dragon prow, square striped sail, a row of round shields along the side, small stylized waves below.
+```
+
+**4. o_skald（詩人之子：豎琴）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A small Norse lyre (tallharpa) carved with knotwork, strings visible, with a drinking horn leaning beside it.
+```
+
 ## ★ v0.12 諸神黃昏開場與老王出場（17 張）
 
 劇情分頁已經做進遊戲了。圖還沒到之前，開場會先用英靈戰士圖、怪物和眾神立繪代替，老王的分頁先用彩虹橋圖和雙斧立繪代替。

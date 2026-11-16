@@ -433,6 +433,32 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .dodge b{display:block;font-family:'Noto Serif TC',serif;font-size:20px;color:var(--ember)}
 .dodge small{color:var(--muted)}
 .dodgepad{margin:8px auto}
+.dgarena{position:relative;width:170px;height:170px;margin:8px auto 2px;border-radius:50%;background:radial-gradient(circle,rgba(207,171,92,.08),rgba(0,0,0,0) 65%);border:1px dashed var(--line)}
+.dgarena svg.me{position:absolute;left:50%;top:50%;width:54px;height:70px;transform:translate(-50%,-50%);fill:var(--bone);opacity:.85}
+.dgslash{position:absolute;border-radius:6px;background:linear-gradient(90deg,rgba(255,80,40,0),#ff5a2a,#ffd2a0);box-shadow:0 0 14px #ff5a2a}
+.dgslash.l{left:4px;top:calc(50% - 6px);width:62px;height:12px;animation:dgl .3s ease-out}
+.dgslash.r{right:4px;top:calc(50% - 6px);width:62px;height:12px;transform:scaleX(-1);animation:dgr .3s ease-out}
+.dgslash.t{top:4px;left:calc(50% - 6px);width:12px;height:62px;background:linear-gradient(180deg,rgba(255,80,40,0),#ff5a2a,#ffd2a0);animation:dgt .3s ease-out}
+.dgslash.b{bottom:4px;left:calc(50% - 6px);width:12px;height:62px;background:linear-gradient(0deg,rgba(255,80,40,0),#ff5a2a,#ffd2a0);animation:dgb .3s ease-out}
+@keyframes dgl{from{opacity:0;transform:translateX(-26px)}}@keyframes dgr{from{opacity:0;transform:scaleX(-1) translateX(-26px)}}
+@keyframes dgt{from{opacity:0;transform:translateY(-26px)}}@keyframes dgb{from{opacity:0;transform:translateY(26px)}}
+.dgcap{text-align:center;color:var(--muted);font-size:13px}
+.axtarget{position:relative;width:220px;height:220px;margin:10px auto;border-radius:50%;
+  background:radial-gradient(circle,#f2c14e 0 9%,#d4882c 9% 10%,#b07a3c 10% 30%,#6b4524 30% 31%,#a0703f 31% 52%,#5b3a1e 52% 54%,#8a5c33 54% 74%,#3d2716 74% 100%);box-shadow:inset 0 0 0 4px #2a1b10,0 6px 18px rgba(0,0,0,.5)}
+.axtarget .cross{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:rgba(255,240,210,.9);box-shadow:0 0 6px #fff}
+.axtarget .cross::before{content:'';position:absolute;top:50%;left:-9px;width:20px;height:20px;margin-top:-10px;border:2px solid rgba(255,240,210,.95);border-radius:50%}
+.axtarget .axe{position:absolute;top:50%;font-size:34px;margin:-20px 0 0 -16px;animation:axfly .32s ease-in forwards}
+@keyframes axfly{from{transform:translateY(160px) rotate(-540deg) scale(.6);opacity:.4}to{transform:none;opacity:1}}
+.axtarget.gold{animation:axgold .5s ease-out}
+@keyframes axgold{0%{box-shadow:inset 0 0 0 4px #2a1b10,0 0 0 0 rgba(242,193,78,.9)}100%{box-shadow:inset 0 0 0 4px #2a1b10,0 0 0 36px rgba(242,193,78,0)}}
+.goatlane{position:relative;height:70px;margin:12px 0;border:1px solid var(--line);border-radius:8px;background:repeating-linear-gradient(90deg,#1a2126 0 38px,#161c20 38px 40px);overflow:hidden}
+.goatlane .zone{position:absolute;top:0;bottom:0;background:rgba(207,171,92,.25);border-left:2px solid rgba(207,171,92,.6);border-right:2px solid rgba(207,171,92,.6)}
+.goatlane .gt{position:absolute;top:50%;font-size:36px;margin:-22px 0 0 -18px;transition:none}
+.goatlane .gt.flip{transform:scaleX(-1)}
+.r2tags{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.r2tags span{font-size:13px;padding:4px 10px;border-radius:12px;background:var(--panel2);border:1px solid var(--line)}
+.r2tags b{color:var(--ember)}
+.terr{opacity:.32;stroke:rgba(255,255,255,.12);stroke-width:1}
 .chargebar{position:relative;height:26px;background:var(--bg);border:1px solid var(--line);border-radius:13px;overflow:hidden;margin:16px 0}
 .chargebar .zone{position:absolute;top:0;bottom:0;background:rgba(207,171,92,.35);z-index:1}
 .chargebar .zone.perfect{background:rgba(212,122,59,.85);z-index:2;box-shadow:0 0 8px rgba(212,122,59,.7)}
@@ -1841,7 +1867,7 @@ function makeMinis(el,header,apply,defend,st,skill,relax,logHtml,fail,hard){
     const NS=hard?4:3;const seq=Array.from({length:NS},()=>pick(SW));const W=(hard?1450:1950+skill*150)*relax;let i=0,ok=0,done=false,timer=0;
     const end=()=>{done=true;clearTimeout(timer);mgKey=null;apply(ok===NS?'perfect':ok>=NS-1?'good':'miss');};
     const show=()=>{
-      el.innerHTML=header()+`<div class="dodge"><b>${seq[i][3]}</b><small>第 ${i+1}/${NS} 刀　閃過 ${ok}</small></div>
+      el.innerHTML=header()+`<div class="dgarena" role="img" aria-label="${seq[i][3]}"><svg class="me" viewBox="0 0 40 52"><circle cx="20" cy="9" r="7"/><path d="M10 18h20l4 18h-6l-1 16h-7l-1-12-1 12h-7l-1-16H6z"/></svg><i class="dgslash ${{左邊:'l',右邊:'r',頭頂:'t',腳下:'b'}[seq[i][0]]}"></i></div><p class="dgcap">第 ${i+1}/${NS} 刀　閃過 ${ok}</p>
       <div class="seapad dodgepad"><button data-v="U" aria-label="往上跳">↑ 跳</button><button data-v="L" aria-label="往左閃">← 左</button><button data-v="R" aria-label="往右閃">右 →</button><button data-v="D" aria-label="蹲低">↓ 蹲</button></div>
       <div class="mg-time"><i id="mg-bar" style="transition:width ${W}ms linear"></i></div>`+logHtml();
       requestAnimationFrame(()=>{const bar=$('#mg-bar');if(bar)bar.style.width='0%';});
@@ -2076,10 +2102,10 @@ function scouted(defend){return !!S.flags.daneScout&&!!S.flags.envoy||eff('wit')
 // 各地敵人的打法（第二回合的敵軍分佈）
 const FOE_STYLE={
   '':{mix:1,p:[[4,2,2],[5,2,1],[3,3,2],[4,3,1],[6,1,1],[4,4,0],[5,3,0]]},
-  saxon:{t:'撒克遜人的盾牆排得又長又平，哪一段都不好打。',p:[[3,3,2],[3,2,3],[2,3,3],[4,2,2],[2,4,2],[2,2,4]]},
-  dane:{mix:1,t:'丹麥人習慣把最狠的人集中在一點，往死裡衝。',p:[[6,1,1],[5,2,1],[5,3,0],[6,2,0],[7,1,0]]},
-  frank:{t:'法蘭克騎兵在兩翼打轉，中路反而空了下來。',p:[[4,0,4],[5,1,2],[2,1,5],[4,1,3],[3,1,4],[5,0,3],[3,0,5]]},
-  giant:{mix:1,t:'巨人不排陣，哪裡擠得最多，就往哪裡撞。',p:[[5,3,0],[4,4,0],[6,2,0],[5,2,1]]},
+  saxon:{s:'撒克遜人：盾牆排得很平均',t:'撒克遜人的盾牆排得又長又平，哪一段都不好打。',p:[[3,3,2],[3,2,3],[2,3,3],[4,2,2],[2,4,2],[2,2,4]]},
+  dane:{mix:1,s:'丹麥人：集中一點猛衝',t:'丹麥人習慣把最狠的人集中在一點，往死裡衝。',p:[[6,1,1],[5,2,1],[5,3,0],[6,2,0],[7,1,0]]},
+  frank:{s:'法蘭克人：騎兵專打兩翼',t:'法蘭克騎兵在兩翼打轉，中路反而空了下來。',p:[[4,0,4],[5,1,2],[2,1,5],[4,1,3],[3,1,4],[5,0,3],[3,0,5]]},
+  giant:{mix:1,s:'巨人：哪裡擠就往哪撞',t:'巨人不排陣，哪裡擠得最多，就往哪裡撞。',p:[[5,3,0],[4,4,0],[6,2,0],[5,2,1]]},
 };
 function battle(o){
   pushModal(el=>{
@@ -2139,7 +2165,8 @@ function battle(o){
       const draw2=()=>{
         const left=R-mine[0]-mine[1]-mine[2];
         el.innerHTML=`<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,1)}
-        <p class="story">${open}${FT.t?'\n\n'+FT.t:''}\n\n戰線拉開了。${R>6?'你的兵比敵人多，':R<6?'你的兵比敵人少，':''}你手上還有 <b>${R}</b> 隊預備隊，要放到哪裡？每條戰線上，你的隊數不比敵軍少，就守得住。<b>守住兩條就佔上風</b>；三條全守，要靠打頭陣的勇士。</p>
+        <p class="story">${open}</p><div class="r2tags"><span>預備隊 <b>${R}</b> 隊${R>6?'（兵比敵人多）':R<6?'（兵比敵人少）':''}</span>${FT.s?`<span>${FT.s}</span>`:''}</div>
+        ${(S.flags.r2n||0)<3?'<p class="hint">把預備隊放到三條戰線上：隊數不比敵軍少就守得住。守住兩條就佔上風，三條全守要靠打頭陣的勇士。</p>':''}
         <div class="lanes">${LANES.map((n,i)=>`<div class="lane"><b>${n}</b><span class="${seen[i]?'':'dim'}">${hint[i]}</span>
           <div class="lctl"><button data-lm="${i}" ${mine[i]?'':'disabled'}>−</button><i>${mine[i]}${champLane===i?' +2':''}</i><button data-lp="${i}" ${left?'':'disabled'}>＋</button></div></div>`).join('')}</div>
         ${hero?`<div class="bchamp"><span style="font-size:13px;color:var(--muted);align-self:center">${CHAMPS[hero].name}（算 2 隊）守：</span>${LANES.map((n,i)=>`<button data-lc="${i}" aria-pressed="${champLane===i}">${n}</button>`).join('')}</div>`:''}
@@ -2150,7 +2177,7 @@ function battle(o){
         el.querySelectorAll('[data-lc]').forEach(b=>b.onclick=()=>{champLane=champLane===+b.dataset.lc?-1:+b.dataset.lc;draw2();});
         $('#r2-go').onclick=()=>{
           const held=foe.map((v,i)=>mine[i]+(champLane===i?2:0)>=v),n=held.filter(Boolean).length;
-          if(n>=2){S.flags.mBat=(S.flags.mBat||0)+1;if(S.flags.mBat===3)toast('你的副將學會了怎麼調度預備隊');}
+          S.flags.r2n=(S.flags.r2n||0)+1;if(n>=2){S.flags.mBat=(S.flags.mBat||0)+1;if(S.flags.mBat===3)toast('你的副將學會了怎麼調度預備隊');}
           ratio*=[.85,.93,1.04,1.12][n];
           const txt=LANES.map((nm,i)=>`${nm}：你 ${mine[i]+(champLane===i?2:0)} 隊，敵軍 ${foe[i]} 隊，<span class="${held[i]?'good':'bad'}">${held[i]?'守住了':'被衝開了'}</span>`).join('\n');
           round3(t,nightOk,ratio,txt,n);};
@@ -4903,11 +4930,11 @@ function snowball(){
     const react=S.mini==='react';let done=false;
     const finish=w=>{done=true;mgKey=null;addLoyalty(w?6:4);el.innerHTML=`<p class="eyebrow">冬 · 雪球大戰</p><h2>${w?'你贏了':'你被埋了'}</h2><div class="res">${w?'最後一個孩子舉起雙手投降，笑得滿臉通紅。他們的父母在旁邊拍手，說首領的準頭比年輕的時候還好。\n<span class="good">忠誠 +6</span>':'二十個孩子一起撲上來，把你埋進了雪堆裡，只露出一顆頭。孩子們的父母笑到站不起來。\n忠誠 +4（大家都喜歡看首領出糗）'}</div><button class="primary" id="m-ok">繼續</button>`;$('#m-ok').onclick=closeModal;$('#m-ok').focus();render();};
     if(react){
-      const N=8,T=S.relaxed?1100:800;let k=0,hit=0,cur=-1,timer=0;
-      const pop=()=>{if(done)return;if(k>=N){finish(hit>=6);return;}k++;cur=ri(0,8);draw();timer=setTimeout(()=>{cur=-1;draw();setTimeout(pop,250);},T);};
-      const draw=()=>{el.innerHTML=`<p class="eyebrow">冬 · 雪球大戰</p><h2>打中 ${hit} / ${N}</h2><p class="hint">孩子們從雪堆後面探出頭來。在他們縮回去之前，用雪球打中他們！</p>
-        <div class="snowgrid">${Array.from({length:9},(_,i)=>`<button data-sn="${i}" aria-label="雪堆 ${i+1}">${i===cur?'🧒':'❄'}</button>`).join('')}</div>`;
-        el.querySelectorAll('[data-sn]').forEach(b=>b.onclick=()=>{if(done||+b.dataset.sn!==cur)return;hit++;cur=-1;clearTimeout(timer);sfx('hit');draw();setTimeout(pop,250);});};
+      const N=10,T=S.relaxed?1100:800;let k=0,hit=0,cur=-1,timer=0,who='🧒',kc=0,oops='';
+      const pop=()=>{if(done)return;if(k>=N){finish(hit>=Math.max(1,kc-1));return;}k++;cur=ri(0,8);who=Math.random()<.28?pick(['👴','🐕']):'🧒';if(who==='🧒')kc++;oops='';draw();timer=setTimeout(()=>{cur=-1;draw();setTimeout(pop,250);},T);};
+      const draw=()=>{el.innerHTML=`<p class="eyebrow">冬 · 雪球大戰</p><h2>打中 ${hit} / ${N}</h2><p class="hint">孩子們從雪堆後面探出頭來，在他們縮回去之前打中他們！小心：老村長和狗也會探頭，打到要扣分。</p>
+        <div class="snowgrid">${Array.from({length:9},(_,i)=>`<button data-sn="${i}" aria-label="雪堆 ${i+1}">${i===cur?who:'❄'}</button>`).join('')}</div><p class="story" style="font-size:13px;color:var(--muted);text-align:center">${oops||'　'}</p>`;
+        el.querySelectorAll('[data-sn]').forEach(b=>b.onclick=()=>{if(done||+b.dataset.sn!==cur)return;if(who==='🧒'){hit++;sfx('hit');oops='';}else{hit=Math.max(0,hit-1);sfx('bad');oops=who==='👴'?'雪球砸在老村長的帽子上。他瞪了你一眼。（-1）':'狗被打中，汪汪叫著追了你半圈。（-1）';}cur=-1;clearTimeout(timer);draw();setTimeout(pop,250);});};
       setTimeout(pop,400);draw();
     }else{
       const W=4,K=3;const kids=new Set();while(kids.size<K)kids.add(ri(0,W*W-1));const shown={};let balls=7,found=0;
@@ -4927,12 +4954,17 @@ function goatChase(){
     const react=S.mini==='react';let done=false;
     const finish=w=>{done=true;mgKey=null;if(w)gainXp(6);else favor('loki',2);el.innerHTML=`<p class="eyebrow">冬 · 山羊又來了</p><h2>${w?'抓到了！':'牠跑了'}</h2><div class="res">${w?'你撲上去，一把抱住了山羊。牠嘴裡還叼著你的另一隻靴子，一臉無辜地看著你。\n<span class="good">經驗 +6</span>':'山羊一頭鑽進了豬圈，從另一頭溜走了。你光著一隻腳站在雪地裡。族人說，這是洛基的山羊。'}</div><button class="primary" id="m-ok">繼續</button>`;$('#m-ok').onclick=closeModal;$('#m-ok').focus();render();};
     if(react){
-      let pos=ri(0,8),got=0,timer=0;const need=3,end=Date.now()+(S.relaxed?14000:10000);
-      const hop=()=>{if(done)return;if(Date.now()>end){finish(false);return;}let n;do{n=ri(0,8);}while(n===pos);pos=n;draw();timer=setTimeout(hop,S.relaxed?900:650);};
-      const draw=()=>{el.innerHTML=`<p class="eyebrow">冬 · 山羊又來了</p><h2>抓住 ${got} / ${need} 次</h2><p class="hint">山羊在長屋裡跳來跳去。趁牠停下來的時候撲上去！要抓住牠三次，牠才會放棄。</p>
-        <div class="snowgrid">${Array.from({length:9},(_,i)=>`<button data-gt="${i}">${i===pos?'🐐':''}</button>`).join('')}</div>`;
-        el.querySelectorAll('[data-gt]').forEach(b=>b.onclick=()=>{if(done||+b.dataset.gt!==pos)return;got++;sfx('hit');clearTimeout(timer);if(got>=need){finish(true);return;}hop();});};
-      draw();timer=setTimeout(hop,S.relaxed?900:650);
+      let pos=ri(5,30),dir=1,v=S.relaxed?.045:.06,got=0,raf=0,last=0,tries=0;const need=3,end=performance.now()+(S.relaxed?20000:15000),Z=S.relaxed?[38,62]:[42,58];
+      const draw=msg=>{el.innerHTML=`<p class="eyebrow">冬 · 山羊又來了</p><h2>抓住 ${got} / ${need} 次</h2><p class="hint">山羊在長屋的走道上衝來衝去，還會突然折返。牠衝進金色區域的時候，按「撲！」（或空白鍵）。</p>
+        <div class="goatlane"><i class="zone" style="left:${Z[0]}%;width:${Z[1]-Z[0]}%"></i><span class="gt ${dir<0?'':'flip'}" id="gt" style="left:${pos}%">🐐</span></div>
+        <p class="story" style="font-size:13px;color:var(--muted);text-align:center">${msg||'　'}</p><button class="primary" id="gt-b">撲！</button>`;$('#gt-b').onclick=grab;};
+      const tick=t=>{if(done)return;if(t>end){cancelAnimationFrame(raf);finish(false);return;}pos+=dir*v*(t-last);last=t;
+        if(pos>96){pos=96;dir=-1;}if(pos<4){pos=4;dir=1;}if(Math.random()<.006)dir=-dir;
+        const g=$('#gt');if(g){g.style.left=pos+'%';g.classList.toggle('flip',dir>0);}raf=requestAnimationFrame(tick);};
+      const grab=()=>{if(done)return;tries++;if(pos>=Z[0]&&pos<=Z[1]){got++;sfx('hit');if(got>=need){cancelAnimationFrame(raf);finish(true);return;}pos=pick([6,94]);dir=pos<50?1:-1;v*=1.12;draw('抓到了！牠掙脫開來，又跑到走道的另一頭。');}
+        else{sfx('bad');v*=1.04;draw(pos<Z[0]?'撲早了，牠還沒跑到。':'撲晚了，牠已經衝過去了。');}};
+      mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();grab();}};
+      draw();raf=requestAnimationFrame(t=>{last=t;tick(t);});
     }else{
       const W=5;const rocks=new Set();while(rocks.size<3){const r=ri(0,W*W-1);if(r!==0&&r!==W*W-1)rocks.add(r);}
       let me=0,goat=W*W-1,steps=0,limit=18;
@@ -4959,13 +4991,16 @@ function axeThrow(){
       $('#m-ok').onclick=closeModal;render();
     };
     if(S.mini==='react'){
-      let pos=0,dir=1,raf=0,last=0,over=false;const zone=S.relaxed?[34,66]:[40,60];
-      const drawR=()=>{el.innerHTML=`<p class="eyebrow">長屋之夜 · 擲斧</p><h2>第 ${n+1} / 3 斧</h2><p class="hint">準星在靶上晃來晃去。對準靶心的時候丟出去！</p>
-        <div class="rowbar"><i class="zone" style="left:${zone[0]}%;width:${zone[1]-zone[0]}%"></i><i class="needle" id="ax-n"></i></div>
+      let pos=0,dir=1,raf=0,last=0,over=false,fly=false,gold=0;const zone=S.relaxed?[34,66]:[40,60],gz=S.relaxed?[45,55]:[47,53];
+      const drawR=()=>{el.innerHTML=`<p class="eyebrow">長屋之夜 · 擲斧</p><h2>第 ${n+1} / 3 斧</h2><p class="hint">準星在靶上晃來晃去。對準靶心丟出去，中間的金色是完美的一斧！</p>
+        <div class="axtarget" id="ax-t"><i class="cross" id="ax-n"></i></div>
         <p class="story" style="font-size:13px;color:var(--muted)">${log2[0]||'　'}</p><button class="primary" id="ax-b">丟！</button>`;
         $('#ax-b').onclick=throwIt;};
-      const tick=t=>{if(over)return;pos+=dir*.12*(t-last);last=t;if(pos>100){pos=100;dir=-1;}if(pos<0){pos=0;dir=1;}const e=$('#ax-n');if(e)e.style.left=pos+'%';raf=requestAnimationFrame(tick);};
-      const throwIt=()=>{const ok=pos>=zone[0]&&pos<=zone[1];if(ok)hit++;n++;const before=dir>0?pos<zone[0]:pos>zone[1];log2.unshift(ok?'「咚！」正中靶心。':`斧頭飛偏了：${before?'丟得太早':'丟得太晚'}，準星${pos<zone[0]?'還在左邊':'已經跑到右邊'}。`);if(n>=3){over=true;cancelAnimationFrame(raf);mgKey=null;finish();return;}drawR();};
+      const tick=t=>{if(over)return;if(!fly){pos+=dir*.12*(t-last);if(pos>100){pos=100;dir=-1;}if(pos<0){pos=0;dir=1;}const e=$('#ax-n');if(e)e.style.left=pos+'%';}last=t;raf=requestAnimationFrame(tick);};
+      const throwIt=()=>{if(fly||over)return;const ok=pos>=zone[0]&&pos<=zone[1],g=pos>=gz[0]&&pos<=gz[1];if(ok)hit++;if(g){gold++;addFame(1);}n++;fly=true;
+        const tg=$('#ax-t');if(tg){tg.insertAdjacentHTML('beforeend',`<span class="axe" style="left:${pos}%">🪓</span>`);if(g)tg.classList.add('gold');}sfx(ok?'hit':'clash');
+        const after=()=>{fly=false;const before=dir>0?pos<zone[0]:pos>zone[1];log2.unshift(g?'<span class="good">「咚！」正中金色靶心！名聲 +1</span>':ok?'「咚！」插在靶上。':`斧頭飛偏了：${before?'丟得太早':'丟得太晚'}，準星${pos<zone[0]?'還在左邊':'已經跑到右邊'}。`);if(n>=3){over=true;cancelAnimationFrame(raf);mgKey=null;finish();return;}drawR();};
+        setTimeout(after,650);};
       mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();throwIt();}};
       drawR();raf=requestAnimationFrame(t=>{last=t;tick(t);});
     }else{
@@ -5165,13 +5200,28 @@ function charHTML(){
   ${tabs}${body}
   </div>`;
 }
+// 依地點位置把挪威切成各自的勢力範圍（沃羅諾伊圖），再用陸地的形狀裁切
+let TERR=null;
+function terrCells(){
+  if(TERR) return TERR;
+  const sites=[...REGIONS.map(r=>({id:r.id,x:r.x,y:r.y})),{id:'home',x:94,y:206}];
+  const clip=(poly,a,b,c)=>{const out=[];for(let i=0;i<poly.length;i++){const P=poly[i],Q=poly[(i+1)%poly.length];const fp=a*P[0]+b*P[1]-c,fq=a*Q[0]+b*Q[1]-c;
+    if(fp<=0)out.push(P);if((fp<0&&fq>0)||(fp>0&&fq<0)){const t=fp/(fp-fq);out.push([P[0]+(Q[0]-P[0])*t,P[1]+(Q[1]-P[1])*t]);}}return out;};
+  TERR=sites.map(s=>{let poly=[[0,0],[360,0],[360,260],[0,260]];
+    sites.forEach(o=>{if(o===s)return;const a=o.x-s.x,b=o.y-s.y,c=(o.x*o.x+o.y*o.y-s.x*s.x-s.y*s.y)/2;poly=clip(poly,a,b,c);});
+    return {id:s.id,d:'M'+poly.map(p=>p.map(v=>v.toFixed(1)).join(',')).join('L')+'Z'};});
+  return TERR;
+}
+const LAND_D='M22,62 C42,22 120,16 178,30 C240,12 320,30 344,70 C360,112 338,150 350,192 C354,232 300,252 240,246 C180,256 120,242 70,236 C30,232 14,192 24,152 C10,122 14,92 22,62 Z';
 function mapHTML(){
   const col=g=>g.st==='yours'?'var(--gold)':g.st==='ally'?'var(--frost)':g.st==='rebel'?'var(--blood)':g.cd?'#7a5236':'var(--muted)';
   const sel=R(S.sel)||REGIONS[0];
   const ra=regionActs(sel);const g=S.reg[sel.id];
   const stTxt=g.st==='yours'?'你的土地':g.st==='ally'?'盟友':g.st==='rebel'?'叛變':sel.kind==='seat'?`領主：${sel.lord}`:'無主之地';
   return `<div class="mapbox"><svg viewBox="0 0 360 260" role="img" aria-label="挪威地圖">
-    <path d="M22,62 C42,22 120,16 178,30 C240,12 320,30 344,70 C360,112 338,150 350,192 C354,232 300,252 240,246 C180,256 120,242 70,236 C30,232 14,192 24,152 C10,122 14,92 22,62 Z" fill="var(--land)" stroke="#2f4038" stroke-width="1.5"/>
+    <defs><clipPath id="landclip"><path d="${LAND_D}"/></clipPath></defs>
+    <path d="${LAND_D}" fill="var(--land)" stroke="#2f4038" stroke-width="1.5"/>
+    <g clip-path="url(#landclip)">${terrCells().map(t=>{const g=t.id==='home'?(S.phase>=2?{st:'yours'}:null):S.reg[t.id];const f=!g?'none':g.st==='yours'?'var(--gold)':g.st==='ally'?'var(--frost)':g.st==='rebel'?'var(--blood)':'none';return `<path class="terr" d="${t.d}" fill="${f}"/>`;}).join('')}</g>
     <path d="M206,136 C214,110 236,96 262,92 C290,88 300,70 330,62" fill="none" stroke="#24363c" stroke-width="3" stroke-linecap="round"/>
     <path d="M206,136 C196,150 180,170 166,200 C158,222 150,240 146,252" fill="none" stroke="#24363c" stroke-width="3" stroke-linecap="round"/>
     <text x="300" y="22" font-size="9" fill="var(--muted)" font-family="var(--f-rune)">ᚾᛟᚱᚹᛖᚷᚱ</text>
@@ -5328,20 +5378,20 @@ const TRAIN=[
   ['combo','單挑：老王哈夫丹','從覺醒開始，包含王者連斬',()=>duel('king',{lethal:false,awakeStart:true,xp:0,intro:'老王哈夫丹拔出了一把比你年紀還老的劍。',onEnd:w=>w?'練習結束：你打倒了覺醒的老王。':'練習結束：你被老王打倒了。'})],
   ['battle3','部隊戰（三回合）','接敵、混戰、決勝',()=>battle({title:'守衛訓練場',defend:true,def:Math.round(armyPower()*1.25),onEnd:w=>w?'練習結束：守住了。':'練習結束：沒守住。'})],
   ['shieldwall','盾牆','看清敵人的動作，下對命令',()=>pushModal(shieldWallFn({title:'訓練：盾牆',onEnd:()=>{}}))],
-  ['glima','摔角','和拉格納比一場',()=>glima('ragnar')],['axe','擲斧','',()=>axeThrow()],['snow','雪球大戰','',()=>snowball()],['goat','抓山羊','',()=>goatChase()],
+  ['glima','摔角','和拉格納比一場',()=>glima('ragnar')],['axe','擲斧',()=>S.mini==='react'?'看準時機丟出去':'算好距離和風',()=>axeThrow()],['snow','雪球大戰',()=>S.mini==='react'?'打中探頭的孩子':'推理孩子躲在哪',()=>snowball()],['goat','抓山羊',()=>S.mini==='react'?'在走道上撲住山羊':'把山羊逼到角落',()=>goatChase()],
   ['tafl','國王棋','',()=>tafl({title:'訓練：國王棋',wager:0,onEnd:()=>''})],
 ];
 const TRAIN_MINI=[['ring','縮圈反擊','r'],['dodge','閃避','r'],['runes','符文記憶','r'],['charge','蓄力一擊','r'],['puzzle','轉符文石','p'],['shields','擺盾牌','p'],['lock','符文鎖（猜順序）','p'],['pairs','符文配對','p'],['beat','符文節拍','r',1],['root','世界樹之根','p',1]];
 function trainMenu(el){
   const draw=()=>{
-    const seenN=TRAIN.filter(t=>seenHas('_g_'+t[0])).length+TRAIN_MINI.filter(t=>seenHas('_g_'+t[0])).length;
+    const TM=TRAIN_MINI.filter(t=>t[2]===(S.mini==='react'?'r':'p'));const seenN=TRAIN.filter(t=>seenHas('_g_'+t[0])).length+TM.filter(t=>seenHas('_g_'+t[0])).length;
     el.innerHTML=`<p class="eyebrow">訓練場</p><h2>想練什麼？</h2>
-    <p class="story" style="font-size:13px">這裡的輸贏不算數，也不會存檔。只會列出你在正式遊戲裡遇過的項目（${seenN}/${TRAIN.length+TRAIN_MINI.length}）。</p>
+    <p class="story" style="font-size:13px">這裡的輸贏不算數，也不會存檔。只會列出你在正式遊戲裡遇過的項目（${seenN}/${TRAIN.length+TM.length}）。</p>
     <div class="seg" style="margin-bottom:6px"><span>玩法</span><button data-tm="react" aria-pressed="${S.mini==='react'}">反應型</button><button data-tm="puzzle" aria-pressed="${S.mini==='puzzle'}">解謎型</button></div>
     <p class="eyebrow" style="margin-top:10px">戰鬥與活動</p>
-    <div class="tlist">${TRAIN.map((t,i)=>seenHas('_g_'+t[0])?`<div class="titem"><b>${t[1]}${t[2]?`<small>${t[2]}</small>`:''}</b><button data-tr="${i}">開始</button></div>`:`<div class="titem lock"><b>？？？<small>還沒遇過</small></b></div>`).join('')}</div>
+    <div class="tlist">${TRAIN.map((t,i)=>seenHas('_g_'+t[0])?`<div class="titem"><b>${t[1]}${t[2]?`<small>${typeof t[2]==='function'?t[2]():t[2]}</small>`:''}</b><button data-tr="${i}">開始</button></div>`:`<div class="titem lock"><b>？？？<small>還沒遇過</small></b></div>`).join('')}</div>
     <p class="eyebrow" style="margin-top:14px">小遊戲</p>
-    <div class="tlist">${TRAIN_MINI.map(t=>seenHas('_g_'+t[0])?`<div class="titem"><b>${t[1]}<small>${t[2]==='r'?'反應型':'解謎型'}</small></b><button data-tg="${t[0]}" data-th="0">${t[3]?'開始':'一般'}</button>${t[3]?'':`<button data-tg="${t[0]}" data-th="1" ${seenHas('_g_'+t[0]+'_h')?'':'disabled'}>加強</button>`}</div>`:`<div class="titem lock"><b>？？？<small>還沒遇過</small></b></div>`).join('')}</div>
+    <div class="tlist">${TM.map(t=>seenHas('_g_'+t[0])?`<div class="titem"><b>${t[1]}<small>${t[2]==='r'?'反應型':'解謎型'}</small></b><button data-tg="${t[0]}" data-th="0">${t[3]?'開始':'一般'}</button>${t[3]?'':`<button data-tg="${t[0]}" data-th="1" ${seenHas('_g_'+t[0]+'_h')?'':'disabled'}>加強</button>`}</div>`:`<div class="titem lock"><b>？？？<small>還沒遇過</small></b></div>`).join('')}</div>
     <button class="ghost" id="t-x" style="margin-top:14px">離開訓練場</button>`;
     el.querySelectorAll('[data-tm]').forEach(b=>b.onclick=()=>{S.mini=b.dataset.tm;draw();});
     el.querySelectorAll('[data-tr]').forEach(b=>b.onclick=()=>{trainReset();TRAIN[+b.dataset.tr][3]();closeModal();});
