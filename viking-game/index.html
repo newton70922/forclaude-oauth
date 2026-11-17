@@ -1,4 +1,4 @@
-<title>北境雄心</title>
+<title>維京：斧與王冠</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -515,9 +515,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   <section id="title-screen" hidden>
     <div class="wrap">
       <div class="title-hero">
-        <span class="rune">ᚾᛟᚱᚦᚱ · ᚺᛖᛁᛗᚱ</span>
-        <h1>北境雄心</h1>
-        <p>峽灣容不下你的野心。帶上母親給的符文護身符，沿著海岸南下，從一個無名戰士，打出屬於自己的王國——有一天，還要渡海向西。</p>
+        <span class="rune">ᚹᛁᚲᛁᛜ · ᛟᚲᛋ · ᚲᚱᛟᚾᚨ</span>
+        <h1><small>維京</small>斧與王冠</h1>
+        <p>峽灣容不下你的野心。從一把斧頭開始，打出屬於自己的王國。</p>
       </div>
       <div class="form">
         <div class="row" id="continue-row" hidden>
@@ -1106,7 +1106,7 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
-const ART_HAVE=new Set(['sc_rag_giants','sc_rag_horn','sc_rag_loki','sc_rag_odin','sc_rag_ours','v_halfdan3','sc_wessex_0','sc_york_3b','sc_k_advance','sc_paris_1','sc_paris_2','sc_paris_3','sc_wessex_3','sc_wessex_1','sc_wessex_2','sc_york_1','sc_york_2','sc_york_3','sc_beach_wall','sc_dane_victory','sc_war_council','sc_war_gunnhild','sc_war_sweyn','c_thorstein','sc_q_astrid','sc_q_sigrid','v_halfdan2a','v_halfdan2c','c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news','sc_k_bifrost','sc_k_charge','sc_k_axes','sc_k_line','sc_k_gods']);
+const ART_HAVE=new Set(['sc_k_gaze','sc_rag_freyja','sc_rag_people','sc_rag_thor','sc_rag_tyr','sc_rag_giants','sc_rag_horn','sc_rag_loki','sc_rag_odin','sc_rag_ours','v_halfdan3','sc_wessex_0','sc_york_3b','sc_k_advance','sc_paris_1','sc_paris_2','sc_paris_3','sc_wessex_3','sc_wessex_1','sc_wessex_2','sc_york_1','sc_york_2','sc_york_3','sc_beach_wall','sc_dane_victory','sc_war_council','sc_war_gunnhild','sc_war_sweyn','c_thorstein','sc_q_astrid','sc_q_sigrid','v_halfdan2a','v_halfdan2c','c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news','sc_k_bifrost','sc_k_charge','sc_k_axes','sc_k_line','sc_k_gods']);
 const CHAMP_ART={halfdan2:'v_halfdan2',halfdan2a:'v_halfdan2a',halfdan2c:'v_halfdan2c',halfdan3:'v_halfdan3',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
@@ -4336,7 +4336,7 @@ function ragOpenPages(p){
   P.push({art:['sc_rag_ours','sc_einherjar'],text:`你站在自己的軍隊後面。\n\n你的戰士站成了一道盾牆，從冰原的這一頭，排到了那一頭。${S.men} 個人，全都望著同一個方向，沒有一個回頭。`});
   const G={odin:['sc_rag_odin','奧丁騎著八條腿的斯雷普尼爾，從天上的裂縫衝了下來。兩隻渡鴉在他頭上盤旋。'],
     thor:['sc_rag_thor','雷聲先到了。然後是兩頭山羊拉的戰車，和索爾手裡的錘子。'],
-    tyr:['sc_rag_tyr','提爾只剩一隻手。他用那隻手舉著劍，身後跟著一排一排不說話的戰士。'],
+    tyr:['sc_rag_tyr','提爾只剩一隻手。他用那隻手握著劍，身後跟著一排一排不說話的戰士。'],
     freyja:['sc_rag_freyja','弗蕾亞的戰車由兩隻大貓拉著，女武神跟在她的身後。戰場上倒下的人，有一半是她的。']};
   const order=p&&G[p]?[p,...Object.keys(G).filter(g=>g!==p)]:Object.keys(G);
   order.forEach(g=>P.push({art:[G[g][0],g],text:G[g][1]+(g===p?`\n\n${GODS[g].name}走到了你的身邊。`:'')}));
@@ -5328,7 +5328,7 @@ const GAL_NAME={sc_york_1:'約克：兩個國王',sc_york_2:'約克：城牆下'
   sc_ragnarok:'諸神黃昏',sc_tears:'弗蕾亞的眼淚',sc_valhalla:'瓦爾哈拉',sc_kiss_m:'弗蕾亞之吻',sc_kiss_f:'弗蕾亞之吻',sc_einherjar:'英靈助戰',sc_ragfall:'倒在諸神黃昏',
   sc_ragfall_odin:'與奧丁同眠',sc_ragfall_thor:'與索爾同眠',sc_ragfall_tyr:'與提爾同眠',sc_ragfall_freyja:'與弗蕾亞同眠',sc_ragfall_loki:'洛基的道別',sc_ragfall_none:'只有風聲',
   sc_k_rise:'老王撐劍站起',sc_k_kneel:'跪倒',sc_k_slip:'劍尖滑開',sc_k_push:'把劍推到你腳邊',sc_k_people:'望向族人',sc_k_face:'……好好待他們',sc_k_hall:'空蕩的王廳',sc_k_exec:'處決',sc_k_spare:'走出王廳',
-  sc_k_news:'使者報喪',sc_k_farm:'農莊的空椅子',sc_k_ship:'船葬',sc_k_mound:'立塚刻碑',sc_k_guard:'親衛隊抬棺',sc_k_bifrost:'彩虹橋上的老王',sc_k_charge:'英靈騎兵衝陣',sc_k_line:'守住那條線',sc_rag_horn:'海姆達爾的號角',sc_rag_giants:'巨人大軍',sc_rag_loki:'走在最前面的洛基',sc_rag_odin:'奧丁與斯雷普尼爾',sc_rag_ours:'冰原上的盾牆',c_thorstein:'灰鬍子托爾斯坦',sc_q_astrid:'父親的盾牌碎片',sc_q_sigrid:'父親的擁抱',sc_k_axes:'一人擋住巨人大軍',sc_k_advance:'走向巨人大軍',sc_k_gods:'去見奧丁'};
+  sc_k_news:'使者報喪',sc_k_farm:'農莊的空椅子',sc_k_ship:'船葬',sc_k_mound:'立塚刻碑',sc_k_guard:'親衛隊抬棺',sc_k_bifrost:'彩虹橋上的老王',sc_k_charge:'英靈騎兵衝陣',sc_k_line:'守住那條線',sc_rag_horn:'海姆達爾的號角',sc_rag_thor:'索爾的山羊戰車',sc_rag_tyr:'提爾的戰士',sc_rag_freyja:'弗蕾亞與女武神',sc_rag_people:'挪威各地的人',sc_k_gaze:'老王看過戰士的臉',sc_rag_giants:'巨人大軍',sc_rag_loki:'走在最前面的洛基',sc_rag_odin:'奧丁與斯雷普尼爾',sc_rag_ours:'冰原上的盾牆',c_thorstein:'灰鬍子托爾斯坦',sc_q_astrid:'父親的盾牌碎片',sc_q_sigrid:'父親的擁抱',sc_k_axes:'一人擋住巨人大軍',sc_k_advance:'走向巨人大軍',sc_k_gods:'去見奧丁'};
 function galName(k){
   if(GAL_NAME[k]) return GAL_NAME[k];
   const id=Object.keys(CHAMP_ART).find(i=>CHAMP_ART[i]===k);
@@ -5680,4 +5680,285 @@ function boot(data){
 window.claude?.hot?.snapshot?.(()=>({S:S&&!S.dead&&!S.won&&!S.sandbox?S:null}));
 window.claude?.hot?.ready?window.claude.hot.ready(boot):boot(window.claude?.hot?.data??{});
 initRemote();
+</script>
+<!-- ===== 手機版介面與新首頁 ===== -->
+<style id="mobile-ui">
+#h-mini{display:none}
+/* ===== 首頁：主視覺 ===== */
+#title-screen .title-hero{position:relative;min-height:52vh;align-content:end;padding:24px 18px 16px;margin:-16px -16px 0;gap:8px;
+  background:linear-gradient(180deg,rgba(11,15,17,.1) 0%,rgba(11,15,17,.5) 55%,var(--bg,#0f1417) 100%),var(--hero-img,url(art/sc_ch1.webp)) var(--hero-pos,72%) center/cover no-repeat}
+@media (min-width:641px){#title-screen .title-hero{min-height:440px;border-radius:0 0 10px 10px}}
+#title-screen .title-hero h1{text-shadow:0 2px 18px rgba(0,0,0,.75);display:grid;gap:2px}
+#title-screen .title-hero h1 small{font-size:.32em;letter-spacing:.5em;color:var(--ember);font-family:var(--f-display)}
+#title-screen .title-hero p{color:#d8d0c2;text-shadow:0 1px 6px rgba(0,0,0,.85)}
+.st-off{display:none!important}
+.home-btns{display:grid;gap:10px}
+.home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.home-grid .ghost{width:100%;padding:12px 6px}
+/* 有質感的主按鈕 */
+.hbtn{position:relative;width:100%;display:grid;gap:2px;justify-items:center;padding:14px 46px;border-radius:6px;cursor:pointer;
+  font-family:var(--f-display);font-size:19px;font-weight:700;letter-spacing:.12em;color:#f3e6cf;
+  background:linear-gradient(180deg,#b5622e 0%,#8a3f1a 55%,#6b2e12 100%);border:1px solid #d9935a;
+  box-shadow:inset 0 0 0 3px rgba(26,12,6,.55),inset 0 0 0 4px rgba(233,170,110,.35),0 6px 18px rgba(0,0,0,.45);text-shadow:0 1px 2px rgba(0,0,0,.6);overflow:hidden}
+.hbtn::before,.hbtn::after{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--f-rune);font-size:20px;color:rgba(255,220,170,.55);font-weight:400}
+.hbtn::before{content:'ᛟ';left:16px}.hbtn::after{content:'ᛟ';right:16px}
+.hbtn small{font-family:var(--f-body,inherit);font-size:12.5px;font-weight:400;letter-spacing:.04em;color:rgba(243,230,207,.82)}
+.hbtn.dark{background:linear-gradient(180deg,#26313a 0%,#1a2228 60%,#141a1f 100%);border-color:#7d6a4c;color:#e9dcc4;
+  box-shadow:inset 0 0 0 3px rgba(0,0,0,.45),inset 0 0 0 4px rgba(207,171,92,.28),0 6px 18px rgba(0,0,0,.4)}
+.hbtn.dark::before,.hbtn.dark::after{content:'ᚱ';color:rgba(207,171,92,.5)}
+.hbtn:active{transform:translateY(1px);filter:brightness(1.1)}
+/* ===== 精靈步驟 ===== */
+.wiz-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:-6px}
+.wiz-head b{font-family:var(--f-display);font-size:22px}
+.wiz-head span{color:var(--muted);font-size:13px}
+#title-screen.wiz .form{padding-bottom:120px}
+body.wizon .toast{bottom:calc(140px + env(safe-area-inset-bottom))}
+#wiz-bar{position:fixed;left:0;right:0;bottom:0;z-index:12;padding:8px max(16px,env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom));
+  background:rgba(15,20,23,.97);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+#wiz-bar .in{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 2fr;gap:8px}
+#wiz-bar button{padding:13px;font-size:16px}
+.wiz-dots{display:flex;gap:6px;justify-content:center;margin-bottom:8px}
+.wiz-dots i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.wiz-dots i.on{background:var(--ember)}
+.wiz-sum{font-size:13px;color:var(--muted);text-align:center;margin:-2px 0 8px}
+.wiz-sum b{color:var(--bone)}
+/* 名字＋骰子 */
+.namerow{display:flex;gap:8px;align-items:stretch}
+.namerow input{flex:1}
+.dice{flex:0 0 52px;border:1px solid var(--line);background:var(--panel);border-radius:4px;font-size:22px;color:var(--bone)}
+/* 畫框小方塊 */
+#looks .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+#looks .seg>span{grid-column:1/-1}
+#looks .seg button{border-radius:6px;padding:8px 4px;font-size:13px;line-height:1.3;min-height:58px;position:relative}
+#looks .seg button.locked{opacity:.45}
+#looks .seg button.locked::after{content:'🔒';position:absolute;top:3px;right:5px;font-size:11px}
+#looks .lockhint{display:none}
+.lockmsg{font-size:13px;color:var(--muted);min-height:1.4em}
+/* 出身：浮水印圖示 */
+#bgs .opt{position:relative;overflow:hidden;min-height:118px}
+#bgs .opt svg.wm{position:absolute;right:-6px;bottom:-8px;width:78px;height:78px;stroke:var(--ember);opacity:.2;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+#bgs .opt[aria-pressed="true"] svg.wm{opacity:.38}
+#bgs .opt img.wmi{position:absolute;right:-4px;bottom:-4px;width:92px;height:92px;object-fit:contain;opacity:.28;pointer-events:none;mix-blend-mode:screen}
+#bgs .opt[aria-pressed="true"] img.wmi{opacity:.45}
+#bgs .opt>*:not(svg){position:relative}
+/* 小遊戲玩法：縮圖 */
+#minis .opt{grid-template-columns:1fr 64px;column-gap:10px;align-items:center}
+#minis .opt b,#minis .opt small{grid-column:1}
+#minis .opt svg{grid-column:2;grid-row:1/3;width:64px;height:64px}
+/* 難度一排 */
+#diffs{grid-template-columns:repeat(3,1fr)!important;gap:6px}
+#diffs .opt{padding:10px 8px;text-align:center;justify-items:center}
+#diffs .opt b{font-size:16px}
+#diffs .opt small{font-size:12px;line-height:1.4}
+.diff-more{font-size:13px;color:var(--muted);margin-top:8px;min-height:2.6em}
+/* 章節卡片：左右滑 */
+#chs.carousel{display:flex!important;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 10px;margin:0 -2px;scrollbar-width:none}
+#chs.carousel::-webkit-scrollbar{display:none}
+.chcard{flex:0 0 82%;scroll-snap-align:center;border:1px solid var(--line);border-radius:8px;background:var(--panel);overflow:hidden;text-align:left;padding:0;display:grid}
+.chcard[aria-pressed="true"]{border-color:var(--ember);box-shadow:0 0 0 1px var(--ember)}
+.chcard img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.chcard .cb{padding:10px 12px 12px;display:grid;gap:4px}
+.chcard b{font-family:var(--f-display);font-size:18px}
+.chcard small{color:var(--muted);font-size:13px;line-height:1.5}
+.chcard .goalt{color:var(--ember);font-size:12.5px}
+.chcard.locked img{filter:grayscale(1) brightness(.45)}
+.chcard.locked{opacity:.7}
+.ch-dots{display:flex;gap:6px;justify-content:center}
+.ch-dots i{width:7px;height:7px;border-radius:50%;background:var(--line)}
+.ch-dots i.on{background:var(--ember)}
+#legacies{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))!important;gap:6px}
+#legacies .opt{padding:8px;text-align:center}
+#legacies .opt b{font-size:14px}#legacies .opt small{font-size:11.5px}
+
+/* ===== 遊戲畫面（只在手機寬度） ===== */
+@media (max-width:640px){
+  body{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
+  /* 底部分頁列 */
+  #tabs{position:fixed;left:0;right:0;bottom:0;z-index:15;margin:0;display:flex;justify-content:space-around;gap:0;overflow:visible;
+    background:rgba(15,20,23,.97);backdrop-filter:blur(8px);border-top:1px solid var(--line);border-bottom:0;padding:2px 2px calc(4px + env(safe-area-inset-bottom))}
+  #tabs button{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;gap:1px;padding:6px 2px 4px;min-height:54px;
+    font-size:12.5px;border-bottom:0;border-top:2px solid transparent}
+  #tabs button[aria-selected="true"]{border-top-color:var(--ember);color:var(--bone)}
+  #tabs button::before{font-family:var(--f-rune);font-size:21px;line-height:1.1;color:var(--muted)}
+  #tabs button[aria-selected="true"]::before{color:var(--ember)}
+  #tabs .tab-act::before{content:'ᛏ'} #tabs .tab-map::before{content:'ᚱ'} #tabs .tab-sea::before{content:'ᛚ'}
+  #tabs .tab-tribe::before{content:'ᛟ'} #tabs .tab-char::before{content:'ᛗ'}
+  #tabs .dot{position:absolute;top:6px;right:calc(50% - 18px);margin:0}
+  /* 頂部：往下捲就縮成一行 */
+  .top .wrap{padding-top:8px;padding-bottom:8px}
+  #h-mini{display:none}
+  body.mini .top .bars,body.mini .top #chips,body.mini .top .top-line{display:none}
+  body.mini #h-mini{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden}
+  #h-mini b{color:var(--bone);font-weight:600}
+  #h-mini .mhp{flex:0 0 60px;height:6px;border-radius:3px;background:#2a2f33;overflow:hidden}
+  #h-mini .mhp i{display:block;height:100%;background:var(--blood)}
+  /* 章節目標：一行，點開看完整 */
+  /* 角色頁：立繪縮小放在名字旁邊 */
+  .char{grid-template-columns:96px 1fr;align-items:center;column-gap:12px}
+  .char>*{grid-column:1/-1}
+  .char>.portrait{grid-column:1;grid-row:1/3;max-width:96px}
+  .char>h2{grid-column:2;grid-row:1;text-align:left;align-self:end;margin:0}
+  .char>.who{grid-column:2;grid-row:2;text-align:left;align-self:start;margin:0}
+  #side{display:none}
+  /* 長彈窗：主按鈕固定在底部 */
+  #mbody #m-ok,#mbody #cn-ok{position:sticky;bottom:10px;box-shadow:0 -10px 18px rgba(15,20,23,.9)}
+  .choice,.act,.ghost,.primary{min-height:44px}
+  .toast{bottom:calc(74px + env(safe-area-inset-bottom));z-index:16;max-width:88vw}
+}
+/* 行動分組、王國小分頁、編年史（所有寬度） */
+.agroup{margin:14px 0 6px;font-size:13px;color:var(--muted);letter-spacing:.1em}
+.achips{display:flex;gap:6px;margin:2px 0 10px;position:sticky;top:0;z-index:3;padding:6px 0;background:var(--bg)}
+.achips button{flex:1;padding:8px 4px;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:16px;font-size:14px}
+.achips button[aria-pressed="true"]{border-color:var(--ember);color:var(--bone);background:rgba(217,120,60,.12)}
+.acts .act:disabled{opacity:.5}
+.agroup:first-child{margin-top:4px}
+.agroup.now{color:var(--ember)}
+details.adis{margin-top:12px}
+details.adis summary{color:var(--muted);font-size:14px;padding:10px 4px;cursor:pointer}
+.ttabs{display:flex;gap:6px;margin-bottom:10px}
+.ttabs button{flex:1;padding:9px 6px;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:6px;font-family:var(--f-display);font-size:15px}
+.ttabs button[aria-pressed="true"]{border-color:var(--ember);color:var(--bone)}
+.chron.short #log li:nth-child(n+4){display:none}
+#log-more{background:none;border:0;color:var(--muted);font-size:13px;padding:6px 0;text-decoration:underline}
+
+</style>
+<script>
+'use strict';
+(function(){
+  /* ---------- 首頁：改名、簡介、隨機背景（解鎖制） ---------- */
+  const TS=$('#title-screen');
+  const hero=document.querySelector('#title-screen .title-hero');
+  hero.querySelector('.rune').textContent='ᚹᛁᚲᛁᛜ · ᛟᚲᛋ · ᚲᚱᛟᚾᚨ';
+  const h1=hero.querySelector('h1');h1.innerHTML='<small>維京</small>斧與王冠';
+  hero.querySelector('p').textContent='峽灣容不下你的野心。從一把斧頭開始，打出屬於自己的王國。';
+  document.title='維京：斧與王冠';
+  const pickHero=()=>{const a=meta().ach||{};const pool=['sc_ch1'];if(a.first_king)pool.push('sc_coronation');if(a.valhalla)pool.push('sc_valhalla');
+    const k=pick(pool);hero.style.setProperty('--hero-img',`url(art/${k}.webp)`);hero.style.setProperty('--hero-pos',{sc_ch1:'72%',sc_valhalla:'18%',sc_coronation:'45%'}[k]||'50%');};
+  pickHero();
+  const form=document.querySelector('#title-screen .form');
+  const fieldOf=id=>{const e=document.getElementById(id);return e&&e.closest('.field');};
+  const parts={cont:$('#continue-row'),name:fieldOf('in-name'),looks:fieldOf('looks'),minis:fieldOf('minis'),bgs:fieldOf('bgs'),diffs:fieldOf('diffs'),
+    legacy:$('#legacy-field'),ch:$('#ch-field'),start:$('#btn-start').closest('.row'),extra:$('#btn-train').closest('.row'),
+    hall:$('#hall-box'),codex:$('#codex-box'),ach:$('#ach-box')};
+  const home=document.createElement('div');home.className='home-btns';
+  home.innerHTML=`<button class="hbtn" id="hm-cont">繼續上次的傳奇<small id="hm-cinfo"></small></button>
+    <button class="hbtn" id="hm-new">新的傳奇</button>
+    <div class="home-grid"><button class="ghost" id="hm-train">訓練場</button><button class="ghost" id="hm-gal">回憶畫廊</button></div>`;
+  form.insertBefore(home,parts.name);
+  parts.extra.classList.add('st-off');
+  // 名字＋骰子
+  const NAMES={m:['斯諾里','凱蒂爾','尼亞爾','阿斯穆德','托吉爾斯','赫爾吉','斯卡吉','維格魯夫','霍爾德','埃文德'],f:['索爾維格','赫爾加','芙蕾迪絲','維格迪斯','阿斯拉格','拉格希爾德','古德麗德','因葛波格']};
+  const inName=$('#in-name');const nr=document.createElement('div');nr.className='namerow';inName.parentNode.insertBefore(nr,inName);nr.appendChild(inName);
+  nr.insertAdjacentHTML('beforeend','<button class="dice" id="nm-dice" aria-label="隨機取名">🎲</button>');
+  $('#nm-dice').onclick=()=>{const L=NAMES[NEW.look.sex]||NAMES.m;let n;do{n=pick(L);}while(n===inName.value&&L.length>1);inName.value=n;};
+  // 精靈步驟的標題列與底部固定列
+  const head=document.createElement('div');head.className='wiz-head';form.insertBefore(head,parts.name);
+  const bar=document.createElement('div');bar.id='wiz-bar';
+  bar.innerHTML='<div class="wiz-sum" id="wz-sum"></div><div class="wiz-dots" id="wz-dots"></div><div class="in"><button class="ghost" id="wz-back">上一步</button><button class="primary" id="wz-next">下一步</button></div>';
+  document.body.appendChild(bar);
+  const STEPS=[['你是誰','name','looks'],['你的出身','bgs'],['怎麼玩','minis','diffs'],['帶著什麼上路','ch','legacy']];
+  let step=-1;
+  const steps=()=>STEPS.filter(s=>s.slice(1).some(k=>!parts[k].hidden));
+  const BGICON={
+    smith:'<path d="M14 30h30l-4 8H18z"/><path d="M22 38v14M36 38v14M16 52h26"/><path d="M40 10l14 14M44 14l-8 8M48 6l10 10-6 6-10-10z"/>',
+    hunter:'<path d="M18 8c18 10 18 42 0 52"/><path d="M18 8v52"/><path d="M10 34h44M48 28l8 6-8 6"/><path d="M10 30l-4 4 4 4"/>',
+    sailor:'<path d="M8 40h48l-8 12H16z"/><path d="M32 8v32M32 10l16 22H32"/><path d="M14 40c0-6 4-10 8-10"/>',
+    skald:'<path d="M18 10c-4 18-4 34 6 46h16c10-12 10-28 6-46z"/><path d="M24 18v30M30 16v34M36 16v34M42 18v30"/><path d="M16 10h34"/>'};
+  const MINI={react:{t:'考反應和手速，時機要抓得準。',svg:'<svg viewBox="0 0 64 64" fill="none" stroke="var(--ember)" stroke-width="2"><circle cx="32" cy="32" r="26" opacity=".35"/><circle cx="32" cy="32" r="17" opacity=".6"/><circle cx="32" cy="32" r="9" fill="rgba(217,120,60,.25)"/><path d="M32 2v8M32 54v8M2 32h8M54 32h8" opacity=".5"/></svg>'},
+    puzzle:{t:'沒有時間壓力，慢慢想，比的是步數。',svg:'<svg viewBox="0 0 64 64" fill="none" stroke="var(--frost,#8fb3c9)" stroke-width="2">'+[0,1,2].map(r=>[0,1,2].map(c=>`<rect x="${4+c*20}" y="${4+r*20}" width="16" height="16" rx="3" ${r===c?'fill="rgba(143,179,201,.25)"':''}/>`).join('')).join('')+'</svg>'}};
+  const DSHORT={easy:'好好看劇情',normal:'推薦第一次玩',hero:'敵人更強，通關有獎勵'};
+  const CHINFO={1:['十九歲，除了一把斧頭什麼都沒有。','存下銀幣和名聲，插旗建立部落'],2:['你有了一塊自己的土地，和第一批族人。','蓋好建築、帶起戰士，向挪威宣告你的名字'],
+    3:['四方勢力，都盯著你這個新來的人。','征服或結盟四大勢力，戴上王冠'],4:['戴上王冠以後，真正的挑戰才開始。','遠征海外、立下繼承人、守住王國']};
+  const decorate=()=>{
+    // 畫框：鎖住的點了才看條件
+    const seg=$('#looks .seg');
+    if(seg){let msg=$('#looks .lockmsg');if(!msg){seg.insertAdjacentHTML('afterend','<div class="lockmsg"></div>');msg=$('#looks .lockmsg');}
+      seg.querySelectorAll('button[data-look="skinId"]').forEach(b=>{const sk=SKINS[b.dataset.v];if(b.disabled){b.disabled=false;b.classList.add('locked');
+        b.onclick=()=>{const a=ACH[sk.need];msg.textContent=`${sk.name}還沒解鎖：${a.secret?a.hint:`達成「${a.name}」（${a.hint}）`}`;};}});}
+    // 出身圖示
+    $('#bgs').querySelectorAll('[data-bg]').forEach(b=>{if(b.querySelector('.wm'))return;const k='o_'+b.dataset.bg;b.insertAdjacentHTML('afterbegin',ART_HAVE.has(k)?`<img class="wm wmi" src="art/${k}.webp" alt="">`:`<svg class="wm" viewBox="0 0 64 64">${BGICON[b.dataset.bg]||''}</svg>`);});
+    // 小遊戲玩法
+    const ml=parts.minis.querySelector('.lbl');if(ml)ml.textContent='小遊戲的玩法';
+    $('#minis').querySelectorAll('[data-mini]').forEach(b=>{const m=MINI[b.dataset.mini];b.querySelector('small').textContent=m.t;if(!b.querySelector('svg'))b.insertAdjacentHTML('beforeend',m.svg);});
+    // 難度一排
+    $('#diffs').querySelectorAll('[data-diff]').forEach(b=>{b.querySelector('small').textContent=DSHORT[b.dataset.diff];});
+    let dm=$('#diff-more');if(!dm){$('#diffs').insertAdjacentHTML('afterend','<p class="diff-more" id="diff-more"></p>');dm=$('#diff-more');}
+    dm.textContent=DIFF[NEW.diff].desc;
+    // 章節：左右滑的大卡片
+    const chs=$('#chs');chs.classList.add('carousel');
+    chs.innerHTML=[1,2,3,4].map(n=>{const ok=chUnlocked(n);return `<button class="chcard ${ok?'':'locked'}" data-ch2="${n}" aria-pressed="${n===NEW.chapter}" ${ok?'':'aria-disabled="true"'}>
+      <img src="art/sc_ch${n}.webp" alt=""><div class="cb"><b>${CH_NAMES[n]}${ok?'':'　🔒'}</b><small>${CHINFO[n][0]}</small><span class="goalt">目標：${CHINFO[n][1]}</span>${ok?'':'<small>打到這一章之後才能選</small>'}</div></button>`;}).join('');
+    let cd=$('#ch-dots');if(!cd){chs.insertAdjacentHTML('afterend','<div class="ch-dots" id="ch-dots"></div>');cd=$('#ch-dots');}
+    cd.innerHTML=[1,2,3,4].map(n=>`<i class="${n===NEW.chapter?'on':''}"></i>`).join('');
+    chs.querySelectorAll('[data-ch2]').forEach(b=>b.onclick=()=>{const n=+b.dataset.ch2;if(!chUnlocked(n))return;const x=chs.scrollLeft;NEW.chapter=n;showTitle();$('#chs').scrollLeft=x;});
+    const cl=parts.ch.querySelector('.lbl');if(cl)cl.textContent='從哪一章開始';
+  };
+  const summary=()=>`<b>${esc(inName.value||'雷夫')}</b>・${HEROES[NEW.look.sex].name}・${BGS.find(b=>b.id===NEW.bg).name}・${DIFF[NEW.diff].name}・${NEW.mini==='react'?'反應型':'解謎型'}${NEW.chapter>1?`・${CH_NAMES[NEW.chapter].split('　')[0]}`:''}`;
+  window.applyStep=function(){
+    const ST=steps();if(step>=ST.length)step=ST.length-1;
+    const homeMode=step<0;
+    TS.classList.toggle('wiz',!homeMode);document.body.classList.toggle('wizon',!homeMode&&!TS.hidden);
+    ['name','looks','minis','bgs','diffs','legacy','ch'].forEach(k=>parts[k].classList.toggle('st-off',homeMode||!ST[step].slice(1).includes(k)));
+    [parts.hall,parts.codex,parts.ach,home].forEach(e=>e.classList.toggle('st-off',!homeMode));
+    parts.cont.classList.add('st-off');parts.start.classList.add('st-off');
+    const sv=load();$('#hm-cont').classList.toggle('st-off',!sv);$('#hm-new').classList.toggle('dark',!!sv);
+    if(sv)$('#hm-cinfo').textContent=$('#continue-info').textContent;
+    head.classList.toggle('st-off',homeMode);bar.classList.toggle('st-off',homeMode||TS.hidden);
+    hero.classList.toggle('st-off',!homeMode);
+    if(!homeMode){
+      const last=step===ST.length-1;
+      head.innerHTML=`<b>${ST[step][0]}</b><span>${step+1} / ${ST.length}</span>`;
+      $('#wz-dots').innerHTML=ST.map((_,i)=>`<i class="${i<=step?'on':''}"></i>`).join('');
+      $('#wz-next').textContent=last?'揚帆出發':'下一步';
+      $('#wz-back').textContent=step===0?'回首頁':'上一步';
+      $('#wz-sum').innerHTML=last?summary():'';$('#wz-sum').classList.toggle('st-off',!last);
+    }
+    decorate();
+  };
+  const go=d=>{step+=d;applyStep();window.scrollTo(0,0);};
+  $('#hm-new').onclick=()=>{step=0;pickHero();go(0);};
+  $('#hm-cont').onclick=()=>{step=-1;bar.classList.add('st-off');document.body.classList.remove('wizon');$('#btn-continue').click();};
+  $('#wz-back').onclick=()=>go(-1);
+  $('#wz-next').onclick=()=>{const ST=steps();if(step>=ST.length-1){step=-1;bar.classList.add('st-off');document.body.classList.remove('wizon');$('#btn-start').click();return;}go(1);};
+  $('#hm-train').onclick=()=>{step=-1;bar.classList.add('st-off');document.body.classList.remove('wizon');$('#btn-train').click();};
+  $('#hm-gal').onclick=()=>$('#btn-gal').click();
+  const _showTitle=showTitle;
+  showTitle=function(){_showTitle();step=Math.min(step,steps().length-1);applyStep();};
+
+  /* ---------- 遊戲畫面 ---------- */
+  const tl=document.querySelector('.top .wrap');
+  tl.insertAdjacentHTML('beforeend','<div id="h-mini"></div>');
+  const onScroll=()=>document.body.classList.toggle('mini',window.scrollY>90&&innerWidth<=640);
+  window.addEventListener('scroll',onScroll,{passive:true});
+  const chron=document.querySelector('.chron');chron.classList.add('short');
+  chron.insertAdjacentHTML('beforeend','<button id="log-more">看更多</button>');
+  $('#log-more').onclick=()=>{const s=chron.classList.toggle('short');$('#log-more').textContent=s?'看更多':'收起來';};
+  const GROUP={found:'出征',declare:'出征',gosea:'出征',gomap:'出征',bounty:'出征',soloraid:'出征',treasure:'出征',hunt:'出征',prep:'出征',appease:'出征',odd:'出征',
+    build:'治理',recruit:'治理',train:'治理',hire:'治理',thing:'治理',jarl:'治理',feast:'治理',fame:'治理',monument:'治理',abdicate4:'治理',spouse:'治理',
+    blot:'生活',longhouse:'生活',tafl:'生活',tavern:'生活',trap:'生活',rest:'生活'};
+  const actBtn=a=>`<button class="act ${a.key&&!a.dis?'key':''}" data-a="${a.id}" ${a.dis?'disabled':''}><b>${a.name}</b><small>${a.desc}</small><span class="gain">${a.dis||a.gain}</span></button>`;
+  const _render=render;
+  render=function(){
+    _render();
+    if(!S||$('#game-screen').hidden) return;
+    $('#h-mini').innerHTML=`<span>${stamp()} · ${age()} 歲</span><span class="mhp"><i style="width:${clamp(S.hp/maxHp()*100,0,100)}%"></i></span><span>銀 <b>${S.silver}</b> · 糧 <b>${S.food}</b> · 兵 <b>${S.men}</b></span>`;
+    if(S.tab==='act'){
+      const L=actions(),now=L.filter(a=>a.key&&!a.dis),rest=L.filter(a=>!(a.key&&!a.dis));const G=S.agrp||'all';
+      const gs=['出征','治理','生活','其他'];const cnt=g=>rest.filter(a=>(GROUP[a.id]||'其他')===g).length;
+      let h=`<div class="achips">${[['all','全部'],...gs.filter(g=>g!=='其他'||cnt(g)).map(g=>[g,g])].map(([k,n])=>`<button data-ag="${k}" aria-pressed="${G===k}">${n}</button>`).join('')}</div>`;
+      if(now.length&&G==='all') h+=`<p class="agroup now">現在該做的</p><div class="acts">${now.map(actBtn).join('')}</div>`;
+      gs.filter(g=>G==='all'||G===g).forEach(g=>{const xs=rest.filter(a=>(GROUP[a.id]||'其他')===g).sort((a,b)=>(!!a.dis)-(!!b.dis));if(G!=='all')xs.unshift(...now.filter(a=>(GROUP[a.id]||'其他')===g));
+        if(xs.length)h+=`${G==='all'?`<p class="agroup">${g}</p>`:''}<div class="acts">${xs.map(actBtn).join('')}</div>`;});
+      $('#pane').innerHTML=h;
+      $('#pane').querySelectorAll('[data-ag]').forEach(b=>b.onclick=()=>{S.agrp=b.dataset.ag;render();});
+    }else if(S.tab==='tribe'&&S.phase>=2){
+      const all=kingdomHTML()+tribeHTML();const i=all.indexOf('<div class="blds">');
+      const tt=S.ttab||'sum';
+      $('#pane').innerHTML=`<div class="ttabs"><button data-tt="sum" aria-pressed="${tt==='sum'}">總覽與分贓</button><button data-tt="bld" aria-pressed="${tt==='bld'}">建築</button></div>`+(i<0?all:tt==='sum'?all.slice(0,i):all.slice(i));
+      $('#pane').querySelectorAll('[data-tt]').forEach(b=>b.onclick=()=>{S.ttab=b.dataset.tt;render();});
+    }
+  };
+  onScroll();
+  if(!$('#title-screen').hidden) applyStep();
+})();
 </script>

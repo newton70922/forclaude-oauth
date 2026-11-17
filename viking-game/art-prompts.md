@@ -10,6 +10,29 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
+## ★ 重畫（可選，2 張）
+
+這兩張已經放進遊戲了，只是有一點小疑慮。不畫也可以。
+
+| 檔名 | 疑慮 |
+|---|---|
+| sc_rag_tyr | 提爾「只剩一隻手」看不太出來：斷掉的那隻手被袖子和綁帶遮住，看起來像兩隻手都在 |
+| sc_rag_ours | 你的背影是長辮子，比較像女性；選男主角的玩家會覺得不像自己 |
+
+**sc_rag_tyr（重畫：斷手要清楚）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. The one-handed war god Tyr marches across the ice toward the viewer at the head of long silent columns of warriors: stern, dark-bearded, simple iron helmet, mail shirt. His RIGHT ARM IS RAISED slightly forward and CLEARLY ENDS AT THE WRIST in a stump wrapped in old leather straps: there is NO right hand at all, clearly visible against the bright sky. His LEFT hand grips a straight sword held low. No banners, no shouting; only discipline and courage. Grim, honorable, unbreakable.
+```
+
+**sc_rag_ours（重畫：背影看不出男女）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+WIDE SHOT FROM BEHIND. The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. A Viking ruler seen from behind, gender NOT identifiable: a deep fur-lined HOOD pulled up over the head with a simple gold crown worn over the hood, a heavy fur cloak hiding the body shape, no visible hair. The ruler looks along an immense Viking shield wall that stretches across the ice from one edge of the frame to the other: thousands of warriors, round shields locked, spears up, banners snapping in the wind, all facing the giant host far away on the horizon. Nobody looks back. Quiet resolve before the storm.
+```
+
 ## ★ 出身卡片的圖示（4 張，木刻版畫風格）
 
 用在：建立角色的「你的出身」卡片右下角，做成半透明浮水印。黑底、單色就好，我會自己去背和調透明度。圖到之前先用線條圖示代替。
@@ -62,11 +85,11 @@ A small Norse lyre (tallharpa) carved with knotwork, strings visible, with a dri
 | 3 | sc_rag_loki | 洛基走在巨人最前面 （✅ 已收到）| 開場：巨人陣營的最後一頁（最常拜洛基的話，接著就是他的邀請） | 16:9 |
 | 4 | sc_rag_ours | 我方的盾牆 （✅ 已收到）| 開場：「你回頭看」 | 16:9 |
 | 5 | sc_rag_odin | 奧丁騎斯雷普尼爾衝下來 （✅ 已收到）| 開場：眾神（奧丁） | 16:9 |
-| 6 | sc_rag_thor | 索爾的山羊戰車 | 開場：眾神（索爾） | 16:9 |
-| 7 | sc_rag_tyr | 提爾帶著戰士行軍 | 開場：眾神（提爾） | 16:9 |
-| 8 | sc_rag_freyja | 弗蕾亞的貓車與女武神 | 開場：眾神（弗蕾亞） | 16:9 |
-| 9 | sc_rag_people | 挪威各地的人趕來了 | 開場：名聲夠高時，挪威各地的人 | 16:9 |
-| 10 | sc_k_gaze | 老王勒馬，看過戰士的臉 | 老王出場第 2 頁 | 16:9 |
+| 6 | sc_rag_thor | 索爾的山羊戰車 （✅ 已收到）| 開場：眾神（索爾） | 16:9 |
+| 7 | sc_rag_tyr | 提爾帶著戰士行軍 （✅ 已收到）| 開場：眾神（提爾） | 16:9 |
+| 8 | sc_rag_freyja | 弗蕾亞的貓車與女武神 （✅ 已收到）| 開場：眾神（弗蕾亞） | 16:9 |
+| 9 | sc_rag_people | 挪威各地的人趕來了 （✅ 已收到）| 開場：名聲夠高時，挪威各地的人 | 16:9 |
+| 10 | sc_k_gaze | 老王勒馬，看過戰士的臉 （✅ 已收到）| 老王出場第 2 頁 | 16:9 |
 | 11 | sc_k_eyes | 目光停在你身上 | 老王出場第 3 頁 | 16:9 |
 | 12 | sc_k_promise | 「……你有遵守承諾呢。」 | 老王出場第 4 頁 | 16:9 |
 | 13 | sc_k_dismount | 翻身下馬，與奧丁點頭 | 老王出場第 5 頁 | 16:9 |
