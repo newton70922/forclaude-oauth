@@ -5784,11 +5784,14 @@ body.wizon .toast{bottom:calc(140px + env(safe-area-inset-bottom))}
   #tabs .tab-act::before{content:'ᛏ'} #tabs .tab-map::before{content:'ᚱ'} #tabs .tab-sea::before{content:'ᛚ'}
   #tabs .tab-tribe::before{content:'ᛟ'} #tabs .tab-char::before{content:'ᛗ'}
   #tabs .dot{position:absolute;top:6px;right:calc(50% - 18px);margin:0}
-  /* 頂部：往下捲就縮成一行 */
+  /* 頂部：完整資訊跟著頁面滑走，滑過之後上方淡入一條精簡列（不改變版面高度） */
+  .top{position:relative}
   .top .wrap{padding-top:8px;padding-bottom:8px}
-  #h-mini{display:none}
-  body.mini .top .bars,body.mini .top #chips,body.mini .top .top-line{display:none}
-  body.mini #h-mini{display:flex;gap:10px;align-items:center;font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden}
+  #h-mini{display:flex;position:fixed;left:0;right:0;top:0;z-index:14;height:44px;padding:0 max(16px,env(safe-area-inset-left));gap:10px;align-items:center;
+    font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;background:rgba(15,20,23,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);transform:translateY(-105%);opacity:0;transition:transform .22s ease,opacity .22s ease;pointer-events:none}
+  body.mini #h-mini{transform:none;opacity:1;pointer-events:auto}
+  .achips{position:sticky;top:44px;z-index:3;margin:2px -16px 10px;padding:6px 16px;background:rgba(15,20,23,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid transparent}
   #h-mini b{color:var(--bone);font-weight:600}
   #h-mini .mhp{flex:0 0 60px;height:6px;border-radius:3px;background:#2a2f33;overflow:hidden}
   #h-mini .mhp i{display:block;height:100%;background:var(--blood)}
@@ -5807,7 +5810,7 @@ body.wizon .toast{bottom:calc(140px + env(safe-area-inset-bottom))}
 }
 /* 行動分組、王國小分頁、編年史（所有寬度） */
 .agroup{margin:14px 0 6px;font-size:13px;color:var(--muted);letter-spacing:.1em}
-.achips{display:flex;gap:6px;margin:2px 0 10px;position:sticky;top:0;z-index:3;padding:6px 0;background:var(--bg)}
+.achips{display:flex;gap:6px;margin:2px 0 10px;padding:6px 0}
 .achips button{flex:1;padding:8px 4px;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:16px;font-size:14px}
 .achips button[aria-pressed="true"]{border-color:var(--ember);color:var(--bone);background:rgba(217,120,60,.12)}
 .acts .act:disabled{opacity:.5}
@@ -5923,19 +5926,21 @@ details.adis summary{color:var(--muted);font-size:14px;padding:10px 4px;cursor:p
   $('#hm-train').onclick=()=>{step=-1;bar.classList.add('st-off');document.body.classList.remove('wizon');$('#btn-train').click();};
   $('#hm-gal').onclick=()=>$('#btn-gal').click();
   const _showTitle=showTitle;
-  showTitle=function(){_showTitle();step=Math.min(step,steps().length-1);applyStep();};
+  showTitle=function(){_showTitle();document.body.classList.remove('mini');step=Math.min(step,steps().length-1);applyStep();};
 
   /* ---------- 遊戲畫面 ---------- */
-  const tl=document.querySelector('.top .wrap');
-  tl.insertAdjacentHTML('beforeend','<div id="h-mini"></div>');
-  const onScroll=()=>document.body.classList.toggle('mini',window.scrollY>90&&innerWidth<=640);
+  document.body.insertAdjacentHTML('beforeend','<div id="h-mini" aria-hidden="true"></div>');
+  const onScroll=()=>{const b=document.body;if(innerWidth>640||$('#game-screen').hidden){b.classList.remove('mini');return;}
+    const h=document.querySelector('.top').offsetHeight,y=window.scrollY,on=b.classList.contains('mini');
+    if(!on&&y>h-20)b.classList.add('mini');else if(on&&y<h-70)b.classList.remove('mini');};
+  window.addEventListener('resize',onScroll,{passive:true});
   window.addEventListener('scroll',onScroll,{passive:true});
   const chron=document.querySelector('.chron');chron.classList.add('short');
   chron.insertAdjacentHTML('beforeend','<button id="log-more">看更多</button>');
   $('#log-more').onclick=()=>{const s=chron.classList.toggle('short');$('#log-more').textContent=s?'看更多':'收起來';};
-  const GROUP={found:'出征',declare:'出征',gosea:'出征',gomap:'出征',bounty:'出征',soloraid:'出征',treasure:'出征',hunt:'出征',prep:'出征',appease:'出征',odd:'出征',
+  const GROUP={found:'出征',declare:'出征',gosea:'出征',gomap:'出征',bounty:'出征',soloraid:'出征',treasure:'出征',prep:'出征',appease:'出征',odd:'出征',
     build:'治理',recruit:'治理',train:'治理',hire:'治理',thing:'治理',jarl:'治理',feast:'治理',fame:'治理',monument:'治理',abdicate4:'治理',spouse:'治理',
-    blot:'生活',longhouse:'生活',tafl:'生活',tavern:'生活',trap:'生活',rest:'生活'};
+    blot:'生活',longhouse:'生活',tafl:'生活',tavern:'生活',trap:'生活',hunt:'生活',rest:'生活'};
   const actBtn=a=>`<button class="act ${a.key&&!a.dis?'key':''}" data-a="${a.id}" ${a.dis?'disabled':''}><b>${a.name}</b><small>${a.desc}</small><span class="gain">${a.dis||a.gain}</span></button>`;
   const _render=render;
   render=function(){
@@ -5943,9 +5948,10 @@ details.adis summary{color:var(--muted);font-size:14px;padding:10px 4px;cursor:p
     if(!S||$('#game-screen').hidden) return;
     $('#h-mini').innerHTML=`<span>${stamp()} · ${age()} 歲</span><span class="mhp"><i style="width:${clamp(S.hp/maxHp()*100,0,100)}%"></i></span><span>銀 <b>${S.silver}</b> · 糧 <b>${S.food}</b> · 兵 <b>${S.men}</b></span>`;
     if(S.tab==='act'){
-      const L=actions(),now=L.filter(a=>a.key&&!a.dis),rest=L.filter(a=>!(a.key&&!a.dis));const G=S.agrp||'all';
+      const MAIN=['found','declare'];const L0=actions(),main=L0.filter(a=>MAIN.includes(a.id)),L=L0.filter(a=>!MAIN.includes(a.id)),now=L.filter(a=>a.key&&!a.dis),rest=L.filter(a=>!(a.key&&!a.dis));const G=S.agrp||'all';
       const gs=['出征','治理','生活','其他'];const cnt=g=>rest.filter(a=>(GROUP[a.id]||'其他')===g).length;
       let h=`<div class="achips">${[['all','全部'],...gs.filter(g=>g!=='其他'||cnt(g)).map(g=>[g,g])].map(([k,n])=>`<button data-ag="${k}" aria-pressed="${G===k}">${n}</button>`).join('')}</div>`;
+      if(main.length) h+=`<p class="agroup now">主線</p><div class="acts">${main.map(actBtn).join('')}</div>`;
       if(now.length&&G==='all') h+=`<p class="agroup now">現在該做的</p><div class="acts">${now.map(actBtn).join('')}</div>`;
       gs.filter(g=>G==='all'||G===g).forEach(g=>{const xs=rest.filter(a=>(GROUP[a.id]||'其他')===g).sort((a,b)=>(!!a.dis)-(!!b.dis));if(G!=='all')xs.unshift(...now.filter(a=>(GROUP[a.id]||'其他')===g));
         if(xs.length)h+=`${G==='all'?`<p class="agroup">${g}</p>`:''}<div class="acts">${xs.map(actBtn).join('')}</div>`;});
