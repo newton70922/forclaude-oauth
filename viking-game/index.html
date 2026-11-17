@@ -233,6 +233,24 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .bld .lv{color:var(--gold);font-size:13px;letter-spacing:.1em}
 .bld small{color:var(--muted);font-size:13px}
 .bld .now{font-size:13px}
+.bld{position:relative;overflow:hidden}
+.bld>*:not(.bicon){position:relative}
+.bld .bicon{position:absolute;right:-6px;bottom:-8px;width:80px;height:80px;object-fit:contain;opacity:.2;pointer-events:none;mix-blend-mode:screen}
+.bld .bicon.r{font-family:var(--f-rune);font-size:62px;line-height:1;color:var(--ember);width:auto;height:auto;right:8px;bottom:-2px;opacity:.13;mix-blend-mode:normal}
+.seasonbar{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin:0 0 10px;padding:8px 12px;border-radius:6px;background:var(--panel);border:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+.seasonbar b{font-family:var(--f-display);font-size:16px;color:var(--bone)}
+.seasonbar .wx{color:var(--frost,#8fb3c9)}
+.seasonbar.s3{border-color:#3d5566}.seasonbar.s2{border-color:#6b4a2a}.seasonbar.s1{border-color:#6b5a2a}.seasonbar.s0{border-color:#3e5a3a}
+.act .atag{display:inline-block;margin-top:4px;font-size:12px;padding:1px 8px;border-radius:10px;border:1px solid var(--line);color:var(--frost,#8fb3c9);justify-self:start}
+#season-fx{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden;opacity:.4}
+#season-fx i{position:absolute;top:-12px;display:none;animation:sfall linear infinite}
+#season-fx.s3 i{display:block;width:4px;height:4px;border-radius:50%;background:#fff}
+#season-fx.s2 i{display:block;width:8px;height:5px;border-radius:0 70% 0 70%;background:#c2702e;animation-name:sleaf}
+@keyframes sfall{to{transform:translate(30px,105vh)}}
+@keyframes sleaf{to{transform:translate(-60px,105vh) rotate(540deg)}}
+.fishlane{position:relative;height:74px;margin:12px 0;border-radius:8px;border:1px solid #3d5566;background:linear-gradient(180deg,#9fc4d6 0,#6f97ab 100%);overflow:hidden}
+.fishlane .hole{position:absolute;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;background:#0d1d26;box-shadow:inset 0 0 0 3px #d9edf5}
+.fishlane .fs{position:absolute;top:50%;font-size:28px;margin:-17px 0 0 -14px;opacity:.55;filter:blur(.5px)}
 .bld .cost{font-size:13px;font-variant-numeric:tabular-nums}
 .bld button{justify-self:start;padding:6px 14px;font-size:14px}
 .policy{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
@@ -778,6 +796,7 @@ const EV_LEGEND={kind:'傳說之都',title:'傳說之都',text:'詩人們開始�
   ch:[{t:'站上城牆，看著你的城',fx:()=>{addFame(40);gainXp(40);return '風從海上吹過來。你想起十九歲那年，只有一把斧頭的自己。\n名聲 +40，經驗 +40';}}]};
 const TRIBE_UP=[{cost:[40,10],need:2},{cost:[85,20],need:4},{cost:[140,35],need:6},{cost:[225,55],need:8},{cost:[320,80],need:9,golden:1}];
 const TRIBE_HOUSE=[6,10,16,24,34,46];
+const BRUNE={longhouse:'ᚺ',granary:'ᛃ',smithy:'ᚦ',barracks:'ᛏ',dock:'ᛚ',altar:'ᚨ',hall:'ᛟ',tower:'ᛉ',market:'ᚠ',yard:'ᚢ',sauna:'ᛋ',runehut:'ᛈ',ancestor:'ᛞ',shipyard:'ᛖ'};
 const BLD=[
   {id:'longhouse',name:'擴建長屋',tl:1,cost:[30,8],eff:l=>`住房 +${8*l}`},
   {id:'granary',name:'糧倉',tl:1,cost:[30,0],eff:l=>`每季糧食 +${3*l}`},
@@ -1232,6 +1251,7 @@ function passTime(quiet){
     if(S.loyalty<30&&S.men>2){desert(.08);log('族人對你失去信心，有戰士在夜裡溜走了。');}
     if(S.loyalty<40) bondAll(-2);
   }
+  if(S.turn%4===2&&S.flags.sow&&S.flags.sow.y===Math.floor(S.turn/4)) harvestNote();
   if(S.turn%4===0){const a=age();
     if(AGING[a]&&!S.flags['age'+a]){S.flags['age'+a]=1;pushLater(agingModal(a));}
     if(a>=65&&Math.random()<(.05+(a-65)*.025)*(eff('con')>=15?.8:1)*(hasC('una')?.85:1)*(gt('freyja',2)?.85:1)){S.lastCause='在睡夢中老去';pushLater(strawDeathModal);return;}}
@@ -2615,7 +2635,7 @@ const EVENTS=[
         {t:'收他當戰士',fx:()=>{S.men++;atone(8);return '「跟著我，總有一天你會比我強。」少年愣了很久，點了頭。\n戰士 +1，惡名 -8';}},
         {t:'把他趕走',fx:()=>'少年被拖了出去。'}]},
   {id:'astrid',once:1,phase:[2,3],cond:()=>S.fame>=35,title:'盾女',text:'一個背著圓盾的女戰士走進營地，把斧頭插在你面前的桌上：「我叫阿斯特麗德。我只追隨比我強的人。」',
-    ch:[{t:'接受比武',note:'點到為止',fx:()=>{duel('astrid',{lethal:false,xp:16,onEnd:w=>{if(w)return '她拔起斧頭，單膝跪下。\n'+addChamp('astrid',60);S.flags.ev_astrid=0;return '她搖搖頭：「等你更強再說。」她也許還會回來。';}});return null;}},
+    ch:[{t:'接受比武',note:'點到為止',fx:()=>{duel('astrid',{lethal:false,xp:16,onEnd:w=>{if(w){const j=addChamp('astrid',60);pushModal(el=>cineView(el,[{art:['sc_win_astrid','astrid'],text:'你的斧背敲在她的盾緣上。那面畫著渡鴉的圓盾脫手飛了出去，在泥地上滾了好幾圈。'},{art:['sc_win_astrid','astrid'],text:'阿斯特麗德愣在原地，看著自己空空的左手。\n\n圍觀的人一點聲音都沒有。從來沒有人讓她的盾落地過。'},{art:['sc_win_astrid','astrid'],text:'她走過去撿起盾牌，背對著你，很久沒有轉身。\n\n「……運氣好而已。」她說。耳朵有一點紅。'},{art:['astrid'],text:'然後她拔起插在桌上的斧頭，走回你面前，單膝跪下。\n\n'+j}],closeModal,'盾女'));return '阿斯特麗德的盾牌飛了出去。';}S.flags.ev_astrid=0;return '她搖搖頭：「等你更強再說。」她也許還會回來。';}});return null;}},
         {t:'用你的計畫說服她',note:()=>rate(.1+eff('pre')*.07),fx:()=>{if(chk(.1+eff('pre')*.07))return '你沒有拔武器，只是把你的計畫說給她聽。她沉默很久，然後點頭。\n'+addChamp('astrid',55);S.flags.ev_astrid=0;return '她聽完只說了一句：「空話。」';}},
         {t:'我不需要你',fx:()=>'她冷哼一聲，轉身走了。'}]},
   {id:'una',once:1,phase:[2,3],title:'霧沼的草藥婆',text:'一個背著藥簍的老婦人來到部落門口。她說她叫烏娜，霧沼的村子容不下她了。「給我一間屋子，我能治好你身上的傷。」',
@@ -2623,7 +2643,7 @@ const EVENTS=[
   {id:'gudrun',once:1,phase:[2,3],cond:()=>bl('smithy')>0,title:'流浪的鐵匠',text:'一個手臂粗得像橡木的女鐵匠看了看你的鐵匠鋪：「爐子砌歪了。付我 25 銀幣，我留下來幫你重打。」',
     ch:[{t:'付錢留下她',ok:()=>S.silver>=25,fx:()=>{S.silver-=25;return '古德倫把爐子拆了重砌，打出來的斧頭亮得能照人。\n'+addChamp('gudrun',60);}},{t:'不用了',fx:()=>'古德倫扛起鐵鎚走了。'}]},
   {id:'ragnar',once:1,phase:[2,3],cond:()=>eff('pre')>=9,title:'狂戰士',text:'一個赤裸上身、渾身刺青的巨漢走進部落：「我叫拉格納。聽說你是挪威最強的人？證明給我看，我就為你殺人。」',
-    ch:[{t:'跟他打',note:'生死單挑',fx:()=>{duel('ragnar',{lethal:true,xp:30,cause:'被狂戰士拉格納劈成兩半',onEnd:w=>w?'拉格納大笑著從地上爬起來：「好！好！我跟你走！」\n'+addChamp('ragnar',50):''});return null;}},{t:'我不需要瘋子',fx:()=>'拉格納吐了口口水，走了。'}]},
+    ch:[{t:'跟他打',note:'生死單挑',fx:()=>{duel('ragnar',{lethal:true,xp:30,cause:'被狂戰士拉格納劈成兩半',onEnd:w=>{if(!w)return '';const j=addChamp('ragnar',50);pushModal(el=>cineView(el,RAGNAR_WIN('「好！好！我跟你走！」',j),closeModal,'狂戰士'));return '拉格納倒在地上。';}});return null;}},{t:'我不需要瘋子',fx:()=>'拉格納吐了口口水，走了。'}]},
   {id:'knut',once:1,phase:[2,3],cond:()=>S.infamy>=40,title:'亡命之徒',text:'一個臉上有道長疤的男人帶著三個手下來投靠：「我叫克努特。聽說你這裡不問來歷。」',
     ch:[{t:'收下他們',fx:()=>{S.men+=3;return '戰士 +3\n'+addChamp('knut',45);}},{t:'我這裡不收賊',fx:()=>{addInfamy(-3);return '克努特冷笑著走了。惡名 -3';}}]},
   {id:'children',once:1,phase:[2,3],title:'木劍',text:'部落裡的孩子們拿著木棍，在你的長屋外嚷著要學劍。',
@@ -2948,6 +2968,9 @@ const HOLM_WHY=[
   {why:j=>`${j}根本沒說理由。他的人說：雅爾只是想看看，傳說中的你到底有多少斤兩`,stake:'誰的名字比較響',type:'fame',
    win:'從此以後，峽灣裡的人提到你的名字時，聲音都會壓低一點。',lose:'你成了別人故事裡的那個「輸家」。'},
 ];
+const RAGNAR_WIN=(line,j)=>[{art:['sc_win_ragnar','ragnar'],text:'拉格納仰面倒在地上，斧頭飛出去插在了柱子上。'},{art:['sc_win_ragnar','ragnar'],text:'他躺在那裡，開始大笑，笑到咳出了血。\n\n「好久……好久沒人能讓我躺下了！」'},{art:['ragnar'],text:`他跳起來，一把抱住你，抱得你骨頭都在響。\n\n${line}\n\n${j}`}];
+const HOLM_WIN={bjorn:[{art:['sc_win_bjorn','bjorn'],text:'比約恩倒在決鬥的斗篷上。他咬在嘴裡的盾牌邊緣，被他自己咬爛了一大塊。'},{art:['sc_win_bjorn','bjorn'],text:'他吐掉嘴裡的血和木屑，慢慢坐了起來。\n\n圍觀的人等著他發狂。他沒有。'},{art:['sc_win_bjorn','bjorn'],text:'他把那面咬爛的盾牌，丟在了你的腳邊。'}],
+  sigrid:[{art:['sc_win_sigrid','sigrid'],text:'你的盾一頂，西格麗德整個人往後倒，摔在決鬥的斗篷上。'},{art:['sc_win_sigrid','sigrid'],text:'她的盾牌飛出去好遠，一路滾到了法石旁邊。圍觀的人倒抽了一口氣。'},{art:['sc_win_sigrid','sigrid'],text:'她躺在那裡看著天空，忽然笑出聲來。然後朝你伸出手：「拉我起來。」'}]};
 const HOLM_RECRUIT={
   bjorn:()=>({kind:'霍姆岡',art:'bjorn',title:'「鐵甲」比約恩',text:'比約恩從地上爬起來，擦掉嘴角的血，瞪著你看了很久。\n\n「我跟過三個雅爾，沒有一個贏過我。」他把咬爛的盾牌丟在地上，「你們那邊，還缺不缺一個瘋子？」',
     ch:[{t:'「上船吧。」',fx:()=>addChamp('bjorn',60)},{t:'「我已經有夠多瘋子了。」',fx:()=>'他聳聳肩，扛著斧頭走了。'}]}),
@@ -2982,7 +3005,7 @@ function holmgangEvent(){
   const yieldOpt=r.type==='fame'?{t:'公開道歉',note:'不打了',ok:()=>true,fx:()=>{addFame(-6);favor('tyr',-6);return '你當眾低了頭。有人說你怕了，也有人說你懂事。\n名聲 -6';}}
     :r.type==='love'?{t:'把新娘送回去',note:'不打了',ok:()=>true,fx:()=>{loseLoyalty(4);favor('tyr',-3);favor('freyja',-4);return '新娘哭著上了船。你的戰士看你的眼神不一樣了。\n忠誠 -4';}}
     :{t:'認錯賠錢（25 銀幣）',ok:()=>S.silver>=25,fx:()=>{S.silver-=25;addFame(-4);favor('tyr',-6);return '你派人送去了銀幣。有人說你怕了。\n銀幣 -25，名聲 -4';}};
-  const recruit=()=>{const id={holmB:'bjorn',holmS:'sigrid'}[foe.k];if(!id||hasC(id)||S.flags['met_'+id])return;S.flags['met_'+id]=1;pushLater(eventModal(HOLM_RECRUIT[id]()));};
+  const recruit=()=>{const id={holmB:'bjorn',holmS:'sigrid'}[foe.k];if(!id||hasC(id)||S.flags['met_'+id])return;S.flags['met_'+id]=1;pushLater(el=>cineView(el,HOLM_WIN[id],closeModal,'霍姆岡'));pushLater(eventModal(HOLM_RECRUIT[id]()));};
   const self=()=>duel(foe.k,{lethal:false,xp:16,onEnd:w=>{if(w){favor('tyr',4);recruit();return win('self');}const sc=S.hp<maxHp()*.25&&S.scars<3&&Math.random()<.3?(S.scars++,'\n你留下了一道舊傷。'):'';return lose()+sc;}});
   return eventModal({kind:'霍姆岡',title:'霍姆岡決鬥',text:`鄰近的雅爾${jarl}派人送來一塊刻了字的木板：${r.why(jarl)}。\n\n依照古老的法律，雙方各派一人，在鋪開的斗篷上決鬥，第一個倒地的人輸。賭注是：${stake}。\n\n${foe.intro(jarl)}`,
     ch:[{t:'親自下場',note:'比武，打到一方倒地；提爾欣賞親自上陣的人',fx:()=>{favor('tyr',8);self();return null;}},
@@ -3075,6 +3098,11 @@ function actions(){
     A.push({id:'build',name:'建設部落',desc:'打開部落頁：蓋建築、升級、擴建、調整分贓。',gain:'選定之前不消耗時間',run:()=>{S.tab='tribe';render();tipCheck();}});
     if(S.flags.fq===2) A.push({id:'odd',key:true,name:'尋找奧德',desc:`帶著弗蕾亞的金色眼淚出海，找她的丈夫。（線索 ${S.flags.oddClue||0}/3）`,gain:'花 20 銀幣、一季',dis:!bl('dock')?'要先蓋好碼頭':S.silver<20?'需要 20 銀幣':null,run:searchOdd});
     if(bl('altar')>0&&!crossed()) A.push({id:'blot',name:'布洛特祭',desc:'在祭壇前向一位神獻祭。',gain:'選定之前不消耗時間',run:blotModal});
+    {const yr=Math.floor(S.turn/4),se=S.turn%4;
+      if(se===0&&S.flags.sowY!==yr) A.push({id:'sow',key:true,name:'春耕',desc:'雪融了。今年的田要種什麼？',gain:'秋天收成；花一季',run:sowModal});
+      if(se===1&&S.flags.midY!==yr) A.push({id:'midsummer',name:'夏至集會',desc:'各地的人來交易、比武、找伴侶。',gain:'銀幣、名聲或忠誠；花一季',run:midsummerModal});
+      if(se===2&&S.flags.festY!==yr) A.push({id:'harvestfest',name:'收成祭',desc:'要大宴一場，還是把糧食囤起來過冬？',gain:'忠誠或糧食；花一季',run:festModal});
+      if(se===3&&S.flags.fishY!==yr) A.push({id:'icefish',name:'冰上捕魚',desc:'峽灣結冰了。鑿個洞，看看今天運氣怎麼樣。',gain:'糧食；花一季',run:iceFish});}
     if(winterNow()) A.push({id:'longhouse',key:S.flags.lhT!==S.turn,name:'長屋之夜',desc:'冬天船出不去。喝酒、摔角、擲斧、講故事，或下一盤國王棋。',gain:'會花掉一季',dis:S.flags.lhT===S.turn?'今晚已經玩過了':null,run:longhouseModal});
     A.push({id:'fame',name:'動用名聲',desc:`名聲 ${S.fame}・${FAME_TIER[fameTier()].name}。號召戰士、請詩人傳唱、擺排場。`,gain:'選定之前不消耗時間',dis:S.fame<20?'名聲至少要 20':null,run:fameModal});
     if(p>=4&&!S.flags.monument) A.push({id:'monument',name:'刻一塊大符文石',desc:'像「藍牙」在耶靈做的那樣，把你的一生刻在一塊巨大的石頭上。',gain:'名聲 +40，留在薩迦裡',dis:S.silver<250?'需要 250 銀幣':null,run:()=>{S.silver-=250;S.flags.monument=1;addFame(40);unlock('monument');codex('h_jelling');log('立起了一塊大符文石。');note('大符文石','石匠刻了整整一個夏天。完成的那天，全挪威的人都來看了。\n\n石頭上刻著：「'+esc(S.name)+'王立此石，紀念自己。他統一了挪威，渡過了大海。」\n<span class="good">名聲 +40</span>','王的歲月');passTime();}});
@@ -3177,7 +3205,17 @@ function foundTribe(){
 function declare(){
   S.phase=3;S.p3turn=S.turn+1;markCh(3);
   log('向挪威各地宣告了自己的名字。');
-  note('群雄並起',`派出使者的前一晚，你站在木牆上往下看。${esc(S.tribe)}的炊煙一縷一縷升起來，你的戰士和他們的家人都睡在你的屋簷下。\n\n十九歲那年說的那句狠話，當時只是為了爭一口氣。現在，它背著這些人的命。${S.flags.mate?'\n\n托爾斯坦走上來，站在你旁邊：「一旦說出口，就不能回頭了。」\n\n「我知道。」':''}\n\n第二天，你派出使者，帶著${esc(S.tribe)}的旗幟走遍挪威的峽灣。\n\n拉德的雅爾西格德把使者趕了出去。鷹巢峰的布倫希爾德笑了，說想看看你有多能打。維斯特福爾的老王哈夫丹什麼也沒說。\n\n還有一個人聽見你的名字就砸了酒杯：<em>赫羅爾夫</em>。他在海岸建了紅帆營，發誓要燒掉你的部落。\n\n<span class="good">目標：征服或結盟四大勢力，成為挪威之王。</span>\n佔領的土地每塊要留人駐守，出戰的人會變少。\n好感 60 以上的勇士，可以在領主要求單挑時替你上場。`,'第三章','sc_ch3');
+  const T=esc(S.tribe),P=[
+    {art:['sc_d3_wall','sc_ch3'],text:`派出使者的前一晚，你站在木牆上往下看。\n\n${T}的炊煙一縷一縷升起來，你的戰士和他們的家人，都睡在你的屋簷下。`},
+    {art:['sc_d3_wall','sc_ch3'],text:'十九歲那年說的那句狠話，當時只是為了爭一口氣。\n\n現在，它背著這些人的命。'}];
+  if(S.flags.mate) P.push({art:['c_thorstein'],text:'托爾斯坦走上來，站在你旁邊：「一旦說出口，就不能回頭了。」\n\n「我知道。」'});
+  P.push({art:['sc_d3_envoy','sc_ch3'],text:`第二天，你派出使者，帶著${T}的旗幟，走遍挪威的峽灣。`},
+    {art:['sc_d3_sigurd','sc_ch3'],text:'拉德的雅爾西格德，坐在用整棵橡木搭成的長廳裡，把使者趕了出去。\n\n「漁村來的小子，也想跟我平起平坐？」'},
+    {art:['sc_d3_brynhild','brynhild'],text:'鷹巢峰的布倫希爾德聽完使者的話，仰頭大笑。\n\n「回去告訴他：我想看看他有多能打。」'},
+    {art:['sc_d3_king','halfdan'],text:'維斯特福爾的王廳裡，老王哈夫丹聽完了使者的話。\n\n他什麼也沒說。只是看著火，看了很久。'},
+    {art:['sc_d3_hrolf','sven'],text:'還有一個人，聽見你的名字就砸了酒杯：<em>赫羅爾夫</em>。\n\n他在海岸建了紅帆營，發誓要燒掉你的部落。',shake:1},
+    {art:['sc_ch3'],title:'群雄並起',text:'<span class="good">目標：征服或結盟四大勢力，成為挪威之王。</span>\n佔領的土地每塊要留人駐守，出戰的人會變少。\n好感 60 以上的勇士，可以在領主要求單挑時替你上場。'});
+  pushModal(el=>cineView(el,P,closeModal,'第三章'));
   passTime();
 }
 function recruitModal(){
@@ -3789,7 +3827,7 @@ function missedChamp(o){
   S.flags['miss_'+id]=1;
   const EV={
     ragnar:{title:'約克的狂戰士',text:'約克的城門口，一個赤著上身的巨漢獨自擋著你的人，腳邊已經躺了七個。撒克遜人雇他守城，卻沒付他錢。\n\n「拉格納，」他舔了舔斧頭上的血，「誰打得贏我，我就跟誰走。」',
-      ch:[{t:'親自跟他打',note:'比武，打到一方倒地',fx:()=>{duel('ragnar',{lethal:false,xp:20,onEnd:w=>w?`拉格納仰天大笑：「好！這才像個王！」\n${addChamp('ragnar',70)}`:'拉格納吐了口唾沫，扛起斧頭走了。'});return null;}},
+      ch:[{t:'親自跟他打',note:'比武，打到一方倒地',fx:()=>{duel('ragnar',{lethal:false,xp:20,onEnd:w=>{if(!w)return '拉格納吐了口唾沫，扛起斧頭走了。';const j=addChamp('ragnar',70);pushModal(el=>cineView(el,RAGNAR_WIN('「好！這才像個王！」',j),closeModal,'約克的狂戰士'));return '拉格納倒在地上。';}});return null;}},
           {t:'付他欠的工錢（30 銀幣）',ok:()=>S.silver>=30,fx:()=>{S.silver-=30;return '他數了數銀幣，聳聳肩：「也行。」\n'+addChamp('ragnar',60);}},
           {t:'繞過他',fx:()=>'他在你背後吼了很久。'}]},
     hakon:{title:'都柏林碼頭的老兵',text:'都柏林的碼頭上，一個獨眼的老人在幫人看守貨物。他看見你的旗子，愣了很久。\n\n「我叫哈康。年輕時跟過三個首領。」他摸了摸自己的斧頭，「你的船上，還缺不缺一個老頭？」',
@@ -4837,6 +4875,57 @@ const wx=k=>S.weather===k;
 const seasonFoodMul=()=>(S.turn%4===2?1.3:1)*(wx('good')?1.5:1);
 const seasonLootMul=()=>S.turn%4===1?1.15:1;
 const winterNow=()=>S.turn%4===3;
+const SEASON_ICON=['🌱','☀️','🍂','❄️'];
+function seasonBar(){if(!S)return '';const se=S.turn%4,w=S.weather&&S.weather!=='fair'&&WEATHER[S.weather];
+  return `<div class="seasonbar s${se}"><b>${SEASON_ICON[se]} ${SEASON[se]}</b><span>${SEASON_FX[se].split('：')[1]||''}</span>${w?`<span class="wx">${w.name}：${w.fx}</span>`:''}</div>`;}
+function actTag(id){if(!S)return '';const se=S.turn%4,raid=['soloraid','gomap','gosea'].includes(id),T=[];
+  if(se===1&&raid)T.push('夏：戰利品 +15%');
+  if(wx('fog')&&raid)T.push('大霧：夜襲更容易');
+  if(wx('storm')&&id==='gosea')T.push('暴風：出海危險');
+  if(wx('harsh')&&(id==='rest'||id==='feast'))T.push('嚴冬：吃得多、好得慢');
+  if(wx('aurora')&&id==='blot')T.push('極光：神恩 +50%');
+  if((wx('good')||se===2)&&(id==='trap'||id==='hunt'))T.push(se===2?'秋：收穫多':'豐年：收穫多');
+  return T.slice(0,2).join('・');}
+function seasonFx(){let L=document.getElementById('season-fx');
+  if(!L){L=document.createElement('div');L.id='season-fx';L.innerHTML=Array.from({length:18},()=>`<i style="left:${Math.random()*100}%;animation-duration:${7+Math.random()*7}s;animation-delay:-${Math.random()*14}s"></i>`).join('');document.body.appendChild(L);}
+  L.className=S&&!$('#game-screen').hidden&&(S.turn%4===3||S.turn%4===2)?'s'+S.turn%4:'';}
+// 四季的專屬行動
+function sowModal(){const y=Math.floor(S.turn/4);pushModal(eventModal({kind:'🌱 春',scene:'sc_s_sow',title:'春耕',text:'雪融了，田裡的土是黑的。族人扛著犁站在田邊，等你決定今年種什麼。',
+  ch:[{t:'種大麥',note:'秋天收成穩定的糧食',fx:()=>{S.flags.sowY=y;S.flags.sow={k:'barley',y};passTime();return '大麥播下去了。到了秋天，糧倉會滿一點。';}},
+      {t:'種亞麻',note:'秋天能織布換銀幣，但怕壞天氣',fx:()=>{S.flags.sowY=y;S.flags.sow={k:'flax',y};passTime();return '亞麻播下去了。只要夏天不要太糟，秋天會有一筆好收入。';}},
+      {t:'讓田休息一年',note:'不收成，但明年的收成更好',fx:()=>{S.flags.sowY=y;S.flags.fallow=y+1;addLoyalty(2);passTime();return '族人鬆了一口氣，今年可以少彎點腰。\n忠誠 +2';}}]}));}
+function harvestNote(){const k=S.flags.sow.k,boost=(S.flags.fallow===S.flags.sow.y?1.4:1)*(wx('good')?1.5:1);S.flags.sow=null;
+  if(k==='barley'){const f=Math.round((12+S.men/3)*boost);S.food+=f;log(`秋收：大麥，糧食 +${f}。`);pushLater(el=>resultView(el,'秋收',`金黃的大麥一捆一捆收進了糧倉。\n<span class="good">糧食 +${f}</span>`,'🍂 秋','sc_s_harvest'));}
+  else{const bad=wx('storm')||Math.random()<.25;const v=Math.round((30+S.men/2)*boost*(bad?.4:1));S.silver+=v;log(`秋收：亞麻，銀幣 +${v}。`);
+    pushLater(el=>resultView(el,'秋收',bad?`夏天的暴雨把亞麻打倒了一大片。剩下的織成布，只換了一點錢。\n銀幣 +${v}`:`亞麻收成很好。女人們織了一整個秋天的布，商人搶著來買。\n<span class="good">銀幣 +${v}</span>`,'🍂 秋','sc_s_harvest'));}}
+function midsummerModal(){const y=Math.floor(S.turn/4);pushModal(eventModal({kind:'☀️ 夏',scene:'sc_s_midsummer',title:'夏至集會',text:'一年裡最長的一天，太陽幾乎不下山。各地的人划著船來到你的峽灣：有人來做生意，有人來比武，有人來找老婆。',
+  ch:[{t:'擺攤做生意',fx:()=>{S.flags.midY=y;const v=20+Math.floor(S.fame/10);S.silver+=v;sfx('coin');passTime();return `你拿出去年的毛皮和鐵器，換回了一袋銀子。\n<span class="good">銀幣 +${v}</span>`;}},
+      {t:'下場比武',note:'比武，點到為止',fx:()=>{S.flags.midY=y;duel('holm',{lethal:false,xp:14,intro:'沙灘上圍了一大圈人。對手是一個南方來的老決鬥者。',onEnd:w=>{passTime();if(w){addFame(8);sfx('bigcheer');return '人群把你扛了起來，繞著營火走了一圈。\n<span class="good">名聲 +8</span>';}sfx('groan');addFame(2);return '你輸了，但打得很漂亮。\n名聲 +2';}});return null;}},
+      {t:'替族人牽紅線',fx:()=>{S.flags.midY=y;addLoyalty(6);bondAll(2);passTime();return '那天晚上，營火旁多了好幾對新人。明年春天，部落會多出幾個孩子的哭聲。\n<span class="good">忠誠 +6，勇士好感 +2</span>';}}]}));}
+function festModal(){const y=Math.floor(S.turn/4),c=Math.min(S.food,Math.round(10+S.men/3));pushModal(eventModal({kind:'🍂 秋',scene:'sc_s_harvest',title:'收成祭',text:'糧食收進來了。族人在祭壇前擺上第一捆麥子，等著看你怎麼過這個節。',
+  ch:[{t:'大宴一場',note:`花掉 ${c} 糧食`,fx:()=>{S.flags.festY=y;S.food-=c;addLoyalty(10);favor('freyja',5);sfx('cheer');passTime();return `烤全豬、蜂蜜酒、跳舞跳到天亮。今年的苦，大家都忘了。\n<span class="good">忠誠 +10</span>，糧食 -${c}`;}},
+      {t:'醃魚燻肉，囤起來過冬',fx:()=>{S.flags.festY=y;S.food+=8;addLoyalty(-2);passTime();return '鹽和煙把肉保存了下來。有人抱怨今年連一頓像樣的宴席都沒有。\n<span class="good">糧食 +8</span>，忠誠 -2';}}]}));}
+function iceFish(){const y=Math.floor(S.turn/4);S.flags.fishY=y;markGame('icefish');
+  pushModal(el=>{let got=0,done=false;
+    const fin=()=>{done=true;mgKey=null;const f=got*5+2;S.food+=f;sfx(got>=2?'cheer':'groan');
+      el.innerHTML=`${sceneImg('sc_s_icefish')}<p class="eyebrow">❄️ 冬 · 冰上捕魚</p><h2>釣到 ${got} 條</h2><div class="res">${got>=3?'你提著一串魚回到長屋，孩子們歡呼著跑過來。':got?'不算多，但今晚的湯裡有魚了。':'冰洞裡什麼都沒有。你凍得手指都僵了。'}\n<span class="good">糧食 +${f}</span></div><button class="primary" id="m-ok">繼續</button>`;
+      $('#m-ok').onclick=()=>{closeModal();passTime();};render();};
+    if(S.mini==='react'){let pos=8,dir=1,v=.035,raf=0,last=0,tries=0;const N=5,H=50;
+      const draw=m=>{el.innerHTML=`<p class="eyebrow">❄️ 冬 · 冰上捕魚</p><h2>釣到 ${got} 條（還能拉 ${N-tries} 次）</h2><p class="hint">魚影在冰下游來游去。牠游到冰洞底下的時候，按「拉！」</p>
+        <div class="fishlane"><i class="hole" style="left:${H}%"></i><span class="fs" id="fs" style="left:${pos}%">🐟</span></div><p class="story" style="font-size:13px;color:var(--muted);text-align:center">${m||'　'}</p><button class="primary" id="fs-b">拉！</button>`;$('#fs-b').onclick=pull;};
+      const tick=t=>{if(done)return;pos+=dir*v*(t-last);last=t;if(pos>94){pos=94;dir=-1;}if(pos<6){pos=6;dir=1;}if(Math.random()<.004)dir=-dir;const e=$('#fs');if(e)e.style.left=pos+'%';raf=requestAnimationFrame(tick);};
+      const pull=()=>{if(done)return;tries++;const hit=Math.abs(pos-H)<=(S.relaxed?9:6);if(hit){got++;sfx('hit');v*=1.15;pos=pick([8,92]);}else sfx('bad');
+        if(tries>=N){cancelAnimationFrame(raf);fin();return;}draw(hit?'上鉤了！':'拉空了，魚嚇跑了一下。');};
+      mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();pull();}};draw();raf=requestAnimationFrame(t=>{last=t;tick(t);});
+    }else{let round=0,fish=ri(0,8),drills=0;const shown={};const R=3,D=3;
+      const draw=m=>{el.innerHTML=`<p class="eyebrow">❄️ 冬 · 冰上捕魚</p><h2>第 ${round+1} / ${R} 條魚</h2><p class="hint">魚群躲在冰下的某一格。鑿開冰洞，看水裡的氣泡：「熱」就在旁邊，「溫」差兩格，「冷」還很遠。每條魚只能鑿 ${D} 個洞。</p>
+        <div class="snowgrid">${Array.from({length:9},(_,i)=>`<button data-ih="${i}" ${i in shown?'disabled':''}>${i in shown?shown[i]:'🧊'}</button>`).join('')}</div><p class="story" style="font-size:13px;color:var(--muted);text-align:center">${m||'　'}</p>`;
+        el.querySelectorAll('[data-ih]').forEach(b=>b.onclick=()=>drill(+b.dataset.ih));};
+      const next=m=>{round++;drills=0;for(const k in shown)delete shown[k];fish=ri(0,8);if(round>=R){fin();return;}draw(m);};
+      const drill=i=>{if(done||i in shown)return;drills++;const d=Math.abs(i%3-fish%3)+Math.abs(Math.floor(i/3)-Math.floor(fish/3));
+        if(d===0){got++;sfx('hit');next('上鉤了！換一個地方。');return;}shown[i]=d===1?'熱':d===2?'溫':'冷';if(drills>=D){sfx('bad');next('魚游走了。');return;}draw();};
+      draw();}
+  });}
 
 /* ================= 長屋之夜 ================= */
 function longhouseModal(){
@@ -4881,7 +4970,7 @@ function drinkingContest(){
       if(w==='him'){if(ch)bond(ch.id,6);addFame(4);addLoyalty(3);r=`${opp}從板凳上滑了下去，打起了呼。整個長屋都在喊你的名字。\n<span class="good">名聲 +4，忠誠 +3${ch?`，${opp}好感 +6`:''}</span>`;}
       else if(w==='me'){S.hp=Math.max(1,S.hp-4);addLoyalty(2);r=`你記得的最後一件事，是${opp}在你頭上倒了一杯酒。第二天早上，你在豬圈裡醒來。\n生命 -4（宿醉），忠誠 +2（大家笑了一整個冬天）`;}
       else{addFame(-3);if(ch)bond(ch.id,-3);r=`${opp}一把抓住你的手：「你在倒酒！」\n全長屋的人都看著你。你只好再喝三杯當作懲罰，然後就什麼都不記得了。\n名聲 -3`;}
-      el.innerHTML=`<p class="eyebrow">長屋之夜 · 喝酒比賽</p><h2>${w==='him'?'你贏了':'你輸了'}</h2><div class="res">${r}</div><button class="primary" id="m-ok">繼續</button>`;
+      sfx(w==='him'?'bigcheer':'groan');el.innerHTML=`<p class="eyebrow">長屋之夜 · 喝酒比賽</p><h2>${w==='him'?'你贏了':'你輸了'}</h2><div class="res">${r}</div><button class="primary" id="m-ok">繼續</button>`;
       $('#m-ok').onclick=closeModal;render();
     };
     draw();
@@ -4903,7 +4992,7 @@ function glima(cid){
     const draw=()=>{
       if(me>=2||him>=2){
         const w=me>=2;if(w){bond(cid,6);addLoyalty(2);}else{bond(cid,3);addLoyalty(3);}
-        el.innerHTML=`<p class="eyebrow">長屋之夜 · 摔角</p><h2>${w?'你贏了':'你輸了'}</h2><div class="res">${L.join('\n')}\n\n${w?`${n}躺在地上大笑：「好，你還是老大。」\n<span class="good">${n}好感 +6，忠誠 +2</span>`:`你被摔了個四腳朝天，整個長屋都在笑。${n}把你拉了起來。\n${n}好感 +3，忠誠 +3（大家都喜歡看首領出糗）`}</div><button class="primary" id="m-ok">繼續</button>`;
+        sfx(w?'bigcheer':'groan');el.innerHTML=`<p class="eyebrow">長屋之夜 · 摔角</p><h2>${w?'你贏了':'你輸了'}</h2><div class="res">${L.join('\n')}\n\n${w?`${n}躺在地上大笑：「好，你還是老大。」\n<span class="good">${n}好感 +6，忠誠 +2</span>`:`你被摔了個四腳朝天，整個長屋都在笑。${n}把你拉了起來。\n${n}好感 +3，忠誠 +3（大家都喜歡看首領出糗）`}</div><button class="primary" id="m-ok">繼續</button>`;
         $('#m-ok').onclick=closeModal;$('#m-ok').focus();render();return;}
       const opts=['push','pull','brace'].filter(x=>x!==last);const mv=pick(opts);
       // 反應型要在倒數內出手；解謎型沒有時間壓力
@@ -4998,7 +5087,7 @@ function axeThrow(){
         $('#ax-b').onclick=throwIt;};
       const tick=t=>{if(over)return;if(!fly){pos+=dir*.12*(t-last);if(pos>100){pos=100;dir=-1;}if(pos<0){pos=0;dir=1;}const e=$('#ax-n');if(e)e.style.left=pos+'%';}last=t;raf=requestAnimationFrame(tick);};
       const throwIt=()=>{if(fly||over)return;const ok=pos>=zone[0]&&pos<=zone[1],g=pos>=gz[0]&&pos<=gz[1];if(ok)hit++;if(g){gold++;addFame(1);}n++;fly=true;
-        const tg=$('#ax-t');if(tg){tg.insertAdjacentHTML('beforeend',`<span class="axe" style="left:${pos}%">🪓</span>`);if(g)tg.classList.add('gold');}sfx(ok?'hit':'clash');
+        const tg=$('#ax-t');if(tg){tg.insertAdjacentHTML('beforeend',`<span class="axe" style="left:${pos}%">🪓</span>`);if(g)tg.classList.add('gold');}sfx(ok?'hit':'clash');setTimeout(()=>sfx(g?'bigcheer':ok?'cheer':'groan'),300);
         const after=()=>{fly=false;const before=dir>0?pos<zone[0]:pos>zone[1];log2.unshift(g?'<span class="good">「咚！」正中金色靶心！名聲 +1</span>':ok?'「咚！」插在靶上。':`斧頭飛偏了：${before?'丟得太早':'丟得太晚'}，準星${pos<zone[0]?'還在左邊':'已經跑到右邊'}。`);if(n>=3){over=true;cancelAnimationFrame(raf);mgKey=null;finish();return;}drawR();};
         setTimeout(after,650);};
       mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();throwIt();}};
@@ -5012,7 +5101,7 @@ function axeThrow(){
         <p class="hint">靶在 <b>${d}</b> 步外。${w[0]}；你手上拿的是${ax[0]}。<small>靶多遠就用幾分力。不過風向和斧頭的輕重，都會讓需要的力氣多一點或少一點。</small></p>
         <div class="runepad">${opts.map(v=>`<button data-ax="${v}"><b>${v}</b><small>分力</small></button>`).join('')}</div>
         <p class="story" style="font-size:13px;color:var(--muted)">${log2[0]||'　'}</p>`;
-        el.querySelectorAll('[data-ax]').forEach(b=>b.onclick=()=>{const ok=+b.dataset.ax===ans;if(ok)hit++;n++;log2.unshift(ok?'「咚！」正中靶心。':`斧頭${+b.dataset.ax>ans?'飛過了靶，插在牆上':'掉在靶前面'}。（應該用 ${ans} 分力）`);if(n>=3)finish();else drawP();});
+        el.querySelectorAll('[data-ax]').forEach(b=>b.onclick=()=>{const ok=+b.dataset.ax===ans;if(ok)hit++;n++;sfx(ok?'cheer':'groan');log2.unshift(ok?'「咚！」正中靶心。':`斧頭${+b.dataset.ax>ans?'飛過了靶，插在牆上':'掉在靶前面'}。（應該用 ${ans} 分力）`);if(n>=3)finish();else drawP();});
       };
       drawP();
     }
@@ -5101,6 +5190,18 @@ function sfx(k){
     else if(k==='ok'){tone('triangle',660,null,.25,.3);setTimeout(()=>sfx('ok2'),90);}
     else if(k==='ok2'){tone('triangle',990,null,.3,.25);}
     else if(k==='bad'){tone('sawtooth',160,90,.4,.2);}
+    else if(k==='cheer'||k==='bigcheer'){const big=k==='bigcheer',dur=big?1.8:1.3;
+      const nb=AC.createBuffer(1,Math.floor(AC.sampleRate*dur),AC.sampleRate),nd=nb.getChannelData(0);for(let i=0;i<nd.length;i++)nd[i]=Math.random()*2-1;
+      const ns=AC.createBufferSource();ns.buffer=nb;const bf=AC.createBiquadFilter();bf.type='bandpass';bf.frequency.value=1100;bf.Q.value=.7;const ng=AC.createGain();
+      ng.gain.setValueAtTime(0,t);ng.gain.linearRampToValueAtTime(big?.5:.35,t+.18);ng.gain.exponentialRampToValueAtTime(.001,t+dur);ns.connect(bf);bf.connect(ng);ng.connect(g);ns.start(t);ns.stop(t+dur);
+      for(let i=0;i<(big?9:6);i++){const st=t+Math.random()*.35,o=AC.createOscillator();o.type='sawtooth';const f0=160+Math.random()*180;
+        o.frequency.setValueAtTime(f0,st);o.frequency.linearRampToValueAtTime(f0*1.25,st+.12);o.frequency.linearRampToValueAtTime(f0*.9,st+.3);
+        const fm=AC.createBiquadFilter();fm.type='bandpass';fm.frequency.value=700+Math.random()*500;fm.Q.value=3;const vg=AC.createGain();
+        vg.gain.setValueAtTime(0,st);vg.gain.linearRampToValueAtTime(.12,st+.03);vg.gain.exponentialRampToValueAtTime(.001,st+.35);o.connect(fm);fm.connect(vg);vg.connect(g);o.start(st);o.stop(st+.4);}
+      if(big)[0,.22,.44].forEach(x=>{const o=AC.createOscillator();o.type='sine';o.frequency.setValueAtTime(120,t+x);o.frequency.exponentialRampToValueAtTime(55,t+x+.18);const vg=AC.createGain();vg.gain.setValueAtTime(.7,t+x);vg.gain.exponentialRampToValueAtTime(.001,t+x+.22);o.connect(vg);vg.connect(g);o.start(t+x);o.stop(t+x+.25);});}
+    else if(k==='groan'){for(let i=0;i<5;i++){const st=t+Math.random()*.12,o=AC.createOscillator();o.type='sawtooth';const f0=120+Math.random()*90;
+        o.frequency.setValueAtTime(f0*1.15,st);o.frequency.exponentialRampToValueAtTime(f0*.75,st+1);const bp=AC.createBiquadFilter();bp.type='bandpass';bp.frequency.value=500;bp.Q.value=2;
+        const vg=AC.createGain();vg.gain.setValueAtTime(0,st);vg.gain.linearRampToValueAtTime(.1,st+.15);vg.gain.exponentialRampToValueAtTime(.001,st+1.1);o.connect(bp);bp.connect(vg);vg.connect(g);o.start(st);o.stop(st+1.2);}}
     else if(k==='coin'){tone('triangle',1400,null,.08,.2);setTimeout(()=>tone('triangle',1900,null,.12,.2),60);}
   }catch(e){}
 }
@@ -5245,7 +5346,7 @@ function tribeHTML(){
   if(S.phase===1) return `<div class="card"><p class="story">你還沒有自己的土地。存下 60 銀幣、名聲達到 25，就能插旗建立部落（插旗花 40，留 20 撐過第一季）。</p></div>`;
   const [si,fi]=income();const up=tribeUp();const nextUp=TRIBE_UP[S.tlv-1];
   const canUp=up&&S.silver>=up.cost[0]&&S.food>=up.cost[1]&&bldCount()>=up.need;
-  return `<div class="card" style="display:grid;gap:10px">
+  return `<div class="card" style="display:grid;gap:10px">${sceneImg('sc_tribe_'+S.tlv)}
     <div class="row" style="justify-content:space-between"><h3 style="font-size:20px">${esc(S.tribe)} · ${TRIBE_LV[S.tlv-1]}</h3>
     ${up?`<button class="primary" data-tl="1" ${canUp?'':'disabled'} style="padding:6px 14px;font-size:14px">擴建成${TRIBE_LV[S.tlv]}${has('builder')?'':'（1 季）'}</button>`:''}</div>
     ${up?`<div class="meta"><span>擴建需要：銀幣 <b>${up.cost[0]}</b> · 糧食 <b>${up.cost[1]}</b> · 不同建築 <b>${bldCount()}/${up.need}</b></span></div>`:nextUp&&nextUp.golden?'<div class="meta"><span>學會天賦「黃金時代」後，還能擴建成傳說之都。</span></div>':''}
@@ -5255,7 +5356,7 @@ function tribeHTML(){
     <div class="policy">${Object.entries(POLICY).map(([k,p])=>`<button data-pol="${k}" aria-pressed="${S.policy===k}"><b>${p.name}</b><small>${p.desc}，每次突襲忠誠 ${p.loy>0?'+':''}${p.loy}</small></button>`).join('')}</div></div>
   </div>
   <div class="blds">${BLD.map(b=>{const l=bl(b.id);const locked=S.tlv<b.tl;const capped=l>=bldMax();const [cs,cf]=bldCost(b,l);const can=!locked&&!capped&&l<3&&S.silver>=cs&&S.food>=cf;
-    return `<div class="bld ${l?'done':''} ${l>=3?'max':''}"><div class="row" style="justify-content:space-between"><b>${b.name}</b><span class="lv">${l?'★'.repeat(l)+'☆'.repeat(3-l):''}</span></div>
+    return `<div class="bld ${l?'done':''} ${l>=3?'max':''}">${ART_HAVE.has('b_'+b.id)?`<img class="bicon" src="art/b_${b.id}.webp" alt="">`:`<span class="bicon r" aria-hidden="true">${BRUNE[b.id]||'ᛟ'}</span>`}<div class="row" style="justify-content:space-between"><b>${b.name}</b><span class="lv">${l?'★'.repeat(l)+'☆'.repeat(3-l):''}</span></div>
     ${l?`<span class="now">${b.eff(l)}</span>`:''}
     ${locked?`<small>部落擴建成${TRIBE_LV[b.tl-1]}後才能蓋</small>`:l>=3?'<small>已經是最高等級</small>':capped?`<small>下一級：${b.eff(l+1)}</small><small>部落擴建後才能再升級</small>`:
       `<small>${l?'下一級：':''}${b.eff(l+1)}</small><span class="cost">銀幣 ${cs}${cf?`・糧食 ${cf}`:''}</span><button class="primary" data-b="${b.id}" ${can?'':'disabled'}>${can?(l?'升級':'建造')+(has('builder')?'':'（1 季）'):'資源不足'}</button>`}</div>`;}).join('')}</div>`;
@@ -5806,6 +5907,10 @@ body.wizon .toast{bottom:calc(140px + env(safe-area-inset-bottom))}
   /* 長彈窗：主按鈕固定在底部 */
   #mbody #m-ok,#mbody #cn-ok{position:sticky;bottom:10px;box-shadow:0 -10px 18px rgba(15,20,23,.9)}
   .choice,.act,.ghost,.primary{min-height:44px}
+  .blds{grid-template-columns:1fr 1fr;gap:8px}
+  .bld{padding:10px}
+  .bld b{font-size:15.5px}
+  .bld .bicon{width:64px;height:64px}
   .toast{bottom:calc(74px + env(safe-area-inset-bottom));z-index:16;max-width:88vw}
 }
 /* 行動分組、王國小分頁、編年史（所有寬度） */
@@ -5926,7 +6031,7 @@ details.adis summary{color:var(--muted);font-size:14px;padding:10px 4px;cursor:p
   $('#hm-train').onclick=()=>{step=-1;bar.classList.add('st-off');document.body.classList.remove('wizon');$('#btn-train').click();};
   $('#hm-gal').onclick=()=>$('#btn-gal').click();
   const _showTitle=showTitle;
-  showTitle=function(){_showTitle();document.body.classList.remove('mini');step=Math.min(step,steps().length-1);applyStep();};
+  showTitle=function(){_showTitle();document.body.classList.remove('mini');seasonFx();step=Math.min(step,steps().length-1);applyStep();};
 
   /* ---------- 遊戲畫面 ---------- */
   document.body.insertAdjacentHTML('beforeend','<div id="h-mini" aria-hidden="true"></div>');
@@ -5940,28 +6045,24 @@ details.adis summary{color:var(--muted);font-size:14px;padding:10px 4px;cursor:p
   $('#log-more').onclick=()=>{const s=chron.classList.toggle('short');$('#log-more').textContent=s?'看更多':'收起來';};
   const GROUP={found:'出征',declare:'出征',gosea:'出征',gomap:'出征',bounty:'出征',soloraid:'出征',treasure:'出征',prep:'出征',appease:'出征',odd:'出征',
     build:'治理',recruit:'治理',train:'治理',hire:'治理',thing:'治理',jarl:'治理',feast:'治理',fame:'治理',monument:'治理',abdicate4:'治理',spouse:'治理',
-    blot:'生活',longhouse:'生活',tafl:'生活',tavern:'生活',trap:'生活',hunt:'生活',rest:'生活'};
-  const actBtn=a=>`<button class="act ${a.key&&!a.dis?'key':''}" data-a="${a.id}" ${a.dis?'disabled':''}><b>${a.name}</b><small>${a.desc}</small><span class="gain">${a.dis||a.gain}</span></button>`;
+    blot:'生活',longhouse:'生活',tafl:'生活',tavern:'生活',trap:'生活',hunt:'生活',sow:'治理',harvestfest:'治理',midsummer:'生活',icefish:'生活',rest:'生活'};
+  const actBtn=a=>{const tg=actTag(a.id);return `<button class="act ${a.key&&!a.dis?'key':''}" data-a="${a.id}" ${a.dis?'disabled':''}><b>${a.name}</b><small>${a.desc}</small><span class="gain">${a.dis||a.gain}</span>${tg?`<span class="atag">${tg}</span>`:''}</button>`;};
   const _render=render;
   render=function(){
     _render();
     if(!S||$('#game-screen').hidden) return;
+    seasonFx();
     $('#h-mini').innerHTML=`<span>${stamp()} · ${age()} 歲</span><span class="mhp"><i style="width:${clamp(S.hp/maxHp()*100,0,100)}%"></i></span><span>銀 <b>${S.silver}</b> · 糧 <b>${S.food}</b> · 兵 <b>${S.men}</b></span>`;
     if(S.tab==='act'){
       const MAIN=['found','declare'];const L0=actions(),main=L0.filter(a=>MAIN.includes(a.id)),L=L0.filter(a=>!MAIN.includes(a.id)),now=L.filter(a=>a.key&&!a.dis),rest=L.filter(a=>!(a.key&&!a.dis));const G=S.agrp||'all';
       const gs=['出征','治理','生活','其他'];const cnt=g=>rest.filter(a=>(GROUP[a.id]||'其他')===g).length;
-      let h=`<div class="achips">${[['all','全部'],...gs.filter(g=>g!=='其他'||cnt(g)).map(g=>[g,g])].map(([k,n])=>`<button data-ag="${k}" aria-pressed="${G===k}">${n}</button>`).join('')}</div>`;
+      let h=seasonBar()+`<div class="achips">${[['all','全部'],...gs.filter(g=>g!=='其他'||cnt(g)).map(g=>[g,g])].map(([k,n])=>`<button data-ag="${k}" aria-pressed="${G===k}">${n}</button>`).join('')}</div>`;
       if(main.length) h+=`<p class="agroup now">主線</p><div class="acts">${main.map(actBtn).join('')}</div>`;
       if(now.length&&G==='all') h+=`<p class="agroup now">現在該做的</p><div class="acts">${now.map(actBtn).join('')}</div>`;
       gs.filter(g=>G==='all'||G===g).forEach(g=>{const xs=rest.filter(a=>(GROUP[a.id]||'其他')===g).sort((a,b)=>(!!a.dis)-(!!b.dis));if(G!=='all')xs.unshift(...now.filter(a=>(GROUP[a.id]||'其他')===g));
         if(xs.length)h+=`${G==='all'?`<p class="agroup">${g}</p>`:''}<div class="acts">${xs.map(actBtn).join('')}</div>`;});
       $('#pane').innerHTML=h;
       $('#pane').querySelectorAll('[data-ag]').forEach(b=>b.onclick=()=>{S.agrp=b.dataset.ag;render();});
-    }else if(S.tab==='tribe'&&S.phase>=2){
-      const all=kingdomHTML()+tribeHTML();const i=all.indexOf('<div class="blds">');
-      const tt=S.ttab||'sum';
-      $('#pane').innerHTML=`<div class="ttabs"><button data-tt="sum" aria-pressed="${tt==='sum'}">總覽與分贓</button><button data-tt="bld" aria-pressed="${tt==='bld'}">建築</button></div>`+(i<0?all:tt==='sum'?all.slice(0,i):all.slice(i));
-      $('#pane').querySelectorAll('[data-tt]').forEach(b=>b.onclick=()=>{S.ttab=b.dataset.tt;render();});
     }
   };
   onScroll();

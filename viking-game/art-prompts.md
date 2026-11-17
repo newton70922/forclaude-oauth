@@ -10,6 +10,317 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
+## ★ v0.13 新圖（34 張）
+
+劇情和介面都已經做進遊戲了，圖還沒到之前會先用現有的圖或符文代替。建議順序：A → B → C → D → E。
+
+### A. 群雄並起（6 張，16:9）
+
+第三章開場的電影分鏡。圖到之前先用第三章封面或人物立繪代替。
+
+| # | 檔名 | 內容 | 用在 |
+|---|---|---|---|
+| 1 | sc_d3_wall | 木牆上看族人的炊煙 | 第 1、2 頁 |
+| 2 | sc_d3_envoy | 使者帶著旗幟出發 | 第 4 頁 |
+| 3 | sc_d3_sigurd | 雅爾西格德把使者趕出去 | 第 5 頁 |
+| 4 | sc_d3_brynhild | 布倫希爾德在鷹巢峰大笑 | 第 6 頁 |
+| 5 | sc_d3_king | 老王哈夫丹看著火，什麼也沒說 | 第 7 頁 |
+| 6 | sc_d3_hrolf | 赫羅爾夫在紅帆營砸了酒杯 | 第 8 頁 |
+
+**1. sc_d3_wall（木牆上看族人的炊煙）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Night in a young Viking settlement by a fjord. On the wooden palisade wall, a Viking ruler seen from behind (face hidden, gender not identifiable: a deep fur-lined hood pulled up, a simple gold crown worn over the hood, heavy fur cloak) stands alone looking down at the village: dozens of turf-roofed longhouses with smoke rising from the roofs, warm firelight in doorways, a few people and children, fishing boats pulled up on the shore, stars and a thin moon above the mountains. Quiet, heavy with responsibility, the night before a big decision.
+```
+
+**2. sc_d3_envoy（使者帶著旗幟出發）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Dawn on a fjord. Three Viking envoys in travelling cloaks ride and row out from a small settlement, one of them holding high a banner with a black raven on dark red cloth; the settlement's people watch from the shore; ahead of them, a long winding fjord and snowy mountains stretch into the distance. Hopeful, bold, the beginning of a journey.
+```
+
+**3. sc_d3_sigurd（雅爾西格德把使者趕出去）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Inside a huge longhall built from whole oak trunks, with carved pillars and a long fire. Jarl Sigurd of Lade (around fifty, proud and suspicious, black beard streaked with grey, heavy gold arm rings, a rich blue cloak) sits on a high carved seat and points at the door with contempt; his housecarls shove a young Viking envoy out through the great doors, the envoy's raven banner falling to the floor. Arrogant, tense, humiliating.
+```
+
+**4. sc_d3_brynhild（布倫希爾德在鷹巢峰大笑）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A mountain-top stronghold on a windswept peak, eagles circling, a sheer drop to the fjord far below. Brynhild, a tall warrior chieftainess around thirty (blonde braids, long sword at her hip, mail and fur, a scar on her chin), stands on the edge of the cliff and throws her head back laughing, one hand on a Viking envoy's shoulder; her shieldmaidens grin behind her. Confident, wild, amused, a challenge accepted.
+```
+
+**5. sc_d3_king（老王哈夫丹看著火，什麼也沒說）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A vast, dark royal hall at night, almost empty. Old King Halfdan of Norway (around seventy, long white beard and hair, gold knotwork crown, dark red-and-black robes with gold knotwork, fur mantle, an ancient long sword resting across his knees) sits alone on a high carved throne, staring silently into the long hearth fire; a young envoy stands far away at the edge of the light, waiting, unsure. The king's face is calm, unreadable and heavy. Oppressive silence, foreboding, respect.
+```
+
+**6. sc_d3_hrolf（赫羅爾夫在紅帆營砸了酒杯）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A rough Viking war camp on a rocky shore at dusk, longships with blood-red sails pulled up on the beach, campfires and tents. Hrolf (late twenties, the arrogant son of a jarl, red-brown hair tied back, a fur collar over mail, a sneering mouth) has just smashed a drinking horn against a post in fury, mead and splinters flying; his hired thugs around the fire stop and look at him. Rage, grudge, menace.
+```
+
+### B. 勇士被打敗的那一刻（4 張，16:9）
+
+用單挑打贏後的分鏡。圖到之前先用勇士立繪。
+
+| # | 檔名 | 內容 | 用在 |
+|---|---|---|---|
+| 1 | sc_win_astrid | 阿斯特麗德的盾落地 | 打贏阿斯特麗德 |
+| 2 | sc_win_ragnar | 拉格納躺在地上大笑 | 打贏拉格納 |
+| 3 | sc_win_bjorn | 比約恩把咬爛的盾牌丟在你腳邊 | 打贏比約恩 |
+| 4 | sc_win_sigrid | 西格麗德躺在斗篷上笑出來 | 打贏西格麗德 |
+
+**1. sc_win_astrid（阿斯特麗德的盾落地）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Inside a Viking camp, a training duel has just ended. The shieldmaiden Astrid (late twenties, long thick blonde braid over one shoulder, sides of the head shaved with small braids, chainmail and leather vest, a thin scar across one eyebrow) stands with her left hand empty, staring at her round shield painted with a black raven, which lies in the mud a few steps away. She has turned her face slightly away from the viewer, jaw tight, the tips of her ears faintly red: surprised and embarrassed, trying not to show it. Onlookers stand frozen in silence. Restrained, human, a rare crack in a hard warrior.
+```
+
+**2. sc_win_ragnar（拉格納躺在地上大笑）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Inside a Viking longhall after a brutal fight. The berserker Ragnar (a huge bare-chested man covered in tattoos, wild dark beard, scars everywhere) lies flat on his back on the floor, roaring with laughter up at the rafters, blood at the corner of his mouth; his great axe is stuck in a wooden pillar behind him. Warriors around the hall stare in disbelief. Joyful, wild, bloody, oddly warm.
+```
+
+**3. sc_win_bjorn（比約恩把咬爛的盾牌丟在你腳邊）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A holmgang duel ground: a cloak pegged to the ground, a ring of spectators. Björn 'Ironmail' (a broad berserker in a heavy mail shirt, wild beard, scarred face) kneels on the cloak and, without a word, tosses his round shield, its rim chewed and splintered by his own teeth, onto the ground at the feet of a Viking ruler seen from behind (face hidden, gender not identifiable: a deep fur-lined hood pulled up, a simple gold crown worn over the hood, heavy fur cloak) standing over him. Blood and wood splinters on his beard. Grim, silent respect.
+```
+
+**4. sc_win_sigrid（西格麗德躺在斗篷上笑出來）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+An outdoor law assembly with a tall standing law stone and a crowd. On a holmgang cloak pegged to the ground, the young shieldmaiden Sigrid (around twenty, dark blonde thick braid, fine chainmail, blue wool cloak) lies on her back looking up at the sky and laughing; her richly painted shield lies far away near the law stone. She reaches one hand up toward the viewer, asking to be pulled up. Light-hearted, warm, the beginning of a friendship.
+```
+
+### C. 四季的行動（4 張，16:9）
+
+春耕、夏至集會、收成祭、冰上捕魚。
+
+| # | 檔名 | 內容 | 用在 |
+|---|---|---|---|
+| 1 | sc_s_sow | 春耕 | 春天的「春耕」 |
+| 2 | sc_s_midsummer | 夏至集會 | 夏天的「夏至集會」 |
+| 3 | sc_s_harvest | 收成祭 | 秋天的「秋收」和「收成祭」 |
+| 4 | sc_s_icefish | 冰上捕魚 | 冬天的「冰上捕魚」 |
+
+**1. sc_s_sow（春耕）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Early spring on a fjord farm: the last patches of snow melting on dark ploughed fields, a Viking family guiding an ox-drawn wooden plough, women sowing seed from baskets, children chasing birds, a turf-roofed longhouse and green birch trees just budding, mist over the water. Hopeful, fresh, hard-working.
+```
+
+**2. sc_s_midsummer（夏至集會）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Midsummer night on a Viking beach under a sun that never sets: dozens of longships pulled up on the sand, market stalls with furs, amber and iron, a ring of people watching two men wrestle, young couples dancing around a huge bonfire, flower crowns, golden low sunlight over the fjord. Joyful, crowded, festive.
+```
+
+**3. sc_s_harvest（收成祭）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Autumn harvest festival in a Viking village: golden sheaves of barley stacked by the barn, a long table outside the longhouse loaded with roast pig, bread, cheese and mead, people raising drinking horns, a priest offering the first sheaf at a wooden altar, red and orange birch leaves falling. Abundant, warm, grateful.
+```
+
+**4. sc_s_icefish（冰上捕魚）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A frozen fjord in deep winter, pale blue light: Vikings in heavy furs kneel around round holes cut in the thick ice, fishing with lines; a pile of silver fish on the ice, a child holding up a fish proudly, a small fire on the shore, snow-covered mountains and a low winter sun. Cold, quiet, cosy.
+```
+
+### D. 部落成長（6 張，16:9）
+
+王國頁最上面，隨部落擴建等級換圖：營地 → 村落 → 城鎮 → 要塞 → 王都 → 傳說之都。同一個海灣、同一個角度，部落越來越大。
+
+| # | 檔名 | 內容 | 用在 |
+|---|---|---|---|
+| 1 | sc_tribe_1 | 營地 | 部落等級 1 |
+| 2 | sc_tribe_2 | 村落 | 部落等級 2 |
+| 3 | sc_tribe_3 | 城鎮 | 部落等級 3 |
+| 4 | sc_tribe_4 | 要塞 | 部落等級 4 |
+| 5 | sc_tribe_5 | 王都 | 部落等級 5 |
+| 6 | sc_tribe_6 | 傳說之都 | 部落等級 6 |
+
+**1. sc_tribe_1（營地）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A sheltered Norwegian bay with a stream and a forest behind it, seen from a slightly high angle. Stage 1 of a settlement: a small camp of a few tents and one rough hut, a single longship pulled onto the beach, a campfire, a raven banner on a pole. Humble beginnings.
+```
+
+**2. sc_tribe_2（村落）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The same sheltered Norwegian bay with a stream and a forest behind it, same slightly high angle. Stage 2: a small village of five or six turf-roofed longhouses, fenced fields, a few boats, smoke from roofs, a raven banner. Growing.
+```
+
+**3. sc_tribe_3（城鎮）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The same sheltered Norwegian bay with a stream and a forest behind it, same slightly high angle. Stage 3: a busy town with many longhouses, a wooden palisade, a market square, a smithy with smoke, several longships at a wooden pier, raven banners. Prosperous.
+```
+
+**4. sc_tribe_4（要塞）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The same sheltered Norwegian bay with a stream and a forest behind it, same slightly high angle. Stage 4: a fortified stronghold with a double palisade and watchtowers, a great hall on a mound in the middle, a harbour full of longships, warriors training in a yard, raven banners on every tower. Strong.
+```
+
+**5. sc_tribe_5（王都）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The same sheltered Norwegian bay with a stream and a forest behind it, same slightly high angle. Stage 5: a royal capital with a huge carved royal hall, stone foundations, many streets of houses, a great harbour with dozens of longships and trading ships, a runestone field, crowds and banners everywhere. Majestic.
+```
+
+**6. sc_tribe_6（傳說之都）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+The same sheltered Norwegian bay with a stream and a forest behind it, same slightly high angle, at golden hour. Stage 6: a legendary city of the north, the royal hall roofed with gilded dragon carvings, a shipyard building giant dragon ships, a tall carved runestone glowing in the sunset, the bay crowded with ships from many lands, aurora faintly in the sky. Legendary.
+```
+
+### E. 建築小圖（14 張，木刻風格 1:1）
+
+王國頁建築卡片右下角的半透明浮水印，跟出身圖示同一個風格。圖到之前先用符文代替。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | b_longhouse | 擴建長屋 |
+| 2 | b_granary | 糧倉 |
+| 3 | b_smithy | 鐵匠鋪 |
+| 4 | b_barracks | 兵營 |
+| 5 | b_dock | 碼頭 |
+| 6 | b_altar | 祭壇 |
+| 7 | b_hall | 議事廳 |
+| 8 | b_tower | 瞭望塔 |
+| 9 | b_market | 市集 |
+| 10 | b_yard | 練武場 |
+| 11 | b_sauna | 蒸氣浴 |
+| 12 | b_runehut | 符文師小屋 |
+| 13 | b_ancestor | 先祖石 |
+| 14 | b_shipyard | 龍頭船塢 |
+
+**1. b_longhouse（擴建長屋）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A Viking longhouse with a curved turf roof and crossed gable boards carved as dragon heads.
+```
+
+**2. b_granary（糧倉）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A small raised wooden storehouse on stilts with sheaves of barley leaning against it.
+```
+
+**3. b_smithy（鐵匠鋪）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+An anvil with a hammer and tongs, sparks flying, a small forge behind.
+```
+
+**4. b_barracks（兵營）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A row of round shields and spears racked against a wooden wall.
+```
+
+**5. b_dock（碼頭）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A wooden pier with a moored Viking longship and a coiled rope.
+```
+
+**6. b_altar（祭壇）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A stone altar with a bowl, a drinking horn and a carved wooden god post behind it.
+```
+
+**7. b_hall（議事廳）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A carved high-seat chair between two tall carved pillars.
+```
+
+**8. b_tower（瞭望塔）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A tall wooden watchtower with a horn hanging from it.
+```
+
+**9. b_market（市集）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A trader's scale with silver coins and a stack of furs.
+```
+
+**10. b_yard（練武場）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+Two crossed practice swords over a wooden practice post.
+```
+
+**11. b_sauna（蒸氣浴）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A small log bathhouse with steam rising and a wooden bucket and ladle.
+```
+
+**12. b_runehut（符文師小屋）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A carved runestone with a chisel and a small hut behind it.
+```
+
+**13. b_ancestor（先祖石）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A tall standing stone carved with knotwork and a ship, beside a burial mound.
+```
+
+**14. b_shipyard（龍頭船塢）**
+
+```
+Monochrome woodcut engraving illustration in the style of a Viking Age carving: bold carved lines, cross-hatching, a single warm bone-white color on a pure black background, no shading gradients, no text, no letters, no frame, no border, centered object with generous empty space around it, square 1:1.
+A half-built dragon ship on wooden trestles with a carved dragon prow.
+```
+
 ## ★ 重畫（可選，4 張）
 
 這兩張已經放進遊戲了，只是有一點小疑慮。不畫也可以。
@@ -88,7 +399,7 @@ Monochrome woodcut engraving illustration in the style of a Viking Age carving: 
 A small Norse lyre (tallharpa) carved with knotwork, strings visible, with a drinking horn leaning beside it.
 ```
 
-## ★ v0.12 諸神黃昏開場與老王出場（17 張）
+## ✅ v0.12 諸神黃昏開場與老王出場（17 張，已全部收到）
 
 劇情分頁已經做進遊戲了。圖還沒到之前，開場會先用英靈戰士圖、怪物和眾神立繪代替，老王的分頁先用彩虹橋圖和雙斧立繪代替。
 
