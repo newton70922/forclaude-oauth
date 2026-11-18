@@ -10,24 +10,15 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.13 重畫（1 張）
+## ✅ v0.13 重畫（1 張，已收到）
 
-| 檔名 | 問題 |
-|---|---|
-| sc_win_bjorn | 你戴著王冠；可是霍姆岡決鬥從第二章就會發生，那時候你還沒稱王。其他都很好，只要拿掉王冠 |
-
-**sc_win_bjorn（重畫：沒有王冠）**
-
-```
-Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-A holmgang duel ground by a fjord at sunset: a patterned cloak pegged to the ground with wooden stakes, a silent ring of warriors and villagers. Björn 'Ironmail' (a young man in his twenties, short spiky red hair, a heavy mail shirt, mud and blood on his face) kneels on the cloak and, without a word, tosses his round shield, its rim chewed and splintered by his own teeth, onto the ground at the feet of a Viking chieftain seen from behind (face hidden, gender not identifiable: a deep fur-lined hood pulled up, heavy fur cloak, NO crown, NO circlet). Grim, silent respect.
-```
+sc_win_bjorn（拿掉王冠）已換上。
 
 ## ✅ v0.13 重畫（2 張，已收到）
 
 sc_d3_wall（拿掉王冠）、sc_d3_king（木造王廳）已換上新版。
 
-## ★ v0.13 新圖（34 張）
+## ✅ v0.13 新圖（34 張，已全部收到）
 
 劇情和介面都已經做進遊戲了，圖還沒到之前會先用現有的圖或符文代替。建議順序：A → B → C → D → E。
 
