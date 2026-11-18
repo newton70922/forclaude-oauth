@@ -10,26 +10,9 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.13 重畫（2 張）
+## ✅ v0.13 重畫（2 張，已收到）
 
-| 檔名 | 問題 | 優先 |
-|---|---|---|
-| sc_d3_wall | 你頭上戴著王冠，可是這時候你還只是部落首領，要到第三章結束才稱王 | 高 |
-| sc_d3_king | 窗戶是尖頂的哥德式大窗，像中世紀教堂，不像維京王廳 | 低（可不畫） |
-
-**sc_d3_wall（重畫：沒有王冠）**
-
-```
-Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-Night in a young Viking settlement by a fjord. On the wooden palisade wall, a Viking chieftain seen from behind (face hidden, gender not identifiable: a deep fur-lined hood pulled up, heavy fur cloak, NO crown, NO circlet, only a plain silver arm ring) stands alone looking down at the village: dozens of turf-roofed longhouses with smoke rising from the roofs, warm firelight in doorways, a few people and children, fishing boats pulled up on the shore, stars and a thin moon above the mountains. Quiet, heavy with responsibility, the night before a big decision.
-```
-
-**sc_d3_king（重畫：純維京木造王廳）**（可不畫）
-
-```
-Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-A vast, dark Viking royal hall at night built entirely of dark carved timber: rows of thick wooden pillars carved with knotwork, a high pitched wooden roof with smoke holes, NO stone arches, NO pointed windows, NO church-like architecture. Old King Halfdan of Norway (around seventy, long white beard and hair, gold knotwork crown, dark red-and-black robes with gold knotwork, fur mantle, an ancient long sword resting across his knees) sits alone on a high carved throne, staring silently into the long hearth fire in the middle of the hall; a young envoy stands far away at the edge of the light, waiting, unsure. The king's face is calm, unreadable and heavy. Oppressive silence, foreboding, respect.
-```
+sc_d3_wall（拿掉王冠）、sc_d3_king（木造王廳）已換上新版。
 
 ## ★ v0.13 新圖（34 張）
 
@@ -46,7 +29,7 @@ A vast, dark Viking royal hall at night built entirely of dark carved timber: ro
 | 3 | sc_d3_sigurd | 雅爾西格德把使者趕出去 （✅ 已收到）| 第 5 頁 |
 | 4 | sc_d3_brynhild | 布倫希爾德在鷹巢峰大笑 （✅ 已收到）| 第 6 頁 |
 | 5 | sc_d3_king | 老王哈夫丹看著火，什麼也沒說 （✅ 已收到）| 第 7 頁 |
-| 6 | sc_d3_hrolf | 赫羅爾夫在紅帆營砸了酒杯 | 第 8 頁 |
+| 6 | sc_d3_hrolf | 赫羅爾夫在紅帆營砸了酒杯 （✅ 已收到）| 第 8 頁 |
 
 **1. sc_d3_wall（木牆上看族人的炊煙）**
 
@@ -96,8 +79,8 @@ A rough Viking war camp on a rocky shore at dusk, longships with blood-red sails
 
 | # | 檔名 | 內容 | 用在 |
 |---|---|---|---|
-| 1 | sc_win_astrid | 阿斯特麗德的盾落地 | 打贏阿斯特麗德 |
-| 2 | sc_win_ragnar | 拉格納躺在地上大笑 | 打贏拉格納 |
+| 1 | sc_win_astrid | 阿斯特麗德的盾落地 （✅ 已收到）| 打贏阿斯特麗德 |
+| 2 | sc_win_ragnar | 拉格納躺在地上大笑 （✅ 已收到）| 打贏拉格納 |
 | 3 | sc_win_bjorn | 比約恩把咬爛的盾牌丟在你腳邊 | 打贏比約恩 |
 | 4 | sc_win_sigrid | 西格麗德躺在斗篷上笑出來 | 打贏西格麗德 |
 

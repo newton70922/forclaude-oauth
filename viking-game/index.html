@@ -2635,7 +2635,7 @@ const EVENTS=[
         {t:'收他當戰士',fx:()=>{S.men++;atone(8);return '「跟著我，總有一天你會比我強。」少年愣了很久，點了頭。\n戰士 +1，惡名 -8';}},
         {t:'把他趕走',fx:()=>'少年被拖了出去。'}]},
   {id:'astrid',once:1,phase:[2,3],cond:()=>S.fame>=35,title:'盾女',text:'一個背著圓盾的女戰士走進營地，把斧頭插在你面前的桌上：「我叫阿斯特麗德。我只追隨比我強的人。」',
-    ch:[{t:'接受比武',note:'點到為止',fx:()=>{duel('astrid',{lethal:false,xp:16,onEnd:w=>{if(w){const j=addChamp('astrid',60);pushModal(el=>cineView(el,[{art:['sc_win_astrid','astrid'],text:'你的斧背敲在她的盾緣上。那面畫著渡鴉的圓盾脫手飛了出去，在泥地上滾了好幾圈。'},{art:['sc_win_astrid','astrid'],text:'阿斯特麗德愣在原地，看著自己空空的左手。\n\n圍觀的人一點聲音都沒有。從來沒有人讓她的盾落地過。'},{art:['sc_win_astrid','astrid'],text:'她走過去撿起盾牌，背對著你，很久沒有轉身。\n\n「……運氣好而已。」她說。耳朵有一點紅。'},{art:['astrid'],text:'然後她拔起插在桌上的斧頭，走回你面前，單膝跪下。\n\n'+j}],closeModal,'盾女'));return '阿斯特麗德的盾牌飛了出去。';}S.flags.ev_astrid=0;return '她搖搖頭：「等你更強再說。」她也許還會回來。';}});return null;}},
+    ch:[{t:'接受比武',note:'點到為止',fx:()=>{duel('astrid',{lethal:false,xp:16,onEnd:w=>{if(w){const j=addChamp('astrid',60);pushModal(el=>cineView(el,[{art:['sc_win_astrid','astrid'],text:'你的斧背敲在她的盾緣上。那面畫著渡鴉的圓盾脫手飛了出去，在泥地上滾了好幾圈。'},{art:['sc_win_astrid','astrid'],text:'阿斯特麗德愣在原地，看著自己空空的左手。\n\n圍觀的人一點聲音都沒有。從來沒有人讓她的盾落地過。'},{art:['sc_win_astrid','astrid'],text:'她走過去撿起盾牌，背對著你，很久沒有轉身。\n\n「……運氣好而已。」她說。耳朵有一點紅。'},{art:['astrid'],text:'然後她把斧頭插進泥地裡，走回你面前，單膝跪下。\n\n'+j}],closeModal,'盾女'));return '阿斯特麗德的盾牌飛了出去。';}S.flags.ev_astrid=0;return '她搖搖頭：「等你更強再說。」她也許還會回來。';}});return null;}},
         {t:'用你的計畫說服她',note:()=>rate(.1+eff('pre')*.07),fx:()=>{if(chk(.1+eff('pre')*.07))return '你沒有拔武器，只是把你的計畫說給她聽。她沉默很久，然後點頭。\n'+addChamp('astrid',55);S.flags.ev_astrid=0;return '她聽完只說了一句：「空話。」';}},
         {t:'我不需要你',fx:()=>'她冷哼一聲，轉身走了。'}]},
   {id:'una',once:1,phase:[2,3],title:'霧沼的草藥婆',text:'一個背著藥簍的老婦人來到部落門口。她說她叫烏娜，霧沼的村子容不下她了。「給我一間屋子，我能治好你身上的傷。」',
