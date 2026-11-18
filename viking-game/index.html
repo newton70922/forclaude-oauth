@@ -233,6 +233,9 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .bld .lv{color:var(--gold);font-size:13px;letter-spacing:.1em}
 .bld small{color:var(--muted);font-size:13px}
 .bld .now{font-size:13px}
+.glock{position:relative;display:inline-block}
+.glock img{filter:brightness(.12) grayscale(1)}
+.glock::after{content:'🔒';position:absolute;inset:0;display:grid;place-items:center;font-size:18px;opacity:.8}
 .bld{position:relative;overflow:hidden}
 .bld>*:not(.bicon){position:relative}
 .bld .bicon{position:absolute;right:-6px;bottom:-8px;width:80px;height:80px;object-fit:contain;opacity:.16;pointer-events:none;mix-blend-mode:screen;filter:sepia(1) saturate(2.2) hue-rotate(-12deg)}
@@ -381,6 +384,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .snowgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:270px;margin:10px auto}
 .snowgrid.four{grid-template-columns:repeat(4,1fr)}
 .snowgrid.five{grid-template-columns:repeat(5,1fr);max-width:300px}
+.snowgrid.seven{grid-template-columns:repeat(7,1fr);max-width:330px;gap:4px}
+.snowgrid.seven button{font-size:18px;min-height:0;aspect-ratio:1}
 .snowgrid button{aspect-ratio:1;background:#1c2a31;border:1px solid var(--line);border-radius:6px;font-size:24px;color:var(--frost)}
 .snowgrid.five button{font-size:20px}
 .snowgrid button.can{border-color:var(--gold)}
@@ -1107,7 +1112,7 @@ function checkOath(c){
   else{const k=o.st||'str';S.st[k]++;gift=`${o.teach||`${n}陪你練了整整一個冬天。`}\n<span class="good">${STAT[k]} +1</span>`;}
   log(`與勇士${n}立下誓約。`);
   S.stats.oaths=(S.stats.oaths||0)+1;if(S.stats.oaths>=5) unlock('oaths5');
-  pushLater(el=>resultView(el,`與${n}立誓`,`${fillQ(o.line)||`${n}割破手掌，把血滴在你的斧刃上：「從今天起，我的命就是你的。」`}\n\n${gift}${o.txt?`\n${n}${o.txt}。`:''}\n\n立誓的勇士永遠不會背叛你，戰時會拚盡全力。`,'誓約',c.id));
+  pushLater(el=>resultView(el,`與${n}立誓`,`${fillQ(o.line)||`${n}割破手掌，把血滴在你的斧刃上：「從今天起，我的命就是你的。」`}\n\n${gift}${o.txt?`\n${n}${o.txt}。`:''}\n\n立誓的勇士永遠不會背叛你，戰時會拚盡全力。`,'誓約',ART_HAVE.has('sc_oath_'+c.id)?'sc_oath_'+c.id:c.id));
 }
 function maybeScar(){
   if(S.scars>=3||S.hp>=maxHp()*.25) return '';
@@ -1428,15 +1433,15 @@ function kingAwaken(el,d,done){
   const [l1,l2]=pick(KING_LINES),art=hasArt('halfdan2')?'halfdan2':'halfdan';
   cineView(el,d.retry?[
     {art:['halfdan'],text:'老王哈夫丹坐在王座上，看著你走進來。\n\n「又是你。」\n\n他站了起來，劍一直握在手裡，沒有收回鞘裡過。',btn:'……'},
-    {art:KING_FORM[0].art,text:'「這一次，我不陪你熱身了。」',big:1,shake:1,btn:'迎戰'},
+    {art:['sc_k_boast',...KING_FORM[0].art],text:'「這一次，我不陪你熱身了。」',big:1,shake:1,btn:'迎戰'},
   ]:[
     {art:['sc_k_rise','halfdan'],text:`老王哈夫丹倒在地上。你以為一切都結束了。\n\n然後，他用劍撐著地，一點一點站了起來。王廳裡的火把，全都暗了一下。\n\n他低低地冷笑了一聲：\n「${l1}」`,btn:'……'},
-    {art:KING_FORM[0].art,text:`「${l2}」`,big:1,shake:1,btn:'迎戰'},
+    {art:['sc_k_boast',...KING_FORM[0].art],text:`「${l2}」`,big:1,shake:1,btn:'迎戰'},
   ],()=>kingAwakenGame(el,d,done),'生死單挑 · 王者覺醒');
 }
 function kingAwakenGame(el,d,done){
   markGame('awaken');
-  const head=`<p class="eyebrow">生死單挑 · 王者覺醒</p><h2>老王覺醒了</h2>`;
+  const head=`${sceneImg('sc_k_awaken')}<p class="eyebrow">生死單挑 · 王者覺醒</p><h2>老王覺醒了</h2>`;
   if(S.mini==='react'){
     readyPage(el,head,`他的威壓像一座山一樣壓下來。\n\n<b>連續點「挺住！」</b>（或空白鍵），把指針撐在<b style="color:var(--gold)">金色區域</b>裡。\n不點的話，指針會一直往左掉，而且越掉越快。\n一共 4 秒，撐在金色裡越久越好。`,()=>{
     // 一直被往下壓的指針，要連點把它撐在金色區域裡
@@ -1593,7 +1598,7 @@ function kingCombo(el,d,done){
   // 劍路至少要混兩種招式，同一招不能佔太多刀（不然一條線索就講完了）
   const okSeq=q=>K.every(k=>q.filter(x=>x===k).length<=Math.max(3,Math.ceil(n/3)+1));
   let seq;do{seq=Array.from({length:n},()=>pick(K));}while(!okSeq(seq));
-  const head=`<p class="eyebrow">生死單挑 · 王者連斬</p><h2>${d.name}</h2>`;
+  const head=`${sceneImg('sc_k_stance')}<p class="eyebrow">生死單挑 · 王者連斬</p><h2>${d.name}</h2>`;
   if(S.mini==='react'){
     // 反應型「看穿虛實」：金光是真的破綻，要點；紅光是假動作，別碰。最多兩格同時亮
     const reds=Math.round(n/2),order=[...Array(n).fill('g'),...Array(reds).fill('r')].sort(()=>Math.random()-.5);
@@ -2140,7 +2145,7 @@ function battle(o){
       const nightP=clamp(.15+eff('wit')*.035+(eff('wit')>=9?.08:0)+(wx('fog')?.15:0)+(qd('einar')&&hasC('einar')?.05:0)+(hasC('einar')?.08:0)+(has('tactician')?.1:0)+(gt('loki',1)?.05:0)+(S.flags.rowNight?.1:0),.1,.9);
       const est=scouted(o.defend)?`${Math.round(o.def)}`:`${Math.round(o.def*.85)}–${Math.round(o.def*1.15)}`;
       const m=fieldMix();
-      el.innerHTML=`<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>
+      el.innerHTML=`${big?sceneImg('sc_bt_1'):''}<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>
       ${o.intro?`<p class="story">${o.intro}</p>`:''}
       <div class="vs"><div><span>我方戰力</span><b>${Math.round(p)}</b><small>出戰 ${m.fm} 人（精兵 ${m.e}・老兵 ${m.v}）${garrison()?` · 駐守 ${Math.min(garrison(),S.men)}`:''}${S.champions.length?` · 勇士 ${S.champions.length}`:''}</small></div>
       <div><span>敵方戰力</span><b>${est}</b><small>${o.foeNote||(scouted(o.defend)?'已探明':'只能估個大概')}</small></div></div>
@@ -2185,7 +2190,7 @@ function battle(o){
       sfx('clash');
       const draw2=()=>{
         const left=R-mine[0]-mine[1]-mine[2];
-        el.innerHTML=`<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,1)}
+        el.innerHTML=`${sceneImg('sc_bt_2')}<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,1)}
         <p class="story">${open}</p><div class="r2tags"><span>預備隊 <b>${R}</b> 隊${R>6?'（兵比敵人多）':R<6?'（兵比敵人少）':''}</span>${FT.s?`<span>${FT.s}</span>`:''}</div>
         ${(S.flags.r2n||0)<3?'<p class="hint">把預備隊放到三條戰線上：隊數不比敵軍少就守得住。守住兩條就佔上風，三條全守要靠打頭陣的勇士。</p>':''}
         <div class="lanes">${LANES.map((n,i)=>`<div class="lane"><b>${n}</b><span class="${seen[i]?'':'dim'}">${hint[i]}</span>
@@ -2207,7 +2212,7 @@ function battle(o){
     };
     const round3=(t,nightOk,ratio,txt,n)=>{
       sfx(n>=2?'hit':'bad');
-      el.innerHTML=`<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,2)}
+      el.innerHTML=`${sceneImg('sc_bt_3')}<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,2)}
       <p class="story">${txt}\n\n${['三條戰線全垮了。','只剩一條戰線還撐著。','三條戰線守住了兩條。','三條戰線全都守住了！'][n]}兩邊都殺紅了眼。現在，該決定怎麼收尾了。</p>
       <div class="choices">
         <button class="choice" data-r3="steady"><b>穩紮穩打</b><small>守住現在的局面：佔上風時更穩，落後時很難翻盤</small></button>
@@ -2267,7 +2272,7 @@ function battle(o){
       sfx(win?'horn':'bad');
       const after=o.onEnd(win,{nightOk})||'';
       if(win&&t==='flank'&&!o.defend&&Math.random()<.4) pushModal(stragglers());
-      el.innerHTML=`<p class="eyebrow">戰報</p><h2>${win?'勝利':'敗退'}</h2>
+      el.innerHTML=`${sceneImg(win?'sc_bt_win':'sc_bt_lose')}<p class="eyebrow">戰報</p><h2>${win?'勝利':'敗退'}</h2>
       <div class="res">${lines.join('\n')}\n${win?'<span class="good">':'<span class="bad">'}${after}</span></div>
       <button class="primary" id="m-ok">繼續</button>`;
       $('#m-ok').onclick=()=>{if(S.hp<=0)triggerFall(o.cause||'倒在亂軍之中');closeModal();};$('#m-ok').focus();
@@ -2507,21 +2512,24 @@ function levelUpModal(el){
 }
 
 /* ================= 事件 ================= */
+const evScene=ev=>{let b=typeof ev.scene==='function'?ev.scene():ev.scene;if(!b&&ev.id)b='sc_ev_'+ev.id;if(!b)return null;
+  const vs=[b,b+'_b',b+'_c'].filter(k=>ART_HAVE.has(k));return vs.length?pick(vs):null;};
 function eventModal(ev){
   return el=>{
-    const txt=typeof ev.text==='function'?ev.text():ev.text;
+    const txt=typeof ev.text==='function'?ev.text():ev.text;const scn=evScene(ev);
     const opts=ev.ch.filter(c=>!c.show||c.show());
     const art=typeof ev.art==='function'?ev.art():ev.art;
-    el.innerHTML=`${ev.scene?sceneImg(ev.scene):''}<p class="eyebrow">${ev.kind||'事件'}</p><h2>${typeof ev.title==='function'?ev.title():ev.title}</h2>${art&&hasArt(art)?avatar(art,'big'):''}<p class="story">${txt}</p>
+    el.innerHTML=`${scn?sceneImg(scn):''}<p class="eyebrow">${ev.kind||'事件'}</p><h2>${typeof ev.title==='function'?ev.title():ev.title}</h2>${!scn&&art&&hasArt(art)?avatar(art,'big'):''}<p class="story">${txt}</p>
     <div class="choices">${opts.map((c,i)=>{const ok=!c.ok||c.ok();const n=typeof c.note==='function'?c.note():c.note;return `<button class="choice" data-i="${i}" ${ok?'':'disabled'}><b>${typeof c.t==='function'?c.t():c.t}</b>${n?`<small>${n}</small>`:''}</button>`;}).join('')}</div>`;
     el.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{
-      const r=opts[+b.dataset.i].fx();
+      const ci=ev.ch.indexOf(opts[+b.dataset.i]);const r=opts[+b.dataset.i].fx();
       if(r===null){closeModal();return;}
-      resultView(el,typeof ev.title==='function'?ev.title():ev.title,r,ev.kind||'事件');render();
+      const rs=scn?(ART_HAVE.has(scn.replace(/_[bc]$/,'')+'_'+(ci+1))?scn.replace(/_[bc]$/,'')+'_'+(ci+1):scn):undefined;
+      resultView(el,typeof ev.title==='function'?ev.title():ev.title,r,ev.kind||'事件',rs);render();
     });
   };
 }
-const EV_SVEN={kind:'宿敵',title:'碼頭上的老面孔',
+const EV_SVEN={kind:'宿敵',scene:'sc_rv_dock',title:'碼頭上的老面孔',
   text:()=>`你在碼頭卸貨時，有人一腳踢翻了你的木箱。\n\n是赫羅爾夫，故鄉雅爾的兒子。他也離開了峽灣，身後站著一群紅帆船上的打手。\n\n「看看是誰？那個說要當國王的${esc(S.name)}。」他笑得很大聲，「國王？我看你還在替人扛箱子。」`,
   ch:[
     {t:'當眾跟他打一場',note:'比武，點到為止',fx:()=>{duel('sven1',{lethal:false,xp:14,intro:'圍觀的人吹起了口哨。',onEnd:w=>{
@@ -2636,7 +2644,7 @@ const EVENTS=[
         {t:'收他當戰士',fx:()=>{S.men++;atone(8);return '「跟著我，總有一天你會比我強。」少年愣了很久，點了頭。\n戰士 +1，惡名 -8';}},
         {t:'把他趕走',fx:()=>'少年被拖了出去。'}]},
   {id:'astrid',once:1,phase:[2,3],cond:()=>S.fame>=35,title:'盾女',text:'一個背著圓盾的女戰士走進營地，把斧頭插在你面前的桌上：「我叫阿斯特麗德。我只追隨比我強的人。」',
-    ch:[{t:'接受比武',note:'點到為止',fx:()=>{duel('astrid',{lethal:false,xp:16,onEnd:w=>{if(w){const j=addChamp('astrid',60);pushModal(el=>cineView(el,[{art:['sc_win_astrid','astrid'],text:'你的斧背敲在她的盾緣上。那面畫著渡鴉的圓盾脫手飛了出去，在泥地上滾了好幾圈。'},{art:['sc_win_astrid','astrid'],text:'阿斯特麗德愣在原地，看著自己空空的左手。\n\n圍觀的人一點聲音都沒有。從來沒有人讓她的盾落地過。'},{art:['sc_win_astrid','astrid'],text:'她走過去撿起盾牌，背對著你，很久沒有轉身。\n\n「……運氣好而已。」她說。耳朵有一點紅。'},{art:['astrid'],text:'然後她把斧頭插進泥地裡，走回你面前，單膝跪下。\n\n'+j}],closeModal,'盾女'));return '阿斯特麗德的盾牌飛了出去。';}S.flags.ev_astrid=0;return '她搖搖頭：「等你更強再說。」她也許還會回來。';}});return null;}},
+    ch:[{t:'接受比武',note:'點到為止',fx:()=>{duel('astrid',{lethal:false,xp:16,onEnd:w=>{if(w){const j=addChamp('astrid',60);pushModal(el=>cineView(el,[{art:['sc_win_astrid','astrid'],text:'你的斧背敲在她的盾緣上。那面畫著渡鴉的圓盾脫手飛了出去，在泥地上滾了好幾圈。'},{art:['sc_win_astrid','astrid'],text:'阿斯特麗德愣在原地，看著自己空空的左手。\n\n圍觀的人一點聲音都沒有。從來沒有人讓她的盾落地過。'},{art:['sc_win_astrid2','sc_win_astrid','astrid'],text:'她走過去撿起盾牌，背對著你，很久沒有轉身。\n\n「……運氣好而已。」她說。耳朵有一點紅。'},{art:['sc_win_astrid3','astrid'],text:'然後她把斧頭插進泥地裡，走回你面前，單膝跪下。\n\n'+j}],closeModal,'盾女'));return '阿斯特麗德的盾牌飛了出去。';}S.flags.ev_astrid=0;return '她搖搖頭：「等你更強再說。」她也許還會回來。';}});return null;}},
         {t:'用你的計畫說服她',note:()=>rate(.1+eff('pre')*.07),fx:()=>{if(chk(.1+eff('pre')*.07))return '你沒有拔武器，只是把你的計畫說給她聽。她沉默很久，然後點頭。\n'+addChamp('astrid',55);S.flags.ev_astrid=0;return '她聽完只說了一句：「空話。」';}},
         {t:'我不需要你',fx:()=>'她冷哼一聲，轉身走了。'}]},
   {id:'una',once:1,phase:[2,3],title:'霧沼的草藥婆',text:'一個背著藥簍的老婦人來到部落門口。她說她叫烏娜，霧沼的村子容不下她了。「給我一間屋子，我能治好你身上的傷。」',
@@ -2741,7 +2749,7 @@ function rivalAttack(){
     `號角聲從海邊傳來。赫羅爾夫的紅帆船靠岸了，他的人正朝${esc(S.tribe)}衝過來。\n\n${({win:`「${esc(S.name)}！碼頭上那一拳，我記了好幾年。今天連本帶利還你！」`,yield:`「${esc(S.name)}！還記得你在碼頭彎腰撿箱子的樣子嗎？今天，我要你跪著撿你的木牆！」`,lose:`「${esc(S.name)}！碼頭上我讓你趴過一次。今天，讓你永遠起不來！」`})[S.flags.dock]||`「${esc(S.name)}！今天我要燒了你的破木牆！」`}`,
     `紅帆又來了，這次船更多。${S.flags.traitor?`站在赫羅爾夫身邊的，是當初背叛你的${S.flags.traitor}。`:'赫羅爾夫從丹麥雇來了一批傭兵。'}\n\n「上次是我大意了。」`,
     `這是赫羅爾夫傾巢而出的最後一擊。海面上全是紅帆，船頭綁著點燃的油桶。\n\n「今天，只有一個人能活著離開這片海灘。」`][k];
-  pushLater(eventModal({kind:'宿敵',title:['紅帆來襲','紅帆再臨','火船'][k],text:txt,
+  pushLater(eventModal({kind:'宿敵',scene:['sc_rv_raid1','sc_rv_raid2','sc_rv_fire'][k],title:['紅帆來襲','紅帆再臨','火船'][k],text:txt,
     ch:[{t:'集結戰士迎戰',note:scouted(true)?`敵方戰力 ${def}`:`敵方戰力約 ${Math.round(def*.85)}–${Math.round(def*1.15)}`,fx:()=>{battle({title:'守衛部落',def,defend:true,foeNote:'赫羅爾夫的紅帆戰團',cause:'死在紅帆戰團的亂刀之下',onEnd:w=>{
           if(w){addFame(6);log('擊退了赫羅爾夫的進攻。');return '紅帆船狼狽地退回海上。\n名聲 +6';}
           return svenPlunder(k);}});return null;}},
@@ -2801,7 +2809,7 @@ function favor(g,n){
 }
 function godsHTML(){
   return `<div class="sec-h">眾神 · 神恩</div><div class="gods">${Object.entries(GODS).map(([k,G])=>{const v=(S.favor||{})[k]||0,t=godTier(k);
-    return `<div class="god ${t&&hasArt(k)?'withav':''}">${t?avatar(k):''}<b><span class="r">${G.rune}</span>${G.name}<small>${v}${t?` · ${GOD_TIER[t]}`:''}</small></b><span class="gbar"><i style="width:${v}%"></i><em style="left:30%"></em><em style="left:60%"></em></span>
+    return `<div class="god ${hasArt(k)?'withav':''}">${t?avatar(k):hasArt(k)?`<span class="glock">${avatar(k)}</span>`:''}<b><span class="r">${G.rune}</span>${G.name}<small>${v}${t?` · ${GOD_TIER[t]}`:''}</small></b><span class="gbar"><i style="width:${v}%"></i><em style="left:30%"></em><em style="left:60%"></em></span>
     <small>喜歡：${G.likes}${G.hates?`；討厭：${G.hates}`:''}</small>${t?`<small class="good">${G.tiers.slice(0,t).join('；')}</small>`:''}</div>`;}).join('')}</div>`;
 }
 const BLOT={odin:{cost:[10,0],what:n=>`把一隻渡鴉的羽毛和 ${n[0]} 銀幣丟進聖泉`},thor:{cost:[0,8],what:n=>`宰一頭山羊，${n[1]} 糧食`},tyr:{cost:[15,0],what:n=>`在法石前獻上 ${n[0]} 銀幣，重申誓言`},freyja:{cost:[4,10],what:n=>`獻上 ${n[1]} 糧食、${n[0]} 銀幣打的金麥穗`},loki:{cost:[12,0],what:n=>`把 ${n[0]} 銀幣和一壺蜂蜜酒倒進火裡`}};
@@ -2969,9 +2977,9 @@ const HOLM_WHY=[
   {why:j=>`${j}根本沒說理由。他的人說：雅爾只是想看看，傳說中的你到底有多少斤兩`,stake:'誰的名字比較響',type:'fame',
    win:'從此以後，峽灣裡的人提到你的名字時，聲音都會壓低一點。',lose:'你成了別人故事裡的那個「輸家」。'},
 ];
-const RAGNAR_WIN=(line,j)=>[{art:['sc_win_ragnar','ragnar'],text:'拉格納仰面倒在地上，斧頭飛出去插在了柱子上。'},{art:['sc_win_ragnar','ragnar'],text:'他躺在那裡，開始大笑，笑到咳出了血。\n\n「好久……好久沒人能讓我躺下了！」'},{art:['ragnar'],text:`他跳起來，一把抱住你，抱得你骨頭都在響。\n\n${line}\n\n${j}`}];
-const HOLM_WIN={bjorn:[{art:['sc_win_bjorn','bjorn'],text:'比約恩倒在決鬥的斗篷上。他咬在嘴裡的盾牌邊緣，被他自己咬爛了一大塊。'},{art:['sc_win_bjorn','bjorn'],text:'他吐掉嘴裡的血和木屑，慢慢坐了起來。\n\n圍觀的人等著他發狂。他沒有。'},{art:['sc_win_bjorn','bjorn'],text:'他把那面咬爛的盾牌，丟在了你的腳邊。'}],
-  sigrid:[{art:['sc_win_sigrid','sigrid'],text:'你的盾一頂，西格麗德整個人往後倒，摔在決鬥的斗篷上。'},{art:['sc_win_sigrid','sigrid'],text:'她的盾牌飛出去好遠，一路滾到了法石旁邊。圍觀的人倒抽了一口氣。'},{art:['sc_win_sigrid','sigrid'],text:'她躺在那裡看著天空，忽然笑出聲來。然後朝你伸出手：「拉我起來。」'}]};
+const RAGNAR_WIN=(line,j)=>[{art:['sc_win_ragnar','ragnar'],text:'拉格納仰面倒在地上，斧頭飛出去插在了柱子上。'},{art:['sc_win_ragnar','ragnar'],text:'他躺在那裡，開始大笑，笑到咳出了血。\n\n「好久……好久沒人能讓我躺下了！」'},{art:['sc_win_ragnar2','ragnar'],text:`他跳起來，一把抱住你，抱得你骨頭都在響。\n\n${line}\n\n${j}`}];
+const HOLM_WIN={bjorn:[{art:['sc_win_bjorn','bjorn'],text:'比約恩倒在決鬥的斗篷上。他咬在嘴裡的盾牌邊緣，被他自己咬爛了一大塊。'},{art:['sc_win_bjorn2','sc_win_bjorn','bjorn'],text:'他吐掉嘴裡的血和木屑，慢慢坐了起來。\n\n圍觀的人等著他發狂。他沒有。'},{art:['sc_win_bjorn3','sc_win_bjorn','bjorn'],text:'他把那面咬爛的盾牌，丟在了你的腳邊。'}],
+  sigrid:[{art:['sc_win_sigrid2','sc_win_sigrid','sigrid'],text:'你的盾一頂，西格麗德整個人往後倒，摔在決鬥的斗篷上。'},{art:['sc_win_sigrid3','sc_win_sigrid','sigrid'],text:'她的盾牌飛出去好遠，一路滾到了法石旁邊。圍觀的人倒抽了一口氣。'},{art:['sc_win_sigrid','sigrid'],text:'她躺在那裡看著天空，忽然笑出聲來。然後朝你伸出手：「拉我起來。」'}]};
 const HOLM_RECRUIT={
   bjorn:()=>({kind:'霍姆岡',art:'bjorn',title:'「鐵甲」比約恩',text:'比約恩從地上爬起來，擦掉嘴角的血，瞪著你看了很久。\n\n「我跟過三個雅爾，沒有一個贏過我。」他把咬爛的盾牌丟在地上，「你們那邊，還缺不缺一個瘋子？」',
     ch:[{t:'「上船吧。」',fx:()=>addChamp('bjorn',60)},{t:'「我已經有夠多瘋子了。」',fx:()=>'他聳聳肩，扛著斧頭走了。'}]}),
@@ -3008,7 +3016,7 @@ function holmgangEvent(){
     :{t:'認錯賠錢（25 銀幣）',ok:()=>S.silver>=25,fx:()=>{S.silver-=25;addFame(-4);favor('tyr',-6);return '你派人送去了銀幣。有人說你怕了。\n銀幣 -25，名聲 -4';}};
   const recruit=()=>{const id={holmB:'bjorn',holmS:'sigrid'}[foe.k];if(!id||hasC(id)||S.flags['met_'+id])return;S.flags['met_'+id]=1;pushLater(el=>cineView(el,HOLM_WIN[id],closeModal,'霍姆岡'));pushLater(eventModal(HOLM_RECRUIT[id]()));};
   const self=()=>duel(foe.k,{lethal:false,xp:16,onEnd:w=>{if(w){favor('tyr',4);recruit();return win('self');}const sc=S.hp<maxHp()*.25&&S.scars<3&&Math.random()<.3?(S.scars++,'\n你留下了一道舊傷。'):'';return lose()+sc;}});
-  return eventModal({kind:'霍姆岡',title:'霍姆岡決鬥',text:`鄰近的雅爾${jarl}派人送來一塊刻了字的木板：${r.why(jarl)}。\n\n依照古老的法律，雙方各派一人，在鋪開的斗篷上決鬥，第一個倒地的人輸。賭注是：${stake}。\n\n${foe.intro(jarl)}`,
+  return eventModal({kind:'霍姆岡',scene:ART_HAVE.has('sc_ev_holm_'+foe.k)?'sc_ev_holm_'+foe.k:'sc_ev_holm',title:'霍姆岡決鬥',text:`鄰近的雅爾${jarl}派人送來一塊刻了字的木板：${r.why(jarl)}。\n\n依照古老的法律，雙方各派一人，在鋪開的斗篷上決鬥，第一個倒地的人輸。賭注是：${stake}。\n\n${foe.intro(jarl)}`,
     ch:[{t:'親自下場',note:'比武，打到一方倒地；提爾欣賞親自上陣的人',fx:()=>{favor('tyr',8);self();return null;}},
         {t:'讓拉格納上場',show:()=>foe.k==='holmB'&&hasC('ragnar')&&!isJarlId('ragnar')&&!hasC('bjorn'),note:'拉格納自告奮勇；父子對決',fx:()=>{favor('tyr',5);S.flags.met_bjorn=1;proxyDuel('holmB','ragnar',{deathRate:0,onEnd:w=>{pushLater(eventModal(EV_FATHER_SON(w)));return w?win('proxy'):lose();},onGiveUp:()=>{}},[]);return null;}},
         {t:'派勇士代你下場',show:()=>S.champions.some(proxyOk),note:'決鬥代理人；這種決鬥很少鬧出人命',fx:()=>{favor('tyr',5);pickProxy(foe.k,{deathRate:.2,onEnd:(w,more)=>{if(w)recruit();return w?win('proxy'):more?'':lose();},onGiveUp:()=>{},selfFallback:self});return null;}},
@@ -3149,7 +3157,7 @@ function trainModal(){
   });
 }
 const REST_EVENTS=[
-  {title:'夢見母親',text:'你夢見母親站在峽灣的岸邊，對你說了一句話。醒來時，你只記得那句話讓你很平靜。',ch:[{t:'起身',fx:()=>{gainXp(10);return '經驗 +10';}}]},
+  {id:'dream',scene:()=>'sc_ev_dream_'+(S.look&&S.look.sex==='f'?'f':'m'),title:'夢見母親',text:'你夢見母親站在峽灣的岸邊，對你說了一句話。醒來時，你只記得那句話讓你很平靜。',ch:[{t:'起身',fx:()=>{gainXp(10);return '經驗 +10';}}]},
   {title:'夜裡的狼嚎',text:'半夜，狼嚎越來越近。火堆快熄了，有一雙綠眼睛在黑暗裡盯著你。',ch:[{t:'抓起斧頭',note:'生死單挑',fx:()=>{duel('wolf',{lethal:true,hunt:true,xp:8,cause:'睡夢中被狼咬斷了喉嚨',onEnd:w=>{if(!w)return '';S.food+=3;return '你把狼皮鋪在了床上。\n糧食 +3';}});return null;}},{t:'往火裡添柴，嚇走牠',note:()=>rate(.4+eff('pre')*.05),fx:()=>{if(chk(.4+eff('pre')*.05))return '火光一亮，綠眼睛退回了黑暗裡。';S.food=Math.max(0,S.food-4);return '<span class="bad">狼趁你不注意叼走了一袋肉乾。糧食 -4</span>';}}]},
   {title:'營火邊的旅人',text:'一個旅人借你的火取暖，跟你聊起了各地雅爾的事。',ch:[{t:'向他打聽消息',fx:()=>{gainXp(6);addFame(2);return '他說了很多你不知道的事，臨走前說會幫你傳名。\n經驗 +6，名聲 +2';}},{t:'請他喝一杯（3 銀幣）',ok:()=>S.silver>=3,fx:()=>{S.silver-=3;addFame(4);return '旅人喝得很開心，答應到每個村子都提你的名字。\n名聲 +4';}}]},
   {title:'有人摸進來了',text:'你半夢半醒間，聽見有人在翻你的行囊。',ch:[
@@ -3169,7 +3177,7 @@ function rest(){
   let healed='';
   if(S.scars&&(hasC('una')||bl('altar')>=3||has('regen')||ownsR('marsh')||Math.random()<.5)){S.scars--;S.hp=maxHp();healed='一道舊傷痊癒了';}
   toast(healed||'生命全滿');
-  if(Math.random()<.35) pushLater(eventModal(Object.assign({kind:'夜裡'},pick(REST_EVENTS))));
+  if(Math.random()<.35){const e=pick(REST_EVENTS);pushLater(eventModal(Object.assign({kind:'夜裡',id:'rest'+REST_EVENTS.indexOf(e)},e)));}
   render();
 }
 function mateJoin(){
@@ -3208,7 +3216,7 @@ function declare(){
   log('向挪威各地宣告了自己的名字。');
   const T=esc(S.tribe),P=[
     {art:['sc_d3_wall','sc_ch3'],text:`派出使者的前一晚，你站在木牆上往下看。\n\n${T}的炊煙一縷一縷升起來，你的戰士和他們的家人，都睡在你的屋簷下。`},
-    {art:['sc_d3_wall','sc_ch3'],text:'十九歲那年說的那句狠話，當時只是為了爭一口氣。\n\n現在，它背著這些人的命。'}];
+    {art:['sc_d3_wall2','sc_d3_wall','sc_ch3'],text:'十九歲那年說的那句狠話，當時只是為了爭一口氣。\n\n現在，它背著這些人的命。'}];
   if(S.flags.mate) P.push({art:['c_thorstein'],text:'托爾斯坦走上來，站在你旁邊：「一旦說出口，就不能回頭了。」\n\n「我知道。」'});
   P.push({art:['sc_d3_envoy','sc_ch3'],text:`第二天，你派出使者，帶著${T}的旗幟，走遍挪威的峽灣。`},
     {art:['sc_d3_sigurd','sc_ch3'],text:'拉德的雅爾西格德，坐在用整棵橡木搭成的長廳裡，把使者趕了出去。\n\n「漁村來的小子，也想跟我平起平坐？」'},
@@ -3410,7 +3418,7 @@ function kingFate(el){
 }
 function afterLordWin(r){
   if(r.id==='red'){pushModal(svenFate(r));return '赫羅爾夫跪倒在地，斧頭脫手。';}
-  if(r.id==='grey'&&!hasC('osric')&&!S.flags.osricDone){S.flags.osricDone=1;pushModal(eventModal({kind:'戰後',title:'雅爾的親衛隊長',text:'雅爾西格德的親衛隊長古托姆被押到你面前。他是西格德最信任的人，聽說打仗很有一套。',
+  if(r.id==='grey'&&!hasC('osric')&&!S.flags.osricDone){S.flags.osricDone=1;pushModal(eventModal({kind:'戰後',id:'osric',title:'雅爾的親衛隊長',text:'雅爾西格德的親衛隊長古托姆被押到你面前。他是西格德最信任的人，聽說打仗很有一套。',
     ch:[{t:'收編他',fx:()=>addChamp('osric',45)},{t:'放他走',fx:()=>{S.mercy++;return '古托姆深深看了你一眼，走了。';}}]}));}
   return takeSeat(r,'單挑勝利');
 }
@@ -3444,7 +3452,7 @@ function lordChoice(r){
   ]});
 }
 function svenFate(r){
-  return eventModal({kind:'宿敵',title:'赫羅爾夫的下場',text:'赫羅爾夫跪在你面前，滿臉是血。他抬起頭，還在笑：「動手啊，'+ORI().l+'。」',ch:[
+  return eventModal({kind:'宿敵',scene:'sc_rv_kneel',title:'赫羅爾夫的下場',text:'赫羅爾夫跪在你面前，滿臉是血。他抬起頭，還在笑：「動手啊，'+ORI().l+'。」',ch:[
     {t:'了結他',fx:()=>{S.rival.fate='死在你的斧下';addFame(10);unlock('kill_sven');return '你結束了這段恩怨。\n名聲 +10\n'+takeSeat(r,'斬殺宿敵');}},
     {t:'饒他一命，讓他效忠',note:'他會成為勇士，但不一定永遠聽話',fx:()=>{S.mercy++;S.rival.fate='跪下效忠，成了你的勇士';unlock('spare_sven');
       return '赫羅爾夫愣了很久，然後把斧頭橫放在你腳邊。\n'+addChamp('sven',35)+'\n'+takeSeat(r,'收服宿敵');}},
@@ -3453,13 +3461,13 @@ function svenFate(r){
 function allyGrey(){
   S.silver-=30;
   const ac=allyChance();S.flags.allyBonus=0;
-  if(chk(ac)){S.reg.grey.st='ally';addFame(8);log('與拉德的雅爾西格德結盟。');note('盟約','雅爾西格德收下了禮物，第一次對你舉杯。\n<span class="good">拉德成為盟友</span>','外交');}
+  if(chk(ac)){S.reg.grey.st='ally';addFame(8);log('與拉德的雅爾西格德結盟。');note('盟約','雅爾西格德收下了禮物，第一次對你舉杯。\n<span class="good">拉德成為盟友</span>','外交','sc_ally_grey');}
   else{S.reg.grey.cd=3;S.reg.grey.def+=4;note('被拒絕','他收下禮物，然後把你的使者趕出長廳。\n<span class="bad">拉德加強了防備</span>','外交');}
   passTime();
 }
 function allyEagle(){
   duel('brynhild',{lethal:false,xp:24,intro:'布倫希爾德在山頂畫了一個圈：「出圈的人輸。」',onEnd:w=>{
-    if(w){S.reg.eagle.st='ally';addFame(12);log('比武勝過布倫希爾德，鷹巢峰成為盟友。');return '她大笑著把劍插回鞘裡：「好！鷹巢峰的戰士跟你走。」\n<span class="good">鷹巢峰成為盟友，名聲 +12</span>';}
+    if(w){S.reg.eagle.st='ally';addFame(12);log('比武勝過布倫希爾德，鷹巢峰成為盟友。');if(ART_HAVE.has('sc_ally_eagle'))pushLater(el=>resultView(el,'盟約','布倫希爾德握住你的手臂，像握住一把好劍。\n<span class="good">鷹巢峰成為盟友</span>','外交','sc_ally_eagle'));return '她大笑著把劍插回鞘裡：「好！鷹巢峰的戰士跟你走。」\n<span class="good">鷹巢峰成為盟友，名聲 +12</span>';}
     S.reg.eagle.cd=3;return '她把你推出圈外：「回去再練練。」';}});
   passTime();
 }
@@ -3817,7 +3825,7 @@ function danegeld(o){
 }
 function osPact(o){
   const g=S.os[o.id];g.st='ally';addFame(20);log(`與${o.kind==='siege'?'法蘭克':'威塞克斯'}結盟。`);
-  note('同一個神',o.kind==='siege'?'法蘭克國王在聖壇前擁抱了你，承認你是北方的基督徒國王。\n<span class="good">名聲 +20；丹麥人打來時，法蘭克騎兵會來幫你</span>':'阿佛烈請你到他的教堂裡，兩個國王一起領了聖餐。\n<span class="good">名聲 +20；丹麥人打來時，撒克遜人會站在你這邊</span>','結盟');
+  note('同一個神',o.kind==='siege'?'法蘭克國王在聖壇前擁抱了你，承認你是北方的基督徒國王。\n<span class="good">名聲 +20；丹麥人打來時，法蘭克騎兵會來幫你</span>':'阿佛烈請你到他的教堂裡，兩個國王一起領了聖餐。\n<span class="good">名聲 +20；丹麥人打來時，撒克遜人會站在你這邊</span>','結盟',o.kind==='siege'?'sc_ally_frank':'sc_ally_wessex');
   passTime();
 }
 // 在海外遇見錯過的勇士
@@ -4850,7 +4858,7 @@ function varangReturn(){
   v.back=1;
   if(S.champions.length>=7){S.silver+=150;note('米克拉加德的金子',`${CHAMPS[v.id].name}的信從南方寄來，附上了一袋金子。${P}說，${P}在那裡過得很好，不回來了。\n銀幣 +150`,'名人來訪');return true;}
   S.champions.push({...v.c,skill:Math.min(5,(v.c.skill||0)+2),bond:Math.max(v.c.bond,90)});S.silver+=150;
-  note('從南方回來的人',`${CHAMPS[v.id].name}回來了，曬得黝黑，脖子上掛著金鍊子，身上多了好幾道新傷。\n\n「皇帝的宮殿有金子做的樹，樹上有會唱歌的金鳥。」${P}把一袋金子丟在桌上，「但我還是比較喜歡這裡。」\n<span class="good">${CHAMPS[v.id].name}回來了（戰技 +2），銀幣 +150</span>`,'名人來訪');
+  note('從南方回來的人',`${CHAMPS[v.id].name}回來了，曬得黝黑，脖子上掛著金鍊子，身上多了好幾道新傷。\n\n「皇帝的宮殿有金子做的樹，樹上有會唱歌的金鳥。」${P}把一袋金子丟在桌上，「但我還是比較喜歡這裡。」\n<span class="good">${CHAMPS[v.id].name}回來了（戰技 +2），銀幣 +150</span>`,'名人來訪',ART_HAVE.has('sc_back_'+v.id)?'sc_back_'+v.id:v.id);
   return true;
 }
 
@@ -5056,16 +5064,20 @@ function goatChase(){
       mgKey=e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();grab();}};
       draw();raf=requestAnimationFrame(t=>{last=t;tick(t);});
     }else{
-      const W=5;const rocks=new Set();while(rocks.size<3){const r=ri(0,W*W-1);if(r!==0&&r!==W*W-1)rocks.add(r);}
-      let me=0,goat=W*W-1,steps=0,limit=18;
-      const xy=i=>[i%W,Math.floor(i/W)],dist=(a,b)=>{const [ax,ay]=xy(a),[bx,by]=xy(b);return Math.abs(ax-bx)+Math.abs(ay-by);};
-      const nbs=i=>{const [x,y]=xy(i);return [[1,0],[-1,0],[0,1],[0,-1]].map(([dx,dy])=>[x+dx,y+dy]).filter(([a,b])=>a>=0&&b>=0&&a<W&&b<W).map(([a,b])=>b*W+a).filter(j=>!rocks.has(j));};
-      const draw=msg=>{el.innerHTML=`<p class="eyebrow">冬 · 山羊又來了</p><h2>步數 ${steps} / ${limit}</h2><p class="hint">把山羊逼到角落抓住牠。你每走一步，牠就逃一步；不過牠每逃兩步，就會停下來啃一次你的靴子。<small>▲ 是乾草堆，誰都過不去。${msg||''}</small></p>
-        <div class="snowgrid five">${Array.from({length:W*W},(_,i)=>`<button data-gm="${i}" ${nbs(me).includes(i)?'class="can"':''}>${i===me?'🧔':i===goat?'🐐':rocks.has(i)?'▲':''}</button>`).join('')}</div>`;
-        el.querySelectorAll('[data-gm]').forEach(b=>b.onclick=()=>{const i=+b.dataset.gm;if(done||!nbs(me).includes(i))return;me=i;steps++;
-          if(me===goat){finish(true);return;}
-          if(steps%3!==0){const opts=nbs(goat).filter(j=>j!==me);if(opts.length){opts.sort((a,b)=>dist(b,me)-dist(a,me));if(dist(opts[0],me)>=dist(goat,me))goat=opts[0];}}
-          if(steps>=limit){finish(false);return;}draw(steps%3===0?'　山羊停下來啃靴子了！':'');});};
+      // 圍住山羊：每回合搬一捆乾草擋路，山羊會往最近的門口逃；把牠圍死就贏
+      const W=7,C=Math.floor(W*W/2);let hay,goat,placed=0;
+      const xy=i=>[i%W,Math.floor(i/W)];
+      const nb=i=>{const [x,y]=xy(i);return [[1,0],[-1,0],[0,1],[0,-1]].map(([a,b])=>[x+a,y+b]);};
+      const step=(g,H)=>{const prev=new Map([[g,null]]),q=[g];while(q.length){const u=q.shift();for(const [x,y] of nb(u)){if(x<0||y<0||x>=W||y>=W){if(u===g)return 'out';let v=u;while(prev.get(v)!==g)v=prev.get(v);return v;}const v=y*W+x;if(H.has(v)||prev.has(v))continue;prev.set(v,u);q.push(v);}}return null;};
+      const dist=(g,H)=>{const seen=new Set([g]);let fr=[g],d=0;while(fr.length){d++;const nf=[];for(const u of fr)for(const [x,y] of nb(u)){if(x<0||y<0||x>=W||y>=W)return d;const v=y*W+x;if(H.has(v)||seen.has(v))continue;seen.add(v);nf.push(v);}fr=nf;}return 99;};
+      const solvable=H0=>{const H=new Set(H0);let g=C;for(let k=0;k<40;k++){let best=null,bv=-1;for(let i=0;i<W*W;i++){if(i===g||H.has(i))continue;H.add(i);const d=dist(g,H);H.delete(i);if(d>bv){bv=d;best=i;}}H.add(best);const m=step(g,H);if(m===null)return true;if(m==='out')return false;g=m;}return false;};
+      for(let t=0;t<60;t++){hay=new Set();while(hay.size<7){const r=ri(0,W*W-1);if(r!==C)hay.add(r);}if(solvable(hay))break;}
+      goat=C;
+      const draw=msg=>{el.innerHTML=`<p class="eyebrow">冬 · 山羊又來了</p><h2>搬了 ${placed} 捆乾草</h2><p class="hint">山羊在長屋裡，一心想從邊上逃出去。每次你搬一捆乾草（點一格空地）擋路，牠就往最近的出口跑一步。把牠圍住，讓牠無路可逃！<small>${msg||'　'}</small></p>
+        <div class="snowgrid seven">${Array.from({length:W*W},(_,i)=>`<button data-gm="${i}" ${i===goat||hay.has(i)?'disabled':''}>${i===goat?'🐐':hay.has(i)?'▲':''}</button>`).join('')}</div>`;
+        el.querySelectorAll('[data-gm]').forEach(b=>b.onclick=()=>{const i=+b.dataset.gm;if(done||i===goat||hay.has(i))return;hay.add(i);placed++;
+          const m=step(goat,hay);if(m===null){finish(true);return;}if(m==='out'){finish(false);return;}goat=m;
+          const [x,y]=xy(goat);draw(x===0||y===0||x===W-1||y===W-1?'牠已經跑到牆邊了！':'');});};
       draw();
     }
   });
@@ -5297,7 +5309,7 @@ function charHTML(){
   <div class="seg"><span>代理人</span><button data-set="mini" data-v="react" aria-pressed="${S.mini==='react'}">反應型</button><button data-set="mini" data-v="puzzle" aria-pressed="${S.mini==='puzzle'}">解謎型</button></div>
   ${S.mini==='react'?`<div class="seg"><span>判定</span><button data-set="relaxed" data-v="0" aria-pressed="${!S.relaxed}">標準</button><button data-set="relaxed" data-v="1" aria-pressed="${!!S.relaxed}">放寬</button></div>`:''}`;
   return `<div class="char">
-  ${ct==='me'?portrait():''}
+  ${ct==='me'||innerWidth<=640?portrait():''}
   <h2>${esc(S.name)}</h2><div class="who">${bg.name} · ${title} · ${age()} 歲${S.wounded?` · <span class="bad">負傷（${S.wounded} 季）</span>`:''}${S.scars?` · 舊傷 ${S.scars}`:''}</div>
   ${tabs}${body}
   </div>`;
