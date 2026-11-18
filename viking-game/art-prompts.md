@@ -174,8 +174,8 @@ A frozen fjord in deep winter, pale blue light: Vikings in heavy furs kneel arou
 | 2 | sc_tribe_2 | 村落 （✅ 已收到）| 部落等級 2 |
 | 3 | sc_tribe_3 | 城鎮 （✅ 已收到）| 部落等級 3 |
 | 4 | sc_tribe_4 | 要塞 （✅ 已收到）| 部落等級 4 |
-| 5 | sc_tribe_5 | 王都 | 部落等級 5 |
-| 6 | sc_tribe_6 | 傳說之都 | 部落等級 6 |
+| 5 | sc_tribe_5 | 王都 （✅ 已收到）| 部落等級 5 |
+| 6 | sc_tribe_6 | 傳說之都 （✅ 已收到）| 部落等級 6 |
 
 **1. sc_tribe_1（營地）**
 
@@ -225,9 +225,9 @@ The same sheltered Norwegian bay with a stream and a forest behind it, same slig
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | b_longhouse | 擴建長屋 |
-| 2 | b_granary | 糧倉 |
-| 3 | b_smithy | 鐵匠鋪 |
+| 1 | b_longhouse | 擴建長屋 （✅ 已收到）|
+| 2 | b_granary | 糧倉 （✅ 已收到）|
+| 3 | b_smithy | 鐵匠鋪 （✅ 已收到）|
 | 4 | b_barracks | 兵營 |
 | 5 | b_dock | 碼頭 |
 | 6 | b_altar | 祭壇 |
