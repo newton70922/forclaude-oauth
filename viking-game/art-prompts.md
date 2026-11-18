@@ -321,52 +321,17 @@ Monochrome woodcut engraving illustration in the style of a Viking Age carving: 
 A half-built dragon ship on wooden trestles with a carved dragon prow.
 ```
 
-## ★ 重畫（可選，4 張）
+## ✅ 重畫（4 張，已全部收到）
 
-這兩張已經放進遊戲了，只是有一點小疑慮。不畫也可以。
+提爾、我方盾牆、看你、動態雙斧老王都已換上新版。
 
-| 檔名 | 疑慮 |
-|---|---|
-| sc_rag_tyr | 提爾「只剩一隻手」看不太出來：斷掉的那隻手被袖子和綁帶遮住，看起來像兩隻手都在 |
-| sc_rag_ours | 你的背影是長辮子，比較像女性；選男主角的玩家會覺得不像自己 |
-| sc_k_eyes | 同上：你的背影是長辮子 |
-| v_halfdan3 | 地上躺著屍體、背景在燒；可是這張用在「開戰前走向峽口」那一頁，那時候還沒開打 |
-
-**sc_rag_tyr（重畫：斷手要清楚）**
-
-```
-Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. The one-handed war god Tyr marches across the ice toward the viewer at the head of long silent columns of warriors: stern, dark-bearded, simple iron helmet, mail shirt. His RIGHT ARM IS RAISED slightly forward and CLEARLY ENDS AT THE WRIST in a stump wrapped in old leather straps: there is NO right hand at all, clearly visible against the bright sky. His LEFT hand grips a straight sword held low. No banners, no shouting; only discipline and courage. Grim, honorable, unbreakable.
-```
-
-**sc_rag_ours（重畫：背影看不出男女）**
-
-```
-Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-WIDE SHOT FROM BEHIND. The Ragnarök battlefield: an endless frozen plain under a burning red sky, snow and embers in the air. A Viking ruler seen from behind, gender NOT identifiable: a deep fur-lined HOOD pulled up over the head with a simple gold crown worn over the hood, a heavy fur cloak hiding the body shape, no visible hair. The ruler looks along an immense Viking shield wall that stretches across the ice from one edge of the frame to the other: thousands of warriors, round shields locked, spears up, banners snapping in the wind, all facing the giant host far away on the horizon. Nobody looks back. Quiet resolve before the storm.
-```
-
-**sc_k_eyes（重畫：背影看不出男女）**
-
-```
-Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-OVER-THE-SHOULDER SHOT from behind a Viking ruler whose gender is NOT identifiable: a deep fur-lined HOOD pulled up over the head with a simple gold crown worn over the hood, a heavy fur cloak, no visible hair. The ruler looks up at Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle), reborn as an einherjar warrior: his whole figure edged with a soft golden glow, mounted on a white horse. His gaze rests directly on the ruler: steady, measuring, unreadable. Golden light behind him, the rainbow bridge in the distance, snow drifting between them. Intimate, tense, quiet.
-```
-
-**v_halfdan3（重畫：開戰前，地上沒有屍體）**
-
-```
-Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic warm golden-hour rim light with cold blue shadows. Highly detailed fur, wool, leather, iron, silver and braided hair. Gritty, grounded, believable faces. Vertical 3:4 portrait, LOW-ANGLE FULL-BODY shot, the character striding toward the viewer. No text, no letters, no watermark, no frame, no modern objects.
-Old King Halfdan of Norway (around seventy, long white hair and beard, gold knotwork crown, dark red-and-black wool robes with gold knotwork and a fur mantle), reborn as an einherjar warrior with a soft golden glow, striding straight toward the viewer across CLEAN, UNTOUCHED snow and ice in a narrow pass between frozen cliffs, holding two magnificent long-hafted Dane axes (each haft reaches his shoulder, each bearded blade as big as a man's head, crown motifs on the blades, runes glowing ice-blue, hafts wrapped in iron chain with a short length of chain hanging from each end), swinging one forward and one back with the motion of his stride; his torn royal mantle flies behind him, snow and ice shards kicked up at his feet, the runes on the blades blazing ice-blue. NO bodies, NO blood, NO burning buildings: the battle has NOT started yet; far behind him, a dark giant army waits on the horizon under a burning red sky. His face is calm, cold and unreadable, mouth closed, eyes piercing. Dynamic, unstoppable, legendary.
-```
-
-## ★ 出身卡片的圖示（4 張，木刻版畫風格）
+## ★ 出身卡片的圖示（4 張，木刻版畫風格；已收到 o_smith）
 
 用在：建立角色的「你的出身」卡片右下角，做成半透明浮水印。黑底、單色就好，我會自己去背和調透明度。圖到之前先用線條圖示代替。
 
 | # | 檔名 | 內容 | 比例 |
 |---|---|---|---|
-| 1 | o_smith | 鐵匠之子：鐵鎚與鐵砧 | 1:1 |
+| 1 | o_smith | 鐵匠之子：鐵鎚與鐵砧 （✅ 已收到）| 1:1 |
 | 2 | o_hunter | 雪林獵人：弓與箭 | 1:1 |
 | 3 | o_sailor | 船工：龍頭船 | 1:1 |
 | 4 | o_skald | 詩人之子：豎琴 | 1:1 |
