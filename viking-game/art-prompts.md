@@ -10,6 +10,19 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
+## ★ v0.13 重畫（1 張）
+
+| 檔名 | 問題 |
+|---|---|
+| sc_win_bjorn | 你戴著王冠；可是霍姆岡決鬥從第二章就會發生，那時候你還沒稱王。其他都很好，只要拿掉王冠 |
+
+**sc_win_bjorn（重畫：沒有王冠）**
+
+```
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A holmgang duel ground by a fjord at sunset: a patterned cloak pegged to the ground with wooden stakes, a silent ring of warriors and villagers. Björn 'Ironmail' (a young man in his twenties, short spiky red hair, a heavy mail shirt, mud and blood on his face) kneels on the cloak and, without a word, tosses his round shield, its rim chewed and splintered by his own teeth, onto the ground at the feet of a Viking chieftain seen from behind (face hidden, gender not identifiable: a deep fur-lined hood pulled up, heavy fur cloak, NO crown, NO circlet). Grim, silent respect.
+```
+
 ## ✅ v0.13 重畫（2 張，已收到）
 
 sc_d3_wall（拿掉王冠）、sc_d3_king（木造王廳）已換上新版。
@@ -81,8 +94,8 @@ A rough Viking war camp on a rocky shore at dusk, longships with blood-red sails
 |---|---|---|---|
 | 1 | sc_win_astrid | 阿斯特麗德的盾落地 （✅ 已收到）| 打贏阿斯特麗德 |
 | 2 | sc_win_ragnar | 拉格納躺在地上大笑 （✅ 已收到）| 打贏拉格納 |
-| 3 | sc_win_bjorn | 比約恩把咬爛的盾牌丟在你腳邊 | 打贏比約恩 |
-| 4 | sc_win_sigrid | 西格麗德躺在斗篷上笑出來 | 打贏西格麗德 |
+| 3 | sc_win_bjorn | 比約恩把咬爛的盾牌丟在你腳邊 （✅ 已收到）| 打贏比約恩 |
+| 4 | sc_win_sigrid | 西格麗德躺在斗篷上笑出來 （✅ 已收到）| 打贏西格麗德 |
 
 **1. sc_win_astrid（阿斯特麗德的盾落地）**
 
@@ -118,9 +131,9 @@ An outdoor law assembly with a tall standing law stone and a crowd. On a holmgan
 
 | # | 檔名 | 內容 | 用在 |
 |---|---|---|---|
-| 1 | sc_s_sow | 春耕 | 春天的「春耕」 |
-| 2 | sc_s_midsummer | 夏至集會 | 夏天的「夏至集會」 |
-| 3 | sc_s_harvest | 收成祭 | 秋天的「秋收」和「收成祭」 |
+| 1 | sc_s_sow | 春耕 （✅ 已收到）| 春天的「春耕」 |
+| 2 | sc_s_midsummer | 夏至集會 （✅ 已收到）| 夏天的「夏至集會」 |
+| 3 | sc_s_harvest | 收成祭 （✅ 已收到）| 秋天的「秋收」和「收成祭」 |
 | 4 | sc_s_icefish | 冰上捕魚 | 冬天的「冰上捕魚」 |
 
 **1. sc_s_sow（春耕）**
