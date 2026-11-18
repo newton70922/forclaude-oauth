@@ -238,7 +238,7 @@ The same sheltered Norwegian bay with a stream and a forest behind it, same slig
 | 11 | b_sauna | 蒸氣浴 （✅ 已收到）|
 | 12 | b_runehut | 符文師小屋 （✅ 已收到）|
 | 13 | b_ancestor | 先祖石 （✅ 已收到）|
-| 14 | b_shipyard | 龍頭船塢 |
+| 14 | b_shipyard | 龍頭船塢 （✅ 已收到）|
 
 **1. b_longhouse（擴建長屋）**
 
@@ -342,16 +342,16 @@ A half-built dragon ship on wooden trestles with a carved dragon prow.
 
 提爾、我方盾牆、看你、動態雙斧老王都已換上新版。
 
-## ★ 出身卡片的圖示（4 張，木刻版畫風格；已收到 o_smith）
+## ✅ 出身卡片的圖示（4 張，已全部收到）
 
 用在：建立角色的「你的出身」卡片右下角，做成半透明浮水印。黑底、單色就好，我會自己去背和調透明度。圖到之前先用線條圖示代替。
 
 | # | 檔名 | 內容 | 比例 |
 |---|---|---|---|
 | 1 | o_smith | 鐵匠之子：鐵鎚與鐵砧 （✅ 已收到）| 1:1 |
-| 2 | o_hunter | 雪林獵人：弓與箭 | 1:1 |
-| 3 | o_sailor | 船工：龍頭船 | 1:1 |
-| 4 | o_skald | 詩人之子：豎琴 | 1:1 |
+| 2 | o_hunter | 雪林獵人：弓與箭 （✅ 已收到）| 1:1 |
+| 3 | o_sailor | 船工：龍頭船 （✅ 已收到）| 1:1 |
+| 4 | o_skald | 詩人之子：豎琴 （✅ 已收到）| 1:1 |
 
 **1. o_smith（鐵匠之子：鐵鎚與鐵砧）**
 
