@@ -228,11 +228,11 @@ The same sheltered Norwegian bay with a stream and a forest behind it, same slig
 | 1 | b_longhouse | 擴建長屋 （✅ 已收到）|
 | 2 | b_granary | 糧倉 （✅ 已收到）|
 | 3 | b_smithy | 鐵匠鋪 （✅ 已收到）|
-| 4 | b_barracks | 兵營 |
-| 5 | b_dock | 碼頭 |
-| 6 | b_altar | 祭壇 |
-| 7 | b_hall | 議事廳 |
-| 8 | b_tower | 瞭望塔 |
+| 4 | b_barracks | 兵營 （✅ 已收到）|
+| 5 | b_dock | 碼頭 （✅ 已收到）|
+| 6 | b_altar | 祭壇 （✅ 已收到）|
+| 7 | b_hall | 議事廳 （✅ 已收到）|
+| 8 | b_tower | 瞭望塔 （✅ 已收到）|
 | 9 | b_market | 市集 |
 | 10 | b_yard | 練武場 |
 | 11 | b_sauna | 蒸氣浴 |
