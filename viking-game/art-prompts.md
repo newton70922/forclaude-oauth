@@ -134,7 +134,7 @@ An outdoor law assembly with a tall standing law stone and a crowd. On a holmgan
 | 1 | sc_s_sow | 春耕 （✅ 已收到）| 春天的「春耕」 |
 | 2 | sc_s_midsummer | 夏至集會 （✅ 已收到）| 夏天的「夏至集會」 |
 | 3 | sc_s_harvest | 收成祭 （✅ 已收到）| 秋天的「秋收」和「收成祭」 |
-| 4 | sc_s_icefish | 冰上捕魚 | 冬天的「冰上捕魚」 |
+| 4 | sc_s_icefish | 冰上捕魚 （✅ 已收到）| 冬天的「冰上捕魚」 |
 
 **1. sc_s_sow（春耕）**
 
@@ -170,10 +170,10 @@ A frozen fjord in deep winter, pale blue light: Vikings in heavy furs kneel arou
 
 | # | 檔名 | 內容 | 用在 |
 |---|---|---|---|
-| 1 | sc_tribe_1 | 營地 | 部落等級 1 |
-| 2 | sc_tribe_2 | 村落 | 部落等級 2 |
-| 3 | sc_tribe_3 | 城鎮 | 部落等級 3 |
-| 4 | sc_tribe_4 | 要塞 | 部落等級 4 |
+| 1 | sc_tribe_1 | 營地 （✅ 已收到）| 部落等級 1 |
+| 2 | sc_tribe_2 | 村落 （✅ 已收到）| 部落等級 2 |
+| 3 | sc_tribe_3 | 城鎮 （✅ 已收到）| 部落等級 3 |
+| 4 | sc_tribe_4 | 要塞 （✅ 已收到）| 部落等級 4 |
 | 5 | sc_tribe_5 | 王都 | 部落等級 5 |
 | 6 | sc_tribe_6 | 傳說之都 | 部落等級 6 |
 
