@@ -233,11 +233,11 @@ The same sheltered Norwegian bay with a stream and a forest behind it, same slig
 | 6 | b_altar | 祭壇 （✅ 已收到）|
 | 7 | b_hall | 議事廳 （✅ 已收到）|
 | 8 | b_tower | 瞭望塔 （✅ 已收到）|
-| 9 | b_market | 市集 |
-| 10 | b_yard | 練武場 |
-| 11 | b_sauna | 蒸氣浴 |
-| 12 | b_runehut | 符文師小屋 |
-| 13 | b_ancestor | 先祖石 |
+| 9 | b_market | 市集 （✅ 已收到）|
+| 10 | b_yard | 練武場 （✅ 已收到）|
+| 11 | b_sauna | 蒸氣浴 （✅ 已收到）|
+| 12 | b_runehut | 符文師小屋 （✅ 已收到）|
+| 13 | b_ancestor | 先祖石 （✅ 已收到）|
 | 14 | b_shipyard | 龍頭船塢 |
 
 **1. b_longhouse（擴建長屋）**
