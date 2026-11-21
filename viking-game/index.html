@@ -1131,7 +1131,7 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
-const ART_HAVE=new Set(['sc_d3_wall','sc_d3_envoy','sc_d3_sigurd','sc_d3_brynhild','sc_d3_king','sc_d3_hrolf','sc_win_astrid','sc_win_ragnar','sc_win_bjorn','sc_win_sigrid','sc_s_sow','sc_s_midsummer','sc_s_harvest','sc_s_icefish','sc_tribe_1','sc_tribe_2','sc_tribe_3','sc_tribe_4','sc_tribe_5','sc_tribe_6','b_longhouse','b_granary','b_smithy','b_barracks','b_dock','b_altar','b_hall','b_tower','b_market','b_yard','b_sauna','b_runehut','b_ancestor','b_shipyard','o_hunter','o_sailor','o_skald','o_smith','sc_k_drag','sc_k_dismount','sc_k_eyes','sc_k_promise','sc_k_reach','sc_k_sword','sc_k_gaze','sc_rag_freyja','sc_rag_people','sc_rag_thor','sc_rag_tyr','sc_rag_giants','sc_rag_horn','sc_rag_loki','sc_rag_odin','sc_rag_ours','v_halfdan3','sc_wessex_0','sc_york_3b','sc_k_advance','sc_paris_1','sc_paris_2','sc_paris_3','sc_wessex_3','sc_wessex_1','sc_wessex_2','sc_york_1','sc_york_2','sc_york_3','sc_beach_wall','sc_dane_victory','sc_war_council','sc_war_gunnhild','sc_war_sweyn','c_thorstein','sc_q_astrid','sc_q_sigrid','v_halfdan2a','v_halfdan2c','c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news','sc_k_bifrost','sc_k_charge','sc_k_axes','sc_k_line','sc_k_gods']);
+const ART_HAVE=new Set(['sc_k_awaken','sc_k_boast','sc_k_stance','sc_rv_dock','sc_rv_raid1','sc_rv_raid2','sc_rv_fire','sc_rv_kneel','sc_rv_kneel_1','sc_rv_kneel_2','sc_d3_wall','sc_d3_envoy','sc_d3_sigurd','sc_d3_brynhild','sc_d3_king','sc_d3_hrolf','sc_win_astrid','sc_win_ragnar','sc_win_bjorn','sc_win_sigrid','sc_s_sow','sc_s_midsummer','sc_s_harvest','sc_s_icefish','sc_tribe_1','sc_tribe_2','sc_tribe_3','sc_tribe_4','sc_tribe_5','sc_tribe_6','b_longhouse','b_granary','b_smithy','b_barracks','b_dock','b_altar','b_hall','b_tower','b_market','b_yard','b_sauna','b_runehut','b_ancestor','b_shipyard','o_hunter','o_sailor','o_skald','o_smith','sc_k_drag','sc_k_dismount','sc_k_eyes','sc_k_promise','sc_k_reach','sc_k_sword','sc_k_gaze','sc_rag_freyja','sc_rag_people','sc_rag_thor','sc_rag_tyr','sc_rag_giants','sc_rag_horn','sc_rag_loki','sc_rag_odin','sc_rag_ours','v_halfdan3','sc_wessex_0','sc_york_3b','sc_k_advance','sc_paris_1','sc_paris_2','sc_paris_3','sc_wessex_3','sc_wessex_1','sc_wessex_2','sc_york_1','sc_york_2','sc_york_3','sc_beach_wall','sc_dane_victory','sc_war_council','sc_war_gunnhild','sc_war_sweyn','c_thorstein','sc_q_astrid','sc_q_sigrid','v_halfdan2a','v_halfdan2c','c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news','sc_k_bifrost','sc_k_charge','sc_k_axes','sc_k_line','sc_k_gods']);
 const CHAMP_ART={halfdan2:'v_halfdan2',halfdan2a:'v_halfdan2a',halfdan2c:'v_halfdan2c',halfdan3:'v_halfdan3',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
@@ -4328,7 +4328,7 @@ function ragRush(final,fline,fn){
   const heal=t=>{const h=Math.round(maxHp()*(.2+(S.spouse?.1:0)));S.hp=Math.min(maxHp(),Math.max(S.hp,1)+h);return `\n\n${t}\n<span class="good">生命 +${h}</span>`;};
   const fall=next=>{if(charges()>0){if(S.blessings>0)S.blessings--;else S.amulet=false;S.hp=Math.round(maxHp()*.4);pushLater(next);return '你倒下了。一隻冰冷的手抓住你的手腕，把你從灰燼裡拉了起來。是女武神。\n「還沒結束。」她說。\n<span class="bad">用掉了一次祈福</span>';}return '';};
   const R=(n,k,name,line,cause,next,o2)=>()=>duel(k,{lethal:true,rag:1,mul:1.2,xp:40+n*10,preHit:pre(n),sig:SIG[k],intro:`<b>第${'一二三四'[n-1]}輪</b>　${line}${kLine(n,name)}`,cause,...(o2||{}),onEnd:next});
-  const round4=R(4,final,fn,fline,`死在${fn}的口中`,w=>w?(pushLater(el=>ch4End(el,'ragnarok')),`${fn}倒下了。整個世界安靜了下來。`):(charges()>0?(pushLater(el=>ch4End(el,'ragnarok')),'你倒下了。但在你倒下之前，你的斧頭已經砍進了牠的喉嚨。'):''),{final:1,kingGuard:K==='met'});
+  const round4=R(4,final,fn,fline,`死在${fn}的口中`,w=>w?(pushLater(ragEpilogue),`${fn}倒下了。整個世界安靜了下來。`):(charges()>0?(pushLater(ragEpilogue),'你倒下了。但在你倒下之前，你的斧頭已經砍進了牠的喉嚨。'):''),{final:1,kingGuard:K==='met'});
   const round3=R(3,r3[0],r3[1],r3[2],`死在${r3[1]}的手下`,w=>w?(pushLater(round4),`${r3[1]}倒下了。${heal(ragAidLine(2))}`):fall(round4));
   const round2=R(2,r2[0],r2[1],r2[2],`死在${r2[1]}的口中`,w=>w?(pushLater(round3),`${r2[1]}倒下了。${heal(ragAidLine(2))}`):fall(round3));
   R(1,'hrym','赫列姆','霜巨人的首領赫列姆從納吉爾法船上跳了下來，冰原裂開了一條縫。他舉起一根比桅杆還粗的冰柱：「凡人，你是第一個。」','被霜巨人赫列姆砸進了冰裡',w=>w?(pushLater(round2),`赫列姆倒下了，冰原震了一下。${heal(ragAidLine(1))}`):fall(round2))();
@@ -4588,6 +4588,44 @@ function shieldWallFn(o){
   };
 }
 
+/* ---------- 諸神黃昏之後：尾聲 ---------- */
+const RAG_AFTER={hakon:'哈康把那面滿是刀痕的盾掛在你的王廳裡。他說，這是他打的最後一仗。這一次，他說的是真的。',
+  astrid:'阿斯特麗德開始教村裡的女孩子練盾。她說，下一次世界要結束的時候，她們會站在最前面。',
+  thorfinn:'托爾芬還是很少說話。可是每天早上你推開門，他都站在門口。',
+  sven:'赫羅爾夫駕著紅帆船，往西邊的新大地開了過去。臨走前他站在船頭大喊：「別以為我會想你！」',
+  una:'烏娜在新長出來的草地上，找到了好多從來沒見過的草藥。她蹲在那裡，笑得像個小女孩。',
+  bragi:'布拉吉花了三年，把那一天寫成了一首歌。第一次唱完的時候，整個長屋沒有一個人說話。',
+  einar:'埃納走進了新長出來的森林。每年冬天，他都會扛著一頭鹿回來，放在你的門口。',
+  gudrun:'古德倫用巨人鎧甲的碎片，打了一把新的斧頭。她把斧頭放在你面前：「這把，砍得動下一個世界。」',
+  ragnar:'拉格納說，以後再也沒有東西可以打了。然後，他跟鐵匠鋪的牆打了一架。',
+  osric:'古托姆把那一天的陣形，一筆一筆刻在了王廳的柱子上。',
+  knut:'克努特在酒館裡，把燒掉巨人補給的事講了一百遍。每講一遍，雪橇就多了幾台。',
+  bjorn:'比約恩的鎖子甲上，多了一個拳頭形狀的凹痕。他說，這輩子都不修了。',
+  sigrid:'西格麗德把她父親的那面盾，掛回了你的王廳。上面多了一道冰柱砸出來的裂痕。'};
+const RAG_AFTER_GOD={odin:'奧丁站在你身邊，用那隻獨眼望著天邊，望了很久。\n\n「我看了一千年的預言。」他說，「裡面沒有你。」\n\n然後，他第一次笑了：「從今天起，連我也不知道明天會發生什麼了。」',
+  thor:'索爾坐在巨蛇的屍體上，大口喘著氣。預言說，他會在這裡走九步，然後倒下。\n\n他站起來，走了九步。\n\n又走了一步。\n\n然後他回過頭，朝你哈哈大笑。',
+  tyr:'提爾把劍收回了鞘裡。芬里爾的繩子斷了，可是他的誓言沒有斷。\n\n「當年我用一隻手，換來了這一天。」他看著你，「今天，你替我把這筆帳結清了。」',
+  freyja:'弗蕾亞跑過冰原，抱住了她的哥哥弗雷。預言說，他會死在火巨人的劍下。\n\n他還活著。\n\n她回過頭來看你，眼淚掉了下來。這一次，落在冰上的，是金子。',
+  loki:'洛基不見了。冰原上，只剩下他的一隻手套。\n\n沒有人知道他去了哪裡。只有你知道，他最後回頭看你的那一眼，是在笑的。',
+  none:'眾神一個一個，從灰燼裡站了起來。他們互相看著，好像不敢相信自己還活著。\n\n預言裡，這一天，沒有人活下來。'};
+function ragEpilogue(el){
+  S.flags.ragEpi=1;const f=S.flags,g=patron(),gk=g&&RAG_AFTER_GOD[g]?g:'none';
+  const P=[{art:['sc_re_dawn','sc_ragnarok'],text:'冰原上很安靜。\n\n然後，東邊的天空，一點一點亮了起來。'},
+    {art:['sc_re_dawn','sc_ragnarok'],text:'太陽還在。',big:1},
+    {art:['sc_re_god_'+gk,'sc_rag_'+gk,'sc_ragnarok'],text:RAG_AFTER_GOD[gk]},
+    {art:['sc_re_land','sc_ragnarok'],text:'海水退了。一片新的綠色大地，從海裡慢慢升了起來。\n\n草地上，散落著眾神從前下棋用的金色棋子。你彎下腰，撿起了一顆。'}];
+  const cs=S.champions.map(c=>c.id).filter(id=>RAG_AFTER[id]&&id!==S.spouse);
+  if(cs.length) P.push({art:['sc_re_champs','sc_rag_ours','sc_ragnarok'],text:'活下來的人，各自回到了自己的日子。\n\n'+cs.map(id=>RAG_AFTER[id]).join('\n\n')});
+  if(S.spouse||S.heir){const sp=S.spouse?SPOUSES[S.spouse].name:'';
+    P.push({art:['sc_re_family','sc_rag_people','sc_ragnarok'],text:(sp?`${sp}在人群裡找到了你。什麼話都沒說，只是抱住了你，抱了很久。`:'')+(S.heir?`${sp?'\n\n':''}${esc(S.heir.name)}從人群裡跑了過來，撲進你的懷裡：「我就知道你會回來！」`:'')});}
+  if(f.kingRag==='met'||f.kingRag==='unmet') P.push({art:['sc_re_king','sc_k_bifrost','halfdan'],text:`老王哈夫丹把${f.kingRag==='met'?'雙斧背回了背上':'劍收回了鞘裡'}，帶著英靈戰士，走回了彩虹橋。\n\n走到一半，他回頭看了你一眼。\n\n他什麼也沒說。只是朝你點了一下頭，就像那天在王廳裡一樣。`});
+  else if(f.kingRag==='dead') P.push({art:['sc_re_king','sc_k_bifrost','halfdan'],text:'老王哈夫丹跟在奧丁的身後，走回了彩虹橋。\n\n走到一半，他停了下來。\n\n這一次，他終於回頭看了你一眼。'});
+  if(f.mate) P.push({art:['sc_re_thorstein','c_thorstein'],text:'托爾斯坦坐在一塊冰上，把角杯倒滿，遞給你。\n\n「我活了一輩子，」他說，「從來沒想過，能看見世界的第二天。」'});
+  P.push({art:['sc_re_skald','sc_valhalla'],text:'很多很多年以後，在一間長屋裡，一個老詩人唱完了一首很長的歌。\n\n一個孩子舉起手：「那是真的嗎？世界真的差一點就結束了？」'},
+    {art:['sc_re_skald','sc_valhalla'],text:`老詩人笑了。他指了指牆上那把舊斧頭。\n\n「是真的。那個人，叫${esc(S.name)}。」`,big:1});
+  cineView(el,P,()=>ch4End(el,'ragnarok'),'ᛞ 黃昏之後');
+}
+
 /* ---------- 第四章結局 ---------- */
 function ch4Ending(kind){
   if(kind==='vassal') return ['end4_vassal','附庸之王','你保住了王冠，卻把它的一半交給了丹麥。'];
@@ -4637,7 +4675,7 @@ function ch4End(el,kind){
   const scene={win:S.flags.struck?`耶靈的王廳燒起來了。「藍牙」哈拉爾跪在他父親立的大符文石前，把戒指交到你手裡。\n\n${age()} 歲的你站在丹麥的土地上，盔甲上全是別人的血。從來沒有一個北方的王，打到過這裡。\n\n${line}`:`帕爾納托基的劍插在沙灘上。「藍牙」哈拉爾的船，一艘一艘消失在南方的海平線上。\n\n${age()} 歲的你站在海灘上，盔甲上全是別人的血。這是你這輩子打過最大的一仗。\n\n${line}`,
     vassal:`你在丹麥使者面前跪了下來。\n\n王冠還在你頭上。只是從此以後，每年冬天，都有一艘載滿白銀的船往南開。\n\n${line}`,
     lost:`王廳燒起來的時候，你最後看了一眼王座。\n\n二十年前，你是一個只有一把斧頭的年輕人。現在，你又只剩下一把斧頭了。\n\n${line}`,
-    ragnarok:`${S.flags.warDone?'你打退了丹麥人，又撐過了世界的最後一天。':''}戰鬥結束時，天空是灰色的，地上全是冰和灰。你拄著斧頭站著，${patron()?`${GODS[patron()].name}就站在你身邊。`:'身邊站著倖存的眾神。'}\n\n然後，你看見了：在灰燼的下面，有一根綠色的嫩芽。\n\n預言說，諸神黃昏之後，新的世界會從海裡升起，倖存的人會在草地上找到眾神的金色棋子。你彎下腰，撿起了一顆。\n\n${line}`,
+    ragnarok:S.flags.ragEpi?`${S.flags.warDone?'你打退了丹麥人，又撐過了世界的最後一天。':'你撐過了世界的最後一天。'}\n\n預言裡沒有寫到的那一天，是你寫下來的。\n\n${line}`:`${S.flags.warDone?'你打退了丹麥人，又撐過了世界的最後一天。':''}戰鬥結束時，天空是灰色的，地上全是冰和灰。你拄著斧頭站著，${patron()?`${GODS[patron()].name}就站在你身邊。`:'身邊站著倖存的眾神。'}\n\n然後，你看見了：在灰燼的下面，有一根綠色的嫩芽。\n\n預言說，諸神黃昏之後，新的世界會從海裡升起，倖存的人會在草地上找到眾神的金色棋子。你彎下腰，撿起了一顆。\n\n${line}`,
     ragfall:ragfallScene(line),
     lokiside:`你握住了洛基的手。他笑了，笑得像個孩子。\n\n那一天，彩虹橋斷了，瓦爾哈拉燒了。新的世界升起來的時候，王座上坐著的，是你。\n\n只是每到晚上，你都會聽見渡鴉在窗外，叫著你的名字。\n\n${line}`,
     abdicate:`你在法石前摘下王冠，放在${S.heir?esc(S.heir.name):'繼承人'}的頭上。雅爾們一個一個跪了下來。\n\n${S.heir&&S.heir.trait?{war:'新王拔出劍，向全挪威宣誓：丹麥人來的那一天，他會站在最前面。',song:'新王在加冕宴上唱了一首歌，唱的是你的一生。很多人哭了。',peace:'新王用撒克遜話、丹麥話和挪威話各說了一次誓言。幾年後，丹麥人沒有打過來，而是派人來談和。',sea:'新王第二天就上了船。他說，北海的另一邊還有很多地方，你還沒去過。',champ:`你最信任的勇士戴上了王冠。${['astrid','gudrun','una'].includes(S.heir.champ)?'她':'他'}說，會像當年跟著你一樣，守著這個王國。`,divine:'新王的眼睛閃著金光。從那天起，挪威的麥子每一年都長得特別好。'}[S.heir.trait]||'':''}\n\n你回到了當年那片海灘，在一間小屋裡住了下來。\n\n${line}`}[kind];

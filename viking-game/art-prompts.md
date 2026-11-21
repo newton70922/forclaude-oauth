@@ -10,11 +10,11 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.14 劇情補圖（165 張）
+## ★ v0.14 劇情補圖（178 張）
 
 程式都做好了：每張圖一到，放進遊戲就會自動出現在對的地方。圖還沒到之前，會先用現有的圖或立繪代替。
 
-建議順序：A → B → C → J → D → E → F → G → H → I。I 組最多，可以最後慢慢補。
+建議順序：A → B → C → J → K → D → E → F → G → H → I。I 組最多，可以最後慢慢補。
 
 **主角規則**：除了「夢見母親」，主角都是背影或陰影，戴兜帽、看不出男女。只有稱王之後的場景才戴王冠。
 
@@ -29,8 +29,8 @@
 | 3 | sc_rv_raid2 | 紅帆再臨：帶著丹麥傭兵 （✅ 已收到）|
 | 4 | sc_rv_fire | 火船：最後一擊 （✅ 已收到）|
 | 5 | sc_rv_kneel | 赫羅爾夫跪著，滿臉是血還在笑 （✅ 已收到）|
-| 6 | sc_rv_kneel_1 | 了結他 |
-| 7 | sc_rv_kneel_2 | 饒他一命，讓他效忠 |
+| 6 | sc_rv_kneel_1 | 了結他 （✅ 已收到） |
+| 7 | sc_rv_kneel_2 | 饒他一命，讓他效忠 （✅ 已收到） |
 
 **1. sc_rv_dock（碼頭上的老面孔）**
 
@@ -98,9 +98,9 @@ The same burning camp. Hrolf (late twenties, the arrogant son of a jarl, red-bro
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_k_boast | 「我殺過的人，比你見過的還多！」 |
-| 2 | sc_k_awaken | 老王覺醒的過程 |
-| 3 | sc_k_stance | 起手式 |
+| 1 | sc_k_boast | 「我殺過的人，比你見過的還多！」 （✅ 已收到） |
+| 2 | sc_k_awaken | 老王覺醒的過程 （✅ 已收到） |
+| 3 | sc_k_stance | 起手式 （✅ 已收到） |
 | 4 | v_halfdan2a | 第一型態（重畫：拔劍、有動作） |
 | 5 | v_halfdan2 | 第二型態（重畫：更強） |
 | 6 | v_halfdan2c | 第三型態（重畫：完全覺醒，最帥） |
@@ -1770,6 +1770,156 @@ Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th ce
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
 Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
 In the far distance, the gods fight their own battles: thunder, lightning, horns and the roars of giants mixed into one storm on the horizon, too far to make out faces. The mortal battle in the foreground is small, seen from behind; the gods' war fills the background. Based on (Chinese): 「遠方，眾神也在拚命。雷聲、號角聲和巨人的吼聲，混成了一片。」
+```
+
+### K. 諸神黃昏之後：尾聲（13 張，16:9）
+
+打贏諸神黃昏之後、結局畫面之前的分鏡。神那 6 張依最眷顧你的神只出一張；勇士、家人、老王、托爾斯坦，有對應的人才會出現。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_re_dawn | 天亮了，太陽還在 |
+| 2 | sc_re_god_odin | 奧丁：預言裡沒有你 |
+| 3 | sc_re_god_thor | 索爾：走了九步，又走了一步 |
+| 4 | sc_re_god_tyr | 提爾：帳結清了 |
+| 5 | sc_re_god_freyja | 弗蕾亞：眼淚變成了金子 |
+| 6 | sc_re_god_loki | 洛基不見了，只剩一隻手套 |
+| 7 | sc_re_god_none | 眾神從灰燼裡站起來 |
+| 8 | sc_re_land | 新的綠色大地從海裡升起 |
+| 9 | sc_re_champs | 活下來的勇士們 |
+| 10 | sc_re_family | 家人在人群裡找到你 |
+| 11 | sc_re_king | 老王回到彩虹橋上，回頭看你 |
+| 12 | sc_re_thorstein | 托爾斯坦遞來一杯酒 |
+| 13 | sc_re_skald | 幾十年後，詩人唱完了你的故事 |
+
+**1. sc_re_dawn（天亮了，太陽還在）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+The first sunrise after the last battle: a golden sun rising slowly over the ash-covered frozen plain, its light falling on exhausted survivors, broken shields and the bodies of giants. The player (from behind, hooded, leaning on an axe) watches the sun. Silence, disbelief, relief.
+```
+
+**2. sc_re_god_odin（奧丁：預言裡沒有你）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+Odin (one-eyed, grey-bearded, wide-brimmed hat, dark cloak, spear Gungnir) stands beside the player (from behind, hooded) on the ash-covered plain, gazing at the far horizon with his single eye; for the first time a faint smile on his face. Two ravens on a broken spear nearby. Wonder: even the Allfather no longer knows the future.
+```
+
+**3. sc_re_god_thor（索爾：走了九步，又走了一步）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+Thor (huge, red-bearded, hammer Mjölnir, scorched armor) walks away from the colossal dead body of the World Serpent on a smoking shoreline, stumbling but alive; he turns back toward the player (from behind, hooded) and roars with laughter. Footprints in the ash behind him. Triumph over prophecy.
+```
+
+**4. sc_re_god_tyr（提爾：帳結清了）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+One-handed Tyr (stern, battle-worn, a sword being slid back into its scabbard with his only hand) stands before the player (from behind, hooded) on the ash-covered plain, a broken magical chain lying in the snow at his feet. Quiet, solemn gratitude; an old oath fulfilled.
+```
+
+**5. sc_re_god_freyja（弗蕾亞：眼淚變成了金子）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+Freyja (golden hair, half-burnt falcon-feather cloak) embraces her twin brother Freyr (golden-haired, wounded but alive) on the ash-covered plain; she turns her face toward the player (from behind, hooded), crying, and her tears fall onto the ice as tiny drops of gold. Overwhelming joy.
+```
+
+**6. sc_re_god_loki（洛基不見了，只剩一隻手套）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+A single elegant green leather glove lies on the ash-covered ice where Loki stood; the player (from behind, hooded) looks down at it. In the far mist, a faint slim silhouette walks away and glances back with a hint of a smile. Mystery, unease, a strange fondness.
+```
+
+**7. sc_re_god_none（眾神從灰燼裡站起來）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+The gods slowly rise from the ash one by one on the battlefield, looking at each other in disbelief that they survived; the player (from behind, hooded) stands among the mortal survivors watching them. Soft dawn light. Awe, a world given a second chance.
+```
+
+**8. sc_re_land（新的綠色大地從海裡升起）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+The sea draws back and a new green land rises from the water: fresh grass and wildflowers spreading over the old ash, waterfalls, clean blue sky. In the grass lie scattered golden chess pieces of the gods. The player (from behind, hooded) bends down to pick one up. Rebirth, wonder, hope.
+```
+
+**9. sc_re_champs（活下來的勇士們）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+A peaceful montage-like scene in a rebuilt Viking settlement on the new green land: battle-scarred companions back to ordinary life — a shieldmaiden teaching young girls with wooden shields, a smith at her forge, a skald with a lyre, a huge berserker laughing, a red-sailed longship leaving for the west. Warm afternoon light, peace after the end of the world.
+```
+
+**10. sc_re_family（家人在人群裡找到你）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+In a crowd of survivors returning home, the player (from behind, hooded, crowned) is embraced by their spouse, and a child runs out of the crowd to throw their arms around them. Faces of the family partly visible, tears and smiles. Pure relief and love after the end of the world.
+```
+
+**11. sc_re_king（老王回到彩虹橋上，回頭看你）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+King Halfdan (an old white-haired Viking king, a long white beard, golden glow of the einherjar around him, two long-handled battle axes on his back) walks up a shimmering rainbow bridge (Bifröst) into the sky, followed by glowing ghostly warriors; halfway up he turns his head and looks back down at the player (from behind, hooded, crowned) on the plain below, giving a small nod. Bittersweet farewell.
+```
+
+**12. sc_re_thorstein（托爾斯坦遞來一杯酒）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+Old Thorstein (a veteran Viking oarsman in his late fifties: a broad, heavy-shouldered man with a long grey beard in two thick braids, weathered sun-and-salt skin, deep crow's feet, a broken nose, huge calloused hands resting on the haft of an old notched bearded axe. Plain undyed wool tunic, a worn sealskin vest, a faded red-and-black arm ring from a royal ship he once rowed on.) sits on a block of ice on the quiet battlefield at dawn, filling a horn cup with mead and holding it out to the player (from behind, hooded, crowned). A tired, gentle smile. Two old companions after the end of the world.
+```
+
+**13. sc_re_skald（幾十年後，詩人唱完了你的故事）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
+Many decades later, inside a warm firelit Viking longhouse, an old white-bearded skald with a lyre has just finished a long song; children sit around him on furs, one raising a hand to ask a question. The old skald smiles and points at a worn, ancient axe hanging on the wall. Nostalgia, legend, a story passed down.
 ```
 
 ## ✅ v0.13 重畫（1 張，已收到）
