@@ -10,7 +10,7 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.14 劇情補圖（179 張）
+## ★ v0.14 劇情補圖（180 張）
 
 程式都做好了：每張圖一到，放進遊戲就會自動出現在對的地方。圖還沒到之前，會先用現有的圖或立繪代替。
 
@@ -256,7 +256,7 @@ A holmgang duel ground by a fjord at sunset, a patterned cloak pegged to the gro
 | 2 | sc_bt_2 | 混戰 （✅ 已收到） |
 | 3 | sc_bt_3 | 決勝 （✅ 已收到） |
 | 4 | sc_bt_win | 勝利 （✅ 已收到） |
-| 5 | sc_bt_lose | 敗退 |
+| 5 | sc_bt_lose | 敗退 （✅ 已收到） |
 
 **1. sc_bt_1（接敵）**
 
@@ -298,25 +298,26 @@ Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th ce
 A Viking warband in retreat through falling snow, carrying the wounded on shields, a torn banner dragging behind them, the battlefield and enemy fires behind them. Defeat, grief, survival.
 ```
 
-### E. 勇士立誓（13 張，16:9）
+### E. 勇士立誓（14 張，16:9）
 
 每位勇士好感到 80 立誓時的那一幕。場景照遊戲裡的台詞畫（中文那段是遊戲原文，直接貼給 GPT 就好）。
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_oath_hakon | 與哈康立誓 |
-| 2 | sc_oath_astrid | 與阿斯特麗德立誓 |
-| 3 | sc_oath_thorfinn | 與托爾芬立誓 |
-| 4 | sc_oath_sven | 與赫羅爾夫立誓 |
-| 5 | sc_oath_una | 與烏娜立誓 |
-| 6 | sc_oath_bragi | 與布拉吉立誓 |
-| 7 | sc_oath_einar | 與埃納立誓 |
-| 8 | sc_oath_gudrun | 與古德倫立誓 |
-| 9 | sc_oath_ragnar | 與拉格納立誓 |
-| 10 | sc_oath_osric | 與古托姆立誓 |
-| 11 | sc_oath_knut | 與克努特立誓 |
-| 12 | sc_oath_bjorn | 與比約恩立誓 |
-| 13 | sc_oath_sigrid | 與西格麗德立誓 |
+| 1 | sc_oath_hakon | 與哈康立誓 （✅ 已收到） |
+| 2 | sc_oath_astrid | 與阿斯特麗德立誓 （✅ 已收到） |
+| 3 | sc_oath_thorfinn | 與托爾芬立誓 （✅ 已收到） |
+| 4 | sc_oath_sven | 與赫羅爾夫立誓 （✅ 已收到） |
+| 5 | sc_oath_una | 與烏娜立誓 （✅ 已收到） |
+| 6 | sc_oath_bragi | 與布拉吉立誓 （✅ 已收到） |
+| 7 | sc_oath_einar | 與埃納立誓 （✅ 已收到） |
+| 8 | sc_oath_gudrun | 與古德倫立誓 （✅ 已收到） |
+| 9 | sc_oath_ragnar | 與拉格納立誓 （✅ 已收到） |
+| 10 | sc_oath_osric | 與古托姆立誓 （✅ 已收到） |
+| 11 | sc_oath_knut | 與克努特立誓 （✅ 已收到） |
+| 12 | sc_oath_bjorn | 與比約恩立誓 （✅ 已收到） |
+| 13 | sc_oath_sigrid | 與西格麗德立誓 （✅ 已收到） |
+| 14 | sc_oath_sigrid0 | 與西格麗德立誓（還沒稱王的版本：沒有王冠、在長屋） |
 
 **1. sc_oath_hakon（與哈康立誓）**
 
@@ -448,23 +449,31 @@ Character: A proud young shieldmaiden around twenty, a jarl's daughter, dark blo
 Scene of an oath of loyalty inside the player's longhall by firelight, based on this moment from the game (Chinese): 「西格麗德把她父親給她的盾牌掛在你的王廳裡。「這面盾，我父親說只能給我的丈夫或我的王。」她割破手掌，「你不是我丈夫。」」 Show 西格麗德's gesture from this moment clearly. Solemn, personal, a bond for life.
 ```
 
+**14. sc_oath_sigrid0（與西格麗德立誓：還沒稱王的版本）**
+
+西格麗德可能在你稱王之前就立誓，那時候不能有王冠。最簡單的做法：把 sc_oath_sigrid 那張丟回給 GPT，請它照下面改。
+
+```
+Edit the attached image (sc_oath_sigrid): keep Sigrid, her pose, the deer shield and the lighting exactly the same. Change only these: remove the crown from the hooded player character (a plain deep fur hood, no crown, no circlet); make the hall a humbler wooden longhouse instead of a royal hall (fewer banners, no throne-like carvings, rougher timber). The player stays seen from behind, face hidden, gender not identifiable. No text, no watermark.
+```
+
 ### F. 勇士初登場（13 張，16:9）
 
 第一次遇到勇士、他們還沒加入時的樣子。赫羅爾夫的初登場是 A 組的碼頭那張。
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_ev_astrid | 初登場：阿斯特麗德 |
-| 2 | sc_ev_una | 初登場：烏娜 |
-| 3 | sc_ev_gudrun | 初登場：古德倫 |
-| 4 | sc_ev_ragnar | 初登場：拉格納 |
-| 5 | sc_ev_knut | 初登場：克努特 |
-| 6 | sc_ev_hakon | 初登場：哈康 |
-| 7 | sc_ev_einar | 初登場：埃納 |
-| 8 | sc_ev_bard | 初登場：布拉吉 |
-| 9 | sc_ev_forgive | 初登場：托爾芬 |
-| 10 | sc_ev_osric | 初登場：古托姆 |
-| 11 | sc_ev_holm_holmB | 初登場：比約恩 |
+| 1 | sc_ev_astrid | 初登場：阿斯特麗德 （✅ 已收到） |
+| 2 | sc_ev_una | 初登場：烏娜 （✅ 已收到） |
+| 3 | sc_ev_gudrun | 初登場：古德倫 （✅ 已收到） |
+| 4 | sc_ev_ragnar | 初登場：拉格納 （✅ 已收到） |
+| 5 | sc_ev_knut | 初登場：克努特 （✅ 已收到） |
+| 6 | sc_ev_hakon | 初登場：哈康 （✅ 已收到） |
+| 7 | sc_ev_einar | 初登場：埃納 （✅ 已收到） |
+| 8 | sc_ev_bard | 初登場：布拉吉 （✅ 已收到） |
+| 9 | sc_ev_forgive | 初登場：托爾芬 （✅ 已收到） |
+| 10 | sc_ev_osric | 初登場：古托姆 （✅ 已收到） |
+| 11 | sc_ev_holm_holmB | 初登場：比約恩 （✅ 已收到） |
 | 12 | sc_ev_holm_holmS | 初登場：西格麗德 |
 | 13 | sc_ev_holm | 霍姆岡決鬥（其他對手） |
 
