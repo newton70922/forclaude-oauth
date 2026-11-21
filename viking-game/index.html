@@ -1131,7 +1131,7 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
-const ART_HAVE=new Set(['sc_win_sigrid3','sc_win_bjorn2','sc_win_bjorn3','sc_win_ragnar2','sc_win_sigrid2','sc_win_astrid2','sc_win_astrid3','sc_k_awaken','sc_k_boast','sc_k_stance','sc_rv_dock','sc_rv_raid1','sc_rv_raid2','sc_rv_fire','sc_rv_kneel','sc_rv_kneel_1','sc_rv_kneel_2','sc_d3_wall','sc_d3_envoy','sc_d3_sigurd','sc_d3_brynhild','sc_d3_king','sc_d3_hrolf','sc_win_astrid','sc_win_ragnar','sc_win_bjorn','sc_win_sigrid','sc_s_sow','sc_s_midsummer','sc_s_harvest','sc_s_icefish','sc_tribe_1','sc_tribe_2','sc_tribe_3','sc_tribe_4','sc_tribe_5','sc_tribe_6','b_longhouse','b_granary','b_smithy','b_barracks','b_dock','b_altar','b_hall','b_tower','b_market','b_yard','b_sauna','b_runehut','b_ancestor','b_shipyard','o_hunter','o_sailor','o_skald','o_smith','sc_k_drag','sc_k_dismount','sc_k_eyes','sc_k_promise','sc_k_reach','sc_k_sword','sc_k_gaze','sc_rag_freyja','sc_rag_people','sc_rag_thor','sc_rag_tyr','sc_rag_giants','sc_rag_horn','sc_rag_loki','sc_rag_odin','sc_rag_ours','v_halfdan3','sc_wessex_0','sc_york_3b','sc_k_advance','sc_paris_1','sc_paris_2','sc_paris_3','sc_wessex_3','sc_wessex_1','sc_wessex_2','sc_york_1','sc_york_2','sc_york_3','sc_beach_wall','sc_dane_victory','sc_war_council','sc_war_gunnhild','sc_war_sweyn','c_thorstein','sc_q_astrid','sc_q_sigrid','v_halfdan2a','v_halfdan2c','c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news','sc_k_bifrost','sc_k_charge','sc_k_axes','sc_k_line','sc_k_gods']);
+const ART_HAVE=new Set(['sc_d3_wall2','sc_bt_1','sc_bt_2','sc_bt_3','sc_bt_win','sc_win_sigrid3','sc_win_bjorn2','sc_win_bjorn3','sc_win_ragnar2','sc_win_sigrid2','sc_win_astrid2','sc_win_astrid3','sc_k_awaken','sc_k_boast','sc_k_stance','sc_rv_dock','sc_rv_raid1','sc_rv_raid2','sc_rv_fire','sc_rv_kneel','sc_rv_kneel_1','sc_rv_kneel_2','sc_d3_wall','sc_d3_envoy','sc_d3_sigurd','sc_d3_brynhild','sc_d3_king','sc_d3_hrolf','sc_win_astrid','sc_win_ragnar','sc_win_bjorn','sc_win_sigrid','sc_s_sow','sc_s_midsummer','sc_s_harvest','sc_s_icefish','sc_tribe_1','sc_tribe_2','sc_tribe_3','sc_tribe_4','sc_tribe_5','sc_tribe_6','b_longhouse','b_granary','b_smithy','b_barracks','b_dock','b_altar','b_hall','b_tower','b_market','b_yard','b_sauna','b_runehut','b_ancestor','b_shipyard','o_hunter','o_sailor','o_skald','o_smith','sc_k_drag','sc_k_dismount','sc_k_eyes','sc_k_promise','sc_k_reach','sc_k_sword','sc_k_gaze','sc_rag_freyja','sc_rag_people','sc_rag_thor','sc_rag_tyr','sc_rag_giants','sc_rag_horn','sc_rag_loki','sc_rag_odin','sc_rag_ours','v_halfdan3','sc_wessex_0','sc_york_3b','sc_k_advance','sc_paris_1','sc_paris_2','sc_paris_3','sc_wessex_3','sc_wessex_1','sc_wessex_2','sc_york_1','sc_york_2','sc_york_3','sc_beach_wall','sc_dane_victory','sc_war_council','sc_war_gunnhild','sc_war_sweyn','c_thorstein','sc_q_astrid','sc_q_sigrid','v_halfdan2a','v_halfdan2c','c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news','sc_k_bifrost','sc_k_charge','sc_k_axes','sc_k_line','sc_k_gods']);
 const CHAMP_ART={halfdan2:'v_halfdan2',halfdan2a:'v_halfdan2a',halfdan2c:'v_halfdan2c',halfdan3:'v_halfdan3',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
@@ -1148,6 +1148,9 @@ function seenMark(k){
 const seenHas=k=>{const m=meta();return !!((m.codex&&m.codex[k])||m.ach._all);};
 const artSeen=k=>seenMark('_a_'+k),markGame=k=>seenMark('_g_'+k);
 const sceneImg=k=>ART_HAVE.has(k)?(artSeen(k),`<div class="scene"><img src="art/${k}.webp" alt=""></div>`):'';
+// 部隊戰的圖：諸神黃昏對巨人時，改用諸神黃昏的畫面
+const BT_GIANT={sc_bt_1:['sc_rag_giants'],sc_bt_2:['sc_rm_clash','sc_rag_ours'],sc_bt_3:['sc_rag_ours'],sc_bt_win:['sc_einherjar'],sc_bt_lose:['sc_ragfall']};
+const btImg=(o,k)=>sceneImg(o.foeType==='giant'?(BT_GIANT[k].find(x=>ART_HAVE.has(x))||''):k);
 // 電影分鏡：一頁一張圖、一兩句話，按「繼續」翻頁。art 可以給好幾個，用第一張已經畫好的
 function cineView(el,pages,done,eyebrow){
   let i=0;
@@ -2146,7 +2149,7 @@ function battle(o){
       const nightP=clamp(.15+eff('wit')*.035+(eff('wit')>=9?.08:0)+(wx('fog')?.15:0)+(qd('einar')&&hasC('einar')?.05:0)+(hasC('einar')?.08:0)+(has('tactician')?.1:0)+(gt('loki',1)?.05:0)+(S.flags.rowNight?.1:0),.1,.9);
       const est=scouted(o.defend)?`${Math.round(o.def)}`:`${Math.round(o.def*.85)}–${Math.round(o.def*1.15)}`;
       const m=fieldMix();
-      el.innerHTML=`${big?sceneImg('sc_bt_1'):''}<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>
+      el.innerHTML=`${big?btImg(o,'sc_bt_1'):''}<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>
       ${o.intro?`<p class="story">${o.intro}</p>`:''}
       <div class="vs"><div><span>我方戰力</span><b>${Math.round(p)}</b><small>出戰 ${m.fm} 人（精兵 ${m.e}・老兵 ${m.v}）${garrison()?` · 駐守 ${Math.min(garrison(),S.men)}`:''}${S.champions.length?` · 勇士 ${S.champions.length}`:''}</small></div>
       <div><span>敵方戰力</span><b>${est}</b><small>${o.foeNote||(scouted(o.defend)?'已探明':'只能估個大概')}</small></div></div>
@@ -2191,7 +2194,7 @@ function battle(o){
       sfx('clash');
       const draw2=()=>{
         const left=R-mine[0]-mine[1]-mine[2];
-        el.innerHTML=`${sceneImg('sc_bt_2')}<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,1)}
+        el.innerHTML=`${btImg(o,'sc_bt_2')}<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,1)}
         <p class="story">${open}</p><div class="r2tags"><span>預備隊 <b>${R}</b> 隊${R>6?'（兵比敵人多）':R<6?'（兵比敵人少）':''}</span>${FT.s?`<span>${FT.s}</span>`:''}</div>
         ${(S.flags.r2n||0)<3?'<p class="hint">把預備隊放到三條戰線上：隊數不比敵軍少就守得住。守住兩條就佔上風，三條全守要靠打頭陣的勇士。</p>':''}
         <div class="lanes">${LANES.map((n,i)=>`<div class="lane"><b>${n}</b><span class="${seen[i]?'':'dim'}">${hint[i]}</span>
@@ -2213,7 +2216,7 @@ function battle(o){
     };
     const round3=(t,nightOk,ratio,txt,n)=>{
       sfx(n>=2?'hit':'bad');
-      el.innerHTML=`${sceneImg('sc_bt_3')}<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,2)}
+      el.innerHTML=`${btImg(o,'sc_bt_3')}<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,2)}
       <p class="story">${txt}\n\n${['三條戰線全垮了。','只剩一條戰線還撐著。','三條戰線守住了兩條。','三條戰線全都守住了！'][n]}兩邊都殺紅了眼。現在，該決定怎麼收尾了。</p>
       <div class="choices">
         <button class="choice" data-r3="steady"><b>穩紮穩打</b><small>守住現在的局面：佔上風時更穩，落後時很難翻盤</small></button>
@@ -2273,7 +2276,7 @@ function battle(o){
       sfx(win?'horn':'bad');
       const after=o.onEnd(win,{nightOk})||'';
       if(win&&t==='flank'&&!o.defend&&Math.random()<.4) pushModal(stragglers());
-      el.innerHTML=`${sceneImg(win?'sc_bt_win':'sc_bt_lose')}<p class="eyebrow">戰報</p><h2>${win?'勝利':'敗退'}</h2>
+      el.innerHTML=`${btImg(o,win?'sc_bt_win':'sc_bt_lose')}<p class="eyebrow">戰報</p><h2>${win?'勝利':'敗退'}</h2>
       <div class="res">${lines.join('\n')}\n${win?'<span class="good">':'<span class="bad">'}${after}</span></div>
       <button class="primary" id="m-ok">繼續</button>`;
       $('#m-ok').onclick=()=>{if(S.hp<=0)triggerFall(o.cause||'倒在亂軍之中');closeModal();};$('#m-ok').focus();

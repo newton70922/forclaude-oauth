@@ -166,7 +166,7 @@ Old King Halfdan of Norway (around seventy, long white beard and hair, gold knot
 | 5 | sc_win_bjorn3 | 咬爛的盾牌特寫 （✅ 已收到） |
 | 6 | sc_win_sigrid2 | 西格麗德被你推倒 （✅ 已收到） |
 | 7 | sc_win_sigrid3 | 盾牌滾到法石旁 （✅ 已收到） |
-| 8 | sc_d3_wall2 | 握著護身符 |
+| 8 | sc_d3_wall2 | 握著護身符 （✅ 已收到） |
 | 9 | sc_win_bjorn1 | 比約恩倒在斗篷上（新增：原本那張是他跪著伸手，接在「坐起來」前面順序會倒過來） |
 
 **1. sc_win_astrid2（阿斯特麗德背對你撿盾）**
@@ -252,10 +252,10 @@ A holmgang duel ground by a fjord at sunset, a patterned cloak pegged to the gro
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_bt_1 | 接敵 |
-| 2 | sc_bt_2 | 混戰 |
-| 3 | sc_bt_3 | 決勝 |
-| 4 | sc_bt_win | 勝利 |
+| 1 | sc_bt_1 | 接敵 （✅ 已收到） |
+| 2 | sc_bt_2 | 混戰 （✅ 已收到） |
+| 3 | sc_bt_3 | 決勝 （✅ 已收到） |
+| 4 | sc_bt_win | 勝利 （✅ 已收到） |
 | 5 | sc_bt_lose | 敗退 |
 
 **1. sc_bt_1（接敵）**
