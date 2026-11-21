@@ -10,7 +10,7 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.14 劇情補圖（178 張）
+## ★ v0.14 劇情補圖（179 張）
 
 程式都做好了：每張圖一到，放進遊戲就會自動出現在對的地方。圖還沒到之前，會先用現有的圖或立繪代替。
 
@@ -153,7 +153,7 @@ Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th ce
 Old King Halfdan of Norway (around seventy, long white beard and hair, gold knotwork crown, dark red-and-black wool robes with gold knotwork, his ancient royal longsword with a crowned wolf-head pommel). FINAL STAGE, fully awakened, the most powerful: his fur mantle thrown off, standing in a storm of embers and snow, longsword raised high and blazing with ice-blue runes, a bright aura around his whole body like a god of war, cracks in the floor glowing beneath him, white hair and beard streaming upward. Mouth closed, face cold and calm. Legendary, majestic, terrifying.
 ```
 
-### C. 分鏡補圖：一句一張（8 張，16:9）
+### C. 分鏡補圖：一句一張（9 張，16:9）
 
 原本好幾頁共用同一張的分鏡，補齊成一頁一張。
 
@@ -161,12 +161,13 @@ Old King Halfdan of Norway (around seventy, long white beard and hair, gold knot
 |---|---|---|
 | 1 | sc_win_astrid2 | 阿斯特麗德背對你撿盾 （✅ 已收到） |
 | 2 | sc_win_astrid3 | 阿斯特麗德單膝跪下 （✅ 已收到） |
-| 3 | sc_win_ragnar2 | 拉格納一把抱住你 |
-| 4 | sc_win_bjorn2 | 比約恩吐血坐起來 |
-| 5 | sc_win_bjorn3 | 咬爛的盾牌特寫 |
-| 6 | sc_win_sigrid2 | 西格麗德被你推倒 |
-| 7 | sc_win_sigrid3 | 盾牌滾到法石旁 |
+| 3 | sc_win_ragnar2 | 拉格納一把抱住你 （✅ 已收到） |
+| 4 | sc_win_bjorn2 | 比約恩吐血坐起來 （✅ 已收到） |
+| 5 | sc_win_bjorn3 | 咬爛的盾牌特寫 （✅ 已收到） |
+| 6 | sc_win_sigrid2 | 西格麗德被你推倒 （✅ 已收到） |
+| 7 | sc_win_sigrid3 | 盾牌滾到法石旁 （✅ 已收到） |
 | 8 | sc_d3_wall2 | 握著護身符 |
+| 9 | sc_win_bjorn1 | 比約恩倒在斗篷上（新增：原本那張是他跪著伸手，接在「坐起來」前面順序會倒過來） |
 
 **1. sc_win_astrid2（阿斯特麗德背對你撿盾）**
 
@@ -234,6 +235,15 @@ At an outdoor law assembly, Sigrid's richly painted round shield with a gold sta
 群雄並起・第 2 頁
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 Night on a wooden palisade above a young fjord settlement. CLOSE-UP of a hooded Viking chieftain's hand (fur cloak sleeve, no crown) clutching a small rune-carved amulet on a leather cord, the village's smoke and firelight blurred in the background below. A vow remembered, responsibility weighing.
+```
+
+**9. sc_win_bjorn1（比約恩倒在斗篷上）**
+
+```
+打敗比約恩・第 1 頁
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, no crown unless the scene says they are king).
+A holmgang duel ground by a fjord at sunset, a patterned cloak pegged to the ground with wooden stakes. Björn 'Ironmail' (a young man in his twenties, short spiky red hair, clean-shaven, a heavy mail shirt, mud and blood on his face) lies flat on his back on the cloak, dazed, staring at the sky; his red-and-black round shield lies beside his head with a big chunk of its rim bitten off, splinters scattered. The hooded player stands at the edge of the cloak, seen from behind. The crowd of warriors around the ring is silent, shocked. The moment right after the decisive blow.
 ```
 
 ### D. 部隊戰（5 張，16:9）
