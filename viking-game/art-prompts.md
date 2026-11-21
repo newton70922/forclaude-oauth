@@ -101,9 +101,9 @@ The same burning camp. Hrolf (late twenties, the arrogant son of a jarl, red-bro
 | 1 | sc_k_boast | 「我殺過的人，比你見過的還多！」 （✅ 已收到） |
 | 2 | sc_k_awaken | 老王覺醒的過程 （✅ 已收到） |
 | 3 | sc_k_stance | 起手式 （✅ 已收到） |
-| 4 | v_halfdan2a | 第一型態（重畫：拔劍、有動作） |
-| 5 | v_halfdan2 | 第二型態（重畫：更強） |
-| 6 | v_halfdan2c | 第三型態（重畫：完全覺醒，最帥） |
+| 4 | v_halfdan2a | 第一型態（重畫：拔劍、有動作） （✅ 已收到） |
+| 5 | v_halfdan2 | 第二型態（重畫：更強） （✅ 已收到） |
+| 6 | v_halfdan2c | 第三型態（重畫：完全覺醒，最帥） （✅ 已收到） |
 
 **1. sc_k_boast（「我殺過的人，比你見過的還多！」）**
 
@@ -159,8 +159,8 @@ Old King Halfdan of Norway (around seventy, long white beard and hair, gold knot
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_win_astrid2 | 阿斯特麗德背對你撿盾 |
-| 2 | sc_win_astrid3 | 阿斯特麗德單膝跪下 |
+| 1 | sc_win_astrid2 | 阿斯特麗德背對你撿盾 （✅ 已收到） |
+| 2 | sc_win_astrid3 | 阿斯特麗德單膝跪下 （✅ 已收到） |
 | 3 | sc_win_ragnar2 | 拉格納一把抱住你 |
 | 4 | sc_win_bjorn2 | 比約恩吐血坐起來 |
 | 5 | sc_win_bjorn3 | 咬爛的盾牌特寫 |
