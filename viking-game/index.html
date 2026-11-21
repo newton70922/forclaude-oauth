@@ -2134,6 +2134,7 @@ const FOE_STYLE={
   giant:{mix:1,s:'巨人：哪裡擠就往哪撞',t:'巨人不排陣，哪裡擠得最多，就往哪裡撞。',p:[[5,3,0],[4,4,0],[6,2,0],[5,2,1]]},
 };
 function battle(o){
+  if(o.foeType==='giant'&&!o.midDone){pushModal(el=>cineView(el,ragMidPages(),()=>{closeModal();battle({...o,midDone:1});},'ᛞ 諸神黃昏'));return;}
   pushModal(el=>{
     ambSet('battle');
     if(eff('pre')>=18&&Math.random()<.3) o={...o,def:o.def*.9,intro:`${o.intro?o.intro+'\n\n':''}<span class="good">敵軍遠遠看見你的旗幟，陣腳先亂了（敵方戰力 −10%）。</span>`};
@@ -3383,9 +3384,9 @@ function winterDuels(){
     kingDuel('托爾格倒下了。王廳深處，有人站了起來。');
     return '托爾格倒下了。王廳深處，有人站了起來。';}});
 }
-function kingDuel(intro){
+function kingDuel(intro,first){
   const again=!!S.flags.kingLost;
-  duel('king',{lethal:true,xp:50,awakeStart:again,retry:again,intro:again?'御衛長的位置空著。王廳深處，老王哈夫丹已經在等你了。':'老王哈夫丹從王座上站起來，拔出了一把比你年紀還老的劍。\n「我年輕時，也像你一樣。」\n\n你沒有時間喘口氣。',cause:'死在老王哈夫丹的劍下',onEnd:w2=>{
+  duel('king',{lethal:true,xp:50,awakeStart:again,retry:again,intro:again?'御衛長的位置空著。王廳深處，老王哈夫丹已經在等你了。':first||'老王哈夫丹從王座上站起來，拔出了一把比你年紀還老的劍。\n「我年輕時，也像你一樣。」\n\n你沒有時間喘口氣。',cause:'死在老王哈夫丹的劍下',onEnd:w2=>{
     if(!w2){S.flags.kingLost=(S.flags.kingLost||0)+1;log('倒在老王的劍下。');return '你的戰士把你拖了出去，攻城失敗了。';}
     unlock('king_awake');
     pushModal(kingFall);
@@ -3435,16 +3436,16 @@ function lordChoice(r){
       return afterLordWin(r);}});
   };
   return eventModal({kind:'決戰',title:r.name,text:talk,ch:[
-    {t:'接受單挑',note:r.id==='winter'?'生死單挑：先御衛長，再老王，中間不能休息':`生死單挑：${foe.name}`,fx:()=>{favor('tyr',10);selfDuel();return null;}},
-    {t:'派勇士代你出戰',show:()=>canProxy,note:r.id==='winter'?'代理人對御衛長；老王只接受你本人的挑戰':'決鬥代理人：好感 60 以上的勇士替你上場，輸了可能會死',fx:()=>{
+    {t:'接受單挑',note:r.id==='winter'?(S.flags.kingLost?'生死單挑：御衛長的位置空著，老王已經在等你了':'生死單挑：先御衛長，再老王，中間不能休息'):`生死單挑：${foe.name}`,fx:()=>{favor('tyr',10);selfDuel();return null;}},
+    {t:'派勇士代你出戰',show:()=>canProxy&&!(r.id==='winter'&&S.flags.kingLost),note:r.id==='winter'?'代理人對御衛長；老王只接受你本人的挑戰':'決鬥代理人：好感 60 以上的勇士替你上場，輸了可能會死',fx:()=>{
       pickProxy(r.foe,{selfFallback:selfDuel,onEnd:(w,more)=>{
         if(w){if(r.id==='winter'){kingDuel();return '托爾格倒下了。老王從王座上站了起來：「讓那個躲在後面的人出來。」';}return afterLordWin(r);}
         if(more) return '';
         log(`${r.name}的決鬥輸了。`);return '你們只能退兵。';
       },onGiveUp:()=>log(`${r.name}的決鬥輸了。`)});return null;}},
-    {t:r.id==='winter'?'不跟御衛長糾纏，直接殺進王廳':'拒絕單挑，強攻到底',note:()=>r.id==='winter'?'會損失不少戰士；老王仍會親自迎戰':`會損失不少戰士，${rate(sp())}`,fx:()=>{
+    {t:r.id==='winter'?'不跟御衛長糾纏，直接殺進王廳':'拒絕單挑，強攻到底',show:()=>!(r.id==='winter'&&S.flags.kingLost),note:()=>r.id==='winter'?'會損失不少戰士；老王仍會親自迎戰':`會損失不少戰士，${rate(sp())}`,fx:()=>{
       if(r.id==='winter'){const l=takeLosses(Math.ceil(S.men*.2),.5);S.stats.fallen+=l;
-        duel('king',{lethal:true,xp:50,intro:`你付出了 ${l} 名戰士，衝進了王廳。老王哈夫丹拔出了劍：「那就來吧。」`,cause:'死在老王哈夫丹的劍下',onEnd:w=>w?'老王單膝跪地。\n'+takeSeat(R('winter'),'血洗王廳'):'你的戰士把你拖了出去，攻城失敗了。'});return null;}
+        kingDuel('',`你付出了 ${l} 名戰士，衝進了王廳。老王哈夫丹拔出了劍：「那就來吧。」`);return null;}
       favor('tyr',-8);const ok=chk(sp());const l=takeLosses(Math.ceil(S.men*(ok?.2:.3)),.5);S.stats.fallen+=l;
       if(!ok){loseLoyalty(10);log(`強攻${r.name}失敗。`);return `<span class="bad">強攻失敗，${l} 名戰士戰死。忠誠 -10</span>`;}
       if(r.id==='red') S.rival.fate='死在亂軍之中';
@@ -4370,6 +4371,38 @@ function kingRagPages(){
   return P;
 }
 // 諸神黃昏的開場分鏡：號角 → 巨人陣營 → 洛基 → 我方 → 眾神 → 挪威的人 → 配偶 → 英靈
+// 諸神黃昏中段：盾牆守住之後，兩軍絞在一起
+const RAG_MID={hakon:'哈康把他那面滿是刀痕的盾牌頂在最前面，獨眼盯著一個比他高三倍的巨人：「我跟過三個首領。這是最後一仗，值得。」',
+  astrid:'阿斯特麗德的渡鴉盾，一次又一次擋下砸下來的冰柱。她身後的那一段盾牆，一步都沒有退。',
+  thorfinn:'托爾芬一句話都沒說，一直站在你的右邊。每一道朝你砍來的冰，都先砍在他的盾上。',
+  sven:'赫羅爾夫的紅帆船隊從側面衝上了冰原。他站在最前面，邊砍邊罵：「看什麼看！我可不是為你打的！」',
+  una:'烏娜在後面的帳篷裡，袖子捲到手肘，血一直染到了手腕。被抬進來的人，她一個都不放走。',
+  bragi:'布拉吉站在高處，唱著每一個倒下的人的名字。他的聲音早就啞了，還在唱。',
+  einar:'埃納趴在冰崖上，一箭一箭射進巨人的眼睛。他的箭袋已經空了三次。',
+  gudrun:'古德倫在陣後架起了鐵砧，把砍鈍的斧頭一把一把磨利，再丟回前線。她的鐵鎚聲，比戰鼓還響。',
+  ragnar:'拉格納光著上身衝進巨人堆裡，笑得像個孩子。他身邊倒下的巨人，比他這輩子砍過的樹還多。',
+  osric:'古托姆在指揮左翼。他當年替雅爾西格德排過陣；現在，他替你排。',
+  knut:'克努特帶著幾個人繞到巨人背後，點燃了他們的補給雪橇。沒有人命令他這麼做。',
+  bjorn:'比約恩穿著那件砍不穿的鎖子甲，硬是用身體擋下了一個巨人的拳頭。然後他咬著盾牌邊緣，又站了起來。',
+  sigrid:'西格麗德舉著她父親給她的那面盾，守住了左翼。她回頭朝你大喊：「左邊交給我！」'};
+const RAG_MID_GOD={odin:'遠方，奧丁騎著斯雷普尼爾衝進巨人最密的地方。他的長矛每擲出一次，就有一個巨人倒下。',
+  thor:'遠方的海面上，索爾和世界巨蛇纏在一起。閃電一次又一次劈下來，整片海都在沸騰。',
+  tyr:'遠方，獨臂的提爾帶著他沉默的戰士，迎上了從冥界衝出來的惡犬。',
+  freyja:'天上，弗蕾亞的女武神一圈一圈地盤旋。每一個倒下的勇士，都被她們接走了。',
+  none:'遠方，眾神也在拚命。雷聲、號角聲和巨人的吼聲，混成了一片。'};
+function ragMidPages(){
+  const f=S.flags,P=[{art:['sc_rm_clash','sc_einherjar'],text:'盾牆撐住了第一波。然後，兩邊撞在了一起。\n\n冰原上已經分不清誰是誰。斧頭、冰柱、火焰和血，全攪在一起。',shake:1}];
+  P.push({art:['sc_rm_village','sc_einherjar'],text:f.vSaved&&!f.vBetray?'一個鹽灘漁村的年輕人，拿著魚叉擋在倒下的老兵前面。\n\n你認得他。當年你替他們殺狼的時候，他躲在村長的身後。'
+    :f.vRaid&&!f.vAmend?'一個鹽灘漁村的年輕人，拿著魚叉擋在倒下的老兵前面。\n\n他認得你的臉。當年，就是你帶著斧頭衝進了他的村子。\n\n他看了你一眼，然後轉身，擋在了你的側面。'
+    :'一個拿著魚叉的漁村少年，擋在倒下的老兵前面。他沒有盔甲，也沒有名字。\n\n他一步都沒有退。'});
+  if(f.mate) P.push({art:['sc_rm_thorstein','c_thorstein'],text:'托爾斯坦用盾牌護著三個新兵往後退，自己留在最後。\n\n「走！」他吼著，「這裡我老頭子來！」'});
+  const cs=S.champions.map(c=>c.id).filter(id=>RAG_MID[id]&&id!==S.spouse).sort(()=>Math.random()-.5).slice(0,4);
+  cs.forEach(id=>P.push({art:['sc_rm_'+id,id],text:RAG_MID[id]}));
+  P.push({art:['sc_rm_einherjar','sc_einherjar'],text:'一個年輕戰士的斧頭斷了。旁邊的英靈戰士把自己的斧頭塞進他手裡，什麼也沒說。\n\n活人和死人，肩並著肩。'});
+  const g=patron();P.push({art:['sc_rm_god_'+(g&&RAG_MID_GOD[g]?g:'none'),'sc_einherjar'],text:RAG_MID_GOD[g&&RAG_MID_GOD[g]?g:'none']});
+  P.push({art:['sc_einherjar'],text:'你的位置，在盾牆的正中央。\n\n巨人的主力，正朝你壓過來。',big:1});
+  return P;
+}
 function ragOpenPages(p){
   const P=[{art:['sc_rag_horn','sc_einherjar'],text:'號角聲從天邊傳來。\n\n那是海姆達爾的號角。預言說，這一聲響起，世界就要結束了。'},
     {art:['sc_rag_giants','sc_einherjar'],text:'霜巨人從北方的冰原上走下來，火巨人從南方的天空燒過來。\n\n冰原的另一頭，黑壓壓的一片，一直排到了天邊。'},

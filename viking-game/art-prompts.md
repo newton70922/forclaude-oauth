@@ -10,11 +10,11 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.14 劇情補圖（143 張）
+## ★ v0.14 劇情補圖（165 張）
 
 程式都做好了：每張圖一到，放進遊戲就會自動出現在對的地方。圖還沒到之前，會先用現有的圖或立繪代替。
 
-建議順序：A → B → C → D → E → F → G → H → I。I 組最多，可以最後慢慢補。
+建議順序：A → B → C → J → D → E → F → G → H → I。I 組最多，可以最後慢慢補。
 
 **主角規則**：除了「夢見母親」，主角都是背影或陰影，戴兜帽、看不出男女。只有稱王之後的場景才戴王冠。
 
@@ -1508,6 +1508,268 @@ Illustrate this night-time event from the game (Chinese): 「營火邊的旅人�
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, no crown unless the scene says they are king).
 Illustrate this night-time event from the game (Chinese): 「有人摸進來了：你半夢半醒間，聽見有人在翻你的行囊。」
+```
+
+### J. 諸神黃昏中段：兩軍絞在一起（22 張，16:9）
+
+盾牆守住之後、跟巨人主力單挑之前的分鏡。勇士那 13 張，只有當時在你身邊的勇士才會出現（每次隨機挑 4 位）。眾神那 5 張，依你最受哪位神眷顧只出一張。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_rm_clash | 兩軍撞在一起 |
+| 2 | sc_rm_village | 漁村少年拿魚叉擋在老兵前面 |
+| 3 | sc_rm_thorstein | 托爾斯坦掩護新兵後退 |
+| 4 | sc_rm_hakon | 哈康在諸神黃昏 |
+| 5 | sc_rm_astrid | 阿斯特麗德在諸神黃昏 |
+| 6 | sc_rm_thorfinn | 托爾芬在諸神黃昏 |
+| 7 | sc_rm_sven | 赫羅爾夫在諸神黃昏 |
+| 8 | sc_rm_una | 烏娜在諸神黃昏 |
+| 9 | sc_rm_bragi | 布拉吉在諸神黃昏 |
+| 10 | sc_rm_einar | 埃納在諸神黃昏 |
+| 11 | sc_rm_gudrun | 古德倫在諸神黃昏 |
+| 12 | sc_rm_ragnar | 拉格納在諸神黃昏 |
+| 13 | sc_rm_osric | 古托姆在諸神黃昏 |
+| 14 | sc_rm_knut | 克努特在諸神黃昏 |
+| 15 | sc_rm_bjorn | 比約恩在諸神黃昏 |
+| 16 | sc_rm_sigrid | 西格麗德在諸神黃昏 |
+| 17 | sc_rm_einherjar | 英靈戰士把斧頭塞給年輕戰士 |
+| 18 | sc_rm_god_odin | 奧丁在遠方作戰 |
+| 19 | sc_rm_god_thor | 索爾在遠方作戰 |
+| 20 | sc_rm_god_tyr | 提爾在遠方作戰 |
+| 21 | sc_rm_god_freyja | 弗蕾亞在遠方作戰 |
+| 22 | sc_rm_god_none | 遠方的眾神在遠方作戰 |
+
+**1. sc_rm_clash（兩軍撞在一起）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+The moment two armies collide: the mortal shield wall and the einherjar slam into a tide of frost and fire giants. Chaos, axes, shattered ice, sparks and blood in the snow, no single hero in focus. Overwhelming scale and noise.
+```
+
+**2. sc_rm_village（漁村少年拿魚叉擋在老兵前面）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+A skinny fishing-village boy of about sixteen, no armor, only a patched wool tunic and a fishing harpoon, stands his ground in front of a fallen, wounded old Viking veteran, facing a towering frost giant. Terrified but not stepping back. A small figure of courage in the middle of the end of the world.
+```
+
+**3. sc_rm_thorstein（托爾斯坦掩護新兵後退）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Old Thorstein (a veteran Viking oarsman in his late fifties: a broad, heavy-shouldered man with a long grey beard in two thick braids, weathered sun-and-salt skin, deep crow's feet, a broken nose, huge calloused hands resting on the haft of an old notched bearded axe. Plain undyed wool tunic, a worn sealskin vest, a faded red-and-black arm ring from a royal ship he once rowed on.) holds an old round shield and his notched bearded axe, covering three frightened young recruits as they retreat behind him, while he stays last in line facing the giants, shouting at them to go. Grim, fatherly, unafraid.
+```
+
+**4. sc_rm_hakon（哈康在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: An old one-eyed Viking veteran in his sixties, leather eyepatch, long grey beard in two braids, a missing front tooth showing in a crooked grin, weathered skin full of scars, a battered round shield covered in sword cuts on his back, worn chainmail under a wolf-fur cloak. Tired but proud eyes.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「哈康把他那面滿是刀痕的盾牌頂在最前面，獨眼盯著一個比他高三倍的巨人：「我跟過三個首領。這是最後一仗，值得。」」 Make their action clear and heroic; the battle rages around them.
+```
+
+**5. sc_rm_astrid（阿斯特麗德在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: A fierce shieldmaiden in her late twenties, a long thick blonde braid over one shoulder, sides of the head shaved with small braids, a painted round shield with a black raven, chainmail and a leather vest, a thin scar across one eyebrow, steady and unsmiling gaze.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「阿斯特麗德的渡鴉盾，一次又一次擋下砸下來的冰柱。她身後的那一段盾牆，一步都沒有退。」 Make their action clear and heroic; the battle rages around them.
+```
+
+**6. sc_rm_thorfinn（托爾芬在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: A tall, broad-shouldered quiet Viking warrior around thirty, short dark beard, calm and gentle grey eyes, simple dark wool tunic and leather armor, a large bearded axe resting on his shoulder. Silent, loyal, protective presence.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「托爾芬一句話都沒說，一直站在你的右邊。每一道朝你砍來的冰，都先砍在他的盾上。」 Make their action clear and heroic; the battle rages around them.
+```
+
+**7. sc_rm_sven（赫羅爾夫在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: An arrogant young Viking nobleman, son of a jarl, sharp handsome face with a sneering half-smile, slicked-back reddish hair, a blood-red wool cloak pinned with a large silver brooch. Proud, mocking, dangerous.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「赫羅爾夫的紅帆船隊從側面衝上了冰原。他站在最前面，邊砍邊罵：「看什麼看！我可不是為你打的！」」 Make their action clear and heroic; the battle rages around them.
+```
+
+**8. sc_rm_una（烏娜在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: An old wise herbalist woman from a misty marsh, deeply wrinkled kind face, long white hair under a grey wool hood, a basket of dried herbs and mushrooms, bundles of plants and small bone charms hanging from her belt.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「烏娜在後面的帳篷裡，袖子捲到手肘，血一直染到了手腕。被抬進來的人，她一個都不放走。」 Make their action clear and heroic; the battle rages around them.
+```
+
+**9. sc_rm_bragi（布拉吉在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: A cheerful wandering skald in his thirties, mischievous twinkling eyes, neatly braided brown beard, a colorful embroidered cloak, holding a small wooden lyre, a drinking horn at his belt.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「布拉吉站在高處，唱著每一個倒下的人的名字。他的聲音早就啞了，還在唱。」 Make their action clear and heroic; the battle rages around them.
+```
+
+**10. sc_rm_einar（埃納在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: A lean young Viking hunter around twenty, sharp alert eyes, light stubble, a grey wolf-pelt hood over his shoulders, a longbow and a quiver of arrows.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「埃納趴在冰崖上，一箭一箭射進巨人的眼睛。他的箭袋已經空了三次。」 Make their action clear and heroic; the battle rages around them.
+```
+
+**11. sc_rm_gudrun（古德倫在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: A strong female blacksmith in her thirties, muscular arms, soot on her face, dark hair tied up with a leather band, a heavy leather apron, holding a smithing hammer. Confident, no-nonsense expression.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「古德倫在陣後架起了鐵砧，把砍鈍的斧頭一把一把磨利，再丟回前線。她的鐵鎚聲，比戰鼓還響。」 Make their action clear and heroic; the battle rages around them.
+```
+
+**12. sc_rm_ragnar（拉格納在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: A huge bare-chested berserker, wild red beard and hair, a bear pelt over his shoulders, blue woad war paint and tattoos, wild bloodshot eyes, biting the rim of his shield, a two-handed axe. Terrifying but slightly comical intensity.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「拉格納光著上身衝進巨人堆裡，笑得像個孩子。他身邊倒下的巨人，比他這輩子砍過的樹還多。」 Make their action clear and heroic; the battle rages around them.
+```
+
+**13. sc_rm_osric（古托姆在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: A composed middle-aged Viking nobleman, a former jarl's general, neatly trimmed grey-streaked beard, intelligent cautious eyes, fine dark-blue tunic, several silver arm rings, a sword at his hip. Dignified and calculating.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「古托姆在指揮左翼。他當年替雅爾西格德排過陣；現在，他替你排。」 Make their action clear and heroic; the battle rages around them.
+```
+
+**14. sc_rm_knut（克努特在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: A rough outlaw in his thirties with a long scar across his face from forehead to jaw, messy black hair, a hard sly grin, a dagger in hand, a patched leather jerkin and a dirty fur cloak.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「克努特帶著幾個人繞到巨人背後，點燃了他們的補給雪橇。沒有人命令他這麼做。」 Make their action clear and heroic; the battle rages around them.
+```
+
+**15. sc_rm_bjorn（比約恩在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: A young Viking berserker in his early twenties, son of the red-bearded berserker Ragnar, the same wild red hair and beard but younger and leaner, wearing a heavy ring-mail shirt that looks unbreakable, biting the rim of a battered shield, fierce grin.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「比約恩穿著那件砍不穿的鎖子甲，硬是用身體擋下了一個巨人的拳頭。然後他咬著盾牌邊緣，又站了起來。」 Make their action clear and heroic; the battle rages around them.
+```
+
+**16. sc_rm_sigrid（西格麗德在諸神黃昏）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Character: A proud young shieldmaiden around twenty, a jarl's daughter, dark blonde hair in a thick braid, a richly painted round shield with her father's sigil, fine chainmail and a blue wool cloak, confident half-smile.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「西格麗德舉著她父親給她的那面盾，守住了左翼。她回頭朝你大喊：「左邊交給我！」」 Make their action clear and heroic; the battle rages around them.
+```
+
+**17. sc_rm_einherjar（英靈戰士把斧頭塞給年輕戰士）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+Close moment in the battle: a young mortal Viking warrior whose axe has just broken looks up as a glowing golden einherjar (a dead warrior from Valhalla, translucent golden light, old scars, calm face) presses his own axe into the young man's hand without a word. The living and the dead fighting shoulder to shoulder.
+```
+
+**18. sc_rm_god_odin（奧丁在遠方作戰）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+In the distance, Odin (one-eyed, grey-bearded, wide-brimmed hat and dark cloak, spear Gungnir) rides the eight-legged horse Sleipnir into the thickest mass of giants, two ravens circling above, his spear felling giants. The mortal battle in the foreground is small, seen from behind; the gods' war fills the background. Based on (Chinese): 「遠方，奧丁騎著斯雷普尼爾衝進巨人最密的地方。他的長矛每擲出一次，就有一個巨人倒下。」
+```
+
+**19. sc_rm_god_thor（索爾在遠方作戰）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+In the distance over the sea, Thor (red-bearded, huge, hammer Mjölnir) wrestles the colossal World Serpent Jörmungandr; lightning strikes again and again, the sea is boiling. The mortal battle in the foreground is small, seen from behind; the gods' war fills the background. Based on (Chinese): 「遠方的海面上，索爾和世界巨蛇纏在一起。閃電一次又一次劈下來，整片海都在沸騰。」
+```
+
+**20. sc_rm_god_tyr（提爾在遠方作戰）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+In the distance, one-handed Tyr (stern, sword in his only hand) leads a line of silent warriors against the hellhound Garm bursting from a cave, chains of ice still hanging from it. The mortal battle in the foreground is small, seen from behind; the gods' war fills the background. Based on (Chinese): 「遠方，獨臂的提爾帶著他沉默的戰士，迎上了從冥界衝出來的惡犬。」
+```
+
+**21. sc_rm_god_freyja（弗蕾亞在遠方作戰）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+In the sky, Freyja's valkyries circle on winged horses above the battlefield, gathering up fallen warriors as glowing souls; Freyja herself (golden hair, falcon-feather cloak) watches from above. The mortal battle in the foreground is small, seen from behind; the gods' war fills the background. Based on (Chinese): 「天上，弗蕾亞的女武神一圈一圈地盤旋。每一個倒下的勇士，都被她們接走了。」
+```
+
+**22. sc_rm_god_none（遠方的眾神在遠方作戰）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
+In the far distance, the gods fight their own battles: thunder, lightning, horns and the roars of giants mixed into one storm on the horizon, too far to make out faces. The mortal battle in the foreground is small, seen from behind; the gods' war fills the background. Based on (Chinese): 「遠方，眾神也在拚命。雷聲、號角聲和巨人的吼聲，混成了一片。」
 ```
 
 ## ✅ v0.13 重畫（1 張，已收到）
