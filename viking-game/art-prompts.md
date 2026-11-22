@@ -896,21 +896,21 @@ Inside a grand Frankish cathedral: the Frankish king in rich robes embraces a Vi
 | 26 | sc_ev_p_knut | 克努特的主意 （✅ 已收到） |
 | 27 | sc_ev_p_einar | 白鹿的蹤跡 （✅ 已收到） |
 | 28 | sc_ev_p_osric | 古托姆的家人 （✅ 已收到） |
-| 29 | sc_ev_yule | 冬至祭典 |
-| 30 | sc_ev_famine | 難熬的冬天 |
-| 31 | sc_ev_widow | 戰死者的遺孀 |
-| 32 | sc_ev_birth | 難產 |
-| 33 | sc_ev_brisingamen | 布里希嘉曼的碎片 |
-| 34 | sc_ev_norns | 三個紡紗的婦人 |
-| 35 | sc_ev_giant | 霜巨人 |
-| 36 | sc_ev_fenrir | 芬里爾的後裔 |
-| 37 | sc_ev_ygg | 世界樹的符文 |
-| 38 | sc_ev_jarlgame | 雅爾的棋局 |
-| 39 | sc_ev_flyting | 丹麥來的詩人 |
-| 40 | sc_ev_hakonLast | 老哈康的請求 |
-| 41 | sc_ev_astridLand | 盾女的土地 |
-| 42 | sc_ev_bragiSaga | 你的薩迦 |
-| 43 | sc_ev_allyAsk | 盟友求援 |
+| 29 | sc_ev_yule | 冬至祭典 （✅ 已收到） |
+| 30 | sc_ev_famine | 難熬的冬天 （✅ 已收到） |
+| 31 | sc_ev_widow | 戰死者的遺孀 （✅ 已收到） |
+| 32 | sc_ev_birth | 難產 （✅ 已收到） |
+| 33 | sc_ev_brisingamen | 布里希嘉曼的碎片 （✅ 已收到） |
+| 34 | sc_ev_norns | 三個紡紗的婦人 （✅ 已收到） |
+| 35 | sc_ev_giant | 霜巨人 （✅ 已收到） |
+| 36 | sc_ev_fenrir | 芬里爾的後裔 （✅ 已收到） |
+| 37 | sc_ev_ygg | 世界樹的符文 （✅ 已收到） |
+| 38 | sc_ev_jarlgame | 雅爾的棋局 （✅ 已收到） |
+| 39 | sc_ev_flyting | 丹麥來的詩人 （✅ 已收到） |
+| 40 | sc_ev_hakonLast | 老哈康的請求 （✅ 已收到） |
+| 41 | sc_ev_astridLand | 盾女的土地 （✅ 已收到） |
+| 42 | sc_ev_bragiSaga | 你的薩迦 （✅ 已收到） |
+| 43 | sc_ev_allyAsk | 盟友求援 （✅ 已收到） |
 | 44 | sc_ev_ragnarDane | 拉格納的選擇 |
 | 45 | sc_ev_egill | 冰島來的詩人 |
 | 46 | sc_ev_wayland | 巧手韋蘭 |
