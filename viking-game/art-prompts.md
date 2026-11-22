@@ -10,11 +10,11 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.14 劇情補圖（188 張）
+## ★ v0.14 劇情補圖（226 張）
 
 程式都做好了：每張圖一到，放進遊戲就會自動出現在對的地方。圖還沒到之前，會先用現有的圖或立繪代替。
 
-建議順序：A → B → C → J → K → D → E → F → G → H → I。I 組最多，可以最後慢慢補。
+建議順序：A → B → C → J → K → M → D → E → F → G → H → I。I 組最多，可以最後慢慢補。
 
 **主角規則**：除了「夢見母親」，主角都是背影或陰影，戴兜帽、看不出男女。只有稱王之後的場景才戴王冠。
 
@@ -2033,6 +2033,428 @@ Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th ce
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
 A dreamlike night scene, soft moonlight and drifting mist, slightly faded colors like a memory. The player has just been baptized as a Christian king, and the old god they were closest to comes one last time.
 Close-up of an old stone altar to the Norse gods in a quiet grove at dawn: a small fire in its bowl burning perfectly still, its flame not moving at all, frost on the carved stones, a faint wooden cross visible far in the background on a hill. Stillness, an era ending.
+```
+
+### M. 舊神的最後一戰（38 張）
+
+受洗之後打退丹麥人，進入「分裂的冬天」，最後在斯蒂克萊斯塔決戰。前 22 張是主線分鏡（16:9），接著 3 張敵人立繪（3:4），最後 13 張是勇士各自作戰的畫面（16:9，可以最後再補，沒有的話會先用立繪）。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_st_omen | 北方山谷裡點起了舊神的祭火 |
+| 2 | sc_st_thorir | 「獵犬」托里爾和十二件馴鹿皮大衣 |
+| 3 | sc_st_hall | 受洗的消息傳回長屋的那一夜 |
+| 4 | sc_st_field | 斯蒂克萊斯塔：兩軍對峙 |
+| 5 | sc_st_clash | 兩邊撞在一起 |
+| 6 | sc_st_gone_ragnar | 對面陣線裡的拉格納 |
+| 7 | sc_st_gone_bragi | 對面營地裡唱歌的布拉吉 |
+| 8 | sc_st_gone_una | 烏娜在對面的帳篷替傷兵包紮 |
+| 9 | sc_st_gone_knut | 對面側翼揮手的克努特 |
+| 10 | sc_st_gone_bjorn | 站在父親身邊的比約恩 |
+| 11 | sc_st_saxon | 撒克遜親衛隊趕到 |
+| 12 | sc_st_frank | 法蘭克騎兵衝下山坡 |
+| 13 | sc_st_king | 老王哈夫丹騎馬趕來 |
+| 14 | sc_st_eclipse | 日蝕：太陽黑了 |
+| 15 | sc_st_dawn | 太陽回來了 |
+| 16 | sc_st_coat | 撕破的馴鹿皮大衣 |
+| 17 | sc_st_father | 比約恩跪在父親身邊 |
+| 18 | sc_st_gone | 走向北方的人 |
+| 19 | sc_st_after | 留下來的人 |
+| 20 | sc_st_family | 家人在王廳門口等著 |
+| 21 | sc_st_church | 斯蒂克萊斯塔的小教堂 |
+| 22 | sc_st_raven | 窗台上的渡鴉 |
+| 23 | v_thorir | 「獵犬」托里爾（立繪） |
+| 24 | v_harek | 「弓手」哈雷克（立繪） |
+| 25 | v_kalf | 「背誓者」卡爾夫（立繪） |
+| 26 | sc_st_hakon | 哈康在斯蒂克萊斯塔 |
+| 27 | sc_st_astrid | 阿斯特麗德在斯蒂克萊斯塔 |
+| 28 | sc_st_thorfinn | 托爾芬在斯蒂克萊斯塔 |
+| 29 | sc_st_sven | 赫羅爾夫在斯蒂克萊斯塔 |
+| 30 | sc_st_una | 烏娜在斯蒂克萊斯塔 |
+| 31 | sc_st_bragi | 布拉吉在斯蒂克萊斯塔 |
+| 32 | sc_st_einar | 埃納在斯蒂克萊斯塔 |
+| 33 | sc_st_gudrun | 古德倫在斯蒂克萊斯塔 |
+| 34 | sc_st_ragnar | 拉格納在斯蒂克萊斯塔 |
+| 35 | sc_st_osric | 古托姆在斯蒂克萊斯塔 |
+| 36 | sc_st_knut | 克努特在斯蒂克萊斯塔 |
+| 37 | sc_st_bjorn | 比約恩在斯蒂克萊斯塔 |
+| 38 | sc_st_sigrid | 西格麗德在斯蒂克萊斯塔 |
+
+**1. sc_st_omen（北方山谷裡點起了舊神的祭火）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Night in a snowy Norwegian valley: many bonfires of the old gods burning on the hillsides, chieftains gathered around a tall wooden idol of Odin, a carved Thor's hammer on a pole, sparks rising into the winter sky. Seen from far away, ominous and beautiful.
+```
+
+**2. sc_st_thorir（「獵犬」托里爾和十二件馴鹿皮大衣）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Thorir 'the Hound' (a hard, weathered northern chieftain in his forties, long dark-blond hair tied back, a short beard, cold pale eyes, wearing a heavy grey-brown reindeer-skin coat covered with faint glowing blue Sámi runes, a broad axe) stands in front of eleven warriors all wearing the same enchanted reindeer-skin coats, a Sámi shaman with a drum behind them, snowy forest. Menacing, mysterious.
+```
+
+**3. sc_st_hall（受洗的消息傳回長屋的那一夜）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Inside the king's longhall at night, the hearth fire low: a group of Viking champions sit in tense silence, one huge red-bearded berserker has just smashed his drinking horn on the floor, a skald holds a lyre without playing, an old one-eyed veteran stares into the fire; the hooded crowned king stands at the head of the table, seen from behind. Heavy, divided mood.
+```
+
+**4. sc_st_field（斯蒂克萊斯塔：兩軍對峙）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Two Viking armies face each other across a valley at Stiklestad in early spring, snow melting into mud: one side with banners of Odin's ravens and Thor's hammer, the other side (the king's) with a white banner bearing a simple cross. The hooded crowned king stands in the foreground, seen from behind. The calm before the last battle of the old gods.
+```
+
+**5. sc_st_clash（兩邊撞在一起）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The two shield walls crash together in the muddy valley: men who speak the same language and wear the same kind of armor fighting each other, raven banners against cross banners, axes over shield rims. Brutal, tragic, chaotic.
+```
+
+**6. sc_st_gone_ragnar（對面陣線裡的拉格納）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+In the enemy line, under a raven banner, stands a huge bare-chested red-bearded berserker with blue woad tattoos and a bear pelt, biting the rim of his shield, staring straight across the field. He does not charge; he is waiting. Heartbreaking.
+```
+
+**7. sc_st_gone_bragi（對面營地裡唱歌的布拉吉）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+In the enemy camp at dusk, a cheerful-looking skald with a braided brown beard and a colorful embroidered cloak sits by a fire playing a small wooden lyre and singing for the warriors of the old gods; his face is sad. Melancholic.
+```
+
+**8. sc_st_gone_una（烏娜在對面的帳篷替傷兵包紮）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Inside a field tent on the enemy side, an old herbalist woman with long white hair and a grey hood bandages wounded warriors from both sides lying next to each other, bundles of herbs and bone charms hanging around her. Compassionate, quiet.
+```
+
+**9. sc_st_gone_knut（對面側翼揮手的克努特）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+On the enemy flank, a rough outlaw with a long scar across his face and messy black hair raises a hand in a half-mocking wave across the battlefield, his small band of men behind him. Sly, ambiguous loyalty.
+```
+
+**10. sc_st_gone_bjorn（站在父親身邊的比約恩）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+In the enemy line, a young warrior with short spiky red hair and a heavy unbreakable-looking mail shirt stands beside his huge red-bearded berserker father, both holding shields; the young man's expression is torn and sorrowful, sunlight glinting on his mail.
+```
+
+**11. sc_st_saxon（撒克遜親衛隊趕到）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Anglo-Saxon housecarls arrive from the west over a ridge to support the Christian king: kite and round shields painted with crosses, mail and helmets, a Christian banner. Hope arriving.
+```
+
+**12. sc_st_frank（法蘭克騎兵衝下山坡）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Frankish heavy cavalry charge down a snowy slope into the battle, lances lowered, cross banners streaming. Thunderous, decisive.
+```
+
+**13. sc_st_king（老王哈夫丹騎馬趕來）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+On a hill above the battlefield, an old white-haired Viking king with a long white beard rides in on a white horse, an old sword at his side, no cross: he never accepted baptism. He looks down at the hooded crowned king (seen from behind) with a quiet nod. Loyalty beyond faith.
+```
+
+**14. sc_st_eclipse（日蝕：太陽黑了）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+A total solar eclipse over the battlefield of Stiklestad: the sky suddenly dark, the black sun with a white corona, stars visible at midday; Thorir 'the Hound' (a hard, weathered northern chieftain in his forties, long dark-blond hair tied back, a short beard, cold pale eyes, wearing a heavy grey-brown reindeer-skin coat covered with faint glowing blue Sámi runes, a broad axe) stands in the center with arms spread, the runes on his reindeer coat glowing bright blue in the darkness; the hooded crowned king faces him, seen from behind. Supernatural dread.
+```
+
+**15. sc_st_dawn（太陽回來了）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The eclipse ends: the sun returns from behind the moon, golden light flooding across the muddy, snow-streaked battlefield of Stiklestad, fallen warriors of both sides, a torn reindeer coat on the ground; the hooded crowned king stands alone in the light, seen from behind. Exhausted relief.
+```
+
+**16. sc_st_coat（撕破的馴鹿皮大衣）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Close-up of a torn reindeer-skin coat lying in the trampled snow and mud, its Sámi runes now dark and lifeless, a broken axe beside it, morning light. The end of an old magic.
+```
+
+**17. sc_st_father（比約恩跪在父親身邊）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+After the battle, a young red-haired warrior in a heavy mail shirt kneels in the snow beside his huge red-bearded berserker father who lies dying and smiling, pressing his own axe into his son's hands. Unbearably tender, tragic.
+```
+
+**18. sc_st_gone（走向北方的人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+A few figures walking away north through a snowy pass at dusk, carrying a raven banner, a lyre, a smith's hammer: the companions who chose the old gods, leaving forever. Seen from behind, small against the mountains. Bittersweet.
+```
+
+**19. sc_st_after（留下來的人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+A peaceful scene in the king's settlement in spring after the war: champions back to ordinary life — a shieldmaiden hanging her raven shield on a wall, a blacksmith casting a bell, a hunter bringing a deer to a small wooden church, an old veteran sitting on the church steps. Warm, quiet hope.
+```
+
+**20. sc_st_family（家人在王廳門口等著）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+At the door of the royal longhall, the king's spouse and a young child run out to embrace the returning hooded crowned king (seen from behind). Tears of relief, warm firelight from inside.
+```
+
+**21. sc_st_church（斯蒂克萊斯塔的小教堂）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Many years later: a small wooden stave church stands in the green valley of Stiklestad, its bell ringing; farmers in the fields stop and listen, some wearing crosses, some with Thor's hammer pendants. Under the altar (visible through the open door) lies a torn reindeer-skin coat. Peaceful, timeless.
+```
+
+**22. sc_st_raven（窗台上的渡鴉）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Night in the king's chamber: a single black raven sits on the windowsill in the moonlight, looking in; the hooded crowned king sits in a chair, seen from behind, looking back at it. A wooden cross hangs on the wall. Silent, haunting: a king between two gods.
+```
+
+**23. v_thorir（「獵犬」托里爾（立繪））**
+
+```
+
+Photorealistic character portrait, Viking Age Scandinavia (9th–10th century), vertical 3:4, upper body, dramatic side light, dark atmospheric background. No text, no letters, no watermark, no frame, no modern objects.
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Thorir 'the Hound' (a hard, weathered northern chieftain in his forties, long dark-blond hair tied back, a short beard, cold pale eyes, wearing a heavy grey-brown reindeer-skin coat covered with faint glowing blue Sámi runes, a broad axe), portrait, the glowing runes on the coat clearly visible, a Sámi drum hanging at his belt. Cold, proud, dangerous.
+```
+
+**24. v_harek（「弓手」哈雷克（立繪））**
+
+```
+
+Photorealistic character portrait, Viking Age Scandinavia (9th–10th century), vertical 3:4, upper body, dramatic side light, dark atmospheric background. No text, no letters, no watermark, no frame, no modern objects.
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Hárek the Archer, a lean northern chieftain in his fifties, grey braided beard, hawk-like eyes, a longbow on his back and a sword in hand, a fur-trimmed leather coat, a Thor's hammer pendant. Sharp, calculating.
+```
+
+**25. v_kalf（「背誓者」卡爾夫（立繪））**
+
+```
+
+Photorealistic character portrait, Viking Age Scandinavia (9th–10th century), vertical 3:4, upper body, dramatic side light, dark atmospheric background. No text, no letters, no watermark, no frame, no modern objects.
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+Kálf the Oathbreaker, a broad-shouldered Viking nobleman in his forties, dark hair and beard, fine mail under a red cloak, a silver oath ring on his arm that he once swore on before the king; a guilty but defiant expression.
+```
+
+**26. sc_st_hakon（哈康在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): An old one-eyed Viking veteran with a long grey braided beard and a battered round shield full of sword cuts stands in the very front of the shield wall.
+```
+
+**27. sc_st_astrid（阿斯特麗德在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): a fierce blonde shieldmaiden with braided hair and a round shield painted with a black raven blocks spears in front of the king with her raven shield.
+```
+
+**28. sc_st_thorfinn（托爾芬在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): a tall quiet warrior with a short dark beard and a large bearded axe stands silently at the king's right side, axe ready.
+```
+
+**29. sc_st_sven（赫羅爾夫在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): an arrogant red-cloaked jarl's son on a red-and-white striped longship leads red-sailed ships crashing into the enemy flank from the fjord.
+```
+
+**30. sc_st_una（烏娜在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): an old white-haired herbalist woman in a grey hood saves wounded men of both faiths in a field tent.
+```
+
+**31. sc_st_bragi（布拉吉在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): a cheerful skald with a braided brown beard and a small wooden lyre stands on a rock singing the names of the fallen.
+```
+
+**32. sc_st_einar（埃納在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): a lean young hunter in a grey wolf-pelt hood with a longbow lies on a hillside shooting the enemy banner-bearer.
+```
+
+**33. sc_st_gudrun（古德倫在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): a muscular female blacksmith with soot on her face and a smithing hammer sharpens axes behind the lines, hammer ringing.
+```
+
+**34. sc_st_ragnar（拉格納在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): a huge bare-chested red-bearded berserker with blue woad tattoos and a bear pelt charges bare-chested into the enemy, roaring.
+```
+
+**35. sc_st_osric（古托姆在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): a composed grey-streaked former jarl's general in a dark-blue tunic commands the left wing, pointing out the gaps.
+```
+
+**36. sc_st_knut（克努特在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): a rough outlaw with a long scar across his face sneaks behind enemy lines and sets their supply sleds on fire.
+```
+
+**37. sc_st_bjorn（比約恩在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): a young warrior with short spiky red hair and a heavy unbreakable mail shirt blocks a whole row of spears with his mail-clad body.
+```
+
+**38. sc_st_sigrid（西格麗德在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
+Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
+The battle of Stiklestad (cross banners against raven banners, muddy snow): a proud young shieldmaiden with a dark blonde braid and a shield painted with a golden stag holds the left flank, shouting back to the king.
 ```
 
 ## ✅ v0.13 重畫（1 張，已收到）

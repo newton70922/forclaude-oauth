@@ -336,6 +336,37 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .kcrow button.ok{border-color:#6a9a5b;color:#9fd18c}
 .kcrow button.bad{border-color:var(--blood);color:var(--blood)}
 .kclues{margin:6px 0 10px;padding-left:18px}
+.ec-stat{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);margin:4px 0 8px;font-variant-numeric:tabular-nums}
+.ec-stat b{color:var(--bone)}
+.ec-torches{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.ec-torch{font:inherit;font-size:12.5px;padding:4px 10px;border-radius:14px;border:1px solid #6a5630;background:rgba(207,171,92,.1);color:var(--gold);cursor:pointer}
+.ec-torch:disabled{opacity:.3;cursor:default;text-decoration:line-through}
+.ec-stage{display:grid;gap:8px;justify-items:center;text-align:center}
+.ec-hint{margin:0;color:var(--muted);font-size:13.5px}
+.ec-big{margin:0;font-family:var(--f-display);font-size:20px;color:var(--gold)}
+.ec-meta{margin:0;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ec-log{min-height:22px;white-space:pre-line;margin:8px 0 0}
+.ec-field{width:100%;max-width:340px;aspect-ratio:1;border-radius:10px;background:radial-gradient(circle at 50% 50%,#121a20 0%,#05080a 80%);touch-action:none;user-select:none;-webkit-user-select:none;display:block}
+.ec-field line{stroke:#6f8ea3;stroke-width:3;stroke-linecap:round}
+.ec-field line.x{stroke:var(--frost);filter:drop-shadow(0 0 4px var(--frost))}
+.ec-field circle.node{fill:#2a2010;stroke:var(--gold);stroke-width:3;cursor:grab}
+.ec-field circle.node.drag{fill:var(--gold)}
+.ec-field text{font-size:15px;pointer-events:none;text-anchor:middle;dominant-baseline:central}
+.ec-track{position:relative;width:100%;max-width:340px;aspect-ratio:1;border-radius:10px;background:#04070a;overflow:hidden;touch-action:none;cursor:none}
+.ec-glow{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:radial-gradient(circle,#e3f4ff 0%,var(--frost) 40%,rgba(143,191,207,0) 75%);opacity:.5}
+.ec-light{position:absolute;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,214,140,.55) 0%,rgba(207,171,92,.18) 55%,rgba(207,171,92,0) 72%)}
+.ec-track.hit{animation:echit .35s}
+@keyframes echit{0%{background:#5a1612}100%{background:#04070a}}
+.ec-bar{position:absolute;left:8px;right:8px;bottom:8px;height:6px;border-radius:3px;background:#1d262c}
+.ec-bar i{display:block;height:100%;width:0;background:var(--gold);border-radius:3px}
+.ec-card{position:absolute;inset:0;display:grid;place-items:center;background:rgba(5,7,9,.86);z-index:5;animation:ecfade .3s}
+.ec-card>div{display:grid;gap:6px;justify-items:center;text-align:center;padding:18px;max-width:320px}
+.ec-card b{font-family:var(--f-display);font-size:22px;color:var(--gold)}
+.ec-card p{margin:0}
+.ec-flame{font-size:46px;animation:ecflame 1s infinite alternate}
+@keyframes ecfade{from{opacity:0}to{opacity:1}}
+@keyframes ecflame{from{transform:scale(1) rotate(-3deg)}to{transform:scale(1.12) rotate(3deg)}}
+@media (prefers-reduced-motion:reduce){.ec-card,.ec-flame,.ec-track.hit{animation:none}}
 .bline{position:relative;height:14px;border-radius:7px;background:#3a2326;border:1px solid var(--line);overflow:hidden;margin:10px 0 2px}
 .bline i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#7a4a22,var(--ember));transition:width .6s ease}
 .bline::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(255,255,255,.35)}
@@ -732,6 +763,8 @@ const FOES={
   elk:{name:'發怒的公麋鹿',hp:40,atk:10,w:[.5,.2,.3],beast:1,hab:'bear',tip:'用鹿角猛頂之後，總要退一步甩甩頭。'},
   lynx:{name:'山貓',hp:26,atk:9.5,w:[.2,.6,.2],beast:1,hab:'chain',tip:'撲咬得手之後，喜歡連著再撲一次。'},
   walrus:{name:'老海象',hp:52,atk:11,w:[.45,.1,.45],beast:1,hab:'alt',tip:'用長牙壓下來之後，就會縮回去，輪流來。'},
+  harek:{name:'「弓手」哈雷克',hp:95,atk:19,w:[.3,.45,.25],hab:'alt',lord:1,tip:'射手出身，總想拉開距離，快攻特別多。'},
+  kalf:{name:'「背誓者」卡爾夫',hp:115,atk:21,w:[.4,.3,.3],hab:'counter',lord:1,tip:'他向你宣誓過，你的每一個習慣他都知道。'},
   palna:{name:'約姆斯堡的帕爾納托基',hp:130,atk:24,w:[.35,.35,.3],hab:'counter',lord:1,tip:'約姆斯維京人的首領，專挑你上一招的破綻出手。'},
   king:{name:'老王哈夫丹',hp:120,atk:29,w:[.35,.35,.3],hab:'king',lord:1,king:1,tip:'他會記住你最常用的招式，然後反制它；快倒下時，還會再撐一口氣。'},
 };
@@ -876,6 +909,9 @@ const ACH={
   end4_guard:{name:'挪威的守護者',desc:'打退丹麥人。',hint:'不屬於其他結局時，打退丹麥人。'},
   end4_vassal:{name:'附庸之王',desc:'向丹麥下跪。',hint:'向丹麥國王下跪。'},
   end4_lost:{name:'失國之王',desc:'被丹麥人奪走王國。',hint:'兩次擋不住丹麥大軍。'},
+  end4_stik:{name:'十字架與王冠',desc:'受洗之後，在斯蒂克萊斯塔打贏舊神的最後一戰。',hint:'受洗之後的路，還沒有走完。',secret:1},
+  end4_saint:{name:'永恆之王',desc:'倒在斯蒂克萊斯塔，成為聖王。',hint:'有些國王，倒下之後才開始被記住。',secret:1},
+  end4_twogods:{name:'兩個神之間的王',desc:'接受了舊神最後的幫助，打贏斯蒂克萊斯塔。',hint:'決戰前一晚，有人來看你。',secret:1},
   end4_ragnarok:{name:'黃昏之後',desc:'在諸神黃昏中活下來。',hint:'和眾神並肩，撐過世界的最後一天。',secret:1,reward:'傳承「世界樹的種子」'},
   king_return:{name:'你有遵守承諾呢',desc:'老王在諸神黃昏重生覺醒。',hint:'饒了老王，並且守住他的託付。',secret:1,reward:'傳承「老王的劍」'},
   end4_ragfall:{name:'與諸神同眠',desc:'倒在諸神黃昏的戰場上。',hint:'和眾神一起，倒在世界的最後一天。',secret:1},
@@ -1137,13 +1173,13 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
 const ART_HAVE=new Set(['sc_ev_children','sc_ev_grumble','sc_ev_grumble_b','sc_ev_oracle','sc_ev_p_astrid','sc_ev_p_bragi','sc_ev_p_einar','sc_ev_p_hakon','sc_ev_p_knut','sc_ev_p_osric','sc_ev_p_ragnar','sc_ev_p_una','sc_ev_plague','sc_ev_thorfinn_up','sc_ev_traitor','sc_ally_eagle','sc_ally_frank','sc_ally_grey','sc_ally_wessex','sc_ev_atone1','sc_ev_atone2','sc_ev_atone3','sc_ev_drunk','sc_ev_framed','sc_ev_ingrid','sc_ev_merchant','sc_ev_runestone','sc_ev_treasure','sc_ev_witch','sc_ev_wolves','sc_ev_wreck','sc_s_midsummer_1','sc_s_midsummer_2','sc_s_midsummer_3','sc_ev_dream_m','sc_ev_dream_f','sc_ev_wedding','sc_ev_wedding_b','sc_ev_wedding_c','sc_back_astrid','sc_back_bjorn','sc_back_bragi','sc_back_einar','sc_back_gudrun','sc_back_hakon','sc_back_knut','sc_back_osric','sc_back_ragnar','sc_back_sigrid','sc_back_sven','sc_back_thorfinn','sc_back_una','sc_ev_holm','sc_ev_holm_holmS','sc_bt_lose','sc_ev_astrid','sc_ev_bard','sc_ev_einar','sc_ev_forgive','sc_ev_gudrun','sc_ev_hakon','sc_ev_holm_holmB','sc_ev_knut','sc_ev_osric','sc_ev_ragnar','sc_ev_una','sc_oath_astrid','sc_oath_bjorn','sc_oath_bragi','sc_oath_einar','sc_oath_gudrun','sc_oath_hakon','sc_oath_knut','sc_oath_osric','sc_oath_ragnar','sc_oath_sigrid','sc_oath_sven','sc_oath_thorfinn','sc_oath_una','sc_d3_wall2','sc_bt_1','sc_bt_2','sc_bt_3','sc_bt_win','sc_win_sigrid3','sc_win_bjorn2','sc_win_bjorn3','sc_win_ragnar2','sc_win_sigrid2','sc_win_astrid2','sc_win_astrid3','sc_k_awaken','sc_k_boast','sc_k_stance','sc_rv_dock','sc_rv_raid1','sc_rv_raid2','sc_rv_fire','sc_rv_kneel','sc_rv_kneel_1','sc_rv_kneel_2','sc_d3_wall','sc_d3_envoy','sc_d3_sigurd','sc_d3_brynhild','sc_d3_king','sc_d3_hrolf','sc_win_astrid','sc_win_ragnar','sc_win_bjorn','sc_win_sigrid','sc_s_sow','sc_s_midsummer','sc_s_harvest','sc_s_icefish','sc_tribe_1','sc_tribe_2','sc_tribe_3','sc_tribe_4','sc_tribe_5','sc_tribe_6','b_longhouse','b_granary','b_smithy','b_barracks','b_dock','b_altar','b_hall','b_tower','b_market','b_yard','b_sauna','b_runehut','b_ancestor','b_shipyard','o_hunter','o_sailor','o_skald','o_smith','sc_k_drag','sc_k_dismount','sc_k_eyes','sc_k_promise','sc_k_reach','sc_k_sword','sc_k_gaze','sc_rag_freyja','sc_rag_people','sc_rag_thor','sc_rag_tyr','sc_rag_giants','sc_rag_horn','sc_rag_loki','sc_rag_odin','sc_rag_ours','v_halfdan3','sc_wessex_0','sc_york_3b','sc_k_advance','sc_paris_1','sc_paris_2','sc_paris_3','sc_wessex_3','sc_wessex_1','sc_wessex_2','sc_york_1','sc_york_2','sc_york_3','sc_beach_wall','sc_dane_victory','sc_war_council','sc_war_gunnhild','sc_war_sweyn','c_thorstein','sc_q_astrid','sc_q_sigrid','v_halfdan2a','v_halfdan2c','c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news','sc_k_bifrost','sc_k_charge','sc_k_axes','sc_k_line','sc_k_gods']);
-const CHAMP_ART={halfdan2:'v_halfdan2',halfdan2a:'v_halfdan2a',halfdan2c:'v_halfdan2c',halfdan3:'v_halfdan3',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
+const CHAMP_ART={harek:'v_harek',kalf:'v_kalf',thorir:'v_thorir',halfdan2:'v_halfdan2',halfdan2a:'v_halfdan2a',halfdan2c:'v_halfdan2c',halfdan3:'v_halfdan3',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
 const artKey=id=>CHAMP_ART[id]||id;
 const hasArt=id=>ART_HAVE.has(artKey(id));
 const avatar=(id,cls='')=>hasArt(id)?(artSeen(artKey(id)),`<img class="avatar ${cls}" src="art/${artKey(id)}.webp" alt="">`):'';
-const FOE_ART={hrym:'m_hrym',fenrirG:'m_fenrir',jormun:'m_jormun',garm:'m_garm',surtr:'m_surtr',holmB:'bjorn',holmS:'sigrid',palna:'palna',king:'halfdan',ragnar:'ragnar',astrid:'astrid',sven1:'sven',svenA:'sven',sven:'sven',knutD:'knut',egill:'egill'};
+const FOE_ART={harek:'harek',kalf:'kalf',hrym:'m_hrym',fenrirG:'m_fenrir',jormun:'m_jormun',garm:'m_garm',surtr:'m_surtr',holmB:'bjorn',holmS:'sigrid',palna:'palna',king:'halfdan',ragnar:'ragnar',astrid:'astrid',sven1:'sven',svenA:'sven',sven:'sven',knutD:'knut',egill:'egill'};
 const SEEN_MEMO={};
 function seenMark(k){
   if(SEEN_MEMO[k]||(S&&S.sandbox)) return;SEEN_MEMO[k]=1;
@@ -1189,6 +1225,8 @@ function resultView(el,title,html,eyebrow,art){
   el.innerHTML=`${art&&art.startsWith('sc_')?sceneImg(art):art&&hasArt(art)?avatar(art,'big'):''}${eyebrow?`<p class="eyebrow">${eyebrow}</p>`:''}<h2>${title}</h2><div class="res">${html}</div><button class="primary" id="m-ok">繼續</button>`;
   $('#m-ok').onclick=closeModal;$('#m-ok').focus();
 }
+// 連戰的下一輪：放在下一個，開始時直接把對決推上來
+const chainNext=f=>pushModal(el=>{f();closeModal();});
 function note(title,html,eyebrow,art){pushModal(el=>resultView(el,title,html,eyebrow,art));}
 function checkPost(){
   if(!S||S.dead||S.won) return;
@@ -2139,9 +2177,11 @@ const FOE_STYLE={
   saxon:{s:'撒克遜人：盾牆排得很平均',t:'撒克遜人的盾牆排得又長又平，哪一段都不好打。',p:[[3,3,2],[3,2,3],[2,3,3],[4,2,2],[2,4,2],[2,2,4]]},
   dane:{mix:1,s:'丹麥人：集中一點猛衝',t:'丹麥人習慣把最狠的人集中在一點，往死裡衝。',p:[[6,1,1],[5,2,1],[5,3,0],[6,2,0],[7,1,0]]},
   frank:{s:'法蘭克人：騎兵專打兩翼',t:'法蘭克騎兵在兩翼打轉，中路反而空了下來。',p:[[4,0,4],[5,1,2],[2,1,5],[4,1,3],[3,1,4],[5,0,3],[3,0,5]]},
+  pagan:{mix:1,s:'舊神的大軍：狂戰士打頭陣',t:'舊神的大軍讓狂戰士衝在最前面，後面才是盾牆。',p:[[5,2,1],[4,3,1],[6,1,1],[4,2,2],[5,3,0]]},
   giant:{mix:1,s:'巨人：哪裡擠就往哪撞',t:'巨人不排陣，哪裡擠得最多，就往哪裡撞。',p:[[5,3,0],[4,4,0],[6,2,0],[5,2,1]]},
 };
 function battle(o){
+  if(o.foeType==='pagan'&&!o.midDone){pushModal(el=>cineView(el,stikMidPages(),()=>{closeModal();battle({...o,midDone:1});},'斯蒂克萊斯塔'));return;}
   if(o.foeType==='giant'&&!o.midDone){pushModal(el=>cineView(el,ragMidPages(),()=>{closeModal();battle({...o,midDone:1});},'ᛞ 諸神黃昏'));return;}
   pushModal(el=>{
     ambSet('battle');
@@ -3104,7 +3144,7 @@ function actions(){
       A.push({id:'thing',name:'召開庭議',desc:'在法石前立一條國法。一年一次，一輩子最多三條。',gain:'選定之前不消耗時間',dis:S.laws.length>=3?'已經立了三條法':th?`今年已經開過庭議了（${4-(S.turn-S.flags.thingT)} 季後）`:null,run:thingModal});
       const jc=S.champions.some(c=>c.bond>=60&&!isJarl(c)),jlands=REGIONS.some(r=>S.reg[r.id].st==='yours'&&!S.jarls[r.id])||osYours().some(o=>!S.jarls[o.id]);
       A.push({id:'jarl',name:'冊封雅爾',desc:'把一塊土地交給一位勇士鎮守。',gain:'不會叛變、收入 +50%',dis:!jc?'需要好感 60 以上、還沒受封的勇士':!jlands?'沒有可以冊封的土地':null,run:jarlModal});
-      if(S.heir&&(S.heir.trait||S.heir.champ)&&!S.flags.warDone&&!(S.flags.ragna&&!S.flags.ragDone)) A.push({id:'abdicate4',name:'傳位給繼承人',desc:`把王冠交給${esc(S.heir.name)}，結束你的統治。`,gain:'結束這一局（另一種結局）',dis:P4()<10?`王位還沒坐穩（${10-P4()} 季後）`:null,run:()=>pushModal(eventModal({kind:'傳位',title:'交出王冠？',text:`你看著${esc(S.heir.name)}，想起了自己十九歲時的樣子。\n\n王冠一旦交出去，就拿不回來了。`,ch:[{t:'傳位',fx:()=>{pushLater(el=>ch4End(el,'abdicate'));return null;}},{t:'還不是時候',fx:()=>'你把王冠戴了回去。'}]}))});
+      if(S.heir&&(S.heir.trait||S.heir.champ)&&!S.flags.warDone&&!(S.flags.ragna&&!S.flags.ragDone)&&!(S.flags.stik&&!S.flags.stikDone)) A.push({id:'abdicate4',name:'傳位給繼承人',desc:`把王冠交給${esc(S.heir.name)}，結束你的統治。`,gain:'結束這一局（另一種結局）',dis:P4()<10?`王位還沒坐穩（${10-P4()} 季後）`:null,run:()=>pushModal(eventModal({kind:'傳位',title:'交出王冠？',text:`你看著${esc(S.heir.name)}，想起了自己十九歲時的樣子。\n\n王冠一旦交出去，就拿不回來了。`,ch:[{t:'傳位',fx:()=>{pushLater(el=>ch4End(el,'abdicate'));return null;}},{t:'還不是時候',fx:()=>'你把王冠戴了回去。'}]}))});
       if(S.flags.rumor&&!S.flags.envoy&&!S.flags.warDone&&!S.flags.ragna) A.push({id:'appease',name:'派使者安撫藍牙',desc:'送一船禮物去丹麥，讓藍牙暫時放心（150 銀幣）。丹麥警戒 −15，一年只能做一次。',gain:'不消耗時間',
         dis:S.turn<(S.flags.appeaseT||0)?`使者才剛回來（還要 ${S.flags.appeaseT-S.turn} 季）`:S.silver<150?'銀幣不夠':null,
         run:()=>{S.silver-=150;S.flags.appeaseT=S.turn+4;addAlert(-15);log('派使者帶著禮物去安撫藍牙。');note('使者回來了',`使者帶著一船的毛皮、琥珀和銀器去了耶靈。\n\n「藍牙收下了禮物，」他回來說，「還笑了。可是他笑的時候，一直在看牆上的地圖。」\n<span class="good">丹麥警戒 −15（現在 ${daneAlert()}/100）</span>`,'丹麥','harald');render();}});
@@ -4021,7 +4061,7 @@ const EV_MISSION={kind:'信仰',title:'穿長袍的人',text:'一個從南方來
 const EV_MISSION2={kind:'信仰',title:'修士又來了',text:'那個修士又來了，這次帶著法蘭克國王的信：「北方的王，你只接受了記號，還沒有受洗。是時候選邊了。」',
   ch:[{t:'受洗',fx:()=>{baptize();return '這一次，你走進了河裡。\n<span class="good">銀幣 +60，每季貿易 +8 銀幣；可以和南方結盟</span>\n<span class="bad">忠誠 -12；眾神的力量不再眷顧你</span>';}},
       {t:'「記號就夠了。」',fx:()=>{S.faith='old';addLoyalty(3);return '修士嘆了口氣，帶著信走了。南方的商人照樣會來，只是少了一些。\n忠誠 +3（從此不再有十字貿易）';}}]};
-function baptize(){const g=bapGod();S.faith='cross';S.flags.crossT=S.turn;S.silver+=60;loseLoyalty(12);log('受洗了。');pushLater(el=>cineView(el,bapPages(g),closeModal,'ᛟ 那天晚上'));}
+function baptize(){const g=bapGod();S.flags.bapGod=g;S.faith='cross';S.flags.crossT=S.turn;S.silver+=60;loseLoyalty(12);log('受洗了。');pushLater(el=>cineView(el,bapPages(g),closeModal,'ᛟ 那天晚上'));}
 // 受洗那天晚上：最親近的那位神，最後一次來看你（只演出，不寫規則）
 function bapGod(){const f=S.favor||{};const top=Object.keys(GODS).sort((a,b)=>(f[b]||0)-(f[a]||0))[0];return top&&godTier(top)>=1?top:'none';}
 function bapPages(g){
@@ -4308,6 +4348,7 @@ function ch4Tick(){
     pushLater(el=>resultView(el,'預兆',omenText(),'ᛞ 預兆'));return true;
   }
   if(daneRecall()) return true;
+  if(S.flags.stik&&!S.flags.stikDone){const left=S.flags.stikT+STIK-S.turn;if(left<=0){stiklestad();return true;}if(stikTick(left))return true;}
   if(S.flags.kingFate==='spared'&&!S.flags.kingDead&&(t>=7||S.flags.ragna)){kingDeath();return true;}
   if(S.spouse&&spouseDayTick()) return true;
   if(ragHintTick()) return true;
@@ -4362,12 +4403,12 @@ function ragRush(final,fline,fn){
   const kLine=(n,name)=>K==='met'?`\n<span class="good">哈夫丹的雙斧先劈了上去！${name}少了 15% 的血。</span>`
     :K==='unmet'?(n<4?`\n<span class="good">哈夫丹的劍先砍了上去！${name}少了 10% 的血。</span>`:`\n哈夫丹第一個衝了上去，卻被${name}一眼看穿，一擊打飛了出去。他撐著劍站起來，渾身是血：「……接下來，交給你了。」`):'';
   const heal=t=>{const h=Math.round(maxHp()*(.2+(S.spouse?.1:0)));S.hp=Math.min(maxHp(),Math.max(S.hp,1)+h);return `\n\n${t}\n<span class="good">生命 +${h}</span>`;};
-  const fall=next=>{if(charges()>0){if(S.blessings>0)S.blessings--;else S.amulet=false;S.hp=Math.round(maxHp()*.4);pushLater(next);return '你倒下了。一隻冰冷的手抓住你的手腕，把你從灰燼裡拉了起來。是女武神。\n「還沒結束。」她說。\n<span class="bad">用掉了一次祈福</span>';}return '';};
+  const fall=next=>{if(charges()>0){if(S.blessings>0)S.blessings--;else S.amulet=false;S.hp=Math.round(maxHp()*.4);chainNext(next);return '你倒下了。一隻冰冷的手抓住你的手腕，把你從灰燼裡拉了起來。是女武神。\n「還沒結束。」她說。\n<span class="bad">用掉了一次祈福</span>';}return '';};
   const R=(n,k,name,line,cause,next,o2)=>()=>duel(k,{lethal:true,rag:1,mul:1.2,xp:40+n*10,preHit:pre(n),sig:SIG[k],intro:`<b>第${'一二三四'[n-1]}輪</b>　${line}${kLine(n,name)}`,cause,...(o2||{}),onEnd:next});
   const round4=R(4,final,fn,fline,`死在${fn}的口中`,w=>w?(pushLater(ragEpilogue),`${fn}倒下了。整個世界安靜了下來。`):(charges()>0?(pushLater(ragEpilogue),'你倒下了。但在你倒下之前，你的斧頭已經砍進了牠的喉嚨。'):''),{final:1,kingGuard:K==='met'});
-  const round3=R(3,r3[0],r3[1],r3[2],`死在${r3[1]}的手下`,w=>w?(pushLater(round4),`${r3[1]}倒下了。${heal(ragAidLine(2))}`):fall(round4));
-  const round2=R(2,r2[0],r2[1],r2[2],`死在${r2[1]}的口中`,w=>w?(pushLater(round3),`${r2[1]}倒下了。${heal(ragAidLine(2))}`):fall(round3));
-  R(1,'hrym','赫列姆','霜巨人的首領赫列姆從納吉爾法船上跳了下來，冰原裂開了一條縫。他舉起一根比桅杆還粗的冰柱：「凡人，你是第一個。」','被霜巨人赫列姆砸進了冰裡',w=>w?(pushLater(round2),`赫列姆倒下了，冰原震了一下。${heal(ragAidLine(1))}`):fall(round2))();
+  const round3=R(3,r3[0],r3[1],r3[2],`死在${r3[1]}的手下`,w=>w?(chainNext(round4),`${r3[1]}倒下了。${heal(ragAidLine(2))}`):fall(round4));
+  const round2=R(2,r2[0],r2[1],r2[2],`死在${r2[1]}的口中`,w=>w?(chainNext(round3),`${r2[1]}倒下了。${heal(ragAidLine(2))}`):fall(round3));
+  R(1,'hrym','赫列姆','霜巨人的首領赫列姆從納吉爾法船上跳了下來，冰原裂開了一條縫。他舉起一根比桅杆還粗的冰柱：「凡人，你是第一個。」','被霜巨人赫列姆砸進了冰裡',w=>w?(chainNext(round2),`赫列姆倒下了，冰原震了一下。${heal(ragAidLine(1))}`):fall(round2))();
 }
 // 諸神黃昏時，伴侶會做的事
 const SPOUSE_RAG={
@@ -4530,6 +4571,7 @@ function daneVictory(){
     pushLater(el=>resultView(el,'諸神黃昏',ragnaOmen(),'ᛞ 預兆','sc_ragnarok'));
     return;
   }
+  if(crossed()&&!S.flags.stik){stikStart();return;}
   pushLater(el=>ch4End(el,'win'));
 }
 const daneDef=()=>220*lf()*D().foe*danMul();
@@ -4624,6 +4666,472 @@ function shieldWallFn(o){
   };
 }
 
+/* ---------- 舊神的最後一戰（受洗之後的真結局）：分裂的冬天 → 斯蒂克萊斯塔 ---------- */
+const STIK=4;
+const stikGone=()=>S.flags.stikGone||(S.flags.stikGone=[]);
+const CROSS_REACT={
+  hakon:'哈康沉默了很久：「我老了，換不了神了。……可是，我也換不了首領。」',
+  astrid:'阿斯特麗德聳聳肩：「我的盾不管你信誰。它只管擋在你前面。」',
+  thorfinn:'托爾芬只說了一句：「我跟的是你，不是神。」',
+  sven:'赫羅爾夫大笑：「受洗？你知道我父親會怎麼說嗎？……算了，他已經死了。」',
+  una:'烏娜摸著胸前的骨頭符，什麼也沒說。那天晚上，她在霧沼的方向點了一盞燈。',
+  bragi:'布拉吉撥了撥琴弦，又放下了：「我會的歌，全是唱給舊神的。以後，我要唱什麼？」',
+  einar:'埃納望著森林的方向：「樹林裡的神，會不會也跟著走了？」',
+  gudrun:'古德倫敲了一下鐵砧：「斧頭不信神。斧頭只信握著它的人。」',
+  ragnar:'拉格納把角杯摔在地上：「狂戰士的力量是奧丁給的！你把奧丁趕走了，我還剩下什麼？」',
+  osric:'古托姆搖搖頭：「我在雅爾西格德身邊看過太多次了。換了神的國王，第一個要殺的，往往是自己人。」',
+  knut:'克努特咧嘴一笑：「誰信什麼神，我都無所謂。重點是，誰付的錢比較多。」',
+  bjorn:'比約恩看了看父親，又看了看你。這是他第一次，什麼話都沒說。',
+  sigrid:'西格麗德說：「我父親也信舊神。可是他教我的第一件事，是守住對主君的承諾。」'
+};
+// 會動搖的勇士：說的話分成「過去」「神」「以後」三種
+const WAVER={
+  ragnar:{past:['「我第一次發狂，是在奧丁的祭壇前。那天我砍倒了七個人。你要我忘了那一天？」','「我們的祖先，全都死在舊神的旗子下面。」'],
+    gods:['「沒有奧丁，狂戰士就只是一個會發瘋的醉漢。」','「你的新神，能讓人咬著盾牌衝進敵陣嗎？」'],
+    future:['「等舊神都走了，誰來接住戰死的狂戰士？」','「我的兒子，以後要跪在一個不認識的神面前嗎？」'],
+    stay:'拉格納把角杯撿起來，倒滿，一口喝乾：「好吧。奧丁要是怪我，就讓祂自己來找我。」',
+    leave:'拉格納咬著盾牌邊緣，最後看了你一眼：「下次見面，別手下留情。」\n\n他走進了雪裡，沒有回頭。'},
+  knut:{past:['「當年我被趕出村子，是舊神的祭司收留了我。」','「我欠托里爾一條命。很多年前的事了。」'],
+    gods:['「托里爾說，舊神會給每個跟他走的人一塊地。你的神給過我什麼？」','「我不信神。可是我信那件刀砍不進去的大衣。」'],
+    future:['「跟著輸的那一邊，是活不久的。我得替我的人想想。」','「打完這一仗，你還會需要一個疤面的亡命之徒嗎？」'],
+    stay:'克努特把托里爾送來的錢袋丟進了火裡：「虧大了。……算了，誰叫我欠你的比較多。」',
+    leave:'克努特把一枚銀幣彈到你的桌上：「這是當年你收留我的錢。我們兩清了。」'},
+  bragi:{past:['「我會的每一首歌，都是唱給舊神的。那些歌，是祖先一句一句傳下來的。」','「我唱過你的每一場仗。每一首的最後一句，都是奧丁的名字。」'],
+    gods:['「沒有了眾神，薩迦裡的英雄要去哪裡？」','「修士說，唱舊神的歌是罪。那我這輩子算什麼？」'],
+    future:['「一百年後，還會有人記得怎麼唱這些歌嗎？」','「如果我不走，這些歌就會跟著我一起死。」'],
+    stay:'布拉吉把琴抱在懷裡：「那我就把舊神的歌，唱給你的新神聽。讓祂也聽聽看。」',
+    leave:'布拉吉在長屋門口，最後唱了一首歌。是你第一次打勝仗那天，他寫的那一首。\n\n唱完，他就走了。'},
+  una:{past:['「霧沼的女人，世世代代都向舊神求藥。」','「我治好過你的傷。用的，是舊神教我的咒語。」'],
+    gods:['「修士說我的草藥是巫術。他們要燒的，是我。」','「你的神，會聽一個老太婆說話嗎？」'],
+    future:['「我老了。我想死在舊神的身邊。」','「等我走了，誰來教年輕人認那些草？」'],
+    stay:'烏娜嘆了一口氣：「好吧。我會把草藥的名字，一個一個教給你的修士。」',
+    leave:'烏娜把一包草藥放在你的枕頭邊：「傷口裂開的時候用。」\n\n第二天早上，她的屋子空了。'}
+};
+// 拉格納勸兒子
+const RAG_TO_BJORN={past:['「你小時候第一次拿斧頭，是我在奧丁的樹下教你的。」','「你身上流的，是我的血。是狂戰士的血。」','「你母親死的那天，是誰抱著你，一起向奧丁祈禱的？」'],
+  gods:['「舊神給了你力量。那個受洗的人，給了你什麼？」','「沒有奧丁，你那身鎖子甲也擋不住命運。」','「瓦爾哈拉的門，只為我們這種人開。」'],
+  future:['「跟我走。打完這一仗，我們父子一起去瓦爾哈拉喝酒。」','「你以後的兒子，要叫一個不認識的神作父親嗎？」','「留在這裡，你會變成一個沒有神的人。」']};
+const SC_TYPE={past:'mem',gods:'bond',future:'vow'},SC_NAME={mem:'回憶',bond:'情義',vow:'承諾'};
+// 你手上的牌：來自你們真的一起經歷過的事
+function scaleHand(id){
+  const c=champ(id),P=cP(id),H=[];
+  if(qd(id)&&QUESTS[id]) H.push({k:'mem',p:3,t:`「你記得嗎？我陪${P}去了『${QUESTS[id].a}』。」`});
+  const v=S.flags.varang;if(v&&v.id===id&&v.back) H.push({k:'mem',p:2,t:'「從米克拉加德回來的那天晚上，我們喝到了天亮。」'});
+  if(id==='bjorn'&&S.flags.met_bjorn) H.push({k:'mem',p:2,t:'「霍姆岡上，你被我打倒在斗篷上，還在笑。」'});
+  if(c.bond>=70) H.push({k:'mem',p:2,t:'「這些年，我們一起打過的每一仗，你都記得。」'});
+  H.push({k:'mem',p:1,t:`「我還記得${P}剛來的那一天。」`});
+  if(c.oath) H.push({k:'bond',p:3,t:id==='bjorn'?'「你把鎖子甲放在我腳邊的那天，說過什麼？」':'「你割過手掌。不是對神，是對我。」'});
+  const pr=RELS.find(([a,b,w])=>w>0&&(a===id||b===id)&&hasC(a===id?b:a)&&!stikGone().includes(a===id?b:a));
+  if(pr){const o=pr[0]===id?pr[1]:pr[0];H.push({k:'bond',p:2,t:`「${CHAMPS[o].name.replace(/「[^」]*」/,'')}還在這裡。」`});}
+  H.push({k:'bond',p:1,t:'「我們是一起的。」'});
+  if(c.bond>=80) H.push({k:'vow',p:2,t:'「我會讓你的名字，被唱進每一首薩迦。」'});
+  if(isJarlId(id)) H.push({k:'vow',p:2,t:'「你治理的那片土地，還需要你。」'});
+  else if(S.heir) H.push({k:'vow',p:2,t:`「${esc(S.heir.name)}需要一個像你這樣的老師。」`});
+  H.push({k:'vow',p:1,t:'「我會守住這片土地，也守住你。」'});
+  return H;
+}
+// 心的天平：他說一句，你回一張牌。對上了就往「留下」那邊倒
+function scaleGame(o){
+  markGame('scale');
+  const id=o.target,name=CHAMPS[id].name,hand=scaleHand(id);
+  const types=['past','gods','future'],seq=[...types].sort(()=>Math.random()-.5);
+  while(seq.length<o.n) seq.push(pick(types));
+  const used={};let v=Math.round((champ(id).bond-60)/15),i=-1,res='';
+  const lines=seq.map(t=>{const pool=o.lines[t].filter(x=>!used[x]);const l=pick(pool.length?pool:o.lines[t]);used[l]=1;return [t,l];});
+  (o.now?pushModal:pushLater)(el=>{
+    const bar=()=>{const p=clamp(50+(v-o.th/2)*7,4,96);return `<div class="blab"><span>${o.leftLab||'離開'}</span><span>${o.rightLab||'留下'}</span></div><div class="bline"><i style="width:${p}%"></i></div>`;};
+    const head=()=>`${avatar(o.art||id,'big')}<p class="eyebrow">心的天平 · ${i<0?'開始':i>=o.n?'結果':`${i+1} / ${o.n}`}</p><h2>${o.title}</h2>`;
+    const show=()=>{
+      if(i<0){el.innerHTML=head()+`<p class="story">${o.intro}</p>${bar()}<p class="story" style="color:var(--muted);font-size:13.5px">${o.speakerName||name}說的是過去，就用你們一起的回憶回答；說的是神，就用情義回答；說的是以後，就用承諾回答。牌的力量越大，越能打動人。每張牌只能用一次。</p><button class="primary" id="sc-go">開口</button>`;
+        $('#sc-go').onclick=()=>{i=0;show();};return;}
+      if(i>=o.n){const stay=v>=o.th;el.innerHTML=head()+bar()+`<div class="res">${o.onEnd(stay)}</div><button class="primary" id="m-ok">繼續</button>`;$('#m-ok').onclick=closeModal;$('#m-ok').focus();return;}
+      const [t,l]=lines[i];
+      el.innerHTML=head()+`<div class="res" style="font-size:16px">${l}</div>${res?`<p class="story" style="margin-top:8px">${res}</p>`:''}${bar()}<p class="story" style="color:var(--muted);font-size:12.5px;text-align:center">過去 → 回憶　·　神 → 情義　·　以後 → 承諾</p>
+        <div class="choices">${hand.map((h,j)=>h.used?'':`<button class="choice" data-h="${j}"><b>〔${SC_NAME[h.k]}〕${h.t}</b><small>力量 ${'●'.repeat(h.p)}${'○'.repeat(3-h.p)}</small></button>`).join('')||'<p class="story">你已經沒有話可以說了。</p>'}</div>
+        ${hand.some(h=>!h.used)?'':'<button class="primary" id="sc-skip">沉默</button>'}`;
+      const answer=h=>{
+        if(h&&h.k===SC_TYPE[t]){v+=h.p;res=pick(o.okTxt);}
+        else{v-=2;res=pick(o.badTxt);}
+        if(h)h.used=1;i++;show();};
+      el.querySelectorAll('[data-h]').forEach(b=>b.onclick=()=>answer(hand[+b.dataset.h]));
+      const sk=$('#sc-skip');if(sk)sk.onclick=()=>answer(null);
+    };
+    show();
+  });
+}
+function stikLeave(id,txt){
+  const g=stikGone();if(g.includes(id)) return '';
+  g.push(id);removeChamp(id);
+  if(S.jarls) for(const k in S.jarls) if(S.jarls[k]===id) delete S.jarls[k];
+  log(`${CHAMPS[id].name}投向了舊神。`);
+  return txt;
+}
+// 走的人，可能會帶走一個感情好的同伴
+function stikFollowers(id){
+  const out=[];
+  RELS.filter(([a,b,w])=>w>0&&(a===id||b===id)).forEach(([a,b])=>{
+    const o=a===id?b:a,c=champ(o);
+    if(!c||o==='bjorn'||c.oath||c.bond>=70||stikGone().length>=3) return;
+    out.push(stikLeave(o,`${CHAMPS[o].name}看了你一眼，扛起了自己的東西，跟在${CHAMPS[id].name}後面走了。`));
+  });
+  return out.filter(Boolean).join('\n\n');
+}
+function stikWaver(id){
+  const W=WAVER[id],name=CHAMPS[id].name;
+  scaleGame({target:id,title:`${name}的心`,lines:W,n:3,th:4,
+    intro:`${name}來找你了。${champ(id).oath?`\n\n「我發過誓不會背叛你。所以我來當面告訴你：是你先換了神。」`:''}\n\n${cP(id)}還沒有決定。你們之間的事，就是你手上的牌。`,
+    okTxt:[`${name}沉默了。`,`${name}低下了頭。`,`${name}握著斧柄的手，鬆開了一點。`],
+    badTxt:[`${name}搖了搖頭：「你沒在聽我說話。」`,`${name}的眼神冷了下來。`],
+    onEnd:stay=>{
+      if(stay){bond(id,5);return `<span class="good">${W.stay}</span>`;}
+      let t=stikLeave(id,`<span class="bad">${W.leave}</span>`);
+      if(id==='ragnar'&&hasC('bjorn')&&stikGone().length<3){S.flags.stikBjornDone=1;stikBjorn();}
+      const f=stikFollowers(id);if(f)t+='\n\n'+f;
+      return t;}});
+}
+// 比約恩：父親走了，兒子動搖
+function stikBjorn(){
+  scaleGame({now:1,target:'bjorn',art:'bjorn',title:'父與子',lines:RAG_TO_BJORN,n:5,th:6,speakerName:'拉格納',leftLab:'跟父親走',rightLab:'留下',
+    intro:'拉格納沒有直接走。他在長屋外的雪地裡等著，等他的兒子。\n\n比約恩站在門口，看看父親，又看看你。\n\n拉格納開口了。你要替比約恩回答。',
+    okTxt:['比約恩看了你一眼，又看了看父親。','比約恩咬緊了牙。','比約恩往你這邊，退了半步。'],
+    badTxt:['拉格納笑了：「你看，他根本不懂你。」','比約恩低下頭，看著自己的腳。'],
+    onEnd:stay=>{
+      if(stay){bond('bjorn',10);S.flags.stikBjornStay=1;return '<span class="good">比約恩轉向父親，聲音在發抖：「……爸，我留下。」\n\n拉格納看了他很久，什麼也沒說，轉身走進了雪裡。</span>';}
+      return stikLeave('bjorn','<span class="bad">比約恩的手在發抖。他看了你很久，最後撿起盾牌，站到了父親身邊。\n\n「……對不起，首領。」</span>');}});
+}
+function stikStart(){
+  S.flags.stik=1;S.flags.stikT=S.turn;codex('h_stiklestad');
+  S.flags.stikQ=['ragnar','knut','bragi','una'].filter(hasC);
+  pushLater(el=>cineView(el,[
+    {art:['sc_st_omen','sc_dane_victory'],text:'丹麥人的船走了。挪威第一次，只有一個國王、一個神。\n\n至少，你是這麼以為的。'},
+    {art:['sc_st_omen'],text:'那年冬天，北方的領主們沒有來王廳過冬至。\n\n他們在特倫德拉格的山谷裡，點起了舊神的祭火。'},
+    {art:['sc_st_thorir','thorir'],text:'帶頭的人叫托里爾，大家叫他「獵犬」。\n\n他從芬人那裡換來了十二件馴鹿皮大衣。芬人的巫師在上面唸了三天三夜的咒。據說，刀劍砍不進去。'},
+    {art:['sc_st_thorir','thorir'],text:'「告訴那個受洗的國王，」他對你的使者說，「舊神還沒有死。等雪化了，我們在斯蒂克萊斯塔見。」',big:1}
+  ],closeModal,'ᛉ 分裂的冬天'));
+  const L=S.champions.map(c=>c.id).filter(id=>CROSS_REACT[id]).map(id=>CROSS_REACT[id]);
+  if(S.flags.mate) L.push('托爾斯坦把手放在你的肩上：「我替兩個王划過槳。一個信奧丁，另一個信什麼，我都忘了。我只記得，他們都需要有人在船上。」');
+  if(L.length) pushLater(el=>resultView(el,'長屋裡的夜晚',`消息傳回王廳的那天晚上，沒有人喝酒。\n\n${L.join('\n\n')}`,'ᛉ 分裂的冬天','sc_st_hall'));
+  pushLater(el=>resultView(el,'分裂的冬天',`有些人，會跟著舊神走。\n<span class="bad">${STIK} 季後，斯蒂克萊斯塔。</span>`,'ᛉ 分裂的冬天'));
+}
+function stikTick(left){
+  const q=S.flags.stikQ||[];let any=false;
+  const n=Math.ceil(q.length/Math.max(1,left));
+  for(let i=0;i<n&&q.length;i++){
+    const id=q.shift();
+    if(!hasC(id)||stikGone().length>=3) continue;
+    stikWaver(id);any=true;
+  }
+  if(!any&&left===2){note('分裂的冬天','山谷裡的祭火，一個晚上比一個晚上多。\n\n有人在你的長屋門口，用血畫了一個舊神的符文。','ᛉ 分裂的冬天');any=true;}
+  return any;
+}
+// 決戰前一晚：受洗那晚離開的那位神，最後一次來
+const STIK_GOD={odin:'決戰前一晚，你在營火邊看見一個戴著寬邊帽的獨眼老人。\n\n「你選了你的神。我不怪你。」奧丁說，「可是明天，太陽會黑。黑暗，是我的地方。」\n\n「只要你點頭，明天的黑暗裡，會有我的渡鴉替你看路。」',
+  thor:'決戰前一晚，雷聲從山後滾過來。索爾坐在你的營火對面，烤著一隻羊腿。\n\n「明天我可以替你劈開那些大衣。」他沒有看你，「你只要說一聲。」',
+  tyr:'決戰前一晚，提爾站在營火的另一邊，用僅剩的那隻手按著劍。\n\n「我用一隻手，換了一個誓言。」他說，「明天，你願意用什麼，換你的人活下來？」',
+  freyja:'決戰前一晚，弗蕾亞坐在你的帳篷裡，就像以前一樣。\n\n「明天倒下的人，我可以一個都不帶走。」她說，「只要你願意，再叫一次我的名字。」',
+  loki:'決戰前一晚，洛基蹲在你的營火邊，用樹枝撥著炭。\n\n「我可以讓托里爾的大衣，在最要緊的時候裂開。」他笑了，「你知道的，我最擅長這種事。」'};
+function stikGodOffer(){
+  const g=S.flags.bapGod;if(!g||!STIK_GOD[g]) return;
+  pushLater(eventModal({kind:'ᛟ 最後一晚',art:g,title:'最後的幫助',text:STIK_GOD[g],ch:[
+    {t:'點頭',note:'不會有人知道。只有你自己知道。',fx:()=>{S.flags.stikGod=1;return '「……就這一次。」\n\n神笑了一下，消失在火光裡。';}},
+    {t:'「我已經選了。」',fx:()=>'神看了你很久，點了點頭：「我知道。我只是想再聽你說一次。」\n\n火光裡，只剩下你一個人。'}]}));
+}
+const STIK_MID={hakon:'哈康站在最前面。他跟過三個首領，這是第一次跟著一個受洗的首領上戰場。他說，沒什麼不一樣。',
+  astrid:'阿斯特麗德的渡鴉盾擋在你面前。對面也有人拿著畫渡鴉的盾。她沒有手下留情。',
+  thorfinn:'托爾芬一直站在你的右邊，一句話都沒說。',
+  sven:'赫羅爾夫的紅帆船從峽灣裡衝了出來，把對面的側翼撞得一團亂。',
+  una:'烏娜在後面的帳篷裡，把抬進來的人一個一個救回來。不管他們信哪個神。',
+  bragi:'布拉吉站在高處唱歌。唱的不是舊神，是那些倒下的人的名字。',
+  einar:'埃納趴在山坡上，一箭射穿了對面的旗手。',
+  gudrun:'古德倫在陣後一把一把地磨斧頭，鐵鎚聲比戰鼓還響。',
+  ragnar:'拉格納光著上身衝進敵陣。他說，奧丁要是在看，就讓祂看清楚，他站在哪一邊。',
+  osric:'古托姆在指揮左翼。對面的陣形，是他當年教給那些領主的。每一個破綻，他都知道。',
+  knut:'克努特帶著幾個人繞到敵人背後，把他們的補給燒了。',
+  bjorn:'比約恩穿著那件砍不穿的鎖子甲，擋在了一整排長矛前面。',
+  sigrid:'西格麗德帶人守住了左翼：「左邊交給我！」'};
+const STIK_GONE_MID={ragnar:'你在對面的陣線裡，看見了拉格納。他咬著盾牌，可是沒有衝上來。他在等你。',
+  bragi:'對面的營地裡傳來歌聲。是布拉吉的聲音。他在替舊神唱最後一首歌。',
+  una:'烏娜在對面的帳篷裡，替受傷的人包紮。兩邊的人都有。',
+  knut:'克努特的人在對面的側翼。他朝你揮了揮手，好像只是在打招呼。',
+  bjorn:'比約恩站在父親身邊。他的鎖子甲在陽光下閃了一下。'};
+const stikKing=()=>S.flags.kingFate==='spared'&&!S.flags.kingDead;
+function stikMidPages(){
+  const P=[{art:['sc_st_clash','sc_bt_2'],text:'兩邊撞在了一起。\n\n這一次，對面的人說的是同一種話，唱的是同一首戰歌。有些人，你叫得出名字。',shake:1}];
+  stikGone().slice(0,3).forEach(id=>P.push({art:['sc_st_gone_'+id,id],text:STIK_GONE_MID[id]||`${CHAMPS[id].name}在對面的陣線裡。${cP(id)}沒有看你。`}));
+  if(S.os&&S.os.wessex&&S.os.wessex.st==='ally') P.push({art:['sc_st_saxon','sc_bt_1'],text:'撒克遜人的親衛隊從西邊趕到了。他們的盾牌上，畫著同一個十字。'});
+  if(S.os&&S.os.paris&&S.os.paris.st==='ally') P.push({art:['sc_st_frank','sc_bt_3'],text:'法蘭克的騎兵從南邊的山坡衝了下來。'});
+  if(stikKing()) P.push({art:['sc_st_king','halfdan'],text:'山坡上，一個白髮的老人騎著馬過來了。是老王哈夫丹。\n\n他沒有受洗。他看著你說：「我不信你的神。可是，我信你。」'});
+  S.champions.map(c=>c.id).filter(id=>STIK_MID[id]).sort(()=>Math.random()-.5).slice(0,3).forEach(id=>P.push({art:['sc_st_'+id,id],text:STIK_MID[id]}));
+  P.push({art:['sc_st_thorir','thorir'],text:'敵陣的正中央，站著托里爾，和他的十二件馴鹿皮大衣。\n\n可是在你走到他面前之前，還有人擋在路上。'});
+  return P;
+}
+function stiklestad(){
+  S.flags.stikDone=1;
+  const gone=stikGone().length;
+  pushLater(el=>cineView(el,[
+    {art:['sc_st_field','sc_bt_1'],text:'雪化了。斯蒂克萊斯塔的山谷裡，兩支軍隊面對面站著。\n\n對面的旗子上，畫的是奧丁的渡鴉、索爾的錘子。你的旗子上，畫的是一個十字。'},
+    {art:['sc_st_thorir','thorir'],text:'托里爾站在最前面，身上那件馴鹿皮大衣，在晨光裡泛著一層藍光。\n\n他身邊還有十一個人，穿著一模一樣的大衣。'+(gone?`\n\n你在他們的陣線裡，看見了${stikGone().map(id=>CHAMPS[id].name).join('、')}。`:'')}
+  ],closeModal,'斯蒂克萊斯塔'));
+  stikGodOffer();
+  pushLater(el=>{
+    const def=Math.round(230*lf()*D().foe*(1+.08*gone)*(S.os.wessex&&S.os.wessex.st==='ally'?.9:1)*(S.os.paris&&S.os.paris.st==='ally'?.9:1)*(stikKing()?.9:1)*(S.flags.stikGod?.9:1));
+    battle({title:'斯蒂克萊斯塔',def,foeType:'pagan',intro:'舊神的大軍衝了過來。',foeNote:'舊神的大軍',cause:'倒在斯蒂克萊斯塔',onEnd:w=>{
+      if(!w){pushLater(el2=>ch4End(el2,'saint'));S.hp=Math.max(S.hp,1);return '<span class="bad">陣線被衝散了。你被人群淹沒在雪地裡。</span>';}
+      stikRounds();
+      return '舊神的陣線被你們撕開了！可是，托里爾還站在那裡。';}});
+    closeModal();
+  });
+}
+function stikRounds(){
+  const pre=S.flags.stikGod?.15:0,god=S.flags.bapGod;
+  const godLine=pre?`\n<span class="good">${{odin:'一隻渡鴉從黑暗裡俯衝下來，啄向他的眼睛。',thor:'一道雷劈在他的腳邊。',tyr:'他的劍，莫名其妙地慢了半拍。',freyja:'一陣金色的風吹過，你的傷口不痛了。',loki:'他的鞋帶，不知道什麼時候被人綁在了一起。'}[god]||''}他少了 15% 的血。</span>`:'';
+  const heal=t=>{const h=Math.round(maxHp()*(.2+(S.spouse?.1:0)));S.hp=Math.min(maxHp(),Math.max(S.hp,1)+h);return `\n\n${t}\n<span class="good">生命 +${h}</span>`;};
+  const fall=next=>{
+    if(charges()>0){if(S.blessings>0)S.blessings--;else S.amulet=false;S.hp=Math.round(maxHp()*.4);chainNext(next);return '你倒下了。族人把你從屍堆裡拖了出來，有人往你嘴裡灌了一口酒。\n「國王還活著！」\n<span class="bad">用掉了一次祈福</span>';}
+    S.hp=1;pushLater(el=>ch4End(el,'saint'));return '你倒下了。';};
+  const eclipse=()=>{
+    pushModal(el=>cineView(el,[{art:['sc_st_eclipse','thorir'],text:'你終於站到了托里爾的面前。\n\n他張開雙臂。馴鹿皮大衣上的符文，一個一個亮了起來。',shake:1},
+      {art:['sc_st_eclipse'],text:'然後，太陽黑了。',big:1}],closeModal,'斯蒂克萊斯塔 · 日蝕'));
+    pushModal(el=>eclipseGame(el,r=>{
+      pushModal(r==='win'?el2=>stikEpilogue(el2):el2=>ch4End(el2,'saint'));closeModal();}));
+  };
+  // 第二輪：倒戈的勇士，或是背誓者卡爾夫
+  const g=stikGone();
+  const r2=()=>{
+    const done=w=>w?(chainNext(eclipse),heal('天邊的太陽，好像被什麼東西咬掉了一角。')):fall(eclipse);
+    if(g.includes('ragnar')&&!g.includes('bjorn')&&hasC('bjorn')){
+      pushModal(eventModal({kind:'第二輪',art:'bjorn',title:'父與子',text:'拉格納從敵陣裡走了出來，咬著盾牌邊緣。「首領，這是我這輩子最不想打的一架。」\n\n比約恩走到你面前，把盾牌扣在手臂上。\n\n「首領，讓我去。」',ch:[
+        {t:'讓比約恩上',note:'比約恩代替你跟父親決鬥。他可能會死',fx:()=>{proxyDuel('ragnar','bjorn',{deathRate:.35,onEnd:w=>{
+          if(w){S.flags.stikR2='bjornWin';chainNext(eclipse);return '拉格納倒在雪地上，笑了：「好小子……你終於，比我還兇了。」\n\n他把自己的斧頭塞進兒子的手裡，閉上了眼睛。';}
+          S.flags.stikR2=hasC('bjorn')?'bjornLose':'bjornDied';chainNext(eclipse);
+          return hasC('bjorn')?'拉格納舉起斧頭，停在半空中。\n\n……他把斧頭扔了，抱起兒子，走出了戰場。沒有人攔他。':'拉格納跪在兒子身邊，再也沒有站起來。';},onGiveUp:()=>{}},[]);return null;}},
+        {t:'「這是我的事。」',note:'生死單挑',fx:()=>{S.flags.stikR2='self';duel('ragnar',{lethal:true,mul:1.15,xp:50,preHit:pre,intro:`<b>第二輪</b>　比約恩退到了一邊，緊緊咬著牙。${godLine}`,cause:'死在拉格納的斧下',onEnd:done});return null;}}]}));
+      return;}
+    const k=g.includes('ragnar')?'ragnar':g.includes('knut')?'knutD':g.includes('sven')?'sven':'kalf';
+    S.flags.stikR2='self';S.flags.stikR2Foe=k;
+    const intro={ragnar:'拉格納從敵陣裡走了出來，咬著盾牌邊緣。「首領，這是我這輩子最不想打的一架。」',knutD:'「首領，別怪我。」克努特拔出了刀，「我收了錢，總得做點事。」',sven:'赫羅爾夫甩了甩紅色的斗篷：「我早就說過，我不是為你打的。」',kalf:'「背誓者」卡爾夫走了出來。他曾經跪在你面前，發誓永遠效忠。\n\n「國王，誓是對舊神發的。是你先背叛了祂們。」'}[k];
+    duel(k,{lethal:true,mul:1.15,xp:50,preHit:pre,intro:`<b>第二輪</b>　${intro}${godLine}`,cause:'倒在斯蒂克萊斯塔',onEnd:done});
+  };
+  duel('harek',{lethal:true,mul:1.15,xp:50,preHit:pre,intro:`<b>第一輪</b>　「弓手」哈雷克帶著一排弓箭手壓了過來。箭雨過後，他扔掉弓，拔出了劍：「受洗的國王，讓我看看你的神會不會替你擋箭。」${godLine}`,cause:'倒在斯蒂克萊斯塔',onEnd:w=>w?(chainNext(r2),`哈雷克倒下了。${heal('對面的陣線裡，有人走了出來。')}`):fall(r2)});
+}
+/* 日蝕：黑夜撐到天亮（解謎型：解開巫術繩結；反應型：火把追影），天亮破曉連斬 */
+const TORCH={hakon:['哈康舉起火把，獨眼眯了起來。','「我這隻眼睛，看黑暗比看光還習慣。」'],
+  astrid:['阿斯特麗德用渡鴉盾護著火苗，一步一步往前推。','「看清楚了就砍，別猶豫。」'],
+  thorfinn:['托爾芬一句話也沒說，把火把舉得高高的，站到了你的右邊。','「我在這。」'],
+  sven:['赫羅爾夫把火把往地上一插，火光照出了他滿臉的血。','「看什麼看？我只是剛好站在這裡！」'],
+  una:['烏娜往火把上撒了一把草藥，火光變成了藍白色。','「霧沼的火，不怕巫術。」'],
+  bragi:['布拉吉舉著火把，開始唱歌。是一首你從來沒聽過的新歌。','「這一首，是唱給你的。」'],
+  einar:['埃納把火把綁在箭上，一箭射進了黑暗裡。','「他在那裡！」'],
+  gudrun:['古德倫把鍛爐裡的炭倒進火盆，火一下子竄得老高。','「鐵匠的火，比太陽還熱。」'],
+  ragnar:['拉格納咬著火把衝進黑暗，笑得像個孩子。','「哈哈哈！來啊！」'],
+  osric:['古托姆指揮著一排火把，在雪地上排出了陣形。','「左翼往前三步。……好，看清楚了。」'],
+  knut:['克努特不知道從哪裡弄來了一整車的油，往雪地上一倒，點了火。','「別問我哪來的。」'],
+  bjorn:['比約恩咬著盾牌邊緣，把火把往黑暗裡一插。','「首領，這次換我照路。」'],
+  sigrid:['西格麗德舉起父親的盾，讓火光從盾面上反射出去。','「左邊交給我！」'],
+  mate:['托爾斯坦把火把交到你手裡，自己站在你身後。','「我划了一輩子的夜船。黑暗，沒什麼好怕的。」']};
+function eclipseGame(el,done0){
+  el.style.position='relative';const done=r=>{el.style.position='';done0(r);};
+  markGame(S.mini==='react'?'chase':'knot');ambSet('boss');
+  const torches=[{id:'you',name:'你自己',art:'',act:'你從腰間抽出最後一支火把，點了起來。',line:''}];
+  if(S.flags.mate) torches.push({id:'mate',name:'托爾斯坦',art:'c_thorstein',act:TORCH.mate[0],line:TORCH.mate[1]});
+  S.champions.filter(c=>TORCH[c.id]&&!isJarl(c)).sort((a,b)=>b.bond-a.bond).slice(0,5).forEach(c=>torches.push({id:c.id,name:CHAMPS[c.id].name,art:c.id,act:TORCH[c.id][0],line:TORCH[c.id][1]}));
+  const n=clamp(6+(S.loyalty<50?1:0)+(stikGone().length>=2?1:0)-(S.loyalty>=80?1:0)-(stikKing()?1:0),5,8);
+  const E={round:0,n,tears:S.flags.stikGod?2:0,lit:false,busy:false,over:false,onTorch:null,raf:0};
+  const hurtN=f=>Math.max(1,Math.round(maxHp()*f));
+  const stat=()=>`<div class="ec-stat"><span>生命 <b>${Math.max(0,S.hp)}</b> / ${maxHp()}</span><span>大衣的裂口 <b>${E.tears}</b></span><span>${E.lit?'天亮了':'離天亮'} ${Array.from({length:E.n},(_,i)=>E.lit||i<E.round-1?'●':'○').join('')}</span></div>
+    ${E.lit?'':`<div class="ec-torches">${torches.map((t,i)=>`<button class="ec-torch" data-t="${i}" ${t.used||E.busy||E.over?'disabled':''}>🔥 ${t.name}</button>`).join('')}</div>`}`;
+  const frame=(body,msg)=>{el.innerHTML=`${sceneImg(E.lit?'sc_st_dawn':'sc_st_eclipse')}<p class="eyebrow">斯蒂克萊斯塔 · ${E.lit?'破曉':`日蝕 · 第 ${E.round} 輪`}</p><h2>「獵犬」托里爾</h2>${stat()}<div class="ec-stage" id="ec-stage">${body}</div><p class="ec-log" id="ec-log">${msg||''}</p>`;
+    el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>useTorch(+b.dataset.t));};
+  const logM=m=>{const l=el.querySelector('#ec-log');if(l)l.innerHTML=m;};
+  const refreshStat=()=>{const s=el.querySelector('.ec-stat');if(!s)return;const tmp=document.createElement('div');tmp.innerHTML=stat();
+    s.replaceWith(tmp.firstElementChild);const tt=el.querySelector('.ec-torches');if(tt&&tmp.lastElementChild&&tmp.lastElementChild.classList.contains('ec-torches'))tt.replaceWith(tmp.lastElementChild);
+    el.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>useTorch(+b.dataset.t));};
+  // 受傷：血扣光時用掉祈福，沒有就倒下
+  const hurt=(f,txt)=>{const d=hurtN(f);S.hp-=d;sfx('bad');logM(`${txt}<span class="bad">生命 -${d}</span>`);
+    if(S.hp<=0){
+      if(charges()>0){if(S.blessings>0)S.blessings--;else S.amulet=false;S.hp=Math.round(maxHp()*.4);logM('你倒在了雪地上。黑暗裡有人抓住你的手，把你拉了起來。\n<span class="bad">用掉了一次祈福</span>');refreshStat();return false;}
+      E.over=true;cancelAnimationFrame(E.raf);S.hp=1;setTimeout(()=>done('dead'),900);return true;}
+    refreshStat();return false;};
+  const tear=txt=>{E.tears++;sfx('clash');logM(`<span class="good">重擊！${txt}</span>`);refreshStat();};
+  const useTorch=i=>{
+    const t=torches[i];if(!t||t.used||E.busy||E.over)return;
+    t.used=1;E.busy=true;refreshStat();
+    const c=document.createElement('div');c.className='ec-card';
+    c.innerHTML=`<div>${(t.art&&avatar(t.art,'big'))||'<span class="ec-flame" aria-hidden="true">🔥</span>'}<b>${t.name}</b><p>${t.act}</p>${t.line?`<p style="color:var(--gold)">${t.line}</p>`:''}</div>`;
+    el.appendChild(c);
+    setTimeout(()=>{c.remove();E.busy=false;refreshStat();(E.onTorch||(()=>{}))();},1700);
+  };
+  const next=()=>{if(E.over)return;if(E.round>=E.n){dawn();return;}E.round++;S.mini==='react'?chase():knot();};
+  // 解謎型：解開巫術繩結
+  const knot=()=>{
+    const k=Math.min(8,3+E.round),C=150,Rr=110;
+    const home=Array.from({length:k},(_,i)=>{const a=-Math.PI/2+i*2*Math.PI/k;return [C+Rr*Math.cos(a),C+Rr*Math.sin(a)];});
+    const Ed=Array.from({length:k},(_,i)=>[i,(i+1)%k]);
+    const between=(x,a,b)=>a<b?(x>a&&x<b):(x>a||x<b);const ch=[];
+    for(let t=0;t<60&&ch.length<Math.floor(k/2);t++){const a=ri(0,k-1),b=(a+ri(2,k-2))%k;
+      if(ch.some(([c,d])=>(c===a&&d===b)||(c===b&&d===a)))continue;
+      if(ch.some(([c,d])=>c!==a&&c!==b&&d!==a&&d!==b&&(between(c,a,b)!==between(d,a,b))))continue;ch.push([a,b]);}
+    Ed.push(...ch);
+    const cross=P=>{let m=0;const xs=new Set();const sg=(p,q,r)=>Math.sign((q[0]-p[0])*(r[1]-p[1])-(q[1]-p[1])*(r[0]-p[0]));
+      for(let i=0;i<Ed.length;i++)for(let j=i+1;j<Ed.length;j++){const [a,b]=Ed[i],[c,d]=Ed[j];if(a===c||a===d||b===c||b===d)continue;
+        if(sg(P[a],P[b],P[c])*sg(P[a],P[b],P[d])<0&&sg(P[c],P[d],P[a])*sg(P[c],P[d],P[b])<0){m++;xs.add(i);xs.add(j);}}
+      return {m,xs};};
+    let P=null,bn=-1;
+    for(let t=0;t<400;t++){const T=home.map(()=>[ri(30,270),ri(30,270)]);
+      if(T.some((p,i)=>T.some((q,j)=>j<i&&Math.hypot(p[0]-q[0],p[1]-q[1])<44)))continue;
+      const m=cross(T).m;if(m>bn){bn=m;P=T;}if(bn>=Math.floor(k/2)+1)break;}
+    if(!P||bn<1){P=home.map(h=>[...h]);[P[0],P[1]]=[P[1],P[0]];}
+    const budget=Math.floor(k/2)+2,par=Math.floor(k/2);let moves=0,dragI=-1,start=null;
+    frame(`<p class="ec-hint">巫術的繩結，把黑暗綁在了戰場上。拖動火把，讓所有繩子都不交叉。</p><svg class="ec-field" id="ec-field" viewBox="0 0 300 300" role="img" aria-label="巫術繩結"></svg><p class="ec-meta" id="ec-meta"></p>`);
+    const svg=el.querySelector('#ec-field');
+    const render=()=>{const {m,xs}=cross(P);
+      svg.innerHTML=Ed.map(([a,b],i)=>`<line x1="${P[a][0]}" y1="${P[a][1]}" x2="${P[b][0]}" y2="${P[b][1]}" class="${xs.has(i)?'x':''}"/>`).join('')
+        +P.map((p,i)=>`<circle class="node ${i===dragI?'drag':''}" data-i="${i}" cx="${p[0]}" cy="${p[1]}" r="15"/><text x="${p[0]}" y="${p[1]}">🔥</text>`).join('');
+      el.querySelector('#ec-meta').textContent=`還有 ${m} 處交叉　·　步數 ${moves} / ${budget}`;return m;};
+    const pt=e=>{const r=svg.getBoundingClientRect();return [clamp((e.clientX-r.left)/r.width*300,18,282),clamp((e.clientY-r.top)/r.height*300,18,282)];};
+    const solved=()=>{E.onTorch=null;svg.onpointerdown=svg.onpointermove=svg.onpointerup=null;
+      if(moves<=par) tear('你趁著繩結鬆開的那一瞬間，一斧劈在他的大衣上，撕開了一道口子。');
+      else logM(moves<=budget?'<span class="gold">繩結鬆開了。天邊亮了一點。</span>':'繩結鬆開了，可是你也挨了幾下。天邊亮了一點。');
+      setTimeout(next,1100);};
+    svg.onpointerdown=e=>{const c=e.target.closest('[data-i]');if(!c||E.busy||E.over)return;dragI=+c.dataset.i;start=[...P[dragI]];try{svg.setPointerCapture(e.pointerId);}catch(_){}render();};
+    svg.onpointermove=e=>{if(dragI<0)return;P[dragI]=pt(e);render();};
+    svg.onpointerup=svg.onpointercancel=()=>{if(dragI<0)return;const mv=Math.hypot(P[dragI][0]-start[0],P[dragI][1]-start[1])>6;dragI=-1;
+      if(mv){moves++;if(moves>budget&&hurt(.08,'黑暗裡，托里爾的斧頭擦過了你的肩膀。'))return;}
+      if(render()===0)solved();};
+    E.onTorch=()=>{const xs=cross(P).xs;const cnt=P.map((_,i)=>Ed.filter(([a,b],j)=>(a===i||b===i)&&xs.has(j)).length);const i=cnt.indexOf(Math.max(...cnt));
+      let best=P[i],bm=cross(P).m;
+      for(let x=24;x<=276;x+=12)for(let y=24;y<=276;y+=12){if(P.some((q,j)=>j!==i&&Math.hypot(q[0]-x,q[1]-y)<36))continue;const T=P.map((p,j)=>j===i?[x,y]:p),m=cross(T).m;if(m<bm){bm=m;best=[x,y];}}
+      P[i]=best;if(render()===0)solved();};
+    render();
+  };
+  // 反應型：火把追影（手機上火光在手指上方）
+  const chase=()=>{
+    const dur=6000,speed=.06+E.round*.012;
+    frame(`<p class="ec-hint">黑暗裡，有一團微光在移動。讓火把一直照住它。</p><div class="ec-track" id="ec-track"><div class="ec-light" id="ec-light"></div><div class="ec-glow" id="ec-glow"></div><div class="ec-bar"><i id="ec-tbar"></i></div></div>`);
+    const tr=el.querySelector('#ec-track'),gl=el.querySelector('#ec-glow'),li=el.querySelector('#ec-light'),bar=el.querySelector('#ec-tbar');
+    const W=tr.clientWidth||300,R=W*.16;let boost=1,me=[W/2,W/2],g=[W/2,W*.3],tgt=[ri(30,W-30),ri(30,W-30)],off=0,t0=0,last=0,strikes=0;
+    const move=e=>{const r=tr.getBoundingClientRect();const p=[e.clientX-r.left,e.clientY-r.top];me=e.pointerType==='mouse'?p:[clamp(p[0],0,W),clamp(p[1]-W*.22,0,W)];};
+    tr.onpointermove=e=>{if(e.pointerType==='mouse'||e.buttons)move(e);};
+    tr.onpointerdown=e=>{try{tr.setPointerCapture(e.pointerId);}catch(_){}move(e);};
+    E.onTorch=()=>{boost=1.8;};
+    const step=ts=>{
+      if(E.over)return;if(!t0){t0=ts;last=ts;}
+      const dt=Math.min(50,ts-last);last=ts;
+      if(E.busy){t0+=dt;E.raf=requestAnimationFrame(step);return;}
+      const el2=ts-t0;const dx=tgt[0]-g[0],dy=tgt[1]-g[1],d=Math.hypot(dx,dy);
+      if(d<8||Math.random()<.004*E.round)tgt=[ri(24,W-24),ri(24,W-24)];
+      const v=speed*dt*W/300*3;g=[g[0]+dx/(d||1)*Math.min(d,v),g[1]+dy/(d||1)*Math.min(d,v)];
+      const rr=R*boost,inL=Math.hypot(me[0]-g[0],me[1]-g[1])<rr*.62;off=inL?0:off+dt;
+      gl.style.left=g[0]+'px';gl.style.top=g[1]+'px';gl.style.opacity=inL?1:.35;
+      li.style.width=li.style.height=rr*2+'px';li.style.left=(me[0]-rr)+'px';li.style.top=(me[1]-rr)+'px';
+      bar.style.width=Math.min(100,el2/dur*100)+'%';
+      if(off>900){off=0;strikes++;tr.classList.remove('hit');void tr.offsetWidth;tr.classList.add('hit');if(hurt(.07,'你跟丟了那團光。黑暗裡，一把斧頭砍了過來。'))return;}
+      if(el2>=dur){E.onTorch=null;tr.onpointermove=null;
+        if(!strikes) tear('你一直照著他。光裡，他大衣上的符文看得一清二楚，你一斧劈了上去。');
+        else logM(`你撐過了這一輪，挨了 ${strikes} 下。天邊亮了一點。`);
+        setTimeout(next,1100);return;}
+      E.raf=requestAnimationFrame(step);};
+    E.raf=requestAnimationFrame(step);
+  };
+  // 破曉連斬：直接決定勝負
+  const dawn=()=>{
+    cancelAnimationFrame(E.raf);E.lit=true;E.onTorch=null;
+    frame(`<p class="ec-big">太陽從月亮後面露出來了。</p><p class="ec-hint">大衣上的符文一個一個熄滅。晨光裡，馴鹿皮的縫線露出了破綻。${E.tears?`你撕開的 ${E.tears} 道口子，讓破綻更明顯了。`:''}</p><button class="primary" id="ec-go">破曉連斬</button>`);
+    el.querySelector('#ec-go').onclick=()=>S.mini==='react'?comboReact():comboPuzzle();
+  };
+  const CUT={L:'左肩',C:'胸口',R:'右臂'};
+  const comboPuzzle=()=>{
+    const K=['L','C','R'],n=Math.max(2,4-Math.floor(E.tears/2));
+    const all=[];(function gg(a){if(a.length===n){all.push(a);return;}K.forEach(k=>gg([...a,k]));})([]);
+    let seq;do{seq=Array.from({length:n},()=>pick(K));}while(K.some(k=>seq.filter(x=>x===k).length>2)||new Set(seq).size<2);
+    const gen=()=>{const t=ri(0,3),i=ri(0,n-1),j=(i+ri(1,n-1))%n,k=pick(K);
+      if(t===0) return {txt:`第 ${i+1} 刀砍${CUT[seq[i]]}`,f:s=>s[i]===seq[i]};
+      if(t===1){const no=pick(K.filter(x=>x!==seq[i]));return {txt:`第 ${i+1} 刀不是${CUT[no]}`,f:s=>s[i]!==no};}
+      if(t===2){const c=seq.filter(x=>x===k).length;return {txt:`${CUT[k]}要砍 ${c} 刀`,f:s=>s.filter(x=>x===k).length===c};}
+      const same=seq[i]===seq[j],a=Math.min(i,j)+1,b=Math.max(i,j)+1;return {txt:`第 ${a} 刀和第 ${b} 刀${same?'砍同一個地方':'砍不同地方'}`,f:s=>(s[i]===s[j])===same};};
+    let clues=[],cand=all;
+    for(let tries=0;cand.length>1&&tries<300;tries++){const c=gen();const nc=cand.filter(c.f);if(nc.length<cand.length&&!clues.some(x=>x.txt===c.txt)){clues.push(c);cand=nc;}}
+    for(let i=clues.length-1;i>=0;i--){const rest=clues.filter((_,j)=>j!==i);if(all.filter(s=>rest.every(c=>c.f(s))).length===1)clues=rest;}
+    const pd=Array(n).fill(null);
+    const render=res=>{
+      frame(`<p class="ec-hint">晨光照出了大衣縫線的破綻。照你看到的，排出 ${n} 刀：</p><ul class="kclues">${clues.map(c=>`<li>${c.txt}</li>`).join('')}</ul>
+        ${Array.from({length:n},(_,r)=>`<div class="kcrow"><span>第 ${r+1} 刀</span>${K.map(k=>`<button data-r="${r}" data-k="${k}" class="${res?(seq[r]===k?'ok':(pd[r]===k?'bad':'')):(pd[r]===k?'on':'')}">${CUT[k]}</button>`).join('')}</div>`).join('')}
+        ${res?'':'<button class="primary" id="ec-cut">出刀</button>'}`,el.querySelector('#ec-log')?el.querySelector('#ec-log').innerHTML:'');
+      if(res)return;
+      el.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{pd[+b.dataset.r]=b.dataset.k;render();});
+      el.querySelector('#ec-cut').onclick=()=>{if(pd.includes(null)){logM(`${n} 刀都要排好再出刀。`);return;}
+        const ok=pd.every((k,i)=>k===seq[i]);render(true);
+        if(ok){sfx('clash');setTimeout(()=>{E.over=true;done('win');},1200);}
+        else setTimeout(()=>{if(!hurt(.2,'刀砍在了大衣最厚的地方。他反手一斧。'))comboPuzzle();},1400);};
+    };
+    render();
+  };
+  const comboReact=()=>{
+    const n=6,need=Math.max(3,5-Math.floor(E.tears/2)),order=[...Array(n).fill('g'),...Array(3).fill('r')].sort(()=>Math.random()-.5);
+    const lit={};let k=0,hit=0,bad=0,over=false,last=-1;
+    frame(`<p class="ec-hint">點金色的縫線，別碰紅色的符文殘光。要砍中 ${need} 刀。</p><div class="kgrid">${Array.from({length:9},(_,i)=>`<button data-g="${i}" aria-label="格 ${i+1}"></button>`).join('')}</div>`);
+    const paint=()=>el.querySelectorAll('[data-g]').forEach(b=>{const L=lit[b.dataset.g];b.className=L?(L.t==='g'?'gold':'red'):'';});
+    const fin=()=>{if(over)return;over=true;const ok=hit-bad>=need;logM(`砍中 ${hit} 刀${bad?`，碰到符文殘光 ${bad} 次`:''}。`);
+      if(ok){sfx('clash');setTimeout(()=>{E.over=true;done('win');},700);}
+      else setTimeout(()=>{if(!hurt(.2,'刀砍在了大衣最厚的地方。他反手一斧。'))comboReact();},1000);};
+    const check=()=>{if(k>=order.length&&!Object.keys(lit).length)fin();};
+    const spawn=()=>{if(over)return;if(k>=order.length){check();return;}
+      const free=[...Array(9).keys()].filter(c=>!lit[c]&&c!==last);const c=pick(free);last=c;const t=order[k++];
+      lit[c]={t,timer:setTimeout(()=>{if(!lit[c])return;delete lit[c];paint();check();},(S.relaxed?1100:800))};
+      paint();setTimeout(spawn,ri(380,480));};
+    el.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{const c=+b.dataset.g,L=lit[c];if(!L||over)return;clearTimeout(L.timer);delete lit[c];L.t==='g'?(hit++,sfx('clash')):(bad++,sfx('bad'));paint();check();});
+    setTimeout(spawn,600);
+  };
+  next();
+}
+/* 斯蒂克萊斯塔之後：尾聲 */
+const STIK_AFTER={hakon:'哈康在新教堂的門口坐了一整個下午。他說，他想聽聽看，新的神會不會講老兵的故事。',
+  astrid:'阿斯特麗德把渡鴉盾掛回了牆上。上面多了一道箭痕，她說那是她最喜歡的一道。',
+  thorfinn:'托爾芬還是很少說話。可是每天早上你推開門，他都站在門口。',
+  sven:'赫羅爾夫駕著紅帆船出海了。臨走前他說，要去看看新的神管不管得到海上。',
+  una:'烏娜把草藥的名字，一個一個教給了修道院的修士。她說，治病的東西，不分神。',
+  bragi:'布拉吉寫了一首新歌，把舊神和新神都寫了進去。修士聽了皺眉，族人聽了掉淚。',
+  einar:'埃納回到了森林。每年冬天，他都會扛著一頭鹿回來，放在教堂門口。',
+  gudrun:'古德倫把托里爾大衣上的鐵扣熔了，打成了一口教堂的鐘。',
+  ragnar:'拉格納說，他這輩子打過最難的一仗，是留下來的那一天。',
+  osric:'古托姆把斯蒂克萊斯塔的陣形，刻在了王廳的柱子上。',
+  knut:'克努特在酒館裡講了一百遍，他是怎麼差點收了托里爾的錢。每講一遍，那個錢袋就更大一點。',
+  bjorn:'比約恩把父親的斧頭和自己的盾牌，一起掛在了長屋的牆上。',
+  sigrid:'西格麗德把她父親的盾，掛回了你的王廳。'};
+const STIK_GONE_AFTER={ragnar:'拉格納往北走了。有人說，他後來在山裡蓋了一座小小的奧丁祭壇，一個人守著。',
+  bragi:'布拉吉沒有回來。可是很多年後，北方的山谷裡傳出了一首歌，唱的是一個受洗的國王，和一個不肯受洗的詩人。',
+  una:'烏娜回到了霧沼。兩邊的傷兵，她都治。',
+  knut:'克努特拿了托里爾的錢，卻沒有上戰場。後來有人在丹麥看見他，說他過得很好。',
+  gudrun:'古德倫跟著拉格納走了。北方的山裡，從此多了一間打鐵鋪。',
+  hakon:'哈康跟著布拉吉走了。他說，總得有人替那個詩人擋刀。',
+  osric:'古托姆跟著布拉吉走了。他說，宮廷的秘聞，總得有人繼續講下去。',
+  einar:'埃納跟著烏娜回了霧沼。他說，奶奶需要一個人替她採藥。',
+  sven:'赫羅爾夫跟著克努特走了。紅帆船往南開，再也沒有回來過。',
+  bjorn:'比約恩跟著父親走了。'};
+function stikEpilogue(el){
+  S.flags.stikEpi=1;const two=!!S.flags.stikGod,f=S.flags,r2=f.stikR2,fk=f.stikR2Foe;
+  const P=[{art:['sc_st_dawn'],text:'太陽從月亮後面，完全露了出來。\n\n斯蒂克萊斯塔的雪地上，躺著兩邊的人。有一些，你叫得出名字。'},
+    {art:['sc_st_coat','thorir'],text:'托里爾的馴鹿皮大衣，被你撕成了好幾片。上面的符文，再也沒有亮起來。'}];
+  if(r2==='bjornWin') P.push({art:['sc_st_father','bjorn'],text:'比約恩跪在父親身邊。拉格納躺在雪地上，笑了：「好小子……你終於，比我還兇了。」\n\n他把自己的斧頭塞進兒子的手裡，閉上了眼睛。\n\n比約恩在那裡跪了很久。'});
+  else if(r2==='bjornLose') P.push({art:['sc_st_father','bjorn'],text:'拉格納抱著兒子，從戰場上走了出去。\n\n後來有人說，在北方的山谷裡，看過一對父子，坐在同一座爐火邊喝酒。'});
+  else if(r2==='bjornDied') P.push({art:['sc_st_father','ragnar'],text:'拉格納在兒子身邊跪了一整夜。\n\n天亮的時候，他把兒子的鎖子甲穿在自己身上，一個人往北走了。'});
+  const fought={ragnar:'ragnar',knutD:'knut',sven:'sven'}[fk];
+  if(fought) P.push({art:[fought],text:`${CHAMPS[fought].name}倒在了斯蒂克萊斯塔。\n\n你把${cP(fought)}和你的戰士們，埋在了同一座山坡上。`});
+  const gone=stikGone().filter(id=>id!==fought&&!(id==='ragnar'&&/bjorn/.test(r2||'')));
+  if(gone.length) P.push({art:['sc_st_gone'],text:gone.map(id=>STIK_GONE_AFTER[id]||`${CHAMPS[id].name}沒有再回來。`).join('\n\n')});
+  const cs=S.champions.map(c=>c.id).filter(id=>STIK_AFTER[id]&&id!==S.spouse);
+  const after=id=>id==='bjorn'?(hasC('ragnar')?'比約恩和父親又開始比賽喝酒了。一個比一個兇。':r2==='bjornLose'?'比約恩的傷好了之後，自己走回了王廳。那幾個月去了哪裡，他一個字都沒說。':STIK_AFTER.bjorn):STIK_AFTER[id];
+  if(cs.length) P.push({art:['sc_st_after'],text:'留下來的人，各自回到了自己的日子。\n\n'+cs.map(after).join('\n\n')});
+  if(S.spouse||S.heir){const sp=S.spouse?SPOUSES[S.spouse].name:'';
+    P.push({art:['sc_st_family'],text:(sp?`${sp}在王廳門口等著你。什麼話都沒說，只是抱住了你。`:'')+(S.heir?`${sp?'\n\n':''}${esc(S.heir.name)}跑過來，拉著你的手：「我就知道你會回來！」`:'')});}
+  if(stikKing()) P.push({art:['sc_st_king','halfdan'],text:'老王哈夫丹騎著馬，回他的農莊去了。\n\n走到山坡上，他回頭舉了一下手。那是你最後一次見到他。'});
+  if(f.mate) P.push({art:['c_thorstein'],text:'托爾斯坦坐在教堂的台階上，把角杯倒滿，遞給你。\n\n「神換了，」他說，「酒還是一樣的味道。」'});
+  P.push({art:['sc_st_church'],text:'很多年以後，斯蒂克萊斯塔蓋起了一座小教堂。\n\n祭壇下面，壓著一件撕破的馴鹿皮大衣。'},
+    {art:['sc_st_church'],text:'鐘聲響起來的時候，山谷裡的人，不管信哪一個神，都會停下來，聽一會兒。',big:1});
+  if(two) P.push({art:['sc_st_raven','odin'],text:'可是你知道，那一天替你撕開黑暗的，不只是你的神。\n\n每天晚上，都有一隻渡鴉停在王廳的窗台上。牠看著你，你看著牠。誰都沒有說話。'});
+  cineView(el,P,()=>ch4End(el,two?'twogods':'stik'),'斯蒂克萊斯塔之後');
+}
+
 /* ---------- 諸神黃昏之後：尾聲 ---------- */
 const RAG_AFTER={hakon:'哈康把那面滿是刀痕的盾掛在你的王廳裡。他說，這是他打的最後一仗。這一次，他說的是真的。',
   astrid:'阿斯特麗德開始教村裡的女孩子練盾。她說，下一次世界要結束的時候，她們會站在最前面。',
@@ -4667,6 +5175,9 @@ function ch4Ending(kind){
   if(kind==='vassal') return ['end4_vassal','附庸之王','你保住了王冠，卻把它的一半交給了丹麥。'];
   if(kind==='lost') return ['end4_lost','失國之王','丹麥的旗子插上了王廳。你帶著最後幾個人退進了山裡。'];
   if(kind==='ragnarok') return ['end4_ragnarok','黃昏之後','火熄了，冰化了。一片新的綠色大地，從海裡慢慢升了起來。'];
+  if(kind==='stik') return ['end4_stik','十字架與王冠','舊神的時代，在斯蒂克萊斯塔結束了。'];
+  if(kind==='saint') return ['end4_saint','永恆之王','你倒下的地方，湧出了一道泉水。'];
+  if(kind==='twogods') return ['end4_twogods','兩個神之間的王','你贏了。可是每天晚上，都有一隻渡鴉停在你的窗外。'];
   if(kind==='ragfall') return ['end4_ragfall','與諸神同眠','你和眾神一起，倒在了世界的最後一天。'];
   if(kind==='lokiside') return ['end4_loki','騙子的盟友','新的世界有了一個新的國王。眾神再也沒有回來。'];
   if(kind==='abdicate') return ['end4_abdicate','交出王冠的王','你在還站得穩的時候，把王冠交給了下一代。'];
@@ -4705,26 +5216,29 @@ function ragfallScene(line){
 function ch4End(el,kind){
   Q.length=0;S.flags.endKind=kind;
   const [eid,title,line]=ch4Ending(kind);
-  if(['lost','vassal','ragfall','lokiside'].includes(kind)) S.dead=true; else S.won=true;
+  if(['lost','vassal','ragfall','lokiside','saint'].includes(kind)) S.dead=true; else S.won=true;
   if(kind==='ragnarok') S.flags.ragWon=1;
-  unlock(eid);if(kind==='win'||kind==='ragnarok')unlock('end4_win');log(`第四章結局：${title}。`);
+  unlock(eid);if(['win','ragnarok','stik','twogods'].includes(kind))unlock('end4_win');log(`第四章結局：${title}。`);
   const scene={win:S.flags.struck?`耶靈的王廳燒起來了。「藍牙」哈拉爾跪在他父親立的大符文石前，把戒指交到你手裡。\n\n${age()} 歲的你站在丹麥的土地上，盔甲上全是別人的血。從來沒有一個北方的王，打到過這裡。\n\n${line}`:`帕爾納托基的劍插在沙灘上。「藍牙」哈拉爾的船，一艘一艘消失在南方的海平線上。\n\n${age()} 歲的你站在海灘上，盔甲上全是別人的血。這是你這輩子打過最大的一仗。\n\n${line}`,
     vassal:`你在丹麥使者面前跪了下來。\n\n王冠還在你頭上。只是從此以後，每年冬天，都有一艘載滿白銀的船往南開。\n\n${line}`,
     lost:`王廳燒起來的時候，你最後看了一眼王座。\n\n二十年前，你是一個只有一把斧頭的年輕人。現在，你又只剩下一把斧頭了。\n\n${line}`,
     ragnarok:S.flags.ragEpi?`${S.flags.warDone?'你打退了丹麥人，又撐過了世界的最後一天。':'你撐過了世界的最後一天。'}\n\n預言裡沒有寫到的那一天，是你寫下來的。\n\n${line}`:`${S.flags.warDone?'你打退了丹麥人，又撐過了世界的最後一天。':''}戰鬥結束時，天空是灰色的，地上全是冰和灰。你拄著斧頭站著，${patron()?`${GODS[patron()].name}就站在你身邊。`:'身邊站著倖存的眾神。'}\n\n然後，你看見了：在灰燼的下面，有一根綠色的嫩芽。\n\n預言說，諸神黃昏之後，新的世界會從海裡升起，倖存的人會在草地上找到眾神的金色棋子。你彎下腰，撿起了一顆。\n\n${line}`,
     ragfall:ragfallScene(line),
+    stik:`你打退了丹麥人，又在斯蒂克萊斯塔打贏了舊神的最後一戰。\n\n${line}`,
+    twogods:`你打退了丹麥人，又在斯蒂克萊斯塔打贏了舊神的最後一戰。\n\n只有你知道，那一天，你點過一次頭。\n\n${line}`,
+    saint:`你倒在了斯蒂克萊斯塔的雪地上。${age()} 歲。\n\n托里爾贏了那一仗。可是第二年春天，你倒下的地方湧出了一道泉水。喝過泉水的病人，一個一個好了起來。\n\n連當年舉著舊神旗子的人，也開始在泉水邊跪下。他們叫你「聖王」。\n\n${line}`,
     lokiside:`你握住了洛基的手。他笑了，笑得像個孩子。\n\n那一天，彩虹橋斷了，瓦爾哈拉燒了。新的世界升起來的時候，王座上坐著的，是你。\n\n只是每到晚上，你都會聽見渡鴉在窗外，叫著你的名字。\n\n${line}`,
     abdicate:`你在法石前摘下王冠，放在${S.heir?esc(S.heir.name):'繼承人'}的頭上。雅爾們一個一個跪了下來。\n\n${S.heir&&S.heir.trait?{war:'新王拔出劍，向全挪威宣誓：丹麥人來的那一天，他會站在最前面。',song:'新王在加冕宴上唱了一首歌，唱的是你的一生。很多人哭了。',peace:'新王用撒克遜話、丹麥話和挪威話各說了一次誓言。幾年後，丹麥人沒有打過來，而是派人來談和。',sea:'新王第二天就上了船。他說，北海的另一邊還有很多地方，你還沒去過。',champ:`你最信任的勇士戴上了王冠。${['astrid','gudrun','una'].includes(S.heir.champ)?'她':'他'}說，會像當年跟著你一樣，守著這個王國。`,divine:'新王的眼睛閃著金光。從那天起，挪威的麥子每一年都長得特別好。'}[S.heir.trait]||'':''}\n\n你回到了當年那片海灘，在一間小屋裡住了下來。\n\n${line}`}[kind];
   endScreen(el,`${kind==='ragfall'&&ART_HAVE.has(ragfallArt())?sceneImg(ragfallArt()):portrait({stage:3,size:'small'})}
   <p class="eyebrow">第四章終章 · ${title}</p><h2>${esc(S.name)}</h2>
   <p class="story">${scene}</p>${!['lost','lokiside'].includes(kind)?freyjaReveal():''}
-  <p class="quote">${{win:'「母親，這一次，你一定看見了。」',vassal:'「……母親，對不起。」',lost:'「活著回來，或者別回來。……我回來了，母親。」',ragnarok:'「母親，世界重新開始了。」',ragfall:'「母親……我來了。」',lokiside:'「母親，你會原諒我嗎？」',abdicate:'「母親，我回家了。」'}[kind]}</p>
+  <p class="quote">${{stik:'「母親，我守住了他們。」',twogods:'「母親，你信的，是哪一個神？」',saint:'「母親，我好像……變成了一個故事。」',win:'「母親，這一次，你一定看見了。」',vassal:'「……母親，對不起。」',lost:'「活著回來，或者別回來。……我回來了，母親。」',ragnarok:'「母親，世界重新開始了。」',ragfall:'「母親……我來了。」',lokiside:'「母親，你會原諒我嗎？」',abdicate:'「母親，我回家了。」'}[kind]}</p>
   ${sagaHTML()}`);
 }
 function kingdomHTML(){
   if(S.phase<4) return '';
   const t=P4();
-  const dane=S.flags.ragna&&!S.flags.ragDone?`<span class="bad">芬布爾之冬：${Math.max(0,S.flags.fimbulT+FIMBUL-S.turn)} 季後諸神黃昏</span>`:S.flags.envoy==='war'&&!S.flags.warDone?`<span class="bad">丹麥大軍 ${Math.max(0,S.flags.warT-S.turn)} 季後來襲</span>`:S.flags.warDone?'丹麥人被打退了':S.flags.omen?'南方的天空很不平靜':'北方的天空還很平靜';
+  const dane=S.flags.stik&&!S.flags.stikDone?`<span class="bad">分裂的冬天：${Math.max(0,S.flags.stikT+STIK-S.turn)} 季後，斯蒂克萊斯塔</span>`:S.flags.ragna&&!S.flags.ragDone?`<span class="bad">芬布爾之冬：${Math.max(0,S.flags.fimbulT+FIMBUL-S.turn)} 季後諸神黃昏</span>`:S.flags.envoy==='war'&&!S.flags.warDone?`<span class="bad">丹麥大軍 ${Math.max(0,S.flags.warT-S.turn)} 季後來襲</span>`:S.flags.warDone?'丹麥人被打退了':S.flags.omen?'南方的天空很不平靜':'北方的天空還很平靜';
   const jl=Object.entries(S.jarls||{}).map(([l,c])=>`${CHAMPS[c].name}（${(R(l)||O(l)).name}）`);
   const al=Math.min(100,daneAlert());
   return `<div class="card" style="display:grid;gap:8px;margin-bottom:10px"><h3 style="font-size:18px">王國</h3>
@@ -4888,6 +5402,7 @@ const CODEX={
   },
   風俗:{
     h_thing:['庭議','北歐自由民的集會，在這裡立法、裁決爭端。冰島的阿爾庭和曼島的議會，到今天還以不同的形式存在。'],
+    h_stiklestad:['斯蒂克萊斯塔之戰','1030 年，挪威國王奧拉夫二世在這裡，被信奉舊神的領主聯軍打死，其中一人就是「獵犬」托里爾。薩迦說，戰鬥中太陽黑了。奧拉夫死後被封為聖人，成為挪威的「永恆之王」。'],
     h_holmgang:['霍姆岡','北歐的決鬥制度：雙方在鋪開的斗篷或小島上決鬥，解決爭端。冰島大約在 1006 年廢除了它。'],
     h_blot:['布洛特','北歐的獻祭儀式。人們宰殺牲畜，把血灑在神像和參加的人身上，之後大家一起吃祭肉、喝酒。'],
     h_tafl:['國王棋','維京人的棋盤遊戲。一方保護國王逃到角落，另一方要把國王包圍。布蘭杜布是愛爾蘭流傳下來的 7×7 版本。'],
