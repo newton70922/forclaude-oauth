@@ -474,8 +474,8 @@ Edit the attached image (sc_oath_sigrid): keep Sigrid, her pose, the deer shield
 | 9 | sc_ev_forgive | 初登場：托爾芬 （✅ 已收到） |
 | 10 | sc_ev_osric | 初登場：古托姆 （✅ 已收到） |
 | 11 | sc_ev_holm_holmB | 初登場：比約恩 （✅ 已收到） |
-| 12 | sc_ev_holm_holmS | 初登場：西格麗德 |
-| 13 | sc_ev_holm | 霍姆岡決鬥（其他對手） |
+| 12 | sc_ev_holm_holmS | 初登場：西格麗德 （✅ 已收到） |
+| 13 | sc_ev_holm | 霍姆岡決鬥（其他對手） （✅ 已收到） |
 
 **1. sc_ev_astrid（初登場：阿斯特麗德）**
 
@@ -611,19 +611,19 @@ A holmgang duel ground by a fjord: a large cloak pegged to the ground with hazel
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_back_hakon | 哈康從南方回來 |
-| 2 | sc_back_astrid | 阿斯特麗德從南方回來 |
-| 3 | sc_back_thorfinn | 托爾芬從南方回來 |
-| 4 | sc_back_sven | 赫羅爾夫從南方回來 |
-| 5 | sc_back_una | 烏娜從南方回來 |
-| 6 | sc_back_bragi | 布拉吉從南方回來 |
-| 7 | sc_back_einar | 埃納從南方回來 |
-| 8 | sc_back_gudrun | 古德倫從南方回來 |
-| 9 | sc_back_ragnar | 拉格納從南方回來 |
-| 10 | sc_back_osric | 古托姆從南方回來 |
-| 11 | sc_back_knut | 克努特從南方回來 |
-| 12 | sc_back_bjorn | 比約恩從南方回來 |
-| 13 | sc_back_sigrid | 西格麗德從南方回來 |
+| 1 | sc_back_hakon | 哈康從南方回來 （✅ 已收到） |
+| 2 | sc_back_astrid | 阿斯特麗德從南方回來 （✅ 已收到） |
+| 3 | sc_back_thorfinn | 托爾芬從南方回來 （✅ 已收到） |
+| 4 | sc_back_sven | 赫羅爾夫從南方回來 （✅ 已收到） |
+| 5 | sc_back_una | 烏娜從南方回來 （✅ 已收到） |
+| 6 | sc_back_bragi | 布拉吉從南方回來 （✅ 已收到） |
+| 7 | sc_back_einar | 埃納從南方回來 （✅ 已收到） |
+| 8 | sc_back_gudrun | 古德倫從南方回來 （✅ 已收到） |
+| 9 | sc_back_ragnar | 拉格納從南方回來 （✅ 已收到） |
+| 10 | sc_back_osric | 古托姆從南方回來 （✅ 已收到） |
+| 11 | sc_back_knut | 克努特從南方回來 （✅ 已收到） |
+| 12 | sc_back_bjorn | 比約恩從南方回來 （✅ 已收到） |
+| 13 | sc_back_sigrid | 西格麗德從南方回來 （✅ 已收到） |
 
 **1. sc_back_hakon（哈康從南方回來）**
 
