@@ -944,7 +944,7 @@ async function initRemote(){
     const [m,sv]=await Promise.all([db.doc(rpath('meta')).get(),db.doc(rpath('save')).get()]);
     const merged=mergeMeta(meta(),m.exists?m.data():null);
     META_CACHE=merged;try{localStorage.setItem(META,JSON.stringify(merged));}catch(e){}
-    if(!m.exists||JSON.stringify(merged)!==JSON.stringify(mergeMeta(m.data(),null))) rwrite('meta',{ach:merged.ach,ends:merged.ends});
+    if(!m.exists||JSON.stringify(merged)!==JSON.stringify(mergeMeta(m.data(),null))) rwrite('meta',{ach:merged.ach,ends:merged.ends||{},shapes:merged.shapes||{},codex:merged.codex||{}});
     if(sv.exists){const d=sv.data();if(d&&typeof d.json==='string')remote.save={json:d.json,at:d.at||0};}
     remote.ready=true;
     if(!$('#title-screen').hidden) showTitle();
