@@ -1545,16 +1545,16 @@ Illustrate this event from the game (Chinese): 「村長的請求：鹽灘漁村
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_rm_clash | 兩軍撞在一起 |
-| 2 | sc_rm_village | 漁村少年拿魚叉擋在老兵前面 |
-| 3 | sc_rm_thorstein | 托爾斯坦掩護新兵後退 |
-| 4 | sc_rm_hakon | 哈康在諸神黃昏 |
-| 5 | sc_rm_astrid | 阿斯特麗德在諸神黃昏 |
-| 6 | sc_rm_thorfinn | 托爾芬在諸神黃昏 |
-| 7 | sc_rm_sven | 赫羅爾夫在諸神黃昏 |
-| 8 | sc_rm_una | 烏娜在諸神黃昏 |
-| 9 | sc_rm_bragi | 布拉吉在諸神黃昏 |
-| 10 | sc_rm_einar | 埃納在諸神黃昏 |
+| 1 | sc_rm_clash | 兩軍撞在一起 （✅ 已收到） |
+| 2 | sc_rm_village | 漁村少年拿魚叉擋在老兵前面 （✅ 已收到） |
+| 3 | sc_rm_thorstein | 托爾斯坦掩護新兵後退 （✅ 已收到） |
+| 4 | sc_rm_hakon | 哈康在諸神黃昏 （✅ 已收到） |
+| 5 | sc_rm_astrid | 阿斯特麗德在諸神黃昏 （✅ 已收到） |
+| 6 | sc_rm_thorfinn | 托爾芬在諸神黃昏 （✅ 已收到） |
+| 7 | sc_rm_sven | 赫羅爾夫在諸神黃昏 （✅ 已收到） |
+| 8 | sc_rm_una | 烏娜在諸神黃昏 （✅ 已收到） |
+| 9 | sc_rm_bragi | 布拉吉在諸神黃昏 （✅ 已收到） |
+| 10 | sc_rm_einar | 埃納在諸神黃昏 （✅ 已收到） |
 | 11 | sc_rm_gudrun | 古德倫在諸神黃昏 |
 | 12 | sc_rm_ragnar | 拉格納在諸神黃昏 |
 | 13 | sc_rm_osric | 古托姆在諸神黃昏 |
