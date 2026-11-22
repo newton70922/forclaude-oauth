@@ -881,21 +881,21 @@ Inside a grand Frankish cathedral: the Frankish king in rich robes embraces a Vi
 | 11 | sc_ev_atone1 | 瞎眼的老人 （✅ 已收到） |
 | 12 | sc_ev_atone2 | 神殿的祭司 （✅ 已收到） |
 | 13 | sc_ev_atone3 | 仇人的兒子 （✅ 已收到） |
-| 14 | sc_ev_children | 木劍 |
-| 15 | sc_ev_gyr | 不服的聲音（⚠ 提示詞已修正） |
-| 16 | sc_ev_grumble | 戰士們的怨言 |
-| 17 | sc_ev_traitor | 被撬開的銀箱 |
-| 18 | sc_ev_oracle | 祭司的夢 |
-| 19 | sc_ev_plague | 熱病 |
-| 20 | sc_ev_thorfinn_up | 被饒恕的人 |
-| 21 | sc_ev_p_hakon | 哈康的舊帳 |
-| 22 | sc_ev_p_astrid | 阿斯特麗德的挑戰 |
-| 23 | sc_ev_p_una | 烏娜的草藥 |
-| 24 | sc_ev_p_bragi | 布拉吉的詩 |
-| 25 | sc_ev_p_ragnar | 失控 |
-| 26 | sc_ev_p_knut | 克努特的主意 |
-| 27 | sc_ev_p_einar | 白鹿的蹤跡 |
-| 28 | sc_ev_p_osric | 古托姆的家人 |
+| 14 | sc_ev_children | 木劍 （✅ 已收到） |
+| 15 | sc_ev_gyr | 不服的聲音（⚠ 提示詞已修正，請照新的重畫：營火邊的壯漢蓋爾） |
+| 16 | sc_ev_grumble | 戰士們的怨言 （✅ 已收到；GPT 照舊提示詞畫的 gyr 也收下，當作這個事件的第二張） |
+| 17 | sc_ev_traitor | 被撬開的銀箱 （✅ 已收到） |
+| 18 | sc_ev_oracle | 祭司的夢 （✅ 已收到） |
+| 19 | sc_ev_plague | 熱病 （✅ 已收到） |
+| 20 | sc_ev_thorfinn_up | 被饒恕的人 （✅ 已收到） |
+| 21 | sc_ev_p_hakon | 哈康的舊帳 （✅ 已收到） |
+| 22 | sc_ev_p_astrid | 阿斯特麗德的挑戰 （✅ 已收到） |
+| 23 | sc_ev_p_una | 烏娜的草藥 （✅ 已收到） |
+| 24 | sc_ev_p_bragi | 布拉吉的詩 （✅ 已收到） |
+| 25 | sc_ev_p_ragnar | 失控 （✅ 已收到） |
+| 26 | sc_ev_p_knut | 克努特的主意 （✅ 已收到） |
+| 27 | sc_ev_p_einar | 白鹿的蹤跡 （✅ 已收到） |
+| 28 | sc_ev_p_osric | 古托姆的家人 （✅ 已收到） |
 | 29 | sc_ev_yule | 冬至祭典 |
 | 30 | sc_ev_famine | 難熬的冬天 |
 | 31 | sc_ev_widow | 戰死者的遺孀 |
