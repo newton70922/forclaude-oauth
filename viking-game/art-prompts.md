@@ -748,11 +748,11 @@ This character has just returned from years of service in the Varangian Guard in
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_ev_dream_m | 夢見母親（男主角） |
-| 2 | sc_ev_dream_f | 夢見母親（女主角） |
-| 3 | sc_ev_wedding | 長屋裡的婚禮（一） |
-| 4 | sc_ev_wedding_b | 長屋裡的婚禮（二） |
-| 5 | sc_ev_wedding_c | 長屋裡的婚禮（三） |
+| 1 | sc_ev_dream_m | 夢見母親（男主角） （✅ 已收到） |
+| 2 | sc_ev_dream_f | 夢見母親（女主角） （✅ 已收到） |
+| 3 | sc_ev_wedding | 長屋裡的婚禮（一） （✅ 已收到） |
+| 4 | sc_ev_wedding_b | 長屋裡的婚禮（二） （✅ 已收到） |
+| 5 | sc_ev_wedding_c | 長屋裡的婚禮（三） （✅ 已收到） |
 | 6 | sc_s_midsummer_1 | 夏至集會：擺攤做生意 |
 | 7 | sc_s_midsummer_2 | 夏至集會：下場比武 |
 | 8 | sc_s_midsummer_3 | 夏至集會：牽紅線 |
