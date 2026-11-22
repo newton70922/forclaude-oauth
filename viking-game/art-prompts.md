@@ -10,7 +10,7 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.14 劇情補圖（180 張）
+## ★ v0.14 劇情補圖（181 張）
 
 程式都做好了：每張圖一到，放進遊戲就會自動出現在對的地方。圖還沒到之前，會先用現有的圖或立繪代替。
 
@@ -753,13 +753,13 @@ This character has just returned from years of service in the Varangian Guard in
 | 3 | sc_ev_wedding | 長屋裡的婚禮（一） （✅ 已收到） |
 | 4 | sc_ev_wedding_b | 長屋裡的婚禮（二） （✅ 已收到） |
 | 5 | sc_ev_wedding_c | 長屋裡的婚禮（三） （✅ 已收到） |
-| 6 | sc_s_midsummer_1 | 夏至集會：擺攤做生意 |
-| 7 | sc_s_midsummer_2 | 夏至集會：下場比武 |
-| 8 | sc_s_midsummer_3 | 夏至集會：牽紅線 |
-| 9 | sc_ally_grey | 盟約：拉德的雅爾西格德 |
-| 10 | sc_ally_eagle | 盟約：鷹巢峰的布倫希爾德 |
-| 11 | sc_ally_wessex | 盟約：威塞克斯 |
-| 12 | sc_ally_frank | 盟約：法蘭克國王 |
+| 6 | sc_s_midsummer_1 | 夏至集會：擺攤做生意 （✅ 已收到） |
+| 7 | sc_s_midsummer_2 | 夏至集會：下場比武 （✅ 已收到） |
+| 8 | sc_s_midsummer_3 | 夏至集會：牽紅線 （✅ 已收到） |
+| 9 | sc_ally_grey | 盟約：拉德的雅爾西格德 （✅ 已收到） |
+| 10 | sc_ally_eagle | 盟約：鷹巢峰的布倫希爾德 （✅ 已收到） |
+| 11 | sc_ally_wessex | 盟約：威塞克斯 （✅ 已收到） |
+| 12 | sc_ally_frank | 盟約：法蘭克國王 （✅ 已收到） |
 
 **1. sc_ev_dream_m（夢見母親（男主角））**
 
@@ -862,27 +862,27 @@ If the player character appears, show them only from behind or in shadow (face h
 Inside a grand Frankish cathedral: the Frankish king in rich robes embraces a Viking ruler (seen from behind, hooded, a simple crown) in front of the altar, nobles and clergy watching. Political, grand, a northern king accepted.
 ```
 
-### I. 其他隨機事件（66 張，16:9）
+### I. 其他隨機事件（67 張，16:9）
 
 遊戲裡其他所有隨機事件，一個事件一張。中文那段是遊戲原文，GPT 看得懂，直接貼就好。這組不急，可以慢慢畫。
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_ev_ingrid | 漁夫的女兒 |
-| 2 | sc_ev_wreck | 海灘上的沉船 |
-| 3 | sc_ev_framed | 被偷的漁網 |
-| 4 | sc_ev_treasure | 老船長的藏寶圖 |
-| 5 | sc_ev_drunk | 醉漢挑釁 |
-| 6 | sc_ev_wolves | 村長的請求 |
-| 7 | sc_ev_merchant | 翻倒的商隊 |
-| 8 | sc_ev_witch | 霧裡的老婦人 |
-| 9 | sc_ev_runestone | 長滿青苔的符文石 |
-| 10 | sc_ev_hunterB | 賞金獵人 |
-| 11 | sc_ev_atone1 | 瞎眼的老人 |
-| 12 | sc_ev_atone2 | 神殿的祭司 |
-| 13 | sc_ev_atone3 | 仇人的兒子 |
+| 1 | sc_ev_ingrid | 漁夫的女兒 （✅ 已收到） |
+| 2 | sc_ev_wreck | 海灘上的沉船 （✅ 已收到） |
+| 3 | sc_ev_framed | 被偷的漁網 （✅ 已收到） |
+| 4 | sc_ev_treasure | 老船長的藏寶圖 （✅ 已收到） |
+| 5 | sc_ev_drunk | 醉漢挑釁 （✅ 已收到） |
+| 6 | sc_ev_wolves | 村口的狼皮（殺狼之後） （✅ 已收到） |
+| 7 | sc_ev_merchant | 翻倒的商隊 （✅ 已收到） |
+| 8 | sc_ev_witch | 霧裡的老婦人 （✅ 已收到） |
+| 9 | sc_ev_runestone | 長滿青苔的符文石 （✅ 已收到） |
+| 10 | sc_ev_hunterB | 賞金獵人（⚠ 提示詞已修正，請照新的重畫） |
+| 11 | sc_ev_atone1 | 瞎眼的老人 （✅ 已收到） |
+| 12 | sc_ev_atone2 | 神殿的祭司 （✅ 已收到） |
+| 13 | sc_ev_atone3 | 仇人的兒子 （✅ 已收到） |
 | 14 | sc_ev_children | 木劍 |
-| 15 | sc_ev_gyr | 不服的聲音 |
+| 15 | sc_ev_gyr | 不服的聲音（⚠ 提示詞已修正） |
 | 16 | sc_ev_grumble | 戰士們的怨言 |
 | 17 | sc_ev_traitor | 被撬開的銀箱 |
 | 18 | sc_ev_oracle | 祭司的夢 |
@@ -934,6 +934,7 @@ Inside a grand Frankish cathedral: the Frankish king in rich robes embraces a Vi
 | 64 | sc_ev_rest1 | 夜裡的狼嚎 |
 | 65 | sc_ev_rest2 | 營火邊的旅人 |
 | 66 | sc_ev_rest3 | 有人摸進來了 |
+| 67 | sc_ev_wolves_req | 村長的請求（殺狼之前） |
 
 **1. sc_ev_ingrid（漁夫的女兒）**
 
@@ -1022,7 +1023,7 @@ Illustrate this event from the game (Chinese): 「長滿青苔的符文石：路
 
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, no crown unless the scene says they are king).
-Illustrate this event from the game (Chinese): 「賞金獵人：一個瞎眼的老人拄著拐杖，被孫子牽到你面前：「我認得你的聲音。那天晚上，你的人燒了我的房子。」」
+Illustrate this event from the game (Chinese): 「賞金獵人：一個披著狼皮的男人攔住去路，手裡拿著一張畫得很像你的通緝令：「（你的名字），有人出錢要你的命。」」 A lone bounty hunter in a grey wolf-pelt cloak blocks a narrow snowy forest path, holding up a rough sketch of the hooded player drawn in charcoal on a scrap of hide (no readable text), a long knife at his belt and a hunting spear on his back. The player is seen from behind, hooded, no crown. Cold, menacing, a price on your head.
 ```
 
 **11. sc_ev_atone1（瞎眼的老人）**
@@ -1067,7 +1068,7 @@ Illustrate this event from the game (Chinese): 「木劍：部落裡的孩子們
 
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, no crown unless the scene says they are king).
-Illustrate this event from the game (Chinese): 「不服的聲音：「我們好久沒分到像樣的東西了。」幾個戰士在你背後竊竊私語，看到你就閉上了嘴。」
+Illustrate this event from the game (Chinese): 「不服的聲音：營火邊有人說：「（你的名字）不過是運氣好，配不上首領的位子。」說話的是壯漢蓋爾，不少人跟著點頭。」 Night around a campfire in a young Viking settlement: a big burly warrior named Gyr (broad shoulders, shaved sides, thick blond beard, arms crossed) speaks loudly with contempt, while several warriors around the fire nod along; the hooded player stands at the edge of the firelight, seen from behind, no crown. A challenge to authority, tension.
 ```
 
 **16. sc_ev_grumble（戰士們的怨言）**
@@ -1527,6 +1528,15 @@ Illustrate this night-time event from the game (Chinese): 「營火邊的旅人�
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, no crown unless the scene says they are king).
 Illustrate this night-time event from the game (Chinese): 「有人摸進來了：你半夢半醒間，聽見有人在翻你的行囊。」
+```
+
+**67. sc_ev_wolves_req（村長的請求：殺狼之前）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, no crown unless the scene says they are king).
+Illustrate this event from the game (Chinese): 「村長的請求：鹽灘漁村的村長找上你：「狼群叼走了我們的羊。你能幫忙嗎？我們湊了一點錢。」」 A worried old fishing-village chief in a patched wool cloak stands before the hooded player (seen from behind, no crown) at the edge of a small salt-flat fishing village at dusk; behind him a broken sheep pen with scattered wool and large wolf tracks in the snow, a few frightened villagers watching. Use the same old chief as in sc_ev_wolves (bald crown, grey hair at the sides, brown wool clothes). Pleading, uneasy.
 ```
 
 ### J. 諸神黃昏中段：兩軍絞在一起（22 張，16:9）
