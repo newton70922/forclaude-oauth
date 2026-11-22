@@ -10,7 +10,7 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.14 劇情補圖（181 張）
+## ★ v0.14 劇情補圖（188 張）
 
 程式都做好了：每張圖一到，放進遊戲就會自動出現在對的地方。圖還沒到之前，會先用現有的圖或立繪代替。
 
@@ -1949,6 +1949,90 @@ Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th ce
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
 Setting: the morning after Ragnarök, the end of the world that did not end. The battle is over; the frozen plain is quiet, covered in ash, broken ice and fallen giants, but the light is soft and hopeful.
 Many decades later, inside a warm firelit Viking longhouse, an old white-bearded skald with a lyre has just finished a long song; children sit around him on furs, one raising a hand to ask a question. The old skald smiles and points at a worn, ancient axe hanging on the wall. Nostalgia, legend, a story passed down.
+```
+
+### L. 受洗那天晚上（7 張，16:9）
+
+受洗之後，最親近的那位神最後一次出現在夢裡。依最親近的神只出一張，最後一張大家都會看到。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_bap_odin | 奧丁走進霧裡 |
+| 2 | sc_bap_thor | 索爾扛起錘子離開 |
+| 3 | sc_bap_tyr | 提爾唸完誓言，收劍離開 |
+| 4 | sc_bap_freyja | 弗蕾亞最後一次來看你 |
+| 5 | sc_bap_loki | 洛基散成一陣煙 |
+| 6 | sc_bap_none | 舊神的木柱裂開 |
+| 7 | sc_bap_altar | 祭壇上的火不再跳動 |
+
+**1. sc_bap_odin（奧丁走進霧裡）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+A dreamlike night scene, soft moonlight and drifting mist, slightly faded colors like a memory. The player has just been baptized as a Christian king, and the old god they were closest to comes one last time.
+On a misty fjord shore at night, Odin (one-eyed, grey-bearded, wide-brimmed hat, dark cloak, spear) stands looking at the hooded player for a long moment, two ravens motionless on his shoulders; he is turning away into the fog. Silent farewell.
+```
+
+**2. sc_bap_thor（索爾扛起錘子離開）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+A dreamlike night scene, soft moonlight and drifting mist, slightly faded colors like a memory. The player has just been baptized as a Christian king, and the old god they were closest to comes one last time.
+Thor (huge, red-bearded, hammer Mjölnir resting at his feet) sits on the doorstep of the player's longhouse at night, lightning flickering silently behind distant mountains, no rain; he looks at the hooded player with hurt disappointment, about to shoulder his hammer and leave.
+```
+
+**3. sc_bap_tyr（提爾唸完誓言，收劍離開）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+A dreamlike night scene, soft moonlight and drifting mist, slightly faded colors like a memory. The player has just been baptized as a Christian king, and the old god they were closest to comes one last time.
+One-handed Tyr (stern, battle-scarred, his only hand on his sword hilt) stands beside a tall law stone in moonlit mist, speaking quietly to the hooded player as if reciting old oaths; calm, not angry, sorrowful.
+```
+
+**4. sc_bap_freyja（弗蕾亞最後一次來看你）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+A dreamlike night scene, soft moonlight and drifting mist, slightly faded colors like a memory. The player has just been baptized as a Christian king, and the old god they were closest to comes one last time.
+Freyja (golden hair, falcon-feather cloak) sits on the edge of the player's bed in a dim moonlit longhouse room, her hand raised toward the sleeping hooded player's face but stopping in mid-air; a cup of honey mead on the windowsill. A faint, sad smile. (Also used when her cats run off into the snow.)
+```
+
+**5. sc_bap_loki（洛基散成一陣煙）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+A dreamlike night scene, soft moonlight and drifting mist, slightly faded colors like a memory. The player has just been baptized as a Christian king, and the old god they were closest to comes one last time.
+Loki (slim, sharp-featured, red-brown hair, green and black clothes) lounges on the player's throne with his feet up, his laughter fading into an unexpectedly lonely expression; his body is dissolving into wisps of green smoke. The hooded player stands before the throne, seen from behind.
+```
+
+**6. sc_bap_none（舊神的木柱裂開）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+A dreamlike night scene, soft moonlight and drifting mist, slightly faded colors like a memory. The player has just been baptized as a Christian king, and the old god they were closest to comes one last time.
+Inside a dark longhouse at night, a tall wooden pillar carved with old Norse gods has split down the middle by itself; cold wind and snowflakes blow through the crack, the hearth fire bending. The hooded player stands alone, seen from behind, looking at it.
+```
+
+**7. sc_bap_altar（祭壇上的火不再跳動）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
+A dreamlike night scene, soft moonlight and drifting mist, slightly faded colors like a memory. The player has just been baptized as a Christian king, and the old god they were closest to comes one last time.
+Close-up of an old stone altar to the Norse gods in a quiet grove at dawn: a small fire in its bowl burning perfectly still, its flame not moving at all, frost on the carved stones, a faint wooden cross visible far in the background on a hill. Stillness, an era ending.
 ```
 
 ## ✅ v0.13 重畫（1 張，已收到）

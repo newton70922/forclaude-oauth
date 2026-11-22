@@ -82,6 +82,8 @@ details.ach summary{cursor:pointer;font-family:var(--f-display);font-weight:600}
 .hall .hrow b{font-family:var(--f-display);font-size:15px}
 .hall .hrow .sc{font-family:var(--f-display);font-size:17px;color:var(--gold)}
 .hall .hrow small{grid-column:2 / 4;color:var(--muted)}
+.hall .hrow .hc{grid-column:2 / 4;justify-self:start;font-size:12px;padding:3px 10px;margin-top:4px;min-height:0;width:auto;line-height:1.5}
+.hall .hrow textarea{grid-column:1 / 4;min-height:48px}
 .hall textarea{width:100%;min-height:60px;margin:6px 0;background:var(--bg);color:var(--bone);border:1px solid var(--line);border-radius:5px;padding:6px;font:12px monospace;box-sizing:border-box}
 .hall .hmsg{color:var(--muted);margin:6px 0}
 .gtabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
@@ -4019,7 +4021,35 @@ const EV_MISSION={kind:'信仰',title:'穿長袍的人',text:'一個從南方來
 const EV_MISSION2={kind:'信仰',title:'修士又來了',text:'那個修士又來了，這次帶著法蘭克國王的信：「北方的王，你只接受了記號，還沒有受洗。是時候選邊了。」',
   ch:[{t:'受洗',fx:()=>{baptize();return '這一次，你走進了河裡。\n<span class="good">銀幣 +60，每季貿易 +8 銀幣；可以和南方結盟</span>\n<span class="bad">忠誠 -12；眾神的力量不再眷顧你</span>';}},
       {t:'「記號就夠了。」',fx:()=>{S.faith='old';addLoyalty(3);return '修士嘆了口氣，帶著信走了。南方的商人照樣會來，只是少了一些。\n忠誠 +3（從此不再有十字貿易）';}}]};
-function baptize(){S.faith='cross';S.flags.crossT=S.turn;S.silver+=60;loseLoyalty(12);log('受洗了。');}
+function baptize(){const g=bapGod();S.faith='cross';S.flags.crossT=S.turn;S.silver+=60;loseLoyalty(12);log('受洗了。');pushLater(el=>cineView(el,bapPages(g),closeModal,'ᛟ 那天晚上'));}
+// 受洗那天晚上：最親近的那位神，最後一次來看你（只演出，不寫規則）
+function bapGod(){const f=S.favor||{};const top=Object.keys(GODS).sort((a,b)=>(f[b]||0)-(f[a]||0))[0];return top&&godTier(top)>=1?top:'none';}
+function bapPages(g){
+  const A=k=>['sc_bap_'+g,k];
+  const P={
+    odin:[{art:A('odin'),text:'那天晚上，你夢見自己站在峽灣邊。\n\n奧丁就站在霧裡。兩隻渡鴉停在他的肩上，一動也不動。'},
+      {art:A('odin'),text:'他看了你很久，什麼也沒說。'},
+      {art:A('odin'),text:'然後他轉過身，走進了霧裡。\n\n渡鴉飛了起來，沒有回頭。'}],
+    thor:[{art:A('thor'),text:'那天晚上，雷聲在山後滾了一整夜，卻一滴雨都沒有下。\n\n你夢見索爾坐在你的長屋門口，錘子就放在腳邊。'},
+      {art:A('thor'),text:'「我還以為，」他說，「你是會跟我一起喝到天亮的那種人。」'},
+      {art:A('thor'),text:'他扛起錘子走了。\n\n雷聲越來越遠，最後，什麼都聽不見了。'}],
+    tyr:[{art:A('tyr'),text:'你夢見提爾站在法石旁邊，用他僅剩的那隻手按著劍。'},
+      {art:A('tyr'),text:'他沒有生氣。\n\n他只是把你這些年發過的誓，一句一句，唸給你聽。'},
+      {art:A('tyr'),text:'唸完，他把劍收回了鞘裡，轉身走了。'}],
+    freyja:S.flags.freyWed?[{art:A('freyja'),text:'你夢見弗蕾亞坐在你的床邊，就像以前一樣。\n\n她伸出手，想摸你的臉。手停在半空中，又收了回去。'},
+      {art:A('freyja'),text:'她笑了一下，笑得很淡。\n\n「你選了。」'},
+      {art:A('freyja'),text:'你醒來的時候，窗台上那杯蜂蜜酒，第一次沒有人喝過。'}]
+      :[{art:A('freyja'),text:'你夢見弗蕾亞的貓蹲在你的門口。\n\n牠看了你一眼，然後轉身，跑進了雪地裡。'},
+      {art:A('freyja'),text:'弗蕾亞站在遠處的山坡上，朝你揮了揮手。\n\n像是在說再見。'}],
+    loki:[{art:A('loki'),text:'你夢見洛基坐在你的王座上，翹著腳，笑得很開心。\n\n「受洗了？」他拍起手來，「這一招，連我都沒想到。」'},
+      {art:A('loki'),text:'他笑著笑著，忽然不笑了。\n\n「……那以後，就沒有人陪我玩了。」'},
+      {art:A('loki'),text:'他像一陣煙一樣，散掉了。'}],
+    none:[{art:['sc_bap_none','sc_longhouse'],text:'那天晚上，長屋裡刻著舊神的那根木柱，自己裂開了一道縫。'},
+      {art:['sc_bap_none','sc_longhouse'],text:'風從縫裡吹進來。\n\n像是有人在很遠很遠的地方，嘆了一口氣。'}]
+  }[g];
+  P.push({art:['sc_bap_altar','sc_bap_'+g,'sc_longhouse'],text:'從那天起，祭壇上的火，再也沒有自己跳動過。',big:1});
+  return P;
+}
 const EV_PAGAN={kind:'信仰',title:'舊神的反撲',text:'一群族人在夜裡燒了新蓋的木頭教堂。帶頭的老祭司站在火光裡大喊：「奧丁還沒有死！」\n\n有一個地方，已經不聽你的了。',
   ch:[{t:'派兵鎮壓',fx:()=>{rebel(true);return '你派人去了。這件事不會這麼簡單結束。';}},
       {t:'讓他們保留舊神的祭典',fx:()=>{addLoyalty(6);S.faith='cross';return '你允許他們在冬至時祭奧丁，只要白天去教堂。兩邊都不滿意，但兩邊都安靜了。\n忠誠 +6';}}]};
@@ -5682,17 +5712,26 @@ function hallAll(){
 function hallRender(){
   const box=$('#hall-body');if(!box) return;
   const all=hallAll(),list=(hallMine?all.filter(r=>r.me):all).slice(0,50);
+  const loc={};hallLocal().forEach(r=>{if(r&&r.id)loc[r.id]=r;});
   $('#hall-sum').textContent=`英靈殿（排行榜）${all.length?` · ${all.length} 筆`:''}`;
   const dn={easy:'輕鬆',normal:'標準',hero:'英雄'};
   box.innerHTML=`<div class="hall">
     <div class="seg" style="margin-bottom:8px"><span>顯示</span><button data-hm="0" aria-pressed="${!hallMine}">全部</button><button data-hm="1" aria-pressed="${hallMine}">只看我的</button></div>
     ${list.length?list.map((r,i)=>`<div class="hrow ${r.me?'me':''}"><i>${i+1}</i><b>${r.ep?`「${esc(r.ep)}」`:''}${esc(r.n)}</b><span class="sc">${r.s}</span>
-      <small>${esc(r.t)} · ${dn[r.d]} · ${r.y} 歲${r.c?` · 從第 ${r.c} 章開始`:''}${r.a?` · ${new Date(r.a).toLocaleDateString('zh-TW')}`:''}${r.me?' · 你':''}</small></div>`).join('')
+      <small>${esc(r.t)} · ${dn[r.d]} · ${r.y} 歲${r.c?` · 從第 ${r.c} 章開始`:''}${r.a?` · ${new Date(r.a).toLocaleDateString('zh-TW')}`:''}${r.me?' · 你':''}</small>${loc[r.id]?`<button class="ghost hc" data-hc="${esc(r.id)}">複製薩迦碼</button>`:''}</div>`).join('')
       :'<p class="hmsg">還沒有紀錄。打完一局（稱王、第四章結局，或是倒下）就會記在這裡。</p>'}
     <p class="hmsg">${remote.rdb?(remote.owner||remote.hallOk?'你的紀錄會自動上榜。':'你的紀錄存在這台裝置。想上大家的排行榜，把結局畫面的薩迦碼傳給分享這個遊戲的人。'):'登入 Claude 帳號後，才看得到大家的排行榜；現在只顯示這台裝置的紀錄。'}</p>
     ${remote.owner?`<div><b>登錄朋友的薩迦</b><textarea id="hall-in" placeholder="把朋友傳來的薩迦碼貼在這裡（NA1. 開頭）"></textarea><button class="ghost" id="hall-add">登錄</button> <span class="hmsg" id="hall-msg">${hallMsg}</span></div>`:''}
   </div>`;
   box.querySelectorAll('[data-hm]').forEach(b=>b.onclick=()=>{hallMine=b.dataset.hm==='1';hallRender();});
+  box.querySelectorAll('[data-hc]').forEach(b=>b.onclick=()=>{
+    const run=loc[b.dataset.hc];if(!run)return;const code=hallCode(run);
+    let t=b.parentNode.querySelector('textarea');
+    if(!t){t=document.createElement('textarea');t.readOnly=true;t.value=code;b.parentNode.appendChild(t);}
+    t.focus();t.select();let ok=false;try{ok=document.execCommand('copy');}catch(e){}
+    const done=y=>{b.textContent=y?'已複製':'請長按下面的文字複製';};
+    if(navigator.clipboard)navigator.clipboard.writeText(code).then(()=>done(true),()=>done(ok));else done(ok);
+  });
   const add=$('#hall-add');
   if(add) add.onclick=async()=>{
     const r=hallParse($('#hall-in').value);
