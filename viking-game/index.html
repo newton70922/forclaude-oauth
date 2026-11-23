@@ -5921,6 +5921,7 @@ function uxDemoBar(){
   bar.querySelectorAll('[data-ux]').forEach(x=>x.onclick=()=>{try{localStorage.setItem(x.dataset.ux,x.dataset.v);}catch(e){}applyUx();uxDemoBar();if(S&&!$('#game-screen').hidden)render();});
 }
 window.addEventListener('hashchange',uxDemoBar);
+let uxHash=location.hash;setInterval(()=>{if(location.hash!==uxHash){uxHash=location.hash;uxDemoBar();}},1000);
 const fontPref=()=>{try{return localStorage.getItem('na-font')||'m';}catch(e){return 'm';}};
 function applyFont(){const f=fontPref();document.documentElement.classList.toggle('fs-s',f==='s');document.documentElement.classList.toggle('fs-l',f==='l');}
 applyFont();
@@ -6044,6 +6045,8 @@ function charHTML(){
   else body=`<div class="sec-h">設定</div>
   <div class="seg"><span>音效</span><button data-set="sound" data-v="1" aria-pressed="${soundOn()}">開</button><button data-set="sound" data-v="0" aria-pressed="${!soundOn()}">關</button></div>
   <div class="seg"><span>環境音</span><button data-set="amb" data-v="1" aria-pressed="${ambOn()}">開</button><button data-set="amb" data-v="0" aria-pressed="${!ambOn()}">關</button></div>
+  ${remote.owner||location.hash==='#uxdemo'?`<div class="seg"><span>介面試用</span><button data-set="ux2" data-v="0" aria-pressed="${!UX2()}">目前</button><button data-set="ux2" data-v="1" aria-pressed="${UX2()}">新版</button></div>
+  <div class="seg"><span>特效試用</span><button data-set="fx" data-v="0" aria-pressed="${!FX()}">關</button><button data-set="fx" data-v="1" aria-pressed="${FX()}">開</button></div>`:''}
   <div class="seg"><span>字體</span><button data-set="font" data-v="s" aria-pressed="${fontPref()==='s'}">小</button><button data-set="font" data-v="m" aria-pressed="${fontPref()==='m'}">中</button><button data-set="font" data-v="l" aria-pressed="${fontPref()==='l'}">大</button></div>
   <div class="seg"><span>提示</span><button data-set="tips" data-v="1" aria-pressed="${!S.noTips}">開</button><button data-set="tips" data-v="0" aria-pressed="${!!S.noTips}">關</button></div>
   <div class="seg"><span>代理人</span><button data-set="mini" data-v="react" aria-pressed="${S.mini==='react'}">反應型</button><button data-set="mini" data-v="puzzle" aria-pressed="${S.mini==='puzzle'}">解謎型</button></div>
@@ -6179,7 +6182,7 @@ document.addEventListener('click',e=>{
   if(d.b){const b=B(d.b),l=bl(d.b),[cs,cf]=bldCost(b,l);if(S.tlv>=b.tl&&l<bldMax()&&S.silver>=cs&&S.food>=cf)build(d.b);return;}
   if(d.pol){S.policy=d.pol;render();return;}
   if(d.tl){const u=tribeUp();if(u&&S.silver>=u.cost[0]&&S.food>=u.cost[1]&&bldCount()>=u.need)upgradeTribe();return;}
-  if(d.set){if(d.set==='font'){try{localStorage.setItem('na-font',d.v);}catch(e){}applyFont();}else if(d.set==='tips'){S.noTips=d.v==='0';}else if(d.set==='sound'){try{localStorage.setItem('na-sound',d.v);}catch(e){}if(d.v==='1')sfx('ok');AMB.mode=null;ambAuto();}else if(d.set==='amb'){try{localStorage.setItem('na-amb',d.v);}catch(e){}AMB.mode=null;ambAuto();}else if(d.set==='mini')S.mini=d.v;else S.relaxed=d.v==='1';render();return;}
+  if(d.set){if(d.set==='ux2'||d.set==='fx'){try{localStorage.setItem('na-'+d.set,d.v);}catch(e){}applyUx();uxDemoBar();}else if(d.set==='font'){try{localStorage.setItem('na-font',d.v);}catch(e){}applyFont();}else if(d.set==='tips'){S.noTips=d.v==='0';}else if(d.set==='sound'){try{localStorage.setItem('na-sound',d.v);}catch(e){}if(d.v==='1')sfx('ok');AMB.mode=null;ambAuto();}else if(d.set==='amb'){try{localStorage.setItem('na-amb',d.v);}catch(e){}AMB.mode=null;ambAuto();}else if(d.set==='mini')S.mini=d.v;else S.relaxed=d.v==='1';render();return;}
   if(d.s&&S.pts>0){const k=d.s;S.st[k]++;S.pts--;if(k==='con')S.hp+=6;render();return;}
 });
 document.addEventListener('keydown',e=>{
