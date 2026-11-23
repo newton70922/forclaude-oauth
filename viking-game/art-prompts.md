@@ -167,7 +167,7 @@ Old King Halfdan of Norway (around seventy, long white beard and hair, gold knot
 | 6 | sc_win_sigrid2 | 西格麗德被你推倒 （✅ 已收到） |
 | 7 | sc_win_sigrid3 | 盾牌滾到法石旁 （✅ 已收到） |
 | 8 | sc_d3_wall2 | 握著護身符 （✅ 已收到） |
-| 9 | sc_win_bjorn1 | 比約恩倒在斗篷上（新增：原本那張是他跪著伸手，接在「坐起來」前面順序會倒過來） |
+| 9 | sc_win_bjorn1 | 比約恩倒在斗篷上（新增：原本那張是他跪著伸手，接在「坐起來」前面順序會倒過來） （✅ 已收到） |
 
 **1. sc_win_astrid2（阿斯特麗德背對你撿盾）**
 
@@ -317,7 +317,7 @@ A Viking warband in retreat through falling snow, carrying the wounded on shield
 | 11 | sc_oath_knut | 與克努特立誓 （✅ 已收到） |
 | 12 | sc_oath_bjorn | 與比約恩立誓 （✅ 已收到） |
 | 13 | sc_oath_sigrid | 與西格麗德立誓 （✅ 已收到） |
-| 14 | sc_oath_sigrid0 | 與西格麗德立誓（還沒稱王的版本：沒有王冠、在長屋） |
+| 14 | sc_oath_sigrid0 | 與西格麗德立誓（還沒稱王的版本：沒有王冠、在長屋） （✅ 已收到） |
 
 **1. sc_oath_hakon（與哈康立誓）**
 
@@ -911,30 +911,30 @@ Inside a grand Frankish cathedral: the Frankish king in rich robes embraces a Vi
 | 41 | sc_ev_astridLand | 盾女的土地 （✅ 已收到） |
 | 42 | sc_ev_bragiSaga | 你的薩迦 （✅ 已收到） |
 | 43 | sc_ev_allyAsk | 盟友求援 （✅ 已收到） |
-| 44 | sc_ev_ragnarDane | 拉格納的選擇 |
-| 45 | sc_ev_egill | 冰島來的詩人 |
-| 46 | sc_ev_wayland | 巧手韋蘭 |
-| 47 | sc_ev_varang | 拜占庭的招兵官 |
-| 48 | sc_ev_w_snow | 雪球大戰 |
-| 49 | sc_ev_w_bear | 拉格納和熊 |
-| 50 | sc_ev_w_poem | 布拉吉的情詩 |
-| 51 | sc_ev_w_kids | 孩子們的戲 |
-| 52 | sc_ev_w_beard | 鬍子比賽 |
-| 53 | sc_ev_w_goat | 山羊又來了 |
-| 54 | sc_ev_w_fish | 冰上釣魚 |
-| 55 | sc_ev_o_smith1 | 斷掉的祖傳寶劍 |
-| 56 | sc_ev_o_smith2 | 鐵砧上的記號 |
-| 57 | sc_ev_o_hunter1 | 雪地裡的白狐 |
-| 58 | sc_ev_o_hunter2 | 雪林的狼王 |
-| 59 | sc_ev_o_sailor1 | 當年的老槳手 |
-| 60 | sc_ev_o_sailor2 | 看得見的風暴 |
-| 61 | sc_ev_o_skald1 | 詩人的挑戰 |
-| 62 | sc_ev_o_skald2 | 父親沒寫完的歌 |
-| 63 | sc_ev_o_home | 衣錦還鄉 |
-| 64 | sc_ev_rest1 | 夜裡的狼嚎 |
-| 65 | sc_ev_rest2 | 營火邊的旅人 |
-| 66 | sc_ev_rest3 | 有人摸進來了 |
-| 67 | sc_ev_wolves_req | 村長的請求（殺狼之前） |
+| 44 | sc_ev_ragnarDane | 拉格納的選擇 （✅ 已收到） |
+| 45 | sc_ev_egill | 冰島來的詩人 （✅ 已收到） |
+| 46 | sc_ev_wayland | 巧手韋蘭 （✅ 已收到） |
+| 47 | sc_ev_varang | 拜占庭的招兵官 （✅ 已收到） |
+| 48 | sc_ev_w_snow | 雪球大戰 （✅ 已收到） |
+| 49 | sc_ev_w_bear | 拉格納和熊 （✅ 已收到） |
+| 50 | sc_ev_w_poem | 布拉吉的情詩 （✅ 已收到） |
+| 51 | sc_ev_w_kids | 孩子們的戲 （✅ 已收到） |
+| 52 | sc_ev_w_beard | 鬍子比賽 （✅ 已收到） |
+| 53 | sc_ev_w_goat | 山羊又來了 （✅ 已收到） |
+| 54 | sc_ev_w_fish | 冰上釣魚 （✅ 已收到） |
+| 55 | sc_ev_o_smith1 | 斷掉的祖傳寶劍 （✅ 已收到） |
+| 56 | sc_ev_o_smith2 | 鐵砧上的記號 （✅ 已收到） |
+| 57 | sc_ev_o_hunter1 | 雪地裡的白狐 （✅ 已收到） |
+| 58 | sc_ev_o_hunter2 | 雪林的狼王 （✅ 已收到） |
+| 59 | sc_ev_o_sailor1 | 當年的老槳手 （✅ 已收到） |
+| 60 | sc_ev_o_sailor2 | 看得見的風暴 （✅ 已收到） |
+| 61 | sc_ev_o_skald1 | 詩人的挑戰 （✅ 已收到） |
+| 62 | sc_ev_o_skald2 | 父親沒寫完的歌 （✅ 已收到） |
+| 63 | sc_ev_o_home | 衣錦還鄉 （✅ 已收到） |
+| 64 | sc_ev_rest1 | 夜裡的狼嚎 （✅ 已收到） |
+| 65 | sc_ev_rest2 | 營火邊的旅人 （✅ 已收到） |
+| 66 | sc_ev_rest3 | 有人摸進來了 （✅ 已收到） |
+| 67 | sc_ev_wolves_req | 村長的請求（殺狼之前） （✅ 已收到） |
 
 **1. sc_ev_ingrid（漁夫的女兒）**
 
@@ -1565,8 +1565,8 @@ Illustrate this event from the game (Chinese): 「村長的請求：鹽灘漁村
 | 18 | sc_rm_god_odin | 奧丁在遠方作戰 （✅ 已收到） |
 | 19 | sc_rm_god_thor | 索爾在遠方作戰 （✅ 已收到） |
 | 20 | sc_rm_god_tyr | 提爾在遠方作戰 （✅ 已收到） |
-| 21 | sc_rm_god_freyja | 弗蕾亞在遠方作戰 |
-| 22 | sc_rm_god_none | 遠方的眾神在遠方作戰 |
+| 21 | sc_rm_god_freyja | 弗蕾亞在遠方作戰 （✅ 已收到） |
+| 22 | sc_rm_god_none | 遠方的眾神在遠方作戰 （✅ 已收到） |
 
 **1. sc_rm_clash（兩軍撞在一起）**
 
@@ -1807,19 +1807,19 @@ In the far distance, the gods fight their own battles: thunder, lightning, horns
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_re_dawn | 天亮了，太陽還在 |
-| 2 | sc_re_god_odin | 奧丁：預言裡沒有你 |
-| 3 | sc_re_god_thor | 索爾：走了九步，又走了一步 |
-| 4 | sc_re_god_tyr | 提爾：帳結清了 |
-| 5 | sc_re_god_freyja | 弗蕾亞：眼淚變成了金子 |
-| 6 | sc_re_god_loki | 洛基不見了，只剩一隻手套 |
-| 7 | sc_re_god_none | 眾神從灰燼裡站起來 |
-| 8 | sc_re_land | 新的綠色大地從海裡升起 |
-| 9 | sc_re_champs | 活下來的勇士們 |
-| 10 | sc_re_family | 家人在人群裡找到你 |
-| 11 | sc_re_king | 老王回到彩虹橋上，回頭看你 |
-| 12 | sc_re_thorstein | 托爾斯坦遞來一杯酒 |
-| 13 | sc_re_skald | 幾十年後，詩人唱完了你的故事 |
+| 1 | sc_re_dawn | 天亮了，太陽還在 （✅ 已收到） |
+| 2 | sc_re_god_odin | 奧丁：預言裡沒有你 （✅ 已收到） |
+| 3 | sc_re_god_thor | 索爾：走了九步，又走了一步 （✅ 已收到） |
+| 4 | sc_re_god_tyr | 提爾：帳結清了 （✅ 已收到） |
+| 5 | sc_re_god_freyja | 弗蕾亞：眼淚變成了金子 （✅ 已收到） |
+| 6 | sc_re_god_loki | 洛基不見了，只剩一隻手套 （✅ 已收到） |
+| 7 | sc_re_god_none | 眾神從灰燼裡站起來 （✅ 已收到） |
+| 8 | sc_re_land | 新的綠色大地從海裡升起 （✅ 已收到） |
+| 9 | sc_re_champs | 活下來的勇士們 （✅ 已收到） |
+| 10 | sc_re_family | 家人在人群裡找到你 （✅ 已收到） |
+| 11 | sc_re_king | 老王回到彩虹橋上，回頭看你 （✅ 已收到） |
+| 12 | sc_re_thorstein | 托爾斯坦遞來一杯酒 （✅ 已收到） |
+| 13 | sc_re_skald | 幾十年後，詩人唱完了你的故事 （✅ 已收到） |
 
 **1. sc_re_dawn（天亮了，太陽還在）**
 
@@ -1957,13 +1957,13 @@ Many decades later, inside a warm firelit Viking longhouse, an old white-bearded
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_bap_odin | 奧丁走進霧裡 |
-| 2 | sc_bap_thor | 索爾扛起錘子離開 |
-| 3 | sc_bap_tyr | 提爾唸完誓言，收劍離開 |
-| 4 | sc_bap_freyja | 弗蕾亞最後一次來看你 |
-| 5 | sc_bap_loki | 洛基散成一陣煙 |
-| 6 | sc_bap_none | 舊神的木柱裂開 |
-| 7 | sc_bap_altar | 祭壇上的火不再跳動 |
+| 1 | sc_bap_odin | 奧丁走進霧裡 （✅ 已收到） |
+| 2 | sc_bap_thor | 索爾扛起錘子離開 （✅ 已收到） |
+| 3 | sc_bap_tyr | 提爾唸完誓言，收劍離開 （✅ 已收到） |
+| 4 | sc_bap_freyja | 弗蕾亞最後一次來看你 （✅ 已收到） |
+| 5 | sc_bap_loki | 洛基散成一陣煙 （✅ 已收到） |
+| 6 | sc_bap_none | 舊神的木柱裂開 （✅ 已收到） |
+| 7 | sc_bap_altar | 祭壇上的火不再跳動 （✅ 已收到） |
 
 **1. sc_bap_odin（奧丁走進霧裡）**
 
@@ -2041,44 +2041,44 @@ Close-up of an old stone altar to the Norse gods in a quiet grove at dawn: a sma
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_st_omen | 北方山谷裡點起了舊神的祭火 |
-| 2 | sc_st_thorir | 「獵犬」托里爾和十二件馴鹿皮大衣 |
-| 3 | sc_st_hall | 受洗的消息傳回長屋的那一夜 |
-| 4 | sc_st_field | 斯蒂克萊斯塔：兩軍對峙 |
-| 5 | sc_st_clash | 兩邊撞在一起 |
-| 6 | sc_st_gone_ragnar | 對面陣線裡的拉格納 |
-| 7 | sc_st_gone_bragi | 對面營地裡唱歌的布拉吉 |
-| 8 | sc_st_gone_una | 烏娜在對面的帳篷替傷兵包紮 |
-| 9 | sc_st_gone_knut | 對面側翼揮手的克努特 |
-| 10 | sc_st_gone_bjorn | 站在父親身邊的比約恩 |
-| 11 | sc_st_saxon | 撒克遜親衛隊趕到 |
-| 12 | sc_st_frank | 法蘭克騎兵衝下山坡 |
-| 13 | sc_st_king | 老王哈夫丹騎馬趕來 |
-| 14 | sc_st_eclipse | 日蝕：太陽黑了 |
-| 15 | sc_st_dawn | 太陽回來了 |
-| 16 | sc_st_coat | 撕破的馴鹿皮大衣 |
-| 17 | sc_st_father | 比約恩跪在父親身邊 |
-| 18 | sc_st_gone | 走向北方的人 |
-| 19 | sc_st_after | 留下來的人 |
-| 20 | sc_st_family | 家人在王廳門口等著 |
-| 21 | sc_st_church | 斯蒂克萊斯塔的小教堂 |
-| 22 | sc_st_raven | 窗台上的渡鴉 |
-| 23 | v_thorir | 「獵犬」托里爾（立繪） |
-| 24 | v_harek | 「弓手」哈雷克（立繪） |
-| 25 | v_kalf | 「背誓者」卡爾夫（立繪） |
-| 26 | sc_st_hakon | 哈康在斯蒂克萊斯塔 |
-| 27 | sc_st_astrid | 阿斯特麗德在斯蒂克萊斯塔 |
-| 28 | sc_st_thorfinn | 托爾芬在斯蒂克萊斯塔 |
-| 29 | sc_st_sven | 赫羅爾夫在斯蒂克萊斯塔 |
-| 30 | sc_st_una | 烏娜在斯蒂克萊斯塔 |
-| 31 | sc_st_bragi | 布拉吉在斯蒂克萊斯塔 |
-| 32 | sc_st_einar | 埃納在斯蒂克萊斯塔 |
-| 33 | sc_st_gudrun | 古德倫在斯蒂克萊斯塔 |
-| 34 | sc_st_ragnar | 拉格納在斯蒂克萊斯塔 |
-| 35 | sc_st_osric | 古托姆在斯蒂克萊斯塔 |
-| 36 | sc_st_knut | 克努特在斯蒂克萊斯塔 |
-| 37 | sc_st_bjorn | 比約恩在斯蒂克萊斯塔 |
-| 38 | sc_st_sigrid | 西格麗德在斯蒂克萊斯塔 |
+| 1 | sc_st_omen | 北方山谷裡點起了舊神的祭火 （✅ 已收到） |
+| 2 | sc_st_thorir | 「獵犬」托里爾和十二件馴鹿皮大衣 （✅ 已收到） |
+| 3 | sc_st_hall | 受洗的消息傳回長屋的那一夜 （✅ 已收到） |
+| 4 | sc_st_field | 斯蒂克萊斯塔：兩軍對峙 （✅ 已收到） |
+| 5 | sc_st_clash | 兩邊撞在一起 （✅ 已收到） |
+| 6 | sc_st_gone_ragnar | 對面陣線裡的拉格納 （✅ 已收到） |
+| 7 | sc_st_gone_bragi | 對面營地裡唱歌的布拉吉 （✅ 已收到） |
+| 8 | sc_st_gone_una | 烏娜在對面的帳篷替傷兵包紮 （✅ 已收到） |
+| 9 | sc_st_gone_knut | 對面側翼揮手的克努特 （✅ 已收到） |
+| 10 | sc_st_gone_bjorn | 站在父親身邊的比約恩 （✅ 已收到） |
+| 11 | sc_st_saxon | 撒克遜親衛隊趕到 （✅ 已收到） |
+| 12 | sc_st_frank | 法蘭克騎兵衝下山坡 （✅ 已收到） |
+| 13 | sc_st_king | 老王哈夫丹騎馬趕來 （✅ 已收到） |
+| 14 | sc_st_eclipse | 日蝕：太陽黑了 （✅ 已收到） |
+| 15 | sc_st_dawn | 太陽回來了 （✅ 已收到） |
+| 16 | sc_st_coat | 撕破的馴鹿皮大衣 （✅ 已收到） |
+| 17 | sc_st_father | 比約恩跪在父親身邊 （✅ 已收到） |
+| 18 | sc_st_gone | 走向北方的人 （✅ 已收到） |
+| 19 | sc_st_after | 留下來的人 （✅ 已收到） |
+| 20 | sc_st_family | 家人在王廳門口等著 （✅ 已收到） |
+| 21 | sc_st_church | 斯蒂克萊斯塔的小教堂 （✅ 已收到） |
+| 22 | sc_st_raven | 窗台上的渡鴉 （✅ 已收到） |
+| 23 | v_thorir | 「獵犬」托里爾（立繪） （✅ 已收到） |
+| 24 | v_harek | 「弓手」哈雷克（立繪） （✅ 已收到） |
+| 25 | v_kalf | 「背誓者」卡爾夫（立繪） （✅ 已收到） |
+| 26 | sc_st_hakon | 哈康在斯蒂克萊斯塔 （✅ 已收到） |
+| 27 | sc_st_astrid | 阿斯特麗德在斯蒂克萊斯塔 （✅ 已收到） |
+| 28 | sc_st_thorfinn | 托爾芬在斯蒂克萊斯塔 （✅ 已收到） |
+| 29 | sc_st_sven | 赫羅爾夫在斯蒂克萊斯塔 （✅ 已收到） |
+| 30 | sc_st_una | 烏娜在斯蒂克萊斯塔 （✅ 已收到） |
+| 31 | sc_st_bragi | 布拉吉在斯蒂克萊斯塔 （✅ 已收到） |
+| 32 | sc_st_einar | 埃納在斯蒂克萊斯塔 （✅ 已收到） |
+| 33 | sc_st_gudrun | 古德倫在斯蒂克萊斯塔 （✅ 已收到） |
+| 34 | sc_st_ragnar | 拉格納在斯蒂克萊斯塔 （✅ 已收到） |
+| 35 | sc_st_osric | 古托姆在斯蒂克萊斯塔 （✅ 已收到） |
+| 36 | sc_st_knut | 克努特在斯蒂克萊斯塔 （✅ 已收到） |
+| 37 | sc_st_bjorn | 比約恩在斯蒂克萊斯塔 （✅ 已收到） |
+| 38 | sc_st_sigrid | 西格麗德在斯蒂克萊斯塔 （✅ 已收到） |
 
 **1. sc_st_omen（北方山谷裡點起了舊神的祭火）**
 
