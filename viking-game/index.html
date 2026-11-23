@@ -84,6 +84,16 @@ details.ach summary{cursor:pointer;font-family:var(--f-display);font-weight:600}
 .hall .hrow small{grid-column:2 / 4;color:var(--muted)}
 .hall .hrow .hc{grid-column:2 / 4;justify-self:start;font-size:12px;padding:3px 10px;margin-top:4px;min-height:0;width:auto;line-height:1.5}
 .hall .hrow textarea{grid-column:1 / 4;min-height:48px}
+.hall .hrow[data-hr]{cursor:pointer}
+.hall .hmore{color:var(--gold)}
+.hall .hdet{grid-column:1 / 4;margin-top:8px;padding-top:8px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);line-height:1.8}
+.hall .hdet b{color:var(--bone);font-family:inherit;font-size:13px}
+.hall .hchs{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.hall .hch{display:grid;justify-items:center;gap:2px;width:64px}
+.hall .hch .avatar{float:none;margin:0;width:40px;height:40px}
+.hall .hch small{font-size:11px;color:var(--muted);text-align:center;line-height:1.3;white-space:nowrap}
+.hall .hchi{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);font-style:normal;color:var(--bone)}
+.hall .hnote{display:block;margin-top:4px;font-size:11px}
 .hall textarea{width:100%;min-height:60px;margin:6px 0;background:var(--bg);color:var(--bone);border:1px solid var(--line);border-radius:5px;padding:6px;font:12px monospace;box-sizing:border-box}
 .hall .hmsg{color:var(--muted);margin:6px 0}
 .gtabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
@@ -115,6 +125,11 @@ details.ach summary{cursor:pointer;font-family:var(--f-display);font-weight:600}
 .ach-list div{background:var(--bg);border-radius:5px;padding:8px 10px;display:grid}
 .ach-list div.on b{color:var(--gold)}
 .ach-list small{color:var(--muted)}
+#ach-list.ach-list,#end-list{display:block}
+.ach-cat{margin:14px 0 6px;font-family:var(--f-display);font-size:14px;color:var(--bone)}
+.ach-cat span{color:var(--muted);font-size:12px;font-family:var(--f-body)}
+.ach-list.end-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+.end-list div{min-height:56px}
 
 /* 遊戲主畫面 */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(15,20,23,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
@@ -150,6 +165,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .sumcard .up{color:#9fd18c}.sumcard .dn{color:var(--blood)}
 .sumcard .sumbody{margin-top:6px;padding-top:6px;border-top:1px dashed var(--line);color:var(--muted);line-height:1.8}
 .sumcard .warn{color:var(--blood);display:block}
+.sumcard .snote{color:var(--gold);display:block;margin-top:4px}
 .sumcard .more{margin-left:auto;color:var(--muted);font-size:12px}
 .goal b{color:var(--ember);font-weight:700}
 .goal .prog{color:var(--muted);font-variant-numeric:tabular-nums}
@@ -326,6 +342,17 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .cine-txt{font-size:16px;line-height:1.9;white-space:pre-line;margin:4px 0 16px}
 .cine-big{font-family:var(--f-display);font-size:30px;font-weight:900;line-height:1.5;text-align:center;color:var(--gold);margin:18px 0 22px;white-space:pre-line}
 .cine-shake{animation:cshake .55s}
+.fs-l .story,.fs-l .res,.fs-l .cine-txt,.fs-l .hint,.fs-l .choice b,.fs-l .list small,.fs-l .act small{font-size:118%}
+.fs-l .cine-big{font-size:34px}.fs-l .choice small{font-size:14px}
+.fs-s .story,.fs-s .res,.fs-s .cine-txt,.fs-s .hint,.fs-s .choice b,.fs-s .list small,.fs-s .act small{font-size:90%}
+.fs-s .cine-big{font-size:26px}
+.rels{display:grid;gap:8px;margin-bottom:8px}
+.rel{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center;background:var(--panel2);border-radius:6px;padding:8px 10px;border-left:3px solid var(--line)}
+.rel.good{border-left-color:var(--gold)}.rel.bad{border-left-color:var(--blood)}
+.rel .rp{display:flex}.rel .rp .avatar{float:none;margin:0;width:36px;height:36px}.rel .rp .avatar+.avatar{margin-left:-10px}
+.rel .rt{display:grid;gap:2px}.rel .rt b{font-size:13px}.rel.good .rt b{color:var(--gold)}.rel.bad .rt b{color:var(--blood)}.rel .rt small{color:var(--muted);font-size:12.5px}
+.cn-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.cn-row .cn-skip{margin-left:auto;font-size:13px;padding:6px 14px}
 @keyframes cshake{0%,100%{transform:none}15%{transform:translate(-7px,2px)}35%{transform:translate(6px,-3px)}55%{transform:translate(-4px,2px)}75%{transform:translate(3px,-1px)}}
 .scene.dim img{animation:cdim 1.4s}
 @keyframes cdim{0%{filter:brightness(1)}25%{filter:brightness(.25)}100%{filter:brightness(1)}}
@@ -593,6 +620,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
         <div class="row" style="gap:8px"><button class="ghost" id="btn-train">訓練場</button><button class="ghost" id="btn-gal">回憶畫廊</button></div>
         <details class="ach" id="hall-box"><summary id="hall-sum">英靈殿（排行榜）</summary><div id="hall-body"></div></details>
         <details class="ach" id="codex-box"><summary id="codex-sum">北境百科</summary><div class="ach-list" id="codex-list"></div></details>
+        <details class="ach" id="end-box"><summary id="end-sum">結局</summary><div id="end-list"></div></details>
         <details class="ach" id="ach-box"><summary id="ach-sum">成就</summary><div class="ach-list" id="ach-list"></div><div class="ach-tools" id="ach-tools"></div></details>
       </div>
     </div>
@@ -1196,13 +1224,19 @@ const btImg=(o,k)=>sceneImg(o.foeType==='giant'?(BT_GIANT[k].find(x=>ART_HAVE.ha
 function cineView(el,pages,done,eyebrow){
   let i=0;
   const pickArt=a=>[].concat(a||[]).find(k=>k.startsWith('sc_')?ART_HAVE.has(k):hasArt(k));
+  // 用「標題＋每頁的圖」當作這段分鏡的名字（文字裡有玩家名字，每局不同）
+  let hsh=5381;for(const ch of (eyebrow||'')+'|'+pages.map(p=>[].concat(p.art||[])[0]||'').join(','))hsh=((hsh*33)^ch.charCodeAt(0))>>>0;
+  const key='_c_'+hsh.toString(36),seen=pages.length>1&&!!((meta().codex||{})[key]);
+  const finish=()=>{seenMark(key);done(el);};
   const show=()=>{
     const p=pages[i],a=pickArt(p.art);if(a&&a.startsWith('sc_'))artSeen(a);
     const img=a?(a.startsWith('sc_')?`<div class="scene${p.dim?' dim':''}"><img src="art/${a}.webp" alt=""></div>`:avatar(a,'big')):'';
     el.innerHTML=`<div class="${p.shake?'cine-shake':''}">${img}${eyebrow?`<p class="eyebrow">${eyebrow}</p>`:''}${p.title?`<h2>${p.title}</h2>`:''}
-      <p class="${p.big?'cine-big':'cine-txt'}">${p.text}</p><button class="primary" id="cn-ok">${p.btn||'繼續'}</button></div>`;
+      <p class="${p.big?'cine-big':'cine-txt'}">${p.text}</p><div class="cn-row"><button class="primary" id="cn-ok">${p.btn||'繼續'}</button>${seen&&i<pages.length-1?'<button class="ghost cn-skip" id="cn-skip">跳過</button>':''}</div></div>`;
     if(p.shake)sfx('drum');
-    $('#cn-ok').onclick=()=>{i++;if(i<pages.length)show();else done(el);};$('#cn-ok').focus();
+    $('#cn-ok').onclick=()=>{i++;if(i<pages.length)show();else finish();};$('#cn-ok').focus();
+    const sk=$('#cn-skip');if(sk)sk.onclick=finish;
+    const nx=pages[i+1],na=nx&&pickArt(nx.art);if(na){const im=new Image();im.src=`art/${na.startsWith('sc_')?na:artKey(na)}.webp`;}
   };
   show();
 }
@@ -3255,7 +3289,16 @@ function foundTribe(){
       S.tribe=($('#in-tribe').value.trim()||'渡鴉谷').slice(0,8);
       S.silver-=40;S.phase=2;S.loyalty=60;S.tab='act';S.lastBattle=S.turn;S.flags.p2t=S.turn+1;markCh(2);
       log(`在海灣邊建立了部落「${S.tribe}」。`);
-      resultView(el,'部落建立了',`<span class="good">${esc(S.tribe)}</span>的旗幟在海風裡飄了起來。\n\n${S.flags.mate?'托爾斯坦把旗桿深深插進土裡，回頭看你。\n\n「首領，」他說，「接下來呢？」\n\n這是第一次有人這樣叫你。':'跟著你的幾個人看著你，等你開口。\n\n這是第一次有人等你下命令。'}在峽灣，你是被人笑話的那一個；在碼頭，你是扛箱子的外地人。現在，這塊坡地上的每一個人，都要靠你活過冬天。\n\n消息傳開後，開始有人來投靠你。`,'第二章');
+      // 第二章開頭：插旗、蓋長屋、第一晚、有人來投靠
+      const T=esc(S.tribe),m=S.flags.mate;
+      cineView(el,[
+        {art:['sc_ch2_flag','sc_ch2'],text:`<span class="good">${T}</span>的旗幟，在海風裡飄了起來。`},
+        {art:['sc_ch2_build','sc_ch2'],text:'你們砍倒了坡地上的第一棵橡樹。\n\n三天後，那裡立起了第一間長屋。屋頂還會漏雨，可是火塘是熱的。'},
+        {art:['sc_ch2_fire',m?'c_thorstein':'sc_ch2'],text:m?'第一個晚上，大家圍著火坐著。托爾斯坦把角杯倒滿，遞給你。\n\n「首領，」他說，「接下來呢？」':'第一個晚上，大家圍著火坐著。跟著你的幾個人看著你，等你開口。'},
+        {art:['sc_ch2_fire',m?'c_thorstein':'sc_ch2'],text:m?'這是第一次，有人這樣叫你。':'這是第一次，有人等你下命令。',big:1},
+        {art:['sc_ch2_arrive','sc_ch2'],text:'消息傳開了。\n\n先是一個漁夫帶著兩個兒子來了，然後是一個被雅爾趕出來的鐵匠學徒，然後是三個說不出自己從哪裡來的年輕人。'},
+        {art:['sc_ch2_arrive','sc_ch2'],text:'在峽灣，你是被人笑話的那一個；在碼頭，你是扛箱子的外地人。\n\n現在，這塊坡地上的每一個人，都要靠你活過冬天。'}
+      ],closeModal,'第二章');
       passTime();render();
     };
   });
@@ -4379,9 +4422,13 @@ function omenText(){
 // 諸神黃昏：被一位神選中，或三位神都眷顧你
 const ragnaOk=()=>!crossed()&&(Object.keys(GODS).some(g=>gt(g,3))||Object.keys(GODS).filter(g=>gt(g,2)).length>=3);
 const patron=()=>Object.keys(GODS).filter(g=>gt(g,3)).sort((a,b)=>(S.favor[b]||0)-(S.favor[a]||0))[0]||null;
+// 諸神黃昏用：沒有一位神被選中時，就看神恩最高的那位（一樣高就沒有）
+const ragPatron=()=>{const p=patron();if(p)return p;const f=S.favor||{};
+  const c=['odin','thor','tyr','freyja'].filter(g=>godTier(g)>=1).sort((a,b)=>(f[b]||0)-(f[a]||0));
+  return c.length&&(c.length===1||(f[c[0]]||0)>(f[c[1]]||0))?c[0]:null;};
 function ragnaOmen(){
   codex('y_ragnarok');
-  const p=patron();
+  const p=ragPatron();
   const head=p==='odin'?'你閉上那隻看穿一切的眼睛時，看見了：一頭比山還大的狼張開嘴，吞掉了太陽。世界樹在發抖，彩虹橋上站滿了霜巨人。\n\n你醒來時渾身是汗。奧丁坐在你的床邊，第一次看起來很老：「你也看見了。來了，諸神的黃昏。」'
     :p==='thor'?'索爾一身是雨地走進你的王廳，把錘子重重放在桌上：「凡人，聽好。巨蛇醒了，牠在海底翻身。我感覺得到。」\n\n他看著你，眼神前所未有地認真：「諸神的黃昏要來了。我需要站在我身邊的人。」'
     :p==='tyr'?'提爾出現在法石前，用他僅剩的那隻手按著劍：「我用一隻手，換來了芬里爾被綁住。」他低聲說，「現在，那條繩子快斷了。」\n\n「諸神的黃昏。」他說，「誓言要兌現的時候到了。」'
@@ -4421,7 +4468,7 @@ const SPOUSE_RAG={
   sven:'赫羅爾夫的紅帆船隊從峽灣衝了出來：「這一次，我站在你這邊！」',bjorn:'比約恩穿著那件砍不穿的鎖子甲，替你擋下了一個巨人的拳頭。',sigrid:'西格麗德舉著她父親的盾牌，帶著鷹巢峰的人守住了左翼。',
 };
 function ragAidLine(n){
-  const p=patron();
+  const p=ragPatron();
   const god={odin:['奧丁的渡鴉從天上俯衝下來，啄瞎了巨人的眼睛。','奧丁把長矛擲了出去，劃出一道白光。'],thor:['一道閃電從天上劈下來，正好落在你的身邊。','索爾的錘子從你頭頂飛過去，又飛了回來。'],tyr:['提爾用僅剩的那隻手扶住了你：「站好。還沒完。」','提爾的劍指著前方：「誓言還沒兌現。」'],freyja:['女武神們從天上俯衝下來，把倒下的戰士一個一個扶起來。','弗蕾亞的手放在你的傷口上，傷口慢慢合起來了。']}[p]||['英靈們從天上衝下來，替你擋住了一擊。','一個從瓦爾哈拉回來的老戰士把你拉了起來。'];
   return god[n-1]+(S.spouse&&SPOUSE_RAG[S.spouse]?'\n'+SPOUSE_RAG[S.spouse]:'');
 }
@@ -4476,7 +4523,7 @@ function ragMidPages(){
   const cs=S.champions.map(c=>c.id).filter(id=>RAG_MID[id]&&id!==S.spouse).sort(()=>Math.random()-.5).slice(0,4);
   cs.forEach(id=>P.push({art:['sc_rm_'+id,id],text:RAG_MID[id]}));
   P.push({art:['sc_rm_einherjar','sc_einherjar'],text:'一個年輕戰士的斧頭斷了。旁邊的英靈戰士把自己的斧頭塞進他手裡，什麼也沒說。\n\n活人和死人，肩並著肩。'});
-  const g=patron();P.push({art:['sc_rm_god_'+(g&&RAG_MID_GOD[g]?g:'none'),'sc_einherjar'],text:RAG_MID_GOD[g&&RAG_MID_GOD[g]?g:'none']});
+  const g=ragPatron();P.push({art:['sc_rm_god_'+(g&&RAG_MID_GOD[g]?g:'none'),'sc_einherjar'],text:RAG_MID_GOD[g&&RAG_MID_GOD[g]?g:'none']});
   P.push({art:['sc_einherjar'],text:'你的位置，在盾牆的正中央。\n\n巨人的主力，正朝你壓過來。',big:1});
   return P;
 }
@@ -4505,7 +4552,7 @@ function ragOpenPages(p){
 }
 function ragnarok(){
   S.flags.ragDone=1;S.flags.ragFight=1;
-  const p=patron();
+  const p=ragPatron();
   if(p==='loki'){pushLater(el=>cineView(el,ragOpenPages(p),closeModal,'ᛞ 諸神黃昏'));pushLater(eventModal(EV_LOKI_RAG));return;}
   const aid=Object.keys(GODS).reduce((m,g)=>m*(gt(g,3)?.88:gt(g,2)?.95:1),1);
   const def=Math.round(260*lf()*D().foe*(1-Math.min(.15,S.fame/2000))*aid*(S.flags.ragnarVan?.92:1)*(S.spouse?.92:1));
@@ -5153,7 +5200,7 @@ const RAG_AFTER_GOD={odin:'奧丁站在你身邊，用那隻獨眼望著天邊�
   loki:'洛基不見了。冰原上，只剩下他的一隻手套。\n\n沒有人知道他去了哪裡。只有你知道，他最後回頭看你的那一眼，是在笑的。',
   none:'眾神一個一個，從灰燼裡站了起來。他們互相看著，好像不敢相信自己還活著。\n\n預言裡，這一天，沒有人活下來。'};
 function ragEpilogue(el){
-  S.flags.ragEpi=1;const f=S.flags,g=patron(),gk=g&&RAG_AFTER_GOD[g]?g:'none';
+  S.flags.ragEpi=1;const f=S.flags,g=ragPatron(),gk=g&&RAG_AFTER_GOD[g]?g:'none';
   const P=[{art:['sc_re_dawn','sc_ragnarok'],text:'冰原上很安靜。\n\n然後，東邊的天空，一點一點亮了起來。'},
     {art:['sc_re_dawn','sc_ragnarok'],text:'太陽還在。',big:1},
     {art:['sc_re_god_'+gk,'sc_rag_'+gk,'sc_ragnarok'],text:RAG_AFTER_GOD[gk]},
@@ -5201,9 +5248,9 @@ function heirLine(){
 }
 // 倒在諸神黃昏：和最親的那位神，最後對看一眼
 // 倒在諸神黃昏：每位神各一張，還沒畫的先用通用的那張
-const ragfallArt=()=>{const p=patron()||(S.flags.lokiNo?'odin':'none');const k='sc_ragfall_'+p;return ART_HAVE.has(k)?k:'sc_ragfall';};
+const ragfallArt=()=>{const p=ragPatron()||(S.flags.lokiNo?'odin':'none');const k='sc_ragfall_'+p;return ART_HAVE.has(k)?k:'sc_ragfall';};
 function ragfallScene(line){
-  const p=patron()||(S.flags.lokiNo?'odin':null);
+  const p=ragPatron()||(S.flags.lokiNo?'odin':null);
   const g={
     odin:'你倒在冰上，斧頭從手裡滑了出去。\n\n奧丁就在不遠處。巨狼的影子已經罩住了他，可是他沒有看狼，他在看你。那隻看穿一切的獨眼裡，第一次什麼光都沒有。\n\n「……我早就知道了。」他說。聲音很輕，輕得像是說給自己聽的。\n\n然後狼張開了嘴。',
     thor:'你倒下的時候，索爾回頭看了你一眼。\n\n他的鬍子上全是血，錘子上的雷光一閃一閃，越來越暗。你們對看了一眼，什麼都不用說。\n\n他仰天怒吼了一聲，轉身衝向那條比山還大的巨蛇。你最後看見的，是他的錘子脫了手，在空中轉著圈，慢慢地落了下來。',
@@ -5222,7 +5269,7 @@ function ch4End(el,kind){
   const scene={win:S.flags.struck?`耶靈的王廳燒起來了。「藍牙」哈拉爾跪在他父親立的大符文石前，把戒指交到你手裡。\n\n${age()} 歲的你站在丹麥的土地上，盔甲上全是別人的血。從來沒有一個北方的王，打到過這裡。\n\n${line}`:`帕爾納托基的劍插在沙灘上。「藍牙」哈拉爾的船，一艘一艘消失在南方的海平線上。\n\n${age()} 歲的你站在海灘上，盔甲上全是別人的血。這是你這輩子打過最大的一仗。\n\n${line}`,
     vassal:`你在丹麥使者面前跪了下來。\n\n王冠還在你頭上。只是從此以後，每年冬天，都有一艘載滿白銀的船往南開。\n\n${line}`,
     lost:`王廳燒起來的時候，你最後看了一眼王座。\n\n二十年前，你是一個只有一把斧頭的年輕人。現在，你又只剩下一把斧頭了。\n\n${line}`,
-    ragnarok:S.flags.ragEpi?`${S.flags.warDone?'你打退了丹麥人，又撐過了世界的最後一天。':'你撐過了世界的最後一天。'}\n\n預言裡沒有寫到的那一天，是你寫下來的。\n\n${line}`:`${S.flags.warDone?'你打退了丹麥人，又撐過了世界的最後一天。':''}戰鬥結束時，天空是灰色的，地上全是冰和灰。你拄著斧頭站著，${patron()?`${GODS[patron()].name}就站在你身邊。`:'身邊站著倖存的眾神。'}\n\n然後，你看見了：在灰燼的下面，有一根綠色的嫩芽。\n\n預言說，諸神黃昏之後，新的世界會從海裡升起，倖存的人會在草地上找到眾神的金色棋子。你彎下腰，撿起了一顆。\n\n${line}`,
+    ragnarok:S.flags.ragEpi?`${S.flags.warDone?'你打退了丹麥人，又撐過了世界的最後一天。':'你撐過了世界的最後一天。'}\n\n預言裡沒有寫到的那一天，是你寫下來的。\n\n${line}`:`${S.flags.warDone?'你打退了丹麥人，又撐過了世界的最後一天。':''}戰鬥結束時，天空是灰色的，地上全是冰和灰。你拄著斧頭站著，${ragPatron()?`${GODS[ragPatron()].name}就站在你身邊。`:'身邊站著倖存的眾神。'}\n\n然後，你看見了：在灰燼的下面，有一根綠色的嫩芽。\n\n預言說，諸神黃昏之後，新的世界會從海裡升起，倖存的人會在草地上找到眾神的金色棋子。你彎下腰，撿起了一顆。\n\n${line}`,
     ragfall:ragfallScene(line),
     stik:`你打退了丹麥人，又在斯蒂克萊斯塔打贏了舊神的最後一戰。\n\n${line}`,
     twogods:`你打退了丹麥人，又在斯蒂克萊斯塔打贏了舊神的最後一戰。\n\n只有你知道，那一天，你點過一次頭。\n\n${line}`,
@@ -5359,7 +5406,7 @@ const EV_RIVAL={id:'rivalry',phase:[2,3,4],cd:1,cond:()=>cdOk('rivalry',10)&&rel
       {t:'叫他們出去比腕力，輸的人請喝酒',fx:()=>{const [a,b]=S.flags.rivalPair;bond(a,2);bond(b,2);addLoyalty(2);return '兩個人比了一整晚，最後一起醉倒在桌子底下。\n兩人好感 +2，忠誠 +2';}}]};
 function relHTML(){
   const r=relActive();if(!r.length) return '';
-  return `<div class="list"><small>${r.map(([a,b,v,t])=>`${v>0?'✦':'✕'} ${t}`).join('<br>')}<br>（感情好的一對：部隊戰力 +3%、代理人決鬥傷害 +10%；處不來的一對：部隊戰力 -3%）</small></div>`;
+  return `<div class="sec-h">勇士之間</div><div class="rels">${r.map(([a,b,v,t])=>`<div class="rel ${v>0?'good':'bad'}"><span class="rp">${avatar(a)}${avatar(b)}</span><span class="rt"><b>${v>0?'✦ 感情好':'✕ 處不來'}</b><small>${t}</small></span></div>`).join('')}</div><div class="list"><small>感情好的一對：部隊戰力 +3%、代理人決鬥傷害 +10%；處不來的一對：部隊戰力 -3%</small></div>`;
 }
 
 /* ================= 北境百科 ================= */
@@ -5526,9 +5573,10 @@ function sowModal(){const y=Math.floor(S.turn/4);pushModal(eventModal({kind:'�
       {t:'種亞麻',note:'秋天能織布換銀幣，但怕壞天氣',fx:()=>{S.flags.sowY=y;S.flags.sow={k:'flax',y};passTime();return '亞麻播下去了。只要夏天不要太糟，秋天會有一筆好收入。';}},
       {t:'讓田休息一年',note:'不收成，但明年的收成更好',fx:()=>{S.flags.sowY=y;S.flags.fallow=y+1;addLoyalty(2);passTime();return '族人鬆了一口氣，今年可以少彎點腰。\n忠誠 +2';}}]}));}
 function harvestNote(){const k=S.flags.sow.k,boost=(S.flags.fallow===S.flags.sow.y?1.4:1)*(wx('good')?1.5:1);S.flags.sow=null;
-  if(k==='barley'){const f=Math.round((12+S.men/3)*boost);S.food+=f;log(`秋收：大麥，糧食 +${f}。`);pushLater(el=>resultView(el,'秋收',`金黃的大麥一捆一捆收進了糧倉。\n<span class="good">糧食 +${f}</span>`,'🍂 秋','sc_s_harvest'));}
+  if(k==='barley'){const f=Math.round((12+S.men/3)*boost);S.food+=f;log(`秋收：大麥，糧食 +${f}。`);sumNote(`🍂 秋收：金黃的大麥收進了糧倉，糧食 +${f}`);}
   else{const bad=wx('storm')||Math.random()<.25;const v=Math.round((30+S.men/2)*boost*(bad?.4:1));S.silver+=v;log(`秋收：亞麻，銀幣 +${v}。`);
-    pushLater(el=>resultView(el,'秋收',bad?`夏天的暴雨把亞麻打倒了一大片。剩下的織成布，只換了一點錢。\n銀幣 +${v}`:`亞麻收成很好。女人們織了一整個秋天的布，商人搶著來買。\n<span class="good">銀幣 +${v}</span>`,'🍂 秋','sc_s_harvest'));}}
+    sumNote(bad?`🍂 秋收：暴雨打倒了一大片亞麻，只換了銀幣 +${v}`:`🍂 秋收：亞麻收成很好，布賣了銀幣 +${v}`);}}
+const sumNote=t=>{if(S.sumPend)(S.sumPend.notes||(S.sumPend.notes=[])).push(t);};
 function midsummerModal(){const y=Math.floor(S.turn/4);pushModal(eventModal({kind:'☀️ 夏',scene:'sc_s_midsummer',title:'夏至集會',text:'一年裡最長的一天，太陽幾乎不下山。各地的人划著船來到你的峽灣：有人來做生意，有人來比武，有人來找老婆。',
   ch:[{t:'擺攤做生意',fx:()=>{S.flags.midY=y;const v=20+Math.floor(S.fame/10);S.silver+=v;sfx('coin');passTime();return `你拿出去年的毛皮和鐵器，換回了一袋銀子。\n<span class="good">銀幣 +${v}</span>`;}},
       {t:'下場比武',note:'比武，點到為止',fx:()=>{S.flags.midY=y;duel('holm',{lethal:false,xp:14,intro:'沙灘上圍了一大圈人。對手是一個南方來的老決鬥者。',onEnd:w=>{passTime();if(w){addFame(8);sfx('bigcheer');return '人群把你扛了起來，繞著營火走了一圈。\n<span class="good">名聲 +8</span>';}sfx('groan');addFame(2);return '你輸了，但打得很漂亮。\n名聲 +2';}});return null;}},
@@ -5807,6 +5855,9 @@ const WINTER_EVENTS=[
 
 /* ================= 音效 ================= */
 let AC=null;
+const fontPref=()=>{try{return localStorage.getItem('na-font')||'m';}catch(e){return 'm';}};
+function applyFont(){const f=fontPref();document.documentElement.classList.toggle('fs-s',f==='s');document.documentElement.classList.toggle('fs-l',f==='l');}
+applyFont();
 const soundOn=()=>{try{return localStorage.getItem('na-sound')!=='0';}catch(e){return true;}};
 function sfx(k){
   if(!soundOn()) return;
@@ -5927,6 +5978,7 @@ function charHTML(){
   else body=`<div class="sec-h">設定</div>
   <div class="seg"><span>音效</span><button data-set="sound" data-v="1" aria-pressed="${soundOn()}">開</button><button data-set="sound" data-v="0" aria-pressed="${!soundOn()}">關</button></div>
   <div class="seg"><span>環境音</span><button data-set="amb" data-v="1" aria-pressed="${ambOn()}">開</button><button data-set="amb" data-v="0" aria-pressed="${!ambOn()}">關</button></div>
+  <div class="seg"><span>字體</span><button data-set="font" data-v="s" aria-pressed="${fontPref()==='s'}">小</button><button data-set="font" data-v="m" aria-pressed="${fontPref()==='m'}">中</button><button data-set="font" data-v="l" aria-pressed="${fontPref()==='l'}">大</button></div>
   <div class="seg"><span>提示</span><button data-set="tips" data-v="1" aria-pressed="${!S.noTips}">開</button><button data-set="tips" data-v="0" aria-pressed="${!!S.noTips}">關</button></div>
   <div class="seg"><span>代理人</span><button data-set="mini" data-v="react" aria-pressed="${S.mini==='react'}">反應型</button><button data-set="mini" data-v="puzzle" aria-pressed="${S.mini==='puzzle'}">解謎型</button></div>
   ${S.mini==='react'?`<div class="seg"><span>判定</span><button data-set="relaxed" data-v="0" aria-pressed="${!S.relaxed}">標準</button><button data-set="relaxed" data-v="1" aria-pressed="${!!S.relaxed}">放寬</button></div>`:''}`;
@@ -6051,7 +6103,7 @@ document.addEventListener('click',e=>{
   if(d.b){const b=B(d.b),l=bl(d.b),[cs,cf]=bldCost(b,l);if(S.tlv>=b.tl&&l<bldMax()&&S.silver>=cs&&S.food>=cf)build(d.b);return;}
   if(d.pol){S.policy=d.pol;render();return;}
   if(d.tl){const u=tribeUp();if(u&&S.silver>=u.cost[0]&&S.food>=u.cost[1]&&bldCount()>=u.need)upgradeTribe();return;}
-  if(d.set){if(d.set==='tips'){S.noTips=d.v==='0';}else if(d.set==='sound'){try{localStorage.setItem('na-sound',d.v);}catch(e){}if(d.v==='1')sfx('ok');AMB.mode=null;ambAuto();}else if(d.set==='amb'){try{localStorage.setItem('na-amb',d.v);}catch(e){}AMB.mode=null;ambAuto();}else if(d.set==='mini')S.mini=d.v;else S.relaxed=d.v==='1';render();return;}
+  if(d.set){if(d.set==='font'){try{localStorage.setItem('na-font',d.v);}catch(e){}applyFont();}else if(d.set==='tips'){S.noTips=d.v==='0';}else if(d.set==='sound'){try{localStorage.setItem('na-sound',d.v);}catch(e){}if(d.v==='1')sfx('ok');AMB.mode=null;ambAuto();}else if(d.set==='amb'){try{localStorage.setItem('na-amb',d.v);}catch(e){}AMB.mode=null;ambAuto();}else if(d.set==='mini')S.mini=d.v;else S.relaxed=d.v==='1';render();return;}
   if(d.s&&S.pts>0){const k=d.s;S.st[k]++;S.pts--;if(k==='con')S.hp+=6;render();return;}
 });
 document.addEventListener('keydown',e=>{
@@ -6167,7 +6219,11 @@ function hallRecord(){
   S.runId=S.runId||(Date.now().toString(36)+Math.random().toString(36).slice(2,6));
   const dead=S.dead&&!(S.phase>=4&&S.flags.endKind);let ep='';try{ep=EPITHETS.find(e=>e[0]())[1];}catch(e){}
   const t=dead?(S.lastCause||'倒在半路上'):S.phase<4?ending()[1]:ch4Ending(S.flags.endKind||'win')[1];
-  const run={id:S.runId,n:S.name,ep,t,s:hallScore(),d:S.diff,y:age(),a:Date.now(),c:S.flags.skipCh||0};
+  const fv=S.favor||{},gk=Object.keys(GODS).sort((a,b)=>(fv[b]||0)-(fv[a]||0))[0];
+  const run={id:S.runId,n:S.name,ep,t,s:hallScore(),d:S.diff,y:age(),a:Date.now(),c:S.flags.skipCh||0,
+    o:S.bg||'',gk:gk&&(fv[gk]||0)>0?gk:'',gf:gk?Math.round(fv[gk]||0):0,fa:S.faith==='cross'?'cross':'old',
+    sp:S.spouse&&SPOUSES[S.spouse]?SPOUSES[S.spouse].name:(S.flags.freyWed?'弗蕾亞':''),hr:S.heir?S.heir.name:'',
+    cs:(S.champions||[]).map(c=>c.id+(c.oath?'*':''))};
   const L=hallLocal().filter(r=>r.id!==run.id);L.push(run);L.sort((a,b)=>b.s-a.s);hallSaveLocal(L);
   hallPush();
   return run;
@@ -6197,7 +6253,10 @@ async function hallSync(){
 function hallClean(r){
   if(!r||typeof r!=='object'||typeof r.id!=='string'||typeof r.n!=='string') return null;
   const str=(v,n)=>String(v==null?'':v).slice(0,n),num=(v,a,b)=>Math.max(a,Math.min(b,Math.round(+v||0)));
-  return {id:str(r.id,24),n:str(r.n,8),ep:str(r.ep,12),t:str(r.t,20),s:num(r.s,0,5000),d:['easy','normal','hero'].includes(r.d)?r.d:'normal',y:num(r.y,0,120),a:num(r.a,0,4e12),c:num(r.c,0,4),u:r.u?str(r.u,64):undefined,g:r.g?1:undefined};
+  return {id:str(r.id,24),n:str(r.n,8),ep:str(r.ep,12),t:str(r.t,20),s:num(r.s,0,5000),d:['easy','normal','hero'].includes(r.d)?r.d:'normal',y:num(r.y,0,120),a:num(r.a,0,4e12),c:num(r.c,0,4),u:r.u?str(r.u,64):undefined,g:r.g?1:undefined,
+    o:ORIGIN[r.o]?r.o:undefined,gk:GODS[r.gk]?r.gk:undefined,gf:r.gk?num(r.gf,0,999):undefined,fa:r.fa==='cross'?'cross':r.fa==='old'?'old':undefined,
+    sp:r.sp?str(r.sp,10):undefined,hr:r.hr?str(r.hr,10):undefined,
+    cs:Array.isArray(r.cs)?r.cs.filter(x=>typeof x==='string'&&CHAMPS[x.replace('*','')]).slice(0,16):undefined};
 }
 // 薩迦碼：NA1.<內容>.<檢查碼>。檢查碼只防打錯字，不防竄改
 const hallSum=t=>{let h=7;for(let i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))>>>0;return h.toString(36).slice(-4);};
@@ -6224,6 +6283,21 @@ function hallAll(){
   if(remote.uid) Object.values(map).forEach(r=>{if(r.u===remote.uid)r.me=1;});
   return Object.values(map).sort((a,b)=>b.s-a.s||b.a-a.a);
 }
+let hallOpen=null;
+const END_HINT={end_kind:'有些王，是被族人抬上王座的。',end_iron:'有些王座，是用血鋪出來的。',end_pact:'不是每一頂王冠，都要靠斧頭拿。',end_sea:'比起戰鼓，更熟悉浪聲的人。',end_lonely:'王座旁邊，一個人都沒有。',end_conq:'一路打上去。',
+  end4_sea:'北海的另一邊，也插著你的旗子。',end4_cross:'在河水裡跪下的王。',end4_gods:'當南方的國王一個個受洗的時候。',end4_heir:'有人可以接過你的王冠。',end4_guard:'丹麥人來了，又走了。',end4_vassal:'低下頭，也是一種活法。',end4_lost:'王廳燒起來的那一天。',end4_abdicate:'在還站得穩的時候。'};
+const ORI_NAME={smith:'鐵匠之子',hunter:'雪林獵人',sailor:'船工',skald:'詩人之子'};
+const hallHasMore=r=>!!(r.o||r.gk||r.sp||r.hr||(r.cs&&r.cs.length));
+function hallMore(r){
+  const L=[];
+  if(r.o) L.push(`出身 <b>${ORI_NAME[r.o]||r.o}</b>`);
+  if(r.fa) L.push(r.fa==='cross'?'<b>受洗</b>':'信仰 <b>舊神</b>');
+  if(r.gk) L.push(`最親近的神 <b>${GODS[r.gk].name}</b>（神恩 ${r.gf}）`);
+  if(r.sp) L.push(`伴侶 <b>${esc(r.sp)}</b>`);
+  if(r.hr) L.push(`繼承人 <b>${esc(r.hr)}</b>`);
+  const cs=(r.cs||[]).map(x=>{const id=x.replace('*',''),o=x.endsWith('*');return `<span class="hch" title="${esc(CHAMPS[id].name)}">${avatar(id)||`<i class="hchi">${CHAMPS[id].name.replace(/「[^」]*」/,'').slice(0,1)}</i>`}<small>${esc(CHAMPS[id].name.replace(/「[^」]*」/,''))}${o?' ✦':''}</small></span>`;}).join('');
+  return `<div class="hdet">${L.join('　·　')}${cs?`<div class="hchs">${cs}</div><small class="hnote">✦ 立過誓</small>`:''}</div>`;
+}
 function hallRender(){
   const box=$('#hall-body');if(!box) return;
   const all=hallAll(),list=(hallMine?all.filter(r=>r.me):all).slice(0,50);
@@ -6232,13 +6306,14 @@ function hallRender(){
   const dn={easy:'輕鬆',normal:'標準',hero:'英雄'};
   box.innerHTML=`<div class="hall">
     <div class="seg" style="margin-bottom:8px"><span>顯示</span><button data-hm="0" aria-pressed="${!hallMine}">全部</button><button data-hm="1" aria-pressed="${hallMine}">只看我的</button></div>
-    ${list.length?list.map((r,i)=>`<div class="hrow ${r.me?'me':''}"><i>${i+1}</i><b>${r.ep?`「${esc(r.ep)}」`:''}${esc(r.n)}</b><span class="sc">${r.s}</span>
-      <small>${esc(r.t)} · ${dn[r.d]} · ${r.y} 歲${r.c?` · 從第 ${r.c} 章開始`:''}${r.a?` · ${new Date(r.a).toLocaleDateString('zh-TW')}`:''}${r.me?' · 你':''}</small>${loc[r.id]?`<button class="ghost hc" data-hc="${esc(r.id)}">複製薩迦碼</button>`:''}</div>`).join('')
+    ${list.length?list.map((r,i)=>`<div class="hrow ${r.me?'me':''}" data-hr="${esc(r.id)}"><i>${i+1}</i><b>${r.ep?`「${esc(r.ep)}」`:''}${esc(r.n)}</b><span class="sc">${r.s}</span>
+      <small>${esc(r.t)} · ${dn[r.d]} · ${r.y} 歲${r.c?` · 從第 ${r.c} 章開始`:''}${r.a?` · ${new Date(r.a).toLocaleDateString('zh-TW')}`:''}${r.me?' · 你':''}${hallHasMore(r)?' · <span class="hmore">點開看更多</span>':''}</small>${hallOpen===r.id?hallMore(r):''}${loc[r.id]?`<button class="ghost hc" data-hc="${esc(r.id)}">複製薩迦碼</button>`:''}</div>`).join('')
       :'<p class="hmsg">還沒有紀錄。打完一局（稱王、第四章結局，或是倒下）就會記在這裡。</p>'}
     <p class="hmsg">${remote.rdb?(remote.owner||remote.hallOk?'你的紀錄會自動上榜。':'你的紀錄存在這台裝置。想上大家的排行榜，把結局畫面的薩迦碼傳給分享這個遊戲的人。'):'登入 Claude 帳號後，才看得到大家的排行榜；現在只顯示這台裝置的紀錄。'}</p>
     ${remote.owner?`<div><b>登錄朋友的薩迦</b><textarea id="hall-in" placeholder="把朋友傳來的薩迦碼貼在這裡（NA1. 開頭）"></textarea><button class="ghost" id="hall-add">登錄</button> <span class="hmsg" id="hall-msg">${hallMsg}</span></div>`:''}
   </div>`;
   box.querySelectorAll('[data-hm]').forEach(b=>b.onclick=()=>{hallMine=b.dataset.hm==='1';hallRender();});
+  box.querySelectorAll('[data-hr]').forEach(d=>d.onclick=e=>{if(e.target.closest('button,textarea'))return;const id=d.dataset.hr;const r=all.find(x=>x.id===id);if(!r||!hallHasMore(r))return;hallOpen=hallOpen===id?null:id;hallRender();});
   box.querySelectorAll('[data-hc]').forEach(b=>b.onclick=()=>{
     const run=loc[b.dataset.hc];if(!run)return;const code=hallCode(run);
     let t=b.parentNode.querySelector('textarea');
@@ -6267,7 +6342,7 @@ function sumRender(){
   // 等這一季的事件都處理完（沒有彈窗）才結算，這樣事件造成的變化也算在裡面
   if(S.sumPend&&!modalOpen){
     const now=sumSnap(),p=S.snap,P=S.sumPend;S.snap=now;S.sumPend=null;sumOpen=false;
-    if(p){const d={};for(const k in now)d[k]=now[k]-p[k];S.sum={n:P.n,d,si:P.si,fi:P.fi,up:P.up,wg:P.wg};}
+    if(p){const d={};for(const k in now)d[k]=now[k]-p[k];S.sum={n:P.n,d,si:P.si,fi:P.fi,up:P.up,wg:P.wg,notes:P.notes||[]};}
   }
   if(!S.snap) S.snap=sumSnap();
   const m=S.sum;if(!m||S.dead||S.won){box.innerHTML='';return;}
@@ -6282,7 +6357,7 @@ function sumRender(){
   const oS=m.d.silver-(m.si-m.wg),oF=m.d.food-(m.fi-m.up);
   const body=`銀幣：收入 +${m.si}${m.wg?`、軍餉 −${m.wg}`:''}${oS?`、行動與事件 ${sign(oS)}`:''}<br>糧食：收成 +${m.fi}、吃掉 −${m.up}${oF?`、行動與事件 ${sign(oF)}`:''}`;
   box.innerHTML=`<div class="sumcard" id="sum-box"><div class="sumrow"><b>${m.n>1?`過去 ${m.n} 季結算`:'上一季結算'}</b>${parts.join('')||'<span>沒有變化</span>'}<span class="more">${sumOpen?'收起':'明細'}</span></div>
-    ${W.map(w=>`<span class="warn">⚠ ${w}</span>`).join('')}${sumOpen?`<div class="sumbody">${body}</div>`:''}</div>`;
+    ${(m.notes||[]).map(t=>`<span class="snote">${t}</span>`).join('')}${W.map(w=>`<span class="warn">⚠ ${w}</span>`).join('')}${sumOpen?`<div class="sumbody">${body}</div>`:''}</div>`;
   $('#sum-box').onclick=()=>{sumOpen=!sumOpen;sumRender();};
 }
 
@@ -6377,7 +6452,13 @@ function showTitle(){
   $('#codex-list').innerHTML=codexHTML();
   const got=Object.keys(ACH).filter(k=>m.ach[k]).length;
   $('#ach-sum').textContent=`成就 ${got}/${Object.keys(ACH).length}`;
-  $('#ach-list').innerHTML=Object.entries(ACH).map(([k,a])=>m.ach[k]?`<div class="on"><b>${a.name}</b><small>${a.desc}${a.reward?`　獎勵：${a.reward}`:''}</small></div>`:`<div><b>${a.secret?'？？？':a.name}</b><small>${a.hint}${a.reward?`　獎勵：${a.secret?'？？？':a.reward}`:''}</small></div>`).join('');
+  const EK=Object.keys(ACH).filter(k=>/^end(_|4_)/.test(k)&&k!=='end4_win'),eGot=EK.filter(k=>m.ach[k]).length;
+  $('#end-sum').textContent=`結局 ${eGot}/${EK.length}`;
+  $('#end-list').innerHTML=[['第三章 · 稱王',EK.filter(k=>k.startsWith('end_'))],['第四章 · 王的歲月',EK.filter(k=>k.startsWith('end4_'))]].map(([h,ks])=>`<p class="ach-cat">${h}　<span>${ks.filter(k=>m.ach[k]).length}/${ks.length}</span></p><div class="ach-list end-list">${ks.map(k=>{const a=ACH[k];return m.ach[k]?`<div class="on"><b>${a.name}</b><small>${a.desc}</small></div>`:`<div><b>？？？</b><small>${a.secret?a.hint:(END_HINT[k]||'還沒走過這條路。')}</small></div>`;}).join('')}</div>`).join('');
+  const ACH_CAT=k=>/^end(_|4_)|^three_crowns$/.test(k)&&k!=='end4_win'?'結局':/^(god_|twogods|loki_zoo|hnoss|freyja_wed|king_return)/.test(k)?'眾神':/^(fullhall|oaths5|quest_any|quest5|proxy5|spare_sven)$/.test(k)?'勇士':/^(duelist|holm3|giant|fenrir|shieldwall|hunter6|jelling|flyting|kill_sven|king_awake)$/.test(k)?'戰鬥':/^(legend_city|vinland|area_|paris|danegeld|lawgiver|end4_win)/.test(k)?'王國與海外':/^(tafl_win|rune_sage|codex_all|capstone)$/.test(k)?'其他':'人生';
+  const cats=['人生','戰鬥','勇士','眾神','王國與海外','結局','其他'];
+  const achRow=([k,a])=>m.ach[k]?`<div class="on"><b>${a.name}</b><small>${a.desc}${a.reward?`　獎勵：${a.reward}`:''}</small></div>`:`<div><b>${a.secret?'？？？':a.name}</b><small>${a.hint}${a.reward?`　獎勵：${a.secret?'？？？':a.reward}`:''}</small></div>`;
+  $('#ach-list').innerHTML=cats.map(c=>{const xs=Object.entries(ACH).filter(([k])=>ACH_CAT(k)===c);if(!xs.length)return '';return `<p class="ach-cat">${c}　<span>${xs.filter(([k])=>m.ach[k]).length}/${xs.length}</span></p><div class="ach-list">${xs.map(achRow).join('')}</div>`;}).join('');
   $('#ach-tools').innerHTML=`<span>${remote.db?'成就和存檔會同步到你的 Claude 帳號，換裝置也在。':'成就只存在這個瀏覽器。清除瀏覽資料或換裝置就會不見，可以先複製備份碼留著。'}</span>
     <div class="row"><button class="ghost" id="bk-copy">複製成就備份碼</button><button class="ghost" id="bk-show">貼上備份碼還原</button></div>
     <div id="bk-area" hidden><label for="bk-text" style="display:block;margin-bottom:4px">備份碼</label><textarea id="bk-text" spellcheck="false"></textarea>
@@ -6699,15 +6780,14 @@ details.adis summary{color:var(--muted);font-size:14px;padding:10px 4px;cursor:p
     seasonFx();
     $('#h-mini').innerHTML=`<span>${stamp()} · ${age()} 歲</span><span class="mhp"><i style="width:${clamp(S.hp/maxHp()*100,0,100)}%"></i></span><span>銀 <b>${S.silver}</b> · 糧 <b>${S.food}</b> · 兵 <b>${S.men}</b></span>`;
     if(S.tab==='act'){
-      const MAIN=['found','declare'];const L0=actions(),main=L0.filter(a=>MAIN.includes(a.id)),L=L0.filter(a=>!MAIN.includes(a.id)),now=L.filter(a=>a.key&&!a.dis),rest=L.filter(a=>!(a.key&&!a.dis));const G=S.agrp||'all';
+      const MAIN=['found','declare'];const L0=actions(),main=L0.filter(a=>MAIN.includes(a.id)),L=L0.filter(a=>!MAIN.includes(a.id)),now=L.filter(a=>a.key&&!a.dis),rest=L.filter(a=>!(a.key&&!a.dis));const G='all';
       const gs=['出征','治理','生活','其他'];const cnt=g=>rest.filter(a=>(GROUP[a.id]||'其他')===g).length;
-      let h=seasonBar()+`<div class="achips">${[['all','全部'],...gs.filter(g=>g!=='其他'||cnt(g)).map(g=>[g,g])].map(([k,n])=>`<button data-ag="${k}" aria-pressed="${G===k}">${n}</button>`).join('')}</div>`;
+      let h=seasonBar();
       if(main.length) h+=`<p class="agroup now">主線</p><div class="acts">${main.map(actBtn).join('')}</div>`;
       if(now.length&&G==='all') h+=`<p class="agroup now">現在該做的</p><div class="acts">${now.map(actBtn).join('')}</div>`;
       gs.filter(g=>G==='all'||G===g).forEach(g=>{const xs=rest.filter(a=>(GROUP[a.id]||'其他')===g).sort((a,b)=>(!!a.dis)-(!!b.dis));if(G!=='all')xs.unshift(...now.filter(a=>(GROUP[a.id]||'其他')===g));
         if(xs.length)h+=`${G==='all'?`<p class="agroup">${g}</p>`:''}<div class="acts">${xs.map(actBtn).join('')}</div>`;});
       $('#pane').innerHTML=h;
-      $('#pane').querySelectorAll('[data-ag]').forEach(b=>b.onclick=()=>{S.agrp=b.dataset.ag;render();});
     }
   };
   onScroll();

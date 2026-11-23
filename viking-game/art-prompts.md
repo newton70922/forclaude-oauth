@@ -10,7 +10,7 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.14 劇情補圖（226 張）
+## ★ v0.14 劇情補圖（230 張）
 
 程式都做好了：每張圖一到，放進遊戲就會自動出現在對的地方。圖還沒到之前，會先用現有的圖或立繪代替。
 
@@ -2455,6 +2455,57 @@ Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th ce
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood, and a small wooden cross pendant; they are a baptized Christian king).
 Setting: Norway around the year 1000. The king has been baptized; the chieftains who still worship the old Norse gods have risen against them, led by Thorir 'the Hound', who wears a magical reindeer-skin coat enchanted by Sámi sorcerers (faint glowing blue runes on the fur).
 The battle of Stiklestad (cross banners against raven banners, muddy snow): a proud young shieldmaiden with a dark blonde braid and a shield painted with a golden stag holds the left flank, shouting back to the king.
+```
+
+### N. 第二章開頭：插旗之地（4 張，16:9）
+
+建立部落之後的分鏡。主角還不是王，不戴王冠。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_ch2_flag | 插下旗子 |
+| 2 | sc_ch2_build | 第一間長屋 |
+| 3 | sc_ch2_fire | 第一個晚上的營火 |
+| 4 | sc_ch2_arrive | 第一批來投靠的人 |
+
+**1. sc_ch2_flag（插下旗子）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are only a young chieftain founding a small settlement).
+Setting: chapter 2 of the story. A young wanderer and a handful of followers found their own tiny settlement on a sunny slope by a bay: forest behind, the sea in front, a small stream that never freezes.
+The hooded young chieftain (seen from behind) has just driven a simple wooden banner pole into the ground on a grassy slope above a quiet bay at sunrise; a plain hand-sewn banner flaps in the sea wind, an axe is stuck into a fresh oak stump beside it, a few followers watch. A small, proud beginning.
+```
+
+**2. sc_ch2_build（第一間長屋）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are only a young chieftain founding a small settlement).
+Setting: chapter 2 of the story. A young wanderer and a handful of followers found their own tiny settlement on a sunny slope by a bay: forest behind, the sea in front, a small stream that never freezes.
+A handful of people raising the timber frame of a first small longhouse on the slope: felled oak trunks, a half-finished turf roof, axes and ropes, the hooded chieftain (from behind) carrying a beam with them. Hard work, hope.
+```
+
+**3. sc_ch2_fire（第一個晚上的營火）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are only a young chieftain founding a small settlement).
+Setting: chapter 2 of the story. A young wanderer and a handful of followers found their own tiny settlement on a sunny slope by a bay: forest behind, the sea in front, a small stream that never freezes.
+The first night inside the newly built small longhouse: a few people sit around a hearth fire, roof beams still raw; an old grey-bearded oarsman with two braided beard plaits (Thorstein, if present) holds out a horn cup toward the hooded chieftain seen from behind. Warm firelight, quiet, intimate.
+```
+
+**4. sc_ch2_arrive（第一批來投靠的人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are only a young chieftain founding a small settlement).
+Setting: chapter 2 of the story. A young wanderer and a handful of followers found their own tiny settlement on a sunny slope by a bay: forest behind, the sea in front, a small stream that never freezes.
+Morning at the settlement's simple wooden gate: newcomers arriving with their bundles — a fisherman with two teenage sons, a young smith's apprentice carrying a hammer, three ragged young men; the hooded chieftain (from behind) stands at the gate to receive them. Hopeful, humble beginnings.
 ```
 
 ## ✅ v0.13 重畫（1 張，已收到）
