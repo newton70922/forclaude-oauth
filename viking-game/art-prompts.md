@@ -1555,16 +1555,16 @@ Illustrate this event from the game (Chinese): 「村長的請求：鹽灘漁村
 | 8 | sc_rm_una | 烏娜在諸神黃昏 （✅ 已收到） |
 | 9 | sc_rm_bragi | 布拉吉在諸神黃昏 （✅ 已收到） |
 | 10 | sc_rm_einar | 埃納在諸神黃昏 （✅ 已收到） |
-| 11 | sc_rm_gudrun | 古德倫在諸神黃昏 |
-| 12 | sc_rm_ragnar | 拉格納在諸神黃昏 |
-| 13 | sc_rm_osric | 古托姆在諸神黃昏 |
-| 14 | sc_rm_knut | 克努特在諸神黃昏 |
-| 15 | sc_rm_bjorn | 比約恩在諸神黃昏 |
-| 16 | sc_rm_sigrid | 西格麗德在諸神黃昏 |
-| 17 | sc_rm_einherjar | 英靈戰士把斧頭塞給年輕戰士 |
-| 18 | sc_rm_god_odin | 奧丁在遠方作戰 |
-| 19 | sc_rm_god_thor | 索爾在遠方作戰 |
-| 20 | sc_rm_god_tyr | 提爾在遠方作戰 |
+| 11 | sc_rm_gudrun | 古德倫在諸神黃昏 （✅ 已收到） |
+| 12 | sc_rm_ragnar | 拉格納在諸神黃昏 （✅ 已收到） |
+| 13 | sc_rm_osric | 古托姆在諸神黃昏 （✅ 已收到） |
+| 14 | sc_rm_knut | 克努特在諸神黃昏 （✅ 已收到） |
+| 15 | sc_rm_bjorn | 比約恩在諸神黃昏 （✅ 已收到） |
+| 16 | sc_rm_sigrid | 西格麗德在諸神黃昏 （✅ 已收到） |
+| 17 | sc_rm_einherjar | 英靈戰士把斧頭塞給年輕戰士 （✅ 已收到） |
+| 18 | sc_rm_god_odin | 奧丁在遠方作戰 （✅ 已收到） |
+| 19 | sc_rm_god_thor | 索爾在遠方作戰 （✅ 已收到） |
+| 20 | sc_rm_god_tyr | 提爾在遠方作戰 （✅ 已收到） |
 | 21 | sc_rm_god_freyja | 弗蕾亞在遠方作戰 |
 | 22 | sc_rm_god_none | 遠方的眾神在遠方作戰 |
 
@@ -1727,7 +1727,7 @@ Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th ce
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is after they became king, so a simple iron crown over the hood is allowed).
 Setting: Ragnarök, the end of the world. A vast frozen plain under a burning, cracked sky: frost giants from the north, fire giants from the south, ice pillars and flames everywhere, the mortal Viking army mixed with glowing golden einherjar (dead warriors returned from Valhalla).
 Character: A young Viking berserker in his early twenties, son of the red-bearded berserker Ragnar, the same wild red hair and beard but younger and leaner, wearing a heavy ring-mail shirt that looks unbreakable, biting the rim of a battered shield, fierce grin.
-Show this character's own moment in the great battle, based on this line from the game (Chinese): 「比約恩穿著那件砍不穿的鎖子甲，硬是用身體擋下了一個巨人的拳頭。然後他咬著盾牌邊緣，又站了起來。」 Make their action clear and heroic; the battle rages around them.
+Show this character's own moment in the great battle, based on this line from the game (Chinese): 「比約恩穿著那件砍不穿的鎖子甲，舉起那面早就被他咬出缺口的盾牌，硬是擋下了一個巨人的拳頭。他被打得往後滑了三步，又站穩了。」 Make their action clear and heroic; the battle rages around them.
 ```
 
 **16. sc_rm_sigrid（西格麗德在諸神黃昏）**
