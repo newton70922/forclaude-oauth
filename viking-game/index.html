@@ -361,6 +361,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .act .ttag.free{color:#9fd18c;border-color:#4d6b43}
 .act .ttag.season{color:var(--gold);border-color:#6a5630}
 .ux2 .act b{padding-right:70px}
+.chip .xpn{color:var(--gold);font-size:11.5px;margin-left:3px}
 .ux2 .toast{top:calc(env(safe-area-inset-top,0px) + 128px);bottom:auto;font-size:12.5px;padding:5px 12px;opacity:.95}
 @media (max-width:640px){
   .ux2 .top .wrap{padding-top:6px;padding-bottom:6px}
@@ -370,7 +371,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   .ux2 .bar .row{display:none!important}
   .ux2 .bar.hp .track{height:6px}
   .ux2 .bar.xp .track{height:3px}
-  .ux2 .chips{gap:2px 9px;font-size:12px;margin-top:5px;flex-wrap:nowrap;overflow:hidden}
+  .ux2 .chips{gap:2px 9px;font-size:12px;margin-top:5px;flex-wrap:wrap}
   .ux2 .chip{gap:3px;white-space:nowrap}
   .ux2 .chip .bless i{margin:0}
   .ux2 .goal{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:6px 10px;font-size:13px;cursor:pointer}
@@ -1274,6 +1275,17 @@ const sceneImg=k=>ART_HAVE.has(k)?(artSeen(k),`<div class="scene"><img src="art/
 const BT_GIANT={sc_bt_1:['sc_rag_giants'],sc_bt_2:['sc_rm_clash','sc_rag_ours'],sc_bt_3:['sc_rag_ours'],sc_bt_win:['sc_einherjar'],sc_bt_lose:['sc_ragfall']};
 const btImg=(o,k)=>sceneImg(o.foeType==='giant'?(BT_GIANT[k].find(x=>ART_HAVE.has(x))||''):k);
 // 電影分鏡：一頁一張圖、一兩句話，按「繼續」翻頁。art 可以給好幾個，用第一張已經畫好的
+// 大字台詞太長時：split＝從中間最近的標點斷成兩行；line＝縮小字體擠成一行
+let BIG_MODE='off';
+function bigFit(el){
+  const b=el.querySelector('.cine-big');if(!b||BIG_MODE==='off'||/<|\n/.test(b.innerHTML))return;
+  const raw=b.textContent.trim(),w=b.clientWidth,fs=parseFloat(getComputedStyle(b).fontSize);if(!w)return;
+  const per=Math.floor(w/fs);if(raw.length<=per)return;
+  if(BIG_MODE==='line'&&raw.length<=22){b.style.whiteSpace='nowrap';b.style.fontSize=Math.max(16,Math.floor(w/raw.length*.97))+'px';return;}
+  const cs=[...raw].map((c,i)=>'，、。！？；：…'.includes(c)?i:-1).filter(i=>i>1&&i<raw.length-2);if(!cs.length)return;
+  const mid=raw.length/2,cut=cs.reduce((a,c)=>Math.abs(c+1-mid)<Math.abs(a+1-mid)?c:a);
+  b.innerHTML=esc(raw.slice(0,cut+1))+'<br>'+esc(raw.slice(cut+1));
+}
 function cineView(el,pages,done,eyebrow){
   let i=0;
   const pickArt=a=>[].concat(a||[]).find(k=>k.startsWith('sc_')?ART_HAVE.has(k):hasArt(k));
@@ -1287,6 +1299,7 @@ function cineView(el,pages,done,eyebrow){
     el.innerHTML=`<div class="${p.shake?'cine-shake':''}">${img}${eyebrow?`<p class="eyebrow">${eyebrow}</p>`:''}${p.title?`<h2>${p.title}</h2>`:''}
       <p class="${p.big?'cine-big':'cine-txt'}">${p.text}</p><div class="cn-row"><button class="primary" id="cn-ok">${p.btn||'繼續'}</button>${seen&&i<pages.length-1?'<button class="ghost cn-skip" id="cn-skip">跳過</button>':''}</div></div>`;
     if(p.shake)sfx('drum');
+    bigFit(el);
     $('#cn-ok').onclick=()=>{i++;if(i<pages.length)show();else finish();};$('#cn-ok').focus();
     const sk=$('#cn-skip');if(sk)sk.onclick=finish;
     const nx=pages[i+1],na=nx&&pickArt(nx.art);if(na){const im=new Image();im.src=`art/${na.startsWith('sc_')?na:artKey(na)}.webp`;}
@@ -4543,7 +4556,7 @@ function kingRagPages(){
     {art:['sc_k_drag','v_halfdan3','halfdan2'],text:'他把一柄重斧往下一甩，斧刃劈進冰面，在峽口拖出一道深深的線。冰屑濺起來，又慢慢落下。\n\n然後，他站在線後，等著。'},
     {art:['sc_k_line','sc_k_axes','v_halfdan3','halfdan2'],text:'巨人衝了過來。第一個踏過那條線的，還沒看清他的動作，就倒下了。\n\n第二個、第三個……線前面的屍體越堆越高，他的步子，一次都沒有亂。'},
     {art:['sc_k_axes','v_halfdan3','halfdan2'],text:'他回頭，看了巨人大軍一眼。\n\n「……下一個。」',big:1,shake:1},
-    {art:['sc_k_advance','sc_k_axes','v_halfdan3','halfdan2'],text:'沒有一個巨人，敢再靠近那條線。\n\n於是老王跨過了線，一步、一步，朝巨人大軍走了過去。他從彩虹橋帶下來的英靈戰士，默默地跟在他的身後。\n\n巨人們，一步一步地往後退。\n\n<span class="good">巨人大軍 -25%。接下來的每一輪單挑，他都會先替你砍上一斧。</span>'});
+    {art:['sc_k_axes','v_halfdan3','halfdan2'],text:'沒有一個巨人，敢再靠近那條線。\n\n於是老王跨過了線，一步、一步，朝巨人大軍走了過去。他從彩虹橋帶下來的英靈戰士，默默地跟在他的身後。\n\n巨人們，一步一步地往後退。\n\n<span class="good">巨人大軍 -25%。接下來的每一輪單挑，他都會先替你砍上一斧。</span>'});
   else P.push({art:['sc_k_charge','halfdan'],text:'他朝你點了點頭，什麼都沒說。然後拔出劍，帶著英靈騎兵衝進了巨人的陣中，砍倒了一大片。\n\n<span class="good">巨人大軍 -10%。前三輪單挑，他都會先替你砍上一劍。</span>'});
   return P;
 }
@@ -6026,7 +6039,7 @@ function charHTML(){
   let body='';
   if(ct==='me') body=`
   <div class="stats">${Object.keys(STAT).map(k=>`<div class="stat"><span class="r">${STAT_RUNE[k]}</span><div>${STAT[k]}<small>${STAT_DESC[k]}</small>
-    ${[6,9,12,15,18].filter(t=>!UX2()||S.st[k]>=t||t===[6,9,12,15,18].find(x=>x>S.st[k])).map(t=>`<span class="mile ${S.st[k]>=t?'on':''}">${UX2()&&S.st[k]<t?`下一階 ${t}：`:`${t}：`}${S.st[k]>=t?MILES[k][t]:'？？？'}</span>`).join('')}</div>
+    ${[6,9,12,15,18].filter(t=>!UX2()||S.st[k]>=t||t===[6,9,12,15,18].find(x=>x>S.st[k])).map(t=>`<span class="mile ${S.st[k]>=t?'on':''}">${UX2()&&S.st[k]<t?`下一階 ${t}：`:`${t}：`}${S.st[k]>=t||UX2()?MILES[k][t]:'？？？'}</span>`).join('')}</div>
     <span class="v ${S.wounded?'low':''}">${eff(k)}</span>
     ${S.pts>0?`<button class="plus" data-s="${k}" aria-label="提升${STAT[k]}">+</button>`:'<span></span>'}</div>`).join('')}</div>
   <div class="sec-h">祈福 · 倒下時能再站起來的次數</div>
@@ -6139,7 +6152,7 @@ function render(){
   chips.push([S.phase===1?'同伴':'戰士',S.phase===1?S.men:`${S.men}${S.vets||S.elite?`（老兵 ${S.vets}・精兵 ${S.elite}）`:''}`,S.phase>1&&S.men>command()]);
   if(S.phase>=2) chips.push(['忠誠',S.loyalty,S.loyalty<30]);
   const small=UX2()&&innerWidth<=640;
-  if(small){const SH={'銀幣':'銀','糧食':'糧','名聲':'名','惡名':'惡','戰士':'兵','同伴':'伴','忠誠':'忠'};chips.forEach(c=>{c[0]=SH[c[0]]||c[0];c[1]=String(c[1]).replace(/[・（].*$/,'');});chips.unshift(['命',`${S.hp}/${maxHp()}`,S.hp<maxHp()*.3]);chips.unshift(['Lv',S.lvl,false]);}
+  if(small){const SH={'銀幣':'銀','糧食':'糧','名聲':'名','惡名':'惡','戰士':'兵','同伴':'伴','忠誠':'忠'};chips.forEach(c=>{c[0]=SH[c[0]]||c[0];c[1]=String(c[1]).replace(/[・（].*$/,'');});chips.unshift(['命',`${S.hp}/${maxHp()}`,S.hp<maxHp()*.3]);chips.unshift(['Lv',`${S.lvl}</b><span class="xpn">${S.xp}/${xpNeed()}</span><b>`,false]);}
   const prevC=render.prevC||{},curC={};
   $('#chips').innerHTML=chips.map(([k,v,w])=>{const n=parseInt(v,10);curC[k]=n;const ch=FX()&&k in prevC&&!isNaN(n)&&n!==prevC[k]?(n>prevC[k]?'up':'dn'):'';return `<span class="chip ${w?'warn':''}"><span>${k}</span><b class="${ch}">${v}</b></span>`;}).join('')+
     `<span class="chip"><span>${small?'':'祈福'}</span><span class="bless">${Array.from({length:maxBless()},(_,i)=>`<i class="${i<charges()?'on':''}">ᚱ</i>`).join('')}</span></span>`;
@@ -6699,8 +6712,11 @@ body.wizon .toast{bottom:calc(140px + env(safe-area-inset-bottom))}
   body.mini #h-mini{transform:none;opacity:1;pointer-events:auto}
   .achips{position:sticky;top:44px;z-index:3;margin:2px -16px 10px;padding:6px 16px;background:rgba(15,20,23,.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid transparent}
   #h-mini b{color:var(--bone);font-weight:600}
-  #h-mini .mhp{flex:0 0 60px;height:6px;border-radius:3px;background:#2a2f33;overflow:hidden}
-  #h-mini .mhp i{display:block;height:100%;background:var(--blood)}
+  #h-mini .mhp{flex:0 0 60px;height:9px;position:relative;display:block}
+  #h-mini .mhp i{display:block;height:6px;border-radius:3px;background:var(--blood);box-shadow:0 0 0 0 transparent}
+  #h-mini .mhp::before{content:'';position:absolute;left:0;right:0;top:0;height:6px;border-radius:3px;background:#2a2f33;z-index:-1}
+  #h-mini .mhp em{position:absolute;left:0;bottom:0;height:2px;border-radius:1px;background:var(--gold)}
+  #h-mini .mlv{font-size:12px;color:var(--gold)}
   /* 章節目標：一行，點開看完整 */
   /* 角色頁：立繪縮小放在名字旁邊 */
   .char{grid-template-columns:96px 1fr;align-items:center;column-gap:12px}
@@ -6858,7 +6874,7 @@ details.adis summary{color:var(--muted);font-size:14px;padding:10px 4px;cursor:p
     if(!S||$('#game-screen').hidden) return;
     {const wb=$('#wiz-bar');if(wb)wb.classList.add('st-off');document.body.classList.remove('wizon');}
     seasonFx();
-    $('#h-mini').innerHTML=`<span>${stamp()} · ${age()} 歲</span><span class="mhp"><i style="width:${clamp(S.hp/maxHp()*100,0,100)}%"></i></span><span>銀 <b>${S.silver}</b> · 糧 <b>${S.food}</b> · 兵 <b>${S.men}</b></span>`;
+    $('#h-mini').innerHTML=`<span>${stamp()} · ${age()} 歲</span><span class="mlv">Lv ${S.lvl}</span><span class="mhp"><i style="width:${clamp(S.hp/maxHp()*100,0,100)}%"></i><em style="width:${clamp(S.xp/xpNeed()*100,0,100)}%"></em></span><span>銀 <b>${S.silver}</b> · 糧 <b>${S.food}</b> · 兵 <b>${S.men}</b></span>`;
     if(S.tab==='act'){
       const MAIN=['found','declare'];const L0=actions(),main=L0.filter(a=>MAIN.includes(a.id)),L=L0.filter(a=>!MAIN.includes(a.id)),now=L.filter(a=>a.key&&!a.dis),rest=L.filter(a=>!(a.key&&!a.dis));const G='all';
       const gs=['出征','治理','生活','其他'];const cnt=g=>rest.filter(a=>(GROUP[a.id]||'其他')===g).length;
