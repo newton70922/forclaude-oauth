@@ -351,6 +351,59 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .rel.good{border-left-color:var(--gold)}.rel.bad{border-left-color:var(--blood)}
 .rel .rp{display:flex}.rel .rp .avatar{float:none;margin:0;width:36px;height:36px}.rel .rp .avatar+.avatar{margin-left:-10px}
 .rel .rt{display:grid;gap:2px}.rel .rt b{font-size:13px}.rel.good .rt b{color:var(--gold)}.rel.bad .rt b{color:var(--blood)}.rel .rt small{color:var(--muted);font-size:12.5px}
+.jumps{display:flex;gap:6px;align-items:center;margin:0 0 10px;font-size:13px;color:var(--muted)}
+.jumps button{padding:5px 14px;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--bone);font-size:13px}
+.ux2 #pane .card,.ux2 #pane .blds{scroll-margin-top:120px}
+.ux2 .card.flash{animation:cardflash 1.2s}
+@keyframes cardflash{0%{box-shadow:0 0 0 2px var(--gold)}100%{box-shadow:0 0 0 0 transparent}}
+.act{position:relative}
+.act .ttag{position:absolute;top:10px;right:10px;font-size:11.5px;padding:1px 8px;border-radius:10px;border:1px solid var(--line);color:var(--muted)}
+.act .ttag.free{color:#9fd18c;border-color:#4d6b43}
+.act .ttag.season{color:var(--gold);border-color:#6a5630}
+.ux2 .act b{padding-right:70px}
+.ux2 .toast{top:calc(env(safe-area-inset-top,0px) + 128px);bottom:auto;font-size:12.5px;padding:5px 12px;opacity:.95}
+@media (max-width:640px){
+  .ux2 .top .wrap{padding-top:6px;padding-bottom:6px}
+  .ux2 .top-line .nm{font-size:17px}
+  .ux2 .top-line .sub{font-size:12px}
+  .ux2 .bars{grid-template-columns:1fr;gap:3px;margin-top:5px}
+  .ux2 .bar .row{display:none!important}
+  .ux2 .bar.hp .track{height:6px}
+  .ux2 .bar.xp .track{height:3px}
+  .ux2 .chips{gap:2px 9px;font-size:12px;margin-top:5px;flex-wrap:nowrap;overflow:hidden}
+  .ux2 .chip{gap:3px;white-space:nowrap}
+  .ux2 .chip .bless i{margin:0}
+  .ux2 .goal{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:6px 10px;font-size:13px;cursor:pointer}
+  .ux2 .goal.open{white-space:normal}
+}
+#uxbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 74px);z-index:60;display:flex;gap:4px;align-items:center;padding:5px 8px;border-radius:20px;background:rgba(15,20,23,.95);border:1px solid var(--gold);font-size:12px;color:var(--muted);box-shadow:0 6px 18px rgba(0,0,0,.5)}
+#uxbar button,#uxbar span{white-space:nowrap}
+#uxbar button{padding:3px 10px;border-radius:12px;border:1px solid var(--line);background:transparent;color:var(--muted);font-size:12px}
+#uxbar button[aria-pressed="true"]{border-color:var(--gold);color:var(--gold)}
+#uxbar span{margin:0 2px 0 6px}
+/* 特效 */
+.fx .act,.fx .choice,.fx .primary,.fx .ghost,.fx .opt,.fx .tabs button{transition:transform .12s ease,box-shadow .2s,border-color .2s,background .2s}
+.fx .act:not(:disabled):active,.fx .choice:not(:disabled):active,.fx .primary:not(:disabled):active,.fx .ghost:active{transform:scale(.97)}
+@media (hover:hover){.fx .act:not(:disabled):hover,.fx .choice:not(:disabled):hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.35)}}
+.fx #pane.pane-in{animation:panein .3s ease-out}
+@keyframes panein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.fx .mbody .choice{animation:chin .32s ease-out backwards}
+.fx .mbody .choice:nth-child(2){animation-delay:.06s}.fx .mbody .choice:nth-child(3){animation-delay:.12s}.fx .mbody .choice:nth-child(4){animation-delay:.18s}.fx .mbody .choice:nth-child(5){animation-delay:.24s}
+@keyframes chin{from{opacity:0;transform:translateY(10px)}}
+.fx .mbody .scene img{animation:kenburns 10s ease-out forwards}
+@keyframes kenburns{from{transform:scale(1.0)}to{transform:scale(1.08)}}
+.fx .cine-txt,.fx .cine-big{animation:txtin .6s ease-out backwards .15s}
+@keyframes txtin{from{opacity:0;transform:translateY(6px)}}
+.fx .chip b.up{animation:bumpup 1s ease-out}.fx .chip b.dn{animation:bumpdn 1s ease-out}
+@keyframes bumpup{0%{color:#b9f0a5;text-shadow:0 0 12px #9fd18c}100%{color:inherit;text-shadow:none}}
+@keyframes bumpdn{0%{color:#ff8a7a;text-shadow:0 0 12px var(--blood)}100%{color:inherit;text-shadow:none}}
+.fx .bar .fill,.fx .fighter .fill{transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.fx .act.key:not(:disabled){animation:keyglow 2.6s ease-in-out infinite}
+@keyframes keyglow{50%{box-shadow:0 0 0 1px var(--ember),0 0 16px rgba(212,122,59,.35)}}
+.fx .toast{animation:toastin .3s ease-out}
+@keyframes toastin{from{opacity:0;transform:translate(-50%,-6px)}}
+.fx .mbody .res{animation:txtin .4s ease-out backwards}
+@media (prefers-reduced-motion:reduce){.fx *{animation:none!important;transition:none!important}}
 .cn-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .cn-row .cn-skip{margin-left:auto;font-size:13px;padding:6px 14px}
 @keyframes cshake{0%,100%{transform:none}15%{transform:translate(-7px,2px)}35%{transform:translate(6px,-3px)}55%{transform:translate(-4px,2px)}75%{transform:translate(3px,-1px)}}
@@ -5855,6 +5908,19 @@ const WINTER_EVENTS=[
 
 /* ================= 音效 ================= */
 let AC=null;
+const uxFlag=k=>{try{return localStorage.getItem(k)==='1';}catch(e){return false;}};
+function applyUx(){const r=document.documentElement;r.classList.toggle('ux2',uxFlag('na-ux2'));r.classList.toggle('fx',uxFlag('na-fx'));}
+applyUx();
+const UX2=()=>document.documentElement.classList.contains('ux2'),FX=()=>document.documentElement.classList.contains('fx');
+function uxDemoBar(){
+  let bar=document.getElementById('uxbar');
+  if(location.hash!=='#uxdemo'){if(bar)bar.remove();return;}
+  if(!bar){bar=document.createElement('div');bar.id='uxbar';document.body.appendChild(bar);}
+  const b=(k,v,t)=>`<button data-ux="${k}" data-v="${v}" aria-pressed="${uxFlag(k)===(v==='1')}">${t}</button>`;
+  bar.innerHTML=`<span>介面</span>${b('na-ux2','0','目前')}${b('na-ux2','1','新版')}<span>特效</span>${b('na-fx','0','關')}${b('na-fx','1','開')}`;
+  bar.querySelectorAll('[data-ux]').forEach(x=>x.onclick=()=>{try{localStorage.setItem(x.dataset.ux,x.dataset.v);}catch(e){}applyUx();uxDemoBar();if(S&&!$('#game-screen').hidden)render();});
+}
+window.addEventListener('hashchange',uxDemoBar);
 const fontPref=()=>{try{return localStorage.getItem('na-font')||'m';}catch(e){return 'm';}};
 function applyFont(){const f=fontPref();document.documentElement.classList.toggle('fs-s',f==='s');document.documentElement.classList.toggle('fs-l',f==='l');}
 applyFont();
@@ -5959,7 +6025,7 @@ function charHTML(){
   let body='';
   if(ct==='me') body=`
   <div class="stats">${Object.keys(STAT).map(k=>`<div class="stat"><span class="r">${STAT_RUNE[k]}</span><div>${STAT[k]}<small>${STAT_DESC[k]}</small>
-    ${[6,9,12,15,18].map(t=>`<span class="mile ${S.st[k]>=t?'on':''}">${t}：${S.st[k]>=t?MILES[k][t]:'？？？'}</span>`).join('')}</div>
+    ${[6,9,12,15,18].filter(t=>!UX2()||S.st[k]>=t||t===[6,9,12,15,18].find(x=>x>S.st[k])).map(t=>`<span class="mile ${S.st[k]>=t?'on':''}">${UX2()&&S.st[k]<t?`下一階 ${t}：`:`${t}：`}${S.st[k]>=t?MILES[k][t]:'？？？'}</span>`).join('')}</div>
     <span class="v ${S.wounded?'low':''}">${eff(k)}</span>
     ${S.pts>0?`<button class="plus" data-s="${k}" aria-label="提升${STAT[k]}">+</button>`:'<span></span>'}</div>`).join('')}</div>
   <div class="sec-h">祈福 · 倒下時能再站起來的次數</div>
@@ -6069,10 +6135,14 @@ function render(){
   if(S.infamy>0) chips.push(['惡名',`${S.infamy}・${INF_TIER[infTier()].name}`,S.infamy>=40]);
   chips.push([S.phase===1?'同伴':'戰士',S.phase===1?S.men:`${S.men}${S.vets||S.elite?`（老兵 ${S.vets}・精兵 ${S.elite}）`:''}`,S.phase>1&&S.men>command()]);
   if(S.phase>=2) chips.push(['忠誠',S.loyalty,S.loyalty<30]);
-  $('#chips').innerHTML=chips.map(([k,v,w])=>`<span class="chip ${w?'warn':''}"><span>${k}</span><b>${v}</b></span>`).join('')+
-    `<span class="chip"><span>祈福</span><span class="bless">${Array.from({length:maxBless()},(_,i)=>`<i class="${i<charges()?'on':''}">ᚱ</i>`).join('')}</span></span>`;
+  const small=UX2()&&innerWidth<=640;
+  if(small){const SH={'銀幣':'銀','糧食':'糧','名聲':'名','惡名':'惡','戰士':'兵','同伴':'伴','忠誠':'忠'};chips.forEach(c=>{c[0]=SH[c[0]]||c[0];c[1]=String(c[1]).replace(/[・（].*$/,'');});chips.unshift(['命',`${S.hp}/${maxHp()}`,S.hp<maxHp()*.3]);chips.unshift(['Lv',S.lvl,false]);}
+  const prevC=render.prevC||{},curC={};
+  $('#chips').innerHTML=chips.map(([k,v,w])=>{const n=parseInt(v,10);curC[k]=n;const ch=FX()&&k in prevC&&!isNaN(n)&&n!==prevC[k]?(n>prevC[k]?'up':'dn'):'';return `<span class="chip ${w?'warn':''}"><span>${k}</span><b class="${ch}">${v}</b></span>`;}).join('')+
+    `<span class="chip"><span>${small?'':'祈福'}</span><span class="bless">${Array.from({length:maxBless()},(_,i)=>`<i class="${i<charges()?'on':''}">ᚱ</i>`).join('')}</span></span>`;
+  render.prevC=curC;
   $('#side').innerHTML=charHTML();
-  $('#goal').innerHTML=goalHTML();
+  $('#goal').innerHTML=goalHTML();$('#goal').onclick=()=>{if(UX2())$('#goal').classList.toggle('open');};
   sumRender();
   const tabs=S.phase>=4?[['act','行動'],['map','挪威'],['sea','海外'],['tribe','王國'],['char','角色']]:[['act','行動'],['map','地圖'],['tribe','部落'],['char','角色']];
   $('#tabs').innerHTML=tabs.map(([k,n])=>`<button role="tab" class="tab-${k}" aria-selected="${S.tab===k}" data-tab="${k}">${n}${k==='char'&&(S.pts>0||S.talentPicks>0)?'<span class="dot"></span>':''}</button>`).join('');
@@ -6083,6 +6153,12 @@ function render(){
   else if(S.tab==='tribe') pane=kingdomHTML()+tribeHTML();
   else pane=`<div class="card">${charHTML()}</div>`;
   $('#pane').innerHTML=pane;
+  if(UX2()&&S.tab==='tribe'){const T=[];const cards=[...document.querySelectorAll('#pane > .card')];
+    if(S.phase>=4&&cards[0])T.push(['王國',cards[0]]);const camp=cards.find(c=>c.querySelector('h3'));if(camp)T.push(['營地',camp]);const bl=document.querySelector('#pane .blds');if(bl)T.push(['建築',bl]);
+    if(T.length>1){const nav=document.createElement('div');nav.className='jumps';nav.innerHTML='<span>跳到</span>'+T.map(([n],i)=>`<button data-jump="${i}">${n}</button>`).join('');$('#pane').prepend(nav);
+      nav.querySelectorAll('[data-jump]').forEach(x=>x.onclick=e=>{e.stopPropagation();T[+x.dataset.jump][1].scrollIntoView({behavior:'smooth',block:'start'});});}}
+  if(FX()&&render.lastTab!==S.tab){const pn=$('#pane');pn.classList.remove('pane-in');void pn.offsetWidth;pn.classList.add('pane-in');}
+  render.lastTab=S.tab;
   $('#log').innerHTML=S.log.slice(0,8).map(([t,x])=>`<li><span>${t}</span>${x}</li>`).join('');
   save();
 }
@@ -6096,7 +6172,7 @@ document.addEventListener('click',e=>{
   if(d.ct){S.ctab=d.ct;render();return;}
   if(d.tab){S.tab=d.tab;render();if(d.tab==='tribe')tipCheck();return;}
   if(d.a){const a=actions().find(x=>x.id===d.a);if(a&&!a.dis){a.run();render();}return;}
-  if(d.r){S.sel=d.r;render();return;}
+  if(d.r){S.sel=d.r;render();if(UX2()){const c=[...document.querySelectorAll('#pane .card')].find(x=>x.querySelector('.pill'));if(c){c.scrollIntoView({behavior:'smooth',block:'start'});c.classList.remove('flash');void c.offsetWidth;c.classList.add('flash');}}return;}
   if(d.o){S.osel=d.o;render();return;}
   if(d.oa){const a=osActs(O(S.osel)||OS[0]).A[+d.oa];if(a&&a.run&&!a.dis){a.run();render();}return;}
   if(d.ra){const a=regionActs(R(S.sel)).A[+d.ra];if(a&&a.run&&!a.dis){a.run();render();}return;}
@@ -6503,6 +6579,7 @@ function boot(data){
   if(data&&data.S&&data.S.v===SAVE_V){S=data.S;startGame();return;}
   showTitle();
 }
+uxDemoBar();
 window.claude?.hot?.snapshot?.(()=>({S:S&&!S.dead&&!S.won&&!S.sandbox?S:null}));
 window.claude?.hot?.ready?window.claude.hot.ready(boot):boot(window.claude?.hot?.data??{});
 initRemote();
@@ -6771,7 +6848,7 @@ details.adis summary{color:var(--muted);font-size:14px;padding:10px 4px;cursor:p
   const GROUP={found:'出征',declare:'出征',gosea:'出征',gomap:'出征',bounty:'出征',soloraid:'出征',treasure:'出征',prep:'出征',appease:'出征',odd:'出征',
     build:'治理',recruit:'治理',train:'治理',hire:'治理',thing:'治理',jarl:'治理',feast:'治理',fame:'治理',monument:'治理',abdicate4:'治理',spouse:'治理',
     blot:'生活',longhouse:'生活',tafl:'生活',tavern:'生活',trap:'生活',hunt:'生活',sow:'治理',harvestfest:'治理',midsummer:'生活',icefish:'生活',rest:'生活'};
-  const actBtn=a=>{const tg=actTag(a.id);return `<button class="act ${a.key&&!a.dis?'key':''}" data-a="${a.id}" ${a.dis?'disabled':''}><b>${a.name}</b><small>${a.desc}</small><span class="gain">${a.dis||a.gain}</span>${tg?`<span class="atag">${tg}</span>`:''}</button>`;};
+  const actBtn=a=>{const tg=actTag(a.id);let gn=a.gain||'',tt='';if(UX2()){if(/不消耗時間/.test(gn)){tt='free';gn='';}else if(/一季$/.test(gn)){tt='season';gn=gn.replace(/[；、，]?\s*(會花掉|花)?\s*一季$/,'');}}return `<button class="act ${a.key&&!a.dis?'key':''}" data-a="${a.id}" ${a.dis?'disabled':''}>${tt?`<span class="ttag ${tt}">${tt==='free'?'不耗時':'⏳ 1 季'}</span>`:''}<b>${a.name}</b><small>${a.desc}</small>${a.dis||gn?`<span class="gain">${a.dis||gn}</span>`:''}${tg?`<span class="atag">${tg}</span>`:''}</button>`;};
   const _render=render;
   render=function(){
     _render();
