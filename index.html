@@ -4,17 +4,47 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ForClaude 廣告報表工具</title>
+<meta name="description" content="ForClaude 廣告報表工具：整理使用者本人的 Google Ads 廣告成效報表，並在使用者確認後更新廣告設定。">
 <style>
-  body { font-family: "Microsoft JhengHei", system-ui, sans-serif; max-width: 720px; margin: 40px auto; padding: 0 16px; line-height: 1.7; color: #222; }
-  h1 { font-size: 1.6em; }
+  body { font-family: "Microsoft JhengHei", system-ui, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 16px; line-height: 1.7; color: #222; }
+  h1 { font-size: 1.6em; } h2 { font-size: 1.15em; margin-top: 1.6em; }
   a { color: #1a73e8; }
+  ul { padding-left: 1.3em; }
 </style>
 </head>
 <body>
 <h1>ForClaude 廣告報表工具</h1>
-<p>這是一個僅供個人內部使用的工具，用來讀取本人管理的 Google Ads、Google Analytics 與 Google 試算表資料，產出廣告成效報表；並在本人確認後，管理本人有權限的 Google Ads 帳戶設定（建立廣告、暫停或開啟廣告、調整預算）。</p>
-<p>此工具不對外提供服務，不收集任何第三方使用者的資料。</p>
-<p>ForClaude Ad Reporting is a private, internal tool used only by its owner to read their own Google Ads, Google Analytics and Google Sheets data for reporting, and, after the owner reviews each change, to manage the Google Ads accounts the owner already has access to (creating ads, pausing or enabling ads, and adjusting budgets). It is not offered to the public.</p>
+<p>ForClaude 廣告報表工具是在使用者自己電腦上執行的程式，協助數位廣告操作人員整理 Google Ads 廣告成效報表，並在使用者確認後更新 Google Ads 廣告設定。本頁公開，任何人不需登入即可瀏覽。</p>
+
+<h2>應用程式用途</h2>
+<ul>
+  <li><b>廣告成效報表</b>：讀取使用者有權限的 Google Ads 帳戶成效數據（曝光、點擊、花費、轉換）與 Google Analytics 報表，整理成週報、月報。</li>
+  <li><b>廣告管理</b>：經使用者逐次確認後，在使用者有權限的 Google Ads 帳戶建立廣告、暫停或開啟廣告、調整每日預算。所有變更都先以試跑（validate only）檢查，使用者同意後才正式寫入。</li>
+  <li><b>Google 試算表</b>：讀取使用者指定的試算表（廣告需求表、文案表），並把報表數字寫回使用者指定的試算表。</li>
+  <li><b>Google 雲端硬碟</b>：唯讀下載使用者指定資料夾裡的廣告圖片素材。</li>
+  <li><b>Gmail</b>：用使用者本人的 Gmail 寄送執行結果通知給使用者自己。</li>
+</ul>
+
+<h2>使用方式</h2>
+<p>使用者以自己的 Google 帳號授權後，程式只存取該帳號原本就有權限的資料。授權憑證只存在使用者自己的電腦，可隨時到 <a href="https://myaccount.google.com/permissions">Google 帳戶的第三方存取權</a> 撤銷。</p>
+
+<h2>遵循 Google API 服務條款</h2>
+<p>本工具遵守 <a href="https://developers.google.com/terms">Google API 服務條款</a> 與 <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API 服務使用者資料政策</a>（含「有限使用」規定）。本工具不使用任何 Google API 產生圖片、影片或 AI 生成內容，也絕不用於製作或散布未經同意的私密影像（NCII）。透過 Google API 取得的資料不會出售、不會提供給第三方，也不會用於訓練 AI 模型。</p>
+
 <p><a href="privacy.html">隱私權政策 Privacy Policy</a></p>
+
+<hr>
+<h2>English</h2>
+<p><b>ForClaude 廣告報表工具 (ForClaude Ad Reporting Tool)</b> is a desktop program that runs on the user's own computer. It helps digital advertising operators build Google Ads performance reports and, after the user reviews each change, update their Google Ads campaigns. This page is public and can be viewed without signing in.</p>
+<p><b>What the app does</b></p>
+<ul>
+  <li><b>Reporting</b>: reads performance data (impressions, clicks, cost, conversions) from Google Ads accounts and Google Analytics reports the user already has access to, and compiles weekly and monthly reports.</li>
+  <li><b>Campaign management</b>: after the user approves each change, creates ads, pauses or enables ads, and adjusts daily budgets in those Google Ads accounts. Every change is first checked with a validate-only request.</li>
+  <li><b>Google Sheets</b>: reads the user's own planning sheets and writes report figures back to sheets the user chooses.</li>
+  <li><b>Google Drive</b>: read-only download of ad image assets from folders the user chooses.</li>
+  <li><b>Gmail</b>: sends job-result notifications from the user's own Gmail to the user.</li>
+</ul>
+<p><b>Compliance</b>: the app complies with the Google APIs Terms of Service and the Google API Services User Data Policy, including the Limited Use requirements. It does not use Google APIs to generate images, video or any AI-generated content, and is never used to create or distribute non-consensual intimate imagery (NCII). Data obtained through Google APIs is not sold, not shared with third parties, and not used to train AI models.</p>
+<p><a href="privacy.html">Privacy Policy</a></p>
 </body>
 </html>
