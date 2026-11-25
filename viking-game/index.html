@@ -375,7 +375,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   .ux2 .chips{gap:2px 9px;font-size:12px;margin-top:5px;flex-wrap:wrap}
   .ux2 .chip{gap:3px;white-space:nowrap}
   .ux2 .chip .bless i{margin:0}
-  .ux2 .goal{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:6px 10px;font-size:13px;cursor:pointer}
+  .ux2 .goal:not(.full){white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:6px 10px;font-size:13px;cursor:pointer}
   .ux2 .goal.open{white-space:normal}
 }
 #uxbar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 74px);z-index:60;display:flex;gap:4px;align-items:center;padding:5px 8px;border-radius:20px;background:rgba(15,20,23,.95);border:1px solid var(--gold);font-size:12px;color:var(--muted);box-shadow:0 6px 18px rgba(0,0,0,.5)}
@@ -4704,7 +4704,7 @@ function ragnarok(){
   const p=ragPatron();
   if(p==='loki'){pushLater(el=>cineView(el,ragOpenPages(p),closeModal,'ᛞ 諸神黃昏'));pushLater(eventModal(EV_LOKI_RAG));return;}
   const aid=Object.keys(GODS).reduce((m,g)=>m*(gt(g,3)?.88:gt(g,2)?.95:1),1);
-  const def=Math.round(260*lf()*D().foe*(1-Math.min(.15,S.fame/2000))*aid*(S.flags.ragnarVan?.92:1)*(S.spouse?.92:1));
+  const def=Math.round(foeScale(260)*(1-Math.min(.15,S.fame/2000))*aid*(S.flags.ragnarVan?.92:1)*(S.spouse?.92:1));
   const [fk,fn,fline]=RAG_FOE[p||'none'];
   const kp=kingRagPages(),kMul=S.flags.kingRag==='met'?.75:S.flags.kingRag==='unmet'?.9:1;
   pushLater(el=>cineView(el,ragOpenPages(p),closeModal,'ᛞ 諸神黃昏'));
@@ -4719,7 +4719,7 @@ function ragnarok(){
 const spouseShield=()=>['astrid','bragi','thorfinn','sigrid'].includes(S.spouse)?{bonus:1,bonusTxt:{astrid:'阿斯特麗德的盾牌和你的扣在一起',bragi:'布拉吉的戰歌讓所有人站穩了腳步',thorfinn:'托爾芬一直站在你的右邊',sigrid:'西格麗德帶人守住了左翼'}[S.spouse]}:{};
 const EV_LOKI_RAG={kind:'ᛚ 洛基',art:'loki',title:'騙子的邀請',text:'諸神黃昏的那天早上，洛基站在冰原上，身後是霜巨人的大軍。他朝你伸出手：\n\n「我們是朋友，對吧？那些神把我綁在石頭上，讓毒蛇的毒液滴在我臉上，滴了一千年。現在輪到他們了。」\n\n「站到我這邊來。新的世界，需要一個國王。」',
   ch:[{t:'握住他的手',note:'結束這一局',fx:()=>{pushLater(el=>ch4End(el,'lokiside'));return null;}},
-      {t:'「對不起，朋友。」',note:'和眾神站在一起，對抗洛基的大軍',fx:()=>{favor('odin',20);S.flags.lokiNo=1;const kp=kingRagPages(),kMul=S.flags.kingRag==='met'?.75:S.flags.kingRag==='unmet'?.9:1;const def=Math.round(240*lf()*D().foe*kMul);
+      {t:'「對不起，朋友。」',note:'和眾神站在一起，對抗洛基的大軍',fx:()=>{favor('odin',20);S.flags.lokiNo=1;const kp=kingRagPages(),kMul=S.flags.kingRag==='met'?.75:S.flags.kingRag==='unmet'?.9:1;const def=Math.round(foeScale(240)*kMul);
         if(kp) pushLater(el=>cineView(el,kp,closeModal,'諸神黃昏 · 彩虹橋'));
         pushLater(shieldWallFn({title:'冰原上的防線',rag:1,...spouseShield(),onEnd:sc=>{battle({title:'諸神黃昏',def:def*(1.15-sc*.06),defend:true,foeType:'giant',intro:'洛基笑了，笑得很難過。然後他舉起手，巨人們衝了過來。',cause:'倒在諸神黃昏的戰場上',onEnd:w=>{
           if(!w){pushLater(el=>ch4End(el,'ragfall'));return '<span class="bad">盾牆碎了。</span>';}
@@ -4771,7 +4771,9 @@ function daneVictory(){
   if(crossed()&&!S.flags.stik){stikStart();return;}
   pushLater(el=>ch4End(el,'win'));
 }
-const daneDef=()=>220*lf()*D().foe*danMul();
+// 最後的大戰：敵人會隨你的實力變強（基礎值＋你戰力的六成），備戰再往下削
+const foeScale=b=>b*lf()*D().foe+.6*armyPower();
+const daneDef=()=>foeScale(220)*danMul();
 function strikeJelling(m){
   if(monkWarHook(()=>{})){pushLater(()=>{strikeJelling(m);nextModal();});return;}
   const help=spouseWarHelp();if(help)note('出征之前',help.trim(),'丹麥',{gunnhild:'sc_war_gunnhild',sweyn:'sc_war_sweyn'}[S.spouse]);
@@ -5073,7 +5075,7 @@ function stiklestad(){
   ],closeModal,'斯蒂克萊斯塔'));
   stikGodOffer();
   pushLater(el=>{
-    const def=Math.round(230*lf()*D().foe*(1+.08*gone)*(S.os.wessex&&S.os.wessex.st==='ally'?.9:1)*(S.os.paris&&S.os.paris.st==='ally'?.9:1)*(stikKing()?.9:1)*(S.flags.stikGod?.9:1));
+    const def=Math.round(foeScale(230)*(1+.08*gone)*(S.os.wessex&&S.os.wessex.st==='ally'?.9:1)*(S.os.paris&&S.os.paris.st==='ally'?.9:1)*(stikKing()?.9:1)*(S.flags.stikGod?.9:1));
     battle({title:'斯蒂克萊斯塔',def,foeType:'pagan',intro:'舊神的大軍衝了過來。',foeNote:'舊神的大軍',cause:'倒在斯蒂克萊斯塔',onEnd:w=>{
       if(!w){pushLater(el2=>ch4End(el2,'saint'));S.hp=Math.max(S.hp,1);return '<span class="bad">陣線被衝散了。你被人群淹沒在雪地裡。</span>';}
       stikRounds();
@@ -6022,7 +6024,7 @@ const WINTER_EVENTS=[
 /* ================= 音效 ================= */
 let AC=null;
 const uxFlag=k=>{try{return localStorage.getItem(k)==='1';}catch(e){return false;}};
-function applyUx(){const r=document.documentElement;r.classList.toggle('ux2',uxFlag('na-ux2'));r.classList.toggle('fx',uxFlag('na-fx'));}
+function applyUx(){const r=document.documentElement;r.classList.add('ux2');r.classList.toggle('fx',uxFlag('na-fx'));}
 applyUx();
 const UX2=()=>document.documentElement.classList.contains('ux2'),FX=()=>document.documentElement.classList.contains('fx');
 function uxDemoBar(){
@@ -6030,7 +6032,7 @@ function uxDemoBar(){
   if(location.hash!=='#uxdemo'){if(bar)bar.remove();return;}
   if(!bar){bar=document.createElement('div');bar.id='uxbar';document.body.appendChild(bar);}
   const b=(k,v,t)=>`<button data-ux="${k}" data-v="${v}" aria-pressed="${uxFlag(k)===(v==='1')}">${t}</button>`;
-  bar.innerHTML=`<span>介面</span>${b('na-ux2','0','目前')}${b('na-ux2','1','新版')}<span>特效</span>${b('na-fx','0','關')}${b('na-fx','1','開')}`;
+  bar.innerHTML=`<span>特效</span>${b('na-fx','0','關')}${b('na-fx','1','開')}`;
   bar.querySelectorAll('[data-ux]').forEach(x=>x.onclick=()=>{try{localStorage.setItem(x.dataset.ux,x.dataset.v);}catch(e){}applyUx();uxDemoBar();if(S&&!$('#game-screen').hidden)render();});
 }
 window.addEventListener('hashchange',uxDemoBar);
@@ -6158,8 +6160,7 @@ function charHTML(){
   else body=`<div class="sec-h">設定</div>
   <div class="seg"><span>音效</span><button data-set="sound" data-v="1" aria-pressed="${soundOn()}">開</button><button data-set="sound" data-v="0" aria-pressed="${!soundOn()}">關</button></div>
   <div class="seg"><span>環境音</span><button data-set="amb" data-v="1" aria-pressed="${ambOn()}">開</button><button data-set="amb" data-v="0" aria-pressed="${!ambOn()}">關</button></div>
-  ${remote.owner||location.hash==='#uxdemo'?`<div class="seg"><span>介面試用</span><button data-set="ux2" data-v="0" aria-pressed="${!UX2()}">目前</button><button data-set="ux2" data-v="1" aria-pressed="${UX2()}">新版</button></div>
-  <div class="seg"><span>特效試用</span><button data-set="fx" data-v="0" aria-pressed="${!FX()}">關</button><button data-set="fx" data-v="1" aria-pressed="${FX()}">開</button></div>`:''}
+  ${remote.owner||location.hash==='#uxdemo'?`<div class="seg"><span>特效試用</span><button data-set="fx" data-v="0" aria-pressed="${!FX()}">關</button><button data-set="fx" data-v="1" aria-pressed="${FX()}">開</button></div>`:''}
   <div class="seg"><span>字體</span><button data-set="font" data-v="s" aria-pressed="${fontPref()==='s'}">小</button><button data-set="font" data-v="m" aria-pressed="${fontPref()==='m'}">中</button><button data-set="font" data-v="l" aria-pressed="${fontPref()==='l'}">大</button></div>
   <div class="seg"><span>提示</span><button data-set="tips" data-v="1" aria-pressed="${!S.noTips}">開</button><button data-set="tips" data-v="0" aria-pressed="${!!S.noTips}">關</button></div>
   <div class="seg"><span>代理人</span><button data-set="mini" data-v="react" aria-pressed="${S.mini==='react'}">反應型</button><button data-set="mini" data-v="puzzle" aria-pressed="${S.mini==='puzzle'}">解謎型</button></div>
@@ -6253,13 +6254,13 @@ function render(){
   chips.push([S.phase===1?'同伴':'戰士',S.phase===1?S.men:`${S.men}${S.vets||S.elite?`（老兵 ${S.vets}・精兵 ${S.elite}）`:''}`,S.phase>1&&S.men>command()]);
   if(S.phase>=2) chips.push(['忠誠',S.loyalty,S.loyalty<30]);
   const small=UX2()&&innerWidth<=640;
-  if(small){const SH={'銀幣':'銀','糧食':'糧','名聲':'名','惡名':'惡','戰士':'兵','同伴':'伴','忠誠':'忠'};chips.forEach(c=>{c[0]=SH[c[0]]||c[0];c[1]=String(c[1]).replace(/[・（].*$/,'');});chips.unshift(['Lv',S.lvl,false]);}
+  if(small){const SH={'銀幣':'銀','糧食':'糧','名聲':'名','惡名':'惡','戰士':'兵','同伴':'伴','忠誠':'忠'};chips.forEach(c=>{const k0=c[0];c[0]=SH[c[0]]||c[0];c[1]=k0==='戰士'&&(S.vets||S.elite)?`${S.men}（老 ${S.vets}・精 ${S.elite}）`:String(c[1]).replace(/[・（].*$/,'');});chips.unshift(['Lv',S.lvl,false]);}
   const prevC=render.prevC||{},curC={};
   $('#chips').innerHTML=chips.map(([k,v,w])=>{const n=parseInt(v,10);curC[k]=n;const ch=FX()&&k in prevC&&!isNaN(n)&&n!==prevC[k]?(n>prevC[k]?'up':'dn'):'';return `<span class="chip ${w?'warn':''}"><span>${k}</span><b class="${ch}">${v}</b></span>`;}).join('')+
     `<span class="chip"><span>${small?'':'祈福'}</span><span class="bless">${Array.from({length:maxBless()},(_,i)=>`<i class="${i<charges()?'on':''}">ᚱ</i>`).join('')}</span></span>`;
   render.prevC=curC;
   $('#side').innerHTML=charHTML();
-  $('#goal').innerHTML=goalHTML();$('#goal').onclick=()=>{if(UX2())$('#goal').classList.toggle('open');};
+  $('#goal').innerHTML=goalHTML();$('#goal').classList.toggle('full',S.phase>=3);$('#goal').onclick=()=>{if(UX2()&&S.phase<3)$('#goal').classList.toggle('open');};
   sumRender();
   const tabs=S.phase>=4?[['act','行動'],['map','挪威'],['sea','海外'],['tribe','王國'],['char','角色']]:[['act','行動'],['map','地圖'],['tribe','部落'],['char','角色']];
   $('#tabs').innerHTML=tabs.map(([k,n])=>`<button role="tab" class="tab-${k}" aria-selected="${S.tab===k}" data-tab="${k}">${n}${k==='char'&&(S.pts>0||S.talentPicks>0)?'<span class="dot"></span>':''}</button>`).join('');
