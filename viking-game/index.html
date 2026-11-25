@@ -418,6 +418,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .kcrow button.ok{border-color:#6a9a5b;color:#9fd18c}
 .kcrow button.bad{border-color:var(--blood);color:var(--blood)}
 .kclues{margin:6px 0 10px;padding-left:18px}
+.ckpt .ckr{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:6px}
+.ckpt .ckr b{font-family:var(--f-display);margin-right:4px}
+.ckpt .ckr button{display:grid;padding:6px 12px;font-size:13px;line-height:1.3}
+.ckpt .ckr button small{color:var(--muted);font-size:11px}
+.ckpt .ckmsg{color:var(--gold);font-size:12.5px;margin:4px 0 0;min-height:1em}
 .qnote{color:var(--gold)!important;display:block;margin-top:2px}
 .ec-stat{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted);margin:4px 0 8px;font-variant-numeric:tabular-nums}
 .ec-stat b{color:var(--bone)}
@@ -664,6 +669,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
           <button class="primary" id="btn-continue">繼續上次的傳奇</button>
           <span style="color:var(--muted);font-size:13px" id="continue-info"></span>
         </div>
+        <div class="field ckpt" id="ckpt-row" hidden></div>
         <div class="field"><label for="in-name">你的名字</label><input id="in-name" maxlength="8" value="雷夫" autocomplete="off"></div>
         <div class="field"><span class="lbl">主角</span><div class="looks" id="looks"></div></div>
         <div class="field"><span class="lbl">決鬥代理人的玩法（勇士替你上場時）</span><div class="opts" id="minis"></div>
@@ -1064,7 +1070,10 @@ async function initRemote(){
     const uid=await user.id();
     if(!uid) return;
     remote.db=db;remote.rdb=db;remote.uid=uid;try{remote.owner=!!(await user.isOwner());}catch(e){remote.owner=false;}hallSync();
-    const [m,sv]=await Promise.all([db.doc(rpath('meta')).get(),db.doc(rpath('save')).get()]);
+    const [m,sv,ck]=await Promise.all([db.doc(rpath('meta')).get(),db.doc(rpath('save')).get(),db.doc(rpath('ckpt')).get().catch(()=>null)]);
+    try{if(ck&&ck.exists){const d=ck.data();const ra=JSON.parse(d.json||'[]');const la=ckptAll();
+      const byId={};[...la,...ra].forEach(x=>{if(x&&x.id&&(!byId[x.id]||(x.at||0)>(byId[x.id].at||0)))byId[x.id]=x;});
+      const mg=Object.values(byId).sort((a,b)=>(b.at||0)-(a.at||0)).slice(0,2);try{localStorage.setItem(CKPT,JSON.stringify(mg));}catch(e){}}}catch(e){}
     const merged=mergeMeta(meta(),m.exists?m.data():null);
     META_CACHE=merged;try{localStorage.setItem(META,JSON.stringify(merged));}catch(e){}
     if(!m.exists||JSON.stringify(merged)!==JSON.stringify(mergeMeta(m.data(),null))) rwrite('meta',{ach:merged.ach,ends:merged.ends||{},shapes:merged.shapes||{},codex:merged.codex||{}});
@@ -3682,6 +3691,8 @@ function coronation(el){
   $('#m-restart').insertAdjacentHTML('beforebegin','<button class="primary" id="m-ch4" style="margin-bottom:8px">繼續統治：第四章「王的歲月」</button>');
   $('#m-restart').className='ghost';$('#m-restart').textContent='就此落幕，開始新的傳奇';
   $('#m-ch4').onclick=startCh4;
+  {const snap={...S,won:false,pendingCh4:1};const json=JSON.stringify(snap);try{localStorage.setItem(SAVE,json);}catch(e){}if(remote.db){remote.save={json,at:Date.now()};rwrite('save',{json,at:remote.save.at});}}
+  $('#m-restart').onclick=()=>{clearSave();S=null;Q.length=0;modalOpen=false;$('#modal').hidden=true;showTitle();};
 }
 
 /* ================= 第四章：王的歲月 ================= */
@@ -6402,7 +6413,7 @@ function hallRecord(){
   const dead=S.dead&&!(S.phase>=4&&S.flags.endKind);let ep='';try{ep=EPITHETS.find(e=>e[0]())[1];}catch(e){}
   const t=dead?(S.lastCause||'倒在半路上'):S.phase<4?ending()[1]:ch4Ending(S.flags.endKind||'win')[1];
   const fv=S.favor||{},gk=Object.keys(GODS).sort((a,b)=>(fv[b]||0)-(fv[a]||0))[0];
-  const run={id:S.runId,n:S.name,ep,t,s:hallScore(),d:S.diff,y:age(),a:Date.now(),c:S.flags.skipCh||0,
+  const run={id:S.runId,n:S.name,ep,t,s:hallScore(),d:S.diff,y:age(),a:Date.now(),c:S.flags.skipCh||S.flags.replayCh||0,
     o:S.bg||'',gk:gk&&(fv[gk]||0)>0?gk:'',gf:gk?Math.round(fv[gk]||0):0,fa:S.faith==='cross'?'cross':'old',
     sp:S.spouse&&SPOUSES[S.spouse]?SPOUSES[S.spouse].name:(S.flags.freyWed?'弗蕾亞':''),hr:S.heir?S.heir.name:'',
     cs:(S.champions||[]).map(c=>c.id+(c.oath?'*':''))};
@@ -6547,7 +6558,24 @@ function sumRender(){
 const CH_NAMES=['','第一章　孤身闖蕩','第二章　部落首領','第三章　挪威的挑戰者','第四章　王的歲月'];
 const CH_DESC=['','','剛插旗建立部落','部落已經站穩，準備挑戰各方勢力','剛戴上王冠'];
 function chUnlocked(n){const a=meta().ach;return n===1||!!(a._all||a['_ch'+n]||a.first_king||Object.keys(a).some(k=>k.startsWith('end4_')));}
-function markCh(n){const m=meta();if(m.ach['_ch'+n])return;m.ach['_ch'+n]=Date.now();saveMeta(m);}
+const CKPT='na-ckpt-v1';
+const ckptAll=()=>{try{const a=JSON.parse(localStorage.getItem(CKPT)||'[]');return Array.isArray(a)?a:[];}catch(e){return [];}};
+function ckptWrite(a){try{localStorage.setItem(CKPT,JSON.stringify(a));}catch(e){}rwrite('ckpt',{json:JSON.stringify(a),at:Date.now()});}
+function ckptSave(n){
+  if(!S||S.sandbox) return;
+  S.runId=S.runId||(Date.now().toString(36)+Math.random().toString(36).slice(2,6));S.lineage=S.lineage||S.runId;
+  let a=ckptAll();let r=a.find(x=>x.id===S.lineage);
+  if(!r){r={id:S.lineage,cks:{}};a.unshift(r);}
+  r.name=S.name;r.at=Date.now();r.cks[n]={json:JSON.stringify({...S,won:false,dead:false}),lvl:S.lvl,age:age(),at:Date.now()};
+  a=[r,...a.filter(x=>x!==r)].slice(0,2);ckptWrite(a);
+}
+function ckptLoad(id,n){
+  const r=ckptAll().find(x=>x.id===id);if(!r||!r.cks[n])return false;
+  try{S=JSON.parse(r.cks[n].json);}catch(e){return false;}
+  S.runId=Date.now().toString(36)+Math.random().toString(36).slice(2,6);S.flags=S.flags||{};S.flags.replayCh=n;S.won=false;S.dead=false;
+  Q.length=0;modalOpen=false;startGame();save();return true;
+}
+function markCh(n){ckptSave(n);const m=meta();if(m.ach['_ch'+n])return;m.ach['_ch'+n]=Date.now();saveMeta(m);}
 // 各章開局的標準進度（參考一般玩家打到那一章時的狀態）
 const CH_PRESET={
   2:{turn:18,lvl:5,silver:70,food:25,fame:30,men:3,vets:0,elite:0,tlv:1,bld:{},champs:0,bless:0},
@@ -6652,13 +6680,19 @@ function showTitle(){
   $('#bk-apply').onclick=()=>{if(restoreCode($('#bk-text').value)){showTitle();$('#ach-box').open=true;$('#bk-area').hidden=false;$('#bk-msg').textContent='已還原。';}else $('#bk-msg').textContent='備份碼看起來不對，請確認有完整複製。';};
   const sv=load();
   $('#continue-row').hidden=!sv;
-  if(sv) $('#continue-info').textContent=`${sv.name} · 第 ${sv.lvl} 級 · ${['','孤身闖蕩','部落首領','挪威的挑戰者','挪威之王'][sv.phase]} · ${DIFF[sv.diff].name}`;
+  if(sv) $('#continue-info').textContent=`${sv.name} · 第 ${sv.lvl} 級 · ${sv.pendingCh4?'剛加冕，準備進入第四章':['','孤身闖蕩','部落首領','挪威的挑戰者','挪威之王'][sv.phase]} · ${DIFF[sv.diff].name}`;
+  const ca=ckptAll().filter(r=>Object.keys(r.cks||{}).length);
+  $('#ckpt-row').hidden=!ca.length;
+  $('#ckpt-row').innerHTML=ca.length?`<span class="lbl">回到之前的章節（保留當時的角色、能力和勇士）</span>${ca.map(r=>`<div class="ckr"><b>${esc(r.name||'')}</b>${[2,3,4].filter(n=>r.cks[n]).map(n=>`<button class="ghost" data-ck="${esc(r.id)}" data-cn="${n}">${['','','第二章','第三章','第四章'][n]}<small>Lv ${r.cks[n].lvl}・${r.cks[n].age} 歲</small></button>`).join('')}</div>`).join('')}<p class="ckmsg" id="ck-msg"></p>`:'';
+  let ckArm=null;$('#ckpt-row').querySelectorAll('[data-ck]').forEach(b=>b.onclick=()=>{const k=b.dataset.ck+'|'+b.dataset.cn;
+    if(sv&&ckArm!==k){ckArm=k;$('#ck-msg').textContent='目前進行中的傳奇會被取代。再按一次確認。';return;}
+    ckptLoad(b.dataset.ck,+b.dataset.cn);});
 }
 function startGame(){
   if(S){S.favor=S.favor||{odin:0,thor:0,tyr:0,freyja:0,loki:0};S.master=S.master||{};}
   $('#title-screen').hidden=true;$('#game-screen').hidden=false;window.scrollTo(0,0);render();checkPost();
 }
-$('#btn-continue').onclick=()=>{S=load();if(S)startGame();};
+$('#btn-continue').onclick=()=>{S=load();if(!S)return;if(S.pendingCh4){delete S.pendingCh4;startGame();startCh4();}else startGame();};
 $('#btn-start').onclick=()=>{
   const name=($('#in-name').value.trim()||'雷夫').slice(0,8);
   const bg=BGS.find(b=>b.id===NEW.bg);
@@ -6858,12 +6892,12 @@ details.adis summary{color:var(--muted);font-size:14px;padding:10px 4px;cursor:p
   const fieldOf=id=>{const e=document.getElementById(id);return e&&e.closest('.field');};
   const parts={cont:$('#continue-row'),name:fieldOf('in-name'),looks:fieldOf('looks'),minis:fieldOf('minis'),bgs:fieldOf('bgs'),diffs:fieldOf('diffs'),
     legacy:$('#legacy-field'),ch:$('#ch-field'),start:$('#btn-start').closest('.row'),extra:$('#btn-train').closest('.row'),
-    hall:$('#hall-box'),codex:$('#codex-box'),ach:$('#ach-box')};
+    hall:$('#hall-box'),codex:$('#codex-box'),ach:$('#ach-box'),ends:$('#end-box'),ckpt:$('#ckpt-row')};
   const home=document.createElement('div');home.className='home-btns';
   home.innerHTML=`<button class="hbtn" id="hm-cont">繼續上次的傳奇<small id="hm-cinfo"></small></button>
     <button class="hbtn" id="hm-new">新的傳奇</button>
     <div class="home-grid"><button class="ghost" id="hm-train">訓練場</button><button class="ghost" id="hm-gal">回憶畫廊</button></div>`;
-  form.insertBefore(home,parts.name);
+  form.insertBefore(home,parts.name);home.after(parts.ckpt);
   parts.extra.classList.add('st-off');
   // 名字＋骰子
   const NAMES={m:['斯諾里','凱蒂爾','尼亞爾','阿斯穆德','托吉爾斯','赫爾吉','斯卡吉','維格魯夫','霍爾德','埃文德'],f:['索爾維格','赫爾加','芙蕾迪絲','維格迪斯','阿斯拉格','拉格希爾德','古德麗德','因葛波格']};
@@ -6918,7 +6952,7 @@ details.adis summary{color:var(--muted);font-size:14px;padding:10px 4px;cursor:p
     const homeMode=step<0;
     TS.classList.toggle('wiz',!homeMode);document.body.classList.toggle('wizon',!homeMode&&!TS.hidden);
     ['name','looks','minis','bgs','diffs','legacy','ch'].forEach(k=>parts[k].classList.toggle('st-off',homeMode||!ST[step].slice(1).includes(k)));
-    [parts.hall,parts.codex,parts.ach,home].forEach(e=>e.classList.toggle('st-off',!homeMode));
+    [parts.hall,parts.codex,parts.ach,parts.ends,parts.ckpt,home].forEach(e=>e.classList.toggle('st-off',!homeMode));
     parts.cont.classList.add('st-off');parts.start.classList.add('st-off');
     const sv=load();$('#hm-cont').classList.toggle('st-off',!sv);$('#hm-new').classList.toggle('dark',!!sv);
     if(sv)$('#hm-cinfo').textContent=$('#continue-info').textContent;
