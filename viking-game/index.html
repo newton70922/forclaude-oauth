@@ -367,10 +367,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
   .ux2 .top .wrap{padding-top:6px;padding-bottom:6px}
   .ux2 .top-line .nm{font-size:17px}
   .ux2 .top-line .sub{font-size:12px}
-  .ux2 .bars{grid-template-columns:1fr;gap:3px;margin-top:5px}
+  .ux2 .bars{grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
   .ux2 .bar .row{display:none!important}
-  .ux2 .bar.hp .track{height:6px}
-  .ux2 .bar.xp .track{height:3px}
+  .ux2 .bar .track{height:20px;border-radius:5px;position:relative}
+  .ux2 .bar .track::after{content:attr(data-t);position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.85);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .ux2 .bar.xp .fill{background:#a8843d}
   .ux2 .chips{gap:2px 9px;font-size:12px;margin-top:5px;flex-wrap:wrap}
   .ux2 .chip{gap:3px;white-space:nowrap}
   .ux2 .chip .bless i{margin:0}
@@ -1276,12 +1277,13 @@ const BT_GIANT={sc_bt_1:['sc_rag_giants'],sc_bt_2:['sc_rm_clash','sc_rag_ours'],
 const btImg=(o,k)=>sceneImg(o.foeType==='giant'?(BT_GIANT[k].find(x=>ART_HAVE.has(x))||''):k);
 // 電影分鏡：一頁一張圖、一兩句話，按「繼續」翻頁。art 可以給好幾個，用第一張已經畫好的
 // 大字台詞太長時：split＝從中間最近的標點斷成兩行；line＝縮小字體擠成一行
-let BIG_MODE='off';
-function bigFit(el){
+let BIG_MODE='auto';
+function bigFit(el,eyebrow){
   const b=el.querySelector('.cine-big');if(!b||BIG_MODE==='off'||/<|\n/.test(b.innerHTML))return;
+  const mode=BIG_MODE==='auto'?(/王者覺醒/.test(eyebrow||'')?'split':'line'):BIG_MODE;
   const raw=b.textContent.trim(),w=b.clientWidth,fs=parseFloat(getComputedStyle(b).fontSize);if(!w)return;
   const per=Math.floor(w/fs);if(raw.length<=per)return;
-  if(BIG_MODE==='line'&&raw.length<=22){b.style.whiteSpace='nowrap';b.style.fontSize=Math.max(16,Math.floor(w/raw.length*.97))+'px';return;}
+  if(mode==='line'&&raw.length<=22){b.style.whiteSpace='nowrap';b.style.fontSize=Math.max(16,Math.floor(w/raw.length*.97))+'px';return;}
   const cs=[...raw].map((c,i)=>'，、。！？；：…'.includes(c)?i:-1).filter(i=>i>1&&i<raw.length-2);if(!cs.length)return;
   const mid=raw.length/2,cut=cs.reduce((a,c)=>Math.abs(c+1-mid)<Math.abs(a+1-mid)?c:a);
   b.innerHTML=esc(raw.slice(0,cut+1))+'<br>'+esc(raw.slice(cut+1));
@@ -1299,7 +1301,7 @@ function cineView(el,pages,done,eyebrow){
     el.innerHTML=`<div class="${p.shake?'cine-shake':''}">${img}${eyebrow?`<p class="eyebrow">${eyebrow}</p>`:''}${p.title?`<h2>${p.title}</h2>`:''}
       <p class="${p.big?'cine-big':'cine-txt'}">${p.text}</p><div class="cn-row"><button class="primary" id="cn-ok">${p.btn||'繼續'}</button>${seen&&i<pages.length-1?'<button class="ghost cn-skip" id="cn-skip">跳過</button>':''}</div></div>`;
     if(p.shake)sfx('drum');
-    bigFit(el);
+    bigFit(el,eyebrow);
     $('#cn-ok').onclick=()=>{i++;if(i<pages.length)show();else finish();};$('#cn-ok').focus();
     const sk=$('#cn-skip');if(sk)sk.onclick=finish;
     const nx=pages[i+1],na=nx&&pickArt(nx.art);if(na){const im=new Image();im.src=`art/${na.startsWith('sc_')?na:artKey(na)}.webp`;}
@@ -6143,6 +6145,7 @@ function render(){
   $('#h-name').textContent=S.name+(S.tribe?` · ${S.tribe}`:'');
   $('#h-sub').textContent=`${stamp()}${S.weather&&S.weather!=='fair'?`・${WEATHER[S.weather].name}`:''} · ${age()} 歲 · ${D().name}`;
   $('#h-hp').textContent=`${Math.max(0,S.hp)} / ${maxHp()}`;
+  $('#h-hpbar').parentNode.dataset.t=`生命 ${Math.max(0,S.hp)} / ${maxHp()}`;$('#h-xpbar').parentNode.dataset.t=`第 ${S.lvl} 級　${S.xp} / ${xpNeed()}`;
   $('#h-hpbar').style.width=clamp(S.hp/maxHp()*100,0,100)+'%';
   $('#h-lvl').textContent=`第 ${S.lvl} 級`;
   $('#h-xp').textContent=`${S.xp} / ${xpNeed()}`;
@@ -6152,7 +6155,7 @@ function render(){
   chips.push([S.phase===1?'同伴':'戰士',S.phase===1?S.men:`${S.men}${S.vets||S.elite?`（老兵 ${S.vets}・精兵 ${S.elite}）`:''}`,S.phase>1&&S.men>command()]);
   if(S.phase>=2) chips.push(['忠誠',S.loyalty,S.loyalty<30]);
   const small=UX2()&&innerWidth<=640;
-  if(small){const SH={'銀幣':'銀','糧食':'糧','名聲':'名','惡名':'惡','戰士':'兵','同伴':'伴','忠誠':'忠'};chips.forEach(c=>{c[0]=SH[c[0]]||c[0];c[1]=String(c[1]).replace(/[・（].*$/,'');});chips.unshift(['命',`${S.hp}/${maxHp()}`,S.hp<maxHp()*.3]);chips.unshift(['Lv',`${S.lvl}</b><span class="xpn">${S.xp}/${xpNeed()}</span><b>`,false]);}
+  if(small){const SH={'銀幣':'銀','糧食':'糧','名聲':'名','惡名':'惡','戰士':'兵','同伴':'伴','忠誠':'忠'};chips.forEach(c=>{c[0]=SH[c[0]]||c[0];c[1]=String(c[1]).replace(/[・（].*$/,'');});}
   const prevC=render.prevC||{},curC={};
   $('#chips').innerHTML=chips.map(([k,v,w])=>{const n=parseInt(v,10);curC[k]=n;const ch=FX()&&k in prevC&&!isNaN(n)&&n!==prevC[k]?(n>prevC[k]?'up':'dn'):'';return `<span class="chip ${w?'warn':''}"><span>${k}</span><b class="${ch}">${v}</b></span>`;}).join('')+
     `<span class="chip"><span>${small?'':'祈福'}</span><span class="bless">${Array.from({length:maxBless()},(_,i)=>`<i class="${i<charges()?'on':''}">ᚱ</i>`).join('')}</span></span>`;
