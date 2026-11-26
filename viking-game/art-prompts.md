@@ -2107,11 +2107,11 @@ Two red-bearded berserkers, father Ragnar and son Bjorn, each carrying a whole c
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_rr_hrym | 赫列姆從船上跳下來 |
-| 2 | sc_rr_hrym_fall | 全軍合力拉倒赫列姆 |
-| 3 | sc_rr_garm | 冥犬加姆衝破盾牆 |
-| 4 | sc_rr_jormun | 世界巨蛇的毒霧 |
-| 5 | sc_rr_surtr | 火巨人蘇爾特 |
+| 1 | sc_rr_hrym | 赫列姆從船上跳下來 （✅ 已收到） |
+| 2 | sc_rr_hrym_fall | 全軍合力拉倒赫列姆 （✅ 已收到） |
+| 3 | sc_rr_garm | 冥犬加姆衝破盾牆 （✅ 已收到） |
+| 4 | sc_rr_jormun | 世界巨蛇的毒霧 （✅ 已收到） |
+| 5 | sc_rr_surtr | 火巨人蘇爾特 （✅ 已收到） |
 | 6 | sc_rr_fenrir | 巨狼芬里爾張開大口 |
 | 7 | sc_rr_step | 你走到最前面 |
 
@@ -2697,7 +2697,8 @@ A warm intimate scene of married life in a Viking king's household. Sigrid, a pr
 | 1 | sc_mk_wreck | 海灘上的倖存者 |
 | 2 | sc_ev_gunref | 公主的回禮 |
 
-**1. sc_mk_wreck（海灘上的倖存者）**
+**1
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this scene can happen before they become king).. sc_mk_wreck（海灘上的倖存者）**
 
 ```
 
@@ -3581,12 +3582,12 @@ Inside a grand Frankish cathedral: the Frankish king in rich robes embraces a Vi
 | 7 | sc_ev_merchant | 翻倒的商隊 （✅ 已收到） |
 | 8 | sc_ev_witch | 霧裡的老婦人 （✅ 已收到） |
 | 9 | sc_ev_runestone | 長滿青苔的符文石 （✅ 已收到） |
-| 10 | sc_ev_hunterB | 賞金獵人（⚠ 提示詞已修正，請照新的重畫） |
+| 10 | sc_ev_hunterB | 賞金獵人（⚠ 提示詞已修正，請照新的重畫） （✅ 已收到） |
 | 11 | sc_ev_atone1 | 瞎眼的老人 （✅ 已收到） |
 | 12 | sc_ev_atone2 | 神殿的祭司 （✅ 已收到） |
 | 13 | sc_ev_atone3 | 仇人的兒子 （✅ 已收到） |
 | 14 | sc_ev_children | 木劍 （✅ 已收到） |
-| 15 | sc_ev_gyr | 不服的聲音（⚠ 提示詞已修正，請照新的重畫：營火邊的壯漢蓋爾） |
+| 15 | sc_ev_gyr | 不服的聲音（⚠ 提示詞已修正，請照新的重畫：營火邊的壯漢蓋爾） （✅ 已收到） |
 | 16 | sc_ev_grumble | 戰士們的怨言 （✅ 已收到；GPT 照舊提示詞畫的 gyr 也收下，當作這個事件的第二張） |
 | 17 | sc_ev_traitor | 被撬開的銀箱 （✅ 已收到） |
 | 18 | sc_ev_oracle | 祭司的夢 （✅ 已收到） |
@@ -5167,10 +5168,10 @@ The battle of Stiklestad (cross banners against raven banners, muddy snow): a pr
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_ch2_flag | 插下旗子 |
-| 2 | sc_ch2_build | 第一間長屋 |
-| 3 | sc_ch2_fire | 第一個晚上的營火 |
-| 4 | sc_ch2_arrive | 第一批來投靠的人 |
+| 1 | sc_ch2_flag | 插下旗子 （✅ 已收到） |
+| 2 | sc_ch2_build | 第一間長屋 （✅ 已收到） |
+| 3 | sc_ch2_fire | 第一個晚上的營火 （✅ 已收到） |
+| 4 | sc_ch2_arrive | 第一批來投靠的人 （✅ 已收到） |
 
 **1. sc_ch2_flag（插下旗子）**
 
@@ -5218,16 +5219,16 @@ Morning at the settlement's simple wooden gate: newcomers arriving with their bu
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | c_athel | 艾瑟斯坦（勇士立繪） |
-| 2 | sc_mk_ship | 船艙裡的修士 |
-| 3 | sc_mk_bully | 被欺負的修士 |
-| 4 | sc_mk_map | 樹皮上的航線 |
-| 5 | sc_mk_pray | 傷兵帳篷裡的禱詞 |
-| 6 | sc_mk_axe | 練武場的斧頭 |
-| 7 | sc_mk_join | 剃頭拿斧 |
-| 8 | sc_mk_trader | 碼頭上的南方商人 |
-| 9 | sc_mk_betray | 碼頭上的影子 |
-| 10 | sc_mk_letter | 留在桌上的信 |
+| 1 | c_athel | 艾瑟斯坦（勇士立繪） （✅ 已收到） |
+| 2 | sc_mk_ship | 船艙裡的修士 （✅ 已收到） |
+| 3 | sc_mk_bully | 被欺負的修士 （✅ 已收到） |
+| 4 | sc_mk_map | 樹皮上的航線 （⚠ 需重畫：拿掉王冠） |
+| 5 | sc_mk_pray | 傷兵帳篷裡的禱詞 （✅ 已收到） |
+| 6 | sc_mk_axe | 練武場的斧頭 （⚠ 需重畫：拿掉王冠） |
+| 7 | sc_mk_join | 剃頭拿斧 （⚠ 需重畫：拿掉王冠） |
+| 8 | sc_mk_trader | 碼頭上的南方商人 （⚠ 需重畫：拿掉王冠） |
+| 9 | sc_mk_betray | 碼頭上的影子 （✅ 已收到） |
+| 10 | sc_mk_letter | 留在桌上的信 （✅ 已收到） |
 
 **1. c_athel（艾瑟斯坦（勇士立繪））**
 
@@ -5260,7 +5261,7 @@ Inside a Viking longhouse: a few laughing warriors have thrown a small wooden cr
 ```
 
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is chapter 4, they are already king, so a simple iron crown over the hood is allowed).
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this scene can happen before they become king).
 Behind a storehouse in a Viking town: Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord crouches secretly, drawing a map of a fjord and sea routes with charcoal on a piece of birch bark; he looks up startled as the hooded crowned king's shadow falls over him. Suspicion, ambiguity.
 ```
 
@@ -5278,7 +5279,7 @@ Night in a field tent full of wounded Viking warriors: Aethelstan, a young Anglo
 ```
 
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is chapter 4, they are already king, so a simple iron crown over the hood is allowed).
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this scene can happen before they become king).
 A snowy Viking training yard: Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord, sleeves rolled up and hands raw, clumsily swinging a bearded axe at a wooden post for the first time; the hooded crowned king stands next to him showing the grip, seen from behind. He is smiling for the first time.
 ```
 
@@ -5287,7 +5288,7 @@ A snowy Viking training yard: Aethelstan, a young Anglo-Saxon monk around twenty
 ```
 
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is chapter 4, they are already king, so a simple iron crown over the hood is allowed).
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this scene can happen before they become king).
 Inside the king's longhall in the morning, warriors watching: Aethelstan, a young Anglo-Saxon former monk around twenty-five: lean but stronger now, the tonsure grown out into short brown hair, a short beard, intelligent calm eyes, Viking wool tunic and a fur-trimmed cloak over a simple mail shirt, a small wooden cross still on a leather cord at his neck, a bearded axe in hand, his head freshly shaved clean of the monk's tonsure, stands before the hooded crowned king (seen from behind) holding a bearded axe, cross still at his neck. A man who chose his new home.
 ```
 
@@ -5296,7 +5297,7 @@ Inside the king's longhall in the morning, warriors watching: Aethelstan, a youn
 ```
 
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak; this is chapter 4, they are already king, so a simple iron crown over the hood is allowed).
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this scene can happen before they become king).
 A Viking harbor at dusk: Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord, thin and with an iron thrall collar around his neck, talks quietly with a foreign southern merchant in a fine cloak beside a trading ship; the hooded crowned king watches from far up the jetty, seen from behind. Unease.
 ```
 
@@ -5323,10 +5324,10 @@ Early morning in an empty sleeping corner of a Viking longhouse: a bedroll folde
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | v_torger | 御衛長托爾格（立繪） |
-| 2 | sc_k_torger | 托爾格擋在王廳門口 |
-| 3 | sc_k_torger_fall | 托爾格跪下 |
-| 4 | sc_k_torger_help | 托爾格扶著老王離開 |
+| 1 | v_torger | 御衛長托爾格（立繪） （✅ 已收到） |
+| 2 | sc_k_torger | 托爾格擋在王廳門口 （✅ 已收到） |
+| 3 | sc_k_torger_fall | 托爾格跪下 （✅ 已收到） |
+| 4 | sc_k_torger_help | 托爾格扶著老王離開 （✅ 已收到） |
 
 **1. v_torger（御衛長托爾格（立繪））**
 
