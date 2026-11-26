@@ -10,6 +10,1770 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
+## ★ v0.17 補圖：原本沒有配圖的劇情（171 張）
+
+全遊戲盤點過一次：這些劇情原本只有文字或只有人物立繪。程式都接好了，圖一到就會自動出現；還沒到之前維持原樣。
+
+建議順序：W1 → W5 → W8 → W2 → W10 → W9 → W7 → W3 → W4 → W6。
+
+### W1. 勇士的心事（37 張，16:9）
+
+每位勇士的個人任務：開頭（_a）、關鍵時刻（_b）、完成（_w）。阿斯特麗德的開頭和西格麗德的結尾已經有圖了。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_q_hakon_a | 哈康：最後一個首領的墳（開頭） |
+| 2 | sc_q_hakon_b | 哈康：山谷裡的強盜 |
+| 3 | sc_q_hakon_w | 哈康：在舊主的墳前 |
+| 4 | sc_q_astrid_b | 阿斯特麗德：獨臂奧諾德 |
+| 5 | sc_q_astrid_w | 阿斯特麗德：父親的盾 |
+| 6 | sc_q_thorfinn_a | 托爾芬：沉默的理由（開頭） |
+| 7 | sc_q_thorfinn_b | 托爾芬：海岬上的墳 |
+| 8 | sc_q_thorfinn_w | 托爾芬：終於哭出來 |
+| 9 | sc_q_sven_a | 赫羅爾夫：父親的船（開頭） |
+| 10 | sc_q_sven_b | 赫羅爾夫：紅帆船 |
+| 11 | sc_q_sven_w | 赫羅爾夫：奪回紅帆船 |
+| 12 | sc_q_una_a | 烏娜：霧沼的女巫（開頭） |
+| 13 | sc_q_una_b | 烏娜：解咒 |
+| 14 | sc_q_una_w | 烏娜：霧沼變綠了 |
+| 15 | sc_q_bragi_a | 布拉吉：失落的詩（開頭） |
+| 16 | sc_q_bragi_b | 布拉吉：山上的老詩人 |
+| 17 | sc_q_bragi_w | 布拉吉：最好的一首歌 |
+| 18 | sc_q_einar_a | 埃納：冬狼王（開頭） |
+| 19 | sc_q_einar_b | 埃納：白色的狼王 |
+| 20 | sc_q_einar_w | 埃納：狼王殺手 |
+| 21 | sc_q_gudrun_a | 古德倫：天上掉下來的鐵（開頭） |
+| 22 | sc_q_gudrun_b | 古德倫：星鐵 |
+| 23 | sc_q_gudrun_w | 古德倫：星鐵之斧 |
+| 24 | sc_q_ragnar_a | 拉格納：狂怒的代價（開頭） |
+| 25 | sc_q_ragnar_b | 拉格納：先知的試煉 |
+| 26 | sc_q_ragnar_w | 拉格納：平靜下來 |
+| 27 | sc_q_osric_a | 古托姆：舊主的印章（開頭） |
+| 28 | sc_q_osric_b | 古托姆：骨灰 |
+| 29 | sc_q_osric_w | 古托姆：帶舊主回家 |
+| 30 | sc_q_bjorn_a | 比約恩：母親的墳（開頭） |
+| 31 | sc_q_bjorn_b | 比約恩：海島上的墳 |
+| 32 | sc_q_bjorn_w | 比約恩：父子在墳前 |
+| 33 | sc_q_sigrid_a | 西格麗德：父親的官司（開頭） |
+| 34 | sc_q_sigrid_b | 西格麗德：沒輸過的決鬥者 |
+| 35 | sc_q_knut_a | 克努特：老同夥（開頭） |
+| 36 | sc_q_knut_b | 克努特：疤面的名號 |
+| 37 | sc_q_knut_w | 克努特：村民的眼神 |
+
+**1. sc_q_hakon_a（哈康：最後一個首領的墳（開頭））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Hakon, an old one-eyed Viking veteran in his sixties, leather eyepatch, long grey beard in two braids, a battered round shield covered in sword cuts, by the longhouse fire at night, an unusual earnest look, asking the hooded young leader (from behind) to walk with him to an old chieftain's grave in a southern valley.
+```
+
+**2. sc_q_hakon_b（哈康：山谷裡的強盜）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Hakon, an old one-eyed Viking veteran in his sixties, leather eyepatch, long grey beard in two braids, a battered round shield covered in sword cuts, in a misty valley, an old burial mound being dug up by a camp of bandits looting grave goods; Hakon's hand trembling on his axe with rage, the hooded leader beside him.
+```
+
+**3. sc_q_hakon_w（哈康：在舊主的墳前）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Hakon, an old one-eyed Viking veteran in his sixties, leather eyepatch, long grey beard in two braids, a battered round shield covered in sword cuts, kneeling before the restored grave mound at dusk, red-eyed, speaking to the dead chieftain about every battle, the hooded leader standing behind him.
+```
+
+**4. sc_q_astrid_b（阿斯特麗德：獨臂奧諾德）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Astrid, a fierce shieldmaiden around thirty, a long thick blonde braid, sides of the head shaved, a painted round shield with a black raven, chainmail, facing Onund the One-Armed, an old but dangerous one-armed Viking killer with a heavy axe, in a ring of onlookers; she grips her shield, ready to fight alone.
+```
+
+**5. sc_q_astrid_w（阿斯特麗德：父親的盾）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Astrid, a fierce shieldmaiden around thirty, a long thick blonde braid, sides of the head shaved, a painted round shield with a black raven, chainmail, after the duel, burying a broken piece of her father's old shield beside the fallen Onund, then looking back at the hooded leader with quiet thanks.
+```
+
+**6. sc_q_thorfinn_a（托爾芬：沉默的理由（開頭））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Thorfinn, a tall broad-shouldered quiet Viking warrior, short dark beard, calm gentle grey eyes, simple dark wool tunic, a large bearded axe, for the first time speaking openly, sitting on a rock by the sea at night, telling the hooded leader about his dead brother.
+```
+
+**7. sc_q_thorfinn_b（托爾芬：海岬上的墳）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Thorfinn, a tall broad-shouldered quiet Viking warrior, short dark beard, calm gentle grey eyes, simple dark wool tunic, a large bearded axe, on a windswept headland, a small cairn of stones; he stands before it, unable to speak, and turns to the hooded leader.
+```
+
+**8. sc_q_thorfinn_w（托爾芬：終於哭出來）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Thorfinn, a tall broad-shouldered quiet Viking warrior, short dark beard, calm gentle grey eyes, simple dark wool tunic, a large bearded axe, kneeling at the cairn on the headland, weeping openly for the first time, the hooded leader's hand on his shoulder, wind and sea spray.
+```
+
+**9. sc_q_sven_a（赫羅爾夫：父親的船（開頭））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Hrolf, a proud Viking jarl's son with reddish hair and a sharp handsome face, a blood-red cloak with a big silver brooch, his red-sailed longship, drinking by the fire, staring at the flames, speaking about his dead father's red-sailed longship taken by a new jarl.
+```
+
+**10. sc_q_sven_b（赫羅爾夫：紅帆船）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Hrolf, a proud Viking jarl's son with reddish hair and a sharp handsome face, a blood-red cloak with a big silver brooch, his red-sailed longship, in his cold home fjord, the new jarl's guards on the dock in front of a beautiful red-sailed longship; Hrolf and the hooded leader approach.
+```
+
+**11. sc_q_sven_w（赫羅爾夫：奪回紅帆船）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Hrolf, a proud Viking jarl's son with reddish hair and a sharp handsome face, a blood-red cloak with a big silver brooch, his red-sailed longship, standing at the prow of the recovered red-sailed longship, laughing like a boy, the hooded leader beside him.
+```
+
+**12. sc_q_una_a（烏娜：霧沼的女巫（開頭））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Una, an old wise herbalist woman, deeply wrinkled kind face, long white hair under a grey wool hood, bundles of herbs and bone charms at her belt, her hands shaking, showing the hooded leader a cup of blackened marsh water, fear in her old eyes.
+```
+
+**13. sc_q_una_b（烏娜：解咒）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Una, an old wise herbalist woman, deeply wrinkled kind face, long white hair under a grey wool hood, bundles of herbs and bone charms at her belt, in the center of a misty marsh with bubbling black water, chanting a spell, glowing runes floating in the air, the hooded leader repeating them.
+```
+
+**14. sc_q_una_w（烏娜：霧沼變綠了）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Una, an old wise herbalist woman, deeply wrinkled kind face, long white hair under a grey wool hood, bundles of herbs and bone charms at her belt, the marsh turning green and clean again with flowers, smiling, pressing a bunch of dried flowers into the hooded leader's hands.
+```
+
+**15. sc_q_bragi_a（布拉吉：失落的詩（開頭））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Bragi, a cheerful skald in his thirties, twinkling eyes, neatly braided brown beard, colorful embroidered cloak, a small wooden lyre, leaning in mysteriously by the fire, telling a legend about a drop of Odin's mead of poetry falling to earth.
+```
+
+**16. sc_q_bragi_b（布拉吉：山上的老詩人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Bragi, a cheerful skald in his thirties, twinkling eyes, neatly braided brown beard, colorful embroidered cloak, a small wooden lyre, in a mountain hut, a blind old poet with a carved bone hnefatafl board set up, inviting the hooded leader to play while Bragi watches.
+```
+
+**17. sc_q_bragi_w（布拉吉：最好的一首歌）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Bragi, a cheerful skald in his thirties, twinkling eyes, neatly braided brown beard, colorful embroidered cloak, a small wooden lyre, at dawn on the mountain, sitting silently with his lyre after hearing the four-line poem, tears in his eyes, inspired.
+```
+
+**18. sc_q_einar_a（埃納：冬狼王（開頭））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Einar, a lean young Viking hunter, sharp alert eyes, a grey wolf-pelt hood, a longbow and a quiver, eyes shining with excitement in a snowy herders' village, a slaughtered sheep pen behind him.
+```
+
+**19. sc_q_einar_b（埃納：白色的狼王）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Einar, a lean young Viking hunter, sharp alert eyes, a grey wolf-pelt hood, a longbow and a quiver, on a snowy ridge, a gigantic white wolf as big as a horse stares down; Einar draws his bow, the hooded leader with axe ready beside him.
+```
+
+**20. sc_q_einar_w（埃納：狼王殺手）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Einar, a lean young Viking hunter, sharp alert eyes, a grey wolf-pelt hood, a longbow and a quiver, draping the white wolf's pelt over the hooded leader's shoulders in the snow, the slain wolf king behind them.
+```
+
+**21. sc_q_gudrun_a（古德倫：天上掉下來的鐵（開頭））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Gudrun, a strong female blacksmith in her thirties, muscular arms, soot on her face, dark hair tied up, a heavy leather apron and a smithing hammer, bursting into the longhouse holding a black meteorite stone, excited, sparks of iron in it.
+```
+
+**22. sc_q_gudrun_b（古德倫：星鐵）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Gudrun, a strong female blacksmith in her thirties, muscular arms, soot on her face, dark hair tied up, a heavy leather apron and a smithing hammer, on a mountain, villagers surrounding a large black meteorite still faintly warm and steaming in the snow, their elder demanding payment.
+```
+
+**23. sc_q_gudrun_w（古德倫：星鐵之斧）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Gudrun, a strong female blacksmith in her thirties, muscular arms, soot on her face, dark hair tied up, a heavy leather apron and a smithing hammer, stepping out of her forge after seven days, holding a black axe with star-like patterns, offering it to the hooded leader.
+```
+
+**24. sc_q_ragnar_a（拉格納：狂怒的代價（開頭））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Ragnar, a huge bare-chested red-bearded berserker with a bear pelt and blue woad tattoos, sitting outside the longhouse holding his head in his hands at dawn, ashamed, a smashed bench beside him.
+```
+
+**25. sc_q_ragnar_b（拉格納：先知的試煉）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Ragnar, a huge bare-chested red-bearded berserker with a bear pelt and blue woad tattoos, in a misty marsh, an eerie old seeress pointing at the hooded leader; Ragnar in berserker rage being faced by the hooded leader.
+```
+
+**26. sc_q_ragnar_w（拉格納：平靜下來）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Ragnar, a huge bare-chested red-bearded berserker with a bear pelt and blue woad tattoos, lying on the ground panting, his eyes returning to normal, smiling up at the hooded leader who offers a hand.
+```
+
+**27. sc_q_osric_a（古托姆：舊主的印章（開頭））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Guthorm, a composed grey-streaked former jarl's general, neatly trimmed beard, fine dark-blue tunic, silver arm rings, holding a silver seal ring in the firelight, explaining to the hooded leader.
+```
+
+**28. sc_q_osric_b（古托姆：骨灰）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Guthorm, a composed grey-streaked former jarl's general, neatly trimmed beard, fine dark-blue tunic, silver arm rings, outside Greystone fortress, a guarded tomb; Guthorm calmly negotiating with the guards, hands open, no weapons drawn.
+```
+
+**29. sc_q_osric_w（古托姆：帶舊主回家）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Guthorm, a composed grey-streaked former jarl's general, neatly trimmed beard, fine dark-blue tunic, silver arm rings, burying an urn of ashes on a hillside of his homeland at sunset, then handing a silver seal to the hooded leader.
+```
+
+**30. sc_q_bjorn_a（比約恩：母親的墳（開頭））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Bjorn, a young red-haired Viking berserker in his twenties wearing a heavy unbreakable ring-mail shirt, sober for once, sitting by the sea, looking toward his father Ragnar in the distance.
+```
+
+**31. sc_q_bjorn_b（比約恩：海島上的墳）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Bjorn, a young red-haired Viking berserker in his twenties wearing a heavy unbreakable ring-mail shirt, a grassy grave on a small island; Ragnar sits in the longship refusing to get out, Bjorn on the shore looking back at the hooded leader.
+```
+
+**32. sc_q_bjorn_w（比約恩：父子在墳前）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Bjorn, a young red-haired Viking berserker in his twenties wearing a heavy unbreakable ring-mail shirt, the huge red-bearded berserker Ragnar kneeling and weeping at the island grave, his son Bjorn resting a hand on his father's shoulder.
+```
+
+**33. sc_q_sigrid_a（西格麗德：父親的官司（開頭））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Sigrid, a proud young shieldmaiden with a thick dark-blonde braid, a richly painted round shield with her father's sigil, a blue wool cloak, reading a letter with a dark face in the hall, worried for her old father.
+```
+
+**34. sc_q_sigrid_b（西格麗德：沒輸過的決鬥者）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Sigrid, a proud young shieldmaiden with a thick dark-blonde braid, a richly painted round shield with her father's sigil, a blue wool cloak, at a law stone, a one-eyed old champion of forty holmgangs faces her; she takes a deep breath and raises her painted shield, crowd watching.
+```
+
+**35. sc_q_knut_a（克努特：老同夥（開頭））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Knut, a rough outlaw with a long scar across his face, messy black hair, a sly grin, a patched leather jerkin, angry face, showing the hooded leader a burned village in the distance under his name.
+```
+
+**36. sc_q_knut_b（克努特：疤面的名號）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Knut, a rough outlaw with a long scar across his face, messy black hair, a sly grin, a patched leather jerkin, in a half-burned village, his old outlaw gang drinking and laughing, calling to Knut; Knut and the hooded leader walk in.
+```
+
+**37. sc_q_knut_w（克努特：村民的眼神）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Knut, a rough outlaw with a long scar across his face, messy black hair, a sly grin, a patched leather jerkin, dragging the bound gang leader before the villagers to judge; the villagers look at Knut without fear for the first time.
+```
+
+### W2. 求婚前的相處（14 張，16:9）
+
+第四章和伴侶候選人的相處事件，一段一張。檔名 sc_ct_人物_第幾段。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_ct_ingrid_1 | Ingrid：相處 1 |
+| 2 | sc_ct_ingrid_2 | Ingrid：相處 2 |
+| 3 | sc_ct_ingrid_3 | Ingrid：相處 3 |
+| 4 | sc_ct_brynhild_1 | Brynhild：相處 1 |
+| 5 | sc_ct_brynhild_2 | Brynhild：相處 2 |
+| 6 | sc_ct_brynhild_3 | Brynhild：相處 3 |
+| 7 | sc_ct_gunnhild_1 | Gunnhild：相處 1 |
+| 8 | sc_ct_gunnhild_2 | Gunnhild：相處 2 |
+| 9 | sc_ct_sweyn_1 | Sweyn Forkbeard：相處 1 |
+| 10 | sc_ct_sweyn_2 | Sweyn Forkbeard：相處 2 |
+| 11 | sc_ct_gormflaith_1 | Gormflaith：相處 1 |
+| 12 | sc_ct_gormflaith_2 | Gormflaith：相處 2 |
+| 13 | sc_ct_sitric_1 | Sitric Silkbeard：相處 1 |
+| 14 | sc_ct_sitric_2 | Sitric Silkbeard：相處 2 |
+
+**1. sc_ct_ingrid_1（Ingrid：相處 1）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Ingrid, a warm freckled fisherman's daughter in her twenties, wind-blown light brown braid, simple wool dress and shawl, now wearing a queen's silver brooch, on the windy beach mending a fishing net, smiling and bowing awkwardly to the crowned ruler and royal guards. Romantic tension, warm and personal.
+```
+
+**2. sc_ct_ingrid_2（Ingrid：相處 2）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Ingrid, a warm freckled fisherman's daughter in her twenties, wind-blown light brown braid, simple wool dress and shawl, now wearing a queen's silver brooch, at the sickbed of her old fisherman father in a small hut, the crowned ruler bringing medicine at night. Romantic tension, warm and personal.
+```
+
+**3. sc_ct_ingrid_3（Ingrid：相處 3）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Ingrid, a warm freckled fisherman's daughter in her twenties, wind-blown light brown braid, simple wool dress and shawl, now wearing a queen's silver brooch, at a midsummer bonfire on the beach in a new embroidered dress, nervously reaching out her hand to the crowned ruler to dance. Romantic tension, warm and personal.
+```
+
+**4. sc_ct_brynhild_1（Brynhild：相處 1）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Brynhild, a proud warrior-lady of a mountain fortress, dark hair with eagle feathers braided in, fur-trimmed cloak over fine chainmail, on her mountain fortress, a sword tied with an eagle feather, challenging the crowned ruler to a duel in the snow. Romantic tension, warm and personal.
+```
+
+**5. sc_ct_brynhild_2（Brynhild：相處 2）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Brynhild, a proud warrior-lady of a mountain fortress, dark hair with eagle feathers braided in, fur-trimmed cloak over fine chainmail, hunting a snow leopard on a snowy mountain with a bow, racing the crowned ruler. Romantic tension, warm and personal.
+```
+
+**6. sc_ct_brynhild_3（Brynhild：相處 3）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Brynhild, a proud warrior-lady of a mountain fortress, dark hair with eagle feathers braided in, fur-trimmed cloak over fine chainmail, without armor for the first time, sitting by the fire in the king's hall, tired, looking at the crowned ruler. Romantic tension, warm and personal.
+```
+
+**7. sc_ct_gunnhild_1（Gunnhild：相處 1）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Gunnhild, a clever Danish princess in her twenties, golden hair under a fine veil, a rich red dress with gold embroidery, stepping off a Danish ship and walking straight to the throne, looking the crowned ruler up and down with an amused expression. Romantic tension, warm and personal.
+```
+
+**8. sc_ct_gunnhild_2（Gunnhild：相處 2）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Gunnhild, a clever Danish princess in her twenties, golden hair under a fine veil, a rich red dress with gold embroidery, at midnight placing a small poison vial on a table in front of the crowned ruler, candlelight, serious eyes. Romantic tension, warm and personal.
+```
+
+**9. sc_ct_sweyn_1（Sweyn Forkbeard：相處 1）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Sweyn Forkbeard, a Danish prince in his twenties with a blond beard split into a fork, a rich blue cloak with gold trim, jumping off a Danish ship, sitting beside the crowned ruler and drinking from the ruler's horn uninvited. Romantic tension, warm and personal.
+```
+
+**10. sc_ct_sweyn_2（Sweyn Forkbeard：相處 2）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Sweyn Forkbeard, a Danish prince in his twenties with a blond beard split into a fork, a rich blue cloak with gold trim, drunk, slamming a drinking horn on the table and leaning in conspiratorially toward the crowned ruler. Romantic tension, warm and personal.
+```
+
+**11. sc_ct_gormflaith_1（Gormflaith：相處 1）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Gormflaith, a beautiful dangerous Irish princess, long flowing auburn hair, green and gold Celtic dress, a gold torc, at a feast in Dublin, watching the crowned ruler across the fire all night, then whispering as she passes. Romantic tension, warm and personal.
+```
+
+**12. sc_ct_gormflaith_2（Gormflaith：相處 2）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Gormflaith, a beautiful dangerous Irish princess, long flowing auburn hair, green and gold Celtic dress, a gold torc, playing an old Irish harp in her chamber for the crowned ruler, slow music like the tide. Romantic tension, warm and personal.
+```
+
+**13. sc_ct_sitric_1（Sitric Silkbeard：相處 1）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Sitric Silkbeard, the Norse-Irish king of Dublin, a long silky well-groomed dark beard, fine clothes mixing Norse and Irish styles, slowly stroking his silky beard, presenting harbor tax accounts to the crowned ruler in Dublin. Romantic tension, warm and personal.
+```
+
+**14. sc_ct_sitric_2（Sitric Silkbeard：相處 2）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Sitric Silkbeard, the Norse-Irish king of Dublin, a long silky well-groomed dark beard, fine clothes mixing Norse and Irish styles, placing a newly minted silver coin with a crowned face in the crowned ruler's palm. Romantic tension, warm and personal.
+```
+
+### W3. 眾神的眷顧（15 張，16:9）
+
+神恩升階時的預兆，每位神三階。圖還沒到之前用神的立繪。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_god_odin_1 | 奧丁・神恩第 1 階 |
+| 2 | sc_god_odin_2 | 奧丁・神恩第 2 階 |
+| 3 | sc_god_odin_3 | 奧丁・神恩第 3 階 |
+| 4 | sc_god_thor_1 | 索爾・神恩第 1 階 |
+| 5 | sc_god_thor_2 | 索爾・神恩第 2 階 |
+| 6 | sc_god_thor_3 | 索爾・神恩第 3 階 |
+| 7 | sc_god_tyr_1 | 提爾・神恩第 1 階 |
+| 8 | sc_god_tyr_2 | 提爾・神恩第 2 階 |
+| 9 | sc_god_tyr_3 | 提爾・神恩第 3 階 |
+| 10 | sc_god_freyja_1 | 弗蕾亞・神恩第 1 階 |
+| 11 | sc_god_freyja_2 | 弗蕾亞・神恩第 2 階 |
+| 12 | sc_god_freyja_3 | 弗蕾亞・神恩第 3 階 |
+| 13 | sc_god_loki_1 | 洛基・神恩第 1 階 |
+| 14 | sc_god_loki_2 | 洛基・神恩第 2 階 |
+| 15 | sc_god_loki_3 | 洛基・神恩第 3 階 |
+
+**1. sc_god_odin_1（奧丁・神恩第 1 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+a one-eyed raven perched on the bedpost of the hooded chieftain at night, staring. Mythic, mysterious, Norse omen.
+```
+
+**2. sc_god_odin_2（奧丁・神恩第 2 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+two black ravens following a Viking longship over a grey sea. Mythic, mysterious, Norse omen.
+```
+
+**3. sc_god_odin_3（奧丁・神恩第 3 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+a vision of a hooded figure hanging from the world tree Yggdrasil for nine days, cosmic light. Mythic, mysterious, Norse omen.
+```
+
+**4. sc_god_thor_1（索爾・神恩第 1 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+a lightning bolt striking beside a chieftain's banner pole on a stormy night, the banner unburnt. Mythic, mysterious, Norse omen.
+```
+
+**5. sc_god_thor_2（索爾・神恩第 2 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+a blacksmith presenting a small Mjölnir hammer amulet to the hooded chieftain. Mythic, mysterious, Norse omen.
+```
+
+**6. sc_god_thor_3（索爾・神恩第 3 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+a war fleet sailing out under thunderclouds, lightning following the ships, warriors cheering. Mythic, mysterious, Norse omen.
+```
+
+**7. sc_god_tyr_1（提爾・神恩第 1 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+an oath being carved into a law stone by a runecarver, the hooded chieftain watching. Mythic, mysterious, Norse omen.
+```
+
+**8. sc_god_tyr_2（提爾・神恩第 2 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+the hooded chieftain judging a dispute at a law stone, people gathered around. Mythic, mysterious, Norse omen.
+```
+
+**9. sc_god_tyr_3（提爾・神恩第 3 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+a dream: a one-armed warrior god nodding solemnly to the hooded chieftain in a misty field. Mythic, mysterious, Norse omen.
+```
+
+**10. sc_god_freyja_1（弗蕾亞・神恩第 1 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+golden wheat fields at harvest, old women smiling and pointing at the hooded chieftain. Mythic, mysterious, Norse omen.
+```
+
+**11. sc_god_freyja_2（弗蕾亞・神恩第 2 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+two large grey forest cats sitting outside a longhouse at night in the snow. Mythic, mysterious, Norse omen.
+```
+
+**12. sc_god_freyja_3（弗蕾亞・神恩第 3 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+a dream: a chariot pulled by two great cats stops at the door, a golden-haired goddess smiles. Mythic, mysterious, Norse omen.
+```
+
+**13. sc_god_loki_1（洛基・神恩第 1 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+the hooded chieftain's shadow on the wall by firelight has an extra figure in it. Mythic, mysterious, Norse omen.
+```
+
+**14. sc_god_loki_2（洛基・神恩第 2 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+a small green snake coiled in a drinking horn, watching the hooded chieftain. Mythic, mysterious, Norse omen.
+```
+
+**15. sc_god_loki_3（洛基・神恩第 3 階）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+in a busy market, a stranger who looks just like the hooded chieftain winks and vanishes. Mythic, mysterious, Norse omen.
+```
+
+### W4. 弗蕾亞與洛基（10 張，16:9）
+
+尋找奧德的三條線索、成為女神伴侶，以及洛基的惡作劇。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_odd_1 | 尋找奧德：港口的老水手 |
+| 2 | sc_odd_2 | 尋找奧德：冰海的石堆 |
+| 3 | sc_odd_3 | 尋找奧德：世界盡頭的海岸 |
+| 4 | sc_fq_cloak | 奧德的斗篷 |
+| 5 | sc_fq_wed | 女神的伴侶 |
+| 6 | sc_fr_cat | 弗蕾亞的貓離開 |
+| 7 | sc_fr_farewell | 弗蕾亞揮手告別 |
+| 8 | sc_loki_1 | 洛基的玩笑：鹹魚 |
+| 9 | sc_loki_2 | 洛基的玩笑：屋頂上的斧頭 |
+| 10 | sc_loki_3 | 洛基的玩笑：山羊 |
+
+**1. sc_odd_1（尋找奧德：港口的老水手）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+In a southern harbor, a blind old sailor holds out a silver button carved with a cat to the hooded chieftain, ships and gulls behind.
+```
+
+**2. sc_odd_2（尋找奧德：冰海的石堆）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+On a frozen northern sea shore, the hooded chieftain finds a wooden tablet with carved runes inside a cairn of stones, blurred by seawater, icebergs behind.
+```
+
+**3. sc_odd_3（尋找奧德：世界盡頭的海岸）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A nameless shore at the end of the world under pale light; an old fisherman looks at a golden tear pendant on the hooded chieftain's neck.
+```
+
+**4. sc_fq_cloak（奧德的斗篷）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+On a nameless misty shore, an old fisherman hands a faded embroidered cloak to the hooded chieftain; the sea stretches to the horizon.
+```
+
+**5. sc_fq_wed（女神的伴侶）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Fólkvangr, Freyja's golden hall in a meadow of flowers under aurora: the goddess Freyja (long golden hair, falcon-feather cloak, the shining Brísingamen necklace, two large grey forest cats) sits beside the hooded chieftain, her head on their shoulder, the cats asleep at their feet. Tender, divine.
+```
+
+**6. sc_fr_cat（弗蕾亞的貓離開）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+A dream at night: one of Freyja's large grey cats sitting at the door of a king's hall, looking back once before running off into the snow.
+```
+
+**7. sc_fr_farewell（弗蕾亞揮手告別）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A dream: the goddess Freyja (long golden hair, falcon-feather cloak, the shining Brísingamen necklace, two large grey forest cats) standing far away on a snowy hillside, waving goodbye to the hooded king; melancholy, soft light.
+```
+
+**8. sc_loki_1（洛基的玩笑：鹹魚）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Comic scene: a Viking chieftain's money bag spilling out salted fish instead of silver coins in a longhouse, warriors laughing; a faint green flame in the corner.
+```
+
+**9. sc_loki_2（洛基的玩笑：屋頂上的斧頭）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Comic scene: a broom standing where an axe should be, and the axe stuck on the turf roof of a longhouse, villagers laughing while the hooded chieftain climbs a ladder.
+```
+
+**10. sc_loki_3（洛基的玩笑：山羊）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+Comic scene: a herd of goats inside a longhouse eating all the feast food on the tables, warriors chasing them.
+```
+
+### W5. 第二、三章的大事（31 張，16:9）
+
+部落、雅爾、老王、勇士背叛等事件。主角這時還不是王，不戴王冠。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_ev_train | 操練場上的怨言 |
+| 2 | sc_ev_coup | 有人要你的位子 |
+| 3 | sc_ev_fair | 公平的首領 |
+| 4 | sc_ev_capital | 王都落成 |
+| 5 | sc_ev_legend | 傳說之都 |
+| 6 | sc_village_join | 不戰而附 |
+| 7 | sc_scare_yield | 不戰而降 |
+| 8 | sc_scare_pay | 保護費 |
+| 9 | sc_scare_no | 沒被嚇到 |
+| 10 | sc_lord_grey | 雅爾西格德的挑戰 |
+| 11 | sc_lord_eagle | 布倫希爾德的挑戰 |
+| 12 | sc_lord_red | 赫羅爾夫的決戰 |
+| 13 | sc_dip_refuse | 雅爾拒絕使者 |
+| 14 | sc_k_yield | 老王讓位 |
+| 15 | sc_k_refuse | 老王冷笑 |
+| 16 | sc_k_after_exec | 老王死後的王廳 |
+| 17 | sc_k_after_spare | 饒過老王之後 |
+| 18 | sc_ev_stragglers | 潰逃的敵兵 |
+| 19 | sc_ev_betray | 勇士反了 |
+| 20 | sc_ev_desert | 勇士走了 |
+| 21 | sc_ev_coalition | 諸侯聯軍 |
+| 22 | sc_ev_crusade | 討伐軍 |
+| 23 | sc_ev_thief | 小偷的贖罪 |
+| 24 | sc_ev_thorstein | 酒館裡的托爾斯坦 |
+| 25 | sc_d3_thorstein | 托爾斯坦在木牆上 |
+| 26 | sc_knut_eye | 克努特的眼神 |
+| 27 | sc_knut_cup | 摔碎的酒杯 |
+| 28 | sc_knut_gone | 克努特走了 |
+| 29 | sc_knut_axe | 克努特拔斧 |
+| 30 | sc_knut_reform | 克努特的贖罪 |
+| 31 | sc_holm_fatherson | 霍姆岡：父與子 |
+
+**1. sc_ev_train（操練場上的怨言）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A Viking training yard: warriors throwing down wooden shields and sitting on the ground refusing to train, grumbling at the hooded chieftain.
+```
+
+**2. sc_ev_coup（有人要你的位子）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Inside a longhouse, a brutish scarred warrior stands on the long table shouting, several men drawing weapons behind him; the hooded chieftain faces them.
+```
+
+**3. sc_ev_fair（公平的首領）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Night: veteran warriors gathering on their own before an altar fire, beginning to sing, the hooded chieftain approaching.
+```
+
+**4. sc_ev_capital（王都落成）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A magnificent Viking capital just completed: the last roof beam of a grand carved hall raised, the whole town stopping work to watch, children on the walls, ships in the harbor.
+```
+
+**5. sc_ev_legend（傳說之都）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A legendary Viking city of carved halls and towers by a fjord at sunset, southern merchants standing at the gate speechless.
+```
+
+**6. sc_village_join（不戰而附）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+In a longhouse, the old headman of a fishing village places a ring of keys on the table before the hooded chieftain, villagers watching respectfully.
+```
+
+**7. sc_scare_yield（不戰而降）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Elders of a Norwegian settlement bringing keys to the gate, bowing to a lone messenger, fearful faces.
+```
+
+**8. sc_scare_pay（保護費）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Night: frightened villagers leaving sacks of silver at a Viking chieftain's door.
+```
+
+**9. sc_scare_no（沒被嚇到）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Villagers chasing a messenger out and raising their wooden palisade higher at night, torches, defiant.
+```
+
+**10. sc_lord_grey（雅爾西格德的挑戰）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Jarl Sigurd, a grim grey-bearded jarl in mail, stands at the door of his battered hall at Greystone, sword drawn, challenging the hooded young chieftain to single combat.
+```
+
+**11. sc_lord_eagle（布倫希爾德的挑戰）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Brynhild, a proud warrior-lady of a mountain fortress, dark hair with eagle feathers braided in, fur-trimmed cloak over fine chainmail, drawing her longsword with a fierce smile on her eagle's-nest mountain fortress in the snow, challenging the hooded young chieftain.
+```
+
+**12. sc_lord_red（赫羅爾夫的決戰）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Hrolf, a proud Viking jarl's son with reddish hair and a sharp handsome face, a blood-red cloak with a big silver brooch, his red-sailed longship, standing before his burning red-sailed longship, licking blood from his axe blade, facing the hooded young chieftain.
+```
+
+**13. sc_dip_refuse（雅爾拒絕使者）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A jarl accepting gifts and then throwing the hooded chieftain's messenger out of his hall.
+```
+
+**14. sc_k_yield（老王讓位）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Inside the royal hall: Old King Halfdan of Norway (around seventy, long white beard and hair, gold knotwork crown, dark red-and-black wool robes, an ancient royal longsword) takes off his crown and looks at the hooded young challenger, three banners laid at his feet. Solemn passing of power.
+```
+
+**15. sc_k_refuse（老王冷笑）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Old King Halfdan of Norway (around seventy, long white beard and hair, gold knotwork crown, dark red-and-black wool robes, an ancient royal longsword) sneering from his throne, sending the messenger away, guards reinforcing the hall.
+```
+
+**16. sc_k_after_exec（老王死後的王廳）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A silent royal hall after the old king's execution: old councillors with bowed heads, the empty throne, the hooded young victor standing alone.
+```
+
+**17. sc_k_after_spare（饒過老王之後）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Old councillors in the royal hall looking at the hooded young victor with new respect as the old king walks out alive.
+```
+
+**18. sc_ev_stragglers（潰逃的敵兵）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+After a battle, a dozen enemy warriors throwing down weapons and fleeing into a forest.
+```
+
+**19. sc_ev_betray（勇士反了）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Midnight: a champion bursts into the longhouse with a few men, blades drawn, the hooded chieftain rising from bed.
+```
+
+**20. sc_ev_desert（勇士走了）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Dawn: an empty bed in a longhouse, a note on the table, an open empty silver chest, footprints in the snow leading away.
+```
+
+**21. sc_ev_coalition（諸侯聯軍）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Several Norwegian jarls' banners gathering in a valley, an allied army marching against the hooded chieftain's settlement.
+```
+
+**22. sc_ev_crusade（討伐軍）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A huge army of jarls, priests and angry villagers with torches marching to wipe a feared Viking settlement off the map.
+```
+
+**23. sc_ev_thief（小偷的贖罪）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Night: the hooded chieftain pinning a thief to the ground, a money purse spilled, the thief begging for mercy.
+```
+
+**24. sc_ev_thorstein（酒館裡的托爾斯坦）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+In a smoky tavern corner, Old Thorstein (a broad veteran Viking oarsman in his late fifties, long grey beard in two thick braids, broken nose, huge calloused hands, worn sealskin vest, an old notched bearded axe) sits alone with a drinking horn, looking up at the hooded young adventurer.
+```
+
+**25. sc_d3_thorstein（托爾斯坦在木牆上）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Night on a wooden palisade: Old Thorstein (a broad veteran Viking oarsman in his late fifties, long grey beard in two thick braids, broken nose, huge calloused hands, worn sealskin vest, an old notched bearded axe) stands beside the hooded young chieftain looking down at the settlement's hearth smoke.
+```
+
+**26. sc_knut_eye（克努特的眼神）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Knut, a rough outlaw with a long scar across his face, messy black hair, a sly grin, a patched leather jerkin, staring wide-eyed as the hooded chieftain pays compensation to poor villagers.
+```
+
+**27. sc_knut_cup（摔碎的酒杯）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Knut, a rough outlaw with a long scar across his face, messy black hair, a sly grin, a patched leather jerkin, smashing a drinking cup on the floor of the longhouse, several of his men putting their cups down.
+```
+
+**28. sc_knut_gone（克努特走了）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Dawn: Knut's empty bed, a dagger stuck in the table, his men gone.
+```
+
+**29. sc_knut_axe（克努特拔斧）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Midnight: Knut, a rough outlaw with a long scar across his face, messy black hair, a sly grin, a patched leather jerkin, kicking open the longhouse door with his axe drawn.
+```
+
+**30. sc_knut_reform（克努特的贖罪）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Knut, a rough outlaw with a long scar across his face, messy black hair, a sly grin, a patched leather jerkin, drinking alone by the fire at night, head down, haunted by a village he once burned.
+```
+
+**31. sc_holm_fatherson（霍姆岡：父與子）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A holmgang cloak on the ground: Ragnar, a huge bare-chested red-bearded berserker with a bear pelt and blue woad tattoos pins his son Bjorn, axe stopped at his throat; then throws it aside to embrace him. Emotional.
+```
+
+### W6. 年歲（6 張，16:9）
+
+主角變老的那幾年各一張。臉都藏在陰影裡；45 歲以後通常已經稱王，可以戴王冠。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_age_35 | 35 歲 |
+| 2 | sc_age_40 | 40 歲 |
+| 3 | sc_age_45 | 45 歲 |
+| 4 | sc_age_50 | 50 歲 |
+| 5 | sc_age_55 | 55 歲 |
+| 6 | sc_age_63 | 63 歲 |
+
+**1. sc_age_35（35 歲）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+the hooded chieftain looking at their reflection in a water bucket, a single white hair, morning light (face hidden in shadow). Quiet, reflective, the passing of time.
+```
+
+**2. sc_age_40（40 歲）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+young warriors running in a training yard while the older hooded chieftain stands aside catching breath. Quiet, reflective, the passing of time.
+```
+
+**3. sc_age_45（45 歲）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+the crowned ruler pausing while chopping wood, rubbing a shoulder, the axe resting on a stump. Quiet, reflective, the passing of time.
+```
+
+**4. sc_age_50（50 歲）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+the crowned ruler sitting in the hall watching people with wise, calm eyes in the firelight (face in shadow). Quiet, reflective, the passing of time.
+```
+
+**5. sc_age_55（55 歲）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+children gathered around the old crowned ruler by the fire listening to a story, smiling knowingly. Quiet, reflective, the passing of time.
+```
+
+**6. sc_age_63（63 歲）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+night, the old crowned ruler lying awake in bed listening to their own heartbeat, a sword on the wall, moonlight. Quiet, reflective, the passing of time.
+```
+
+### W7. 信仰與繼承人（9 張，16:9）
+
+受洗的修士、舊神反撲、養大繼承人（四種選擇各一張）。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_ev_mission | 穿長袍的人 |
+| 2 | sc_ev_mission2 | 修士又來了 |
+| 3 | sc_ev_pagan | 舊神的反撲 |
+| 4 | sc_ev_raise | 怎麼養大繼承人 |
+| 5 | sc_ev_raise_1 | 交給勇士們 |
+| 6 | sc_ev_raise_2 | 交給吟遊詩人 |
+| 7 | sc_ev_raise_3 | 送去南方的宮廷 |
+| 8 | sc_ev_raise_4 | 帶上你的船 |
+| 9 | sc_ev_adopt | 誰來繼承王冠 |
+
+**1. sc_ev_mission（穿長袍的人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A Christian missionary monk in a royal hall holding up a wooden cross, the statue of Odin behind the throne, the crowned ruler listening.
+```
+
+**2. sc_ev_mission2（修士又來了）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+The missionary returns with a sealed letter from the Frankish king, presenting it before the throne.
+```
+
+**3. sc_ev_pagan（舊神的反撲）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Night: villagers burning a newly built wooden church, an old pagan priest shouting in the firelight 'Odin is not dead!'
+```
+
+**4. sc_ev_raise（怎麼養大繼承人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A two-year-old child running through a king's hall with a wooden sword, the crowned ruler and spouse watching.
+```
+
+**5. sc_ev_raise_1（交給勇士們）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Old veterans teaching a small child to hold an axe in a training yard, laughing.
+```
+
+**6. sc_ev_raise_2（交給吟遊詩人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A skald walking with a small child from longhouse to longhouse, the child listening to stories by the fire.
+```
+
+**7. sc_ev_raise_3（送去南方的宮廷）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A small child crying and waving from a southbound merchant ship, the crowned ruler on the dock.
+```
+
+**8. sc_ev_raise_4（帶上你的船）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A small child standing at the prow of a longship next to the crowned ruler, pointing at seabirds.
+```
+
+**9. sc_ev_adopt（誰來繼承王冠）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Jarls whispering in the shadows of a royal hall while the crowned ruler sits alone at night looking at the moon through a window.
+```
+
+### W8. 王的歲月（32 張，16:9）
+
+第四章：丹麥、叛亂、立法、冊封、海外領地、往西航行、重逢等。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_ev_envoy | 藍牙的使者 |
+| 2 | sc_dane_rumor | 南方的傳言 |
+| 3 | sc_dane_omen | 預兆 |
+| 4 | sc_jelling_pre | 直搗耶靈之前 |
+| 5 | sc_rebel | 叛變 |
+| 6 | sc_rebel_lord | 叛軍首領 |
+| 7 | sc_rebel_talk | 和叛軍喝酒 |
+| 8 | sc_counter | 海外反攻 |
+| 9 | sc_thing | 庭議立法 |
+| 10 | sc_jarl | 冊封雅爾 |
+| 11 | sc_monument | 大符文石 |
+| 12 | sc_abdicate | 交出王冠 |
+| 13 | sc_appease | 安撫藍牙 |
+| 14 | sc_area_scot | 北方群島伯爵 |
+| 15 | sc_area_eng | 丹麥法區之主 |
+| 16 | sc_area_irl | 愛爾蘭之主 |
+| 17 | sc_area_fra | 塞納河之主 |
+| 18 | sc_ransom | 法蘭克的贖金 |
+| 19 | sc_danegeld | 丹麥金 |
+| 20 | sc_relic_book | 抄本 |
+| 21 | sc_relic_bone | 聖骨匣 |
+| 22 | sc_west_iceland | 冰島 |
+| 23 | sc_west_greenland | 格陵蘭 |
+| 24 | sc_west_vinland | 文蘭 |
+| 25 | sc_varang_gold | 米克拉加德的金子 |
+| 26 | sc_meet_ragnar | 約克的狂戰士 |
+| 27 | sc_meet_hakon | 都柏林碼頭的老兵 |
+| 28 | sc_meet_astrid | 法蘭克的盾女 |
+| 29 | sc_dane_lastchance | 最後的機會 |
+| 30 | sc_dane_taken | 被帶走的人 |
+| 31 | sc_lh_story | 講故事之夜 |
+| 32 | sc_mk_silent | 沉默的修士 |
+
+**1. sc_ev_envoy（藍牙的使者）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A Danish envoy standing in the center of the Norwegian royal hall without removing his hat, demanding submission; the crowned ruler on the throne.
+```
+
+**2. sc_dane_rumor（南方的傳言）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A Norwegian market: Danish merchants whispering together, glancing around, ships in the harbor.
+```
+
+**3. sc_dane_omen（預兆）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Dark omens: a red winter sky over the southern sea, Danish shipyards building many longships in the distance.
+```
+
+**4. sc_jelling_pre（直搗耶靈之前）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+The crowned ruler's hand on a sea chart, finger on the harbor of Jelling, war council by candlelight.
+```
+
+**5. sc_rebel（叛變）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A rebel settlement closing its gates, the king's garrison being driven out, angry people on the palisade.
+```
+
+**6. sc_rebel_lord（叛軍首領）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A bound rebel leader forced to kneel before the crowned ruler in a muddy courtyard.
+```
+
+**7. sc_rebel_talk（和叛軍喝酒）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+The crowned ruler drinking all night with a rebel leader in his hall; at dawn the gates open.
+```
+
+**8. sc_counter（海外反攻）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Winter siege: a foreign army surrounding a coastal town held by Vikings; a small boat escaping through a storm for help.
+```
+
+**9. sc_thing（庭議立法）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+At a law stone in an open field, the crowned ruler striking the stone three times with an axe handle, jarls and freemen gathered.
+```
+
+**10. sc_jarl（冊封雅爾）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+The crowned ruler granting a land to a kneeling champion, handing over a banner, people cheering.
+```
+
+**11. sc_monument（大符文石）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A huge carved runestone with serpent knotwork being finished by stonemasons, crowds of people coming to see it.
+```
+
+**12. sc_abdicate（交出王冠）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+The aging crowned ruler looking at a young heir in the royal hall, holding the crown in both hands.
+```
+
+**13. sc_appease（安撫藍牙）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A Norwegian envoy presenting a ship full of furs, amber and silver to King Harald Bluetooth in Jelling, who smiles while looking at a war map on the wall.
+```
+
+**14. sc_area_scot（北方群島伯爵）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Viking banners raised over the Orkney and Shetland islands, longships in green bays.
+```
+
+**15. sc_area_eng（丹麥法區之主）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Viking banners over the Danelaw: York's walls, English fields, the crowned ruler acclaimed.
+```
+
+**16. sc_area_irl（愛爾蘭之主）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Viking banners over Dublin and the green hills of Ireland, a stone high cross nearby.
+```
+
+**17. sc_area_fra（塞納河之主）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Viking longships lining the Seine river, banners over Rouen, the towers of Paris in the distance.
+```
+
+**18. sc_ransom（法蘭克的贖金）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Seven carts loaded with silver arriving at a Viking camp outside Paris; the crowned ruler counting silver by firelight.
+```
+
+**19. sc_danegeld（丹麥金）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+King Alfred standing on the walls of an English town watching the Viking fleet, a chest of silver being carried out to them.
+```
+
+**20. sc_relic_book（抄本）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Among Viking plunder, an illuminated monastic manuscript with golden patterns and fantastic beasts glowing in candlelight.
+```
+
+**21. sc_relic_bone（聖骨匣）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A silver reliquary box opened among plunder, a dried finger bone inside, a frightened monk watching.
+```
+
+**22. sc_west_iceland（冰島）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A smoking volcano rising from the sea, green grassland and steaming hot springs at its foot, a few Norse turf houses, a longship arriving.
+```
+
+**23. sc_west_greenland（格陵蘭）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+An icy coast among icebergs, Erik the Red (red beard, laughing) standing on the shore welcoming a longship.
+```
+
+**24. sc_west_vinland（文蘭）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+An unknown land of tall forests, wild grapes and wheat, a longship on the beach, figures watching from the trees.
+```
+
+**25. sc_varang_gold（米克拉加德的金子）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A letter and a bag of gold coins arriving from Constantinople, golden domes pictured faintly in a dream-like background.
+```
+
+**26. sc_meet_ragnar（約克的狂戰士）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+In the streets of York, Ragnar, a huge bare-chested red-bearded berserker with a bear pelt and blue woad tattoos fighting alone against several men, then noticing the crowned ruler's banner.
+```
+
+**27. sc_meet_hakon（都柏林碼頭的老兵）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+On the Dublin docks, Hakon, an old one-eyed Viking veteran in his sixties, leather eyepatch, long grey beard in two braids, a battered round shield covered in sword cuts guarding cargo with a spear, stunned to see the crowned ruler's banner.
+```
+
+**28. sc_meet_astrid（法蘭克的盾女）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+In a broken tower of Rouen, Astrid, a fierce shieldmaiden around thirty, a long thick blonde braid, sides of the head shaved, a painted round shield with a black raven, chainmail and a few mercenaries holding out to the last moment.
+```
+
+**29. sc_dane_lastchance（最後的機會）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A Danish-born spouse rushing into the royal hall, hair windblown, holding a letter sealed by King Harald Bluetooth.
+```
+
+**30. sc_dane_taken（被帶走的人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Dawn at the harbor: Danish soldiers forcing the ruler's spouse onto a ship; the hooded crowned ruler running down the dock, wind howling.
+```
+
+**31. sc_lh_story（講故事之夜）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A longhouse winter night, the fire surrounded by people and children, everyone begging the crowned ruler to tell a story.
+```
+
+**32. sc_mk_silent（沉默的修士）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Aethelstan, a young Anglo-Saxon former monk turned Viking warrior, short brown hair, short beard, calm intelligent eyes, a small wooden cross on a leather cord, a bearded axe standing alone on a dock looking south for a long time, cold evening light.
+```
+
+### W9. 斯蒂克萊斯塔（10 張，16:9）
+
+受洗之後的分裂冬天與決戰前夜。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_st_split | 分裂的冬天 |
+| 2 | sc_st_rune | 門上的血符文 |
+| 3 | sc_st_god_odin | 最後一晚：奧丁 |
+| 4 | sc_st_god_thor | 最後一晚：索爾 |
+| 5 | sc_st_god_tyr | 最後一晚：提爾 |
+| 6 | sc_st_god_freyja | 最後一晚：弗蕾亞 |
+| 7 | sc_st_god_loki | 最後一晚：洛基 |
+| 8 | sc_st_fatherson | 斯蒂克萊斯塔：父與子 |
+| 9 | sc_st_gone_sven | 赫羅爾夫倒在斯蒂克萊斯塔 |
+| 10 | sc_st_thorstein | 教堂台階上的托爾斯坦 |
+
+**1. sc_st_split（分裂的冬天）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Winter: a kingdom divided, half the people following the old gods toward fires in the valleys, half staying by a small church.
+```
+
+**2. sc_st_rune（門上的血符文）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Night: an old pagan rune painted in blood on the door of the king's longhouse, sacrificial fires glowing in the valley beyond.
+```
+
+**3. sc_st_god_odin（最後一晚：奧丁）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Night before the battle of Stiklestad: by a campfire, Odin (old one-eyed wanderer, long white beard, wide-brimmed hat, dark blue cloak, spear Gungnir, two ravens) sits opposite the crowned ruler on the eve of battle. The crowned (now Christian) ruler, from behind. Quiet, bittersweet.
+```
+
+**4. sc_st_god_thor（最後一晚：索爾）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Night before the battle of Stiklestad: thunder over the hills, Thor (powerful red-bearded god with braided red hair, the hammer Mjölnir crackling with lightning) roasting a leg of goat at the crowned ruler's campfire. The crowned (now Christian) ruler, from behind. Quiet, bittersweet.
+```
+
+**5. sc_st_god_tyr（最後一晚：提爾）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Night before the battle of Stiklestad: Tyr (stern one-handed warrior god, right wrist wrapped in leather, sword in his left hand) standing across the campfire, his only hand on his sword. The crowned (now Christian) ruler, from behind. Quiet, bittersweet.
+```
+
+**6. sc_st_god_freyja（最後一晚：弗蕾亞）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Night before the battle of Stiklestad: the goddess Freyja (long golden hair, falcon-feather cloak, the shining Brísingamen necklace, two large grey forest cats) sitting in the crowned ruler's tent as in old times, sad smile. The crowned (now Christian) ruler, from behind. Quiet, bittersweet.
+```
+
+**7. sc_st_god_loki（最後一晚：洛基）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Night before the battle of Stiklestad: Loki (slim handsome trickster god, wild dark red hair, sly grin, green-and-black clothes, small flames on his fingers) crouching by the campfire poking the coals with a stick, grinning. The crowned (now Christian) ruler, from behind. Quiet, bittersweet.
+```
+
+**8. sc_st_fatherson（斯蒂克萊斯塔：父與子）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+On the battlefield of Stiklestad, Ragnar, a huge bare-chested red-bearded berserker with a bear pelt and blue woad tattoos steps out of the enemy ranks biting his shield, facing his son Bjorn who straps on his shield beside the crowned ruler.
+```
+
+**9. sc_st_gone_sven（赫羅爾夫倒在斯蒂克萊斯塔）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A hillside burial at Stiklestad: Hrolf's red cloak over a fallen warrior, the crowned ruler and warriors burying the dead together.
+```
+
+**10. sc_st_thorstein（教堂台階上的托爾斯坦）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Old Thorstein (a broad veteran Viking oarsman in his late fifties, long grey beard in two thick braids, broken nose, huge calloused hands, worn sealskin vest, an old notched bearded axe) sitting on the steps of a small wooden church after the battle, filling a drinking horn and offering it to the crowned ruler.
+```
+
+### W10. 諸神黃昏前後（7 張，16:9）
+
+開場怪物各自的登場畫面（和 v0.16 的單挑特寫不同）、芬布爾之冬、勝利之夜後一個人在海邊。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_ro_surtr | 蘇爾特走在最前面 |
+| 2 | sc_ro_hrym | 納吉爾法船 |
+| 3 | sc_ro_fenrir | 芬里爾掙斷了繩子 |
+| 4 | sc_ro_jormun | 耶夢加得從海裡昇起 |
+| 5 | sc_ro_garm | 加姆衝出洞穴 |
+| 6 | sc_fimbul | 芬布爾之冬 |
+| 7 | sc_rag_shore | 一個人在海邊 |
+
+**1. sc_ro_surtr（蘇爾特走在最前面）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Ragnarök opening: Surtr the fire giant leading the fire giants across the frozen plain, his sword burning like a sun, the sky red.
+```
+
+**2. sc_ro_hrym（納吉爾法船）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Hrym the frost giant standing on Naglfar, an enormous ship made of dead men's nails, sailing through ice and mist.
+```
+
+**3. sc_ro_fenrir（芬里爾掙斷了繩子）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Fenrir the giant wolf snapping the magic ribbon Gleipnir, jaws opening from earth to sky.
+```
+
+**4. sc_ro_jormun（耶夢加得從海裡昇起）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Jörmungandr rising from the sea, seawater flooding the coast up to the warriors' feet.
+```
+
+**5. sc_ro_garm（加姆衝出洞穴）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Garm, the blood-stained hound of Hel, bursting out of the Gnipa cave with frozen river ice hanging from its fur.
+```
+
+**6. sc_fimbul（芬布爾之冬）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Fimbulwinter: snow up to the eaves of the longhouses, a pale tiny sun, wolves howling around the wooden walls, frozen sea.
+```
+
+**7. sc_rag_shore（一個人在海邊）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+After the victory feast, the crowned ruler stands alone on a silent beach at night; the sea is still, gulls silent, a faint horn sound from the north (shown as a strange light on the horizon).
+```
+
 ## ★ v0.16 新圖（60 張）
 
 程式都做好了：圖一到就會自動出現。還沒到之前，會用現有的圖代替（伴侶日常沒有替代圖，就先不顯示）。
