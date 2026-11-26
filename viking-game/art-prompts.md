@@ -10,7 +10,7 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.17 補圖：原本沒有配圖的劇情（175 張）
+## ★ v0.17 補圖：原本沒有配圖的劇情（176 張）
 
 全遊戲盤點過一次：這些劇情原本只有文字或只有人物立繪。程式都接好了，圖一到就會自動出現；還沒到之前維持原樣。
 
@@ -1774,9 +1774,9 @@ If the player character appears, show them only from behind or in shadow (face h
 After the victory feast, the crowned ruler stands alone on a silent beach at night; the sea is still, gulls silent, a faint horn sound from the north (shown as a strange light on the horizon).
 ```
 
-### W11. 丹麥的動靜（4 張，16:9）
+### W11. 丹麥的動靜（5 張，16:9）
 
-第四章讓丹麥警戒上升的四個事件。
+第四章讓丹麥警戒上升的四個事件，加上收留的雅爾在丹麥大戰前幫你騙走敵人。
 
 | # | 檔名 | 內容 |
 |---|---|---|
@@ -1784,6 +1784,7 @@ After the victory feast, the crowned ruler stands alone on a silent beach at nig
 | 2 | sc_dane_spy | 市集上的探子 |
 | 3 | sc_dane_exile | 逃來的丹麥雅爾 |
 | 4 | sc_dane_gift | 藍牙要的禮物 |
+| 5 | sc_dane_exile2 | 雅爾的假信 |
 
 **1. sc_dane_sneak（偷偷出海的人）**
 
@@ -1819,6 +1820,15 @@ A battered Danish longship entering a Norwegian harbor; a wounded Danish jarl st
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
 Comic scene in a Norwegian royal hall: a smug Danish envoy pinned on a bench while laughing warriors shave off his beard, the whole hall roaring with laughter, the crowned ruler watching (from behind).
+```
+
+**5. sc_dane_exile2（雅爾的假信）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Night in a war tent before the Danish war: the exiled Danish jarl, scarred and sly, holds up a stack of wax-sealed letters to the crowned ruler, smiling; messengers waiting outside to row south.
 ```
 
 ## ★ v0.16 新圖（60 張）
