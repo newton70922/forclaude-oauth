@@ -10,11 +10,11 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.17 補圖：原本沒有配圖的劇情（176 張）
+## ★ v0.17 補圖：原本沒有配圖的劇情（201 張）
 
 全遊戲盤點過一次：這些劇情原本只有文字或只有人物立繪。程式都接好了，圖一到就會自動出現；還沒到之前維持原樣。
 
-建議順序：W1 → W5 → W8 → W2 → W10 → W11 → W9 → W7 → W3 → W4 → W6。
+建議順序：W1 → W5 → W8 → W2 → W10 → W11 → W12 → W13 → W9 → W7 → W3 → W4 → W6。
 
 ### W1. 勇士的心事（37 張，16:9）
 
@@ -1829,6 +1829,270 @@ Comic scene in a Norwegian royal hall: a smug Danish envoy pinned on a bench whi
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
 Night in a war tent before the Danish war: the exiled Danish jarl, scarred and sly, holds up a stack of wax-sealed letters to the crowned ruler, smiling; messengers waiting outside to row south.
+```
+
+### W12. 本場最佳（14 張，16:9）
+
+大型部隊戰打贏後，表現最好的勇士一張。圖到之前用立繪。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_mvp_hakon | 本場最佳：Hakon |
+| 2 | sc_mvp_astrid | 本場最佳：Astrid |
+| 3 | sc_mvp_thorfinn | 本場最佳：Thorfinn |
+| 4 | sc_mvp_sven | 本場最佳：Hrolf |
+| 5 | sc_mvp_una | 本場最佳：Una |
+| 6 | sc_mvp_bragi | 本場最佳：Bragi |
+| 7 | sc_mvp_einar | 本場最佳：Einar |
+| 8 | sc_mvp_gudrun | 本場最佳：Gudrun |
+| 9 | sc_mvp_ragnar | 本場最佳：Ragnar |
+| 10 | sc_mvp_osric | 本場最佳：Guthorm |
+| 11 | sc_mvp_knut | 本場最佳：Knut |
+| 12 | sc_mvp_bjorn | 本場最佳：Bjorn |
+| 13 | sc_mvp_sigrid | 本場最佳：Sigrid |
+| 14 | sc_mvp_athel | 本場最佳：Aethelstan |
+
+**1. sc_mvp_hakon（本場最佳：Hakon）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Hakon, an old one-eyed Viking veteran in his sixties, leather eyepatch, long grey beard in two braids, a battered round shield covered in sword cuts, after a battle, still standing on the front line with veterans, young warriors safe behind him, smoke and fallen shields.
+```
+
+**2. sc_mvp_astrid（本場最佳：Astrid）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Astrid, a fierce shieldmaiden around thirty, a long thick blonde braid, sides of the head shaved, a painted round shield with a black raven, chainmail, after a battle, calmly pulling arrows out of her shield one by one.
+```
+
+**3. sc_mvp_thorfinn（本場最佳：Thorfinn）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Thorfinn, a tall broad-shouldered quiet Viking warrior, short dark beard, calm gentle grey eyes, simple dark wool tunic, a large bearded axe, after a battle, his shield shattered, standing protectively next to the hooded leader who is unhurt.
+```
+
+**4. sc_mvp_sven（本場最佳：Hrolf）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Hrolf, a proud Viking jarl's son with reddish hair and a sharp handsome face, a blood-red cloak with a big silver brooch, his red-sailed longship, tossing a captured enemy banner at the hooded leader's feet with a cocky grin.
+```
+
+**5. sc_mvp_una（本場最佳：Una）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Una, an old wise herbalist woman, deeply wrinkled kind face, long white hair under a grey wool hood, bundles of herbs and bone charms at her belt, after a battle, tending a long row of wounded warriors by firelight, hands bloody, exhausted but determined.
+```
+
+**6. sc_mvp_bragi（本場最佳：Bragi）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Bragi, a cheerful skald in his thirties, twinkling eyes, neatly braided brown beard, colorful embroidered cloak, a small wooden lyre, after a battle, hoarse-voiced, warriors around him singing his war song by the fire.
+```
+
+**7. sc_mvp_einar（本場最佳：Einar）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Einar, a lean young Viking hunter, sharp alert eyes, a grey wolf-pelt hood, a longbow and a quiver, hanging a captured enemy standard at the door of the longhouse, bow on his back.
+```
+
+**8. sc_mvp_gudrun（本場最佳：Gudrun）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Gudrun, a strong female blacksmith in her thirties, muscular arms, soot on her face, dark hair tied up, a heavy leather apron and a smithing hammer, after a battle, repairing a pile of notched axes at a field forge, cursing.
+```
+
+**9. sc_mvp_ragnar（本場最佳：Ragnar）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Ragnar, a huge bare-chested red-bearded berserker with a bear pelt and blue woad tattoos, sitting on a heap of fallen enemies, covered in blood, laughing at the sky.
+```
+
+**10. sc_mvp_osric（本場最佳：Guthorm）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Guthorm, a composed grey-streaked former jarl's general, neatly trimmed beard, fine dark-blue tunic, silver arm rings, drawing the battle formation in the dirt with a spear tip for young warriors.
+```
+
+**11. sc_mvp_knut（本場最佳：Knut）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Knut, a rough outlaw with a long scar across his face, messy black hair, a sly grin, a patched leather jerkin, returning from a burning enemy camp carrying two sacks of silver, sly grin.
+```
+
+**12. sc_mvp_bjorn（本場最佳：Bjorn）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Bjorn, a young red-haired Viking berserker in his twenties wearing a heavy unbreakable ring-mail shirt, proudly showing new dents in his ring-mail shirt after a battle.
+```
+
+**13. sc_mvp_sigrid（本場最佳：Sigrid）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Sigrid, a proud young shieldmaiden with a thick dark-blonde braid, a richly painted round shield with her father's sigil, a blue wool cloak, wiping her father's painted shield clean, a fresh cut across it.
+```
+
+**14. sc_mvp_athel（本場最佳：Aethelstan）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Aethelstan, a young Anglo-Saxon former monk turned Viking warrior, short brown hair, short beard, calm intelligent eyes, a small wooden cross on a leather cord, a bearded axe, bandaging a wounded enemy warrior after a battle while Vikings watch.
+```
+
+### W13. 勇士搭檔與和好（11 張，16:9）
+
+勇士之間的小劇場：四組吵架的和好事件、七組好搭檔的事件。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_ev_pr_ragnar_astrid | 盾牆與狂戰士 |
+| 2 | sc_ev_pr_knut_thorfinn | 倉庫裡的人影 |
+| 3 | sc_ev_pr_sven_hakon | 發燒的老人 |
+| 4 | sc_ev_pr_sigrid_astrid | 兩面盾牌 |
+| 5 | sc_ev_pr_bragi_hakon | 哈康的薩迦 |
+| 6 | sc_ev_pr_einar_una | 雪地裡的藥草 |
+| 7 | sc_ev_pr_gudrun_ragnar | 特大號的斧頭 |
+| 8 | sc_ev_pr_osric_bragi | 宮廷裡的歌 |
+| 9 | sc_ev_pr_astrid_thorfinn | 兩個人的盾牆 |
+| 10 | sc_ev_pr_knut_sven | 骰子和一整船的貨 |
+| 11 | sc_ev_pr_ragnar_bjorn | 父子的比賽 |
+
+**1. sc_ev_pr_ragnar_astrid（盾牆與狂戰士）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Astrid, a fierce shieldmaiden around thirty, a long thick blonde braid, sides of the head shaved, a painted round shield with a black raven, chainmail and Ragnar, a huge bare-chested red-bearded berserker with a bear pelt and blue woad tattoos sitting on opposite sides of a campfire after she rescued him, not looking at each other
+```
+
+**2. sc_ev_pr_knut_thorfinn（倉庫裡的人影）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Midnight in a storehouse: Thorfinn, a tall broad-shouldered quiet Viking warrior, short dark beard, calm gentle grey eyes, simple dark wool tunic, a large bearded axe holds an axe to Knut, a rough outlaw with a long scar across his face, messy black hair, a sly grin, a patched leather jerkin's neck; Knut clutches a sack of silver, a bound thief visible outside the door
+```
+
+**3. sc_ev_pr_sven_hakon（發燒的老人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Hakon, an old one-eyed Viking veteran in his sixties, leather eyepatch, long grey beard in two braids, a battered round shield covered in sword cuts waking from fever in bed; Hrolf, a proud Viking jarl's son with reddish hair and a sharp handsome face, a blood-red cloak with a big silver brooch, his red-sailed longship sitting beside the bed with red tired eyes after three nights
+```
+
+**4. sc_ev_pr_sigrid_astrid（兩面盾牌）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+A crowd-filled training yard: Sigrid, a proud young shieldmaiden with a thick dark-blonde braid, a richly painted round shield with her father's sigil, a blue wool cloak and Astrid, a fierce shieldmaiden around thirty, a long thick blonde braid, sides of the head shaved, a painted round shield with a black raven, chainmail clashing shields in a fierce sparring match at sunset
+```
+
+**5. sc_ev_pr_bragi_hakon（哈康的薩迦）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+A packed longhouse at night: Bragi, a cheerful skald in his thirties, twinkling eyes, neatly braided brown beard, colorful embroidered cloak, a small wooden lyre singing with his lyre while Hakon, an old one-eyed Viking veteran in his sixties, leather eyepatch, long grey beard in two braids, a battered round shield covered in sword cuts sits in the corner, head down, eyes wet
+```
+
+**6. sc_ev_pr_einar_una（雪地裡的藥草）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Einar, a lean young Viking hunter, sharp alert eyes, a grey wolf-pelt hood, a longbow and a quiver and Una, an old wise herbalist woman, deeply wrinkled kind face, long white hair under a grey wool hood, bundles of herbs and bone charms at her belt digging up a rare glowing flower in the snow
+```
+
+**7. sc_ev_pr_gudrun_ragnar（特大號的斧頭）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+At a forge: Gudrun, a strong female blacksmith in her thirties, muscular arms, soot on her face, dark hair tied up, a heavy leather apron and a smithing hammer presenting an enormous axe taller than Ragnar, a huge bare-chested red-bearded berserker with a bear pelt and blue woad tattoos, who stares at it in delight
+```
+
+**8. sc_ev_pr_osric_bragi（宮廷裡的歌）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Drunk by the fire: Guthorm, a composed grey-streaked former jarl's general, neatly trimmed beard, fine dark-blue tunic, silver arm rings whispering court gossip while Bragi, a cheerful skald in his thirties, twinkling eyes, neatly braided brown beard, colorful embroidered cloak, a small wooden lyre composes a mocking song, both laughing
+```
+
+**9. sc_ev_pr_astrid_thorfinn（兩個人的盾牆）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+A training yard: Astrid, a fierce shieldmaiden around thirty, a long thick blonde braid, sides of the head shaved, a painted round shield with a black raven, chainmail and Thorfinn, a tall broad-shouldered quiet Viking warrior, short dark beard, calm gentle grey eyes, simple dark wool tunic, a large bearded axe moving as one, shield and axe, new recruits watching in awe
+```
+
+**10. sc_ev_pr_knut_sven（骰子和一整船的貨）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Dawn on a dock: Knut, a rough outlaw with a long scar across his face, messy black hair, a sly grin, a patched leather jerkin and Hrolf, a proud Viking jarl's son with reddish hair and a sharp handsome face, a blood-red cloak with a big silver brooch, his red-sailed longship gambling with dice against a southern merchant, a longship and a cargo ship behind them
+```
+
+**11. sc_ev_pr_ragnar_bjorn（父子的比賽）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak).
+Two red-bearded berserkers, father Ragnar and son Bjorn, each carrying a whole cow on their shoulders racing from the dock to the longhouse, the whole village cheering and betting
 ```
 
 ## ★ v0.16 新圖（60 張）
