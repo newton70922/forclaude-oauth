@@ -2350,7 +2350,7 @@ function battle(o){
       // 敵軍總共 8 隊，你只有 6 隊預備隊（打頭陣的勇士算 2 隊）
       const FT=FOE_STYLE[o.foeType]||FOE_STYLE[''];
       const foe=pick(FT.p).slice();if(FT.mix)foe.sort(()=>Math.random()-.5);
-      const pSee=eff('wit')>=15?1:clamp(.25+eff('wit')*.03+(scouted(o.defend)?.2:0)+(S.bg==='hunter'?.15+(S.flags.heirloom?.05:0):0),.25,.9);
+      const pSee=eff('wit')>=15?1:clamp(.25+eff('wit')*.03+(scouted(o.defend)?.2:0)+(o.foeType==='dane'&&S.flags.daneSpy?.3:0)+(S.bg==='hunter'?.15+(S.flags.heirloom?.05:0):0),.25,.9);
       const seen=foe.map(()=>Math.random()<pSee);
       const fuzzy=v=>{const g=clamp(v+pick([-1,0,0,1]),0,6);return g<=1?'人不多':g<=3?'人不少':'黑壓壓一片';};
       const hint=foe.map((v,i)=>seen[i]?`敵軍 ${v} 隊`:`${fuzzy(v)}（看不清楚）`);
@@ -4602,6 +4602,7 @@ function ch4Tick(){
     pushLater(el=>resultView(el,'預兆',omenText(),'ᛞ 預兆','sc_dane_omen'));return true;
   }
   if(daneRecall()) return true;
+  if(daneEvTick(t)) return true;
   if(S.flags.stik&&!S.flags.stikDone){const left=S.flags.stikT+STIK-S.turn;if(left<=0){stiklestad();return true;}if(stikTick(left))return true;}
   if(S.flags.kingFate==='spared'&&!S.flags.kingDead&&(t>=7||S.flags.ragna)){kingDeath();return true;}
   if(S.flags.gunRef&&!S.flags.gunRef.done&&S.turn>=S.flags.gunRef.t&&!S.flags.envoy){S.flags.gunRef.done=1;codex('h_sweyn');pushLater(eventModal(EV_GUNREF()));return true;}
@@ -4618,6 +4619,35 @@ function ch4Tick(){
   if(S.flags.omenShown&&!S.flags.envoy&&daneAlert()>=100&&S.turn>S.flags.omenT){S.flags.envoy=1;pushLater(eventModal(EV_ENVOY()));return true;}
   if(S.flags.envoy==='war'&&S.turn>=S.flags.warT&&!S.flags.warDone){finalWar();return true;}
   return false;
+}
+// 丹麥的動靜：讓藍牙的警戒不只靠你在海外打仗
+const SPY_WIT=12;
+const DANE_EV={
+  sneak:()=>({kind:'丹麥',scene:'sc_dane_sneak',title:'偷偷出海的人',text:'太久沒有出海了。長屋裡的年輕戰士，一個比一個坐不住。\n\n某天早上，碼頭少了兩條船。三天後，船回來了，堆滿了銀器和十字架。他們趁夜划到丹麥的海岸，搶了一座教堂。\n\n帶頭的年輕人站在你面前，下巴抬得高高的：「王，我們只是想起來，自己是維京人。」',
+    ch:[{t:'處罰帶頭的人',note:'族人會不高興；搶都搶了，丹麥人還是會記住',fx:()=>{loseLoyalty(6);addAlert(8);return '你讓他在法石前跪了一整天。\n\n年輕人們不說話了。可是丹麥那邊，還是知道了。\n<span class="bad">忠誠 −6，丹麥警戒 +8</span>';}},
+        {t:'「下次叫上我。」',note:'分給大家；藍牙會非常生氣',fx:()=>{const v=ri(80,120);S.silver+=v;addLoyalty(5);addInfamy(5);addAlert(20);return `你把銀器分給了所有人。整個長屋吼了一整晚。\n<span class="good">銀幣 +${v}，忠誠 +5</span>\n<span class="bad">惡名 +5，丹麥警戒 +20</span>`;}},
+        {t:'派人帶著銀子去丹麥道歉',note:'100 銀幣',ok:()=>S.silver>=100,fx:()=>{S.silver-=100;addFame(-5);addAlert(3);return '使者帶著雙倍的銀子去了丹麥。藍牙收下了，什麼也沒說。\n\n回來的路上，使者聽見丹麥的水手在笑：「北方的王，管不住自己的狗。」\n<span class="bad">名聲 −5，丹麥警戒 +3</span>';}}]}),
+  spy:()=>({kind:'丹麥',scene:'sc_dane_spy',title:'市集上的探子',text:'守衛在市集上抓到一個賣琥珀的商人。他的貨箱底下，藏著一張畫滿你的港口、船數和兵營的地圖。\n\n他被押到你面前，一句話也不說。可是他手上的戒指，刻著藍牙的符號。',
+    ch:[{t:'當眾處決',fx:()=>{addAlert(12);addFame(8);addInfamy(3);return '他的頭掛在了港口的木樁上，面朝南方。\n\n全挪威都知道了你不好惹。藍牙也知道了。\n<span class="good">名聲 +8</span>\n<span class="bad">惡名 +3，丹麥警戒 +12</span>';}},
+        {t:'沒收地圖，放他回去',fx:()=>{S.mercy++;addAlert(5);return '你把地圖丟進火裡，讓人把他送上南下的船。\n\n「告訴藍牙，」你說，「想看我的港口，自己來。」\n<span class="bad">丹麥警戒 +5</span>';}},
+        {t:'收買他，讓他替你傳假消息',note:()=>eff('wit')>=SPY_WIT?'之後丹麥的兵力和戰線，你都看得比較清楚':`需要智謀 ${SPY_WIT}（你現在 ${eff('wit')}）`,ok:()=>eff('wit')>=SPY_WIT,
+         fx:()=>{S.flags.daneSpy=1;S.flags.daneScout=1;S.silver=Math.max(0,S.silver-40);addAlert(-8);return '你請他喝了一整夜的酒，又塞給他一袋銀子。天亮的時候，他帶著一張你親手畫的「地圖」回丹麥了。\n\n從此以後，耶靈王廳裡發生的事，你都比藍牙的雅爾們早一步知道。\n<span class="good">丹麥警戒 −8；之後和丹麥打仗，看得清他們的兵力和戰線</span>\n銀幣 −40';}}]}),
+  exile:()=>({kind:'丹麥',scene:'sc_dane_exile',title:'逃來的丹麥雅爾',text:'一艘破破爛爛的丹麥船開進了你的港口。船上走下來一個滿身是傷的雅爾，身後跟著四十幾個人，有男人、女人，也有孩子。\n\n「我在藍牙的宴會上說了一句真話，」他說，「現在他要我的頭。北方的王，你敢收留我嗎？」',
+    ch:[{t:'收留他們',note:'多一批老練的戰士；藍牙會很生氣',fx:()=>{const n=Math.min(10,Math.max(0,housing()-S.men));S.men+=n;S.vets+=Math.min(5,n);S.flags.exileJarl=1;addFame(10);addAlert(20);return `他跪下來，把劍放在你的腳邊。\n<span class="good">戰士 +${n}（老兵 +${Math.min(5,n)}），名聲 +10</span>\n<span class="bad">丹麥警戒 +20</span>${n<10?'\n（住房不夠，有些人只能先去投靠別的村子）':''}`;}},
+        {t:'把他交給藍牙',note:'丹麥會放心一點；族人會看不起你',fx:()=>{addAlert(-15);loseLoyalty(8);addFame(-10);S.cruel++;return '你把他綁起來，送上了南下的船。他沒有罵你，只是一直看著你。\n\n那天晚上，長屋裡沒有人跟你說話。\n<span class="good">丹麥警戒 −15</span>\n<span class="bad">忠誠 −8，名聲 −10</span>';}},
+        {t:'給他一條船，讓他往西走',note:'50 銀幣',ok:()=>S.silver>=50,fx:()=>{S.silver-=50;addAlert(5);return '你給了他一條船、一袋糧食，指了指西邊：「冰島那邊，沒有國王。」\n\n藍牙聽說你放走了他，在王廳裡摔了一個角杯。\n<span class="bad">丹麥警戒 +5</span>';}}]}),
+  gift:()=>({kind:'丹麥',scene:'sc_dane_gift',title:'藍牙要的「禮物」',text:'一個丹麥使者來到王廳，笑容可掬。\n\n「我的國王快過生日了。」他說，「北方所有的國王，都會送禮物來。我想，挪威的王，一定也不會忘記吧？」\n\n他說的是「禮物」。你們都知道，他的意思是「貢品」。',
+    ch:[{t:'送一份體面的禮',note:'150 銀幣',ok:()=>S.silver>=150,fx:()=>{S.silver-=150;addAlert(-3);return '你送了一整箱的白銀和一張白熊皮。使者滿意地走了。\n\n族人什麼都沒說，可是你知道他們在想什麼。\n<span class="good">丹麥警戒 −3</span>';}},
+        {t:'「挪威的王，不送禮。」',fx:()=>{addAlert(12);addFame(5);return '使者的笑容僵在了臉上。他鞠了個躬，走了。\n<span class="good">名聲 +5</span>\n<span class="bad">丹麥警戒 +12</span>';}},
+        {t:'把使者的鬍子剃掉，送他回去',note:'族人會笑翻；藍牙會氣瘋',fx:()=>{addAlert(25);addLoyalty(8);addFame(10);addInfamy(5);return '使者被按在長凳上，鬍子一刀一刀剃得乾乾淨淨。整個王廳的人都笑到站不起來。\n\n聽說藍牙看見他的時候，把桌子掀了。\n<span class="good">忠誠 +8，名聲 +10</span>\n<span class="bad">惡名 +5，丹麥警戒 +25</span>';}}]}),
+};
+function daneEvTick(t){
+  if(S.flags.envoy||S.flags.warDone||S.flags.ragna||S.flags.stik||t<4||S.turn-(S.flags.dEvT??-99)<5) return false;
+  const done=S.flags.dEv=S.flags.dEv||{};
+  const ok={sneak:S.turn-(S.lastRaid??S.p4turn??0)>=8,spy:t>=6,exile:t>=10,gift:t>=8};
+  const ks=Object.keys(DANE_EV).filter(k=>!done[k]&&ok[k]);if(!ks.length||Math.random()>.4) return false;
+  const k=ks.includes('sneak')?'sneak':pick(ks);done[k]=1;S.flags.dEvT=S.turn;codex('h_bluetooth');
+  pushLater(eventModal(DANE_EV[k]()));return true;
 }
 function counterAttack(o){
   const g=S.os[o.id];
@@ -4851,6 +4881,7 @@ const danMul=()=>{
   m*=1-Math.min(.12,S.fame/2500);
   m*=1+.04*osYours().length; // 你越大，藍牙帶來的人越多
   if(S.flags.sweynTalk) m*=.9;
+  if(S.flags.exileJarl) m*=.95;
   if(S.heir&&S.heir.trait==='peace') m*=.95;
   if(S.flags.ragnarVan) m*=.92;
   if(S.flags.ragnarDane) m*=1.1;

@@ -10,11 +10,11 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## ★ v0.17 補圖：原本沒有配圖的劇情（171 張）
+## ★ v0.17 補圖：原本沒有配圖的劇情（175 張）
 
 全遊戲盤點過一次：這些劇情原本只有文字或只有人物立繪。程式都接好了，圖一到就會自動出現；還沒到之前維持原樣。
 
-建議順序：W1 → W5 → W8 → W2 → W10 → W9 → W7 → W3 → W4 → W6。
+建議順序：W1 → W5 → W8 → W2 → W10 → W11 → W9 → W7 → W3 → W4 → W6。
 
 ### W1. 勇士的心事（37 張，16:9）
 
@@ -1772,6 +1772,53 @@ Fimbulwinter: snow up to the eaves of the longhouses, a pale tiny sun, wolves ho
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
 After the victory feast, the crowned ruler stands alone on a silent beach at night; the sea is still, gulls silent, a faint horn sound from the north (shown as a strange light on the horizon).
+```
+
+### W11. 丹麥的動靜（4 張，16:9）
+
+第四章讓丹麥警戒上升的四個事件。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_dane_sneak | 偷偷出海的人 |
+| 2 | sc_dane_spy | 市集上的探子 |
+| 3 | sc_dane_exile | 逃來的丹麥雅爾 |
+| 4 | sc_dane_gift | 藍牙要的禮物 |
+
+**1. sc_dane_sneak（偷偷出海的人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Dawn at a Norwegian harbor: two longships returning loaded with church silver and crosses, proud young Viking warriors jumping ashore, and their young leader standing defiantly before the crowned ruler (from behind).
+```
+
+**2. sc_dane_spy（市集上的探子）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A Viking market: guards seizing an amber merchant, his chest overturned revealing a hidden map of the harbor; a ring with King Harald Bluetooth's sign on his hand.
+```
+
+**3. sc_dane_exile（逃來的丹麥雅爾）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A battered Danish longship entering a Norwegian harbor; a wounded Danish jarl stepping ashore followed by forty refugees, men, women and children, the crowned ruler waiting on the dock.
+```
+
+**4. sc_dane_gift（藍牙要的禮物）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Comic scene in a Norwegian royal hall: a smug Danish envoy pinned on a bench while laughing warriors shave off his beard, the whole hall roaring with laughter, the crowned ruler watching (from behind).
 ```
 
 ## ★ v0.16 新圖（60 張）
