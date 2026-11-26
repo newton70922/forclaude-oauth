@@ -2112,8 +2112,8 @@ Two red-bearded berserkers, father Ragnar and son Bjorn, each carrying a whole c
 | 3 | sc_rr_garm | 冥犬加姆衝破盾牆 （✅ 已收到） |
 | 4 | sc_rr_jormun | 世界巨蛇的毒霧 （✅ 已收到） |
 | 5 | sc_rr_surtr | 火巨人蘇爾特 （✅ 已收到） |
-| 6 | sc_rr_fenrir | 巨狼芬里爾張開大口 |
-| 7 | sc_rr_step | 你走到最前面 |
+| 6 | sc_rr_fenrir | 巨狼芬里爾張開大口 （✅ 已收到） |
+| 7 | sc_rr_step | 你走到最前面 （✅ 已收到） |
 
 **1. sc_rr_hrym（赫列姆從船上跳下來）**
 
@@ -2179,8 +2179,8 @@ Low-angle cinematic shot from behind: the hooded crowned Viking ruler walks forw
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_dane_party | 勝利之夜：海灘上的篝火 |
-| 2 | sc_dane_party2 | 被扛起來的國王 |
+| 1 | sc_dane_party | 勝利之夜：海灘上的篝火 （✅ 已收到） |
+| 2 | sc_dane_party2 | 被扛起來的國王 （✅ 已收到） |
 
 **1. sc_dane_party（勝利之夜：海灘上的篝火）**
 
@@ -2205,20 +2205,20 @@ Night on the victory beach lit by bonfires: cheering Viking warriors lift the ho
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_re_c_athel | Aethelstan：之後的日子 |
-| 2 | sc_re_c_hakon | Hakon：之後的日子 |
-| 3 | sc_re_c_astrid | Astrid：之後的日子 |
-| 4 | sc_re_c_thorfinn | Thorfinn：之後的日子 |
-| 5 | sc_re_c_sven | Hrolf：之後的日子 |
-| 6 | sc_re_c_una | Una：之後的日子 |
-| 7 | sc_re_c_bragi | Bragi：之後的日子 |
-| 8 | sc_re_c_einar | Einar：之後的日子 |
-| 9 | sc_re_c_gudrun | Gudrun：之後的日子 |
-| 10 | sc_re_c_ragnar | Ragnar：之後的日子 |
-| 11 | sc_re_c_osric | Guthorm：之後的日子 |
-| 12 | sc_re_c_knut | Knut：之後的日子 |
-| 13 | sc_re_c_bjorn | Bjorn：之後的日子 |
-| 14 | sc_re_c_sigrid | Sigrid：之後的日子 |
+| 1 | sc_re_c_athel | Aethelstan：之後的日子 （✅ 已收到） |
+| 2 | sc_re_c_hakon | Hakon：之後的日子 （✅ 已收到） |
+| 3 | sc_re_c_astrid | Astrid：之後的日子 （✅ 已收到） |
+| 4 | sc_re_c_thorfinn | Thorfinn：之後的日子 （✅ 已收到） |
+| 5 | sc_re_c_sven | Hrolf：之後的日子 （✅ 已收到） |
+| 6 | sc_re_c_una | Una：之後的日子 （✅ 已收到） |
+| 7 | sc_re_c_bragi | Bragi：之後的日子 （✅ 已收到） |
+| 8 | sc_re_c_einar | Einar：之後的日子 （✅ 已收到） |
+| 9 | sc_re_c_gudrun | Gudrun：之後的日子 （✅ 已收到） |
+| 10 | sc_re_c_ragnar | Ragnar：之後的日子 （✅ 已收到） |
+| 11 | sc_re_c_osric | Guthorm：之後的日子 （✅ 已收到） |
+| 12 | sc_re_c_knut | Knut：之後的日子 （✅ 已收到） |
+| 13 | sc_re_c_bjorn | Bjorn：之後的日子 （✅ 已收到） |
+| 14 | sc_re_c_sigrid | Sigrid：之後的日子 （✅ 已收到） |
 
 **1. sc_re_c_athel（Aethelstan：之後的日子）**
 
@@ -2338,9 +2338,9 @@ sc_re_axe 是 16:9；兩張帝王肖像也是 16:9（正面露臉，這是唯一
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_re_axe | 老詩人指著牆上的舊斧頭 |
-| 2 | sc_re_hero_m | 帝王肖像（男主角） |
-| 3 | sc_re_hero_f | 帝王肖像（女主角） |
+| 1 | sc_re_axe | 老詩人指著牆上的舊斧頭 （✅ 已收到） |
+| 2 | sc_re_hero_m | 帝王肖像（男主角） （✅ 已收到） |
+| 3 | sc_re_hero_f | 帝王肖像（女主角） （✅ 已收到） |
 
 **1. sc_re_axe（老詩人指著牆上的舊斧頭）**
 
@@ -2372,10 +2372,10 @@ A grand royal portrait of the hero as the great queen of the North in her later 
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_sd_ingrid_1 | Ingrid・第 1 件事 |
-| 2 | sc_sd_ingrid_2 | Ingrid・第 2 件事 |
-| 3 | sc_sd_brynhild_1 | Brynhild・第 1 件事 |
-| 4 | sc_sd_brynhild_2 | Brynhild・第 2 件事 |
+| 1 | sc_sd_ingrid_1 | Ingrid・第 1 件事 （✅ 已收到） |
+| 2 | sc_sd_ingrid_2 | Ingrid・第 2 件事 （✅ 已收到） |
+| 3 | sc_sd_brynhild_1 | Brynhild・第 1 件事 （✅ 已收到） |
+| 4 | sc_sd_brynhild_2 | Brynhild・第 2 件事 （✅ 已收到） |
 | 5 | sc_sd_gunnhild_1 | Gunnhild・第 1 件事 |
 | 6 | sc_sd_gunnhild_2 | Gunnhild・第 2 件事 |
 | 7 | sc_sd_sweyn_1 | Sweyn Forkbeard・第 1 件事 |
