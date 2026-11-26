@@ -2589,6 +2589,7 @@ function summaryHTML(){
 document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('.summary [data-d]');if(!t)return;const p=t.parentNode.nextElementSibling;if(!p||!p.classList.contains('sum-d'))return;
   const on=t.classList.contains('on');t.parentNode.querySelectorAll('.on').forEach(x=>x.classList.remove('on'));if(on){p.hidden=true;return;}t.classList.add('on');p.textContent=t.dataset.d;p.hidden=false;});
 function endScreen(el,html){
+  if(S&&S.plog){const w=S.won,d=S.dead;S.won=false;S.dead=false;plog('結局',S.lastCause||'',w?'勝利':d?'死亡':'結束');S.won=w;S.dead=d;plPush(1);}
   const run=hallRecord();
   el.innerHTML=html+hallNote(run)+`<button class="primary" id="m-restart">開始新的傳奇</button>`;
   hallNoteBind(run);
@@ -6385,6 +6386,36 @@ function render(){
   save();
 }
 
+/* ================= 選擇紀錄：每個選項和行動都記下來（跟著存檔；有登入就依帳號存一份） ================= */
+const plTxt=x=>(x||'').replace(/\s+/g,' ').trim().slice(0,40);
+function plog(kind,title,choice){
+  if(!S||S.sandbox||S.dead||S.won) return;
+  S.runId=S.runId||(Date.now().toString(36)+Math.random().toString(36).slice(2,6));
+  const L=S.plog=S.plog||[];L.push([S.turn,S.phase,kind,plTxt(title),plTxt(choice)]);
+  if(L.length>2000) L.splice(0,L.length-2000);
+  plPush();
+}
+let plT=0;
+document.addEventListener('visibilitychange',()=>{if(document.hidden)plFlush();});
+function plPush(now){clearTimeout(plT);plT=setTimeout(plFlush,now?0:15000);}
+async function plFlush(){
+  if(!S||!S.plog||!remote.rdb||!remote.uid) return;
+  try{await remote.rdb.doc(`plays/${remote.uid}/runs/${S.runId}`).set({n:S.name,d:S.diff,ph:S.phase,turn:S.turn,age:age(),
+    end:S.dead?'dead':S.won?'won':'',at:Date.now(),log:S.plog.map(e=>e.join('|'))});}catch(e){}
+}
+document.addEventListener('click',e=>{
+  if(!S) return;
+  const b=e.target.closest&&e.target.closest('button');if(!b||b.disabled) return;
+  if(b.closest('#mbody')){
+    if(!b.classList.contains('choice')) return;
+    const mb=$('#mbody'),h=mb.querySelector('h2'),ey=mb.querySelector('.eyebrow');
+    const c=(b.querySelector('b')||b).textContent;if(!plTxt(c)) return;
+    plog(ey?plTxt(ey.textContent):'',h?h.textContent:'',c);return;
+  }
+  if(modalOpen||$('#game-screen').hidden) return;
+  if(b.dataset.a){plog('行動','',(b.querySelector('b')||b).textContent);return;}
+  if(b.dataset.ra||b.dataset.oa){plog(b.dataset.oa?'海外':'地圖','',b.textContent);}
+},true);
 /* ================= 互動 ================= */
 document.addEventListener('click',e=>{
   if(!S||modalOpen||$('#game-screen').hidden) return;
