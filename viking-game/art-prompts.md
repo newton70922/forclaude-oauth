@@ -2376,31 +2376,31 @@ A grand royal portrait of the hero as the great queen of the North in her later 
 | 2 | sc_sd_ingrid_2 | Ingrid・第 2 件事 （✅ 已收到） |
 | 3 | sc_sd_brynhild_1 | Brynhild・第 1 件事 （✅ 已收到） |
 | 4 | sc_sd_brynhild_2 | Brynhild・第 2 件事 （✅ 已收到） |
-| 5 | sc_sd_gunnhild_1 | Gunnhild・第 1 件事 |
-| 6 | sc_sd_gunnhild_2 | Gunnhild・第 2 件事 |
-| 7 | sc_sd_sweyn_1 | Sweyn Forkbeard・第 1 件事 |
-| 8 | sc_sd_sweyn_2 | Sweyn Forkbeard・第 2 件事 |
-| 9 | sc_sd_gormflaith_1 | Gormflaith・第 1 件事 |
-| 10 | sc_sd_gormflaith_2 | Gormflaith・第 2 件事 |
-| 11 | sc_sd_sitric_1 | Sitric Silkbeard・第 1 件事 |
-| 12 | sc_sd_sitric_2 | Sitric Silkbeard・第 2 件事 |
-| 13 | sc_sd_thorfinn_1 | Thorfinn・第 1 件事 |
-| 14 | sc_sd_thorfinn_2 | Thorfinn・第 2 件事 |
-| 15 | sc_sd_astrid_1 | Astrid・第 1 件事 |
-| 16 | sc_sd_astrid_2 | Astrid・第 2 件事 |
-| 17 | sc_sd_gudrun_1 | Gudrun・第 1 件事 |
-| 18 | sc_sd_gudrun_2 | Gudrun・第 2 件事 |
-| 19 | sc_sd_bragi_1 | Bragi・第 1 件事 |
-| 20 | sc_sd_bragi_2 | Bragi・第 2 件事 |
-| 21 | sc_sd_einar_1 | Einar・第 1 件事 |
-| 22 | sc_sd_einar_2 | Einar・第 2 件事 |
-| 23 | sc_sd_ragnar_1 | Ragnar・第 1 件事 |
-| 24 | sc_sd_ragnar_2 | Ragnar・第 2 件事 |
-| 25 | sc_sd_knut_1 | Knut・第 1 件事 |
-| 26 | sc_sd_knut_2 | Knut・第 2 件事 |
-| 27 | sc_sd_sven_1 | Hrolf・第 1 件事 |
-| 28 | sc_sd_sven_2 | Hrolf・第 2 件事 |
-| 29 | sc_sd_bjorn_1 | Bjorn・第 1 件事 |
+| 5 | sc_sd_gunnhild_1 | Gunnhild・第 1 件事 （✅ 已收到） |
+| 6 | sc_sd_gunnhild_2 | Gunnhild・第 2 件事 （✅ 已收到） |
+| 7 | sc_sd_sweyn_1 | Sweyn Forkbeard・第 1 件事 （✅ 已收到） |
+| 8 | sc_sd_sweyn_2 | Sweyn Forkbeard・第 2 件事 （✅ 已收到） |
+| 9 | sc_sd_gormflaith_1 | Gormflaith・第 1 件事 （✅ 已收到） |
+| 10 | sc_sd_gormflaith_2 | Gormflaith・第 2 件事 （✅ 已收到） |
+| 11 | sc_sd_sitric_1 | Sitric Silkbeard・第 1 件事 （✅ 已收到） |
+| 12 | sc_sd_sitric_2 | Sitric Silkbeard・第 2 件事 （✅ 已收到） |
+| 13 | sc_sd_thorfinn_1 | Thorfinn・第 1 件事 （✅ 已收到） |
+| 14 | sc_sd_thorfinn_2 | Thorfinn・第 2 件事 （✅ 已收到） |
+| 15 | sc_sd_astrid_1 | Astrid・第 1 件事 （✅ 已收到） |
+| 16 | sc_sd_astrid_2 | Astrid・第 2 件事 （✅ 已收到） |
+| 17 | sc_sd_gudrun_1 | Gudrun・第 1 件事 （✅ 已收到） |
+| 18 | sc_sd_gudrun_2 | Gudrun・第 2 件事 （✅ 已收到） |
+| 19 | sc_sd_bragi_1 | Bragi・第 1 件事 （✅ 已收到） |
+| 20 | sc_sd_bragi_2 | Bragi・第 2 件事 （✅ 已收到） |
+| 21 | sc_sd_einar_1 | Einar・第 1 件事 （✅ 已收到） |
+| 22 | sc_sd_einar_2 | Einar・第 2 件事 （✅ 已收到） |
+| 23 | sc_sd_ragnar_1 | Ragnar・第 1 件事 （✅ 已收到） |
+| 24 | sc_sd_ragnar_2 | Ragnar・第 2 件事 （✅ 已收到） |
+| 25 | sc_sd_knut_1 | Knut・第 1 件事 （✅ 已收到） |
+| 26 | sc_sd_knut_2 | Knut・第 2 件事 （✅ 已收到） |
+| 27 | sc_sd_sven_1 | Hrolf・第 1 件事 （✅ 已收到） |
+| 28 | sc_sd_sven_2 | Hrolf・第 2 件事 （✅ 已收到） |
+| 29 | sc_sd_bjorn_1 | Bjorn・第 1 件事 （✅ 已收到） |
 | 30 | sc_sd_bjorn_2 | Bjorn・第 2 件事 |
 | 31 | sc_sd_sigrid_1 | Sigrid・第 1 件事 |
 | 32 | sc_sd_sigrid_2 | Sigrid・第 2 件事 |
