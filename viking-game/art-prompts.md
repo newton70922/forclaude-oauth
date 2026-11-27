@@ -395,10 +395,10 @@ Knut, a rough outlaw with a long scar across his face, messy black hair, a sly g
 | 8 | sc_ct_gunnhild_2 | Gunnhild：相處 2 （✅ 已收到） |
 | 9 | sc_ct_sweyn_1 | Sweyn Forkbeard：相處 1 （✅ 已收到） |
 | 10 | sc_ct_sweyn_2 | Sweyn Forkbeard：相處 2 （✅ 已收到） |
-| 11 | sc_ct_gormflaith_1 | Gormflaith：相處 1 |
-| 12 | sc_ct_gormflaith_2 | Gormflaith：相處 2 |
-| 13 | sc_ct_sitric_1 | Sitric Silkbeard：相處 1 |
-| 14 | sc_ct_sitric_2 | Sitric Silkbeard：相處 2 |
+| 11 | sc_ct_gormflaith_1 | Gormflaith：相處 1 （✅ 已收到） |
+| 12 | sc_ct_gormflaith_2 | Gormflaith：相處 2 （✅ 已收到） |
+| 13 | sc_ct_sitric_1 | Sitric Silkbeard：相處 1 （✅ 已收到） |
+| 14 | sc_ct_sitric_2 | Sitric Silkbeard：相處 2 （✅ 已收到） |
 
 **1. sc_ct_ingrid_1（Ingrid：相處 1）**
 
@@ -1172,10 +1172,10 @@ night, the old crowned ruler lying awake in bed listening to their own heartbeat
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_ev_mission | 穿長袍的人 |
-| 2 | sc_ev_mission2 | 修士又來了 |
-| 3 | sc_ev_pagan | 舊神的反撲 |
-| 4 | sc_ev_raise | 怎麼養大繼承人 |
+| 1 | sc_ev_mission | 穿長袍的人 （✅ 已收到） |
+| 2 | sc_ev_mission2 | 修士又來了 （✅ 已收到） |
+| 3 | sc_ev_pagan | 舊神的反撲 （✅ 已收到） |
+| 4 | sc_ev_raise | 怎麼養大繼承人 （✅ 已收到） |
 | 5 | sc_ev_raise_1 | 交給勇士們 |
 | 6 | sc_ev_raise_2 | 交給吟遊詩人 |
 | 7 | sc_ev_raise_3 | 送去南方的宮廷 |
@@ -1596,16 +1596,16 @@ Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown 
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_st_split | 分裂的冬天 |
-| 2 | sc_st_rune | 門上的血符文 |
-| 3 | sc_st_god_odin | 最後一晚：奧丁 |
-| 4 | sc_st_god_thor | 最後一晚：索爾 |
-| 5 | sc_st_god_tyr | 最後一晚：提爾 |
-| 6 | sc_st_god_freyja | 最後一晚：弗蕾亞 |
-| 7 | sc_st_god_loki | 最後一晚：洛基 |
-| 8 | sc_st_fatherson | 斯蒂克萊斯塔：父與子 |
-| 9 | sc_st_gone_sven | 赫羅爾夫倒在斯蒂克萊斯塔 |
-| 10 | sc_st_thorstein | 教堂台階上的托爾斯坦 |
+| 1 | sc_st_split | 分裂的冬天 （✅ 已收到） |
+| 2 | sc_st_rune | 門上的血符文 （✅ 已收到） |
+| 3 | sc_st_god_odin | 最後一晚：奧丁 （✅ 已收到） |
+| 4 | sc_st_god_thor | 最後一晚：索爾 （✅ 已收到） |
+| 5 | sc_st_god_tyr | 最後一晚：提爾 （✅ 已收到） |
+| 6 | sc_st_god_freyja | 最後一晚：弗蕾亞 （✅ 已收到） |
+| 7 | sc_st_god_loki | 最後一晚：洛基 （✅ 已收到） |
+| 8 | sc_st_fatherson | 斯蒂克萊斯塔：父與子 （✅ 已收到） |
+| 9 | sc_st_gone_sven | 赫羅爾夫倒在斯蒂克萊斯塔 （✅ 已收到） |
+| 10 | sc_st_thorstein | 教堂台階上的托爾斯坦 （✅ 已收到） |
 
 **1. sc_st_split（分裂的冬天）**
 
@@ -1703,13 +1703,13 @@ Old Thorstein (a broad veteran Viking oarsman in his late fifties, long grey bea
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_ro_surtr | 蘇爾特走在最前面 |
-| 2 | sc_ro_hrym | 納吉爾法船 |
-| 3 | sc_ro_fenrir | 芬里爾掙斷了繩子 |
-| 4 | sc_ro_jormun | 耶夢加得從海裡昇起 |
-| 5 | sc_ro_garm | 加姆衝出洞穴 |
-| 6 | sc_fimbul | 芬布爾之冬 |
-| 7 | sc_rag_shore | 一個人在海邊 |
+| 1 | sc_ro_surtr | 蘇爾特走在最前面 （✅ 已收到） |
+| 2 | sc_ro_hrym | 納吉爾法船 （✅ 已收到） |
+| 3 | sc_ro_fenrir | 芬里爾掙斷了繩子 （✅ 已收到） |
+| 4 | sc_ro_jormun | 耶夢加得從海裡昇起 （✅ 已收到） |
+| 5 | sc_ro_garm | 加姆衝出洞穴 （✅ 已收到） |
+| 6 | sc_fimbul | 芬布爾之冬 （✅ 已收到） |
+| 7 | sc_rag_shore | 一個人在海邊 （✅ 已收到） |
 
 **1. sc_ro_surtr（蘇爾特走在最前面）**
 
