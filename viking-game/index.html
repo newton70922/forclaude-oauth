@@ -2718,7 +2718,7 @@ function levelUpModal(el){
     const done=S.pts===0&&S.talentPicks===0;
     el.innerHTML=`<p class="eyebrow">第 ${S.lvl} 級</p><h2>你變得更強了</h2>
     ${S.pts>0?`<p class="story">還有 <em>${S.pts}</em> 點可以分配。</p>`:''}
-    <div class="stats">${Object.keys(STAT).map(k=>`<div class="stat"><span class="r">${STAT_RUNE[k]}</span><div>${STAT[k]}<small>${STAT_DESC[k]}</small>${(()=>{const e=eff(k),nx=[6,9,12,15,18].find(t=>t>e);return nx?`<small class="nextm">再 ${nx-e} 點到 ${nx}${e!==S.st[k]?`（含裝備和加成，目前算 ${e}）`:''}：${MILES[k][nx]}</small>`:'<small class="nextm done">附帶效果全部解鎖了，再加只會加基本數值</small>';})()}</div><span class="v">${S.st[k]}</span>
+    <div class="stats">${Object.keys(STAT).map(k=>`<div class="stat"><span class="r">${STAT_RUNE[k]}</span><div>${STAT[k]}<small>${STAT_DESC[k]}</small>${(()=>{const e=eff(k),nx=[6,9,12,15,18].find(t=>t>e);return nx?`<small class="nextm">${nx}：${MILES[k][nx]}${e!==S.st[k]?`（含加成目前 ${e}）`:''}</small>`:'<small class="nextm done">附帶效果全部解鎖了，再加只會加基本數值</small>';})()}</div><span class="v">${S.st[k]}</span>
       ${S.pts>0?`<button class="plus" data-s="${k}" aria-label="提升${STAT[k]}">+</button>`:'<span></span>'}</div>`).join('')}</div>
     ${S.talentPicks>0?`<p class="eyebrow" style="margin-top:6px">選一個天賦${S.talentPicks>1?`（還能選 ${S.talentPicks} 個）`:''}</p>
       <p class="story" style="font-size:13px;color:var(--muted)">三條路，每一階二選一，選了就不能回頭。要學下一階，得先學會這一階。</p>
