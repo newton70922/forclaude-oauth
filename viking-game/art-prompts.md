@@ -10,7 +10,7 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## 📋 待辦總表（重畫 19 張、還沒畫 63 張）
+## 📋 待辦總表（重畫 19 張、還沒畫 64 張）
 
 提示詞都在下面各組裡，用檔名搜尋就找得到；重畫的那幾張，提示詞已經改好了。像素單挑角色另外在 pixel-prompts.md。
 
@@ -38,7 +38,7 @@
 | sc_mk_join | 剃頭拿斧 | 拿掉王冠 |
 | sc_mk_trader | 碼頭上的南方商人 | 拿掉王冠 |
 
-### 二、還沒畫（63 張）
+### 二、還沒畫（64 張）
 
 **W11 丹麥的動靜**（5 張）：sc_dane_sneak、sc_dane_spy、sc_dane_exile、sc_dane_gift、sc_dane_exile2
 
@@ -48,9 +48,9 @@
 
 **W14 補充：特寫第一頁、傳位、斯韋恩版**（18 張）：sc_rr_garm0、sc_rr_jormun0、sc_rr_surtr0、sc_rr_fenrir0、sc_abdicate_f、sc_abdicate_c_thorfinn、sc_abdicate_c_astrid、sc_abdicate_c_hakon、sc_abdicate_c_bragi、sc_abdicate_c_ragnar、sc_abdicate_c_sven、sc_abdicate_c_osric、sc_abdicate_c_knut、sc_abdicate_c_einar、sc_abdicate_c_gudrun、sc_abdicate_c_una、sc_dane_lastchance_m、sc_dane_taken_m
 
-**W15 勇士任務、洛基的來訪、長屋故事**（15 張）：sc_ms_board、sc_ms_envoy、sc_ms_mine、sc_ms_bandit、sc_ms_plague、sc_ms_trade、sc_ms_scout、sc_ms_drill、sc_ms_beast、sc_lk_1、sc_lk_2、sc_lk_3、sc_lk_4、sc_lt_raid、sc_lt_bear
+**W15 勇士任務、洛基的來訪、長屋故事**（16 張）：sc_ms_board、sc_ms_envoy、sc_ms_mine、sc_ms_bandit、sc_ms_plague、sc_ms_trade、sc_ms_scout、sc_ms_drill、sc_ms_beast、sc_lk_1、sc_lk_2、sc_lk_3、sc_lk_4、sc_lt_raid、sc_lt_bear、sc_ev_vraid1
 
-## ★ v0.17 補圖：原本沒有配圖的劇情（234 張）
+## ★ v0.17 補圖：原本沒有配圖的劇情（235 張）
 
 全遊戲盤點過一次：這些劇情原本只有文字或只有人物立繪。程式都接好了，圖一到就會自動出現；還沒到之前維持原樣。
 
@@ -2322,7 +2322,7 @@ If the player character appears, show them only from behind or in shadow (face h
 Dawn at the harbor: Danish soldiers forcing Sweyn Forkbeard, a Danish prince in his twenties with a blond beard split into a fork, a rich blue cloak with gold trim onto a Danish ship as he struggles and shouts back, the hooded crowned ruler running down the dock, wind howling.
 ```
 
-### W15. 勇士任務、洛基的來訪、長屋故事（15 張，16:9）
+### W15. 勇士任務、洛基的來訪、長屋故事（16 張，16:9）
 
 派勇士出任務的任務板和 8 種任務；洛基化身陌生人的 4 次來訪；長屋長故事缺的 2 張。
 
@@ -2343,6 +2343,7 @@ Dawn at the harbor: Danish soldiers forcing Sweyn Forkbeard, a Danish prince in 
 | 13 | sc_lk_4 | 最後一次見面 |
 | 14 | sc_lt_raid | 第一次搶村子（長屋故事） |
 | 15 | sc_lt_bear | 徒手殺熊（長屋故事） |
+| 16 | sc_ev_vraid1 | 角落裡的孩子（第一次搶漁村後） |
 
 **1. sc_ms_board（任務板）**
 
@@ -2477,6 +2478,15 @@ A small coastal fishing village at dawn: a lone hooded young raider facing an ol
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
 A snowy forest: a huge bear standing on its hind legs, two heads taller than the hooded young hunter, an axe stuck in the bear's shoulder, the hunter holding only a small knife. Desperate, heroic.
+```
+
+**16. sc_ev_vraid1（角落裡的孩子）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A dim fishing-village hut right after a Viking raid. In the foreground corner, a small village child hides behind an overturned wooden chest, unharmed, only their wide frightened eyes and part of their face visible in the shadow. In the bright doorway, the silhouette of a hooded young Viking raider seen from behind, axe hanging down at their side, not raised. Smoke and firelight outside, a fallen rusty spear on the threshold. No blood, no injuries, no bodies. Quiet, heavy, regretful mood.
 ```
 
 ## ★ v0.16 新圖（60 張）

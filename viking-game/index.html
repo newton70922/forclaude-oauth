@@ -3540,7 +3540,8 @@ function villageMemo(){
   const m=S.flags.mate,f=S.flags;let t='';
   f.vRaid=(f.vRaid||0)+1;
   if(f.vSaved&&!f.vBetray){f.vBetray=1;t='衝進村子的時候，你看見了村口那張狼皮——是你親手掛上去的。';if(m)t+='\n\n回程的路上，托爾斯坦一句話也沒說。';}
-  else if(m&&f.vRaid===1) t='回程的路上，托爾斯坦才開口：「守衛拿著矛擋在門口，死了不冤。」他停了一下，「可是剛才那間屋子的角落，縮著一個孩子，一直看著你。」\n\n「下一次，斧頭落下去之前，先看清楚對面站的是誰。」';
+  else if(m&&f.vRaid===1){pushLater(el=>cineView(el,[{art:['sc_ev_vraid1','c_thorstein'],text:'回程的路上，托爾斯坦才開口：「守衛拿著矛擋在門口，死了不冤。」\n\n他停了一下，「可是剛才那間屋子的角落，縮著一個孩子，一直看著你。」'},
+    {art:['sc_ev_vraid1','c_thorstein'],text:'「下一次，斧頭落下去之前，先看清楚對面站的是誰。」'}],closeModal,'回程的路上'));}
   return t?'\n\n'+t:'';
 }
 function foundTribe(){
