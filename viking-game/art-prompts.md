@@ -10,6 +10,44 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
+## 📋 待辦總表（重畫 19 張、還沒畫 48 張）
+
+提示詞都在下面各組裡，用檔名搜尋就找得到；重畫的那幾張，提示詞已經改好了。
+
+### 一、需要重畫（19 張）
+
+| 檔名 | 內容 | 要改的地方 |
+|---|---|---|
+| sc_q_hakon_a | 哈康：最後一個首領的墳（開頭） | 拿掉王冠 |
+| sc_q_hakon_b | 哈康：山谷裡的強盜 | 拿掉王冠 |
+| sc_q_hakon_w | 哈康：在舊主的墳前 | 拿掉王冠 |
+| sc_q_astrid_w | 阿斯特麗德：父親的盾 | 拿掉王冠 |
+| sc_q_thorfinn_a | 托爾芬：沉默的理由（開頭） | 拿掉王冠 |
+| sc_q_thorfinn_w | 托爾芬：終於哭出來 | 拿掉王冠 |
+| sc_q_sven_b | 赫羅爾夫：紅帆船 | 拿掉王冠 |
+| sc_q_sven_w | 赫羅爾夫：奪回紅帆船 | 拿掉王冠 |
+| sc_q_una_a | 烏娜：霧沼的女巫（開頭） | 拿掉王冠 |
+| sc_q_einar_w | 埃納：狼王殺手 | 拿掉王冠 |
+| sc_q_bjorn_b | 比約恩：海島上的墳 | 拿掉王冠 |
+| sc_god_loki_2 | 洛基・神恩第 2 階 | 拿掉王冠 |
+| sc_age_35 | 35 歲 | 拿掉王冠 |
+| sc_mk_silent | 沉默的修士 | 要穿修士袍，不是戰士 |
+| sc_rr_fenrir | 巨狼芬里爾張開大口 | 芬里爾要在撲咬，不是張嘴站著 |
+| sc_mk_map | 樹皮上的航線 | 拿掉王冠 |
+| sc_mk_axe | 練武場的斧頭 | 拿掉王冠 |
+| sc_mk_join | 剃頭拿斧 | 拿掉王冠 |
+| sc_mk_trader | 碼頭上的南方商人 | 拿掉王冠 |
+
+### 二、還沒畫（48 張）
+
+**W11 丹麥的動靜**（5 張）：sc_dane_sneak、sc_dane_spy、sc_dane_exile、sc_dane_gift、sc_dane_exile2
+
+**W12 本場最佳**（14 張）：sc_mvp_hakon、sc_mvp_astrid、sc_mvp_thorfinn、sc_mvp_sven、sc_mvp_una、sc_mvp_bragi、sc_mvp_einar、sc_mvp_gudrun、sc_mvp_ragnar、sc_mvp_osric、sc_mvp_knut、sc_mvp_bjorn、sc_mvp_sigrid、sc_mvp_athel
+
+**W13 勇士搭檔與和好**（11 張）：sc_ev_pr_ragnar_astrid、sc_ev_pr_knut_thorfinn、sc_ev_pr_sven_hakon、sc_ev_pr_sigrid_astrid、sc_ev_pr_bragi_hakon、sc_ev_pr_einar_una、sc_ev_pr_gudrun_ragnar、sc_ev_pr_osric_bragi、sc_ev_pr_astrid_thorfinn、sc_ev_pr_knut_sven、sc_ev_pr_ragnar_bjorn
+
+**W14 補充：特寫第一頁、傳位、斯韋恩版**（18 張）：sc_rr_garm0、sc_rr_jormun0、sc_rr_surtr0、sc_rr_fenrir0、sc_abdicate_f、sc_abdicate_c_thorfinn、sc_abdicate_c_astrid、sc_abdicate_c_hakon、sc_abdicate_c_bragi、sc_abdicate_c_ragnar、sc_abdicate_c_sven、sc_abdicate_c_osric、sc_abdicate_c_knut、sc_abdicate_c_einar、sc_abdicate_c_gudrun、sc_abdicate_c_una、sc_dane_lastchance_m、sc_dane_taken_m
+
 ## ★ v0.17 補圖：原本沒有配圖的劇情（219 張）
 
 全遊戲盤點過一次：這些劇情原本只有文字或只有人物立繪。程式都接好了，圖一到就會自動出現；還沒到之前維持原樣。
@@ -689,11 +727,11 @@ in a busy market, a stranger who looks just like the hooded chieftain winks and 
 | 3 | sc_odd_3 | 尋找奧德：世界盡頭的海岸 （✅ 已收到） |
 | 4 | sc_fq_cloak | 奧德的斗篷 （✅ 已收到） |
 | 5 | sc_fq_wed | 女神的伴侶 （✅ 已收到） |
-| 6 | sc_fr_cat | 弗蕾亞的貓離開 |
-| 7 | sc_fr_farewell | 弗蕾亞揮手告別 |
-| 8 | sc_loki_1 | 洛基的玩笑：鹹魚 |
-| 9 | sc_loki_2 | 洛基的玩笑：屋頂上的斧頭 |
-| 10 | sc_loki_3 | 洛基的玩笑：山羊 |
+| 6 | sc_fr_cat | 弗蕾亞的貓離開 （✅ 已收到） |
+| 7 | sc_fr_farewell | 弗蕾亞揮手告別 （✅ 已收到） |
+| 8 | sc_loki_1 | 洛基的玩笑：鹹魚 （✅ 已收到） |
+| 9 | sc_loki_2 | 洛基的玩笑：屋頂上的斧頭 （✅ 已收到） |
+| 10 | sc_loki_3 | 洛基的玩笑：山羊 （✅ 已收到） |
 
 **1. sc_odd_1（尋找奧德：港口的老水手）**
 
@@ -1105,12 +1143,12 @@ A holmgang cloak on the ground: Ragnar, a huge bare-chested red-bearded berserke
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_age_35 | 35 歲 |
-| 2 | sc_age_40 | 40 歲 |
-| 3 | sc_age_45 | 45 歲 |
-| 4 | sc_age_50 | 50 歲 |
-| 5 | sc_age_55 | 55 歲 |
-| 6 | sc_age_63 | 63 歲 |
+| 1 | sc_age_35 | 35 歲 （⚠ 需重畫：拿掉王冠） |
+| 2 | sc_age_40 | 40 歲 （✅ 已收到） |
+| 3 | sc_age_45 | 45 歲 （✅ 已收到） |
+| 4 | sc_age_50 | 50 歲 （✅ 已收到） |
+| 5 | sc_age_55 | 55 歲 （✅ 已收到） |
+| 6 | sc_age_63 | 63 歲 （✅ 已收到） |
 
 **1. sc_age_35（35 歲）**
 
