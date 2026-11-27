@@ -10,11 +10,11 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## 📋 待辦總表（重畫 19 張、還沒畫 64 張）
+## 📋 待辦總表（重畫 24 張、還沒畫 99 張）
 
 提示詞都在下面各組裡，用檔名搜尋就找得到；重畫的那幾張，提示詞已經改好了。像素單挑角色另外在 pixel-prompts.md。
 
-### 一、需要重畫（19 張）
+### 一、需要重畫（24 張）
 
 | 檔名 | 內容 | 要改的地方 |
 |---|---|---|
@@ -37,8 +37,13 @@
 | sc_mk_axe | 練武場的斧頭 | 拿掉王冠 |
 | sc_mk_join | 剃頭拿斧 | 拿掉王冠 |
 | sc_mk_trader | 碼頭上的南方商人 | 拿掉王冠 |
+| sc_ev_p_astrid | 阿斯特麗德的挑戰 | 新提示詞在 W16-R |
+| sc_win_astrid2 | 阿斯特麗德輸了之後 | 新提示詞在 W16-R |
+| sc_oath_astrid | 與阿斯特麗德立誓 | 新提示詞在 W16-R |
+| sc_rv_dock | 碼頭上的老面孔 | 新提示詞在 W16-R |
+| sc_dane_party2 | 被扛起來的國王 | 新提示詞在 W16-R |
 
-### 二、還沒畫（64 張）
+### 二、還沒畫（99 張）
 
 **W11 丹麥的動靜**（5 張）：sc_dane_sneak、sc_dane_spy、sc_dane_exile、sc_dane_gift、sc_dane_exile2
 
@@ -49,6 +54,8 @@
 **W14 補充：特寫第一頁、傳位、斯韋恩版**（18 張）：sc_rr_garm0、sc_rr_jormun0、sc_rr_surtr0、sc_rr_fenrir0、sc_abdicate_f、sc_abdicate_c_thorfinn、sc_abdicate_c_astrid、sc_abdicate_c_hakon、sc_abdicate_c_bragi、sc_abdicate_c_ragnar、sc_abdicate_c_sven、sc_abdicate_c_osric、sc_abdicate_c_knut、sc_abdicate_c_einar、sc_abdicate_c_gudrun、sc_abdicate_c_una、sc_dane_lastchance_m、sc_dane_taken_m
 
 **W15 勇士任務、洛基的來訪、長屋故事**（16 張）：sc_ms_board、sc_ms_envoy、sc_ms_mine、sc_ms_bandit、sc_ms_plague、sc_ms_trade、sc_ms_scout、sc_ms_drill、sc_ms_beast、sc_lk_1、sc_lk_2、sc_lk_3、sc_lk_4、sc_lt_raid、sc_lt_bear、sc_ev_vraid1
+
+**W16 試玩回報補圖**（35 張）：c_athel_mk、sc_mk_cap_1、sc_mk_cap_2、sc_mk_cap_3、sc_mk_bully_1、sc_mk_bully_2、sc_mk_bully_3、sc_mk_map_1、sc_mk_map_2、sc_mk_map_3、sc_mk_pray_1、sc_mk_pray_2、sc_mk_pray_3、sc_mk_axe_1、sc_mk_axe_2、sc_mk_axe_3、sc_mk_trader_1、sc_mk_trader_2、sc_mk_trader_3、sc_ev_mission_1、sc_ev_mission_2、sc_ev_mission_3、sc_ev_mission_4、sc_ev_mission2_1、sc_ev_mission2_2、sc_duel_gyr、sc_duel_dock_w、sc_duel_dock_l、sc_duel_sven_flee、sc_duel_usurper、sc_duel_knut、sc_duel_egill、sc_duel_holm、sc_paris_haul、sc_paris_fire
 
 ## ★ v0.17 補圖：原本沒有配圖的劇情（235 張）
 
@@ -2487,6 +2494,444 @@ A snowy forest: a huge bear standing on its hind legs, two heads taller than the
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
 A dim fishing-village hut right after a Viking raid. In the foreground corner, a small village child hides behind an overturned wooden chest, unharmed, only their wide frightened eyes and part of their face visible in the shadow. In the bright doorway, the silhouette of a hooded young Viking raider seen from behind, axe hanging down at their side, not raised. Smoke and firelight outside, a fallen rusty spear on the threshold. No blood, no injuries, no bodies. Quiet, heavy, regretful mood.
+```
+
+### W16. 試玩回報補圖（40 張）
+
+2026-11-27 試玩後補的：重畫 5 張、艾瑟斯坦修士線、傳教士、比武之後、巴黎。程式都接好了，圖一到就會自動出現。
+
+#### W16-R 重畫（5 張，16:9）
+
+你玩的時候發現肢體怪、視線不對的圖。畫好會直接蓋掉舊圖。阿斯特麗德這次刻意不再「舉盾」或「蹲著」，換成別的動作。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_ev_p_astrid | 阿斯特麗德的挑戰（重畫） |
+| 2 | sc_win_astrid2 | 阿斯特麗德輸了之後（重畫） |
+| 3 | sc_oath_astrid | 與阿斯特麗德立誓（重畫） |
+| 4 | sc_rv_dock | 碼頭上的老面孔（重畫） |
+| 5 | sc_dane_party2 | 被扛起來的國王（重畫） |
+
+**1. sc_ev_p_astrid（阿斯特麗德的挑戰（重畫））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A Viking training yard at golden hour, wooden practice posts and targets. the shieldmaiden Astrid (late twenties, long thick blonde braid over one shoulder, sides of the head shaved with small braids, chainmail and leather vest, a thin scar across one eyebrow, her round shield painted with a black raven) stands upright and relaxed, weight on one leg, a bearded training axe resting casually on her shoulder, her raven shield slung on her back. With her free hand she has just tossed a spare round wooden shield underhand toward the hooded player (seen from behind in the foreground, hands coming up to catch it); the shield is in mid-air between them. She grins with one corner of her mouth, looking straight at the player. Playful challenge. Anatomy must be natural and clear: one head, two arms, two legs per person, limbs clearly attached, no merged bodies.
+```
+
+**2. sc_win_astrid2（阿斯特麗德輸了之後（重畫））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+The same muddy training yard after a sparring match. the shieldmaiden Astrid (late twenties, long thick blonde braid over one shoulder, sides of the head shaved with small braids, chainmail and leather vest, a thin scar across one eyebrow, her round shield painted with a black raven) stands up straight with her back mostly to the viewer, turned three-quarters away, holding her muddy raven shield by the rim at her side with one hand and rubbing the back of her neck with the other hand, head tilted down, the tips of her ears red. Simple, natural standing pose. Onlookers in the background politely look away. Quiet embarrassment. Anatomy must be natural and clear: one head, two arms, two legs per person, limbs clearly attached, no merged bodies.
+```
+
+**3. sc_oath_astrid（與阿斯特麗德立誓（重畫））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Inside the player's longhall by firelight, a close two-person side view. the shieldmaiden Astrid (late twenties, long thick blonde braid over one shoulder, sides of the head shaved with small braids, chainmail and leather vest, a thin scar across one eyebrow, her round shield painted with a black raven) and the hooded player (in profile, face hidden in the hood) stand face to face, each holding a round shield; she presses the rim of her raven shield against the rim of the player's shield so the edges lock together. She looks directly into the player's hooded face, eye contact, serious and steady: 'From today, I stand at your right.' Solemn, personal, a bond for life. Anatomy must be natural and clear: one head, two arms, two legs per person, limbs clearly attached, no merged bodies.
+```
+
+**4. sc_rv_dock（碼頭上的老面孔（重畫））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A busy Viking trading dock. Hrolf (late twenties, the arrogant son of a jarl, red-brown hair tied back, a fur collar and red cloak over mail, a sneering mouth) stands with his right boot planted on top of a wooden crate he has just tipped over, dried fish spilled across the planks at the feet of the young player character (seen from behind, hooded, a plain wool tunic, no crown). He leans on his knee and laughs, his thugs from a red-sailed ship grinning behind him. Dockworkers stop and stare. Humiliation, tension. Anatomy must be natural and clear: one head, two arms, two legs per person, limbs clearly attached, no merged bodies.
+```
+
+**5. sc_dane_party2（被扛起來的國王（重畫））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Night on the victory beach lit by bonfires. Following the old Norse custom, four cheering Viking warriors hold up a large round shield by its edges at shoulder height, and the hooded crowned ruler (seen from behind, slightly low angle) stands on the shield with both arms raised, one hand holding a drinking horn. Clear simple composition: the ruler's whole body is visible standing on the shield. The whole beach shouts, firelight on happy faces, a spouse in the crowd wiping away tears of joy. Euphoric. Anatomy must be natural and clear: one head, two arms, two legs per person, limbs clearly attached, no merged bodies.
+```
+
+#### W16-A 艾瑟斯坦：修士時期的頭像和每個選項的結果（19 張）
+
+他還是修士的時候，事件會改用修士頭像（還沒到就先用勇士立繪）。每個選項選完都有自己的結果圖。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | c_athel_mk | 艾瑟斯坦（修士時期頭像，直式 3:4） |
+| 2 | sc_mk_cap_1 | 船艙裡的修士 → 帶回去，當自己人 |
+| 3 | sc_mk_cap_2 | 船艙裡的修士 → 留下來幹活 |
+| 4 | sc_mk_cap_3 | 船艙裡的修士 → 賣給南方的商人 |
+| 5 | sc_mk_bully_1 | 被欺負的修士 → 當眾護著他 |
+| 6 | sc_mk_bully_2 | 被欺負的修士 → 私下塞給他一把小刀 |
+| 7 | sc_mk_bully_3 | 被欺負的修士 → 不管 |
+| 8 | sc_mk_map_1 | 樹皮上的航線 → 問他為什麼 |
+| 9 | sc_mk_map_2 | 樹皮上的航線 → 讓他畫完，拿來用 |
+| 10 | sc_mk_map_3 | 樹皮上的航線 → 沒收，丟進火裡 |
+| 11 | sc_mk_pray_1 | 傷兵帳篷裡的禱詞 → 讓他繼續 |
+| 12 | sc_mk_pray_2 | 傷兵帳篷裡的禱詞 → 讓他照顧傷兵，但不准禱告 |
+| 13 | sc_mk_pray_3 | 傷兵帳篷裡的禱詞 → 把他趕出去，讓祭司來 |
+| 14 | sc_mk_axe_1 | 練武場邊的修士 → 親自教他 |
+| 15 | sc_mk_axe_2 | 練武場邊的修士 → 找一個勇士教他 |
+| 16 | sc_mk_axe_3 | 練武場邊的修士 → 「你的筆比斧頭有用。」 |
+| 17 | sc_mk_trader_1 | 碼頭上的南方商人 → 把他叫來問清楚 |
+| 18 | sc_mk_trader_2 | 碼頭上的南方商人 → 扣下那個商人的船 |
+| 19 | sc_mk_trader_3 | 碼頭上的南方商人 → 不管 |
+
+**1. c_athel_mk（艾瑟斯坦（修士時期頭像，直式 3:4））**
+
+```
+
+Photorealistic character portrait, Viking Age Scandinavia (9th–10th century), vertical 3:4, upper body, dramatic side light, dark atmospheric background. No text, no letters, no watermark, no frame, no modern objects.
+Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord, holding a small worn psalter against his chest. Frightened but curious eyes, a faint bruise on one cheek. Portrait of a captive monk in a Viking land, no weapon, no beard.
+```
+
+**2. sc_mk_cap_1（船艙裡的修士 → 帶回去，當自己人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+On the dock of the home fjord at dusk, the hooded player (from behind) drapes their own heavy fur cloak around the shoulders of Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord, who looks up stunned. Behind them, a few Viking warriors exchange sour looks and mutter. Unexpected kindness.
+```
+
+**3. sc_mk_cap_2（船艙裡的修士 → 留下來幹活）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Inside a dim Viking storehouse full of barley sacks and silver scales, Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord, an iron thrall collar on his neck, sits on a sack carefully scratching tallies on a wax tablet, counting coins. Lamp light, quiet diligence, captivity.
+```
+
+**4. sc_mk_cap_3（船艙裡的修士 → 賣給南方的商人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A southern merchant in a rich wool cloak leads Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord up the gangplank of a merchant ship by a rope on his wrists. At the top of the gangplank the monk looks back over his shoulder at the shore. Grey morning, sad farewell.
+```
+
+**5. sc_mk_bully_1（被欺負的修士 → 當眾護著他）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+By a longhouse fire, the hooded player (from behind) has shoved two jeering warriors aside and holds out a scorched wooden cross, just pulled from the flames, to Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord, who kneels by the fire looking up, lips trembling. The warriors glare, offended.
+```
+
+**6. sc_mk_bully_2（被欺負的修士 → 私下塞給他一把小刀）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Night in a dark corner of the longhouse: a small knife lies on a rough bedroll; Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord sits beside it in the dim light of a single oil lamp, staring at the blade, conflicted. Silent, tense.
+```
+
+**7. sc_mk_bully_3（被欺負的修士 → 不管）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+The hooded player walks away toward the viewer's side (seen from behind, small in the foreground), while in the background warriors laugh around Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord, who kneels by the fire reaching toward his burning cross. Cold, lonely.
+```
+
+**8. sc_mk_map_1（樹皮上的航線 → 問他為什麼）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Behind a storehouse, Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord sits on a log with a piece of birch bark scratched with fjords and sea routes; his charcoal stick has fallen to the ground. He looks up at the hooded player (from behind) with wet eyes: 'I wanted to remember the way home.' Gentle, melancholy.
+```
+
+**9. sc_mk_map_2（樹皮上的航線 → 讓他畫完，拿來用）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+In the longhouse by lamplight, Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord draws a large detailed map of the North Sea coasts on a stretched hide on the table; two grizzled old Viking sea captains lean over it, impressed, tracing routes with their fingers. Discovery, respect.
+```
+
+**10. sc_mk_map_3（樹皮上的航線 → 沒收，丟進火裡）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A piece of birch bark with a carefully drawn sea map curls and burns in a hearth fire, close-up. Behind the flames, Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord watches silently, face lit orange. Loss.
+```
+
+**11. sc_mk_pray_1（傷兵帳篷裡的禱詞 → 讓他繼續）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Dawn inside a tent of wounded Viking warriors: a young warrior with bandaged chest opens his eyes; beside him Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord has fallen asleep sitting up, exhausted, a wet cloth in his hand. Outside the tent flap a pagan priest stands stiffly. Hope, quiet miracle.
+```
+
+**12. sc_mk_pray_2（傷兵帳篷裡的禱詞 → 讓他照顧傷兵，但不准禱告）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Inside a tent of wounded warriors by candlelight, Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord silently bandages a warrior's arm, his lips pressed shut, his wooden cross tucked away inside his habit. Steady hands, restrained.
+```
+
+**13. sc_mk_pray_3（傷兵帳篷裡的禱詞 → 把他趕出去，讓祭司來）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Night: Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord sits alone on the ground outside a glowing tent, hugging his knees. Through the tent opening a Norse pagan priest in furs and bone charms chants over the wounded, holding up a bowl. Exclusion, loneliness.
+```
+
+**14. sc_mk_axe_1（練武場邊的修士 → 親自教他）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+On a snowy training ground, a split wooden post in front of Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord, who holds a bearded axe with blistered hands and smiles for the first time. The hooded player (from behind) stands at his side, hand on the axe haft correcting his grip. Two Viking champions watch from the side, a little jealous.
+```
+
+**15. sc_mk_axe_2（練武場邊的修士 → 找一個勇士教他）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Winter training ground: a seasoned scarred Viking warrior with a grey braided beard drills Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord, who is exhausted and snow-covered, breath steaming, but still gripping his axe and refusing to put it down. Grit.
+```
+
+**16. sc_mk_axe_3（練武場邊的修士 → 「你的筆比斧頭有用。」）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Inside a quiet room of the longhouse, Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord sits at a table writing a letter on parchment with a quill, sealed letters stacked beside him; he glances out of a small window toward the training ground where warriors spar. Longing.
+```
+
+**17. sc_mk_trader_1（碼頭上的南方商人 → 把他叫來問清楚）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+In the longhouse, Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord stands with his head bowed before the hooded ruler seated in shadow (from behind), hands clasped, explaining himself. Torchlight, distrust on both sides.
+```
+
+**18. sc_mk_trader_2（碼頭上的南方商人 → 扣下那個商人的船）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+On the dock, Viking warriors haul bolts of cloth and wine barrels off a southern merchant ship while the merchant is shoved away down the pier; Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord stands at the edge of the dock watching, powerless.
+```
+
+**19. sc_mk_trader_3（碼頭上的南方商人 → 不管）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Evening in the warm longhouse: for the first time Aethelstan, a young Anglo-Saxon monk around twenty-two: thin, pale, short brown hair with a monastic tonsure (shaved crown), gentle intelligent eyes, a plain brown wool habit with a rope belt, a small wooden cross on a leather cord sits at the long table eating with the Viking warriors, a little shy, someone passing him bread and ale. Firelight, belonging beginning.
+```
+
+#### W16-B 穿長袍的人：每個選項的結果（6 張）
+
+傳教士事件選完之後的畫面。第一次來訪 4 張、第二次 2 張。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_ev_mission_1 | 穿長袍的人 → 受洗 |
+| 2 | sc_ev_mission_2 | 穿長袍的人 → 只接受十字記號 |
+| 3 | sc_ev_mission_3 | 穿長袍的人 → 請他離開 |
+| 4 | sc_ev_mission_4 | 穿長袍的人 → 把他獻給奧丁 |
+| 5 | sc_ev_mission2_1 | 修士又來了 → 受洗 |
+| 6 | sc_ev_mission2_2 | 修士又來了 → 「記號就夠了。」 |
+
+**1. sc_ev_mission_1（穿長袍的人 → 受洗）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+The hooded crowned ruler (from behind) kneels waist-deep in an icy river; a Christian missionary monk in a brown habit pours water over the hood from a wooden bowl, reading words from a small book. Warriors on the bank watch, uneasy. In the far background, the royal hall. Grey cold light, solemn.
+```
+
+**2. sc_ev_mission_2（穿長袍的人 → 只接受十字記號）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+In the royal hall, a Christian missionary monk traces a small cross with his thumb on the forehead of the hooded crowned ruler (seen in profile, face shadowed by the hood). Behind them, a carved wooden statue of Odin watches. Southern merchants wait at the door. Cautious compromise.
+```
+
+**3. sc_ev_mission_3（穿長袍的人 → 請他離開）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+At the harbor, a Christian missionary monk in a brown habit steps onto a ship heading south, holding a sack of dried fish he has been given; on the dock the hooded crowned ruler (from behind) raises a hand in farewell. Calm, polite parting.
+```
+
+**4. sc_ev_mission_4（穿長袍的人 → 把他獻給奧丁）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A sacred grove at dusk: a great old ash tree hung with sacrificial offerings and antlers, ravens on the branches; at a distance, a Christian missionary is led toward the tree by Norse priests, seen small as silhouettes. The hooded crowned ruler stands watching from behind. Dark, ominous, NOT graphic, no gore, no visible hanging body.
+```
+
+**5. sc_ev_mission2_1（修士又來了 → 受洗）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+The hooded crowned ruler (from behind) wades slowly into a cold river at dawn toward a waiting Christian monk who holds a letter with a Frankish royal seal; on the bank, a crowd of Norse people watch in silence. Turning point.
+```
+
+**6. sc_ev_mission2_2（修士又來了 → 「記號就夠了。」）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A Christian missionary monk walks away down the path from the royal hall with a sealed letter in his hand, sighing, shoulders slumped; the hooded crowned ruler stands at the hall door (from behind). Behind the throne inside, the statue of Odin. Final refusal.
+```
+
+#### W16-C 比武之後（8 張）
+
+有劇情的比武，打完後結果畫面上方會換成這張圖（野獸、盜匪這類小戰鬥不配）。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_duel_gyr | 壯漢蓋爾被打倒 |
+| 2 | sc_duel_dock_w | 碼頭比武 → 打贏赫羅爾夫 |
+| 3 | sc_duel_dock_l | 碼頭比武 → 輸給赫羅爾夫 |
+| 4 | sc_duel_sven_flee | 赫羅爾夫捂著傷口逃回船上 |
+| 5 | sc_duel_usurper | 篡位者被斬殺 |
+| 6 | sc_duel_knut | 叛變的克努特倒下 |
+| 7 | sc_duel_egill | 埃吉爾躺在地上大笑 |
+| 8 | sc_duel_holm | 夏至比武 → 人群把你扛起來 |
+
+**1. sc_duel_gyr（壯漢蓋爾被打倒）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Night around a campfire in a young Viking settlement: the big burly warrior Gyr (broad shoulders, shaved sides, thick blond beard) lies flat on his back in the dirt, panting, defeated. The hooded player (from behind) stands over him, breathing hard. The warriors around the fire who had been nodding along now stand silent, no longer nodding. Authority won.
+```
+
+**2. sc_duel_dock_w（碼頭比武 → 打贏赫羅爾夫）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A Viking trading dock: Hrolf (late twenties, the arrogant son of a jarl, red-brown hair tied back, a fur collar and red cloak over mail, a sneering mouth) is down on one knee on the planks, wiping blood from the corner of his mouth with the back of his hand, glaring up with hatred: 'You will regret this.' The crowd of dockworkers cheers; the hooded young player (from behind, plain wool tunic) stands with fists still raised. Anatomy must be natural and clear: one head, two arms, two legs per person, limbs clearly attached, no merged bodies.
+```
+
+**3. sc_duel_dock_l（碼頭比武 → 輸給赫羅爾夫）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A Viking trading dock: the hooded young player lies face-down on the planks (face hidden), Hrolf (late twenties, the arrogant son of a jarl, red-brown hair tied back, a fur collar and red cloak over mail, a sneering mouth) standing over them with one boot on their back, laughing to the crowd. A few dockworkers watch with quiet respect for the loser. Humiliation. Anatomy must be natural and clear: one head, two arms, two legs per person, limbs clearly attached, no merged bodies.
+```
+
+**4. sc_duel_sven_flee（赫羅爾夫捂著傷口逃回船上）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A beach in front of a wooden palisade: Hrolf (late twenties, the arrogant son of a jarl, red-brown hair tied back, a fur collar and red cloak over mail, a sneering mouth), clutching a bleeding wound at his side, leaps into his red-sailed longship as his men shove it off into the surf. On the palisade behind, the player's warriors beat their shields and shout. The hooded player (from behind) stands on the beach, axe lowered. Anatomy must be natural and clear: one head, two arms, two legs per person, limbs clearly attached, no merged bodies.
+```
+
+**5. sc_duel_usurper（篡位者被斬殺）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Inside a longhouse: a brutish scarred warrior lies fallen beside the long table, his weapon dropped. The hooded chieftain (from behind) stands on the long table above the crowd, axe lowered. The men who had drawn weapons now lower them, heads bowed. Total silence. Not graphic, no severed head, minimal blood.
+```
+
+**6. sc_duel_knut（叛變的克努特倒下）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+Midnight inside a longhouse by the kicked-open door: Knut, a rough outlaw with a long scar across his face and messy black hair, lies defeated on the floor, his axe out of reach. The hooded chieftain (from behind) stands over him. Tribespeople peer in from the shadows with awe and fear. Minimal blood, not graphic.
+```
+
+**7. sc_duel_egill（埃吉爾躺在地上大笑）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+In a great hall: Egill Skallagrimsson, a huge, ugly Icelander with a massive head like an ox, a thick dark beard and a bald crown, lies on his back on the floor with arms spread wide, roaring with laughter. The hooded player (from behind) offers him a hand up. Onlookers laugh along. Rough friendship.
+```
+
+**8. sc_duel_holm（夏至比武 → 人群把你扛起來）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: they are not king yet).
+A midsummer beach under the midnight sun around a bonfire: the crowd carries the hooded player (from behind) on a round shield held up by four men, circling the fire, cheers and raised horns. On the sand, the defeated old southern duelist sits laughing and clapping. Festive. Clear simple composition, the player standing on the shield.
+```
+
+#### W16-D 巴黎：每個選項的結果（2 張）
+
+「繼續圍城」用現有的冬天圍城圖。西元 885–886 年維京人圍攻巴黎時，真的把船從陸路拖過去，下面只照史實描述。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_paris_haul | 巴黎 → 把船拖上岸，從陸地繞過去 |
+| 2 | sc_paris_fire | 巴黎 → 強攻橋塔（火船） |
+
+**1. sc_paris_haul（巴黎 → 把船拖上岸，從陸地繞過去）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Historical, Siege of Paris 886: hundreds of Viking warriors haul their longships overland on wooden log rollers along a muddy riverbank road around the fortified bridges, pulling thick ropes, oxen helping. In the distance, the walled island city of Paris on the Seine, Frankish defenders on the walls staring in disbelief. The hooded crowned ruler (from behind) directs from a rise. Epic scale, grey morning light.
+```
+
+**2. sc_paris_fire（巴黎 → 強攻橋塔（火船））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Dawn on the river Seine at Paris: a Viking longship packed with burning hay drifts into the base of a fortified wooden bridge tower; flames climb the tower, Frankish defenders shout and throw water from the top, crossbow bolts fly. The Viking fleet waits behind, warriors ready on the bows. The hooded crowned ruler (from behind) stands at the prow of the nearest ship. Fire and smoke, dramatic.
 ```
 
 ## ★ v0.16 新圖（60 張）

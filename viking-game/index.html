@@ -333,7 +333,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .seagrid{display:grid;gap:3px;width:100%;max-width:270px;margin:10px auto}
 .seagrid i{aspect-ratio:1;background:#16303a;border-radius:4px;display:grid;place-items:center;font-style:normal;font-size:18px;color:var(--bone)}
 .seagrid i.rock{background:#3a4a44;color:var(--muted)}
-.seapad{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%;max-width:270px;margin:0 auto}
+.seapad{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:100%;max-width:210px;margin:0 auto}.seapad [data-d=U]{grid-column:2}.seapad [data-d=L]{grid-row:2;grid-column:1}.seapad [data-d=D]{grid-row:2;grid-column:2}.seapad [data-d=R]{grid-row:2;grid-column:3}
 .seapad button{width:100%;min-height:44px;background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:10px 0;font-size:18px;color:var(--bone)}
 .swtime{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin:8px 0}
 .swtime i{display:block;height:100%;width:100%;background:var(--ember)}
@@ -409,7 +409,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .fx .mbody .res{animation:txtin .4s ease-out backwards}
 @media (prefers-reduced-motion:reduce){.fx *{animation:none!important;transition:none!important}}
 .cn-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.cn-row .cn-skip{margin-left:auto;font-size:13px;padding:6px 14px}
+.cn-row .cn-skip{font-size:13px;padding:6px 14px}.cn-row #cn-ok{margin-left:auto}
 @keyframes cshake{0%,100%{transform:none}15%{transform:translate(-7px,2px)}35%{transform:translate(6px,-3px)}55%{transform:translate(-4px,2px)}75%{transform:translate(3px,-1px)}}
 .scene.dim img{animation:cdim 1.4s}
 @keyframes cdim{0%{filter:brightness(1)}25%{filter:brightness(.25)}100%{filter:brightness(1)}}
@@ -1275,7 +1275,7 @@ const rate=p=>`成功率 ${pct(clamp(p,.03,.97))}`;
 /* ================= 插圖 ================= */
 // 已經放進 art/ 的插圖。新圖到了就把檔名加進來，畫面會自動用上
 const ART_HAVE=new Set(['sc_age_63','sc_fr_cat','sc_fr_farewell','sc_loki_1','sc_loki_2','sc_loki_3','sc_age_35','sc_age_40','sc_age_45','sc_age_50','sc_age_55','sc_god_freyja_1','sc_god_thor_3','sc_god_tyr_1','sc_god_tyr_2','sc_god_tyr_3','sc_god_freyja_2','sc_god_freyja_3','sc_god_loki_1','sc_god_loki_2','sc_god_loki_3','sc_fq_cloak','sc_fq_wed','sc_odd_1','sc_odd_2','sc_odd_3','sc_ev_adopt','sc_ev_raise_1','sc_ev_raise_2','sc_ev_raise_3','sc_ev_raise_4','sc_god_odin_1','sc_god_odin_2','sc_god_odin_3','sc_god_thor_1','sc_god_thor_2','sc_st_fatherson','sc_st_god_freyja','sc_st_god_loki','sc_st_god_tyr','sc_st_gone_sven','sc_ev_mission','sc_ev_mission2','sc_ev_pagan','sc_ev_raise','sc_st_thorstein','sc_ct_gormflaith_1','sc_ct_gormflaith_2','sc_ct_sitric_1','sc_ct_sitric_2','sc_ro_surtr','sc_fimbul','sc_ro_fenrir','sc_ro_garm','sc_ro_hrym','sc_ro_jormun','sc_rag_shore','sc_st_god_odin','sc_st_god_thor','sc_st_rune','sc_st_split','sc_ct_brynhild_1','sc_ct_brynhild_2','sc_ct_ingrid_1','sc_ct_ingrid_2','sc_ct_ingrid_3','sc_ct_brynhild_3','sc_ct_gunnhild_1','sc_ct_gunnhild_2','sc_ct_sweyn_1','sc_ct_sweyn_2','sc_danegeld','sc_ransom','sc_relic_bone','sc_relic_book','sc_west_iceland','sc_meet_hakon','sc_meet_ragnar','sc_varang_gold','sc_west_greenland','sc_west_vinland','sc_dane_lastchance','sc_dane_taken','sc_lh_story','sc_meet_astrid','sc_dane_omen','sc_jelling_pre','sc_rebel_lord','sc_rebel_talk','sc_rebel','sc_abdicate','sc_counter','sc_jarl','sc_monument','sc_thing','sc_appease','sc_area_eng','sc_area_fra','sc_area_irl','sc_area_scot','sc_dane_rumor','sc_ev_envoy','sc_holm_fatherson','sc_knut_axe','sc_knut_reform','sc_q_bragi_b','sc_q_bragi_w','sc_q_einar_a','sc_q_einar_b','sc_q_einar_w','sc_ev_gunref','sc_mk_wreck','sc_sd_bjorn_2','sc_sd_sigrid_1','sc_sd_sigrid_2','sc_q_astrid_b','sc_q_astrid_w','sc_q_hakon_a','sc_q_hakon_b','sc_q_hakon_w','sc_q_sven_a','sc_q_sven_b','sc_q_thorfinn_a','sc_q_thorfinn_b','sc_q_thorfinn_w','sc_q_bragi_a','sc_q_sven_w','sc_q_una_a','sc_q_una_b','sc_q_una_w','sc_ev_coup','sc_ev_fair','sc_ev_train','sc_q_knut_b','sc_q_knut_w','sc_ev_capital','sc_ev_legend','sc_scare_pay','sc_scare_yield','sc_village_join','sc_q_gudrun_a','sc_q_gudrun_b','sc_q_gudrun_w','sc_q_ragnar_a','sc_q_ragnar_b','sc_q_bjorn_a','sc_q_osric_a','sc_q_osric_b','sc_q_osric_w','sc_q_ragnar_w','sc_q_bjorn_b','sc_q_bjorn_w','sc_q_knut_a','sc_q_sigrid_a','sc_q_sigrid_b','sc_ev_betray','sc_ev_coalition','sc_ev_crusade','sc_ev_desert','sc_ev_thief','sc_d3_thorstein','sc_ev_thorstein','sc_knut_cup','sc_knut_eye','sc_knut_gone','sc_dip_refuse','sc_lord_eagle','sc_lord_grey','sc_lord_red','sc_scare_no','sc_ev_stragglers','sc_k_after_exec','sc_k_after_spare','sc_k_refuse','sc_k_yield','sc_sd_bjorn_1','sc_sd_knut_1','sc_sd_knut_2','sc_sd_sven_1','sc_sd_sven_2','sc_sd_gormflaith_1','sc_sd_gunnhild_1','sc_sd_gunnhild_2','sc_sd_sweyn_1','sc_sd_sweyn_2','sc_sd_gormflaith_2','sc_sd_sitric_1','sc_sd_sitric_2','sc_sd_thorfinn_1','sc_sd_thorfinn_2','sc_sd_astrid_1','sc_sd_astrid_2','sc_sd_bragi_1','sc_sd_gudrun_1','sc_sd_gudrun_2','sc_sd_bragi_2','sc_sd_einar_1','sc_sd_einar_2','sc_sd_ragnar_1','sc_sd_ragnar_2','sc_re_hero_f','sc_sd_brynhild_1','sc_sd_brynhild_2','sc_sd_ingrid_1','sc_sd_ingrid_2','sc_dane_party','sc_dane_party2','sc_re_c_athel','sc_rr_step','sc_re_c_astrid','sc_re_c_hakon','sc_re_c_sven','sc_re_c_thorfinn','sc_re_c_una','sc_re_c_bragi','sc_re_c_einar','sc_re_c_gudrun','sc_re_c_osric','sc_re_c_ragnar','sc_re_axe','sc_re_c_bjorn','sc_re_c_knut','sc_re_c_sigrid','sc_re_hero_m','sc_ch2_build','sc_ch2_fire','sc_ch2_flag','sc_ch2_arrive','sc_ev_gyr','sc_ev_hunterB','sc_k_torger','sc_k_torger_fall','sc_k_torger_help','sc_mk_letter','v_torger','c_athel','sc_rr_garm','sc_rr_hrym','sc_rr_hrym_fall','sc_rr_jormun','sc_rr_surtr','sc_mk_bully','sc_mk_map','sc_mk_ship','sc_mk_axe','sc_mk_betray','sc_mk_join','sc_mk_pray','sc_mk_trader','sc_bap_altar','sc_bap_freyja','sc_bap_loki','sc_bap_none','sc_bap_odin','sc_bap_thor','sc_bap_tyr','sc_ev_egill','sc_ev_o_home','sc_ev_o_hunter1','sc_ev_o_hunter2','sc_ev_o_sailor1','sc_ev_o_sailor2','sc_ev_o_skald1','sc_ev_o_skald2','sc_ev_o_smith1','sc_ev_o_smith2','sc_ev_ragnarDane','sc_ev_rest1','sc_ev_rest2','sc_ev_rest3','sc_ev_varang','sc_ev_w_bear','sc_ev_w_beard','sc_ev_w_fish','sc_ev_w_goat','sc_ev_w_kids','sc_ev_w_poem','sc_ev_w_snow','sc_ev_wayland','sc_ev_wolves_req','sc_oath_sigrid0','sc_re_champs','sc_re_dawn','sc_re_family','sc_re_god_freyja','sc_re_god_loki','sc_re_god_none','sc_re_god_odin','sc_re_god_thor','sc_re_god_tyr','sc_re_king','sc_re_land','sc_re_skald','sc_re_thorstein','sc_rm_god_freyja','sc_rm_god_none','sc_st_after','sc_st_astrid','sc_st_bjorn','sc_st_bragi','sc_st_church','sc_st_clash','sc_st_coat','sc_st_dawn','sc_st_eclipse','sc_st_einar','sc_st_family','sc_st_father','sc_st_field','sc_st_frank','sc_st_gone','sc_st_gone_bjorn','sc_st_gone_bragi','sc_st_gone_knut','sc_st_gone_ragnar','sc_st_gone_una','sc_st_gudrun','sc_st_hakon','sc_st_hall','sc_st_king','sc_st_knut','sc_st_omen','sc_st_osric','sc_st_ragnar','sc_st_raven','sc_st_saxon','sc_st_sigrid','sc_st_sven','sc_st_thorfinn','sc_st_thorir','sc_st_una','sc_win_bjorn1','v_harek','v_kalf','v_thorir','sc_rm_bjorn','sc_rm_einherjar','sc_rm_god_odin','sc_rm_god_thor','sc_rm_god_tyr','sc_rm_gudrun','sc_rm_knut','sc_rm_osric','sc_rm_ragnar','sc_rm_sigrid','sc_rm_astrid','sc_rm_bragi','sc_rm_clash','sc_rm_einar','sc_rm_hakon','sc_rm_sven','sc_rm_thorfinn','sc_rm_thorstein','sc_rm_una','sc_rm_village','sc_ev_allyAsk','sc_ev_astridLand','sc_ev_birth','sc_ev_bragiSaga','sc_ev_brisingamen','sc_ev_famine','sc_ev_fenrir','sc_ev_flyting','sc_ev_giant','sc_ev_hakonLast','sc_ev_jarlgame','sc_ev_norns','sc_ev_widow','sc_ev_ygg','sc_ev_yule','sc_ev_children','sc_ev_grumble','sc_ev_grumble_b','sc_ev_oracle','sc_ev_p_astrid','sc_ev_p_bragi','sc_ev_p_einar','sc_ev_p_hakon','sc_ev_p_knut','sc_ev_p_osric','sc_ev_p_ragnar','sc_ev_p_una','sc_ev_plague','sc_ev_thorfinn_up','sc_ev_traitor','sc_ally_eagle','sc_ally_frank','sc_ally_grey','sc_ally_wessex','sc_ev_atone1','sc_ev_atone2','sc_ev_atone3','sc_ev_drunk','sc_ev_framed','sc_ev_ingrid','sc_ev_merchant','sc_ev_runestone','sc_ev_treasure','sc_ev_witch','sc_ev_wolves','sc_ev_wreck','sc_s_midsummer_1','sc_s_midsummer_2','sc_s_midsummer_3','sc_ev_dream_m','sc_ev_dream_f','sc_ev_wedding','sc_ev_wedding_b','sc_ev_wedding_c','sc_back_astrid','sc_back_bjorn','sc_back_bragi','sc_back_einar','sc_back_gudrun','sc_back_hakon','sc_back_knut','sc_back_osric','sc_back_ragnar','sc_back_sigrid','sc_back_sven','sc_back_thorfinn','sc_back_una','sc_ev_holm','sc_ev_holm_holmS','sc_bt_lose','sc_ev_astrid','sc_ev_bard','sc_ev_einar','sc_ev_forgive','sc_ev_gudrun','sc_ev_hakon','sc_ev_holm_holmB','sc_ev_knut','sc_ev_osric','sc_ev_ragnar','sc_ev_una','sc_oath_astrid','sc_oath_bjorn','sc_oath_bragi','sc_oath_einar','sc_oath_gudrun','sc_oath_hakon','sc_oath_knut','sc_oath_osric','sc_oath_ragnar','sc_oath_sigrid','sc_oath_sven','sc_oath_thorfinn','sc_oath_una','sc_d3_wall2','sc_bt_1','sc_bt_2','sc_bt_3','sc_bt_win','sc_win_sigrid3','sc_win_bjorn2','sc_win_bjorn3','sc_win_ragnar2','sc_win_sigrid2','sc_win_astrid2','sc_win_astrid3','sc_k_awaken','sc_k_boast','sc_k_stance','sc_rv_dock','sc_rv_raid1','sc_rv_raid2','sc_rv_fire','sc_rv_kneel','sc_rv_kneel_1','sc_rv_kneel_2','sc_d3_wall','sc_d3_envoy','sc_d3_sigurd','sc_d3_brynhild','sc_d3_king','sc_d3_hrolf','sc_win_astrid','sc_win_ragnar','sc_win_bjorn','sc_win_sigrid','sc_s_sow','sc_s_midsummer','sc_s_harvest','sc_s_icefish','sc_tribe_1','sc_tribe_2','sc_tribe_3','sc_tribe_4','sc_tribe_5','sc_tribe_6','b_longhouse','b_granary','b_smithy','b_barracks','b_dock','b_altar','b_hall','b_tower','b_market','b_yard','b_sauna','b_runehut','b_ancestor','b_shipyard','o_hunter','o_sailor','o_skald','o_smith','sc_k_drag','sc_k_dismount','sc_k_eyes','sc_k_promise','sc_k_reach','sc_k_sword','sc_k_gaze','sc_rag_freyja','sc_rag_people','sc_rag_thor','sc_rag_tyr','sc_rag_giants','sc_rag_horn','sc_rag_loki','sc_rag_odin','sc_rag_ours','v_halfdan3','sc_wessex_0','sc_york_3b','sc_k_advance','sc_paris_1','sc_paris_2','sc_paris_3','sc_wessex_3','sc_wessex_1','sc_wessex_2','sc_york_1','sc_york_2','sc_york_3','sc_beach_wall','sc_dane_victory','sc_war_council','sc_war_gunnhild','sc_war_sweyn','c_thorstein','sc_q_astrid','sc_q_sigrid','v_halfdan2a','v_halfdan2c','c_astrid','c_bragi','c_einar','c_gudrun','c_guthorm','c_hakon','c_hrolf','c_knut','c_ragnar','c_thorfinn','c_una','s_brynhild','s_gormflaith','s_gunnhild','s_ingrid','s_sweyn','g_freyja','g_hnoss','s_sitric','v_harald','v_palna','g_loki','g_odin','g_thor','g_tyr','v_halfdan','sc_ch2','sc_ch3','sc_ch4','sc_danes','sc_ch1','sc_coronation','sc_longhouse','sc_ragnarok','sc_tears','sc_valhalla','f_paint','f_frost','f_gold','f_hero','f_raven','m_fenrir','m_garm','m_hrym','m_jormun','m_surtr','v_halfdan2','c_sigrid','sc_einherjar','sc_ragfall','c_bjorn','sc_kiss_m','sc_kiss_f','sc_ragfall_odin','sc_ragfall_thor','sc_ragfall_freyja','sc_ragfall_loki','sc_ragfall_none','sc_ragfall_tyr','sc_k_kneel','sc_k_people','sc_k_push','sc_k_rise','sc_k_slip','sc_coronation_self','sc_k_exec','sc_k_face','sc_k_hall','sc_k_spare','sc_k_ship','sc_k_farm','sc_k_guard','sc_k_mound','sc_k_news','sc_k_bifrost','sc_k_charge','sc_k_axes','sc_k_line','sc_k_gods']);
-const CHAMP_ART={athel:'c_athel',torger:'v_torger',harek:'v_harek',kalf:'v_kalf',thorir:'v_thorir',halfdan2:'v_halfdan2',halfdan2a:'v_halfdan2a',halfdan2c:'v_halfdan2c',halfdan3:'v_halfdan3',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
+const CHAMP_ART={athel:'c_athel',athel_mk:'c_athel_mk',torger:'v_torger',harek:'v_harek',kalf:'v_kalf',thorir:'v_thorir',halfdan2:'v_halfdan2',halfdan2a:'v_halfdan2a',halfdan2c:'v_halfdan2c',halfdan3:'v_halfdan3',bjorn:'c_bjorn',sigrid:'c_sigrid',hakon:'c_hakon',astrid:'c_astrid',thorfinn:'c_thorfinn',sven:'c_hrolf',una:'c_una',bragi:'c_bragi',einar:'c_einar',gudrun:'c_gudrun',ragnar:'c_ragnar',osric:'c_guthorm',knut:'c_knut',
   ingrid:'s_ingrid',brynhild:'s_brynhild',gunnhild:'s_gunnhild',sweyn:'s_sweyn',gormflaith:'s_gormflaith',sitric:'s_sitric',
   odin:'g_odin',thor:'g_thor',tyr:'g_tyr',freyja:'g_freyja',loki:'g_loki',hnoss:'g_hnoss',harald:'v_harald',palna:'v_palna',halfdan:'v_halfdan'};
 const artKey=id=>CHAMP_ART[id]||id;
@@ -1345,7 +1345,7 @@ function cineView(el,pages,done,eyebrow){
     const p=pages[i],a=pickArt(p.art);if(a&&a.startsWith('sc_'))artSeen(a);
     const img=a?(a.startsWith('sc_')?`<div class="scene${p.dim?' dim':''}"><img src="${artSrc(a)}" data-art="${a}" alt=""></div>`:avatar(a,'big')):'';
     el.innerHTML=`<div class="${p.shake?'cine-shake':''}">${img}${eyebrow?`<p class="eyebrow">${eyebrow}</p>`:''}${p.title?`<h2>${p.title}</h2>`:''}
-      <p class="${p.big?'cine-big':'cine-txt'}">${p.text}</p><div class="cn-row"><button class="primary" id="cn-ok">${p.btn||'繼續'}</button>${seen&&i<pages.length-1?'<button class="ghost cn-skip" id="cn-skip">跳過</button>':''}</div></div>`;
+      <p class="${p.big?'cine-big':'cine-txt'}">${p.text}</p><div class="cn-row">${seen&&i<pages.length-1?'<button class="ghost cn-skip" id="cn-skip">跳過</button>':''}<button class="primary" id="cn-ok">${p.btn||'繼續'}</button></div></div>`;
     if(p.shake)sfx('drum');
     bigFit(el,eyebrow);
     $('#cn-ok').onclick=()=>{i++;if(i<pages.length)show();else finish();};$('#cn-ok').focus();
@@ -1548,10 +1548,10 @@ function passTime(quiet){
     if(AGING[a]&&!S.flags['age'+a]){S.flags['age'+a]=1;pushLater(agingModal(a));}
     if(a>=65&&Math.random()<(.05+(a-65)*.025)*(eff('con')>=15?.8:1)*(hasC('una')?.85:1)*(gt('freyja',2)?.85:1)){S.lastCause='在睡夢中老去';pushLater(strawDeathModal);return;}}
   // 斥候網：提前一季警告
-  if(has('scoutnet')&&S.phase===3&&S.reg.red.st==='free'&&S.rival.attacks<3&&S.turn+1===S.p3turn+[4,12,20][S.rival.attacks]){log('斥候回報：紅帆船隊下一季會來襲。');toast('斥候回報：紅帆下一季來襲');}
+  if(has('scoutnet')&&S.phase===3&&S.reg.red.st==='free'&&!S.flags.redBeaten&&S.rival.attacks<3&&S.turn+1===S.p3turn+[4,12,20][S.rival.attacks]){log('斥候回報：紅帆船隊下一季會來襲。');toast('斥候回報：紅帆下一季來襲');}
   // 劇情
   if(S.phase===1&&S.turn>=2&&!S.flags.sven_intro){S.flags.sven_intro=1;pushLater(eventModal(EV_SVEN));return;}
-  if(S.phase===3&&S.reg.red.st==='free'&&S.rival.attacks<3&&S.turn>=S.p3turn+[4,12,20][S.rival.attacks]){rivalAttack();return;}
+  if(S.phase===3&&S.reg.red.st==='free'&&!S.flags.redBeaten&&S.rival.attacks<3&&S.turn>=S.p3turn+[4,12,20][S.rival.attacks]){rivalAttack();return;}
   if(S.phase>=2&&S.loyalty<15&&S.turn-(S.flags.coupT??-99)>=8){S.flags.coupT=S.turn;pushLater(eventModal(EV_COUP));return;}
   if(S.phase===3&&S.infamy>=60&&!S.flags.coalition){S.flags.coalition=1;coalition(false);return;}
   if(S.phase>=2&&S.infamy>=80&&!S.flags.crusade){S.flags.crusade=1;coalition(true);return;}
@@ -1999,7 +1999,7 @@ function duel(key,o){
       if(d.sigDue&&!d.over){d.sigDue=false;runSig();return;}
       const fa=d.awake?(KING_FORM[d.form||0].art.find(hasArt)||FOE_ART[key]):FOE_ART[key];
       el.innerHTML=`<p class="eyebrow">${o.lethal?'生死單挑':'比武 · 點到為止'}</p><h2>${esc(S.name)} 對 ${d.name}</h2>
-      ${fa&&hasArt(fa)?avatar(fa,'big'):''}${o.intro&&!d.log.length?`<p class="story">${o.intro}</p>`:''}
+      ${d.over&&d.rimg?sceneImg(d.rimg):fa&&hasArt(fa)?avatar(fa,'big'):''}${o.intro&&!d.log.length?`<p class="story">${o.intro}</p>`:''}
       <div class="fighters">
         <div class="fighter"><b>${esc(S.name)}</b><div class="track"><div class="fill" style="width:${clamp(S.hp/maxHp(),0,1)*100}%"></div></div><span class="num">${Math.max(0,S.hp)} / ${maxHp()}${d.buff>1?' · 蓄勢待發':''}${d.rage?` · 狂暴（${d.rage}）`:''}</span></div>
         <div class="fighter foe"><b>${d.name}</b><div class="track"><div class="fill" style="width:${Math.max(0,d.hp)/d.max*100}%"></div></div><span class="num">${Math.max(0,d.hp)} / ${d.max}</span></div>
@@ -2154,6 +2154,7 @@ function duel(key,o){
           :(S.hp<=0?'<span class="bad">你眼前一黑，倒在血泊裡……</span>':'<span class="bad">你輸了這場比武。</span>');
         const scar=o.lethal&&S.hp>0?maybeScar():'';
         d.result=head+'\n'+(o.onEnd?o.onEnd(win)||'':'')+scar;
+        {const ra=win?o.winArt:o.loseArt;if(ra&&ART_HAVE.has(ra))d.rimg=ra;}
       }else choose();
     };
     draw();
@@ -2425,20 +2426,20 @@ const FOE_STYLE={
 };
 // 勇士的戰場絕招：大型部隊戰的第三回合，每場可以讓一位勇士出手
 const CMOVE={
-  hakon:{n:'老兵頂線',r:1.08,cas:.85,t:'哈康帶著老兵衝到最危險的那條線，把年輕人一個一個往後推：「往後站。這裡交給老骨頭。」',m:'戰鬥結束時，哈康還站在那條線上。他身邊的年輕人，一個都沒少。'},
-  astrid:{n:'盾牆死守',r:1.04,cas:.5,t:'阿斯特麗德把盾牌扣在一起，吼了一聲。整道盾牆像一塊石頭，敵人撞上來，又被彈了回去。',m:'阿斯特麗德的盾上插滿了箭。她一根一根拔下來，丟在地上：「下一個。」'},
-  thorfinn:{n:'守在你身邊',r:1.05,cas:.9,hurt:1,t:'托爾芬一句話都沒說，只是站到了你的右邊。之後每一把朝你砍來的斧頭，都先碰到了他的盾。',m:'托爾芬的盾碎了。你身上，一道新傷都沒有。'},
-  sven:{n:'紅帆突擊',r:1.12,cas:1,t:'赫羅爾夫帶著他的老部下，從側翼的海灘衝了上去：「紅帆的人，跟我來！」',m:'赫羅爾夫扛著敵人的旗子回來，往你腳邊一丟：「你看，我還是比你快。」'},
-  una:{n:'戰地救護',r:1,cas:.5,t:'烏娜帶著幾個女人，在陣線後面把倒下的人一個一個拖回來。她的手一直在流血，可是一直沒停。',m:'那一晚，烏娜救回來的人，比戰死的人還多。'},
-  bragi:{n:'戰歌',r:1.07,cas:.95,loy:3,t:'布拉吉站在一塊石頭上，開始唱。他唱的是每一個戰士的名字。聽到自己名字的人，吼得比誰都大聲。',m:'布拉吉的嗓子啞了好幾天。可是那首歌，整個部落都會唱了。'},
-  einar:{n:'射倒旗手',r:1.12,cas:1,t:'埃納爬上一棵樹，等了很久。然後一箭，敵人的旗手倒了下去。旗子一倒，敵陣亂成一團。',m:'埃納把那面旗子撿了回來，掛在長屋的門口。'},
-  gudrun:{n:'陣前換斧',r:1.08,cas:.9,t:'古德倫推著一車剛磨好的斧頭衝到陣線後面：「鈍了的丟掉！拿新的！」',m:'古德倫一整晚都在修斧頭，一邊修一邊罵：「誰把我的斧頭砍成這樣？」'},
-  ragnar:{n:'狂暴衝陣',r:1.2,cas:1.2,t:'拉格納咬著盾牌邊緣，雙眼通紅，一個人衝進了敵陣。敵人嚇得往兩邊散開，你的人趁機跟著衝了進去。',m:'拉格納渾身是血，有一半是別人的。他坐在屍堆上大笑：「再來！還有沒有！」'},
-  osric:{n:'看穿破綻',r:1.05,ai:.12,t:'古托姆盯著敵陣看了很久，然後指著一個地方：「那裡。他們換班的時候，那裡會空出來。」',m:'古托姆在地上畫了這一仗的陣形，一筆一筆，畫給年輕人看。'},
-  knut:{n:'繞後燒營',r:1.1,cas:.95,t:'克努特帶著幾個人不見了。過了一會兒，敵人的營地燒了起來。前線的敵人回頭一看，全都慌了。',m:'克努特回來的時候，背著兩袋從敵營裡摸回來的銀子：「順手。」'},
-  bjorn:{n:'鐵甲開路',r:1.1,cas:.9,t:'比約恩穿著那件砍不穿的鎖子甲，一個人走在最前面。箭射在他身上，叮叮噹噹地掉下來。',m:'比約恩的鎖子甲上，又多了幾個凹痕。他摸了摸，很得意。'},
-  sigrid:{n:'守住左翼',r:1.08,cas:.85,t:'西格麗德舉起她父親的盾，帶著鷹巢峰的人守住了左翼：「左邊交給我！」',m:'西格麗德把她父親的盾擦乾淨，掛回背上。那面盾上，又多了一道新的刀痕。'},
-  athel:{n:'讀懂敵人',r:1.06,cas:.85,t:'艾瑟斯坦聽懂了敵人在喊什麼。「他們要往右邊撤！」他大喊。你的人搶先一步，堵住了他們的退路。',m:'艾瑟斯坦替敵人的傷兵也包紮了。沒有人阻止他。'},
+  hakon:{n:'老兵頂線',lane:'max',add:2,cas:.85,t:'哈康帶著老兵衝到最危險的那條線，把年輕人一個一個往後推：「往後站。這裡交給老骨頭。」',m:'戰鬥結束時，哈康還站在那條線上。他身邊的年輕人，一個都沒少。'},
+  astrid:{n:'盾牆死守',all:1,cas:.8,t:'阿斯特麗德把盾牌扣在一起，吼了一聲。整道盾牆像一塊石頭，敵人撞上來，又被彈了回去。',m:'阿斯特麗德的盾上插滿了箭。她一根一根拔下來，丟在地上：「下一個。」'},
+  thorfinn:{n:'守在你身邊',lane:1,add:2,cas:.9,hurt:1,t:'托爾芬一句話都沒說，只是站到了你的右邊。之後每一把朝你砍來的斧頭，都先碰到了他的盾。',m:'托爾芬的盾碎了。你身上，一道新傷都沒有。'},
+  sven:{n:'紅帆突擊',lane:2,foe:2,cas:1,t:'赫羅爾夫帶著他的老部下，從側翼的海灘衝了上去：「紅帆的人，跟我來！」',m:'赫羅爾夫扛著敵人的旗子回來，往你腳邊一丟：「你看，我還是比你快。」'},
+  una:{n:'戰地救護',res:1,cas:.5,t:'烏娜帶著幾個女人，在陣線後面把倒下的人一個一個拖回來。她的手一直在流血，可是一直沒停。',m:'那一晚，烏娜救回來的人，比戰死的人還多。'},
+  bragi:{n:'戰歌',res:1,cas:.95,loy:3,t:'布拉吉站在一塊石頭上，開始唱。他唱的是每一個戰士的名字。聽到自己名字的人，吼得比誰都大聲。',m:'布拉吉的嗓子啞了好幾天。可是那首歌，整個部落都會唱了。'},
+  einar:{n:'射倒旗手',lane:'max',foe:2,cas:1,t:'埃納爬上一棵樹，等了很久。然後一箭，敵人的旗手倒了下去。旗子一倒，敵陣亂成一團。',m:'埃納把那面旗子撿了回來，掛在長屋的門口。'},
+  gudrun:{n:'陣前換斧',res:1,cas:.9,t:'古德倫推著一車剛磨好的斧頭衝到陣線後面：「鈍了的丟掉！拿新的！」',m:'古德倫一整晚都在修斧頭，一邊修一邊罵：「誰把我的斧頭砍成這樣？」'},
+  ragnar:{n:'狂暴衝陣',lane:'max',foe:3,cas:1.2,t:'拉格納咬著盾牌邊緣，雙眼通紅，一個人衝進了敵陣。敵人嚇得往兩邊散開，你的人趁機跟著衝了進去。',m:'拉格納渾身是血，有一半是別人的。他坐在屍堆上大笑：「再來！還有沒有！」'},
+  osric:{n:'看穿破綻',reveal:1,ai:.12,t:'古托姆盯著敵陣看了很久，然後指著一個地方：「那裡。他們換班的時候，那裡會空出來。」',m:'古托姆在地上畫了這一仗的陣形，一筆一筆，畫給年輕人看。'},
+  knut:{n:'繞後燒營',allfoe:1,cas:.95,t:'克努特帶著幾個人不見了。過了一會兒，敵人的營地燒了起來。前線的敵人回頭一看，全都慌了。',m:'克努特回來的時候，背著兩袋從敵營裡摸回來的銀子：「順手。」'},
+  bjorn:{n:'鐵甲開路',lane:1,add:2,cas:.9,t:'比約恩穿著那件砍不穿的鎖子甲，一個人走在最前面。箭射在他身上，叮叮噹噹地掉下來。',m:'比約恩的鎖子甲上，又多了幾個凹痕。他摸了摸，很得意。'},
+  sigrid:{n:'守住左翼',lane:0,add:2,cas:.85,t:'西格麗德舉起她父親的盾，帶著鷹巢峰的人守住了左翼：「左邊交給我！」',m:'西格麗德把她父親的盾擦乾淨，掛回背上。那面盾上，又多了一道新的刀痕。'},
+  athel:{n:'讀懂敵人',reveal:1,cas:.85,t:'艾瑟斯坦聽懂了敵人在喊什麼。「他們要往右邊撤！」他大喊。你的人搶先一步，堵住了他們的退路。',m:'艾瑟斯坦替敵人的傷兵也包紮了。沒有人阻止他。'},
 };
 function battle(o){
   if(o.foeType==='pagan'&&!o.midDone){pushModal(el=>cineView(el,stikMidPages(),()=>{closeModal();battle({...o,midDone:1});},'斯蒂克萊斯塔'));return;}
@@ -2495,44 +2496,54 @@ function battle(o){
       const seen=foe.map(()=>Math.random()<pSee);
       const fuzzy=v=>{const g=clamp(v+pick([-1,0,0,1]),0,6);return g<=1?'人不多':g<=3?'人不少':'黑壓壓一片';};
       const hint=foe.map((v,i)=>seen[i]?`敵軍 ${v} 隊`:`${fuzzy(v)}（看不清楚）`);
-      const mine=[0,0,0],R=clamp(Math.round(6+(ratio-1)*4),5,8);let champLane=-1;const hero=van&&hasC(van)?van:null;
+      const mine=[0,0,0];let R=clamp(Math.round(6+(ratio-1)*4),5,8);let champLane=-1;const hero=van&&hasC(van)?van:null;
+      // 勇士出手（一仗一次）：直接影響三條戰線
+      const cands=S.champions.filter(c=>CMOVE[c.id]&&!isJarl(c)&&!isAway(c));const bonus=[0,0,0];let cmNote='';
+      const applyCM=id=>{const M=CMOVE[id];cm=id;sfx('horn');bond(id,3);
+        const tl=M.lane==='max'?foe.indexOf(Math.max(...foe)):M.lane;
+        if(M.add){bonus[tl]+=M.add;cmNote=`${LANES[tl]}多了 ${M.add} 隊`;}
+        if(M.foe){foe[tl]=Math.max(0,foe[tl]-M.foe);seen[tl]=true;hint[tl]=`敵軍 ${foe[tl]} 隊`;cmNote=`${LANES[tl]}的敵軍少了 ${M.foe} 隊`;}
+        if(M.all){for(let i=0;i<3;i++)bonus[i]+=M.all;cmNote=`三條戰線各多 ${M.all} 隊`;}
+        if(M.allfoe){for(let i=0;i<3;i++){foe[i]=Math.max(0,foe[i]-M.allfoe);if(seen[i])hint[i]=`敵軍 ${foe[i]} 隊`;}cmNote=`每條戰線的敵軍各少 ${M.allfoe} 隊`;}
+        if(M.res){R+=M.res;cmNote=`預備隊多了 ${M.res} 隊`;}
+        if(M.reveal){for(let i=0;i<3;i++){seen[i]=true;hint[i]=`敵軍 ${foe[i]} 隊`;}cmNote='三條戰線的敵軍都看清楚了';}
+        draw2();};
       sfx('clash');
       const draw2=()=>{
         const left=R-mine[0]-mine[1]-mine[2];
         el.innerHTML=`${btImg(o,'sc_bt_2')}<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(ratio,1)}
         <p class="story">${open}</p><div class="r2tags"><span>預備隊 <b>${R}</b> 隊${R>6?'（兵比敵人多）':R<6?'（兵比敵人少）':''}</span>${FT.s?`<span>${FT.s}</span>`:''}</div>
-        ${(S.flags.r2n||0)<3?'<p class="hint">把預備隊放到三條戰線上：隊數不比敵軍少就守得住。守住兩條就佔上風，三條全守要靠打頭陣的勇士。</p>':''}
+        ${(S.flags.r2n||0)<3?'<p class="hint">把預備隊放到三條戰線上：隊數不比敵軍少就守得住。守住兩條就佔上風；三條全守，要靠打頭陣的勇士或讓勇士出手。</p>':''}
         <div class="lanes">${LANES.map((n,i)=>`<div class="lane"><b>${n}</b><span class="${seen[i]?'':'dim'}">${hint[i]}</span>
-          <div class="lctl"><button data-lm="${i}" ${mine[i]?'':'disabled'}>−</button><i>${mine[i]}${champLane===i?' +2':''}</i><button data-lp="${i}" ${left?'':'disabled'}>＋</button></div></div>`).join('')}</div>
+          <div class="lctl"><button data-lm="${i}" ${mine[i]?'':'disabled'}>−</button><i>${mine[i]}${champLane===i?' +2':''}${bonus[i]?` +${bonus[i]}`:''}</i><button data-lp="${i}" ${left?'':'disabled'}>＋</button></div></div>`).join('')}</div>
         ${hero?`<div class="bchamp"><span style="font-size:13px;color:var(--muted);align-self:center">${CHAMPS[hero].name}（算 2 隊）守：</span>${LANES.map((n,i)=>`<button data-lc="${i}" aria-pressed="${champLane===i}">${n}</button>`).join('')}</div>`:''}
+        ${cm?`<div class="cmove on">${hasArt(cm)?avatar(cm,'sm'):''}<p><b>${CHAMPS[cm].name}・${CMOVE[cm].n}</b>\n${CMOVE[cm].t}\n<span class="good">${cmNote}</span></p></div>`:cands.length?`<p class="story" style="font-size:13px;margin:6px 0 0">讓一位勇士出手（這一仗只能一次）：</p><div class="bchamp">${cands.map(c=>`<button data-cm="${c.id}">${CHAMPS[c.id].name}・${CMOVE[c.id].n}</button>`).join('')}</div>`:''}
         <p class="hint" style="margin-top:6px">還沒放的預備隊：${left} 隊<small>看清敵軍每條戰線的機率 ${pct(pSee)}（看智謀和斥候）</small></p>
         <button class="primary" id="r2-go">就這樣打</button>`;
+        el.querySelectorAll('[data-cm]').forEach(b=>b.onclick=()=>applyCM(b.dataset.cm));
         el.querySelectorAll('[data-lp]').forEach(b=>b.onclick=()=>{mine[+b.dataset.lp]++;draw2();});
         el.querySelectorAll('[data-lm]').forEach(b=>b.onclick=()=>{mine[+b.dataset.lm]--;draw2();});
         el.querySelectorAll('[data-lc]').forEach(b=>b.onclick=()=>{champLane=champLane===+b.dataset.lc?-1:+b.dataset.lc;draw2();});
         $('#r2-go').onclick=()=>{
-          const held=foe.map((v,i)=>mine[i]+(champLane===i?2:0)>=v),n=held.filter(Boolean).length;
+          const held=foe.map((v,i)=>mine[i]+(champLane===i?2:0)+bonus[i]>=v),n=held.filter(Boolean).length;
           S.flags.r2n=(S.flags.r2n||0)+1;if(n>=2){S.flags.mBat=(S.flags.mBat||0)+1;if(S.flags.mBat===3)toast('你的副將學會了怎麼調度預備隊');}
           ratio*=[.85,.93,1.04,1.12][n];
-          const txt=LANES.map((nm,i)=>`${nm}：你 ${mine[i]+(champLane===i?2:0)} 隊，敵軍 ${foe[i]} 隊，<span class="${held[i]?'good':'bad'}">${held[i]?'守住了':'被衝開了'}</span>`).join('\n');
+          const txt=LANES.map((nm,i)=>`${nm}：你 ${mine[i]+(champLane===i?2:0)+bonus[i]} 隊，敵軍 ${foe[i]} 隊，<span class="${held[i]?'good':'bad'}">${held[i]?'守住了':'被衝開了'}</span>`).join('\n');
           round3(t,nightOk,ratio,txt,n);};
       };
       draw2();
     };
     let cm=null;
     const round3=(t,nightOk,ratio,txt,n)=>{
-      if(cm){}else sfx(n>=2?'hit':'bad');
-      const CM=cm&&CMOVE[cm];const r3=ratio*(CM?CM.r:1);
-      const cands=S.champions.filter(c=>CMOVE[c.id]&&!isJarl(c)&&!isAway(c));
+      sfx(n>=2?'hit':'bad');
+      const r3=ratio;
       el.innerHTML=`${btImg(o,'sc_bt_3')}<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(r3,2)}
       <p class="story">${txt}\n\n${['三條戰線全垮了。','只剩一條戰線還撐著。','三條戰線守住了兩條。','三條戰線全都守住了！'][n]}兩邊都殺紅了眼。現在，該決定怎麼收尾了。</p>
-      ${CM?`<div class="cmove on">${hasArt(cm)?avatar(cm,'sm'):''}<p><b>${CHAMPS[cm].name}・${CM.n}</b>\n${CM.t}</p></div>`:cands.length?`<p class="story" style="font-size:13px;margin:0">讓一位勇士出手（這一仗只能一次）：</p><div class="bchamp">${cands.map(c=>`<button data-cm="${c.id}">${CHAMPS[c.id].name}・${CMOVE[c.id].n}</button>`).join('')}</div>`:''}
       <div class="choices">
         <button class="choice" data-r3="steady"><b>穩紮穩打</b><small>一步一步往前推：佔上風時最穩，落後時很難翻盤</small></button>
         <button class="choice" data-r3="allin"><b>全軍壓上</b><small>找出敵陣的破口，全軍從那裡打穿：落後時最有機會逆轉；打穿了傷亡反而比較輕，打不穿就很慘</small></button>
         <button class="choice" data-r3="retreat"><b>撤退</b><small>認輸，但傷亡減半，族人也不會太怪你</small></button>
       </div>`;
-      el.querySelectorAll('[data-cm]').forEach(b=>b.onclick=()=>{cm=b.dataset.cm;sfx('horn');bond(cm,3);round3(t,nightOk,ratio,txt,n);});
       el.querySelectorAll('[data-r3]').forEach(b=>b.onclick=()=>resolve(t,0,{nightOk,ratio:r3,end:b.dataset.r3,cm}));
     };
     const resolve=(t,nightP,ext,auto)=>{
@@ -2862,7 +2873,9 @@ function eventModal(ev){
     el.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{
       const ci=ev.ch.indexOf(opts[+b.dataset.i]);const r=opts[+b.dataset.i].fx();
       if(r===null){closeModal();return;}
-      const rs=scn?(ART_HAVE.has(scn.replace(/_[bc]$/,'')+'_'+(ci+1))?scn.replace(/_[bc]$/,'')+'_'+(ci+1):scn):undefined;
+      // 結果圖：選項自己指定的 → 事件圖加 _1/_2/_3 → 事件圖本身（事件圖被藏起來時，結果圖照樣可以出現）
+      const sb=(typeof ev.scene==='function'?ev.scene():ev.scene)||(ev.id?'sc_ev_'+ev.id:null),rv=sb&&sb.replace(/_[bc]$/,'')+'_'+(ci+1);
+      const ra=opts[+b.dataset.i].rart,rs=ra&&ART_HAVE.has(ra)?ra:rv&&ART_HAVE.has(rv)?rv:scn||undefined;
       resultView(el,typeof ev.title==='function'?ev.title():ev.title,r,ev.kind||'事件',rs);render();
     });
   };
@@ -2870,7 +2883,7 @@ function eventModal(ev){
 const EV_SVEN={kind:'宿敵',scene:'sc_rv_dock',title:'碼頭上的老面孔',
   text:()=>`你在碼頭卸貨時，有人一腳踢翻了你的木箱。\n\n是赫羅爾夫，故鄉雅爾的兒子。他也離開了峽灣，身後站著一群紅帆船上的打手。\n\n「看看是誰？那個說要當國王的${esc(S.name)}。」他笑得很大聲，「國王？我看你還在替人扛箱子。」`,
   ch:[
-    {t:'當眾跟他打一場',note:'比武，點到為止',fx:()=>{duel('sven1',{lethal:false,xp:14,intro:'圍觀的人吹起了口哨。',onEnd:w=>{
+    {t:'當眾跟他打一場',note:'比武，點到為止',fx:()=>{duel('sven1',{lethal:false,xp:14,winArt:'sc_duel_dock_w',loseArt:'sc_duel_dock_l',intro:'圍觀的人吹起了口哨。',onEnd:w=>{
       if(w){addFame(10);S.flags.dock='win';S.rival.fate='被你當眾擊倒過，懷恨在心';log('在碼頭當眾擊倒了赫羅爾夫。');return '人群爆出歡呼。赫羅爾夫擦掉嘴角的血：「你會後悔的。」\n名聲 +10';}
       addFame(2);S.flags.dock='lose';log('在碼頭輸給了赫羅爾夫。');return '赫羅爾夫踩著你的背大笑。但也有人記住了：這傢伙敢跟雅爾的兒子動手。\n名聲 +2';}});return null;}},
     {t:'忍下來，把他的臉記住',fx:()=>{gainXp(8);S.flags.dock='yield';S.rival.fate='記得你低頭的樣子';log('在碼頭忍下了赫羅爾夫的羞辱。');return '你彎腰撿起木箱。赫羅爾夫覺得無趣，走了。\n你把這份恥辱刻在心裡。經驗 +8';}},
@@ -2880,7 +2893,7 @@ const EV_TRAIN={scene:'sc_ev_train',kind:'部落',title:'操練場上的怨言',
       {t:'加發酒和肉（10 銀幣、5 糧食）',ok:()=>S.silver>=10&&S.food>=5,fx:()=>{S.silver-=10;S.food-=5;addLoyalty(3);S.trainLog=[];return '有酒有肉，怨言少了很多。\n忠誠 +3';}},
       {t:'「不練的，滾。」',fx:()=>{loseLoyalty(8);bondAll(-3);return '<span class="bad">沒人敢再抱怨，但也沒人看你一眼。忠誠 -8</span>';}}]};
 const EV_COUP={scene:'sc_ev_coup',kind:'危機',title:'有人要你的位子',text:'一個滿臉橫肉的戰士站上長屋的長桌：「這種首領，我們受夠了！」不少人在他身後拔出了武器。',
-  ch:[{t:'接受挑戰',note:'生死單挑',fx:()=>{duel('usurper',{lethal:true,xp:20,cause:'死在篡位者的刀下',onEnd:w=>{if(!w)return '';addLoyalty(25);addFame(5);log('親手斬殺了篡位者。');return '你把他的頭扔在長桌上。沒人再說話了。\n<span class="good">忠誠 +25</span>';}});return null;}},
+  ch:[{t:'接受挑戰',note:'生死單挑',fx:()=>{duel('usurper',{lethal:true,xp:20,winArt:'sc_duel_usurper',cause:'死在篡位者的刀下',onEnd:w=>{if(!w)return '';addLoyalty(25);addFame(5);log('親手斬殺了篡位者。');return '你把他的頭扔在長桌上。沒人再說話了。\n<span class="good">忠誠 +25</span>';}});return null;}},
       {t:'拿出銀幣收買人心',note:()=>`花掉一半銀幣（${Math.floor(S.silver/2)}）`,fx:()=>{const l=Math.floor(S.silver/2);S.silver-=l;addLoyalty(15);return `銀幣讓大家冷靜了下來。\n銀幣 -${l}，忠誠 +15`;}}]};
 // 贖罪：惡名 20 以上隨機出現
 function atone(n){
@@ -2898,7 +2911,7 @@ function knutReact(n){
   if(n===1) return eventModal({kind:'勇士',scene:'sc_knut_eye',title:'克努特的眼神',text:'克努特在旁邊看完了整件事，瞪大眼睛：「老大……你剛剛是在賠錢給那些人？」',ch:[{t:'「做你的事。」',fx:()=>{bond('knut',-5);return '他聳聳肩，但你看得出他不太高興。\n克努特好感 -5';}}]});
   if(n===2) return eventModal({kind:'勇士',scene:'sc_knut_cup',title:'摔碎的酒杯',text:'克努特把酒杯摔在地上：「我跟著你，是因為你比誰都狠。原來你是這種人。」幾個跟他一起來的人也放下了酒杯。',ch:[{t:'沉默以對',fx:()=>{bond('knut',-15);loseLoyalty(3);return '<span class="bad">克努特好感 -15，忠誠 -3</span>';}}]});
   if(c&&c.bond>=30) return eventModal({kind:'背叛',scene:'sc_knut_gone',title:'克努特走了',text:'天剛亮，你撞見克努特在收拾行李。當初跟他一起來的人，已經在門外等著了。\n\n他看了你一眼，沒有解釋，只是把一把匕首插在桌上：「這裡已經不是我待的地方了。」',ch:[{t:'……',fx:()=>{removeChamp('knut');const l=takeLosses(Math.min(3,S.men),1);log(`克努特帶著 ${l} 個人離開了。`);return `<span class="bad">克努特和 ${l} 名戰士離開了。</span>`;}}]});
-  return eventModal({kind:'背叛',scene:'sc_knut_axe',title:'克努特拔斧',text:'半夜，克努特踢開長屋的門，斧頭已經出鞘：「軟腳蝦帶不了我們。今晚，這部落換人管。」',ch:[{t:'迎戰',note:'生死單挑',fx:()=>{removeChamp('knut');duel('knutD',{lethal:true,xp:20,cause:'死在疤面克努特的斧下',onEnd:w=>{if(!w)return '';addLoyalty(10);addInfamy(-5);log('擊敗了叛變的克努特。');return '克努特倒在血泊裡。族人看你的眼神多了幾分敬畏。\n忠誠 +10';}});return null;}}]});
+  return eventModal({kind:'背叛',scene:'sc_knut_axe',title:'克努特拔斧',text:'半夜，克努特踢開長屋的門，斧頭已經出鞘：「軟腳蝦帶不了我們。今晚，這部落換人管。」',ch:[{t:'迎戰',note:'生死單挑',fx:()=>{removeChamp('knut');duel('knutD',{lethal:true,xp:20,winArt:'sc_duel_knut',cause:'死在疤面克努特的斧下',onEnd:w=>{if(!w)return '';addLoyalty(10);addInfamy(-5);log('擊敗了叛變的克努特。');return '克努特倒在血泊裡。族人看你的眼神多了幾分敬畏。\n忠誠 +10';}});return null;}}]});
 }
 const vEvent=(id,o)=>Object.assign({id,phase:[1],once:1},o);
 const EVENTS=[
@@ -2996,7 +3009,7 @@ const EVENTS=[
   {id:'children',once:1,phase:[2,3],title:'木劍',text:'部落裡的孩子們拿著木棍，在你的長屋外嚷著要學劍。',
     ch:[{t:'教他們兩招',fx:()=>{gainXp(10);addLoyalty(4);return '你教了他們怎麼握盾。孩子們的爸媽在旁邊看著，笑了。\n忠誠 +4，經驗 +10';}},{t:'沒空',fx:()=>{loseLoyalty(3);return '孩子們失望地散開了。\n<span class="bad">忠誠 -3</span>';}}]},
   {id:'gyr',once:1,phase:[2,3],title:'不服的聲音',text:()=>`營火邊有人說：「${esc(S.name)}不過是運氣好，配不上首領的位子。」\n說話的是壯漢蓋爾，不少人跟著點頭。`,
-    ch:[{t:'當眾單挑他',note:'比武，點到為止',fx:()=>{duel('gyr',{lethal:false,xp:15,onEnd:w=>{if(w){addFame(6);addLoyalty(8);return '蓋爾躺在地上喘氣，再也沒人點頭了。\n名聲 +6，忠誠 +8';}loseLoyalty(12);return '<span class="bad">你被蓋爾摔進了泥裡。忠誠 -12</span>';}});return null;}},
+    ch:[{t:'當眾單挑他',note:'比武，點到為止',fx:()=>{duel('gyr',{lethal:false,xp:15,winArt:'sc_duel_gyr',onEnd:w=>{if(w){addFame(6);addLoyalty(8);return '蓋爾躺在地上喘氣，再也沒人點頭了。\n名聲 +6，忠誠 +8';}loseLoyalty(12);return '<span class="bad">你被蓋爾摔進了泥裡。忠誠 -12</span>';}});return null;}},
         {t:'查出是誰在背後煽動',show:()=>eff('wit')>=6,note:()=>rate(.1+eff('wit')*.07),fx:()=>{if(chk(.1+eff('wit')*.07)){addLoyalty(10);S.st.wit++;return '你順著酒錢一路查下去，發現是有人塞了錢給蓋爾。你當眾揭穿了這件事，蓋爾羞愧地低下頭。\n<span class="good">忠誠 +10，智謀 +1</span>';}loseLoyalty(6);return '你查了半天，抓錯了人。蓋爾笑得更大聲了。\n<span class="bad">忠誠 -6</span>';}},
         {t:'用言語折服眾人',note:()=>rate(.2+eff('pre')*.06+(has('tongue')?.12:0)),fx:()=>{if(chk(.2+eff('pre')*.06+(has('tongue')?.12:0))){addLoyalty(6);return '你一一數出你帶他們打過的仗、分過的銀子。蓋爾低下了頭。\n忠誠 +6';}loseLoyalty(6);return '<span class="bad">你的話沒人聽進去。忠誠 -6</span>';}},
         {t:'不予理會',fx:()=>{loseLoyalty(8);return '<span class="bad">流言在營地裡傳開了。忠誠 -8</span>';}}]},
@@ -3097,7 +3110,7 @@ function rivalAttack(){
           return svenPlunder(k);}});return null;}},
         {t:'派勇士與赫羅爾夫單挑',show:()=>S.champions.some(proxyOk),note:'決鬥代理人；赫羅爾夫撐不住就會逃',fx:()=>{pickProxy('svenA',{mul:[1,1.2,1.4][k],retreatAt:.45,deathRate:.5,onEnd:(w,more)=>{
           if(w){addFame(8);addLoyalty(4);log('勇士單挑逼退了赫羅爾夫。');return '赫羅爾夫捂著傷口跳回船上。\n名聲 +8，忠誠 +4';}return more?'':svenPlunder(k);},onGiveUp:()=>{svenPlunder(k);}});return null;}},
-        {t:'走出木牆，與赫羅爾夫單挑',note:'生死單挑，他撐不住就會逃',fx:()=>{duel('svenA',{lethal:true,mul:[1,1.2,1.4][k],retreatAt:.45,xp:20,cause:'死在宿敵赫羅爾夫的斧下',onEnd:w=>{
+        {t:'走出木牆，與赫羅爾夫單挑',note:'生死單挑，他撐不住就會逃',fx:()=>{duel('svenA',{lethal:true,mul:[1,1.2,1.4][k],retreatAt:.45,xp:20,winArt:'sc_duel_sven_flee',cause:'死在宿敵赫羅爾夫的斧下',onEnd:w=>{
           if(w){addFame(10);addLoyalty(6);log('單挑逼退了赫羅爾夫。');return '赫羅爾夫捂著傷口跳回船上。你的族人敲著盾牌高喊你的名字。\n名聲 +10，忠誠 +6';}return '';}});return null;}}]}));
 }
 // 惡名 60：諸侯聯軍；惡名 80：討伐軍
@@ -3380,7 +3393,7 @@ const MYTH_EVENTS=[
         {t:'「假的吧。」',fx:()=>'商人聳聳肩，把布包收了起來。'}]},
   {id:'norns',once:1,phase:[2,3],kind:'神話',title:'三個紡紗的婦人',text:'井邊坐著三個紡紗的婦人：一個老、一個中年、一個年輕。她們的線一直延伸到霧裡。「你想問什麼？」',
     ch:[{t:'問過去',fx:()=>{gainXp(20);return '老婦人說出了你母親年輕時的事，那些你從來不知道的事。\n經驗 +20';}},
-        {t:'問現在',fx:()=>{favor('odin',6);const nx=S.phase===3&&S.reg.red.st==='free'&&S.rival.attacks<3?`赫羅爾夫的紅帆，會在第 ${Math.floor((S.p3turn+[4,12,20][S.rival.attacks])/4)+1} 年來。`:'你身邊有人在說謊，但不是今天。';return `中年的婦人低聲說：「${nx}」\n奧丁的神恩 +6`;}},
+        {t:'問現在',fx:()=>{favor('odin',6);const nx=S.phase===3&&S.reg.red.st==='free'&&!S.flags.redBeaten&&S.rival.attacks<3?`赫羅爾夫的紅帆，會在第 ${Math.floor((S.p3turn+[4,12,20][S.rival.attacks])/4)+1} 年來。`:'你身邊有人在說謊，但不是今天。';return `中年的婦人低聲說：「${nx}」\n奧丁的神恩 +6`;}},
         {t:'問未來',fx:()=>{Object.keys(GODS).forEach(g=>favor(g,4));return '年輕的婦人剪斷了一根線，又接上了它：「你的線，還沒到盡頭。」\n所有神的神恩 +4';}}]},
   {id:'giant',once:1,phase:[2,3],kind:'神話',cond:()=>S.turn%4===3,title:'霜巨人',text:'暴風雪的夜裡，一個比長屋還高的影子從山上走下來，每一步都讓地面發抖。族人躲在木牆後面發抖。',
     ch:[{t:'拿起斧頭出去',note:'生死單挑；索爾會看著',fx:()=>{duel('giant',{lethal:true,xp:40,cause:'被霜巨人踩進了雪裡',onEnd:w=>{if(!w)return '';favor('thor',15);unlock('giant');addFame(15);S.st.str++;log('擊倒了霜巨人。');return '巨人倒下時，整座山都在響。你從他的指節上剝下一塊冰晶，它到了夏天也不會化。\n<span class="good">力量 +1，名聲 +15</span>，索爾的神恩 +15';}});return null;}},
@@ -3783,7 +3796,7 @@ function kingFate(el){
 function guardNote(){const L=[];if(champ('hakon')&&champ('hakon').oath)L.push('哈康');if(qd('thorfinn')&&hasC('thorfinn'))L.push('托爾芬');
   return L.length?`${L.join('、')}會在每一場生死單挑裡，替你擋下一次致命傷。`:'';}
 function afterLordWin(r){
-  if(r.id==='red'){pushModal(svenFate(r));return '赫羅爾夫跪倒在地，斧頭脫手。';}
+  if(r.id==='red'){S.flags.redBeaten=1;pushModal(svenFate(r));return '赫羅爾夫跪倒在地，斧頭脫手。';}
   if(r.id==='grey'&&!hasC('osric')&&!S.flags.osricDone){S.flags.osricDone=1;pushModal(eventModal({kind:'戰後',id:'osric',title:'雅爾的親衛隊長',text:'雅爾西格德的親衛隊長古托姆被押到你面前。他是西格德最信任的人，聽說打仗很有一套。',
     ch:[{t:'收編他',fx:()=>addChamp('osric',45)},{t:'放他走',fx:()=>{S.mercy++;return '古托姆深深看了你一眼，走了。';}}]}));}
   return takeSeat(r,'單挑勝利');
@@ -4047,6 +4060,7 @@ const SEA_EVENTS=[
   {t:'平靜',run:()=>['海很平靜。年輕的戰士在船頭吐，老兵在船尾打瞌睡。',1]},
 ];
 function expedition(o,go,peaceful){
+  if(!peaceful)S.lastRaid=S.turn;
   codex('h_longship');codex({lindis:'h_lindis',iona:'h_iona',york:'h_danelaw',eangl:'h_danelaw',mercia:'h_danelaw',wessex:'h_alfred',dublin:'h_dublin',paris:'h_paris',rouen:'h_rollo',jelling:'h_jelling'}[o.id]);
   pushModal(el=>{
     const ev=wx('storm')&&Math.random()<.5?SEA_EVENTS[0]:pick(SEA_EVENTS);const [txt,m0]=ev.run();let mult=m0*(osOwns('orkney')?.95:1)*(1-.05*bl('shipyard'));
@@ -4118,15 +4132,17 @@ function osRaid(o,m){
 const RELICS=[['一本抄本','書頁上畫滿了金色的花紋和怪獸，每一頁都像會發光。','wit'],['一個聖骨匣','銀盒子裡裝著一截乾枯的手指骨。修士說，那是聖人的。',null]];
 /* ---------- 修士艾瑟斯坦：你怎麼待他，他就變成什麼樣的人 ---------- */
 const mk=()=>S.flags.monk;
+// 還是修士的時候用修士頭像（圖還沒到就先用勇士立繪）
+const mkArt=()=>hasArt('athel_mk')?'athel_mk':'athel';
 const mkTrust=n=>{mk().trust+=n;};
 function monkCapture(o){
   const wreck=!o;
-  return eventModal({kind:wreck?'海灘':'戰利品',scene:wreck?'sc_mk_wreck':'sc_mk_ship',art:'athel',title:wreck?'海灘上的倖存者':'船艙裡的修士',
+  return eventModal({kind:wreck?'海灘':'戰利品',scene:wreck?'sc_mk_wreck':'sc_mk_ship',art:mkArt,title:wreck?'海灘上的倖存者':'船艙裡的修士',
     text:wreck?'一場暴風雨過後，一艘南方的商船撞碎在你的海灘上。船上的人都死了，只剩一個年輕的修士，抱著一箱泡爛的經書，跪在沙灘上發抖。\n\n他會讀書、會寫字，還會說三種語言。他抬頭看著你，用很破的北方話說：「我叫艾瑟斯坦。」'
       :`回程的路上，有人在船艙裡發現了一個年輕的修士，縮在${o.name}的經書箱子中間發抖。\n\n他會讀書、會寫字，還會說三種語言。他抬頭看著你，用很破的北方話說：「我叫艾瑟斯坦。」`,
-    ch:[{t:'帶回去，當自己人',note:'族人會覺得你太心軟',fx:()=>{S.flags.monk={st:'kept',trust:2,stage:0,t:S.turn};loseLoyalty(3);return '你把自己的斗篷丟給他。他愣了很久，才把斗篷披上。\n\n身後有人小聲說：「搶來的東西，還要當客人養？」\n忠誠 -3';}},
-        {t:'留下來幹活',note:'他會讀會算，倉庫交給他管',fx:()=>{S.flags.monk={st:'thrall',trust:-1,stage:0,t:S.turn};const v=ri(25,40);S.silver+=v;return `你讓人給他套上了鐵項圈，把倉庫的帳交給他。\n\n他把每一袋麥子、每一枚銀幣都記得清清楚楚。那一季，倉庫裡少丟了很多東西。\n銀幣 +${v}`;}},
-        {t:'賣給南方的商人',note:'這個人的故事，就到這裡',fx:()=>{S.flags.monk={st:'sold',stage:9};const v=ri(40,60);S.silver+=v;return `一個南方的商人買走了他。上船前，他回頭看了你一眼。\n銀幣 +${v}`;}}]});
+    ch:[{t:'帶回去，當自己人',rart:'sc_mk_cap_1',note:'族人會覺得你太心軟',fx:()=>{S.flags.monk={st:'kept',trust:2,stage:0,t:S.turn};loseLoyalty(3);return '你把自己的斗篷丟給他。他愣了很久，才把斗篷披上。\n\n身後有人小聲說：「搶來的東西，還要當客人養？」\n忠誠 -3';}},
+        {t:'留下來幹活',rart:'sc_mk_cap_2',note:'他會讀會算，倉庫交給他管',fx:()=>{S.flags.monk={st:'thrall',trust:-1,stage:0,t:S.turn};const v=ri(25,40);S.silver+=v;return `你讓人給他套上了鐵項圈，把倉庫的帳交給他。\n\n他把每一袋麥子、每一枚銀幣都記得清清楚楚。那一季，倉庫裡少丟了很多東西。\n銀幣 +${v}`;}},
+        {t:'賣給南方的商人',rart:'sc_mk_cap_3',note:'這個人的故事，就到這裡',fx:()=>{S.flags.monk={st:'sold',stage:9};const v=ri(40,60);S.silver+=v;return `一個南方的商人買走了他。上船前，他回頭看了你一眼。\n銀幣 +${v}`;}}]});
 }
 // 每件事三個選項，各有得失
 const MONK_EV=[
@@ -4154,7 +4170,7 @@ const MONK_EV=[
 function monkTick(){
   const m=mk();if(!m||m.stage>=4||S.turn<m.t+3+m.stage*3) return false;
   const e=MONK_EV[m.stage]();m.stage++;
-  pushLater(eventModal({kind:'艾瑟斯坦',art:'athel',...e}));
+  pushLater(eventModal({kind:'艾瑟斯坦',art:mkArt,...e}));
   if(m.stage>=4) pushLater(el=>{monkResolve(el);});
   return true;
 }
@@ -4172,7 +4188,7 @@ function monkResolve(el){
 function monkWarHook(next){
   const m=mk();if(!m||m.end!=='traitor'||m.warDone) return false;
   m.warDone=1;
-  if(m.susp){pushModal(eventModal({kind:'艾瑟斯坦',scene:'sc_mk_betray',art:'athel',title:'碼頭上的影子',text:'出征前一晚，守夜的人在碼頭抓到了艾瑟斯坦。他身上藏著一張畫滿航線和兵力的樹皮，正要交給一艘丹麥的小船。\n\n你早就覺得不對勁了。',
+  if(m.susp){pushModal(eventModal({kind:'艾瑟斯坦',scene:'sc_mk_betray',art:mkArt,title:'碼頭上的影子',text:'出征前一晚，守夜的人在碼頭抓到了艾瑟斯坦。他身上藏著一張畫滿航線和兵力的樹皮，正要交給一艘丹麥的小船。\n\n你早就覺得不對勁了。',
     ch:[{t:'處決他',fx:()=>{m.end='dead';addInfamy(3);next();return '他沒有求饒。最後，他在胸前畫了一個十字。';}},
         {t:'放他走',fx:()=>{m.end='gone';S.mercy++;next();return '你把樹皮丟進海裡，指了指南方。他看了你很久，然後上了那艘小船。';}}]}));return true;}
   m.end='betray';S.flags.monkBetray=1;const l=Math.ceil(S.men*(m.burned?.05:m.map?.15:.1));S.men=Math.max(1,S.men-l);
@@ -4207,9 +4223,9 @@ const CAMP={
   paris:{title:'巴黎 · 圍城',pages:[
       {art:['sc_paris_1'],text:'塞納河上橫著兩座橋，橋頭各有一座木塔。你的船隊擠在橋下，一條都過不去。\n\n巴黎，就在橋的另一邊。'},
       {art:['sc_paris_2'],text:()=>{const l=takeLosses(Math.min(3,Math.max(0,S.men-10)),.3);return `圍城拖過了冬天。營裡開始有人咳嗽，然後，開始有人死。${l?`\n<span class="bad">${l} 名戰士病死了。</span>`:''}\n\n法蘭克人站在城牆上，天天往下看。`;}}],
-    ch:[{t:'強攻橋塔',note:'硬碰硬。打下來的話，名聲再 +10',fx:()=>{S.flags.parisStorm=1;return {m:1,line:'你下令把最大的那條船裝滿乾草，點上火，推向橋塔。'};}},
-      {t:'把船拖上岸，從陸地繞過去',note:'多花一季的糧（糧食 −25）：敵方戰力 −20%',fx:()=>{S.food=Math.max(0,S.food-25);return {m:.8,line:'你的人用圓木當滾輪，把船一條一條拖過了河灣。法蘭克人在城牆上看著，一句話都說不出來。'};}},
-      {t:'繼續圍下去，等他們拿銀子來換',note:()=>`${rate(clamp(geldChance(O('paris'))+.2,.1,.9))}：成功的話拿到贖金就走；不成的話還是得打`,fx:()=>chk(clamp(geldChance(O('paris'))+.2,.1,.9))?{talk:'paris'}:{m:1,line:'法蘭克人沒有派人出來。城牆上的旗子，比昨天還多。'}}],
+    ch:[{t:'強攻橋塔',art:'sc_paris_fire',note:'硬碰硬。打下來的話，名聲再 +10',fx:()=>{S.flags.parisStorm=1;return {m:1,line:'你下令把最大的那條船裝滿乾草，點上火，推向橋塔。'};}},
+      {t:'把船拖上岸，從陸地繞過去',art:'sc_paris_haul',note:'多花一季的糧（糧食 −25）：敵方戰力 −20%',fx:()=>{S.food=Math.max(0,S.food-25);return {m:.8,line:'你的人用圓木當滾輪，把船一條一條拖過了河灣。法蘭克人在城牆上看著，一句話都說不出來。'};}},
+      {t:'繼續圍下去，等他們拿銀子來換',art:'sc_paris_2',note:()=>`${rate(clamp(geldChance(O('paris'))+.2,.1,.9))}：成功的話拿到贖金就走；不成的話還是得打`,fx:()=>chk(clamp(geldChance(O('paris'))+.2,.1,.9))?{talk:'paris'}:{m:1,line:'法蘭克人沒有派人出來。城牆上的旗子，比昨天還多。'}}],
     intro:'橋塔上的弩箭像雨一樣落下來。',art:'sc_paris_1',
     won:()=>{if(!S.flags.parisStorm)return '';addFame(10);return '\n你是從正面打進巴黎的。名聲再 +10';},
     end:()=>null},
@@ -4222,7 +4238,7 @@ function campaign(o,m){
     el.querySelectorAll('[data-cp]').forEach(b=>b.onclick=()=>{
       const r=C.ch[+b.dataset.cp].fx();
       if(r.talk){campTalk(el,o);return;}
-      resultView(el,o.name,r.line,C.title,C.art&&ART_HAVE.has(C.art)?C.art:undefined);
+      const ca=C.ch[+b.dataset.cp].art;resultView(el,o.name,r.line,C.title,ca&&ART_HAVE.has(ca)?ca:C.art&&ART_HAVE.has(C.art)?C.art:undefined);
       $('#m-ok').onclick=()=>{osConquer(o,m*r.m,C.intro);closeModal();};});
   },C.title));
 }
@@ -4232,7 +4248,7 @@ function campTalk(el,o){
   if(o.id==='paris'){g.st='paid';S.silver+=200;addFame(25);unlock('paris');log('法蘭克人付了贖金。');
     cineView(el,[{art:['sc_paris_3'],text:'城門開了。出來的不是軍隊，是牛車。\n\n一車、兩車……整整七車的白銀和教堂的金器，從橋上推了過來。法蘭克的主教站在旁邊，臉色比雪還白。\n\n<span class="good">銀幣 +200，名聲 +25</span>'}],()=>{passTime();closeModal();},CAMP.paris.title);}
   else{codex('h_danegeld');g.st='tribute';S.silver+=100;addFame(15);unlock('danegeld');log('威塞克斯答應付丹麥金。');
-    cineView(el,[{art:['sc_wessex_1'],text:'阿佛烈走出了沼澤，一個人，沒有帶劍。\n\n你們隔著一張桌子坐了一整夜。天亮的時候，他在羊皮紙上按下了戒指。\n\n「我付錢，是為了讓我的人活到能把你們趕走的那一天，」他說，「你最好記住這句話。」\n\n<span class="good">銀幣 +100，名聲 +15；之後每季丹麥金 +6 銀幣</span>'}],()=>{passTime();closeModal();},CAMP.wessex.title);}
+    cineView(el,[{art:['sc_wessex_3','sc_wessex_1'],text:'阿佛烈走出了沼澤，一個人，沒有帶劍。\n\n你們隔著一張桌子坐了一整夜。天亮的時候，他在羊皮紙上按下了戒指。\n\n「我付錢，是為了讓我的人活到能把你們趕走的那一天，」他說，「你最好記住這句話。」\n\n<span class="good">銀幣 +100，名聲 +15；之後每季丹麥金 +6 銀幣</span>'}],()=>{passTime();closeModal();},CAMP.wessex.title);}
 }
 function osConquer(o,m,intro){
   const g=S.os[o.id];
@@ -4249,7 +4265,7 @@ function osConquer(o,m,intro){
     const C=CAMP[o.id],extra=C&&C.won?C.won(sp):'';const ep=C&&C.end&&C.end();if(ep)pushLater(el=>cineView(el,[ep],closeModal,C.title));
     return `${o.name}插上了你的旗。\n搶走金庫：銀幣 +${sp}，名聲 +${o.kind==='kingdom'?30:12}${extra}\n之後每季銀幣 ${o.inc[0]}、糧食 ${o.inc[1]}，要留 4 人駐守`;}});
 }
-function danegeld(o){
+function danegeld(o){S.lastRaid=S.turn;
   const g=S.os[o.id];
   if(chk(geldChance(o))){
     unlock(o.kind==='siege'?'paris':'danegeld');addAlert(6);
@@ -5720,16 +5736,16 @@ function ragEpilogue(el){
   S.flags.ragEpi=1;const f=S.flags,g=ragPatron(),gk=g&&RAG_AFTER_GOD[g]?g:'none';
   const P=[{art:['sc_re_dawn','sc_ragnarok'],text:'冰原上很安靜。\n\n然後，東邊的天空，一點一點亮了起來。'},
     {art:['sc_re_dawn','sc_ragnarok'],text:'太陽升起來了。和每一個早上一樣。',big:1},
-    {art:['sc_re_god_'+gk,'sc_rag_'+gk,'sc_ragnarok'],text:RAG_AFTER_GOD[gk]},
-    {art:['sc_re_land','sc_ragnarok'],text:'海水退了。一片新的綠色大地，從海裡慢慢升了起來。\n\n草地上，散落著眾神從前下棋用的金色棋子。你彎下腰，撿起了一顆。'}];
-  const cs=S.champions.map(c=>c.id).filter(id=>RAG_AFTER[id]&&id!==S.spouse);
-  if(cs.length){P.push({art:['sc_re_champs','sc_rag_ours','sc_ragnarok'],text:'活下來的人，各自回到了自己的日子。'});
-    cs.forEach(id=>P.push({art:['sc_re_c_'+id,'sc_re_champs','sc_ragnarok'],text:RAG_AFTER[id]}));}
-  if(S.spouse||S.heir){const sp=S.spouse?SPOUSES[S.spouse].name:'';
-    P.push({art:['sc_re_family','sc_rag_people','sc_ragnarok'],text:(sp?`${sp}在人群裡找到了你。什麼話都沒說，只是抱住了你，抱了很久。`:'')+(S.heir?`${sp?'\n\n':''}${esc(S.heir.name)}從人群裡跑了過來，撲進你的懷裡：「我就知道你會回來！」`:'')});}
+    {art:['sc_re_god_'+gk,'sc_rag_'+gk,'sc_ragnarok'],text:RAG_AFTER_GOD[gk]}];
   if(f.kingRag==='met'||f.kingRag==='unmet') P.push({art:['sc_re_king','sc_k_bifrost','halfdan'],text:`老王哈夫丹${f.kingRag==='met'?'把雙斧背回了背上':'收起了武器'}，帶著英靈戰士，走回了彩虹橋。\n\n走到一半，他回頭看了你一眼。\n\n他什麼也沒說。只是朝你點了一下頭，就像那天在王廳裡一樣。`});
   else if(f.kingRag==='dead') P.push({art:['sc_re_king','sc_k_bifrost','halfdan'],text:'老王哈夫丹跟在奧丁的身後，走回了彩虹橋。\n\n走到一半，他停了下來。\n\n這一次，他終於回頭看了你一眼。'});
   if(f.mate) P.push({art:['sc_re_thorstein','c_thorstein'],text:'托爾斯坦坐在一塊冰上，把角杯倒滿，遞給你。\n\n「我划了一輩子的船，看過一千次日出。」他瞇著眼睛看著東邊，「可是沒有一次，像今天這樣。」'});
+  if(S.spouse||S.heir){const sp=S.spouse?SPOUSES[S.spouse].name:'';
+    P.push({art:['sc_re_family','sc_rag_people','sc_ragnarok'],text:(sp?`${sp}在人群裡找到了你。什麼話都沒說，只是抱住了你，抱了很久。`:'')+(S.heir?`${sp?'\n\n':''}${esc(S.heir.name)}從人群裡跑了過來，撲進你的懷裡：「我就知道你會回來！」`:'')});}
+  P.push({art:['sc_re_land','sc_ragnarok'],text:'海水退了。一片新的綠色大地，從海裡慢慢升了起來。\n\n草地上，散落著眾神從前下棋用的金色棋子。你彎下腰，撿起了一顆。'});
+  const cs=S.champions.map(c=>c.id).filter(id=>RAG_AFTER[id]&&id!==S.spouse);
+  if(cs.length){P.push({art:['sc_re_champs','sc_rag_ours','sc_ragnarok'],text:'活下來的人，各自回到了自己的日子。'});
+    cs.forEach(id=>P.push({art:['sc_re_c_'+id,'sc_re_champs','sc_ragnarok'],text:RAG_AFTER[id]}));}
   P.push({art:['sc_re_skald','sc_valhalla'],text:'很多很多年以後，在一間長屋裡，一個老詩人唱完了一首很長的歌。'},
     {art:['sc_re_skald','sc_valhalla'],text:'一個孩子舉起手：「那是真的嗎？人和神，真的一起把世界撐住了？」'},
     {art:['sc_re_axe','sc_re_skald','sc_valhalla'],text:'老詩人笑了。他站起來，指了指牆上那把舊斧頭。'},
@@ -6082,7 +6098,7 @@ function fameModal(){
 const FAME_EVENTS=[
   {id:'egill',once:1,phase:[3,4],cond:()=>S.fame>=150,kind:'名人來訪',title:'冰島來的詩人',text:'一個又高又醜、頭大得像牛的冰島人走進你的王廳，把斧頭往桌上一放：「埃吉爾，斯卡拉格里姆之子。聽說你很有名，我來看看值不值得寫一首詩。」\n\n他七歲就殺過人，詩寫得比誰都好，脾氣比誰都差。',
     ch:[{t:'跟他比詩',note:()=>rate(.2+eff('wit')*.06+(hasC('bragi')?.15:0)),fx:()=>{codex('h_egill');if(chk(.2+eff('wit')*.06+(hasC('bragi')?.15:0))){addFame(20);favor('odin',10);return '埃吉爾聽完你的詩，沉默了很久，然後大笑著拍桌子：「好！這首詩，我會帶回冰島！」\n名聲 +20，奧丁的神恩 +10';}addFame(-3);return '埃吉爾聽完，搖搖頭，當場回了你一首。整個王廳都笑翻了。\n名聲 -3';}},
-        {t:'跟他比武',note:'比武，點到為止',fx:()=>{codex('h_egill');duel('egill',{lethal:false,xp:24,onEnd:w=>{if(w){addFame(25);return '埃吉爾躺在地上大笑：「好！我要為你寫一首詩，一首很長的詩！」\n名聲 +25';}gainXp(8);return '埃吉爾把你按在地上：「不錯，但還不夠。」\n經驗 +8';}});return null;}},
+        {t:'跟他比武',note:'比武，點到為止',fx:()=>{codex('h_egill');duel('egill',{lethal:false,xp:24,winArt:'sc_duel_egill',onEnd:w=>{if(w){addFame(25);return '埃吉爾躺在地上大笑：「好！我要為你寫一首詩，一首很長的詩！」\n名聲 +25';}gainXp(8);return '埃吉爾把你按在地上：「不錯，但還不夠。」\n經驗 +8';}});return null;}},
         {t:'請他喝酒',fx:()=>{codex('h_egill');S.food-=4;addFame(10);return '你們喝了三天三夜。他走的時候，留下了一首關於你的短詩，罵得很難聽，但大家都很愛唱。\n名聲 +10';}}]},
   {id:'wayland',once:1,phase:[2,3,4],cond:()=>S.fame>=100,kind:'名人來訪',title:'巧手韋蘭',text:'一個跛腳的老鐵匠出現在你的部落門口。他說他叫韋蘭，打過的劍能砍斷鐵砧。\n\n「我聽說你的名字。給我 80 銀幣和七天，我給你打一把配得上這個名字的斧頭。」',
     ch:[{t:'付錢（80 銀幣）',ok:()=>S.silver>=80,fx:()=>{S.silver-=80;S.flags.wayland=1;return '第七天的早上，韋蘭把一把斧頭放在你手裡就走了。斧刃上的花紋像流動的水。\n<span class="good">單挑傷害 +3（永久）</span>';}},
@@ -6150,7 +6166,7 @@ function harvestNote(){const k=S.flags.sow.k,boost=(S.flags.fallow===S.flags.sow
 const sumNote=t=>{if(S.sumPend)(S.sumPend.notes||(S.sumPend.notes=[])).push(t);};
 function midsummerModal(){const y=Math.floor(S.turn/4);pushModal(eventModal({kind:'☀️ 夏',scene:'sc_s_midsummer',title:'夏至集會',text:'一年裡最長的一天，太陽幾乎不下山。各地的人划著船來到你的峽灣：有人來做生意，有人來比武，有人來找老婆。',
   ch:[{t:'擺攤做生意',fx:()=>{S.flags.midY=y;const v=20+Math.floor(S.fame/10);S.silver+=v;sfx('coin');passTime();return `你拿出去年的毛皮和鐵器，換回了一袋銀子。\n<span class="good">銀幣 +${v}</span>`;}},
-      {t:'下場比武',note:'比武，點到為止',fx:()=>{S.flags.midY=y;duel('holm',{lethal:false,xp:14,intro:'沙灘上圍了一大圈人。對手是一個南方來的老決鬥者。',onEnd:w=>{passTime();if(w){addFame(8);sfx('bigcheer');return '人群把你扛了起來，繞著營火走了一圈。\n<span class="good">名聲 +8</span>';}sfx('groan');addFame(2);return '你輸了，但打得很漂亮。\n名聲 +2';}});return null;}},
+      {t:'下場比武',note:'比武，點到為止',fx:()=>{S.flags.midY=y;duel('holm',{lethal:false,xp:14,winArt:firstArt('sc_duel_holm','sc_s_midsummer_2'),intro:'沙灘上圍了一大圈人。對手是一個南方來的老決鬥者。',onEnd:w=>{passTime();if(w){addFame(8);sfx('bigcheer');return '人群把你扛了起來，繞著營火走了一圈。\n<span class="good">名聲 +8</span>';}sfx('groan');addFame(2);return '你輸了，但打得很漂亮。\n名聲 +2';}});return null;}},
       {t:'替族人牽紅線',fx:()=>{S.flags.midY=y;addLoyalty(6);bondAll(2);passTime();return '那天晚上，營火旁多了好幾對新人。明年春天，部落會多出幾個孩子的哭聲。\n<span class="good">忠誠 +6，勇士好感 +2</span>';}}]}));}
 function festModal(){const y=Math.floor(S.turn/4),c=Math.min(S.food,Math.round(10+S.men/3));pushModal(eventModal({kind:'🍂 秋',scene:'sc_s_harvest',title:'收成祭',text:'糧食收進來了。族人在祭壇前擺上第一捆麥子，等著看你怎麼過這個節。',
   ch:[{t:'大宴一場',note:`花掉 ${c} 糧食`,fx:()=>{S.flags.festY=y;S.food-=c;addLoyalty(10);favor('freyja',5);sfx('cheer');passTime();return `烤全豬、蜂蜜酒、跳舞跳到天亮。今年的苦，大家都忘了。\n<span class="good">忠誠 +10</span>，糧食 -${c}`;}},
