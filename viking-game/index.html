@@ -1476,6 +1476,31 @@ function msResolve(c){
   delete c.away;delete c.ms;log(`${n}從「${m.n}」回來了。`);
   return {title:`${n}回來了`,text:`${text}\n${L.filter(Boolean).map(x=>/^<span/.test(x)?x:`<span class="good">${x}</span>`).join('\n')}`,art:'sc_ms_'+k};
 }
+// 洛基：不管你信不信他，他都會來。四次，一次比一次靠近那一天
+const LOKI_EV=[
+  {ph:2,t:6,ev:()=>({kind:'陌生人',scene:'sc_lk_1',title:'酒館裡的陌生人',text:'酒館裡來了一個紅頭髮的陌生人。他跟你的人擲骰子，一把也沒輸過。\n\n輸光的人想翻桌，他笑著把銀子全推了回去：「拿去吧。我只是喜歡看你們的表情。」\n\n他抬起頭看著你，好像早就認識你：「你就是那個從峽灣出來的。我聽過你。」',
+    ch:[{t:'坐下來，跟他喝一杯',fx:()=>{favor('loki',6);return '他講了一整晚的故事。講到一個神，因為開了一個玩笑，被其他的神綁在石頭上。\n\n「那個玩笑好笑嗎？」你問。\n\n他想了很久：「當時很好笑。」';}},
+        {t:'「你叫什麼名字？」',fx:()=>{favor('loki',3);return '「名字？」他笑了，「我有很多個。你想叫我什麼，就叫什麼吧。」\n\n他走的時候，你的錢袋好像輕了一點。可是你數了數，一枚都沒少。';}},
+        {t:'叫人把他請出去',fx:()=>{favor('loki',-3);return '他沒有生氣，只是聳聳肩，走進了外面的雪裡。\n\n雪地上，沒有留下腳印。';}}]})},
+  {ph:3,t:0,ev:()=>({kind:'陌生人',scene:'sc_lk_2',title:'冬夜的訪客',text:'冬至的晚上，那個紅頭髮的陌生人又出現了。他坐在火堆邊，一揮手，所有人角杯裡的酒全變成了水。\n\n大家還沒來得及生氣，他又一揮手，水變回了酒，還比原來更好喝。\n\n他湊過來，小聲問你：「我問你一件事。兩個發過血誓的兄弟，一個可以把另一個綁在石頭上嗎？」',
+    ch:[{t:'「不行。」',fx:()=>{favor('loki',8);favor('odin',-3);return '他看了你很久，然後笑了，笑得有點難過：「你這麼說，有個獨眼的老頭會不高興的。」';}},
+        {t:'「那要看他做了什麼。」',fx:()=>{favor('tyr',4);favor('loki',2);return '「說得好。」他舉起角杯，「這是我聽過最公平的答案。也是最讓人討厭的。」';}},
+        {t:'「你到底是誰？」',fx:()=>{favor('loki',3);return '他笑了，把角杯放在你手裡。\n\n你低頭看了一眼角杯，再抬起頭的時候，火堆邊已經沒有人了。';}}]})},
+  {ph:4,t:4,ev:()=>({kind:'陌生人',scene:'sc_lk_3',title:'海邊的老朋友',text:'你在海邊散步的時候，看見他坐在一塊石頭上，望著北方。他的手腕上，有一圈很深、很舊的疤。\n\n「我被綁了很久。」他沒有回頭，「快了。就快了。」\n\n然後他轉過頭，第一次沒有笑：「那一天來的時候，你會站在哪一邊？」',
+    ch:[{t:'「站在朋友這邊。」',fx:()=>{favor('loki',10);S.flags.lokiFriend=1;return '他愣了一下，然後大笑起來，笑到眼淚都流出來了。\n\n「好。」他說，「我記住了。」';}},
+        {t:'「站在對的那一邊。」',fx:()=>{favor('tyr',3);return '「對的那一邊。」他重複了一次，好像在品嚐這幾個字，「每個人都這麼說。」';}},
+        {t:'不回答',fx:()=>'他點點頭，好像你已經回答了。\n\n浪打上來，又退下去。石頭上已經沒有人了。'}]})},
+  {ph:4,fim:1,ev:()=>({kind:'陌生人',scene:'sc_lk_4',title:'最後一次見面',text:'芬布爾之冬的某個晚上，他站在你的門口，身上全是雪。這一次，他沒有變任何戲法。\n\n「我是來說抱歉的。」他說，「不是為了我要做的事。是為了，我沒辦法不做。」',
+    ch:[{t:'「你可以不做。」',fx:()=>{favor('loki',4);return '他搖搖頭：「你不懂。我被綁了一千年。一千年，什麼東西都會變成恨。」\n\n他轉身走進了風雪裡。';}},
+        {t:'讓他進來烤火',fx:()=>{favor('loki',8);return '他坐在火堆邊，一句話都沒說，烤了一整夜的火。\n\n天亮的時候，他站起來，拍了拍你的肩膀：「謝謝。我會記得這個晚上的。」';}},
+        {t:'關上門',fx:()=>{favor('loki',-5);return '門外安靜了很久。然後，你聽見一聲很輕的笑。';}}]})},
+];
+function lokiTick(){
+  if(crossed()) return false;const L=S.flags.lk=S.flags.lk||[];if(S.turn-(S.flags.lkT??-99)<4)return false;
+  const t=S.phase>=4?P4():S.turn;
+  const i=LOKI_EV.findIndex((e,j)=>!L.includes(j)&&S.phase>=e.ph&&(e.fim?S.flags.ragna&&!S.flags.ragDone:true)&&(e.ph<4||t>=(e.t||0))&&(j===0||L.includes(j-1)||e.fim));
+  if(i<0||Math.random()>.35)return false;L.push(i);S.flags.lkT=S.turn;pushLater(eventModal(LOKI_EV[i].ev()));return true;
+}
 function msReturnTick(){const c=S.champions.find(c=>c.away&&S.turn>=c.away);if(!c)return false;const r=msResolve(c);pushLater(el=>resultView(el,r.title,r.text,'任務板',firstArt(r.art)||c.id));return true;}
 function passTime(quiet){
   if(S.sandbox) return;
@@ -1533,6 +1558,7 @@ function passTime(quiet){
     if(tr&&Math.random()<.3){betray(tr.id);return;}
   }
   if(S.phase>=2&&msReturnTick())return;
+  if(S.phase>=2&&S.phase<4&&lokiTick())return;
   if(S.phase>=2&&S.phase<4){if(!S.flags.monk&&S.turn%4===1&&S.turn>=8&&Math.random()<.5){pushLater(monkCapture(null));return;}if(monkTick())return;}
   if(S.trainLog.filter(t=>t>S.turn-6).length>=3&&S.turn-(S.flags.trainT??-99)>=6&&!fimbulNow()&&!(S.flags.stik&&!S.flags.stikDone)&&!(S.flags.envoy==='war'&&!S.flags.warDone)){S.flags.trainT=S.turn;pushLater(eventModal(EV_TRAIN));return;}
   if(gt('odin',2)) gainXp(3);
@@ -4756,6 +4782,7 @@ function ch4Tick(){
   if(S.spouse&&spouseDayTick()) return true;
   if(ragHintTick()) return true;
   if(monkTick()) return true;
+  if(lokiTick()) return true;
   if(S.flags.ragna&&!S.flags.ragDone){
     const left=S.flags.fimbulT+FIMBUL-S.turn;
     if(left<=0){ragnarok();return true;}
@@ -4940,7 +4967,7 @@ function ragOpenPages(p){
     {art:['sc_ro_fenrir','m_fenrir'],text:'巨狼芬里爾掙斷了繩子。牠張開嘴，上顎頂著天，下顎貼著地。'},
     {art:['sc_ro_jormun','m_jormun'],text:'世界巨蛇耶夢加得從海裡昇了起來。海水漫過了海岸，一路淹到你的腳邊。'},
     {art:['sc_ro_garm','m_garm'],text:'冥犬加姆衝出了洞穴，身上還掛著冥河的冰。'},
-    {art:['sc_rag_loki','loki'],text:p==='loki'?'走在巨人最前面的，是洛基。\n\n他看見了你，朝你揮了揮手，像在跟老朋友打招呼。':'走在巨人最前面的，是洛基。他終於掙脫了鎖鏈。\n\n他看見了你，朝你揮了揮手，像在跟老朋友打招呼：「抱歉了。這一次，我站在他們那一邊。」'}];
+    {art:['sc_rag_loki','loki'],text:p==='loki'?'走在巨人最前面的，是洛基。\n\n他看見了你，朝你揮了揮手，像在跟老朋友打招呼。':'走在巨人最前面的，是洛基。他終於掙脫了鎖鏈。\n\n'+(S.flags.lokiFriend?'他看見了你，停了一下：「你說過，你會站在朋友這邊。」他笑了，「我也是。只是我的朋友，在那邊。」':'他看見了你，朝你揮了揮手，像在跟老朋友打招呼：「抱歉了。這一次，我站在他們那一邊。」')}];
   if(p==='loki') return P;
   P.push({art:['sc_rag_ours','sc_einherjar'],text:`你站在自己的軍隊後面。\n\n你的戰士站成了一道盾牆，從冰原的這一頭，排到了那一頭。${S.men} 個人，全都望著同一個方向，沒有一個回頭。`});
   const G={odin:['sc_rag_odin','奧丁騎著八條腿的斯雷普尼爾，從天上的裂縫衝了下來。兩隻渡鴉在他頭上盤旋。'],
@@ -6326,6 +6353,97 @@ function axeThrow(){
     }
   });
 }
+// 長屋之夜：說長的版本（多頁、配圖，講完再看大家的反應）
+function longTale(t){
+  const f=S.flags,P=(a,x)=>({art:a,text:x}),Q=ORI().q;
+  const K=f.kingFate,hs=heroSex();
+  if(t==='我怎麼宰了赫羅爾夫') return [P(['sc_rv_fire','sc_rv_raid2'],'那一年，赫羅爾夫帶著紅帆船隊，第三次打到我們的海灘。他的船上點著火，他說要把我們的長屋，燒得跟他小時候燒過的那些一樣。'),
+    P(['sc_rv_kneel','sc_rv_fire'],'最後，他跪在沙灘上，滿臉是血，斧頭丟在一邊。他沒有求饒。他抬頭看著我，還在笑。\n\n「動手啊。」他說，「你等這一天，等很久了吧？」'),
+    P(['sc_rv_kneel_1','sc_rv_kneel'],'我等了很久。從十九歲那年，他在碼頭上說我一輩子'+Q+'開始，我就在等。\n\n……我動手了。'),
+    P(['sc_rv_kneel_1'],'那天晚上，我一個人坐在海邊。我以為我會很痛快。\n\n可是我只是一直在想，我們小時候，其實在同一個碼頭上撿過魚。')];
+  if(t==='赫羅爾夫跪下的那一天') return [P(['sc_rv_raid2','sc_rv_fire'],'赫羅爾夫打了我們三次。第三次，他把船上的火都點了，說這是最後一次。'),
+    P(['sc_rv_kneel','sc_rv_kneel_2'],'他輸了。他跪在沙灘上，把斧頭橫放在我的腳邊。我們瞪著對方，瞪了很久。'),
+    P(['sc_rv_kneel_2'],'我說：「站起來。以後，你站在我旁邊。」\n\n他看了我很久，久到我以為他會撿起斧頭砍過來。然後他站了起來，什麼也沒說。'),
+    P(['sc_rv_kneel_2'],'到今天，他還是不太跟我說話。可是每一次打仗，他都站在我的左邊。')];
+  if(t==='我彎腰撿箱子的那天') return [P(['sc_rv_dock','sc_ch1'],'那年我十九歲，在碼頭替人扛箱子，一天賺兩條魚。'),
+    P(['sc_rv_dock'],'赫羅爾夫帶著他的人走過來，一腳踢翻了我的箱子。魚和鹽灑了一地。\n\n「你還在替人扛箱子啊？」他笑著說，「你這種人，一輩子'+Q+'。」'),
+    P(['sc_rv_dock'],'整個碼頭都在看。我的手已經摸到斧柄了。我知道，只要我拔出來，就再也回不去了。'),
+    P(['sc_rv_dock','sc_ch1'],'……我彎下腰，把箱子撿了起來，把魚一條一條撿回去。\n\n那天晚上，我跟自己說：記住這一天。不是為了報仇。是為了有一天，不用再彎腰。')];
+  if(t==='碼頭上那一拳') return [P(['sc_rv_dock','sc_ch1'],'那年我十九歲，在碼頭替人扛箱子。赫羅爾夫走過來，一腳踢翻了我的箱子。'),
+    P(['sc_rv_dock'],'「你還在替人扛箱子啊？你這種人，一輩子'+Q+'。」\n\n我把箱子放下，跟他說：「那你來扛扛看。」圍觀的人開始吹口哨。'),
+    P(['sc_rv_dock'],'他先出手。他的拳頭很重，可是很慢。我低頭躲過去，一拳打在他的下巴上。'),
+    P(['sc_rv_dock','sc_ch1'],'他躺在碼頭上，半天爬不起來。整個碼頭的人都在看我。\n\n那天晚上，我的手腫得連角杯都拿不起來。可是我睡得很好。')];
+  if(t==='我輸給赫羅爾夫的那天') return [P(['sc_rv_dock','sc_ch1'],'那年我十九歲。赫羅爾夫踢翻了我的箱子，說我一輩子'+Q+'。我沒忍住，先出手了。'),
+    P(['sc_rv_dock'],'我打不過他。三招，我就趴在地上了。他踩著我的背，笑得整個碼頭都聽得見。'),
+    P(['sc_rv_dock'],'我的臉貼著碼頭的木板，聞到一股魚腥味。我跟自己說：記住這個味道。'),
+    P(['sc_ch1','sc_rv_dock'],'第二天，我拿著一把斧頭離開了峽灣。\n\n輸的那一天，才是我真正開始的那一天。')];
+  if(t==='鹽灘的頭狼') return [P(['sc_ev_wolves_req','sc_ev_wolves'],(f.vRaid&&!f.vAmend?'鹽灘漁村的村長來找我的時候，手在發抖。他認得我的臉——我搶過他的村子。可是在他眼裡，狼比我更可怕。':'鹽灘漁村的村長來找我。狼群一個冬天叼走了他們十幾頭羊，連小孩都不敢出門。')),
+    P(['sc_ev_wolves'],'我在雪地裡等了兩個晚上。第三個晚上，牠們來了。帶頭的那一頭，比一般的狼大了一圈，眼睛在黑暗裡發著光。'),
+    P(['sc_ev_wolves'],'牠先咬了兩下試探，像在看我會不會跑。第三下，牠整個撲了上來，把我壓在雪地裡。我的斧頭，砍進了牠的脖子。'),
+    P(['sc_ev_wolves_req','sc_ev_wolves'],'我把狼皮拖回村子的時候，孩子們都跑出來了。村長什麼也沒說，只是給我倒了一碗熱湯。')];
+  if(t==='第一次搶村子') return [P(['sc_lt_raid','sc_ch1'],'那是我第一次搶東西。我一個人，衝進了鹽灘漁村。'),
+    P(['sc_lt_raid','sc_ch1'],'守在村口的是一個老人，拿著一支生鏽的矛。他打得比誰都拚命，因為他身後是他的孫子。'),
+    P(['sc_lt_raid','sc_ch1'],'我搶到了銀子。我也記住了他的臉，到今天都忘不掉。'),
+    P(['sc_lt_raid','sc_ch1'],'那天晚上，我數著銀子，數了一遍又一遍。數到最後，我已經不記得那是多少錢了。只記得那個老人看我的眼神。')];
+  if(t==='胖商人的銀袋') return [P(['sc_ev_merchant','sc_ch1'],'那年我還在林子裡接懸賞。一夥強盜攔住了一輛商隊的車。'),
+    P(['sc_ev_merchant'],'強盜頭子把刀抵在一個胖商人的脖子上。商人嚇得一直發抖，銀袋子都掉在地上了。'),
+    P(['sc_ev_merchant'],'我站在路中間，跟他說：「放開他。你只會少一隻手。」他沒放。'),
+    P(['sc_ev_merchant'],'……後來，他真的少了一隻手。胖商人抱著我哭了半天，硬塞給我一袋銀子，說他這輩子會一直講這件事。')];
+  if(t==='林子裡的強盜們') return [P(['sc_ev_hunterB','sc_ch1'],`我在林子裡接過 ${f.bountyN} 次懸賞。第一個強盜沒有名字，第二個叫「獨耳」。`),
+    P(['sc_ev_hunterB'],'第三個一看到我，就把刀丟在地上了：「你就是那個專獵我們兄弟的傢伙？」'),
+    P(['sc_ev_hunterB'],'那一刻我才知道，我的名字已經傳進了林子裡。那是我第一次覺得，自己是個有名字的人了。')];
+  if(t==='徒手……差不多徒手殺熊') return [P(['sc_lt_bear','sc_ch1'],'那天我在山裡打獵，一頭熊從樹後面站了起來。站起來的時候，比我高了兩個頭。'),
+    P(['sc_lt_bear','sc_ch1'],'我砍了第一斧，斧頭卡在牠的肩膀裡，拔不出來。牠一掌把我拍飛了出去。'),
+    P(['sc_lt_bear','sc_ch1'],'我手上只剩一把小刀，和最後一口氣。牠撲過來的時候，我沒有跑。'),
+    P(['sc_lt_bear','sc_ch1'],'我醒過來的時候，熊躺在我旁邊，我躺在熊旁邊。我們兩個都在流血。只有我站得起來。')];
+  if(t==='我死過一次') return [P(['sc_bt_lose','sc_valhalla'],'那一仗，我倒下了。眼前一黑，什麼都聽不見。'),
+    P(['sc_valhalla'],'我好像走在一條很長的路上，路的盡頭有一扇金色的門。門裡面傳來笑聲和酒杯碰撞的聲音。'),
+    P(['sc_valhalla'],'然後，有人在喊我的名字。一聲，兩聲，很多聲。那些聲音，是從我背後傳來的。'),
+    P(['sc_longhouse','sc_valhalla'],'我轉過身，順著那些聲音，走了回來。\n\n睜開眼睛的時候，你們全都圍在我身邊。')];
+  if(t==='女神的眼淚') return [P(['sc_tears'],'我夢見一個女人坐在海邊哭。她的眼淚落在沙上，變成了一顆一顆的金子。'),
+    P(['sc_tears','sc_fq_wed'],'是弗蕾亞。她的丈夫奧德出門遠行，再也沒有回來。她找了他好多年。'),
+    P(['sc_fq_cloak','sc_tears'],'我替她找了。在一個連名字都沒有的海岸，一個老漁夫交給我一件褪色的斗篷。奧德往世界的盡頭走了，再也不會回來。'),
+    P(['sc_kiss_'+hs,'sc_fq_wed','sc_tears'],'我把斗篷交給她。她哭了很久很久。\n\n最後一滴眼淚是金色的，落在我的手心，燙得像火。一整個晚上，都沒有涼。')];
+  if(t==='西邊的冒煙的山') return [P(['sc_west_iceland'],'我們往西航行了九天。第九天的早上，海面上出現了一座冒著白煙的山。'),
+    P(['sc_west_iceland'],'山腳下是綠色的草原，地上的洞會冒熱水。我把手伸進去，差點燙掉一層皮。'),
+    P(['sc_west_iceland'],'那裡已經住了幾戶挪威人。他們沒有國王，每年夏天，全島的人聚在一塊大石頭前，自己立法。'),
+    P(['sc_west_iceland'],'我在那塊大石頭前站了很久。我想，也許有一天，挪威也可以這樣。')];
+  if(t==='老王的最後一劍'&&K==='spared') return [P(['sc_k_hall','sc_k_awaken'],'我走進維斯特福爾的王廳。老王哈夫丹坐在王座上，看著我，劍一直握在手裡。'),
+    P(['sc_k_slip','sc_k_push'],'我們打了很久。最後，他的劍從手裡滑了出去。他用劍撐著地，想站起來，可是站不起來了。'),
+    P(['sc_k_push','sc_k_spare'],'他把劍推到我的腳邊，只說了一句：「好好待他們。」'),
+    P(['sc_k_spare','sc_k_farm'],'我沒有殺他。他一個人，一跛一跛地走出了王廳。\n\n後來我才知道，他每天都坐在農莊門口，往王廳的方向看。')];
+  if(t==='老王的最後一劍') return [P(['sc_k_hall','sc_k_awaken'],'我走進維斯特福爾的王廳。老王哈夫丹坐在王座上，看著我，劍一直握在手裡。'),
+    P(['sc_k_slip','sc_k_push'],'我們打了很久。最後，他的劍從手裡滑了出去，他跪在地上。'),
+    P(['sc_k_exec'],'他沒有求饒。他閉上眼睛，像在等一陣風吹過去。\n\n我舉起了斧頭。'),
+    P(['sc_k_after_exec','sc_k_exec'],'那天，王廳裡沒有一個人說話。我坐上了王座，才發現，它比看起來冷得多。')];
+  if(/的海灘$/.test(t)){const o=osYours()[0];return [P([o&&o.area?'sc_area_'+o.area:'sc_bt_1','sc_bt_1'],`我們的船靠岸的時候，${t.replace('的海灘','')}的人連盾牌都還沒拿穩。`),
+    P(['sc_bt_1'],'我第一個跳進海裡。水冷得像刀，一直淹到我的胸口。我舉著盾，往岸上走。'),
+    P(['sc_bt_2'],'他們的箭射在我的盾上，像下雨一樣。我身後的人一個接一個跳下船，跟了上來。'),
+    P([o&&o.area?'sc_area_'+o.area:'sc_bt_win','sc_bt_win'],'那天晚上，我們的旗子插在他們的城牆上。我站在城牆上往北看，看不到挪威。\n\n可是我知道，它就在那裡。')];}
+  if(/^和.*一起的那一趟$/.test(t)){const id=Object.keys(S.qdone||{}).find(id=>t.includes(CHAMPS[id].name));if(!id)return null;const q=QUESTS[id],n=CHAMPS[id].name;
+    return [P([q.sa,'sc_q_'+id+'_a',id].filter(Boolean),q.at.replace('{QUEST}',ORI().quest).split('\n')[0]),P(['sc_q_'+id+'_b',id],q.bt.split('\n')[0]),P(['sc_q_'+id+'_w','sc_q_'+id+'_b',id],q.win.split('\n')[0]),
+      P(['sc_q_'+id+'_w',id],`那一趟不是為了銀子，也不是為了名聲。是因為${n}開口求我，而${cP(id)}這輩子很少求人。`)];}
+  if(/^我是怎麼娶到/.test(t)&&S.spouse){const k=S.spouse,sp=SPOUSES[k].name;return [P(['sc_ct_'+k+'_1',k],`第一次見到${sp}的時候，我什麼都不會說，只會站在那裡發呆。`),
+    P(['sc_ct_'+k+'_2','sc_ct_'+k+'_1',k],`後來我們見了好幾次面。每一次，我都覺得自己說錯了話。可是${sp}每一次都笑了。`),
+    P(['sc_ct_'+k+'_3','sc_ct_'+k+'_2',k],`有一天，是${sp}先開口的。`),
+    P(['sc_ev_wedding','sc_ev_wedding_b',k],'婚禮辦了七天。第七天的晚上，我看著火堆旁邊的每一個人，第一次覺得，這裡是我的家。')];}
+  if(/出生的那一夜$/.test(t)) return [P(['sc_ev_birth'],'那一夜下著大雪。長屋裡的女人進進出出，誰也不准我進去。'),
+    P(['sc_ev_birth'],'我在門外站了一整夜，雪積到了膝蓋。我這輩子打過很多仗，從來沒有那麼怕過。'),
+    P(['sc_ev_birth'],'天快亮的時候，我聽見了第一聲哭。\n\n那個聲音很小，可是我覺得，整個峽灣都聽見了。')];
+  if(t==='耶靈的符文石') return [P(['sc_jelling_pre','sc_danes'],'我們沒有等藍牙來。我們先打過去了。'),
+    P(['sc_dane_victory','sc_danes'],'我們的船衝進耶靈的港口時，藍牙的王廳就在眼前。他父親立的那塊符文石，比我們的桅杆還高。'),
+    P(['sc_dane_victory'],'那一仗打了一整天。天黑的時候，藍牙站在符文石前，把他的戒指，交到了我的手裡。'),
+    P(['sc_dane_party','sc_dane_victory'],'回家的那天晚上，海灘上燒了十幾堆篝火。那是我這輩子最快樂的一晚。')];
+  if(t==='藍牙的船') return [P(['sc_danes','sc_war_council'],'丹麥人的船，多到把海都遮黑了。我們只有一道木牆，和彼此。'),
+    P(['sc_beach_wall','sc_bt_1'],'我們在海灘上排成盾牆。他們一波一波地衝上來，我們一步一步地頂回去。'),
+    P(['sc_dane_victory','sc_bt_win'],'天黑的時候，丹麥人的陣線垮了。藍牙站在船頭，回頭看了很久，然後下令退兵。'),
+    P(['sc_dane_party','sc_dane_victory'],'那天晚上，海灘上燒了十幾堆篝火。有人把我扛了起來。整個海灘，都在喊我的名字。')];
+  if(t==='我離開峽灣的那一天') return [P(['sc_ch1'],'我十九歲，手上只有一把斧頭。'),
+    P(['sc_rv_dock','sc_ch1'],`赫羅爾夫在碼頭上說，我這種人，一輩子${Q}。`),
+    P(['sc_ch1'],'我母親把一個護身符掛在我的脖子上：「活著回來。或者，別回來。」'),
+    P(['sc_ch1'],'我攥緊拳頭，跟自己說：總有一天，我會當上國王。\n\n然後，我頭也不回地走了。')];
+  return null;
+}
 function storyNight(){
   const f=S.flags,M=f.mate,T=[];
   const heck=()=>M?'托爾斯坦':S.champions.length?CHAMPS[pick(S.champions).id].name:'一個老槳手';
@@ -6376,7 +6494,8 @@ function storyNight(){
     `我十九歲，手上只有一把斧頭。赫羅爾夫說我一輩子${ORI().q}。我攥緊拳頭，跟他說：「總有一天，我會當上國王。」`,'那天我就跟整個峽灣的人說：等著，十年後，你們都要向我下跪。結果只花了……嗯，比十年多一點。']);
   const keep=T.pop(),opts=T.sort(()=>Math.random()-.5).slice(0,T.length>=5?3:2).concat([keep]);
   const tell=([t,sub,real,story,tall,who])=>{pushModal(eventModal({kind:'長屋之夜',title:t,text:`你清了清喉嚨，開始講「${t}」。`,
-    ch:[{t:'照實講',fx:()=>{addFame(3);addLoyalty(3);return `「${story}」\n\n${real}\n\n名聲 +3，忠誠 +3`;}},
+    ch:[{t:'說長一點，慢慢講',show:()=>!!longTale(t),note:'把整段經過說完',fx:()=>{const pg=longTale(t);pushModal(el=>cineView(el,pg,()=>{addFame(5);addLoyalty(5);resultView(el,t,`${real}\n\n<span class="good">名聲 +5，忠誠 +5</span>`,'長屋之夜');},'長屋之夜・'+t));return null;}},
+        {t:'照實講',fx:()=>{addFame(3);addLoyalty(3);return `「${story}」\n\n${real}\n\n名聲 +3，忠誠 +3`;}},
         {t:'加油添醋，越誇張越好',note:()=>rate(.3+eff('wit')*.06+(S.bg==='skald'?.15:0)),fx:()=>{if(chk(.3+eff('wit')*.06+(S.bg==='skald'?.15:0))){addFame(8);addLoyalty(2);return `「${tall}」\n\n大家聽得目瞪口呆。第二天，整個峽灣都在傳。\n名聲 +8，忠誠 +2`;}addFame(-3);addLoyalty(2);return `「${tall}」\n\n講到一半，${who||heck()}大喊：「少吹了！明明不是這樣！」\n全長屋笑翻了。\n名聲 -3，忠誠 +2`;}},
         {t:'讓布拉吉來講',show:()=>hasC('bragi'),fx:()=>{addFame(6);bond('bragi',4);return '布拉吉把你的故事唱成了歌。唱到最後，連你自己都差點信了。\n名聲 +6，布拉吉好感 +4';}}]}));};
   pushModal(eventModal({kind:'長屋之夜',scene:'sc_lh_story',title:'講故事之夜',text:'火堆旁坐滿了人，連孩子們都沒睡。大家吵著要你講一個故事。\n\n要講哪一段？',
