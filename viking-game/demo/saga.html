@@ -1,0 +1,743 @@
+<title>斧與誓言</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Runic&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;900&display=swap">
+<style>
+/* 版面：一欄的「長屋」，上面是季節與存糧，中間是畫面，詩人寫下的薩迦從底部長出來 */
+:root{
+  --night:#101417; --hall:#161c20; --plank:#1f262b; --seam:#323c43;
+  --bone:#ece3d2; --ash:#9aa4a9; --ember:#e48a3c; --ember-deep:#a9561f;
+  --frost:#9cc3d3; --blood:#d0614b; --gold:#d9b25f; --vellum:#e9dcc0; --ink:#2b2219;
+  --f-display:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --f-body:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  --f-rune:"Noto Sans Runic","Segoe UI Historic",serif;
+  color-scheme:dark;
+}
+html,body{height:100%}
+[hidden]{display:none!important}
+body{background:var(--night);color:var(--bone);font-family:var(--f-body);font-size:16px;line-height:1.75;margin:0}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit}
+button:focus-visible{outline:2px solid var(--ember);outline-offset:2px}
+#app{max-width:560px;margin:0 auto;min-height:100%;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 96px;display:flex;flex-direction:column;gap:14px}
+h1,h2,h3{font-family:var(--f-display);font-weight:900;margin:0;text-wrap:balance;line-height:1.3}
+h2{font-size:24px}
+h3{font-size:18px;font-weight:600}
+p{margin:0}
+.txt{white-space:pre-line}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--ember);font-weight:700}
+.muted{color:var(--ash)}
+.rune{font-family:var(--f-rune);color:var(--gold)}
+
+/* 頂列 */
+.top{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ash);border-bottom:1px solid var(--seam);padding-bottom:10px;flex-wrap:wrap}
+.top .season{display:flex;align-items:center;gap:8px;color:var(--bone);font-weight:700}
+.top .season .rune{font-size:22px;line-height:1}
+.top b{color:var(--bone);font-variant-numeric:tabular-nums}
+.top .sail{margin-left:auto;color:var(--blood);font-weight:700}
+
+/* 圖 */
+.scene{position:relative;border-radius:6px;overflow:hidden;background:var(--plank);aspect-ratio:16/9;max-width:100%}
+.scene img{width:100%;height:100%;object-fit:cover;display:block;animation:kb 14s ease-out both}
+@keyframes kb{from{transform:scale(1.06)}to{transform:scale(1)}}
+.scene.shake{animation:shake .45s}
+@keyframes shake{20%{transform:translateX(-6px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+.por{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:5px;display:block;background:var(--plank)}
+.fallen{filter:grayscale(1) brightness(.6)}
+
+/* 按鈕 */
+.btn{display:block;width:100%;padding:13px 16px;border-radius:6px;border:1px solid var(--seam);background:var(--plank);text-align:left;cursor:pointer;transition:border-color .15s,background .15s}
+.btn:hover:not(:disabled){border-color:var(--ember)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn b{display:block;font-size:16px}
+.btn small{display:block;color:var(--ash);font-size:13px;line-height:1.55;margin-top:2px}
+.go{background:var(--ember);color:#1a1006;border-color:var(--ember);text-align:center;font-weight:700;font-size:17px}
+.go:hover:not(:disabled){background:#f09a4e}
+.row{display:flex;gap:10px;align-items:center}
+.row .go{width:auto;margin-left:auto;padding-inline:28px}
+.ghost{background:none;border:none;color:var(--ash);padding:8px 4px;cursor:pointer;font-size:14px}
+.stack{display:flex;flex-direction:column;gap:10px}
+
+/* 勇士 */
+.crew{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.mate{display:grid;grid-template-columns:56px minmax(0,1fr);gap:10px;background:var(--hall);border:1px solid var(--seam);border-radius:6px;padding:9px}
+.mate h3{font-size:16px}
+.mate .tag{font-size:12px;color:var(--ash)}
+.mate .mood{font-size:12.5px;line-height:1.55;color:var(--ash);margin-top:4px;grid-column:1/-1}
+.mate.gone{opacity:.5}
+.pips{display:flex;gap:3px;margin-top:4px}
+.pips i{width:12px;height:4px;border-radius:2px;background:var(--seam)}
+.pips i.on{background:var(--ember)}
+.pips i.aw{background:var(--gold)}
+.stage{font-size:12px;color:var(--gold);font-weight:700}
+
+/* 這一季的事 */
+.deeds{display:grid;gap:10px}
+.deed{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;padding:8px;background:var(--hall);border:1px solid var(--seam);border-radius:6px;cursor:pointer;text-align:left}
+.deed:hover{border-color:var(--ember)}
+.deed img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:4px}
+.deed h3{font-size:16px}
+.deed small{display:block;color:var(--ash);font-size:13px;line-height:1.55;margin-top:3px}
+.deed .kind{font-size:11px;letter-spacing:.14em;color:var(--ember);font-weight:700}
+.deed.rival{border-color:var(--blood)}
+.deed.rival .kind{color:var(--blood)}
+.deed.thread .kind{color:var(--gold)}
+
+/* 選人 */
+.who{display:grid;grid-template-columns:44px minmax(0,1fr);gap:10px;align-items:center}
+.who img{width:44px;aspect-ratio:3/4;object-fit:cover;border-radius:4px}
+
+/* 薩迦 */
+.saga-line{background:var(--vellum);color:var(--ink);border-radius:4px;padding:12px 14px;font-family:var(--f-display);font-weight:600;font-size:15.5px;line-height:1.7;display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;align-items:start;animation:ink .9s ease-out both}
+.saga-line img{width:34px;aspect-ratio:3/4;object-fit:cover;border-radius:3px}
+.saga-line small{display:block;font-family:var(--f-body);font-weight:500;font-size:11.5px;letter-spacing:.12em;color:#7a6440}
+@keyframes ink{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.fx{font-size:14px;color:var(--ash)}
+.fx .up{color:var(--frost)}
+.fx .dn{color:var(--blood)}
+.fx .bd{color:var(--gold)}
+.sagabar{position:fixed;left:0;right:0;bottom:0;padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:linear-gradient(transparent,var(--night) 40%);display:flex;justify-content:center;pointer-events:none}
+.sagabar button{pointer-events:auto;background:var(--vellum);color:var(--ink);border:none;border-radius:99px;padding:8px 18px;font-family:var(--f-display);font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.5)}
+.scroll{position:fixed;inset:0;background:rgba(8,10,12,.86);display:flex;justify-content:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));z-index:20}
+.scroll .paper{background:var(--vellum);color:var(--ink);max-width:520px;width:100%;border-radius:6px;padding:22px 20px;overflow:auto;font-family:var(--f-display);font-weight:600;line-height:1.9}
+.scroll ol{padding-left:1.4em;margin:12px 0 0}
+.scroll li{margin-bottom:8px}
+.scroll .ghost{color:#7a6440}
+
+/* 最後一戰 */
+.lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.lane{background:var(--hall);border:1px solid var(--seam);border-radius:6px;padding:10px 8px;text-align:center;display:flex;flex-direction:column;gap:6px;min-width:0}
+.lane h3{font-size:15px}
+.lane .foe{color:var(--blood);font-weight:700;font-size:14px}
+.lane .foe.fog{color:var(--ash);font-weight:500}
+.lane .mine{font-size:24px;font-weight:900;font-family:var(--f-display);font-variant-numeric:tabular-nums}
+.lane .ctl{display:flex;justify-content:center;gap:6px}
+.lane .ctl button{width:34px;height:34px;border-radius:5px;border:1px solid var(--seam);background:var(--plank);cursor:pointer;font-size:18px}
+.lane .ctl button:disabled{opacity:.35}
+.lane .chips{font-size:12px;color:var(--gold);min-height:18px}
+.lane.held{border-color:var(--frost)}
+.lane.broke{border-color:var(--blood)}
+.seat{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;align-items:center;background:var(--hall);border:1px solid var(--seam);border-radius:6px;padding:8px}
+.seat img{width:40px;aspect-ratio:3/4;object-fit:cover;border-radius:4px}
+.seg{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.seg button{padding:4px 9px;border-radius:4px;border:1px solid var(--seam);background:var(--plank);font-size:13px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ember);border-color:var(--ember);color:#1a1006;font-weight:700}
+.duel{display:grid;grid-template-columns:96px minmax(0,1fr);gap:14px;align-items:center}
+.hp{display:flex;gap:4px}
+.hp i{width:18px;height:18px;border-radius:50%;border:2px solid var(--blood)}
+.hp i.on{background:var(--blood)}
+.hp.me i{border-color:var(--frost)}
+.hp.me i.on{background:var(--frost)}
+.tell{background:var(--hall);border-left:3px solid var(--blood);border-radius:4px;padding:12px 14px;font-family:var(--f-display);font-weight:600;font-size:17px}
+.whisper{color:var(--gold);font-size:14px;margin-top:6px}
+.moves{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.moves .btn{text-align:center}
+.log{font-size:14px;color:var(--ash);display:flex;flex-direction:column;gap:4px}
+.title{display:flex;flex-direction:column;gap:16px;padding-top:6px}
+.title h1{font-size:44px;letter-spacing:.06em}
+.title .lead{font-family:var(--f-display);font-weight:600;font-size:17px;color:var(--vellum)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field input{background:var(--plank);border:1px solid var(--seam);border-radius:6px;padding:11px 12px;font:inherit;color:var(--bone)}
+.field input:focus{outline:2px solid var(--ember);outline-offset:1px}
+.past{font-size:14px;color:var(--ash)}
+.past li{margin-bottom:4px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (min-width:520px){.deed{grid-template-columns:150px minmax(0,1fr)}}
+</style>
+
+<div id="app"></div>
+<div class="sagabar" id="sagabar" hidden><button id="saga-open" type="button">薩迦</button></div>
+
+<script>
+/* ================= 素材 ================= */
+const IMG=k=>`img/${k}.webp`;
+const $=s=>document.querySelector(s);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+
+/* 季節：春 ᛒ（樺木）、夏 ᛋ（太陽）、秋 ᛃ（收成）、冬 ᛁ（冰） */
+const SEASONS=[['春','ᛒ'],['夏','ᛋ'],['秋','ᛃ'],['冬','ᛁ']];
+const LAST=8; // 第 9 季（第三年春）紅帆來襲
+
+/* ================= 勇士 ================= */
+const CH={
+  astrid:{n:'阿斯特麗德',t:'盾女',b0:1,intro:'她父親死在一道垮掉的盾牆裡。她說，她的盾牆不會垮。',
+    idle:'阿斯特麗德在練盾，一下一下撞著木樁。',
+    hint:'阿斯特麗德在修一面裂成兩半的舊盾。她好像有話想說。',
+    aw:'阿斯特麗德在教孩子們扣盾。她笑起來的樣子，你以前沒看過。'},
+  ragnar:{n:'拉格納',t:'狂戰士',b0:0,restless:1,intro:'一打起來就停不下來。連他自己都怕自己。',
+    idle:'拉格納在長屋裡跟每一個人比腕力，贏了就請喝酒。',
+    bored:'拉格納在磨斧頭，已經磨了三天了。「再這樣下去，我自己去找人打。」',
+    hint:'拉格納最近很少笑。上次發狂之後，他一直躲著孩子們。',
+    aw:'拉格納抱著酒桶睡在門口，打呼的聲音像打雷。他現在睡得著了。'},
+  thorfinn:{n:'托爾芬',t:'沉默的人',b0:2,intro:'一句話都不說。可是你走到哪，他就站到哪。',
+    idle:'托爾芬坐在門邊，擦他的斧頭。',
+    hint:'托爾芬每天黃昏都一個人往海崖走。',
+    aw:'托爾芬開始說話了。雖然一天只說三句。'},
+  einar:{n:'埃納',t:'獵人',b0:0,restless:1,intro:'從森林裡來，弓比話快。他在找一頭白色的狼。',
+    idle:'埃納剛從山裡回來，肩上扛著兩隻雪兔。',
+    bored:'埃納好幾天沒回長屋睡了。有人看見他在森林邊上，一直望著山。',
+    hint:'埃納說，他在羊圈邊看到了白色的狼毛。',
+    aw:'埃納把白狼皮鋪在你的椅子上。「冬天冷。」他說。'},
+};
+const CIDS=Object.keys(CH);
+const STAGE=['陌生','信任','立誓','心事','覺醒'];
+
+/* ================= 這一季可以做的事 ================= */
+// 每件事都要選「帶誰去」：同一件事，帶不同的人，結果不一樣
+const DEEDS=[
+ {id:'merchant',art:'sc_ev_merchant',t:'山谷裡的商隊',k:'劫掠',
+  x:'南方的商隊要穿過山谷。三輛車，護衛只有六個人。',
+  say:{astrid:'「盾牆堵住山口，一個都跑不掉。」',ragnar:'「六個？不夠我熱身。」',thorfinn:'（他已經在綁鞋帶了。）',einar:'「我先上樹。」'},
+  fav:['ragnar','einar'],
+  o:{_:['你們從林子裡衝出去。護衛跑了，商人跪在泥裡。你這邊也倒了一個人。',{silver:30,men:-1}],
+     ragnar:['拉格納一個人衝在最前面。護衛看見他，丟下劍就跑。',{silver:40}],
+     astrid:['阿斯特麗德讓人排成盾牆堵住山口。一個人都沒受傷，一個人都沒跑掉。',{silver:30}],
+     thorfinn:['一支箭朝你射過來，被托爾芬的盾擋下。他看都沒看那支箭一眼。',{silver:30}],
+     einar:['埃納在樹上射倒了領頭的護衛，剩下的人就散了。',{silver:35}]},
+  saga:w=>w?`那年${sn()}，{N}帶著${CH[w].n}，在山谷裡劫了南方的商隊。`:`那年${sn()}，{N}在山谷裡劫了南方的商隊。`},
+ {id:'bear',art:'sc_ev_w_bear',t:'吃羊的大熊',k:'狩獵',
+  x:'山裡的獵人來說，有一頭大熊下了山，一個月吃了村裡九頭羊。',
+  say:{astrid:'「熊撲上來的時候，我替你擋第一下。」',ragnar:'「熊！讓我來！不要幫我！」',thorfinn:'（他把你的斧頭磨好，遞給你。）',einar:'「給我兩天。我會找到牠睡覺的地方。」'},
+  fav:['ragnar','einar'],
+  o:{_:['你一個人進山，三天後拖著熊皮回來，斷了兩根肋骨。',{silver:15}],
+     ragnar:['拉格納扔掉斧頭，跟熊扭在一起。最後站起來的是他。全村都在喊他的名字，有兩個年輕人當場說要跟著他。',{silver:20,men:2}],
+     einar:['埃納追了牠兩天，一箭射穿了牠的眼睛。熊皮完整得像沒受過傷，賣了好價錢。',{silver:30}],
+     astrid:['熊撲上來的時候，阿斯特麗德的盾擋住了第一下。你的斧頭落了下去。',{silver:15}],
+     thorfinn:['托爾芬擋在你前面，被熊爪撕開了肩膀。他一聲都沒吭，等你砍倒了熊，才坐下來。',{silver:15}]},
+  saga:w=>w==='ragnar'?'狂戰士拉格納赤手跟大熊扭在一起，最後站起來的是他。':w?`{N}和${CH[w].n}進山，殺了吃羊的大熊。`:'{N}一個人進山，拖著熊皮回來，斷了兩根肋骨。'},
+ {id:'flyting',art:'sc_ev_flyting',t:'長屋裡的鬥嘴大會',k:'宴會',cost:10,
+  x:'冬夜很長。長屋裡辦起了鬥嘴大會：輪流用詩罵對方，罵到對方說不出話的人贏。\n\n酒要你出。',
+  say:{astrid:'「我只需要說一句。」',ragnar:'「罵不過，可以打嗎？」',thorfinn:'（他搖搖頭，又點點頭。）',einar:'「我知道一個狼的笑話。」'},
+  fav:['thorfinn','ragnar'],
+  o:{_:['你罵贏了三個人，輸給了一個老漁夫。大家笑得很開心，有人說，明年還要來。',{men:1}],
+     thorfinn:['托爾芬一整晚都沒開口。輪到他的時候，他站起來，喝乾了酒，又坐下。\n\n全場安靜了很久，然後爆出了歡呼。',{men:1}],
+     ragnar:['拉格納罵不過人家，就把桌子掀了。大家笑了一整個冬天。',{men:1}],
+     astrid:['阿斯特麗德只說了一句話，對方就紅著臉坐下了。沒有人知道她說了什麼，她也不肯講。',{men:1}],
+     einar:['埃納講了一個關於狼的笑話。只有他自己在笑，可是他笑得太開心了，最後大家也跟著笑。',{men:1}]},
+  saga:w=>w==='thorfinn'?'鬥嘴大會上，托爾芬一句話也沒說，卻贏得了全場的歡呼。':'那年冬天，長屋裡的笑聲，傳到了峽灣的另一邊。'},
+ {id:'train',art:'sc_ev_train',t:'坐不住的年輕人',k:'操練',cost:20,
+  x:'峽灣裡的年輕人想學打仗。他們有的是力氣，缺的是盾和教的人。',
+  say:{astrid:'「交給我。秋天之前，他們會扣盾。」',ragnar:'「教他們衝就好了。」',thorfinn:'（他拿起一面盾，示範了一次怎麼站。）',einar:'「我要眼力最好的那幾個。」'},
+  fav:['astrid'],
+  o:{_:['你教了他們一整季。到了秋天，有三個人能站上盾牆了。',{men:3}],
+     astrid:['阿斯特麗德教了他們一整季的盾牆。到了秋天，十個年輕人扣起盾來，像一塊石頭。',{men:4,flag:'wall'}],
+     ragnar:['拉格納的訓練只有一招：衝。年輕人學得很快，傷得也很快。',{men:3}],
+     thorfinn:['托爾芬不講話，只示範。學會的人不多，學會的都很穩。',{men:3}],
+     einar:['埃納挑了幾個眼力好的，教他們射箭。他說，打仗的時候，這些人會在高處。',{men:2,flag:'archers'}]},
+  saga:w=>w==='astrid'?'阿斯特麗德教出了一道新的盾牆。':'峽灣的年輕人，第一次拿起了盾。'},
+ {id:'wreck',art:'sc_ev_wreck',t:'海灘上的沉船',k:'意外',
+  x:'暴風雨過後，一艘商船撞碎在你的海灘上。貨箱漂得滿灘都是。\n\n船艙裡，還有人在敲木板。',
+  say:{astrid:'「先救人。」',ragnar:'「貨箱！快，在漂走之前！」',thorfinn:'（他已經脫下斗篷，往海裡走了。）',einar:'「沙灘上有腳印。有人比我們先到。」'},
+  fav:['thorfinn','astrid'],
+  o:{_:['你先救人，再撈貨。救上來的水手說，他在紅帆船上做過工。',{silver:15,flag:'sailor'}],
+     thorfinn:['托爾芬第一個跳進冰冷的海裡，把船艙裡的人拖了出來。那人說，他在紅帆船上做過工。',{silver:15,flag:'sailor'}],
+     astrid:['阿斯特麗德一個人把三個人拖上了岸。其中一個水手說，他在紅帆船上做過工。',{silver:15,flag:'sailor'}],
+     ragnar:['拉格納直接去撈貨箱，撈了一大堆。等你想起船艙裡的敲打聲，船已經沉下去了。',{silver:40}],
+     einar:['埃納順著腳印追進樹林，從幾個撿便宜的人手上，把一半的貨搶了回來。',{silver:30}]},
+  saga:w=>w==='ragnar'?'沉船的貨，{N}一箱也沒有漏掉。船艙裡的敲打聲，後來就停了。':'{N}從沉船裡救起了一個水手。那個人，後來救了很多人。'},
+ {id:'famine',art:'sc_ev_famine',t:'斷糧的人家',k:'人心',choice:1,
+  x:'冬天太長了。漁村有一家人，已經三天沒吃東西。\n\n女人抱著孩子，站在你的長屋門口，什麼話都沒說。',
+  ch:[{t:'把存糧分給他們',n:'銀幣 −20',cost:20,r:['你讓人搬了兩袋麥子過去。\n\n那天晚上，女人的丈夫來了。他什麼都沒說，只是在你的門口，放下了一把磨得很亮的魚叉。',{flag:'fed'}],saga:'那年冬天，{N}把自己的存糧，分給了漁村斷糧的人家。'},
+      {t:'「每一家都在挨餓。」',n:'',r:['你關上了門。\n\n第二天，那一家人不見了。有人說他們往南走了，也有人說，他們沒有走遠。',{}],saga:'那年冬天很長。{N}的門，沒有為誰打開。'}]},
+ {id:'treasure',art:'sc_ev_treasure',t:'老水手的地圖',k:'尋寶',
+  x:'一個老水手攤開一張羊皮地圖：「我年輕的時候，在北邊的島上埋了一箱銀子。我走不動了，找到的話，分你一半。」',
+  say:{astrid:'「地圖可能是假的。」',ragnar:'「挖洞？好啊，我挖。」',thorfinn:'（他在地圖上指了一個地方，又搖搖頭。）',einar:'「這座島我去過。我認得這棵樹。」'},
+  fav:['einar'],
+  o:{_:()=>Math.random()<.5?['你們挖了三天，挖出一個爛掉的箱子。銀子還在。',{silver:50}]:['你們挖了三天，什麼都沒有。老水手說，可能是另一棵樹。',{}],
+     einar:['埃納直接走到一棵被雷劈過的老樹下：「這裡。」\n\n銀子還在。老水手抱著箱子哭了。',{silver:60}],
+     ragnar:()=>Math.random()<.5?['拉格納一個人挖了半座島，真的被他挖到了。',{silver:50}]:['拉格納挖了半座島。什麼都沒有，可是他說這是他今年最開心的一季。',{}],
+     astrid:()=>Math.random()<.5?['阿斯特麗德對著地圖算了很久，挖下去，銀子就在那裡。',{silver:50}]:['阿斯特麗德說得對：地圖是假的。',{}],
+     thorfinn:()=>Math.random()<.5?['托爾芬指的地方，真的有銀子。',{silver:50}]:['你們挖了三天，什麼都沒有。托爾芬一直搖頭。',{}]},
+  saga:w=>'一個老水手的地圖，帶{N}去了北邊的島。'},
+ {id:'wolves',art:'sc_ev_wolves',t:'下山的狼群',k:'守護',
+  x:'狼群下山了。村子邊上的羊圈，一個晚上少了五頭羊。\n\n老人蹲在羊圈旁邊，撿起一撮白色的毛。',
+  say:{astrid:'「守夜就好。狼怕火。」',ragnar:'「一晚上能殺幾頭？」',thorfinn:'（他看了看那撮毛，又看了看埃納。）',einar:'（他盯著那撮白毛，臉色變了。）'},
+  fav:['einar'],
+  o:{_:['你們守了三個晚上。狼走了，可是還會回來。',{}],
+     einar:['埃納蹲在腳印旁邊，很久很久。\n\n「是牠。」他說。然後他什麼都不肯再說了。',{flag:'wolfsign'}],
+     ragnar:['拉格納一個晚上殺了四頭狼，自己也被咬了一口。他很高興。',{}],
+     astrid:['阿斯特麗德讓人在羊圈外點了一圈火，守了三夜。一頭羊都沒有再少。',{}],
+     thorfinn:['托爾芬在羊圈邊坐了三夜，一動也不動。第三天早上，他的腳邊躺著兩頭狼。',{}]},
+  saga:w=>w==='einar'?'獵人埃納在羊圈邊，認出了白狼的腳印。':'狼群下山的那年，{N}守住了村子的羊。'},
+ {id:'children',art:'sc_ev_children',t:'拿木劍的孩子',k:'長屋',
+  x:'孩子們拿著木棍，在長屋外嚷著要學劍。',
+  say:{astrid:'「我小時候，我父親也是這樣教我的。」',ragnar:'（他慢慢放下斧頭，有點不知所措。）',thorfinn:'（他已經在削木劍了。）',einar:'「劍很無聊。我帶他們去認腳印。」'},
+  fav:['astrid','ragnar'],
+  o:{_:['你教他們怎麼握盾。孩子們的爸媽在旁邊看著，笑了。',{flag:'kids'}],
+     astrid:['阿斯特麗德教得很兇。有個小女孩哭著練完了一整天，第二天，第一個又來了。',{flag:'kids'}],
+     ragnar:['拉格納讓孩子們一起打他。他倒在地上裝死，孩子們笑得停不下來。\n\n那是你第一次看見他那麼小心。',{flag:'kids'}],
+     thorfinn:['托爾芬什麼都沒教，只是把每個孩子的木劍，都削得更順手一點。',{flag:'kids'}],
+     einar:['埃納帶孩子們去森林裡認腳印。回來的時候，每個人頭上都插了一根羽毛。',{flag:'kids'}]},
+  saga:w=>w==='ragnar'?'狂戰士拉格納倒在地上，讓一群孩子打了一整個下午。':'峽灣的孩子們，第一次拿起了木劍。'},
+ {id:'runestone',art:'sc_ev_runestone',t:'刻一塊符文石',k:'祖先',cost:15,
+  x:'老首領的墳前，還沒有一塊石頭。刻匠說，石頭上可以刻名字：死去的人，和立石的人。',
+  say:{astrid:'「刻我父親的名字，可以嗎？」',ragnar:'「刻大一點。要讓人從海上就看得到。」',thorfinn:'（他看著石頭，看了很久。）',einar:'「刻一頭狼。」'},
+  fav:['thorfinn','astrid'],
+  o:{_:['石頭立起來了：「{N}為老首領立此石。」\n\n從海上，就看得見。',{}],
+     thorfinn:['刻匠刻完的時候，托爾芬走過去，在石頭最下面，用斧尖多刻了一個名字。\n\n他沒有說那是誰。',{flag:'tname'}],
+     astrid:['阿斯特麗德請刻匠在旁邊多刻一行小字：「還有阿斯特麗德的父親，死在盾牆裡。」',{}],
+     ragnar:['石頭被拉格納扛著立了起來，立得比誰都直。',{}],
+     einar:['刻匠在石頭的角落刻了一頭狼。埃納摸了摸，點點頭。',{}]},
+  saga:w=>'{N}為老首領，立了一塊從海上就看得見的符文石。'},
+ {id:'stragglers',art:'sc_ev_stragglers',t:'峽灣外的逃兵',k:'人手',choice:1,
+  x:'一群從南方戰場逃回來的人，在你的峽灣外紮了營。\n\n他們很餓，也都帶著劍。',
+  ch:[{t:'收留他們',n:'銀幣 −15，戰士 +4',cost:15,r:['他們吃了三天，睡了三天。第四天，帶頭的那個走到你面前：「這條命是你的了。」',{men:4}],saga:'{N}收留了從南方逃回來的人。他們後來都站上了盾牆。'},
+      {t:'讓他們繼續往北走',n:'',r:['他們沒有爭。第二天早上，營地空了。',{}],saga:'一群逃兵經過{N}的峽灣，沒有停下來。'}]},
+];
+
+/* ================= 勇士的心事 ================= */
+const THREAD={
+ astrid:{t:'父親的盾',art:'sc_q_astrid',
+  x:'阿斯特麗德把一面裂成兩半的舊盾放在桌上。\n\n「這是我父親的盾。那一仗，站在他右邊的人叫歐拉夫。歐拉夫跑了，盾牆就垮了。」\n\n「我昨天聽說，歐拉夫還活著，就住在北邊的山谷裡。」',
+  ch:[{t:'陪她去找歐拉夫',good:1,p:[{art:'sc_q_astrid_b',t:'歐拉夫老了，頭髮白了一半。看到阿斯特麗德，他沒有跑，只是拿起了盾。\n\n他們打了很久。最後，阿斯特麗德的斧頭，停在了他的脖子前面。'},
+       {art:'sc_q_astrid_b',t:'「你那天為什麼跑？」\n\n「我怕。」歐拉夫說，「我這輩子，每天都在怕。」\n\n阿斯特麗德收起了斧頭。回程的路上，她說：「原來跑掉的人，也沒有活得比較好。」'},
+       {art:'sc_meet_astrid',t:'從那天起，阿斯特麗德的盾牆，再也不會垮。',big:1}],saga:'阿斯特麗德找到了當年逃走的人。她沒有殺他。'},
+      {t:'讓她自己去',p:[{art:'sc_q_astrid',t:'她一個人去了。回來的時候，斧頭上有血。\n\n她什麼都沒說，你也沒問。'}],saga:'阿斯特麗德一個人去了北邊的山谷，帶著血回來。'},
+      {t:'「過去的事，讓它過去。」',p:[{art:'sc_q_astrid',t:'阿斯特麗德看了你很久，把舊盾收了起來。「好。」她說。\n\n那天晚上，你聽到她在修那面盾，修到天亮。'}],saga:'阿斯特麗德把父親的舊盾收了起來。'}]},
+ ragnar:{t:'拉格納的怒火',art:'sc_q_ragnar_a',
+  x:'拉格納又發狂了。這一次，他砸爛了長屋的桌子，差點砍到一個來不及跑的孩子。\n\n天亮以後，他坐在一地的碎木頭中間，好像老了十歲。\n\n「我控制不了它。」他說，「總有一天，我會砍到自己人。」',
+  ch:[{t:'帶他去沼澤找女巫',good:1,p:[{art:'sc_q_ragnar_b',t:'沼澤的女巫繞著拉格納走了三圈，往他臉上吹了一口煙。\n\n「你的火不是詛咒。」她說，「是你一直不肯讓它熄。」'},
+       {art:'sc_q_ragnar_w',t:'那天晚上，拉格納在沼澤邊坐了一整夜。天亮的時候，他倒在草地上，睡得像個孩子。\n\n醒來時，他朝你伸出手：「拉我一把。」'},
+       {art:'sc_q_ragnar_w',t:'從那天起，他打仗的時候還是一樣兇。可是他知道，什麼時候該停。',big:1}],saga:'拉格納在沼澤邊坐了一夜。他的火還在，可是他學會了讓它熄。'},
+      {t:'「那是奧丁給你的禮物。」',p:[{art:'sc_q_ragnar_a',t:'拉格納笑了，笑得很難看。「是嗎？」\n\n他回去磨他的斧頭。孩子們從此不太敢靠近他。'}],saga:'有人告訴拉格納，他的怒火是神的禮物。他信了。'},
+      {t:'發狂的時候，讓人把他綁起來',p:[{art:'sc_q_ragnar_a',t:'拉格納自己把繩子拿給了你。「綁緊一點。」\n\n他再也沒有傷到人。可是你看得出來，他開始怕自己。'}],saga:'拉格納發狂的時候，身上會綁著繩子。'}]},
+ thorfinn:{t:'海崖上的石堆',art:'sc_q_thorfinn_b',
+  x:'每天黃昏，托爾芬都會一個人走上海崖。那裡有一堆石頭，堆得很整齊，像是一座墳。\n\n今天，他走之前，回頭看了你一眼。',
+  ch:[{t:'跟上去，什麼都不問',good:1,p:[{art:'sc_q_thorfinn_b',t:'你們在石堆前站到太陽下山。然後，托爾芬開口了。你第一次聽見他的聲音。\n\n「他是我的第一個首領。那天我喝醉了，沒有守在他身邊。」\n\n「從那天起，我就不說話了。說話的人，會說謊。」'},
+       {art:'sc_ev_thorfinn_up',t:'他跪下來，把斧頭橫放在你面前。\n\n「這一次，我會一直醒著。」',big:1}],saga:'沉默的托爾芬在海崖上開了口。他說，這一次，他會一直醒著。'},
+      {t:'問他那是誰的墳',p:[{art:'sc_q_thorfinn_b',t:'托爾芬看著你，搖了搖頭，一個人走上了海崖。\n\n有些話，要等人自己說。'}],saga:'托爾芬的海崖上，有一座沒有名字的墳。'},
+      {t:'讓他一個人去',p:[{art:'sc_q_thorfinn_b',t:'他每天都去。你每天都看著他去。\n\n什麼都沒有改變。'}],saga:'托爾芬每天黃昏，都一個人走上海崖。'}]},
+ einar:{t:'白色的狼',art:'sc_q_einar_a',
+  x:'羊圈又少了兩頭羊。雪地上的腳印，比一般的狼大一倍。\n\n埃納蹲在腳印旁邊，很久沒有說話。\n\n「十年前，就是這頭狼，吃掉了我的家人。」他站起來，「這一次，我不會讓牠跑掉。」',
+  ch:[{t:'跟他一起上山',good:1,p:[{art:'sc_q_einar_a',t:'你們在雪地裡追了五天。第五天晚上，白狼站在山脊上，回頭看著你們。\n\n埃納的箭，比風還快。'},
+       {art:'sc_ev_p_einar',t:'埃納扛著白狼的皮跑下山，一邊跑一邊大叫。你從來沒看過他笑成這樣。\n\n「結束了！」他喊，「我可以回家了。」\n\n他頓了一下，指著你的長屋：「我是說，這裡。」',big:1}],saga:'{N}陪著埃納，在雪地裡追了五天。白狼死了，埃納留了下來。'},
+      {t:'給他十個人，讓他自己去',p:[{art:'sc_q_einar_a',t:'十個人去，九個人回來。白狼跑了。\n\n埃納把弓掛在牆上，一整個月沒有碰。'}],fx:{men:-1},saga:'白狼從埃納的箭下逃走了，還帶走了一個人。'},
+      {t:'「為了一頭狼，不值得。」',p:[{art:'sc_q_einar_a',t:'埃納看著你，點點頭。\n\n可是那天晚上，他還是一個人上山了。三天後回來，一句話也沒說。'}],saga:'埃納一個人上了山。他沒有說，他找到了什麼。'}]},
+};
+const OATH={
+ astrid:{p:[{art:'sc_win_astrid3',t:'阿斯特麗德把斧頭插進泥裡，單膝跪了下來。\n\n「我父親那道盾牆垮掉的時候，站在他右邊的人跑了。」'},{art:'sc_win_astrid3',t:'「我不會跑。從今天起，我站你右邊。」',big:1}],saga:'盾女阿斯特麗德在泥地裡跪下，向{N}立了誓。'},
+ ragnar:{p:[{art:'sc_oath_ragnar',t:'拉格納一拳捶裂了長桌，抓住你的手臂，抓得很痛。\n\n「我跟過三個首領。他們都怕我。」'},{art:'sc_oath_ragnar',t:'「你不怕。那我就跟你。」',big:1}],saga:'狂戰士拉格納捶裂了長桌，說他要跟著{N}。'},
+ thorfinn:{p:[{art:'sc_oath_thorfinn',t:'托爾芬跪在火堆前，把額頭貼在你的斧柄上，很久很久。\n\n他還是一句話都沒說。'},{art:'sc_oath_thorfinn',t:'可是那天之後，他睡在你的門口。',big:1}],saga:'托爾芬沒有說一句話。那天之後，他睡在{N}的門口。'},
+ einar:{p:[{art:'sc_oath_einar',t:'埃納帶你走進森林最深的地方。一頭鹿站在雪地裡，看著你們，沒有跑。\n\n「牠知道我今天不打獵。」他說。'},{art:'sc_oath_einar',t:'他把弓放在你的腳邊：「以後，我的箭替你打獵。」',big:1}],saga:'獵人埃納把弓放在{N}的腳邊。'},
+};
+const LEAVE={
+ ragnar:{art:'sc_ev_ragnar',t:'天還沒亮，拉格納就扛著斧頭走了。\n\n「這裡太安靜了。」他對守門的人說，「告訴首領，我去找架打。」',saga:'拉格納等不到一場仗，扛著斧頭走了。'},
+ einar:{art:'sc_ev_einar',t:'埃納沒有回來。\n\n有人在森林邊上找到他的腳印，一路往山裡去，沒有回頭。',saga:'獵人埃納走回了森林，沒有回頭。'},
+};
+
+/* ================= 紅帆 ================= */
+const RIVAL={
+ 2:{art:'sc_rv_fire',t:'紅帆的口信',
+  x:'一艘紅帆船在峽灣口燒了一條漁船，然後就停在那裡。船頭站著赫羅爾夫。\n\n他派人送來口信：「冰再化一次，我就來拿你的長屋。現在跪下，我讓你當我的管家。」',
+  ch:[{t:'剃光信使的鬍子，送他回去',n:'會激怒赫羅爾夫',r:['峽灣裡的年輕人聽說了這件事，笑了一整個晚上。第二天，有兩個人帶著斧頭來投靠你。\n\n赫羅爾夫也聽說了。他不會笑。',{men:2,flag:'provoked'}],saga:'{N}剃光了紅帆信使的鬍子，把他送了回去。'},
+      {t:'送一箱銀子過去，說你會考慮',n:'銀幣 −30',cost:30,r:['信使帶著銀子走了。赫羅爾夫一定以為你怕了。\n\n讓他這樣以為也好。',{flag:'paid'}],saga:'{N}送了一箱銀子給赫羅爾夫。所有人都以為{N}怕了。'},
+      {t:'扣下信使，問出紅帆有多少船',n:'',r:['信使撐了兩天。第三天，他把紅帆的船數、人數，一五一十都說了。\n\n赫羅爾夫會帶來比你多一倍的人。至少，現在你知道了。',{flag:'spy'}],saga:'{N}扣下了紅帆的信使。他在第三天開了口。'}]},
+ 6:{art:'sc_rv_raid1',t:'提前來的紅帆',
+  x:'冰還沒化完，三條紅帆船就衝上了漁村的海灘。\n\n這不是大軍，是試探。赫羅爾夫想看看，你會怎麼做。',
+  ch:[{t:'帶所有人衝下去',n:'戰士 −3',r:['你們把紅帆的人趕回了海裡，自己也倒下了三個人。\n\n漁村的人站在燒了一半的屋子前面，看著你。這一次，他們記住了你的臉。',{men:-3,flag:'saved',foe:-1}],saga:'紅帆燒漁村的那一夜，{N}第一個衝下了海灘。'},
+      {t:'守住長屋，不出去',n:'',r:['你站在木牆上，看著漁村燒了一整夜。\n\n天亮以後，紅帆船走了。漁村的人沒有來長屋，一個都沒有。',{flag:'lost'}],saga:'紅帆燒漁村的那一夜，{N}守在木牆後面，沒有出去。'},
+      {t:'派一位勇士帶人去',n:'看你派誰',pickWho:1}]},
+};
+const R6WHO={
+ ragnar:['拉格納一個人衝上了第一條船。等其他人趕到，船上已經沒有能站著的人了。\n\n紅帆的人以後會做惡夢。',{flag:'saved',foe:-2},'狂戰士拉格納一個人衝上了紅帆的船。'],
+ astrid:['阿斯特麗德在海灘上排起了盾牆。紅帆的人撞了三次，撞不破，就退回了船上。漁村一間屋子都沒有燒。',{flag:'saved',foe:-1},'阿斯特麗德的盾牆，守住了漁村的每一間屋子。'],
+ einar:['埃納帶著幾個射手爬上海崖。紅帆的人還沒上岸，就倒了一半。',{flag:'saved',foe:-1},'埃納的箭，從海崖上落進了紅帆船。'],
+ thorfinn:['托爾芬沒有動。他看了看漁村，又看了看你，站到了你的身邊。\n\n最後，是你自己帶人衝下去的。你們把紅帆趕回了海裡，也倒下了三個人。',{men:-3,flag:'saved',foe:-1},'托爾芬不肯離開{N}身邊，於是{N}自己衝下了海灘。'],
+};
+
+/* ================= 狀態 ================= */
+let S;
+function fresh(name){
+  const c={};CIDS.forEach(id=>c[id]={b:CH[id].b0,sworn:0,aw:0,td:0,idle:0,gone:0,dead:0,seat:'',hurt:0});
+  return {name,season:1,silver:60,men:12,c,flags:{},saga:[],used:[],hired:0,foeMod:0,ver:1};
+}
+const N=s=>s.replace(/\{N\}/g,S.name);
+const sn=()=>SEASONS[(S.season-1)%4][0];
+const here=id=>!S.c[id].gone&&!S.c[id].dead;
+const stageLabel=id=>{const c=S.c[id];if(c.dead)return '戰死';if(c.gone)return '離開了';if(c.aw)return '覺醒';if(c.sworn&&c.td)return '立誓（心結未解）';if(c.sworn)return '立誓・有心事';return c.b>=2?'信任':'陌生';};
+const val=id=>S.c[id].aw?3:S.c[id].sworn?2:1;
+function save(){try{localStorage.setItem('saga-run',JSON.stringify(S));}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem('saga-run')||'null');return s&&s.ver===1?s:null;}catch(e){return null;}}
+function past(){try{return JSON.parse(localStorage.getItem('saga-past')||'[]');}catch(e){return [];}}
+function addPast(x){try{const p=past();p.unshift(x);localStorage.setItem('saga-past',JSON.stringify(p.slice(0,8)));localStorage.removeItem('saga-run');}catch(e){}}
+
+/* ================= 畫面工具 ================= */
+const scene=(k,shake)=>k?`<div class="scene${shake?' shake':''}"><img src="${IMG(k)}" alt=""></div>`:'';
+function screen(html){const a=$('#app');a.innerHTML=html;window.scrollTo(0,0);const f=a.querySelector('.go,[data-focus]');if(f)f.focus({preventScroll:true});}
+function topbar(){
+  const [s,r]=SEASONS[(S.season-1)%4],y=Math.ceil(S.season/4),left=LAST+1-S.season;
+  return `<div class="top"><span class="season"><span class="rune" aria-hidden="true">${r}</span>第 ${y} 年・${s}</span>
+    <span>銀 <b>${S.silver}</b></span><span>戰士 <b>${S.men}</b></span>
+    <span class="sail">${left>0?`紅帆來襲：還有 ${left} 季`:'紅帆來了'}</span></div>`;
+}
+function cine(pages,done,eyebrow){
+  let i=0;
+  const show=()=>{const p=pages[i];
+    screen(`${eyebrow?`<p class="eyebrow">${eyebrow}</p>`:''}${p.art?scene(p.art,p.shake):''}${p.por?`<div style="max-width:180px">${p.por}</div>`:''}
+      <p class="txt" style="${p.big?'font-family:var(--f-display);font-weight:900;font-size:22px;line-height:1.6':''}">${N(p.t)}</p>
+      <div class="row"><button class="btn go" id="next">${i<pages.length-1?'繼續':(p.btn||'繼續')}</button></div>`);
+    $('#next').onclick=()=>{i++;i<pages.length?show():done();};};
+  show();
+}
+function fxLine(fx,bonds){
+  const out=[];
+  if(fx.silver)out.push(`<span class="${fx.silver>0?'up':'dn'}">銀 ${fx.silver>0?'+':''}${fx.silver}</span>`);
+  if(fx.men)out.push(`<span class="${fx.men>0?'up':'dn'}">戰士 ${fx.men>0?'+':''}${fx.men}</span>`);
+  (bonds||[]).forEach(([id,n])=>out.push(`<span class="bd">${CH[id].n} ♥+${n}</span>`));
+  return out.length?`<p class="fx">${out.join('　')}</p>`:'';
+}
+function applyFx(fx){
+  if(!fx)return;
+  if(fx.silver)S.silver=Math.max(0,S.silver+fx.silver);
+  if(fx.men)S.men=Math.max(1,S.men+fx.men);
+  if(fx.flag)S.flags[fx.flag]=1;
+  if(fx.foe)S.foeMod+=fx.foe;
+}
+function sagaAdd(line){S.saga.push({s:S.season,t:N(line)});}
+function sagaCard(line){return `<div class="saga-line"><img src="${IMG('c_bragi')}" alt=""><div><small>詩人布拉吉記下</small>${N(line)}</div></div>`;}
+function sagaBar(on){const b=$('#sagabar');b.hidden=!on;if(on)$('#saga-open').textContent=`薩迦・${S.saga.length} 行`;}
+$('#saga-open').onclick=()=>{
+  const d=document.createElement('div');d.className='scroll';d.setAttribute('role','dialog');d.setAttribute('aria-label','你的薩迦');
+  d.innerHTML=`<div class="paper"><p class="eyebrow" style="color:#7a6440">布拉吉正在寫的歌</p><h2>${S.name}的薩迦</h2>
+    ${S.saga.length?`<ol>${S.saga.map(l=>`<li>${l.t}</li>`).join('')}</ol>`:'<p style="margin-top:12px">還是空白的。這首歌，要從你開始。</p>'}
+    <button class="ghost" id="saga-x" type="button">收起來</button></div>`;
+  document.body.appendChild(d);const x=d.querySelector('#saga-x');x.focus();
+  const close=()=>d.remove();x.onclick=close;d.onclick=e=>{if(e.target===d)close();};
+  d.onkeydown=e=>{if(e.key==='Escape')close();};
+};
+
+/* ================= 開場 ================= */
+function title(){
+  sagaBar(false);
+  const run=load(),P=past();
+  screen(`<div class="title">${scene('sc_tribe_2')}
+    <p class="eyebrow">一首兩年的歌</p>
+    <h1>斧與誓言</h1>
+    <p class="lead">紅帆的赫羅爾夫，會在第三年的春天來燒你的峽灣。<br>在那之前，你有八個季節，和四個願意留下來的人。</p>
+    <div class="field"><label for="nm">你的名字</label><input id="nm" maxlength="8" value="${run?run.name:'西格德'}" autocomplete="off"></div>
+    ${run?`<button class="btn go" id="cont">繼續：${run.name}・第 ${Math.ceil(run.season/4)} 年${SEASONS[(run.season-1)%4][0]}</button><button class="btn" id="new"><b>重新開始</b></button>`:`<button class="btn go" id="new">開始</button>`}
+    ${P.length?`<div class="past"><p class="eyebrow" style="margin-bottom:6px">你寫過的薩迦</p><ol>${P.map(p=>`<li>${p.title}　<span class="muted">${p.end}</span></li>`).join('')}</ol></div>`:''}
+    <p class="muted" style="font-size:13px">這是一個試作版本：一局大約 20 分鐘。</p></div>`);
+  if(run)$('#cont').onclick=()=>{S=run;startSeason();};
+  $('#new').onclick=()=>{S=fresh(($('#nm').value||'西格德').trim().slice(0,8));prologue();};
+}
+function prologue(){
+  cine([
+    {art:'sc_tribe_2',t:'峽灣的最深處，有一個小小的聚落。三間長屋，一條船，四十幾口人。\n\n去年冬天，老首領死了。大家推{N}坐上了他的位子。'},
+    {art:'sc_lord_red',t:'春天的第一個消息，是壞消息。\n\n紅帆的赫羅爾夫，搶下了南邊所有的峽灣。他放話出來：等冰再化一次，就輪到你。',shake:1},
+    {art:'sc_ev_bard',t:'長屋裡，詩人布拉吉調好了琴弦。\n\n「兩年。」他說，「我會把這兩年寫成一首歌。歌怎麼唱，看你，也看站在你身邊的人。」'},
+  ],()=>{sagaAdd('{N}坐上了老首領的位子。那一年，紅帆的影子，已經落在峽灣上。');startSeason();},'序');
+}
+
+/* ================= 一季 ================= */
+function startSeason(){
+  save();sagaBar(true);
+  // 好感夠了：立誓
+  const o=CIDS.find(id=>here(id)&&!S.c[id].sworn&&S.c[id].b>=4);
+  if(o){S.c[o].sworn=1;sagaAdd(OATH[o].saga);cine(OATH[o].p,()=>startSeason(),`${CH[o].n}・立誓`);return;}
+  // 太久沒帶出去：還沒立誓的人會走
+  const l=CIDS.find(id=>here(id)&&CH[id].restless&&!S.c[id].sworn&&S.c[id].idle>=4);
+  if(l){S.c[l].gone=1;sagaAdd(LEAVE[l].saga);cine([{art:LEAVE[l].art,t:LEAVE[l].t}],()=>startSeason(),`${CH[l].n}・離開`);return;}
+  if(S.season>LAST){finalBattle();return;}
+  hall();
+}
+function mood(id){
+  const c=S.c[id],h=CH[id];
+  if(c.dead)return '';if(c.gone)return '已經離開了峽灣。';
+  if(c.aw)return h.aw;
+  if(c.sworn&&!c.td)return h.hint;
+  if(h.restless&&!c.sworn&&c.idle>=3)return `<span style="color:var(--blood)">${h.bored}</span>`;
+  return S.season===1?h.intro:h.idle;
+}
+function pips(id){const c=S.c[id];return `<div class="pips" aria-hidden="true">${STAGE.map((_,i)=>`<i class="${i<=(c.aw?4:c.sworn?2:c.b>=2?1:0)?(c.aw?'aw':'on'):''}"></i>`).join('')}</div>`;}
+function seasonCards(){
+  if(RIVAL[S.season])return [{rival:S.season}];
+  const pool=DEEDS.filter(d=>!S.used.includes(d.id));
+  if(!S.deal||S.deal.s!==S.season){
+    const sh=pool.slice().sort(()=>Math.random()-.5).slice(0,2).map(d=>d.id);
+    S.deal={s:S.season,ids:sh};save();
+  }
+  const cards=S.deal.ids.map(id=>({deed:id}));
+  CIDS.forEach(id=>{if(here(id)&&S.c[id].sworn&&!S.c[id].td)cards.push({thread:id});});
+  return cards;
+}
+function hall(){
+  const cards=seasonCards();
+  const crew=CIDS.map(id=>{const c=S.c[id];return `<div class="mate${c.gone||c.dead?' gone':''}">
+    <img class="por${c.dead?' fallen':''}" src="${IMG('c_'+id)}" alt="">
+    <div style="min-width:0"><h3>${CH[id].n}</h3><span class="tag">${CH[id].t}</span>${pips(id)}<span class="stage">${stageLabel(id)}</span></div>
+    <p class="mood">${mood(id)}</p></div>`;}).join('');
+  const cardHTML=cards.map((c,i)=>{
+    if(c.rival){const r=RIVAL[c.rival];return `<button class="deed rival" data-c="${i}"><img src="${IMG(r.art)}" alt=""><div><span class="kind">紅帆</span><h3>${r.t}</h3><small>這一季，躲不掉。</small></div></button>`;}
+    if(c.thread){const t=THREAD[c.thread];return `<button class="deed thread" data-c="${i}"><img src="${IMG(t.art)}" alt=""><div><span class="kind">${CH[c.thread].n}的心事</span><h3>${t.t}</h3><small>花這一季陪${CH[c.thread].n}。</small></div></button>`;}
+    const d=DEEDS.find(x=>x.id===c.deed);return `<button class="deed" data-c="${i}"><img src="${IMG(d.art)}" alt=""><div><span class="kind">${d.k}${d.cost?`・銀 ${d.cost}`:''}</span><h3>${d.t}</h3><small>${d.x.split('\n')[0]}</small></div></button>`;
+  }).join('');
+  screen(`${topbar()}
+    <div class="crew">${crew}</div>
+    <div class="row" style="justify-content:space-between"><h2>這一季，做什麼？</h2></div>
+    <div class="deeds">${cardHTML}</div>
+    <button class="btn" id="hire" ${S.hired===S.season||S.silver<15?'disabled':''}><b>在長屋招人</b><small>${S.hired===S.season?'這一季已經招過了。':S.silver<15?'銀幣不夠（要 15）。':'銀幣 −15，戰士 +2。每季一次，不佔用這一季。'}</small></button>`);
+  $('#hire').onclick=()=>{S.silver-=15;S.men+=2;S.hired=S.season;save();hall();};
+  document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{const c=cards[+b.dataset.c];
+    if(c.rival)rivalView(c.rival);else if(c.thread)threadView(c.thread);else deedView(DEEDS.find(x=>x.id===c.deed));});
+}
+
+/* ----- 事件：選帶誰 ----- */
+function deedView(d){
+  if(d.choice){choiceView(d.art,d.k,d.t,d.x,d.ch.map(c=>({...c,ok:!c.cost||S.silver>=c.cost})),(c)=>{
+      if(c.cost)S.silver-=c.cost;applyFx(c.r[1]);S.used.push(d.id);sagaAdd(c.saga);
+      endTurn(d.art,d.t,c.r[0],{...c.r[1],silver:c.cost?-c.cost:0},[],c.saga,[]);});return;}
+  const can=!d.cost||S.silver>=d.cost;
+  const opts=CIDS.filter(here).map(id=>`<button class="btn who" data-w="${id}" ${can?'':'disabled'}><img src="${IMG('c_'+id)}" alt=""><span><b>帶${CH[id].n}去</b><small>${d.say[id]}</small></span></button>`).join('');
+  screen(`${topbar()}${scene(d.art)}<p class="eyebrow">${d.k}</p><h2>${d.t}</h2><p class="txt">${N(d.x)}</p>
+    ${d.cost?`<p class="fx">要花 ${d.cost} 銀幣${can?'':'：<span class="dn">銀幣不夠</span>'}</p>`:''}
+    <div class="stack">${opts}<button class="btn" data-w="" ${can?'':'disabled'}><b>自己去</b><small>不帶任何人。</small></button>
+    <button class="ghost" id="back" type="button">回長屋</button></div>`);
+  $('#back').onclick=hall;
+  document.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{
+    const w=b.dataset.w||null;if(d.cost)S.silver-=d.cost;
+    let o=d.o[w||'_'];if(typeof o==='function')o=o();
+    applyFx(o[1]);S.used.push(d.id);
+    const bonds=[];if(w){const n=d.fav.includes(w)?2:1;S.c[w].b+=n;bonds.push([w,n]);}
+    const line=d.saga(w);sagaAdd(line);
+    endTurn(d.art,d.t,o[0],o[1],bonds,line,w?[w]:[]);
+  });
+}
+function choiceView(art,k,t,x,ch,cb){
+  screen(`${topbar()}${scene(art)}<p class="eyebrow">${k}</p><h2>${t}</h2><p class="txt">${N(x)}</p>
+    <div class="stack">${ch.map((c,i)=>`<button class="btn" data-i="${i}" ${c.ok===false?'disabled':''}><b>${c.t}</b>${c.n?`<small>${c.n}</small>`:''}</button>`).join('')}</div>`);
+  document.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>cb(ch[+b.dataset.i]));
+}
+function endTurn(art,t,text,fx,bonds,line,with_){
+  CIDS.forEach(id=>{if(here(id))S.c[id].idle=with_.includes(id)?0:S.c[id].idle+1;});
+  save();
+  screen(`${topbar()}${scene(art)}<h2>${t}</h2><p class="txt">${N(text)}</p>${fxLine(fx||{},bonds)}${sagaCard(line)}
+    <div class="row"><button class="btn go" id="next">下一季</button></div>`);
+  sagaBar(true);
+  $('#next').onclick=()=>{S.season++;startSeason();};
+}
+
+/* ----- 心事 ----- */
+function threadView(id){
+  const T=THREAD[id];
+  choiceView(T.art,`${CH[id].n}的心事`,T.t,T.x,T.ch,c=>{
+    S.c[id].td=1;if(c.good)S.c[id].aw=1;S.c[id].b+=2;applyFx(c.fx);
+    const p=c.p.slice(),last=p.pop();
+    const fin=()=>{sagaAdd(c.saga);endTurn(last.art,T.t,last.t,c.fx||{},[[id,2]],c.saga,[id]);};
+    p.length?cine(p,fin,`${CH[id].n}的心事`):fin();
+  });
+}
+
+/* ----- 紅帆 ----- */
+function rivalView(k){
+  const R=RIVAL[k];
+  choiceView(R.art,'紅帆',R.t,R.x,R.ch.map(c=>({...c,ok:!c.cost||S.silver>=c.cost})),c=>{
+    if(c.pickWho){
+      const opts=CIDS.filter(here).map(id=>`<button class="btn who" data-w="${id}"><img src="${IMG('c_'+id)}" alt=""><span><b>派${CH[id].n}</b><small>${CH[id].t}</small></span></button>`).join('');
+      screen(`${topbar()}${scene(R.art)}<h2>派誰去？</h2><div class="stack">${opts}</div>`);
+      document.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{const w=b.dataset.w,[t,fx,line]=R6WHO[w];applyFx(fx);S.c[w].b+=2;sagaAdd(line);endTurn(R.art,R.t,t,fx,[[w,2]],line,[w]);});
+      return;}
+    if(c.cost)S.silver-=c.cost;applyFx(c.r[1]);sagaAdd(c.saga);endTurn(R.art,R.t,c.r[0],{...c.r[1],silver:c.cost?-c.cost:0},[],c.saga,[]);
+  });
+}
+
+/* ================= 最後一戰 ================= */
+let B;
+function finalBattle(){
+  sagaBar(true);
+  const f=S.flags,echo=[];
+  if(f.fed)echo.push('去年冬天你分過糧的那一家人，男人拿著那把魚叉，站進了你的隊伍。');
+  if(f.saved)echo.push('漁村的人全來了。他們說，這一次，換他們守你。');
+  if(f.lost)echo.push('漁村的人沒有來。');
+  if(f.sailor)echo.push('那個從沉船裡救起來的水手指著海灣：「他們會從那邊上岸。我在那條船上做過工。」');
+  if(f.archers)echo.push('埃納教過的射手們，爬上了海崖。');
+  if(f.wall)echo.push('阿斯特麗德練過的年輕人，扣起了盾。');
+  if(f.kids)echo.push('孩子們搬著水桶，在盾牆後面跑來跑去。');
+  if(f.spy)echo.push('你早就知道他們有多少人。');
+  if(f.provoked)echo.push('紅帆船比你想的還多。赫羅爾夫一定還記得那個沒有鬍子的信使。');
+  if(f.paid)echo.push('赫羅爾夫站在船頭，盔甲都沒穿好。他以為你會跪。');
+  if(!echo.length)echo.push('峽灣很安靜。每個人都知道，今天會發生什麼事。');
+  // 敵軍
+  const E=Math.max(6,9+(f.provoked?2:0)-(f.paid?2:0)+S.foeMod);
+  const foe=[1,1,1];for(let i=3;i<E;i++)foe[pick([0,0,1,1,1,2,2])]++;
+  const seen=[0,0,0];
+  if(f.spy||(here('einar')&&S.c.einar.sworn))seen.fill(1);
+  if(f.sailor)seen[foe.indexOf(Math.max(...foe))]=1;
+  if(f.archers)seen[rnd(0,2)]=1;
+  if(here('einar')&&!S.c.einar.sworn)seen[rnd(0,2)]=1;
+  if(here('einar')&&S.c.einar.aw)for(let i=0;i<3;i++)foe[i]=Math.max(1,foe[i]-1);
+  const T=Math.max(2,Math.floor(S.men/3))+(f.fed||f.saved?1:0);
+  B={foe,seen,T,mine:[0,0,0],seat:{}};
+  CIDS.filter(here).forEach(id=>B.seat[id]='');
+  cine([
+    {art:'sc_beach_wall',t:'冰化了。\n\n天剛亮，峽灣口出現了紅帆。一條、兩條……海面上，全是紅色。',shake:1},
+    {art:'sc_beach_wall',t:echo.join('\n\n')},
+  ],plan,'第三年・春');
+}
+const LANES=['左翼','中路','右翼'];
+function laneVal(i){let v=B.mine[i];CIDS.forEach(id=>{if(B.seat[id]===String(i)){v+=val(id);if(id==='astrid'&&S.c.astrid.sworn)v+=1;}});return v;}
+function laneFoe(i){let v=B.foe[i];if(B.seat.ragnar===String(i))v=Math.max(0,v-(S.c.ragnar.aw?3:2));return v;}
+function plan(){
+  const left=B.T-B.mine.reduce((a,b)=>a+b,0);
+  const lanes=LANES.map((n,i)=>{
+    const chips=CIDS.filter(id=>B.seat[id]===String(i)).map(id=>CH[id].n).join('、');
+    const rf=B.seat.ragnar===String(i)&&B.seen[i]?`（拉格納嚇退 ${S.c.ragnar.aw?3:2} 隊）`:'';
+    return `<div class="lane"><h3>${n}</h3>
+      <span class="foe${B.seen[i]?'':' fog'}">${B.seen[i]?`紅帆 ${B.foe[i]} 隊`:'看不清楚'}</span><small class="muted">${rf}</small>
+      <span class="mine" aria-label="你的兵力">${laneVal(i)}</span>
+      <div class="ctl"><button data-m="${i}" ${B.mine[i]?'':'disabled'} aria-label="${n}少一隊">−</button><button data-p="${i}" ${left?'':'disabled'} aria-label="${n}多一隊">＋</button></div>
+      <span class="chips">${chips}</span></div>`;}).join('');
+  const seats=CIDS.filter(here).map(id=>{
+    const opts=[['0','左翼'],['1','中路'],['2','右翼'],['side','你身邊']];
+    return `<div class="seat"><img src="${IMG('c_'+id)}" alt=""><div style="min-width:0"><b>${CH[id].n}</b> <span class="stage">${stageLabel(id)}</span>
+      <small class="muted" style="display:block;font-size:12.5px">${seatNote(id)}</small>
+      <div class="seg">${opts.map(([v,l])=>`<button data-s="${id}" data-v="${v}" aria-pressed="${B.seat[id]===v}">${l}</button>`).join('')}</div></div></div>`;}).join('');
+  screen(`${topbar()}${scene('sc_bt_2')}<h2>排陣</h2>
+    <p class="muted" style="font-size:14px">每條戰線，你的隊數不比紅帆少，就守得住。</p>
+    <div class="lanes">${lanes}</div>
+    <p class="fx">還沒放的戰士：<b style="color:var(--bone)">${left}</b> 隊（每 3 人一隊${S.flags.fed||S.flags.saved?'，加上漁村的人':''}）</p>
+    <div class="stack">${seats}</div>
+    <div class="row"><button class="btn go" id="fight">開戰</button></div>`);
+  document.querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{B.mine[+b.dataset.p]++;plan();});
+  document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{B.mine[+b.dataset.m]--;plan();});
+  document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{const id=b.dataset.s;B.seat[id]=B.seat[id]===b.dataset.v?'':b.dataset.v;plan();});
+  $('#fight').onclick=fight;
+}
+function seatNote(id){
+  const c=S.c[id];
+  if(id==='astrid')return c.aw?'她守的那條線，不會垮。':c.sworn?'算 3 隊。':'算 1 隊。';
+  if(id==='ragnar')return `那條線的紅帆會少 ${c.aw?3:2} 隊。${c.aw?'':'線垮了，他可能回不來。'}`;
+  if(id==='thorfinn')return c.sworn?`放在你身邊：他會替你擋下一斧${c.aw?'':'，也許是用命'}。`:'算 1 隊。';
+  if(id==='einar')return c.sworn?'他已經看清了每一條線。':'他看清了其中一條線。';
+  return '';
+}
+function fight(){
+  const res=LANES.map((n,i)=>{const mine=laneVal(i),fo=laneFoe(i),held=(B.seat.astrid===String(i)&&S.c.astrid.aw)||mine>=fo;return {n,mine,fo,held};});
+  const held=res.filter(r=>r.held).length;B.held=held;
+  const lines=[],deaths=[];
+  res.forEach((r,i)=>{
+    lines.push(`${r.n}：你 ${r.mine} 隊，紅帆 ${r.fo} 隊——<span style="color:var(${r.held?'--frost':'--blood'})">${r.held?'守住了':'被衝開了'}</span>`);
+    if(!r.held)CIDS.forEach(id=>{if(B.seat[id]===String(i)){const p=id==='ragnar'?(S.c.ragnar.aw?0:.6):(S.c[id].aw?.1:.35);if(Math.random()<p){S.c[id].dead=1;deaths.push(id);}}});
+  });
+  S.men=Math.max(1,S.men-(3-held)*3-held);
+  const DL={astrid:'阿斯特麗德倒在了她的盾後面。到最後，她都沒有退一步。',ragnar:'拉格納衝進了紅帆最厚的地方，再也沒有出來。',thorfinn:'托爾芬倒下的時候，臉朝著你的方向。',einar:'埃納的最後一支箭射出去之後，他就沒有再站起來。'};
+  deaths.forEach(id=>sagaAdd(`那一天，${DL[id]}`));
+  sagaAdd(held>=2?`紅帆衝上海灘的那一天，{N}的人守住了 ${held} 條戰線。`:`紅帆衝上海灘的那一天，{N}的戰線一條一條垮了。`);
+  screen(`${topbar()}${scene(held>=2?'sc_bt_win':'sc_bt_lose',1)}<h2>${['全線崩潰','只撐住一條線','守住了兩條線','三條線全守住了'][held]}</h2>
+    <p class="txt">${lines.join('\n')}</p>
+    ${deaths.map(id=>`<p class="txt" style="color:var(--blood)">${DL[id]}</p>`).join('')}
+    <p class="txt">煙霧裡，一個穿紅斗篷的人推開了身邊的人，朝你走過來。\n\n赫羅爾夫。</p>
+    <div class="row"><button class="btn go" id="next">迎上去</button></div>`);
+  $('#next').onclick=duelStart;
+}
+
+/* ----- 單挑：看他的動作 ----- */
+const TELL={
+  high:{t:'赫羅爾夫把斧頭高高舉過頭頂。',ok:'dodge'},
+  charge:{t:'他壓低肩膀，腳步往前滑。',ok:'block'},
+  tired:{t:'他退了半步，喘著氣，斧頭垂了下來。',ok:'strike'},
+};
+const MOVE={strike:'進攻',block:'格擋',dodge:'閃身'};
+let D;
+function duelStart(){
+  const side=CIDS.filter(id=>here(id)&&B.seat[id]==='side');
+  D={me:[1,2,3,3][B.held],foe:S.flags.paid?2:3,maxMe:3,maxFoe:3,round:0,faked:0,saved:0,side,log:[]};
+  const pre=[];
+  if(here('astrid')&&S.c.astrid.sworn)pre.push('你想起阿斯特麗德說過的話：「赫羅爾夫每一場架，都會假裝喘一次氣。」');
+  if(S.flags.provoked)pre.push('他的眼睛是紅的。他一上來，就會是全力的一劈。');
+  if(S.flags.paid)pre.push('他沒穿好盔甲。他真的以為你會跪。');
+  D.pre=pre;duelRound();
+}
+function nextTell(){
+  if(D.round===0&&S.flags.provoked)return 'high';
+  return pick(['high','charge','tired','tired']);
+}
+function duelRound(){
+  const k=nextTell();let fake=false;
+  if(k==='tired'&&!D.faked){fake=true;D.faked=1;}
+  D.cur={k,fake};
+  const whisper=k==='tired'&&D.side.includes('thorfinn')&&S.c.thorfinn.sworn?`<p class="whisper">托爾芬在你身後低聲說：「${fake?'假的。':'真的。'}」</p>`:'';
+  screen(`${topbar()}<div class="duel"><img class="por" src="${IMG('c_hrolf')}" alt="赫羅爾夫">
+      <div class="stack" style="gap:8px"><h2>赫羅爾夫</h2><div class="hp" aria-label="赫羅爾夫還能挨 ${D.foe} 下">${Array.from({length:D.maxFoe},(_,i)=>`<i class="${i<D.foe?'on':''}"></i>`).join('')}</div>
+      <span class="muted" style="font-size:13px">你</span><div class="hp me" aria-label="你還能挨 ${D.me} 下">${Array.from({length:D.maxMe},(_,i)=>`<i class="${i<D.me?'on':''}"></i>`).join('')}</div></div></div>
+    ${D.round===0&&D.pre.length?`<p class="txt muted" style="font-size:14px">${D.pre.join('\n')}</p>`:''}
+    <div class="tell">${TELL[k].t}${whisper}</div>
+    <div class="moves">${Object.entries(MOVE).map(([m,l])=>`<button class="btn" data-mv="${m}"><b>${l}</b></button>`).join('')}</div>
+    <div class="log">${D.log.slice(-3).map(l=>`<span>${l}</span>`).join('')}</div>`);
+  document.querySelectorAll('[data-mv]').forEach(b=>b.onclick=()=>duelHit(b.dataset.mv));
+}
+function duelHit(m){
+  const {k,fake}=D.cur,ok=fake?'block':TELL[k].ok;D.round++;
+  if(m===ok){D.foe--;D.log.push({strike:'你的斧頭砍進了他的肩膀。',block:fake?'你沒有上當。他假裝的那一斧，被你的盾擋了下來，反手一擊。':'他整個人撞上了你的盾，你順勢把他推倒在泥裡。',dodge:'他的斧頭劈進了泥地。你從旁邊砍了下去。'}[m]);}
+  else{
+    if(D.me===1&&D.side.includes('thorfinn')&&S.c.thorfinn.sworn&&!D.saved){
+      D.saved=1;
+      if(S.c.thorfinn.aw)D.log.push('<span style="color:var(--gold)">托爾芬的盾擋下了那一斧。盾碎了，他還站著。</span>');
+      else{S.c.thorfinn.dead=1;D.log.push('<span style="color:var(--gold)">托爾芬撲了過來。那一斧，落在了他的身上。</span>');sagaAdd('托爾芬替{N}擋下了赫羅爾夫的斧頭。這一次，他一直醒著。');}
+    }else{D.me--;D.log.push(fake&&m==='strike'?'他根本沒有累。你衝上去的時候，他的斧頭已經在等你。':'你判斷錯了。他的斧頭擦過你的身體，血流了下來。');}
+  }
+  if(D.foe<=0){duelWin();return;}
+  if(D.me<=0){duelLose();return;}
+  duelRound();
+}
+function duelWin(){
+  choiceView('sc_rv_kneel','紅帆','赫羅爾夫跪下了',`赫羅爾夫跪在泥裡，滿臉是血。他抬起頭，還在笑：「動手啊，${S.name}。」`,[
+    {t:'了結他',f:'kill'},{t:'饒他一命',f:'spare'}],c=>{
+    S.end=c.f;
+    if(c.f==='kill'){sagaAdd('{N}在海灘上，結束了和赫羅爾夫的恩怨。');cine([{art:'sc_rv_kneel_1',t:'你結束了這一切。\n\n紅帆一條一條，退出了峽灣。'}],epilogue,'結局');}
+    else{sagaAdd('{N}饒了赫羅爾夫。紅帆的人，從此替峽灣守南邊的海。');cine([{art:'sc_rv_kneel',t:'赫羅爾夫愣了很久，然後把斧頭橫放在你的腳邊。\n\n「我還是會恨你。」他說，「可是從今天起，南邊的海，我替你守。」'}],epilogue,'結局');}
+  });
+}
+function duelLose(){
+  S.end='fall';sagaAdd('{N}倒在了海灘上。');
+  cine([{art:'sc_bt_lose',t:'你倒下了。\n\n你的人把你放在盾牌上，一路抬回了長屋。紅帆燒了峽灣的一半，然後走了。'},
+    {art:'sc_bt_lose',t:'你沒有死。可是那一年的歌，結尾和你想的不一樣。',big:1}],epilogue,'結局');
+}
+
+/* ================= 尾聲 ================= */
+const AFTER={
+ astrid:{aw:'阿斯特麗德開始教村裡的女孩子扣盾。她說，下一次，她們會站在最前面。',sw:'阿斯特麗德把父親的舊盾，掛在了你的長屋裡。裂痕一直沒有補。',no:'阿斯特麗德留了下來。她說，這裡的盾牆還不夠好。'},
+ ragnar:{aw:'拉格納說，他再也不用怕自己了。他娶了漁村的寡婦，生了三個比他還吵的孩子。',sw:'拉格納還是會發狂。每次發狂完，他都會來找你喝酒，什麼也不說。',no:'拉格納待了一陣子，又走了。他說，太平的日子會讓斧頭生鏽。'},
+ thorfinn:{aw:'托爾芬開始說話了。說得不多，可是每一句都是真的。黃昏的時候，他不再去海崖，而是坐在你的門口。',sw:'托爾芬還是睡在你的門口，還是一句話都不說。',no:'托爾芬一直跟著你。很多年以後，你還是不知道他為什麼要跟著你。'},
+ einar:{aw:'埃納每年冬天，都會扛一頭鹿回來，放在你的門口。白狼的皮，一直鋪在你的椅子上。',sw:'埃納留了下來。只是每到下雪，他都會望著山，望很久。',no:'埃納留了下來。他說，這裡的獵物不錯。'},
+};
+const GONE_AFTER={ragnar:'拉格納一直沒有回來。有人說，他在南方一個人打了三年的仗；也有人說，他早就死了。',einar:'埃納再也沒有回來。有時候，山裡的獵人會看見一個射手站在山脊上，一直望著遠方。'};
+function epilogue(){
+  const P=[];
+  CIDS.forEach(id=>{const c=S.c[id];
+    if(c.dead)P.push({por:`<img class="por fallen" src="${IMG('c_'+id)}" alt="">`,t:`${CH[id].n}沒有看到這個春天。\n\n每年這一天，你都會在符文石前，替${CH[id].n}倒一杯酒。`});
+    else if(c.gone)P.push({art:LEAVE[id].art,t:GONE_AFTER[id]});
+    else P.push({art:'sc_re_c_'+id,t:AFTER[id][c.aw?'aw':c.sworn?'sw':'no']});});
+  if(S.flags.lost&&S.end!=='fall')P.push({art:'sc_tribe_2',t:'漁村重建了。可是漁村的人，再也沒有叫過你的名字。'});
+  P.push({art:'sc_re_skald',t:'很多很多年以後，在一間長屋裡，一個老詩人唱完了一首很長的歌。\n\n一個孩子舉起手：「那是真的嗎？」\n\n老詩人笑了：「每一句都是。」'});
+  cine(P,finale,'後來');
+}
+function epithet(){
+  const aw=CIDS.filter(id=>S.c[id].aw).length,dead=CIDS.filter(id=>S.c[id].dead).length;
+  if(S.end==='fall')return '倒在海灘上的';
+  if(aw>=3)return '眾人追隨的';
+  if(S.end==='spare'&&S.flags.saved)return '寬厚的';
+  if(S.end==='spare')return '饒過宿敵的';
+  if(dead>=2)return '踏著朋友屍骨的';
+  if(S.flags.provoked)return '剃鬍子的';
+  if(S.flags.fed||S.flags.saved)return '守護漁村的';
+  return '守住峽灣的';
+}
+function finale(){
+  const name=`${epithet()}${S.name}`,endTxt={kill:'斬殺了宿敵',spare:'饒過了宿敵',fall:'倒在了海灘上'}[S.end];
+  addPast({title:`${name}的薩迦`,end:endTxt});
+  sagaBar(false);
+  const aw=CIDS.filter(id=>S.c[id].aw).map(id=>CH[id].n);
+  screen(`<div class="scroll" style="position:static;background:none;padding:0"><div class="paper">
+    <p class="eyebrow" style="color:#7a6440">布拉吉的歌・完</p><h2>${name}的薩迦</h2>
+    <ol>${S.saga.map(l=>`<li>${l.t}</li>`).join('')}</ol>
+    <p style="margin-top:14px;font-size:14px;font-family:var(--f-body);font-weight:500">${aw.length?`覺醒的勇士：${aw.join('、')}`:'這一次，沒有勇士走到覺醒。'}</p>
+  </div></div>
+  <div class="row"><button class="btn go" id="again">再寫一首</button></div>`);
+  $('#again').onclick=title;
+}
+
+title();
+</script>
