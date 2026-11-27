@@ -816,9 +816,9 @@ Comic scene: a herd of goats inside a longhouse eating all the feast food on the
 | 26 | sc_knut_eye | 克努特的眼神 （✅ 已收到） |
 | 27 | sc_knut_cup | 摔碎的酒杯 （✅ 已收到） |
 | 28 | sc_knut_gone | 克努特走了 （✅ 已收到） |
-| 29 | sc_knut_axe | 克努特拔斧 |
-| 30 | sc_knut_reform | 克努特的贖罪 |
-| 31 | sc_holm_fatherson | 霍姆岡：父與子 |
+| 29 | sc_knut_axe | 克努特拔斧 （✅ 已收到） |
+| 30 | sc_knut_reform | 克努特的贖罪 （✅ 已收到） |
+| 31 | sc_holm_fatherson | 霍姆岡：父與子 （✅ 已收到） |
 
 **1. sc_ev_train（操練場上的怨言）**
 
@@ -1269,23 +1269,23 @@ Jarls whispering in the shadows of a royal hall while the crowned ruler sits alo
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_ev_envoy | 藍牙的使者 |
-| 2 | sc_dane_rumor | 南方的傳言 |
-| 3 | sc_dane_omen | 預兆 |
-| 4 | sc_jelling_pre | 直搗耶靈之前 |
-| 5 | sc_rebel | 叛變 |
-| 6 | sc_rebel_lord | 叛軍首領 |
-| 7 | sc_rebel_talk | 和叛軍喝酒 |
-| 8 | sc_counter | 海外反攻 |
-| 9 | sc_thing | 庭議立法 |
-| 10 | sc_jarl | 冊封雅爾 |
-| 11 | sc_monument | 大符文石 |
-| 12 | sc_abdicate | 交出王冠 |
-| 13 | sc_appease | 安撫藍牙 |
-| 14 | sc_area_scot | 北方群島伯爵 |
-| 15 | sc_area_eng | 丹麥法區之主 |
-| 16 | sc_area_irl | 愛爾蘭之主 |
-| 17 | sc_area_fra | 塞納河之主 |
+| 1 | sc_ev_envoy | 藍牙的使者 （✅ 已收到） |
+| 2 | sc_dane_rumor | 南方的傳言 （✅ 已收到） |
+| 3 | sc_dane_omen | 預兆 （✅ 已收到） |
+| 4 | sc_jelling_pre | 直搗耶靈之前 （✅ 已收到） |
+| 5 | sc_rebel | 叛變 （✅ 已收到） |
+| 6 | sc_rebel_lord | 叛軍首領 （✅ 已收到） |
+| 7 | sc_rebel_talk | 和叛軍喝酒 （✅ 已收到） |
+| 8 | sc_counter | 海外反攻 （✅ 已收到） |
+| 9 | sc_thing | 庭議立法 （✅ 已收到） |
+| 10 | sc_jarl | 冊封雅爾 （✅ 已收到） |
+| 11 | sc_monument | 大符文石 （✅ 已收到） |
+| 12 | sc_abdicate | 交出王冠 （✅ 已收到） |
+| 13 | sc_appease | 安撫藍牙 （✅ 已收到） |
+| 14 | sc_area_scot | 北方群島伯爵 （✅ 已收到） |
+| 15 | sc_area_eng | 丹麥法區之主 （✅ 已收到） |
+| 16 | sc_area_irl | 愛爾蘭之主 （✅ 已收到） |
+| 17 | sc_area_fra | 塞納河之主 （✅ 已收到） |
 | 18 | sc_ransom | 法蘭克的贖金 |
 | 19 | sc_danegeld | 丹麥金 |
 | 20 | sc_relic_book | 抄本 |
@@ -2112,7 +2112,7 @@ Two red-bearded berserkers, father Ragnar and son Bjorn, each carrying a whole c
 | 3 | sc_rr_garm | 冥犬加姆衝破盾牆 （✅ 已收到） |
 | 4 | sc_rr_jormun | 世界巨蛇的毒霧 （✅ 已收到） |
 | 5 | sc_rr_surtr | 火巨人蘇爾特 （✅ 已收到） |
-| 6 | sc_rr_fenrir | 巨狼芬里爾張開大口 （✅ 已收到） |
+| 6 | sc_rr_fenrir | 巨狼芬里爾張開大口 （⚠ 需重畫：芬里爾要在撲咬，不是張嘴站著） |
 | 7 | sc_rr_step | 你走到最前面 （✅ 已收到） |
 
 **1. sc_rr_hrym（赫列姆從船上跳下來）**
@@ -2161,7 +2161,7 @@ Surtr, the fire giant, walking down from a burning southern sky onto the frozen 
 ```
 
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-Fenrir, the gigantic wolf, his last chain snapping, his jaws opened so wide that the upper jaw touches the red sky and the lower jaw scrapes the ice, swallowing a charging line of glowing einherjar riders. Mythic, colossal, terrifying.
+Fenrir, the gigantic wolf, in full attack: lunging forward at speed across the frozen battlefield, body low and stretched, jaws snapping shut on a line of charging glowing einherjar riders who are thrown into the air, ice and snow exploding under its paws, broken chains trailing from its neck, a burning red sky. A predator in violent motion, NOT standing still with its mouth open; the riders are charging at it, not walking into its mouth. Mythic, colossal, terrifying.
 ```
 
 **7. sc_rr_step（你走到最前面）**
