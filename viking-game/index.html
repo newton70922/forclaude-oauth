@@ -49,6 +49,7 @@ h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;font-weight:900
 .opt{text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:12px;display:grid;gap:4px;align-content:start}
 .opt b{font-family:var(--f-display);font-size:17px}
 .opt small{color:var(--muted);font-size:13px;line-height:1.5}
+.opt{position:relative}.opt .clr{position:absolute!important;top:4px!important;right:6px!important;left:auto!important;bottom:auto!important;z-index:2;font-style:normal;font-size:15px;line-height:1;font-weight:700}.clr.r1{color:#c08a5a}.clr.r2{color:#d4dbe3}.clr.r3{color:#f0c14b;text-shadow:0 0 6px rgba(240,193,75,.6)}.opt .clrln{color:var(--gold);font-size:11.5px}
 .opt .tag{color:var(--ember);font-size:12px}
 .opt[aria-pressed="true"]{border-color:var(--ember);background:var(--panel2);box-shadow:inset 0 0 0 1px var(--ember)}
 .opt:disabled{opacity:.4}
@@ -1054,9 +1055,9 @@ let toastT=0;
 const remote={db:null,rdb:null,uid:null,owner:false,busy:{},pending:{},save:null,ready:false};
 let META_CACHE=null,remoteSaveT=0;
 function localMeta(){try{const m=JSON.parse(localStorage.getItem(META));return m&&m.ach?m:null;}catch(e){return null;}}
-function mergeMeta(a,b){const m={ach:{...(a&&a.ach)},ends:{...(a&&a.ends)},shapes:{...(a&&a.shapes)},codex:{...(a&&a.codex)}};if(b){for(const k in b.ach||{})m.ach[k]=m.ach[k]||b.ach[k];for(const k in b.ends||{})m.ends[k]=1;for(const k in b.shapes||{})m.shapes[k]=1;for(const k in b.codex||{})m.codex[k]=1;}return m;}
+function mergeMeta(a,b){const m={ach:{...(a&&a.ach)},ends:{...(a&&a.ends)},shapes:{...(a&&a.shapes)},codex:{...(a&&a.codex)},clears:{lg:{...(a&&a.clears&&a.clears.lg)},bg:{...(a&&a.clears&&a.clears.bg)}}};if(b&&b.clears)for(const g of ['lg','bg'])for(const k in b.clears[g]||{}){const x=b.clears[g][k],y=m.clears[g][k];if(!y||x.d>y.d)m.clears[g][k]=x;}if(b){for(const k in b.ach||{})m.ach[k]=m.ach[k]||b.ach[k];for(const k in b.ends||{})m.ends[k]=1;for(const k in b.shapes||{})m.shapes[k]=1;for(const k in b.codex||{})m.codex[k]=1;}return m;}
 function meta(){if(!META_CACHE)META_CACHE=mergeMeta(localMeta(),null);return META_CACHE;}
-function saveMeta(m){META_CACHE=m;try{localStorage.setItem(META,JSON.stringify(m));}catch(e){}rwrite('meta',{ach:m.ach,ends:m.ends||{},shapes:m.shapes||{},codex:m.codex||{}});}
+function saveMeta(m){META_CACHE=m;try{localStorage.setItem(META,JSON.stringify(m));}catch(e){}rwrite('meta',{ach:m.ach,ends:m.ends||{},shapes:m.shapes||{},codex:m.codex||{},clears:m.clears||{}});}
 const rpath=k=>`data/users/${remote.uid}/${k}`;
 function rwrite(key,data){if(!remote.db)return;remote.pending[key]=data;if(!remote.busy[key])rflush(key);}
 async function rflush(key){
@@ -1080,7 +1081,7 @@ async function initRemote(){
       const mg=Object.values(byId).sort((a,b)=>(b.at||0)-(a.at||0)).slice(0,2);try{localStorage.setItem(CKPT,JSON.stringify(mg));}catch(e){}}}catch(e){}
     const merged=mergeMeta(meta(),m.exists?m.data():null);
     META_CACHE=merged;try{localStorage.setItem(META,JSON.stringify(merged));}catch(e){}
-    if(!m.exists||JSON.stringify(merged)!==JSON.stringify(mergeMeta(m.data(),null))) rwrite('meta',{ach:merged.ach,ends:merged.ends||{},shapes:merged.shapes||{},codex:merged.codex||{}});
+    if(!m.exists||JSON.stringify(merged)!==JSON.stringify(mergeMeta(m.data(),null))) rwrite('meta',{ach:merged.ach,ends:merged.ends||{},shapes:merged.shapes||{},codex:merged.codex||{},clears:merged.clears||{}});
     if(sv.exists){const d=sv.data();if(d&&typeof d.json==='string')remote.save={json:d.json,at:d.at||0};}
     remote.ready=true;
     if(!$('#title-screen').hidden) showTitle();
@@ -5784,6 +5785,8 @@ function ch4End(el,kind){
   const [eid,title,line]=ch4Ending(kind);
   if(['lost','vassal','ragfall','lokiside','saint'].includes(kind)) S.dead=true; else S.won=true;
   if(kind==='ragnarok') S.flags.ragWon=1;
+  if(S.won&&!S.sandbox){const m=meta(),r={easy:1,normal:2,hero:3}[S.diff]||1;m.clears=m.clears||{lg:{},bg:{}};
+    [['lg',S.legacy||'none'],['bg',S.bg]].forEach(([g,k])=>{if(!k)return;const c=(m.clears[g]=m.clears[g]||{})[k];if(!c||r>=c.d)m.clears[g][k]={d:r,e:title};});saveMeta(m);}
   unlock(eid);if(['win','ragnarok','stik','twogods'].includes(kind))unlock('end4_win');log(`第四章結局：${title}。`);
   const scene={win:S.flags.struck?`耶靈的王廳燒起來了。「藍牙」哈拉爾跪在他父親立的大符文石前，把戒指交到你手裡。\n\n${age()} 歲的你站在丹麥的土地上，盔甲上全是別人的血。從來沒有一個北方的王，打到過這裡。\n\n${line}`:`帕爾納托基的劍插在沙灘上。「藍牙」哈拉爾的船，一艘一艘消失在南方的海平線上。\n\n${age()} 歲的你站在海灘上，盔甲上全是別人的血。這是你這輩子打過最大的一仗。\n\n${line}`,
     vassal:`你在丹麥使者面前跪了下來。\n\n王冠還在你頭上。只是從此以後，每年冬天，都有一艘載滿白銀的船往南開。\n\n${line}`,
@@ -7186,7 +7189,8 @@ function showTitle(){
   $('#minis').querySelectorAll('[data-mini]').forEach(b=>b.onclick=()=>{NEW.mini=b.dataset.mini;showTitle();});
   $('#relax-row').hidden=NEW.mini!=='react';
   $('#in-relax').checked=NEW.relaxed;$('#in-relax').onchange=e=>{NEW.relaxed=e.target.checked;};
-  $('#bgs').innerHTML=BGS.map(b=>`<button class="opt" data-bg="${b.id}" aria-pressed="${b.id===NEW.bg}"><b>${b.name}</b><small>${b.desc}</small><span class="tag">${STAT[b.st]} +2・${b.perk}</span></button>`).join('');
+  const CLR=(g,k,on)=>{const c=((meta().clears||{})[g]||{})[k];if(!c)return '';return `<i class="clr r${c.d}" aria-label="已通關">ᛟ</i>${on?`<small class="clrln">已用${g==='lg'?'這個傳承':'這個出身'}通關：${['','輕鬆','標準','英雄'][c.d]}・${c.e}</small>`:''}`;};
+  $('#bgs').innerHTML=BGS.map(b=>`<button class="opt" data-bg="${b.id}" aria-pressed="${b.id===NEW.bg}"><b>${b.name}</b><small>${b.desc}</small><span class="tag">${STAT[b.st]} +2・${b.perk}</span>${CLR('bg',b.id,b.id===NEW.bg)}</button>`).join('');
   $('#bgs').querySelectorAll('[data-bg]').forEach(b=>b.onclick=()=>{NEW.bg=b.dataset.bg;showTitle();});
   $('#diffs').innerHTML=Object.entries(DIFF).map(([k,d])=>`<button class="opt" data-diff="${k}" aria-pressed="${k===NEW.diff}"><b>${d.name}</b><small>${d.desc}</small></button>`).join('');
   $('#diffs').querySelectorAll('[data-diff]').forEach(b=>b.onclick=()=>{NEW.diff=b.dataset.diff;showTitle();});
@@ -7197,7 +7201,7 @@ function showTitle(){
   $('#chs').innerHTML=[1,2,3,4].map(n=>`<button class="opt" data-ch="${n}" aria-pressed="${n===NEW.chapter}" ${chUnlocked(n)?'':'disabled'}><b>${CH_NAMES[n]}</b><small>${n===1?'從頭開始':chUnlocked(n)?CH_DESC[n]:'還沒打到這一章'}</small></button>`).join('');
   $('#chs').querySelectorAll('[data-ch]').forEach(b=>b.onclick=()=>{NEW.chapter=+b.dataset.ch;showTitle();});
   const h1=document.querySelector('.title-hero h1');if(h1&&!h1.dataset.tap){h1.dataset.tap='1';let taps=0,tm=0;h1.onclick=()=>{taps++;clearTimeout(tm);tm=setTimeout(()=>taps=0,1500);if(taps>=5){taps=0;const mm=meta();mm.ach._all=Date.now();saveMeta(mm);toast('已解鎖全部章節');showTitle();}};}
-  $('#legacies').innerHTML=legs.map(([k,l])=>`<button class="opt" data-leg="${k}" aria-pressed="${k===NEW.legacy}"><b>${l.name}</b><small>${l.desc}</small></button>`).join('');
+  $('#legacies').innerHTML=legs.map(([k,l])=>`<button class="opt" data-leg="${k}" aria-pressed="${k===NEW.legacy}"><b>${l.name}</b><small>${l.desc}</small>${CLR('lg',k||'none',k===NEW.legacy)}</button>`).join('');
   $('#legacies').querySelectorAll('[data-leg]').forEach(b=>b.onclick=()=>{NEW.legacy=b.dataset.leg;showTitle();});
   hallRender();
   $('#btn-train').onclick=trainStart;$('#btn-gal').onclick=()=>pushModal(galView);
