@@ -6770,7 +6770,7 @@ function render(){
     `<span class="chip"><span>${small?'':'祈福'}</span><span class="bless">${Array.from({length:maxBless()},(_,i)=>`<i class="${i<charges()?'on':''}">ᚱ</i>`).join('')}</span></span>`;
   render.prevC=curC;
   $('#side').innerHTML=charHTML();
-  $('#goal').innerHTML=goalHTML();$('#goal').classList.toggle('full',S.phase>=3);$('#goal').onclick=()=>{if(UX2()&&S.phase<3)$('#goal').classList.toggle('open');};
+  $('#goal').innerHTML=goalHTML();$('#goal').classList.add('full');$('#goal').onclick=null;
   sumRender();
   const tabs=S.phase>=4?[['act','行動'],['map','挪威'],['sea','海外'],['tribe','王國'],['char','角色']]:[['act','行動'],['map','地圖'],['tribe','部落'],['char','角色']];
   $('#tabs').innerHTML=tabs.map(([k,n])=>`<button role="tab" class="tab-${k}" aria-selected="${S.tab===k}" data-tab="${k}">${n}${k==='char'&&(S.pts>0||S.talentPicks>0)?'<span class="dot"></span>':''}</button>`).join('');
