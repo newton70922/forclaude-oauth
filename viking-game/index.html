@@ -2847,13 +2847,16 @@ function levelUpModal(el){
 /* ================= 事件 ================= */
 const evScene=ev=>{let b=typeof ev.scene==='function'?ev.scene():ev.scene;if(!b&&ev.id)b='sc_ev_'+ev.id;if(!b)return null;
   const vs=[b,b+'_b',b+'_c'].filter(k=>ART_HAVE.has(k));return vs.length?pick(vs):null;};
+// 灰掉的選項：寫出還差多少
+function lackTxt(t){const m=[...String(t).matchAll(/(\d+)\s*(銀幣|糧食|名聲)/g)];const L=m.map(([,v,k])=>{const have={銀幣:S.silver,糧食:S.food,名聲:S.fame}[k];return have<+v?`${+v-have} ${k}`:'';}).filter(Boolean);
+  return `<span class="bad">${L.length?'還差 '+L.join('、'):'現在還做不到'}</span>`;}
 function eventModal(ev){
   return el=>{
     const txt=typeof ev.text==='function'?ev.text():ev.text;const scn=evScene(ev);
     const opts=ev.ch.filter(c=>!c.show||c.show());
     const art=typeof ev.art==='function'?ev.art():ev.art;
     el.innerHTML=`${scn?sceneImg(scn):''}<p class="eyebrow">${ev.kind||'事件'}</p><h2>${typeof ev.title==='function'?ev.title():ev.title}</h2>${!scn&&art&&hasArt(art)?avatar(art,'big'):''}<p class="story">${txt}</p>
-    <div class="choices">${opts.map((c,i)=>{const ok=!c.ok||c.ok();const n=typeof c.note==='function'?c.note():c.note;return `<button class="choice" data-i="${i}" ${ok?'':'disabled'}><b>${typeof c.t==='function'?c.t():c.t}</b>${n?`<small>${n}</small>`:''}</button>`;}).join('')}</div>`;
+    <div class="choices">${opts.map((c,i)=>{const ok=!c.ok||c.ok();const n=typeof c.note==='function'?c.note():c.note;const tt=typeof c.t==='function'?c.t():c.t;return `<button class="choice" data-i="${i}" ${ok?'':'disabled'}><b>${tt}</b>${n||!ok?`<small>${ok?'':lackTxt(tt+' '+(n||''))+(n?'　':'')}${n||''}</small>`:''}</button>`;}).join('')}</div>`;
     el.querySelectorAll('[data-i]').forEach(b=>b.onclick=()=>{
       const ci=ev.ch.indexOf(opts[+b.dataset.i]);const r=opts[+b.dataset.i].fx();
       if(r===null){closeModal();return;}
@@ -3483,9 +3486,9 @@ function trainModal(){
     const cands=S.champions;
     el.innerHTML=`<p class="eyebrow">操練</p><h2>今天練什麼？</h2><p class="story">每種操練都會花掉一季。連續操練太多次，戰士會抱怨。</p>
     <div class="choices">
-      <button class="choice" data-tr="men" ${S.food<food||(!promV&&!promE)?'disabled':''}><b>練兵（${food} 糧食）</b><small>${promV||promE?`新兵升老兵 ${promV} 人${bl('barracks')>=2?`、老兵升精兵 ${promE} 人`:'（兵營 2 級後能把老兵練成精兵）'}`:'沒有能晉升的人'}</small></button>
-      <button class="choice" data-tr="self" ${S.food<3?'disabled':''}><b>個人修練（3 糧食）</b><small>經驗 +${trainXp()}${S.lvl>expectedLvl()?'（你的等級已經超前，效果打折）':''}</small></button>
-      ${cands.map(c=>`<button class="choice" data-tr="c:${c.id}" ${S.food<3||(c.skill||0)>=5?'disabled':''}><b>訓練${CHAMPS[c.id].name}（3 糧食）</b><small>${(c.skill||0)>=5?'戰技已經練到頂了':`戰技 ${c.skill||0} → ${(c.skill||0)+1}，好感 +6。戰技越高，當決鬥代理人越好操作`}</small></button>`).join('')}
+      <button class="choice" data-tr="men" ${S.food<food||(!promV&&!promE)?'disabled':''}><b>練兵（${food} 糧食）</b><small>${S.food<food?`<span class="bad">還差 ${food-S.food} 糧食</span>　`:''}${promV||promE?`新兵升老兵 ${promV} 人${bl('barracks')>=2?`、老兵升精兵 ${promE} 人`:'（兵營 2 級後能把老兵練成精兵）'}`:'沒有能晉升的人'}</small></button>
+      <button class="choice" data-tr="self" ${S.food<3?'disabled':''}><b>個人修練（3 糧食）</b><small>${S.food<3?`<span class="bad">還差 ${3-S.food} 糧食</span>　`:''}經驗 +${trainXp()}${S.lvl>expectedLvl()?'（你的等級已經超前，效果打折）':''}</small></button>
+      ${cands.map(c=>`<button class="choice" data-tr="c:${c.id}" ${S.food<3||(c.skill||0)>=5?'disabled':''}><b>訓練${CHAMPS[c.id].name}（3 糧食）</b><small>${(c.skill||0)>=5?'戰技已經練到頂了':S.food<3?`<span class="bad">還差 ${3-S.food} 糧食</span>`:`戰技 ${c.skill||0} → ${(c.skill||0)+1}，好感 +6。戰技越高，當決鬥代理人越好操作`}</small></button>`).join('')}
       <button class="ghost" id="tr-x">算了</button>
     </div>`;
     $('#tr-x').onclick=closeModal;
@@ -6064,7 +6067,7 @@ function fameModal(){
       {k:'awe',t:'讓南方的國王聽見你的名字',cost:150,note:S.flags.rumor&&!S.flags.envoy&&!S.flags.warDone?'派詩人去每一個南方的宮廷唱你的事蹟：丹麥警戒 −20':'派詩人去每一個南方的宮廷唱你的事蹟：惡名 −20、忠誠 +10',run:()=>{if(S.flags.rumor&&!S.flags.envoy&&!S.flags.warDone){addAlert(-20);return `藍牙聽完那首歌，很久都沒說話。\n<span class="good">丹麥警戒 −20（現在 ${daneAlert()}/100）</span>`;}addInfamy(-20);addLoyalty(10);return '南方的人開始叫你「北方的王」，而不是「北方的強盜」。\n惡名 −20、忠誠 +10';}}]:[]),
     ];
     el.innerHTML=`<p class="eyebrow">名聲 · ${T.name}</p><h2>動用你的名聲</h2><p class="story">名聲是可以花的。花掉的名聲要再慢慢賺回來，名聲等級也可能跟著掉。\n<small style="color:var(--muted)">目前名聲 ${S.fame}${T.fx?`：${T.fx}`:''}</small></p>
-    <div class="choices">${opts.map((o,i)=>`<button class="choice" data-fm="${i}" ${o.dis||S.fame<o.cost?'disabled':''}><b>${o.t}（名聲 -${o.cost}）</b><small>${o.dis||o.note}</small></button>`).join('')}
+    <div class="choices">${opts.map((o,i)=>`<button class="choice" data-fm="${i}" ${o.dis||S.fame<o.cost?'disabled':''}><b>${o.t}（名聲 -${o.cost}）</b><small>${o.dis||(S.fame<o.cost?`<span class="bad">名聲還差 ${o.cost-S.fame}</span>　${o.note}`:o.note)}</small></button>`).join('')}
     <button class="ghost" id="fm-x">算了</button></div>`;
     $('#fm-x').onclick=closeModal;
     el.querySelectorAll('[data-fm]').forEach(b=>b.onclick=()=>{const o=opts[+b.dataset.fm];S.fame-=o.cost;const r=o.run();log(`動用名聲：${o.t}。`);resultView(el,o.t,r,'名聲');render();});
