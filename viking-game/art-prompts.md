@@ -532,21 +532,21 @@ Sitric Silkbeard, the Norse-Irish king of Dublin, a long silky well-groomed dark
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_god_odin_1 | 奧丁・神恩第 1 階 |
-| 2 | sc_god_odin_2 | 奧丁・神恩第 2 階 |
-| 3 | sc_god_odin_3 | 奧丁・神恩第 3 階 |
-| 4 | sc_god_thor_1 | 索爾・神恩第 1 階 |
-| 5 | sc_god_thor_2 | 索爾・神恩第 2 階 |
-| 6 | sc_god_thor_3 | 索爾・神恩第 3 階 |
-| 7 | sc_god_tyr_1 | 提爾・神恩第 1 階 |
-| 8 | sc_god_tyr_2 | 提爾・神恩第 2 階 |
-| 9 | sc_god_tyr_3 | 提爾・神恩第 3 階 |
-| 10 | sc_god_freyja_1 | 弗蕾亞・神恩第 1 階 |
-| 11 | sc_god_freyja_2 | 弗蕾亞・神恩第 2 階 |
-| 12 | sc_god_freyja_3 | 弗蕾亞・神恩第 3 階 |
-| 13 | sc_god_loki_1 | 洛基・神恩第 1 階 |
-| 14 | sc_god_loki_2 | 洛基・神恩第 2 階 |
-| 15 | sc_god_loki_3 | 洛基・神恩第 3 階 |
+| 1 | sc_god_odin_1 | 奧丁・神恩第 1 階 （✅ 已收到） |
+| 2 | sc_god_odin_2 | 奧丁・神恩第 2 階 （✅ 已收到） |
+| 3 | sc_god_odin_3 | 奧丁・神恩第 3 階 （✅ 已收到） |
+| 4 | sc_god_thor_1 | 索爾・神恩第 1 階 （✅ 已收到） |
+| 5 | sc_god_thor_2 | 索爾・神恩第 2 階 （✅ 已收到） |
+| 6 | sc_god_thor_3 | 索爾・神恩第 3 階 （✅ 已收到） |
+| 7 | sc_god_tyr_1 | 提爾・神恩第 1 階 （✅ 已收到） |
+| 8 | sc_god_tyr_2 | 提爾・神恩第 2 階 （✅ 已收到） |
+| 9 | sc_god_tyr_3 | 提爾・神恩第 3 階 （✅ 已收到） |
+| 10 | sc_god_freyja_1 | 弗蕾亞・神恩第 1 階 （✅ 已收到） |
+| 11 | sc_god_freyja_2 | 弗蕾亞・神恩第 2 階 （✅ 已收到） |
+| 12 | sc_god_freyja_3 | 弗蕾亞・神恩第 3 階 （✅ 已收到） |
+| 13 | sc_god_loki_1 | 洛基・神恩第 1 階 （✅ 已收到） |
+| 14 | sc_god_loki_2 | 洛基・神恩第 2 階 （⚠ 需重畫：拿掉王冠） |
+| 15 | sc_god_loki_3 | 洛基・神恩第 3 階 （✅ 已收到） |
 
 **1. sc_god_odin_1（奧丁・神恩第 1 階）**
 
@@ -665,7 +665,7 @@ the hooded chieftain's shadow on the wall by firelight has an extra figure in it
 ```
 
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
 a small green snake coiled in a drinking horn, watching the hooded chieftain. Mythic, mysterious, Norse omen.
 ```
 
@@ -684,11 +684,11 @@ in a busy market, a stranger who looks just like the hooded chieftain winks and 
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_odd_1 | 尋找奧德：港口的老水手 |
-| 2 | sc_odd_2 | 尋找奧德：冰海的石堆 |
-| 3 | sc_odd_3 | 尋找奧德：世界盡頭的海岸 |
-| 4 | sc_fq_cloak | 奧德的斗篷 |
-| 5 | sc_fq_wed | 女神的伴侶 |
+| 1 | sc_odd_1 | 尋找奧德：港口的老水手 （✅ 已收到） |
+| 2 | sc_odd_2 | 尋找奧德：冰海的石堆 （✅ 已收到） |
+| 3 | sc_odd_3 | 尋找奧德：世界盡頭的海岸 （✅ 已收到） |
+| 4 | sc_fq_cloak | 奧德的斗篷 （✅ 已收到） |
+| 5 | sc_fq_wed | 女神的伴侶 （✅ 已收到） |
 | 6 | sc_fr_cat | 弗蕾亞的貓離開 |
 | 7 | sc_fr_farewell | 弗蕾亞揮手告別 |
 | 8 | sc_loki_1 | 洛基的玩笑：鹹魚 |
@@ -753,7 +753,7 @@ A dream at night: one of Freyja's large grey cats sitting at the door of a king'
 ```
 
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
 A dream: the goddess Freyja (long golden hair, falcon-feather cloak, the shining Brísingamen necklace, two large grey forest cats) standing far away on a snowy hillside, waving goodbye to the hooded king; melancholy, soft light.
 ```
 
@@ -1117,7 +1117,7 @@ A holmgang cloak on the ground: Ragnar, a huge bare-chested red-bearded berserke
 ```
 
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
-If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
 the hooded chieftain looking at their reflection in a water bucket, a single white hair, morning light (face hidden in shadow). Quiet, reflective, the passing of time.
 ```
 
@@ -1176,11 +1176,11 @@ night, the old crowned ruler lying awake in bed listening to their own heartbeat
 | 2 | sc_ev_mission2 | 修士又來了 （✅ 已收到） |
 | 3 | sc_ev_pagan | 舊神的反撲 （✅ 已收到） |
 | 4 | sc_ev_raise | 怎麼養大繼承人 （✅ 已收到） |
-| 5 | sc_ev_raise_1 | 交給勇士們 |
-| 6 | sc_ev_raise_2 | 交給吟遊詩人 |
-| 7 | sc_ev_raise_3 | 送去南方的宮廷 |
-| 8 | sc_ev_raise_4 | 帶上你的船 |
-| 9 | sc_ev_adopt | 誰來繼承王冠 |
+| 5 | sc_ev_raise_1 | 交給勇士們 （✅ 已收到） |
+| 6 | sc_ev_raise_2 | 交給吟遊詩人 （✅ 已收到） |
+| 7 | sc_ev_raise_3 | 送去南方的宮廷 （✅ 已收到） |
+| 8 | sc_ev_raise_4 | 帶上你的船 （✅ 已收到） |
+| 9 | sc_ev_adopt | 誰來繼承王冠 （✅ 已收到） |
 
 **1. sc_ev_mission（穿長袍的人）**
 
