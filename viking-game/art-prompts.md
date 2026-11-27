@@ -22,43 +22,43 @@
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_q_hakon_a | 哈康：最後一個首領的墳（開頭） |
-| 2 | sc_q_hakon_b | 哈康：山谷裡的強盜 |
-| 3 | sc_q_hakon_w | 哈康：在舊主的墳前 |
-| 4 | sc_q_astrid_b | 阿斯特麗德：獨臂奧諾德 |
-| 5 | sc_q_astrid_w | 阿斯特麗德：父親的盾 |
-| 6 | sc_q_thorfinn_a | 托爾芬：沉默的理由（開頭） |
-| 7 | sc_q_thorfinn_b | 托爾芬：海岬上的墳 |
-| 8 | sc_q_thorfinn_w | 托爾芬：終於哭出來 |
-| 9 | sc_q_sven_a | 赫羅爾夫：父親的船（開頭） |
-| 10 | sc_q_sven_b | 赫羅爾夫：紅帆船 |
-| 11 | sc_q_sven_w | 赫羅爾夫：奪回紅帆船 |
-| 12 | sc_q_una_a | 烏娜：霧沼的女巫（開頭） |
-| 13 | sc_q_una_b | 烏娜：解咒 |
-| 14 | sc_q_una_w | 烏娜：霧沼變綠了 |
-| 15 | sc_q_bragi_a | 布拉吉：失落的詩（開頭） |
-| 16 | sc_q_bragi_b | 布拉吉：山上的老詩人 |
-| 17 | sc_q_bragi_w | 布拉吉：最好的一首歌 |
-| 18 | sc_q_einar_a | 埃納：冬狼王（開頭） |
-| 19 | sc_q_einar_b | 埃納：白色的狼王 |
-| 20 | sc_q_einar_w | 埃納：狼王殺手 |
-| 21 | sc_q_gudrun_a | 古德倫：天上掉下來的鐵（開頭） |
-| 22 | sc_q_gudrun_b | 古德倫：星鐵 |
-| 23 | sc_q_gudrun_w | 古德倫：星鐵之斧 |
-| 24 | sc_q_ragnar_a | 拉格納：狂怒的代價（開頭） |
-| 25 | sc_q_ragnar_b | 拉格納：先知的試煉 |
-| 26 | sc_q_ragnar_w | 拉格納：平靜下來 |
-| 27 | sc_q_osric_a | 古托姆：舊主的印章（開頭） |
-| 28 | sc_q_osric_b | 古托姆：骨灰 |
-| 29 | sc_q_osric_w | 古托姆：帶舊主回家 |
-| 30 | sc_q_bjorn_a | 比約恩：母親的墳（開頭） |
-| 31 | sc_q_bjorn_b | 比約恩：海島上的墳 |
-| 32 | sc_q_bjorn_w | 比約恩：父子在墳前 |
-| 33 | sc_q_sigrid_a | 西格麗德：父親的官司（開頭） |
-| 34 | sc_q_sigrid_b | 西格麗德：沒輸過的決鬥者 |
-| 35 | sc_q_knut_a | 克努特：老同夥（開頭） |
-| 36 | sc_q_knut_b | 克努特：疤面的名號 |
-| 37 | sc_q_knut_w | 克努特：村民的眼神 |
+| 1 | sc_q_hakon_a | 哈康：最後一個首領的墳（開頭） （⚠ 需重畫：拿掉王冠） |
+| 2 | sc_q_hakon_b | 哈康：山谷裡的強盜 （⚠ 需重畫：拿掉王冠） |
+| 3 | sc_q_hakon_w | 哈康：在舊主的墳前 （⚠ 需重畫：拿掉王冠） |
+| 4 | sc_q_astrid_b | 阿斯特麗德：獨臂奧諾德 （✅ 已收到） |
+| 5 | sc_q_astrid_w | 阿斯特麗德：父親的盾 （⚠ 需重畫：拿掉王冠） |
+| 6 | sc_q_thorfinn_a | 托爾芬：沉默的理由（開頭） （⚠ 需重畫：拿掉王冠） |
+| 7 | sc_q_thorfinn_b | 托爾芬：海岬上的墳 （✅ 已收到） |
+| 8 | sc_q_thorfinn_w | 托爾芬：終於哭出來 （⚠ 需重畫：拿掉王冠） |
+| 9 | sc_q_sven_a | 赫羅爾夫：父親的船（開頭） （✅ 已收到） |
+| 10 | sc_q_sven_b | 赫羅爾夫：紅帆船 （⚠ 需重畫：拿掉王冠） |
+| 11 | sc_q_sven_w | 赫羅爾夫：奪回紅帆船 （⚠ 需重畫：拿掉王冠） |
+| 12 | sc_q_una_a | 烏娜：霧沼的女巫（開頭） （⚠ 需重畫：拿掉王冠） |
+| 13 | sc_q_una_b | 烏娜：解咒 （✅ 已收到） |
+| 14 | sc_q_una_w | 烏娜：霧沼變綠了 （✅ 已收到） |
+| 15 | sc_q_bragi_a | 布拉吉：失落的詩（開頭） （✅ 已收到） |
+| 16 | sc_q_bragi_b | 布拉吉：山上的老詩人 （✅ 已收到） |
+| 17 | sc_q_bragi_w | 布拉吉：最好的一首歌 （✅ 已收到） |
+| 18 | sc_q_einar_a | 埃納：冬狼王（開頭） （✅ 已收到） |
+| 19 | sc_q_einar_b | 埃納：白色的狼王 （✅ 已收到） |
+| 20 | sc_q_einar_w | 埃納：狼王殺手 （⚠ 需重畫：拿掉王冠） |
+| 21 | sc_q_gudrun_a | 古德倫：天上掉下來的鐵（開頭） （✅ 已收到） |
+| 22 | sc_q_gudrun_b | 古德倫：星鐵 （✅ 已收到） |
+| 23 | sc_q_gudrun_w | 古德倫：星鐵之斧 （✅ 已收到） |
+| 24 | sc_q_ragnar_a | 拉格納：狂怒的代價（開頭） （✅ 已收到） |
+| 25 | sc_q_ragnar_b | 拉格納：先知的試煉 （✅ 已收到） |
+| 26 | sc_q_ragnar_w | 拉格納：平靜下來 （✅ 已收到） |
+| 27 | sc_q_osric_a | 古托姆：舊主的印章（開頭） （✅ 已收到） |
+| 28 | sc_q_osric_b | 古托姆：骨灰 （✅ 已收到） |
+| 29 | sc_q_osric_w | 古托姆：帶舊主回家 （✅ 已收到） |
+| 30 | sc_q_bjorn_a | 比約恩：母親的墳（開頭） （✅ 已收到） |
+| 31 | sc_q_bjorn_b | 比約恩：海島上的墳 （⚠ 需重畫：拿掉王冠） |
+| 32 | sc_q_bjorn_w | 比約恩：父子在墳前 （✅ 已收到） |
+| 33 | sc_q_sigrid_a | 西格麗德：父親的官司（開頭） （✅ 已收到） |
+| 34 | sc_q_sigrid_b | 西格麗德：沒輸過的決鬥者 （✅ 已收到） |
+| 35 | sc_q_knut_a | 克努特：老同夥（開頭） （✅ 已收到） |
+| 36 | sc_q_knut_b | 克努特：疤面的名號 （✅ 已收到） |
+| 37 | sc_q_knut_w | 克努特：村民的眼神 （✅ 已收到） |
 
 **1. sc_q_hakon_a（哈康：最後一個首領的墳（開頭））**
 
@@ -788,34 +788,34 @@ Comic scene: a herd of goats inside a longhouse eating all the feast food on the
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_ev_train | 操練場上的怨言 |
-| 2 | sc_ev_coup | 有人要你的位子 |
-| 3 | sc_ev_fair | 公平的首領 |
-| 4 | sc_ev_capital | 王都落成 |
-| 5 | sc_ev_legend | 傳說之都 |
-| 6 | sc_village_join | 不戰而附 |
-| 7 | sc_scare_yield | 不戰而降 |
-| 8 | sc_scare_pay | 保護費 |
-| 9 | sc_scare_no | 沒被嚇到 |
-| 10 | sc_lord_grey | 雅爾西格德的挑戰 |
-| 11 | sc_lord_eagle | 布倫希爾德的挑戰 |
-| 12 | sc_lord_red | 赫羅爾夫的決戰 |
-| 13 | sc_dip_refuse | 雅爾拒絕使者 |
-| 14 | sc_k_yield | 老王讓位 |
-| 15 | sc_k_refuse | 老王冷笑 |
-| 16 | sc_k_after_exec | 老王死後的王廳 |
-| 17 | sc_k_after_spare | 饒過老王之後 |
-| 18 | sc_ev_stragglers | 潰逃的敵兵 |
-| 19 | sc_ev_betray | 勇士反了 |
-| 20 | sc_ev_desert | 勇士走了 |
-| 21 | sc_ev_coalition | 諸侯聯軍 |
-| 22 | sc_ev_crusade | 討伐軍 |
-| 23 | sc_ev_thief | 小偷的贖罪 |
-| 24 | sc_ev_thorstein | 酒館裡的托爾斯坦 |
-| 25 | sc_d3_thorstein | 托爾斯坦在木牆上 |
-| 26 | sc_knut_eye | 克努特的眼神 |
-| 27 | sc_knut_cup | 摔碎的酒杯 |
-| 28 | sc_knut_gone | 克努特走了 |
+| 1 | sc_ev_train | 操練場上的怨言 （✅ 已收到） |
+| 2 | sc_ev_coup | 有人要你的位子 （✅ 已收到） |
+| 3 | sc_ev_fair | 公平的首領 （✅ 已收到） |
+| 4 | sc_ev_capital | 王都落成 （✅ 已收到） |
+| 5 | sc_ev_legend | 傳說之都 （✅ 已收到） |
+| 6 | sc_village_join | 不戰而附 （✅ 已收到） |
+| 7 | sc_scare_yield | 不戰而降 （✅ 已收到） |
+| 8 | sc_scare_pay | 保護費 （✅ 已收到） |
+| 9 | sc_scare_no | 沒被嚇到 （✅ 已收到） |
+| 10 | sc_lord_grey | 雅爾西格德的挑戰 （✅ 已收到） |
+| 11 | sc_lord_eagle | 布倫希爾德的挑戰 （✅ 已收到） |
+| 12 | sc_lord_red | 赫羅爾夫的決戰 （✅ 已收到） |
+| 13 | sc_dip_refuse | 雅爾拒絕使者 （✅ 已收到） |
+| 14 | sc_k_yield | 老王讓位 （✅ 已收到） |
+| 15 | sc_k_refuse | 老王冷笑 （✅ 已收到） |
+| 16 | sc_k_after_exec | 老王死後的王廳 （✅ 已收到） |
+| 17 | sc_k_after_spare | 饒過老王之後 （✅ 已收到） |
+| 18 | sc_ev_stragglers | 潰逃的敵兵 （✅ 已收到） |
+| 19 | sc_ev_betray | 勇士反了 （✅ 已收到） |
+| 20 | sc_ev_desert | 勇士走了 （✅ 已收到） |
+| 21 | sc_ev_coalition | 諸侯聯軍 （✅ 已收到） |
+| 22 | sc_ev_crusade | 討伐軍 （✅ 已收到） |
+| 23 | sc_ev_thief | 小偷的贖罪 （✅ 已收到） |
+| 24 | sc_ev_thorstein | 酒館裡的托爾斯坦 （✅ 已收到） |
+| 25 | sc_d3_thorstein | 托爾斯坦在木牆上 （✅ 已收到） |
+| 26 | sc_knut_eye | 克努特的眼神 （✅ 已收到） |
+| 27 | sc_knut_cup | 摔碎的酒杯 （✅ 已收到） |
+| 28 | sc_knut_gone | 克努特走了 （✅ 已收到） |
 | 29 | sc_knut_axe | 克努特拔斧 |
 | 30 | sc_knut_reform | 克努特的贖罪 |
 | 31 | sc_holm_fatherson | 霍姆岡：父與子 |
@@ -2401,9 +2401,9 @@ A grand royal portrait of the hero as the great queen of the North in her later 
 | 27 | sc_sd_sven_1 | Hrolf・第 1 件事 （✅ 已收到） |
 | 28 | sc_sd_sven_2 | Hrolf・第 2 件事 （✅ 已收到） |
 | 29 | sc_sd_bjorn_1 | Bjorn・第 1 件事 （✅ 已收到） |
-| 30 | sc_sd_bjorn_2 | Bjorn・第 2 件事 |
-| 31 | sc_sd_sigrid_1 | Sigrid・第 1 件事 |
-| 32 | sc_sd_sigrid_2 | Sigrid・第 2 件事 |
+| 30 | sc_sd_bjorn_2 | Bjorn・第 2 件事 （✅ 已收到） |
+| 31 | sc_sd_sigrid_1 | Sigrid・第 1 件事 （✅ 已收到） |
+| 32 | sc_sd_sigrid_2 | Sigrid・第 2 件事 （✅ 已收到） |
 
 **1. sc_sd_ingrid_1（Ingrid・第 1 件事）**
 
@@ -2694,8 +2694,8 @@ A warm intimate scene of married life in a Viking king's household. Sigrid, a pr
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_mk_wreck | 海灘上的倖存者 |
-| 2 | sc_ev_gunref | 公主的回禮 |
+| 1 | sc_mk_wreck | 海灘上的倖存者 （✅ 已收到） |
+| 2 | sc_ev_gunref | 公主的回禮 （✅ 已收到） |
 
 **1
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this scene can happen before they become king).. sc_mk_wreck（海灘上的倖存者）**
