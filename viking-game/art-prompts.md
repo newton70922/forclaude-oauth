@@ -10,9 +10,9 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## 📋 待辦總表（重畫 19 張、還沒畫 48 張）
+## 📋 待辦總表（重畫 19 張、還沒畫 63 張）
 
-提示詞都在下面各組裡，用檔名搜尋就找得到；重畫的那幾張，提示詞已經改好了。
+提示詞都在下面各組裡，用檔名搜尋就找得到；重畫的那幾張，提示詞已經改好了。像素單挑角色另外在 pixel-prompts.md。
 
 ### 一、需要重畫（19 張）
 
@@ -38,7 +38,7 @@
 | sc_mk_join | 剃頭拿斧 | 拿掉王冠 |
 | sc_mk_trader | 碼頭上的南方商人 | 拿掉王冠 |
 
-### 二、還沒畫（48 張）
+### 二、還沒畫（63 張）
 
 **W11 丹麥的動靜**（5 張）：sc_dane_sneak、sc_dane_spy、sc_dane_exile、sc_dane_gift、sc_dane_exile2
 
@@ -48,7 +48,9 @@
 
 **W14 補充：特寫第一頁、傳位、斯韋恩版**（18 張）：sc_rr_garm0、sc_rr_jormun0、sc_rr_surtr0、sc_rr_fenrir0、sc_abdicate_f、sc_abdicate_c_thorfinn、sc_abdicate_c_astrid、sc_abdicate_c_hakon、sc_abdicate_c_bragi、sc_abdicate_c_ragnar、sc_abdicate_c_sven、sc_abdicate_c_osric、sc_abdicate_c_knut、sc_abdicate_c_einar、sc_abdicate_c_gudrun、sc_abdicate_c_una、sc_dane_lastchance_m、sc_dane_taken_m
 
-## ★ v0.17 補圖：原本沒有配圖的劇情（219 張）
+**W15 勇士任務、洛基的來訪、長屋故事**（15 張）：sc_ms_board、sc_ms_envoy、sc_ms_mine、sc_ms_bandit、sc_ms_plague、sc_ms_trade、sc_ms_scout、sc_ms_drill、sc_ms_beast、sc_lk_1、sc_lk_2、sc_lk_3、sc_lk_4、sc_lt_raid、sc_lt_bear
+
+## ★ v0.17 補圖：原本沒有配圖的劇情（234 張）
 
 全遊戲盤點過一次：這些劇情原本只有文字或只有人物立繪。程式都接好了，圖一到就會自動出現；還沒到之前維持原樣。
 
@@ -2318,6 +2320,163 @@ Sweyn Forkbeard, a Danish prince in his twenties with a blond beard split into a
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
 Dawn at the harbor: Danish soldiers forcing Sweyn Forkbeard, a Danish prince in his twenties with a blond beard split into a fork, a rich blue cloak with gold trim onto a Danish ship as he struggles and shouts back, the hooded crowned ruler running down the dock, wind howling.
+```
+
+### W15. 勇士任務、洛基的來訪、長屋故事（15 張，16:9）
+
+派勇士出任務的任務板和 8 種任務；洛基化身陌生人的 4 次來訪；長屋長故事缺的 2 張。
+
+| # | 檔名 | 內容 |
+|---|---|---|
+| 1 | sc_ms_board | 任務板 |
+| 2 | sc_ms_envoy | 出使南方 |
+| 3 | sc_ms_mine | 探勘礦山 |
+| 4 | sc_ms_bandit | 追捕山賊 |
+| 5 | sc_ms_plague | 疫區行醫 |
+| 6 | sc_ms_trade | 跑一趟商路 |
+| 7 | sc_ms_scout | 勘察航線 |
+| 8 | sc_ms_drill | 訓練新兵 |
+| 9 | sc_ms_beast | 獵捕猛獸 |
+| 10 | sc_lk_1 | 酒館裡的陌生人 |
+| 11 | sc_lk_2 | 冬夜的訪客 |
+| 12 | sc_lk_3 | 海邊的老朋友 |
+| 13 | sc_lk_4 | 最後一次見面 |
+| 14 | sc_lt_raid | 第一次搶村子（長屋故事） |
+| 15 | sc_lt_bear | 徒手殺熊（長屋故事） |
+
+**1. sc_ms_board（任務板）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+A wooden notice board by the door of a Viking longhouse, covered with carved rune-sticks, pinned furs and small knotted cords as requests, a few champions and villagers gathered reading it, morning light.
+```
+
+**2. sc_ms_envoy（出使南方）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+A Viking envoy ship with gifts arriving at a southern Anglo-Saxon or Frankish royal court by the sea, stone hall, banners, courtiers watching.
+```
+
+**3. sc_ms_mine（探勘礦山）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+A Viking prospector with a pick in a mountain mine entrance, torchlight on a dark iron ore seam, snow outside.
+```
+
+**4. sc_ms_bandit（追捕山賊）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+A small band of Viking warriors ambushing mountain bandits on a narrow snowy pass, a merchant cart overturned.
+```
+
+**5. sc_ms_plague（疫區行醫）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+A healer with herbs and clean cloths tending feverish villagers inside a dim hut, candles, worried families.
+```
+
+**6. sc_ms_trade（跑一趟商路）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+A Viking trading ship unloading furs and iron at a busy southern market harbor, merchants weighing silver on scales.
+```
+
+**7. sc_ms_scout（勘察航線）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+A small Viking boat at dawn hidden among sea cliffs, a scout sketching the coastline and a distant fortified harbor on birch bark.
+```
+
+**8. sc_ms_drill（訓練新兵）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+Young recruits training with wooden shields in a mountain meadow, an experienced champion shouting orders, forming a shield wall.
+```
+
+**9. sc_ms_beast（獵捕猛獸）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+Hunters with spears and bows facing a huge brown bear at the edge of a pine forest near a farmstead, frightened cattle.
+```
+
+**10. sc_lk_1（酒館裡的陌生人）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+A smoky tavern: a slim handsome red-haired stranger with a sly grin and green-and-black clothes (secretly the god Loki, but he looks like a mortal traveler) throws dice and wins against laughing Viking warriors, pushing the silver back to them; he looks up toward the hooded young adventurer as if he already knows them.
+```
+
+**11. sc_lk_2（冬夜的訪客）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+A Yule night in a longhouse: a slim handsome red-haired stranger with a sly grin and green-and-black clothes (secretly the god Loki, but he looks like a mortal traveler) sits by the fire and with a wave of his hand turns everyone's ale into water, people staring at their horns in confusion, the hooded chieftain beside him.
+```
+
+**12. sc_lk_3（海邊的老朋友）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+A lonely northern shore at dusk: a slim handsome red-haired stranger with a sly grin and green-and-black clothes (secretly the god Loki, but he looks like a mortal traveler) sits on a rock looking north, a deep old scar ringing his wrist, no longer smiling; the hooded crowned ruler standing nearby.
+```
+
+**13. sc_lk_4（最後一次見面）**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
+Fimbulwinter night: a slim handsome red-haired stranger with a sly grin and green-and-black clothes (secretly the god Loki, but he looks like a mortal traveler), covered in snow, stands at the door of a king's longhouse, no tricks, sad and serious; the crowned ruler holds the door open, firelight spilling out.
+```
+
+**14. sc_lt_raid（第一次搶村子（長屋故事））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+A small coastal fishing village at dawn: a lone hooded young raider facing an old village guard with a rusty spear who stands in front of a small child; tense, regretful mood.
+```
+
+**15. sc_lt_bear（徒手殺熊（長屋故事））**
+
+```
+
+Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
+If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, NO crown: this can happen before they become king).
+A snowy forest: a huge bear standing on its hind legs, two heads taller than the hooded young hunter, an axe stuck in the bear's shoulder, the hunter holding only a small knife. Desperate, heroic.
 ```
 
 ## ★ v0.16 新圖（60 張）
