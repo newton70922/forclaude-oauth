@@ -1109,7 +1109,8 @@ function clearSave(){try{localStorage.removeItem(SAVE);}catch(e){}clearTimeout(r
 const D=()=>DIFF[S.diff];
 const has=t=>S.talents.includes(t);
 const mastered=t=>!!(S.master&&S.master[t]);
-const hasC=id=>S.champions.some(c=>c.id===id);
+const isAway=c=>!!(c&&c.away&&S.turn<c.away);
+const hasC=id=>S.champions.some(c=>c.id===id&&!isAway(c));
 const champ=id=>S.champions.find(c=>c.id===id);
 const ownsR=id=>S.reg[id]&&S.reg[id].st==='yours';
 const bl=id=>S.bld[id]||0;
@@ -1151,7 +1152,7 @@ function fieldMix(){
 function armyPower(){
   const m=fieldMix();
   let p=(m.r+m.v*(qd('hakon')&&hasC('hakon')?2.4:2)+m.e*eliteVal())*[1,1.15,1.25,1.35][bl('smithy')];
-  p+=S.champions.reduce((a,c)=>a+(isJarl(c)?0:champPow(c)),0)+eff('str')*1.5+eff('pre')*.8+allies()*8+(S.flags.hakonShield?6:0);
+  p+=S.champions.reduce((a,c)=>a+(isJarl(c)||isAway(c)?0:champPow(c)),0)+eff('str')*1.5+eff('pre')*.8+allies()*8+(S.flags.hakonShield?6:0);
   if(S.spouse==='brynhild') p*=1.08;
   if(S.spouse==='gudrun') p*=1.05;
   if(hasC('bjorn')&&hasC('ragnar')) p*=1.05;
@@ -1287,6 +1288,17 @@ function loadPack(f){
       document.querySelectorAll(`img[data-art="${k}"]`).forEach(im=>{im.src=PBLOB[k];});}}).catch(()=>{PLOAD[f]=null;});
   return PLOAD[f];
 }
+const PF_PRE={1:['sc_ch2_'],2:['sc_q_','sc_knut','sc_ev_','sc_scare','sc_village','sc_mk_','sc_holm'],3:['sc_q_','sc_lord','sc_k_','sc_dip','sc_d3_','sc_ev_','sc_knut','sc_scare'],
+  4:['sc_ct_','sc_sd_','sc_dane','sc_area','sc_west','sc_meet','sc_ev_','sc_q_','sc_god','sc_rebel','sc_thing','sc_jarl','sc_monument','sc_abdicate','sc_mvp','sc_relic','sc_ransom','sc_danegeld']};
+let pfKey='',pfT=0;
+function prefetchPacks(){
+  if(!S)return;const n=navigator.connection;if(n&&(n.saveData||/2g/.test(n.effectiveType||'')))return;
+  const pre=[...(PF_PRE[S.phase]||[]),...(S.flags&&S.flags.ragna&&!S.flags.ragDone?['sc_rr_','sc_ro_','sc_re_','sc_rag','sc_fimbul']:[]),...(S.flags&&S.flags.stik&&!S.flags.stikDone?['sc_st_']:[])];
+  const key=S.phase+'|'+pre.length;if(key===pfKey)return;pfKey=key;clearTimeout(pfT);
+  const files=[...new Set(Object.keys(PACK).filter(k=>pre.some(p=>k.startsWith(p))&&ART_HAVE.has(k)).map(k=>PACK[k][0]))].filter(f=>!PLOAD[f]);
+  const next=()=>{const f=files.shift();if(!f)return;const go=()=>{loadPack(f);pfT=setTimeout(next,4000);};(window.requestIdleCallback||setTimeout)(go,{timeout:3000});};
+  pfT=setTimeout(next,3000);
+}
 function artSrc(k){const p=PACK[k];if(!p)return `art/${k}.webp`;if(PBLOB[k])return PBLOB[k];loadPack(p[0]);return BLANK;}
 function artPre(k){const p=PACK[k];if(p){loadPack(p[0]);return;}const im=new Image();im.src=`art/${k}.webp`;}
 const avatar=(id,cls='')=>hasArt(id)?(artSeen(artKey(id)),`<img class="avatar ${cls}" src="${artSrc(artKey(id))}" data-art="${artKey(id)}" alt="">`):'';
@@ -1398,6 +1410,73 @@ function tipCheck(){
 }
 
 /* ================= 時間推進 ================= */
+/* ---------- 派勇士出任務：誰去都可以，可是結果看誰去 ---------- */
+const MS={
+  envoy:{n:'出使南方',t:2,tag:'talk',d:'帶著禮物和信，去南方的宮廷走一趟，替你說說好話。',go:'帶著一船禮物，往南方的宮廷出發了。'},
+  mine:{n:'探勘礦山',t:2,tag:'craft',d:'北邊的山裡有人挖到了鐵礦，去看看值不值得開。',go:'背著鎬子和繩子，進了北邊的山。'},
+  bandit:{n:'追捕山賊',t:1,tag:'fight',d:'有一夥山賊在山道上搶商隊，商人們湊了賞金。',go:'帶著幾個人，往山道去了。'},
+  plague:{n:'疫區行醫',t:2,tag:'heal',d:'東邊的村子爆發了熱病，村長派人來求援。',go:'帶著草藥和乾淨的布，往東邊的村子去了。'},
+  trade:{n:'跑一趟商路',t:2,tag:'trade',d:'裝一船毛皮和鐵器，去南方的市集換銀子。本錢比較多，賺得也多。',go:'帶著一船貨，揚帆往南方的市集去了。',cost:1.6},
+  scout:{n:'勘察航線',t:1,tag:'scout',d:'摸清楚海外的海岸、暗礁和守軍，下一次出征會更好打。',go:'坐上一條小船，悄悄往海外去了。'},
+  drill:{n:'訓練新兵',t:1,tag:'lead',d:'把一批新兵帶去山裡，操練一整季。',go:'把新兵們帶進了山裡。'},
+  beast:{n:'獵捕猛獸',t:1,tag:'hunt',d:'有一頭熊在牧場附近吃了好幾頭牛，牧民們很害怕。',go:'帶著弓和長矛，進了森林。'},
+};
+const CTAG={hakon:['lead','fight'],astrid:['lead','fight'],thorfinn:['fight'],sven:['trade','fight'],una:['heal'],bragi:['talk'],einar:['hunt','scout'],gudrun:['craft'],ragnar:['fight'],osric:['talk','lead'],knut:['trade','scout'],bjorn:['fight'],sigrid:['lead','talk'],athel:['talk','heal']};
+// 對的人做對的事，回來時多一句
+const CFLAIR={hakon:'年輕人回來的時候都說，哈康一句話都沒罵，可是每個人都不敢偷懶。',astrid:'阿斯特麗德回來的時候，盾上多了幾道刀痕，臉上多了一點笑。',thorfinn:'托爾芬回來，什麼也沒說。跟他去的人說，他一個人擋在最前面，從頭到尾沒退過一步。',
+  sven:'赫羅爾夫回來的時候，紅帆船吃水吃得很深：「我說過，跟我做生意不會虧。」',una:'村裡的孩子們送了烏娜一頂花環。她戴著回來，一路上都不肯拿下來。',bragi:'布拉吉在南方的宮廷裡唱了三天。他們說，南方的國王聽完，眼眶都紅了。',
+  einar:'埃納回來的時候，肩上扛著獵物，手上還多了一張畫滿記號的樹皮地圖。',gudrun:'古德倫抱著一塊礦石衝進長屋：「這種鐵，可以打出砍不鈍的斧頭！」',ragnar:'拉格納回來的時候渾身是血，有一半是別人的。他很開心。',
+  osric:'古托姆用舊主人的規矩跟南方的使臣周旋，每一句話都說得剛剛好。',knut:'克努特回來的時候，帶回的銀子比你預期的多。你決定不問是怎麼來的。',bjorn:'比約恩回來的時候，鎖子甲上又多了好幾個凹痕。他很得意。',
+  sigrid:'西格麗德把她父親那套帶兵的方法全用上了。新兵們回來的時候，走路的樣子都不一樣了。',athel:'艾瑟斯坦說南方的話，懂南方的規矩。對方的主教握著他的手，很久都沒放開。'};
+const msCost=k=>Math.round([0,0,40,120,500][S.phase]*(MS[k].cost||1));
+const msScale=()=>[0,0,1,2.5,8][S.phase];
+function msBoard(){const y=Math.floor(S.turn/4);if(!S.flags.msB||S.flags.msB.y!==y)S.flags.msB={y,l:Object.keys(MS).sort(()=>Math.random()-.5).slice(0,3),done:[]};return S.flags.msB;}
+function missionModal(){
+  pushModal(el=>{
+    const B=msBoard(),free=S.champions.filter(c=>!isJarl(c)&&!isAway(c)&&CTAG[c.id]);
+    el.innerHTML=`${sceneImg('sc_ms_board')}<p class="eyebrow">勇士</p><h2>任務板</h2><p class="story">長屋門口的木板上，釘著今年的委託。派一位勇士出去，他會離開一陣子。\n<small style="color:var(--muted)">每年換一批委託；每件只能派一次</small></p>
+    <div class="choices">${B.l.map(k=>{const m=MS[k],done=B.done.includes(k),c=msCost(k),poor=S.silver<c;return `<button class="choice" data-ms="${k}" ${done||poor||!free.length?'disabled':''}><b>${m.n}（${c} 銀幣・${m.t} 季）</b><small>${done?'今年已經派人去過了':poor?`<span class="bad">還差 ${c-S.silver} 銀幣</span>　${m.d}`:!free.length?'沒有能派出去的勇士':m.d}</small></button>`;}).join('')}
+    <button class="ghost" id="ms-x">算了</button></div>`;
+    $('#ms-x').onclick=closeModal;
+    el.querySelectorAll('[data-ms]').forEach(b=>b.onclick=()=>{const k=b.dataset.ms,m=MS[k];
+      el.innerHTML=`${sceneImg('sc_ms_'+k)}<p class="eyebrow">任務板</p><h2>${m.n}：派誰去？</h2><p class="story">${m.d}</p>
+      <div class="choices">${free.map(c=>`<button class="choice" data-mc="${c.id}"><b>${CHAMPS[c.id].name}</b><small>好感 ${c.bond}</small></button>`).join('')}<button class="ghost" id="ms-x2">再想想</button></div>`;
+      $('#ms-x2').onclick=closeModal;
+      el.querySelectorAll('[data-mc]').forEach(b2=>b2.onclick=()=>{const c=champ(b2.dataset.mc);S.silver-=msCost(k);c.away=S.turn+m.t;c.ms=k;B.done.push(k);log(`${CHAMPS[c.id].name}出發去${m.n}。`);
+        resultView(el,m.n,`${CHAMPS[c.id].name}${m.go}\n<span class="good">${m.t} 季後回來</span>`,'任務板','sc_ms_'+k);render();});
+    });
+  });
+}
+function msResolve(c){
+  const k=c.ms,m=MS[k],id=c.id,n=CHAMPS[id].name,P=cP(id),u=msScale(),fit=(CTAG[id]||[]).includes(m.tag);
+  let r=.35+(fit?.4:0)+c.bond/500+Math.random()*.3;if(id==='ragnar'&&k==='envoy')r=0;
+  const tier=r>=.95?3:r>=.7?2:r>=.45?1:0;const L=[];let text;
+  const sv=v=>{v=Math.round(v);S.silver+=v;return `銀幣 +${v}`;};
+  if(k==='envoy'){const dn=S.phase>=4&&S.flags.rumor&&!S.flags.envoy&&!S.flags.warDone;
+    text=['',`${n}在南方的宮廷待了兩季。對方收下了禮物，態度客氣，也就只是客氣。`,`${n}在南方的宮廷很受歡迎，對方的大臣送了${P}一路到港口。`,`${n}讓南方的國王笑了三次，最後國王親自送${P}上船。`][tier]||(id==='ragnar'?'拉格納在南方國王的宴會上，跟對方的大將比喝酒。比輸了，就把桌子掀了。':`${n}說錯了一句話，被南方的國王請出了宮廷。`);
+    if(tier===3){if(dn)addAlert(-12);addFame(10*u/2.5+5);L.push(dn?'丹麥警戒 −12':'',`名聲 +${Math.round(10*u/2.5+5)}`);}
+    else if(tier===2){if(dn)addAlert(-6);addFame(5);L.push(dn?'丹麥警戒 −6':'','名聲 +5');}
+    else if(tier===0){if(dn)addAlert(6);addFame(-5);L.push(dn?'<span class="bad">丹麥警戒 +6</span>':'','<span class="bad">名聲 −5</span>');}}
+  else if(k==='mine'){text=[`山裡只有幾塊爛石頭。${n}空手回來了。`,`${n}挖到了一點鐵，夠打幾把斧頭。`,`${n}找到了一條不錯的礦脈。`,`${n}找到了一條又深又寬的礦脈，整個鐵匠鋪都沸騰了。`][tier];
+    L.push(tier?sv([0,.8,1.8,3][tier]*msCost(k)):'');if(tier===3&&!S.flags.msOre){S.flags.msOre=1;S.st.str++;L.push('<span class="good">好鐵打的好斧頭：力量 +1</span>');}}
+  else if(k==='bandit'){text=[`山賊比想像中多。${n}帶著傷回來了，跟去的人少了兩個。`,`${n}趕跑了山賊，可是讓頭目逃了。`,`${n}抓到了山賊頭目，綁回來給商人們看。`,`${n}一個人衝進了山賊的營地。從此，山道上再也沒有人敢搶東西。`][tier];
+    if(tier===0){const l=takeLosses(Math.min(2,S.men),1);bond(id,-5);L.push(`<span class="bad">戰士 −${l}，${n}好感 −5</span>`);}else{L.push(sv([0,.6,1.4,2.2][tier]*msCost(k)));addLoyalty(tier*2);L.push(`忠誠 +${tier*2}`);if(tier===3){addInfamy(-8);L.push('惡名 −8');}}}
+  else if(k==='plague'){text=[`熱病太兇了。${n}救不了幾個人，回來的時候瘦了一圈。`,`${n}救回了一半的人。`,`${n}救回了大部分的人。村長帶著全村的人，在村口送${P}。`,`${n}讓整個村子活了下來。村民們說，要在村口替你立一塊石頭。`][tier];
+    if(tier){addLoyalty(tier*3);addFame(tier*4);L.push(`忠誠 +${tier*3}，名聲 +${tier*4}`);if(tier===3)L.push(addBlessing());}else{bond(id,-3);}}
+  else if(k==='trade'){text=[`市集上的價錢掉得很慘。${n}虧了本，還跟人吵了一架。`,`${n}把貨賣掉了，小賺一點。`,`${n}賣了個好價錢。`,`${n}不只把貨賣光，還談下了一條長期的買賣。`][tier];
+    L.push(tier?sv([0,1.2,2.2,3.2][tier]*msCost(k)):'');if(tier===0){addInfamy(5);L.push('<span class="bad">惡名 +5</span>');}if(tier===3){S.flags.westTrade=(S.flags.westTrade||0)+Math.round(2*u);L.push(`每季銀幣 +${Math.round(2*u)}（永久）`);}}
+  else if(k==='scout'){text=[`${n}的小船遇上了暴風，什麼都沒看到就回來了。`,`${n}畫了一張粗略的海岸圖。`,`${n}摸清楚了對方的守軍什麼時候換班。`,`${n}帶回了一張畫滿暗礁、守軍和小路的海圖。`][tier];
+    if(tier>=2){S.flags.scoutNext=1;L.push('<span class="good">下一次海外出征，敵方守備 −15%</span>');}else if(tier===1){addFame(3);L.push('名聲 +3');}}
+  else if(k==='drill'){text=[`新兵們練到一半就跑了好幾個。`,`新兵們學會了怎麼排盾牆。`,`新兵們回來的時候，已經像樣多了。`,`新兵們回來的時候，跟老兵站在一起已經分不出來了。`][tier];
+    const raw=Math.max(0,S.men-S.vets-S.elite);const v=Math.min(raw,[0,2,4,6][tier]);S.vets+=v;if(v)L.push(`老兵 +${v}`);if(tier===3&&S.vets>=2){S.vets-=2;S.elite+=2;L.push('精兵 +2');}if(tier===0&&S.men>2){S.men--;L.push('<span class="bad">戰士 −1</span>');}}
+  else if(k==='beast'){text=[`那頭熊比想像中聰明。${n}追了一整季，什麼都沒追到。`,`${n}趕走了那頭熊。`,`${n}獵到了那頭熊，牧民們送了一整車的乳酪。`,`${n}獵到了一頭比馬還大的熊。熊皮掛在長屋門口，每個人經過都要摸一下。`][tier];
+    if(tier){const f=Math.round([0,15,30,50][tier]*Math.max(1,u/2));S.food+=f;L.push(`糧食 +${f}`);if(tier>=2)L.push(sv([0,0,.6,1.2][tier]*msCost(k)));}}
+  if(tier===3&&fit&&CFLAIR[id])text+='\n\n'+CFLAIR[id];
+  if(tier>=2)bond(id,3);
+  delete c.away;delete c.ms;log(`${n}從「${m.n}」回來了。`);
+  return {title:`${n}回來了`,text:`${text}\n${L.filter(Boolean).map(x=>/^<span/.test(x)?x:`<span class="good">${x}</span>`).join('\n')}`,art:'sc_ms_'+k};
+}
+function msReturnTick(){const c=S.champions.find(c=>c.away&&S.turn>=c.away);if(!c)return false;const r=msResolve(c);pushLater(el=>resultView(el,r.title,r.text,'任務板',firstArt(r.art)||c.id));return true;}
 function passTime(quiet){
   if(S.sandbox) return;
   S.turn++;
@@ -1453,6 +1532,7 @@ function passTime(quiet){
     const tr=S.champions.find(c=>c.id!=='thorfinn'&&!c.oath&&c.bond<25&&S.loyalty<40);
     if(tr&&Math.random()<.3){betray(tr.id);return;}
   }
+  if(S.phase>=2&&msReturnTick())return;
   if(S.phase>=2&&S.phase<4){if(!S.flags.monk&&S.turn%4===1&&S.turn>=8&&Math.random()<.5){pushLater(monkCapture(null));return;}if(monkTick())return;}
   if(S.trainLog.filter(t=>t>S.turn-6).length>=3&&S.turn-(S.flags.trainT??-99)>=6&&!fimbulNow()&&!(S.flags.stik&&!S.flags.stikDone)&&!(S.flags.envoy==='war'&&!S.flags.warDone)){S.flags.trainT=S.turn;pushLater(eventModal(EV_TRAIN));return;}
   if(gt('odin',2)) gainXp(3);
@@ -2053,7 +2133,7 @@ function duel(key,o){
 }
 
 /* ================= 決鬥代理人 ================= */
-const proxyOk=c=>c.bond>=60&&!isJarl(c);
+const proxyOk=c=>c.bond>=60&&!isJarl(c)&&!isAway(c);
 function pickProxy(foeKey,o,exclude){
   const list=S.champions.filter(c=>proxyOk(c)&&!(exclude||[]).includes(c.id));
   pushModal(el=>{
@@ -2415,7 +2495,7 @@ function battle(o){
     const round3=(t,nightOk,ratio,txt,n)=>{
       if(cm){}else sfx(n>=2?'hit':'bad');
       const CM=cm&&CMOVE[cm];const r3=ratio*(CM?CM.r:1);
-      const cands=S.champions.filter(c=>CMOVE[c.id]&&!isJarl(c));
+      const cands=S.champions.filter(c=>CMOVE[c.id]&&!isJarl(c)&&!isAway(c));
       el.innerHTML=`${btImg(o,'sc_bt_3')}<p class="eyebrow">${o.defend?'守衛部落':'部隊戰'}</p><h2>${o.title}</h2>${lineHTML(r3,2)}
       <p class="story">${txt}\n\n${['三條戰線全垮了。','只剩一條戰線還撐著。','三條戰線守住了兩條。','三條戰線全都守住了！'][n]}兩邊都殺紅了眼。現在，該決定怎麼收尾了。</p>
       ${CM?`<div class="cmove on">${hasArt(cm)?avatar(cm,'sm'):''}<p><b>${CHAMPS[cm].name}・${CM.n}</b>\n${CM.t}</p></div>`:cands.length?`<p class="story" style="font-size:13px;margin:0">讓一位勇士出手（這一仗只能一次）：</p><div class="bchamp">${cands.map(c=>`<button data-cm="${c.id}">${CHAMPS[c.id].name}・${CMOVE[c.id].n}</button>`).join('')}</div>`:''}
@@ -2602,6 +2682,7 @@ function verdicts(){
   else if(S.stats.atone) V.push(['弗雷神殿的祭司',`「${P}把搶走的東西還回來了。很少有人會這麼做。」`]);
   if(S.flags.warDone) V.push(['「藍牙」哈拉爾','「我這輩子打過很多國王。」他摸著鬍子，「只有這一個，讓我把船開回了家。」']);
   if(S.flags.freyWed) V.push(['弗蕾亞',`「${P}帶回了我丈夫的消息，然後留了下來。」`]);
+  Object.keys(S.qdone||{}).filter(id=>QECHO[id]&&hasC(id)).sort(()=>Math.random()-.5).slice(0,2).forEach(id=>V.push([CHAMPS[id].name,QECHO[id].end]));
   return V;
 }
 function sagaHTML(){
@@ -2636,7 +2717,12 @@ function endScreen(el,html){
   if(S&&S.plog){const w=S.won,d=S.dead;S.won=false;S.dead=false;plog('結局',S.lastCause||'',w?'勝利':d?'死亡':'結束');S.won=w;S.dead=d;plPush(1);}
   const run=hallRecord();
   const bk=S&&S.dead&&S.flags.bossLive&&S.lineage&&(ckptAll().find(x=>x.id===S.lineage)||{cks:{}}).cks.boss?S.lineage:null;
-  el.innerHTML=html+hallNote(run)+`${bk?`<button class="primary" id="m-retry">回到決戰前，再打一次</button>`:''}<button class="${bk?'ghost':'primary'}" id="m-restart">開始新的傳奇</button>`;
+  const pl=S&&S.plog&&S.plog.length?S.plog:null;
+  el.innerHTML=html+hallNote(run)+`${bk?`<button class="primary" id="m-retry">回到決戰前，再打一次</button>`:''}${pl?`<button class="ghost" id="m-plcopy">複製這局的選擇紀錄</button><p class="hint" id="pl-msg" hidden></p><textarea id="pl-txt" readonly hidden style="width:100%;height:160px;font-size:12px"></textarea>`:''}<button class="${bk?'ghost':'primary'}" id="m-restart">開始新的傳奇</button>`;
+  if(pl){const txt=`《維京：斧與王冠》選擇紀錄\n${S.name}・${DIFF[S.diff]?DIFF[S.diff].name:''}・${age()} 歲・${S.lastCause||''}\n${new Date().toLocaleString()}\n\n`+pl.map(e=>`第${e[0]}季｜${e[2]}｜${e[3]?e[3]+'｜':''}${e[4]}`).join('\n');
+    $('#m-plcopy').onclick=async()=>{const m=$('#pl-msg');m.hidden=false;
+      try{await navigator.clipboard.writeText(txt);m.textContent='已經複製了，可以直接貼上。';}
+      catch(e){const t=$('#pl-txt');t.hidden=false;t.value=txt;t.focus();t.select();m.textContent='這裡沒辦法自動複製。下面的文字已經全選，長按（或按 Ctrl+C）就能複製。';}};}
   if(bk) $('#m-retry').onclick=()=>{$('#modal').hidden=true;ckptLoad(bk,'boss');};
   hallNoteBind(run);
   clearSave();
@@ -3082,7 +3168,7 @@ function searchOdd(){
   const n=S.flags.oddClue||0,c=ODD_CLUES[n],p=.35+eff('wit')*.05+(bl('dock')>=2?.1:0);
   S.silver-=20;
   pushModal(eventModal({kind:'ᚠ 尋找奧德',scene:'sc_odd_'+(n+1),title:c.t,text:`你帶著那顆金色的眼淚出海，去${c.go}。`,
-    ch:[{t:'去找',note:()=>rate(p)+'（看智謀）',fx:()=>{if(chk(p)){S.flags.oddClue=n+1;favor('freyja',3);return `${c.ok}\\n<span class="good">找到第 ${n+1}/3 條線索</span>`;}return `${c.no}\\n（下次再試）`;}}]}));
+    ch:[{t:'去找',note:()=>rate(p)+'（看智謀）',fx:()=>{if(chk(p)){S.flags.oddClue=n+1;favor('freyja',3);return `${c.ok}\n<span class="good">找到第 ${n+1}/3 條線索</span>`;}return `${c.no}\\n（下次再試）`;}}]}));
   passTime();
 }
 const LOKI_PRANKS=[
@@ -3344,6 +3430,7 @@ function actions(){
     A.push({id:'fame',name:'動用名聲',desc:`名聲 ${S.fame}・${FAME_TIER[fameTier()].name}。號召戰士、請詩人傳唱、擺排場。`,gain:'選定之前不消耗時間',dis:S.fame<20?'名聲至少要 20':null,run:fameModal});
     if(p>=4) A.push({id:'kspend',key:fimbulNow(),name:fimbulNow()?'備戰諸神黃昏':'王的寶庫',desc:fimbulNow()?'冬天不會結束了。把寶庫和糧倉，全都用在那一天。':'把堆不下的銀幣和糧食，花在只有國王做得到的事上。',gain:'選定之前不消耗時間',run:kspendModal});
     if(p>=4&&!S.flags.monument) A.push({id:'monument',name:'刻一塊大符文石',desc:'像「藍牙」在耶靈做的那樣，把你的一生刻在一塊巨大的石頭上。',gain:'名聲 +40，留在薩迦裡',dis:S.silver<250?'需要 250 銀幣':null,run:()=>{S.silver-=250;S.flags.monument=1;addFame(40);unlock('monument');codex('h_jelling');log('立起了一塊大符文石。');note('大符文石','石匠刻了整整一個夏天。完成的那天，全挪威的人都來看了。\n\n石頭上刻著：「'+esc(S.name)+'王立此石，紀念自己。他統一了挪威，渡過了大海。」\n<span class="good">名聲 +40</span>','王的歲月','sc_monument');passTime();}});
+    if(p>=2) A.push({id:'mission',name:'派勇士出任務',desc:'長屋門口的任務板上，有今年的委託。派一位勇士出去，他會離開一陣子。',gain:'選定之前不消耗時間',dis:!S.champions.some(c=>!isJarl(c)&&CTAG[c.id])?'需要勇士':null,run:missionModal});
     A.push({id:'train',name:'操練',desc:'練兵、個人修練，或訓練勇士。',gain:'選定之前不消耗時間',run:trainModal});
     A.push({id:'feast',name:'設宴',desc:'花 15 銀幣、6 糧食，讓族人喝個痛快。',gain:S.turn-(S.flags.feastT??-99)<4?'剛辦過宴會，效果有限':`忠誠 +${has('harvest')?16:8}，勇士好感 +3`,dis:S.silver<15||S.food<6?'需要 15 銀幣、6 糧食':null,
       run:()=>{S.silver-=15;S.food-=6;const fresh=S.turn-(S.flags.feastT??-99)>=4;if(fresh)favor('freyja',3);const g=(fresh?8:3)*(has('harvest')?2:1)*(osOwns('rouen')?2:1);addLoyalty(g);if(fresh)bondAll(3);addFame(2);S.flags.feastT=S.turn;log('在長屋設宴，酒灌到天亮。');toast(`忠誠 +${g}`);passTime();}});
@@ -3813,7 +3900,7 @@ function startCh4(){
 /* ---------- 海外地圖 ---------- */
 const daneAlert=()=>Math.round(S.dane||0);
 function addAlert(n){S.dane=Math.max(0,(S.dane||0)+n);}
-function osDef(o){const g=S.os[o.id];return Math.round((o.kind==='raid'?70+g.def*2:90+g.def*1.4)*D().foe*(1+daneAlert()/250)*(S.flags.martyr&&(o.cross||o.kind!=='hold')?1.15:1)*(o.id==='paris'&&areaOwned('fra')?.75:1));}
+function osDef(o){const g=S.os[o.id];return Math.round((S.flags.scoutNext?.85:1)*(o.kind==='raid'?70+g.def*2:90+g.def*1.4)*D().foe*(1+daneAlert()/250)*(S.flags.martyr&&(o.cross||o.kind!=='hold')?1.15:1)*(o.id==='paris'&&areaOwned('fra')?.75:1));}
 const osLootMul=()=>(hasC('athel')?1.1:1)*lootMul()*(law('share')?1.25:1)*(S.heir&&S.heir.trait==='sea'?1.1:1);
 function seaHTML(){
   const sel=O(S.osel)||OS[0];const g=S.os[sel.id];const ra=osActs(sel);
@@ -3984,7 +4071,8 @@ function seaPuzzle(el,header,done){
 /* ---------- 海外行動 ---------- */
 function osRaid(o,m){
   const g=S.os[o.id];
-  battle({title:`突襲${o.name}`,def:osDef(o)*.8*m,intro:o.desc,cause:`死在${o.land}的海岸上`,onEnd:w=>{
+  const scD=osDef(o);S.flags.scoutNext=0;
+  battle({title:`突襲${o.name}`,def:scD*.8*m,intro:o.desc,cause:`死在${o.land}的海岸上`,onEnd:w=>{
     if(!w){g.cd=2;return '你們被打回了船上。';}
     const pol=POLICY[S.policy];const gross=Math.round(o.loot[0]*rnd(.85,1.15)*osLootMul());const s=Math.round(gross*pol.take);const f=o.loot[1];
     S.silver+=s;S.food+=f;g.cd=4;g.def+=4;S.stats.raids++;S.lastRaid=S.turn;addFame(8);addInfamy(o.inf);addLoyalty(pol.loy);bondAll(pol.bond);
@@ -4117,7 +4205,8 @@ function campTalk(el,o){
 function osConquer(o,m,intro){
   const g=S.os[o.id];
   if(CAMP[o.id]&&!S.flags['camp_'+o.id]){S.flags['camp_'+o.id]=1;campaign(o,m);return;}
-  battle({title:`${o.kind==='siege'?'圍攻':'攻打'}${o.name}`,def:osDef(o)*m,quick:!(CAMP[o.id]||['kingdom','siege','strike'].includes(o.kind)),foeType:o.area==='eng'?'saxon':o.area==='fra'?'frank':'',intro:intro||o.desc,cause:`死在${o.name}的城牆下`,onEnd:w=>{
+  const scD=osDef(o);S.flags.scoutNext=0;
+  battle({title:`${o.kind==='siege'?'圍攻':'攻打'}${o.name}`,def:scD*m,quick:!(CAMP[o.id]||['kingdom','siege','strike'].includes(o.kind)),foeType:o.area==='eng'?'saxon':o.area==='fra'?'frank':'',intro:intro||o.desc,cause:`死在${o.name}的城牆下`,onEnd:w=>{
     if(!w){g.cd=3;g.def+=6;return `${o.name}守住了。你們退回了船上。`;}
     hakonFalls();missedChamp(o);
     addAlert(5);
@@ -4659,6 +4748,8 @@ function ch4Tick(){
   }
   if(daneRecall()) return true;
   if(daneEvTick(t)) return true;
+  if(t>=12&&!S.flags.envoy&&!S.flags.warDone&&!S.flags.ragna&&daneAlert()<30&&!S.flags.daneNudge){S.flags.daneNudge=1;
+    pushLater(el=>resultView(el,'耶靈的笑話','從丹麥回來的商人說，有人在藍牙的宴會上提起了你的名字。\n\n藍牙笑了：「北方那個王？他連海都沒過吧。」','丹麥','sc_dane_rumor'));return true;}
   if(S.flags.stik&&!S.flags.stikDone){const left=S.flags.stikT+STIK-S.turn;if(left<=0){stiklestad();return true;}if(stikTick(left))return true;}
   if(S.flags.kingFate==='spared'&&!S.flags.kingDead&&(t>=7||S.flags.ragna)){kingDeath();return true;}
   if(S.flags.gunRef&&!S.flags.gunRef.done&&S.turn>=S.flags.gunRef.t&&!S.flags.envoy){S.flags.gunRef.done=1;codex('h_sweyn');pushLater(eventModal(EV_GUNREF()));return true;}
@@ -4883,7 +4974,7 @@ const RAG_ECHO={hakon:'哈康靠在一面破盾上喘氣，盾面上又多了三
   sigrid:'西格麗德把她父親的盾高高舉起來，左翼的人看見了，一起吼了一聲。',
   athel:'艾瑟斯坦跪在一個倒下的年輕戰士旁邊，替他闔上眼睛，然後撿起斧頭，站了起來。'};
 function ragEchoPages(){
-  const L=S.champions.filter(c=>RAG_ECHO[c.id]&&!isJarl(c)).map(c=>RAG_ECHO[c.id]).sort(()=>Math.random()-.5).slice(0,3);
+  const L=S.champions.filter(c=>RAG_ECHO[c.id]&&!isJarl(c)).map(c=>(S.qdone||{})[c.id]&&QECHO[c.id]?QECHO[c.id].rag:RAG_ECHO[c.id]).sort(()=>Math.random()-.5).slice(0,3);
   return [{art:['sc_rag_ours','sc_einherjar'],text:'巨人的第一波，退下去了。'},...(L.length?[{art:['sc_rag_ours','sc_einherjar'],text:L.join('\n\n')}]:[])];
 }
 // 主戰打輸不會直接結束：防線被撕開一個口子，你衝過去救人，自己也受了傷
@@ -5007,9 +5098,27 @@ const COUNCIL_LINE={ragnar:'拉格納一拳捶在桌上：「想那麼多幹嘛�
   thorfinn:'托爾芬什麼都沒說，只是一直在磨他的斧頭。',knut:'克努特瞇著眼看地圖：「他們的船會停在哪裡？我想半夜去看看。」',einar:'埃納說：「海灘東邊的林子，藏得下我的人。」',hakon:'老哈康說：「我打過三次丹麥人。他們最怕的，是打不完的仗。」',
   gudrun:'古德倫說：「給我十天，每個人都會有一把新斧頭。」',una:'烏娜說：「我會把草藥和繃帶都備好。希望用不到那麼多。」',osric:'古托姆壓低聲音：「藍牙手下的雅爾，不是每一個都想替他賣命。」',
   bjorn:'比約恩拍了拍身上的鎖子甲：「讓我站第一排。」',sigrid:'西格麗德說：「我父親的人已經在路上了。」',sven:'赫羅爾夫說：「我的紅帆船隊可以從側面繞過去。」'};
+// 完成心事的勇士，在大場面會想起那一趟
+const QECHO={
+  hakon:{war:'哈康摸著那面滿是刀痕的盾：「我答應過我的老首領，要帶著勝利回去告訴他。這一仗打完，我又有新的故事可以說了。」',rag:'哈康把老首領的名字刻在盾背上，一斧一斧砍進巨人的膝蓋：「老頭子，你看著。」',end:'「我跟過四個首領。」老哈康說，「只有這一個，陪我回去過那座墳。」'},
+  astrid:{war:'阿斯特麗德把盾牌扣上手臂。盾的內側，綁著一小塊舊木片。「這一次，」她說，「我父親的盾也在。」',rag:'阿斯特麗德的盾裂開了。她看了一眼內側那塊父親的木片，又把盾舉了起來。',end:'「那一天，你讓我自己去打奧諾德。」阿斯特麗德說，「從那天起，我的盾就是你的。」'},
+  thorfinn:{war:'托爾芬難得開口了：「我哥哥要是在，他會站在你的左邊。」他頓了一下，「所以，我站右邊。」',rag:'托爾芬一邊揮斧，一邊說著什麼。你聽清楚了，是他哥哥的名字。',end:'托爾芬沒有說什麼。可是每年冬天，他都會去海岬上的那座墳，替你也說幾句話。'},
+  sven:{war:'赫羅爾夫站在紅帆船的船頭：「我父親的船，從來沒有輸過一仗。今天也不會。」',rag:'赫羅爾夫的紅帆船撞進了巨人的船隊，他在船頭大笑：「爹！你看到沒有！」',end:'「我把父親的船搶回來的那天，」赫羅爾夫說，「是他陪我去的。我欠他的，這輩子還不完。」'},
+  una:{war:'烏娜把一束霧沼的乾花，塞進每一個傷兵的手裡：「女巫的祝福還在。不准死。」',rag:'烏娜念的是當年解咒的那段符文。一個一個倒下的人，又一個一個站了起來。',end:'「霧沼又變綠了。」烏娜說，「那是我們一起記住的咒語。」'},
+  bragi:{war:'布拉吉輕聲哼起了那首只有四行的詩：「老詩人說，這首詩要留到最需要的時候。我想，就是今天了。」',rag:'布拉吉終於唱出了那首只有四行的詩。整條防線，安靜了一下，然後一起吼了出來。',end:'「我這輩子最好的那首歌，」布拉吉說，「是在山上那一晚寫的。是他陪我上去的。」'},
+  einar:{war:'埃納把那張白狼皮披在肩上：「北邊的牧民說，穿著狼王皮的人，不會迷路。」',rag:'埃納射出了箭袋裡最後一支箭。那是當年射中狼王的那一支。',end:'「我只是個獵人。」埃納說，「可是那年冬天，我們一起追到了狼王。」'},
+  gudrun:{war:'古德倫把一把黑色的斧頭塞進你手裡。斧刃上的花紋，像星星一樣：「星鐵打的。今天，用它。」',rag:'古德倫用星鐵斧砍斷了一條巨人的鐵鍊：「天上掉下來的東西，就該砍天上來的怪物。」',end:'「那塊從天上掉下來的鐵，」古德倫說，「我打成了這輩子最好的一把斧頭。給了對的人。」'},
+  ragnar:{war:'拉格納咬著盾牌邊緣，可是眼睛很清醒：「先知說，我的怒火要聽話。今天，它聽你的。」',rag:'拉格納的怒火燒起來了。可是這一次，他一直記得自己是誰，也記得身邊的人是誰。',end:'「我差點殺了他。」拉格納說，「他打倒我的那一天，救了我一輩子。」'},
+  osric:{war:'古托姆把舊主人的銀印章，蓋在一封寫給各地雅爾的信上：「他們會來的。我的舊主人，會希望他們來。」',rag:'古托姆在冰上畫陣形，畫的是他舊主人教他的那一套。',end:'「我把舊主人的骨灰帶回家鄉，」古托姆說，「是他讓我去的。這種主人，一輩子遇不到第二個。」'},
+  bjorn:{war:'比約恩和拉格納並肩站著。父子倆一句話都沒說，可是站得很近。',rag:'比約恩擋在父親前面，替他挨了一拳：「這一次，換我來。」',end:'「我帶父親去看母親的墳那天，」比約恩說，「他第一次在我面前哭。那是他陪我們去的。」'},
+  sigrid:{war:'西格麗德的父親派人送來了一面舊盾：「我女兒替我打贏過一場官司。這一次，換我們替她的王打。」',rag:'西格麗德舉起父親的盾，帶著鷹巢峰的人，守住了左翼最後一寸冰。',end:'「我父親說，他一直以為他需要一個兒子。」西格麗德說，「那天以後，他再也沒這樣說過。」'},
+  knut:{war:'克努特帶來了一群村民：「當年我燒過他們的村子。現在，他們說要跟你一起打。」',rag:'克努特帶著那些村民，在防線後面點起了一長排火把。巨人們不敢靠近。',end:'「村民們不再怕我了。」克努特說，「是他讓我學會怎麼讓人不怕我的。」'},
+};
+const qEcho=(kind,n)=>Object.keys(S.qdone||{}).filter(id=>QECHO[id]&&hasC(id)&&!isJarlId(id)).sort(()=>Math.random()-.5).slice(0,n).map(id=>QECHO[id][kind]);
 function warCouncil(el,go){
   const who=S.champions.map(c=>c.id).filter(id=>COUNCIL_LINE[id]).sort(()=>Math.random()-.5).slice(0,3);
   const pages=[{art:['sc_war_council','harald'],text:`丹麥人的船，三天之內就會到。\n\n王廳的長桌上，攤開了一張羊皮地圖。雅爾和勇士們擠在桌邊，誰也不讓誰。${who.length?'\n\n'+who.map(id=>COUNCIL_LINE[id]).join('\n'):''}`}];
+  {const L=qEcho('war',2);if(L.length)pages.push({art:['sc_war_council','harald'],text:L.join('\n\n')});}
   if(S.spouse==='gunnhild') pages.push({art:['sc_war_gunnhild','gunnhild'],text:'貢希爾德把一根手指，按在了地圖上的海灘。\n\n「我父親每一次都這樣打，」她說，「先讓約姆斯維京人衝正面，讓你以為那就是全部。真正的主力，會從這裡上岸。」\n\n整張桌子都安靜了下來。'});
   else if(S.spouse==='sweyn') pages.push({art:['sc_war_sweyn','sweyn'],text:'斯韋恩把匕首插在了地圖上的海灘。\n\n「我父親打仗，三十年都是同一套，」他冷笑了一聲，「先讓約姆斯維京人衝正面，等你把人都調過去，主力再從這裡上岸。」\n\n整張桌子都安靜了下來。'});
   else if(S.spouse&&SPOUSES[S.spouse]) pages.push({art:[S.spouse],text:`所有人都說完了。${SPOUSES[S.spouse].name}一直站在你旁邊，等到最後才開口：\n\n「不管你決定怎麼打，我都在。」`});
@@ -6428,7 +6537,7 @@ function charHTML(){
   else if(ct==='tal') body=`<div class="sec-h">天賦樹 · 已學 ${S.talents.length}${S.talentPicks?` · <span class="good">還能選 ${S.talentPicks} 個</span>`:''}</div>
   ${treeHTML()}
   ${S.talents.some(t=>TALENTS[t].old)?`<div class="list">${S.talents.filter(t=>TALENTS[t].old).map(t=>`<div><b>${TALENTS[t].name}（舊版）</b><small>${TALENTS[t].desc}</small></div>`).join('')}</div>`:''}`;
-  else if(ct==='champ') body=S.champions.length?`<div class="sec-h">勇士 · ${S.champions.length}</div><div class="list">${S.champions.map(c=>`<div class="${hasArt(c.id)?'withav':''}">${avatar(c.id)}<b>${CHAMPS[c.id].name}<span class="bond" title="好感 ${c.bond}"><i style="width:${c.bond}%"></i></span> <small style="display:inline">好感 ${c.bond}${c.oath?' · 已立誓':c.bond>=60?' · 可當代理人':''}${c.skill?` · 戰技 ${c.skill}`:''}</small></b><small>${champAb(c.id)} · 戰力 +${champPow(c)}${c.bond>=60?'（好感加成）':''}</small>${questNote(c.id)}</div>`).join('')}</div>
+  else if(ct==='champ') body=S.champions.length?`<div class="sec-h">勇士 · ${S.champions.length}</div><div class="list">${S.champions.map(c=>`<div class="${hasArt(c.id)?'withav':''}">${avatar(c.id)}<b>${CHAMPS[c.id].name}<span class="bond" title="好感 ${c.bond}"><i style="width:${c.bond}%"></i></span> <small style="display:inline">好感 ${c.bond}${c.oath?' · 已立誓':c.bond>=60?' · 可當代理人':''}${c.skill?` · 戰技 ${c.skill}`:''}</small></b><small>${champAb(c.id)} · 戰力 +${champPow(c)}${c.bond>=60?'（好感加成）':''}</small>${isAway(c)?`<small class="bad">出任務中：${MS[c.ms]?MS[c.ms].n:''}（${c.away-S.turn} 季後回來）</small>`:''}${questNote(c.id)}</div>`).join('')}</div>
   ${relHTML()}<div class="list"><small>好感 60：戰力 ×1.5、能當決鬥代理人，也可能找你幫忙完成心願。好感 80：立下誓約，教你一招。</small></div>`:'<div class="list"><small>還沒有勇士跟隨你。名聲越響，越多人會來投靠。</small></div>';
   else if(ct==='fam') body=famHTML();
   else if(ct==='gods') body=S.phase>=2||Object.values(S.favor||{}).some(v=>v>0)?godsHTML():'<div class="list"><small>眾神還沒有注意到你。</small></div>';
@@ -6514,6 +6623,7 @@ function goalHTML(){
   return `<b>第三章 · 統一挪威</b>　征服或結盟四大勢力，成為挪威之王。<span class="prog">（${seatsHeld()}/4）</span>`;
 }
 function render(){
+  try{prefetchPacks();}catch(e){}
   if(!S||$('#game-screen').hidden) return;
   if(S.hp>maxHp()) S.hp=maxHp();
   $('#h-name').textContent=S.name+(S.tribe?` · ${S.tribe}`:'');
