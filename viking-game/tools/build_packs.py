@@ -13,7 +13,7 @@ LIMIT=1_600_000;cur=[];size=0
 def flush():
     global n,cur,size
     if not cur:return
-    n+=1;fn=f'packs/p{n:02d}.bin';off=0;buf=bytearray()
+    n+=1;fn=f'packs/p{n:02d}.wasm';off=0;buf=bytearray()
     for k in cur:
         b=open(os.path.join(ART,k+'.webp'),'rb').read();pack[k]=[fn,off,len(b)];buf+=b;off+=len(b)
     open(os.path.join(ROOT,fn),'wb').write(buf);print(fn,len(cur),len(buf));cur=[];size=0
