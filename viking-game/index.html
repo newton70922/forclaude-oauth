@@ -227,6 +227,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .bless-big{display:flex;gap:8px;font-family:var(--f-rune);font-size:24px}
 .bless-big i{font-style:normal;color:var(--line)}
 .bless-big i.on{color:var(--frost);text-shadow:0 0 10px rgba(143,191,207,.55)}
+.cpips{display:inline-flex;gap:3px;margin-left:8px;vertical-align:middle}.cpips i{width:11px;height:4px;border-radius:2px;background:var(--bg)}.cpips i.on{background:var(--accent,#d87b3a)}.cpips i.aw{background:#d9b25f}.cstage{color:#d9b25f}
 .bond{display:inline-block;height:5px;background:var(--bg);border-radius:3px;width:60px;vertical-align:middle;overflow:hidden;margin-left:6px}
 .bond i{display:block;height:100%;background:var(--ember)}
 
@@ -722,6 +723,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 <div id="modal" hidden><div class="mbody" id="mbody" role="dialog" aria-modal="true"></div></div>
 
 <script>
+// 試玩版開關：正式版是 false；tools/build_trial.py 會產生打開的試玩版
+const TRIAL=/*TRIAL*/false/*TRIALEND*/;
 'use strict';
 const SAVE='north-ambition-save-v3';
 const META='north-ambition-meta';
@@ -5839,6 +5842,15 @@ function kingdomHTML(){
 /* ================= 勇士的個人任務 ================= */
 // 第一段：勇士開口求你；第二段：幾季後要你親自完成一件事。完成後勇士「覺醒」，得到專屬能力
 const qd=id=>!!(S.qdone&&S.qdone[id]);
+// 勇士的五格進度：陌生 → 信任 → 立誓 → 心事 → 覺醒（試玩版）
+const CSTAGE=['陌生','信任','立誓','心事','覺醒'];
+function cStage(c){const q=S.quest&&S.quest[c.id];return qd(c.id)?4:q&&q.st!=='done'?3:c.oath?2:c.bond>=50?1:0;}
+function cNext(c){const st=cStage(c),q=QUESTS[c.id];
+  if(st===4)return '已經覺醒。';
+  if(st===3)return `心事「${q?q.a:''}」還沒解開。`;
+  if(st===2)return q?'等他來找你說心事。':'誓約已立。';
+  return `好感 ${c.bond}/80：到 80 會立誓。`;}
+const cPips=c=>{const st=cStage(c);return `<span class="cpips" aria-label="${CSTAGE[st]}">${CSTAGE.map((_,i)=>`<i class="${i<=st?(st===4?'aw':'on'):''}"></i>`).join('')}</span>`;};
 const QUESTS={
   hakon:{a:'最後一個首領的墳',at:'哈康難得主動開口：「我跟過的第三個首領，就埋在南邊的山谷裡。我答應過他，有一天要帶著勝利回去告訴他。」\n\n「陪我走一趟，好嗎？」',
     b:'山谷裡的強盜',bt:'哈康舊主的墳就在山谷底，但一夥強盜在那裡紮了營，正在挖墳裡的陪葬品。\n\n哈康的手在發抖，不知道是氣的還是老了。',
@@ -5901,7 +5913,7 @@ function questTick(){
   if(ready){S.quest[ready].t=S.turn+2;pushLater(questB(ready));return true;}
   // 第一段：一年最多一次
   if(S.turn-(S.flags.questT??-99)<4) return false;
-  const id=S.champions.map(c=>c.id).find(id=>QUESTS[id]&&(!S.quest[id]||(S.quest[id].st==='later'&&S.turn-S.quest[id].t>=8))&&champ(id).bond>=60&&!isJarlId(id));
+  const id=S.champions.map(c=>c.id).find(id=>QUESTS[id]&&(!S.quest[id]||(S.quest[id].st==='later'&&S.turn-S.quest[id].t>=8))&&(TRIAL?champ(id).oath:champ(id).bond>=60)&&!isJarlId(id));
   if(id&&Math.random()<.6){S.flags.questT=S.turn;pushLater(questA(id));return true;}
   return false;
 }
@@ -6680,8 +6692,8 @@ function charHTML(){
   else if(ct==='tal') body=`<div class="sec-h">天賦樹 · 已學 ${S.talents.length}${S.talentPicks?` · <span class="good">還能選 ${S.talentPicks} 個</span>`:''}</div>
   ${treeHTML()}
   ${S.talents.some(t=>TALENTS[t].old)?`<div class="list">${S.talents.filter(t=>TALENTS[t].old).map(t=>`<div><b>${TALENTS[t].name}（舊版）</b><small>${TALENTS[t].desc}</small></div>`).join('')}</div>`:''}`;
-  else if(ct==='champ') body=S.champions.length?`<div class="sec-h">勇士 · ${S.champions.length}</div><div class="list">${S.champions.map(c=>`<div class="${hasArt(c.id)?'withav':''}">${avatar(c.id)}<b>${CHAMPS[c.id].name}<span class="bond" title="好感 ${c.bond}"><i style="width:${c.bond}%"></i></span> <small style="display:inline">好感 ${c.bond}${c.oath?' · 已立誓':c.bond>=60?' · 可當代理人':''}${c.skill?` · 戰技 ${c.skill}`:''}</small></b><small>${champAb(c.id)} · 戰力 +${champPow(c)}${c.bond>=60?'（好感加成）':''}</small>${isAway(c)?`<small class="bad">出任務中：${MS[c.ms]?MS[c.ms].n:''}（${c.away-S.turn} 季後回來）</small>`:''}${questNote(c.id)}</div>`).join('')}</div>
-  ${relHTML()}<div class="list"><small>好感 60：戰力 ×1.5、能當決鬥代理人，也可能找你幫忙完成心願。好感 80：立下誓約，教你一招。</small></div>`:'<div class="list"><small>還沒有勇士跟隨你。名聲越響，越多人會來投靠。</small></div>';
+  else if(ct==='champ') body=S.champions.length?`<div class="sec-h">勇士 · ${S.champions.length}</div><div class="list">${S.champions.map(c=>`<div class="${hasArt(c.id)?'withav':''}">${avatar(c.id)}<b>${CHAMPS[c.id].name}${TRIAL?`${cPips(c)} <small style="display:inline" class="cstage">${CSTAGE[cStage(c)]}</small>`:`<span class="bond" title="好感 ${c.bond}"><i style="width:${c.bond}%"></i></span>`} <small style="display:inline">好感 ${c.bond}${TRIAL?'':c.oath?' · 已立誓':c.bond>=60?' · 可當代理人':''}${c.skill?` · 戰技 ${c.skill}`:''}</small></b>${TRIAL?`<small>${cNext(c)}</small>`:''}<small>${champAb(c.id)} · 戰力 +${champPow(c)}${c.bond>=60?'（好感加成）':''}</small>${isAway(c)?`<small class="bad">出任務中：${MS[c.ms]?MS[c.ms].n:''}（${c.away-S.turn} 季後回來）</small>`:''}${questNote(c.id)}</div>`).join('')}</div>
+  ${relHTML()}<div class="list"><small>${TRIAL?'每個勇士都會走過五步：陌生 → 信任 → 立誓 → 心事 → 覺醒。好感 60 起戰力 ×1.5、能當決鬥代理人；好感 80 立誓，教你一招；立誓之後，他才會把心事告訴你。':'好感 60：戰力 ×1.5、能當決鬥代理人，也可能找你幫忙完成心願。好感 80：立下誓約，教你一招。'}</small></div>`:'<div class="list"><small>還沒有勇士跟隨你。名聲越響，越多人會來投靠。</small></div>';
   else if(ct==='fam') body=famHTML();
   else if(ct==='gods') body=S.phase>=2||Object.values(S.favor||{}).some(v=>v>0)?godsHTML():'<div class="list"><small>眾神還沒有注意到你。</small></div>';
   else body=`<div class="sec-h">設定</div>
