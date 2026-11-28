@@ -724,10 +724,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 <script>
 // 試玩版開關：正式版是 false；tools/build_trial.py 會產生打開的試玩版
-const TRIAL=/*TRIAL*/false/*TRIALEND*/;
+const TRIAL=/*TRIAL*/false/*TRIALEND*/||location.hash==='#trial';
 'use strict';
-const SAVE='north-ambition-save-v3';
-const META='north-ambition-meta';
+const SAVE='north-ambition-save-v3'+(TRIAL?'-trial':'');
+const META='north-ambition-meta'+(TRIAL?'-trial':'');
 const SAVE_V=3;
 const $=s=>document.querySelector(s);
 const rnd=(a,b)=>a+Math.random()*(b-a);
@@ -6885,6 +6885,7 @@ let plT=0;
 document.addEventListener('visibilitychange',()=>{if(document.hidden)plFlush();});
 function plPush(now){clearTimeout(plT);plT=setTimeout(plFlush,now?0:15000);}
 async function plFlush(){
+  if(TRIAL)return;
   if(!S||!S.plog||!remote.rdb||!remote.uid) return;
   try{await remote.rdb.doc(`plays/${remote.uid}/runs/${S.runId}`).set({n:S.name,d:S.diff,ph:S.phase,turn:S.turn,age:age(),
     end:S.dead?'dead':S.won?'won':'',at:Date.now(),log:S.plog.map(e=>e.join('|'))});}catch(e){}
@@ -7046,6 +7047,7 @@ function hallRecord(){
 }
 // 把這台裝置上自己的紀錄寫到雲端（每人一份文件）。寫不進去就安靜放棄，改用薩迦碼
 async function hallPush(){
+  if(TRIAL)return;
   if(!remote.rdb||!remote.uid||remote.hallNo) return;
   try{await remote.rdb.doc('hall/'+remote.uid).set({runs:hallLocal().slice(0,20),at:Date.now()});remote.hallOk=true;}
   catch(e){remote.hallNo=true;}
@@ -7143,6 +7145,7 @@ function hallRender(){
     const r=hallParse($('#hall-in').value);
     if(!r){hallMsg='這串薩迦碼看起來不對，請確認有完整複製。';hallRender();return;}
     const {u,g,...body}=r;
+    if(TRIAL){hallMsg='試玩版不會登錄到名人堂。';hallRender();return;}
     try{await remote.rdb.doc('hallx/'+r.id.replace(/[^A-Za-z0-9_-]/g,'')).set(body);hallMsg=`已登錄：${r.n}（${r.s} 分）`;await hallSync();}
     catch(e){hallMsg='登錄失敗，請稍後再試。';}
     hallRender();
