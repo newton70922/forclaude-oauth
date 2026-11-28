@@ -10,46 +10,19 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## 📋 待辦總表（重畫 24 張、還沒畫 99 張）
+## 📋 待辦總表（重畫 1 張、還沒畫 73 張）
 
 提示詞都在下面各組裡，用檔名搜尋就找得到；重畫的那幾張，提示詞已經改好了。像素單挑角色另外在 pixel-prompts.md。
 
-### 一、需要重畫（24 張）
+### 一、需要重畫（1 張）
 
 | 檔名 | 內容 | 要改的地方 |
 |---|---|---|
-| sc_q_hakon_a | 哈康：最後一個首領的墳（開頭） | 拿掉王冠 |
-| sc_q_hakon_b | 哈康：山谷裡的強盜 | 拿掉王冠 |
-| sc_q_hakon_w | 哈康：在舊主的墳前 | 拿掉王冠 |
-| sc_q_astrid_w | 阿斯特麗德：父親的盾 | 拿掉王冠 |
-| sc_q_thorfinn_a | 托爾芬：沉默的理由（開頭） | 拿掉王冠 |
-| sc_q_thorfinn_w | 托爾芬：終於哭出來 | 拿掉王冠 |
-| sc_q_sven_b | 赫羅爾夫：紅帆船 | 拿掉王冠 |
-| sc_q_sven_w | 赫羅爾夫：奪回紅帆船 | 拿掉王冠 |
-| sc_q_una_a | 烏娜：霧沼的女巫（開頭） | 拿掉王冠 |
-| sc_q_einar_w | 埃納：狼王殺手 | 拿掉王冠 |
-| sc_q_bjorn_b | 比約恩：海島上的墳 | 拿掉王冠 |
-| sc_god_loki_2 | 洛基・神恩第 2 階 | 拿掉王冠 |
-| sc_age_35 | 35 歲 | 拿掉王冠 |
-| sc_mk_silent | 沉默的修士 | 要穿修士袍，不是戰士 |
-| sc_rr_fenrir | 巨狼芬里爾張開大口 | 芬里爾要在撲咬，不是張嘴站著 |
-| sc_mk_map | 樹皮上的航線 | 拿掉王冠 |
-| sc_mk_axe | 練武場的斧頭 | 拿掉王冠 |
-| sc_mk_join | 剃頭拿斧 | 拿掉王冠 |
-| sc_mk_trader | 碼頭上的南方商人 | 拿掉王冠 |
-| sc_ev_p_astrid | 阿斯特麗德的挑戰 | 新提示詞在 W16-R |
-| sc_win_astrid2 | 阿斯特麗德輸了之後 | 新提示詞在 W16-R |
-| sc_oath_astrid | 與阿斯特麗德立誓 | 新提示詞在 W16-R |
-| sc_rv_dock | 碼頭上的老面孔 | 新提示詞在 W16-R |
-| sc_dane_party2 | 被扛起來的國王 | 新提示詞在 W16-R |
+| sc_dane_gift | 藍牙要的禮物 | 改畫開場：使者開口要禮（W11） |
 
-### 二、還沒畫（99 張）
+### 二、還沒畫（73 張）
 
-**W11 丹麥的動靜**（5 張）：sc_dane_sneak、sc_dane_spy、sc_dane_exile、sc_dane_gift、sc_dane_exile2
-
-**W12 本場最佳**（14 張）：sc_mvp_hakon、sc_mvp_astrid、sc_mvp_thorfinn、sc_mvp_sven、sc_mvp_una、sc_mvp_bragi、sc_mvp_einar、sc_mvp_gudrun、sc_mvp_ragnar、sc_mvp_osric、sc_mvp_knut、sc_mvp_bjorn、sc_mvp_sigrid、sc_mvp_athel
-
-**W13 勇士搭檔與和好**（11 張）：sc_ev_pr_ragnar_astrid、sc_ev_pr_knut_thorfinn、sc_ev_pr_sven_hakon、sc_ev_pr_sigrid_astrid、sc_ev_pr_bragi_hakon、sc_ev_pr_einar_una、sc_ev_pr_gudrun_ragnar、sc_ev_pr_osric_bragi、sc_ev_pr_astrid_thorfinn、sc_ev_pr_knut_sven、sc_ev_pr_ragnar_bjorn
+**W13 勇士搭檔與和好**（4 張）：sc_ev_pr_osric_bragi、sc_ev_pr_astrid_thorfinn、sc_ev_pr_knut_sven、sc_ev_pr_ragnar_bjorn
 
 **W14 補充：特寫第一頁、傳位、斯韋恩版**（18 張）：sc_rr_garm0、sc_rr_jormun0、sc_rr_surtr0、sc_rr_fenrir0、sc_abdicate_f、sc_abdicate_c_thorfinn、sc_abdicate_c_astrid、sc_abdicate_c_hakon、sc_abdicate_c_bragi、sc_abdicate_c_ragnar、sc_abdicate_c_sven、sc_abdicate_c_osric、sc_abdicate_c_knut、sc_abdicate_c_einar、sc_abdicate_c_gudrun、sc_abdicate_c_una、sc_dane_lastchance_m、sc_dane_taken_m
 
@@ -1828,10 +1801,10 @@ After the victory feast, the crowned ruler stands alone on a silent beach at nig
 | # | 檔名 | 內容 |
 |---|---|---|
 | 1 | sc_dane_sneak | 偷偷出海的人 （✅ 已收到） |
-| 2 | sc_dane_spy | 市集上的探子 |
-| 3 | sc_dane_exile | 逃來的丹麥雅爾 |
-| 4 | sc_dane_gift | 藍牙要的禮物 |
-| 5 | sc_dane_exile2 | 雅爾的假信 |
+| 2 | sc_dane_spy | 市集上的探子 （✅ 已收到） |
+| 3 | sc_dane_exile | 逃來的丹麥雅爾 （✅ 已收到） |
+| 4 | sc_dane_gift | 藍牙要的禮物 （⚠ 重畫：開場圖，使者開口要禮） |
+| 5 | sc_dane_exile2 | 雅爾的假信 （✅ 已收到） |
 
 **1. sc_dane_sneak（偷偷出海的人）**
 
@@ -1860,14 +1833,16 @@ If the player character appears, show them only from behind or in shadow (face h
 A battered Danish longship entering a Norwegian harbor; a wounded Danish jarl stepping ashore followed by forty refugees, men, women and children, the crowned ruler waiting on the dock.
 ```
 
-**4. sc_dane_gift（藍牙要的禮物）**
+**4. sc_dane_gift（藍牙要的禮物：使者開口要禮）（⚠ 重畫：開場圖，不要畫剃鬍子）**
 
 ```
 
 Cinematic photorealistic digital painting, Viking Age Scandinavia (9th–10th century). Dramatic golden-hour light with cold blue shadows, atmospheric mist, epic sense of scale. Wide 16:9 landscape composition with room at the top for a title. No text, no letters, no watermark, no frame, no modern objects.
 If the player character appears, show them only from behind or in shadow (face hidden, gender not identifiable: a deep fur-lined hood, heavy fur cloak, a simple iron crown over the hood: they are king now).
-Comic scene in a Norwegian royal hall: a smug Danish envoy pinned on a bench while laughing warriors shave off his beard, the whole hall roaring with laughter, the crowned ruler watching (from behind).
+A smiling Danish envoy in a rich blue cloak with gold trim stands in the Norwegian royal hall, bowing with exaggerated politeness, one hand open as if waiting to receive something, a tally stick of tribute at his belt. Norwegian warriors along the benches glare at him in silence. The crowned ruler sits on the throne (from behind). Polite words, a threat underneath. Tense.
 ```
+
+（原本這張畫成「剃掉使者的鬍子」，已經改用在第 3 個選項的結果 sc_dane_gift_3。）
 
 **5. sc_dane_exile2（雅爾的假信）**
 
@@ -1884,20 +1859,20 @@ Night in a war tent before the Danish war: the exiled Danish jarl, scarred and s
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_mvp_hakon | 本場最佳：Hakon |
-| 2 | sc_mvp_astrid | 本場最佳：Astrid |
-| 3 | sc_mvp_thorfinn | 本場最佳：Thorfinn |
-| 4 | sc_mvp_sven | 本場最佳：Hrolf |
-| 5 | sc_mvp_una | 本場最佳：Una |
-| 6 | sc_mvp_bragi | 本場最佳：Bragi |
-| 7 | sc_mvp_einar | 本場最佳：Einar |
-| 8 | sc_mvp_gudrun | 本場最佳：Gudrun |
-| 9 | sc_mvp_ragnar | 本場最佳：Ragnar |
-| 10 | sc_mvp_osric | 本場最佳：Guthorm |
-| 11 | sc_mvp_knut | 本場最佳：Knut |
-| 12 | sc_mvp_bjorn | 本場最佳：Bjorn |
-| 13 | sc_mvp_sigrid | 本場最佳：Sigrid |
-| 14 | sc_mvp_athel | 本場最佳：Aethelstan |
+| 1 | sc_mvp_hakon | 本場最佳：Hakon （✅ 已收到） |
+| 2 | sc_mvp_astrid | 本場最佳：Astrid （✅ 已收到） |
+| 3 | sc_mvp_thorfinn | 本場最佳：Thorfinn （✅ 已收到） |
+| 4 | sc_mvp_sven | 本場最佳：Hrolf （✅ 已收到） |
+| 5 | sc_mvp_una | 本場最佳：Una （✅ 已收到） |
+| 6 | sc_mvp_bragi | 本場最佳：Bragi （✅ 已收到） |
+| 7 | sc_mvp_einar | 本場最佳：Einar （✅ 已收到） |
+| 8 | sc_mvp_gudrun | 本場最佳：Gudrun （✅ 已收到） |
+| 9 | sc_mvp_ragnar | 本場最佳：Ragnar （✅ 已收到） |
+| 10 | sc_mvp_osric | 本場最佳：Guthorm （✅ 已收到） |
+| 11 | sc_mvp_knut | 本場最佳：Knut （✅ 已收到） |
+| 12 | sc_mvp_bjorn | 本場最佳：Bjorn （✅ 已收到） |
+| 13 | sc_mvp_sigrid | 本場最佳：Sigrid （✅ 已收到） |
+| 14 | sc_mvp_athel | 本場最佳：Aethelstan （✅ 已收到） |
 
 **1. sc_mvp_hakon（本場最佳：Hakon）**
 
@@ -2031,13 +2006,13 @@ Aethelstan, a young Anglo-Saxon former monk turned Viking warrior, short brown h
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_ev_pr_ragnar_astrid | 盾牆與狂戰士 |
-| 2 | sc_ev_pr_knut_thorfinn | 倉庫裡的人影 |
-| 3 | sc_ev_pr_sven_hakon | 發燒的老人 |
-| 4 | sc_ev_pr_sigrid_astrid | 兩面盾牌 |
-| 5 | sc_ev_pr_bragi_hakon | 哈康的薩迦 |
-| 6 | sc_ev_pr_einar_una | 雪地裡的藥草 |
-| 7 | sc_ev_pr_gudrun_ragnar | 特大號的斧頭 |
+| 1 | sc_ev_pr_ragnar_astrid | 盾牆與狂戰士 （✅ 已收到） |
+| 2 | sc_ev_pr_knut_thorfinn | 倉庫裡的人影 （✅ 已收到） |
+| 3 | sc_ev_pr_sven_hakon | 發燒的老人 （✅ 已收到） |
+| 4 | sc_ev_pr_sigrid_astrid | 兩面盾牌 （✅ 已收到） |
+| 5 | sc_ev_pr_bragi_hakon | 哈康的薩迦 （✅ 已收到） |
+| 6 | sc_ev_pr_einar_una | 雪地裡的藥草 （✅ 已收到） |
+| 7 | sc_ev_pr_gudrun_ragnar | 特大號的斧頭 （✅ 已收到） |
 | 8 | sc_ev_pr_osric_bragi | 宮廷裡的歌 |
 | 9 | sc_ev_pr_astrid_thorfinn | 兩個人的盾牆 |
 | 10 | sc_ev_pr_knut_sven | 骰子和一整船的貨 |
