@@ -1508,6 +1508,7 @@ function lokiTick(){
 }
 function msReturnTick(){const c=S.champions.find(c=>c.away&&S.turn>=c.away);if(!c)return false;const r=msResolve(c);pushLater(el=>resultView(el,r.title,r.text,'任務板',firstArt(r.art)||c.id));return true;}
 function passTime(quiet){
+  trialTick();
   if(S.sandbox) return;
   S.turn++;
   rollWeather();
@@ -1969,6 +1970,7 @@ function duel(key,o){
     ambSet(ambMode);markGame('duel');
     const fs=foeStats(key,o.mul);const base=fs.base;
     const d={name:o.name||base.name,max:fs.max,atk:fs.atk*(o.hunt&&has('huntsman')?1:1),buff:1,cd:0,log:[],over:false,qs:0,last:null,lastP:null,hit:false,pierce:false,stood:false,rage:0,rageUsed:false,feintUsed:false,feintNext:false,hakonUsed:false};
+    if(TRIAL){d.max=Math.round(d.max*1.15);d.atk*=1.1;}
     d.hp=d.max;
     if(o.awakeStart&&base.king){d.hp=1;d.awaking=true;d.retry=!!o.retry;}
     if(o.preHit){d.hp=Math.round(d.hp*(1-o.preHit));}
@@ -1976,6 +1978,7 @@ function duel(key,o){
     if(base.king) acc-=has('mindread')?.15:.3;
     const w18=eff('wit')>=18?.05:0;acc=clamp(acc,.2,(base.king?(has('mindread')?.7:.6):.9)+w18);
     if(o.rag) acc=((has('mindread')||gt('odin',1))?.8:.75)+w18;
+    if(TRIAL) acc=1;
     // 老王的第二階段
     const awaken=()=>kingAwaken(el,d,res=>{
       const R=[{hp:.8,atk:1.1,acc:.8,t:'你挺直了背，迎著他的目光。他眼裡閃過一絲意外。'},{hp:.8,atk:1.2,acc:.75,t:'你的膝蓋晃了一下，但你沒有倒下。'},{hp:.8,atk:1.35,acc:.7,t:'他的威壓像一座山一樣壓下來，你差點跪了下去。'}][res];
@@ -2496,12 +2499,19 @@ function battle(o){
       const FT=FOE_STYLE[o.foeType]||FOE_STYLE[''];
       const foe=pick(FT.p).slice();if(FT.mix)foe.sort(()=>Math.random()-.5);
       const pSee=eff('wit')>=15?1:clamp(.25+eff('wit')*.03+(scouted(o.defend)?.2:0)+(o.foeType==='dane'&&S.flags.daneSpy?.3:0)+(S.bg==='hunter'?.15+(S.flags.heirloom?.05:0):0),.25,.9);
-      const seen=foe.map(()=>Math.random()<pSee);
+      // 試玩版：看不看得清楚，看你做了多少準備（斥候、智謀、身邊的埃納、獵人出身）
+      const prep=TRIAL?(eff('wit')>=15||scouted(o.defend)||(o.foeType==='dane'&&S.flags.daneSpy)?3:(onSide('einar')?2:0)+(S.bg==='hunter'?1:0)):0;
+      const seen=TRIAL?foe.map((_,i)=>i<prep):foe.map(()=>Math.random()<pSee);
       const fuzzy=v=>{const g=clamp(v+pick([-1,0,0,1]),0,6);return g<=1?'人不多':g<=3?'人不少':'黑壓壓一片';};
       const hint=foe.map((v,i)=>seen[i]?`敵軍 ${v} 隊`:`${fuzzy(v)}（看不清楚）`);
       const mine=[0,0,0];let R=clamp(Math.round(6+(ratio-1)*4),5,8);let champLane=-1;const hero=van&&hasC(van)?van:null;
       // 勇士出手（一仗一次）：直接影響三條戰線
       const cands=S.champions.filter(c=>CMOVE[c.id]&&!isJarl(c)&&!isAway(c));const bonus=[0,0,0];let cmNote='';
+      // 試玩版：身邊的勇士可以各守一條戰線（1 隊，立誓 2 隊）；感情好的兩人同一條線 +1，有心結的 −1
+      const sideC=TRIAL?sideList().filter(id=>id!==hero&&hasC(id)&&!isAway(champ(id))&&!isJarlId(id)):[];const cl={};
+      const pairAdj=()=>{const a=[0,0,0],notes=[];const at=id=>id===hero?champLane:cl[id]??-1;
+        relActive().forEach(([x,y,v])=>{const lx=at(x);if(lx>=0&&lx===at(y)){a[lx]+=v;notes.push(`${LANES[lx]}：${CHAMPS[x].name}和${CHAMPS[y].name}${v>0?'互相照應 +1':'互看不順眼 −1'}`);}});return [a,notes];};
+      const sideVal=i=>sideC.filter(id=>cl[id]===i).reduce((t,id)=>t+(champ(id).oath?2:1),0);
       const applyCM=id=>{const M=CMOVE[id];cm=id;sfx('horn');bond(id,3);
         const tl=M.lane==='max'?foe.indexOf(Math.max(...foe)):M.lane;
         if(M.add){bonus[tl]+=M.add;cmNote=`${LANES[tl]}多了 ${M.add} 隊`;}
@@ -2518,20 +2528,23 @@ function battle(o){
         <p class="story">${open}</p><div class="r2tags"><span>預備隊 <b>${R}</b> 隊${R>6?'（兵比敵人多）':R<6?'（兵比敵人少）':''}</span>${FT.s?`<span>${FT.s}</span>`:''}</div>
         ${(S.flags.r2n||0)<3?'<p class="hint">把預備隊放到三條戰線上：隊數不比敵軍少就守得住。守住兩條就佔上風；三條全守，要靠打頭陣的勇士或讓勇士出手。</p>':''}
         <div class="lanes">${LANES.map((n,i)=>`<div class="lane"><b>${n}</b><span class="${seen[i]?'':'dim'}">${hint[i]}</span>
-          <div class="lctl"><button data-lm="${i}" ${mine[i]?'':'disabled'}>−</button><i>${mine[i]}${champLane===i?' +2':''}${bonus[i]?` +${bonus[i]}`:''}</i><button data-lp="${i}" ${left?'':'disabled'}>＋</button></div></div>`).join('')}</div>
+          <div class="lctl"><button data-lm="${i}" ${mine[i]?'':'disabled'}>−</button><i>${mine[i]}${champLane===i?' +2':''}${bonus[i]?` +${bonus[i]}`:''}${sideVal(i)?` +${sideVal(i)}`:''}${pairAdj()[0][i]?` ${pairAdj()[0][i]>0?'+':''}${pairAdj()[0][i]}`:''}</i><button data-lp="${i}" ${left?'':'disabled'}>＋</button></div></div>`).join('')}</div>
         ${hero?`<div class="bchamp"><span style="font-size:13px;color:var(--muted);align-self:center">${CHAMPS[hero].name}（算 2 隊）守：</span>${LANES.map((n,i)=>`<button data-lc="${i}" aria-pressed="${champLane===i}">${n}</button>`).join('')}</div>`:''}
+        ${sideC.length?`<div class="list" style="margin:6px 0">${sideC.map(id=>`<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><b style="min-width:5em">${CHAMPS[id].name}</b>${LANES.map((n,i)=>`<button class="ghost" data-cl="${id}" data-v="${i}" aria-pressed="${cl[id]===i}" style="padding:3px 8px;border:1px solid var(--line);border-radius:4px;${cl[id]===i?'background:var(--accent,#d87b3a);color:#1a1006':''}">${n}</button>`).join('')}<small>${champ(id).oath?'算 2 隊':'算 1 隊'}</small></div>`).join('')}${pairAdj()[1].length?`<small class="good">${pairAdj()[1].join('；')}</small>`:''}</div>`:''}
         ${cm?`<div class="cmove on">${hasArt(cm)?avatar(cm,'sm'):''}<p><b>${CHAMPS[cm].name}・${CMOVE[cm].n}</b>\n${CMOVE[cm].t}\n<span class="good">${cmNote}</span></p></div>`:cands.length?`<p class="story" style="font-size:13px;margin:6px 0 0">讓一位勇士出手（這一仗只能一次）：</p><div class="bchamp">${cands.map(c=>`<button data-cm="${c.id}">${CHAMPS[c.id].name}・${CMOVE[c.id].n}</button>`).join('')}</div>`:''}
-        <p class="hint" style="margin-top:6px">還沒放的預備隊：${left} 隊<small>看清敵軍每條戰線的機率 ${pct(pSee)}（看智謀和斥候）</small></p>
+        <p class="hint" style="margin-top:6px">還沒放的預備隊：${left} 隊<small>${TRIAL?`看得清楚的戰線：${Math.min(3,prep)} 條`:`看清敵軍每條戰線的機率 ${pct(pSee)}（看智謀和斥候）`}</small></p>
         <button class="primary" id="r2-go">就這樣打</button>`;
         el.querySelectorAll('[data-cm]').forEach(b=>b.onclick=()=>applyCM(b.dataset.cm));
+        el.querySelectorAll('[data-cl]').forEach(b=>b.onclick=()=>{const id=b.dataset.cl,v=+b.dataset.v;if(cl[id]===v)delete cl[id];else cl[id]=v;draw2();});
         el.querySelectorAll('[data-lp]').forEach(b=>b.onclick=()=>{mine[+b.dataset.lp]++;draw2();});
         el.querySelectorAll('[data-lm]').forEach(b=>b.onclick=()=>{mine[+b.dataset.lm]--;draw2();});
         el.querySelectorAll('[data-lc]').forEach(b=>b.onclick=()=>{champLane=champLane===+b.dataset.lc?-1:+b.dataset.lc;draw2();});
         $('#r2-go').onclick=()=>{
-          const held=foe.map((v,i)=>mine[i]+(champLane===i?2:0)+bonus[i]>=v),n=held.filter(Boolean).length;
+          const pa=pairAdj()[0],tot=i=>mine[i]+(champLane===i?2:0)+bonus[i]+sideVal(i)+pa[i];
+          const held=foe.map((v,i)=>tot(i)>=v),n=held.filter(Boolean).length;
           S.flags.r2n=(S.flags.r2n||0)+1;if(n>=2){S.flags.mBat=(S.flags.mBat||0)+1;if(S.flags.mBat===3)toast('你的副將學會了怎麼調度預備隊');}
           ratio*=[.85,.93,1.04,1.12][n];
-          const txt=LANES.map((nm,i)=>`${nm}：你 ${mine[i]+(champLane===i?2:0)+bonus[i]} 隊，敵軍 ${foe[i]} 隊，<span class="${held[i]?'good':'bad'}">${held[i]?'守住了':'被衝開了'}</span>`).join('\n');
+          const txt=LANES.map((nm,i)=>`${nm}：你 ${tot(i)} 隊，敵軍 ${foe[i]} 隊，<span class="${held[i]?'good':'bad'}">${held[i]?'守住了':'被衝開了'}</span>`).join('\n');
           round3(t,nightOk,ratio,txt,n);};
       };
       draw2();
@@ -5842,6 +5855,44 @@ function kingdomHTML(){
 /* ================= 勇士的個人任務 ================= */
 // 第一段：勇士開口求你；第二段：幾季後要你親自完成一件事。完成後勇士「覺醒」，得到專屬能力
 const qd=id=>!!(S.qdone&&S.qdone[id]);
+/* ---------- 試玩版：身邊 3 人、勇士的住處、帶誰去 ---------- */
+const HOME={bragi:'longhouse',gudrun:'smithy',hakon:'barracks',astrid:'yard',einar:'tower',una:'altar',ragnar:'sauna',thorfinn:'ancestor',osric:'hall',athel:'runehut',knut:'market',sven:'shipyard'};
+const SIDE_MAX=3;
+function sideList(){if(!S.side)S.side=S.champions.slice(0,SIDE_MAX).map(c=>c.id);S.side=S.side.filter(hasC);return S.side;}
+const onSide=id=>TRIAL&&sideList().includes(id);
+const homeOf=id=>HOME[id]&&bl(HOME[id])>0?B(HOME[id]).name:'';
+function toggleSide(id){const L=sideList();if(L.includes(id))S.side=L.filter(x=>x!==id);else if(L.length<SIDE_MAX)L.push(id);else toast(`身邊最多 ${SIDE_MAX} 個人`);render();}
+// 每季：不在身邊、也沒有住處的勇士，好感慢慢下降（立誓的人不會）
+function trialTick(){if(!TRIAL||S.phase<2)return;const L=sideList();S.champions.forEach(c=>{if(!L.includes(c.id)&&!homeOf(c.id)&&!c.oath&&c.bond>40)c.bond-=1;});}
+// 一起去做事：誰最適合、會發生什麼
+const WITH={
+  blot:{fav:{una:['烏娜把祭品的骨頭排成一圈，唸了一整晚。那天晚上，連風都停了。',{loy:3}],bragi:['布拉吉把祭典唱成了一首歌，第二天整個部落都會唱。',{loy:2}],hakon:['哈康替每一個戰死的老兵，倒了一杯酒在地上。',{loy:2}]}},
+  midsummer:{fav:{bragi:['布拉吉在篝火邊唱到天亮，各地來的人都記住了你的名字。',{silver:10}],knut:['克努特在集會上跟每個商人都談了一筆，你也分到了一份。',{silver:15}],astrid:['阿斯特麗德下場比武，連贏三場。輸的人都說要來投靠你。',{loy:2}]}},
+  hunt:{fav:{einar:['埃納先找到了牠的足跡，還知道牠什麼時候會回來喝水。',{food:5}],ragnar:['拉格納衝在你前面，替你擋了第一撲。',{food:3}],astrid:['阿斯特麗德的盾擋住了第一撲，你的斧頭才落了下去。',{food:3}]}},
+  train:{fav:{astrid:['阿斯特麗德教了一整季的盾牆。到了季末，年輕人扣起盾來，像一塊石頭。',{vets:1}],hakon:['哈康一句話都沒罵，可是沒有一個人敢偷懶。',{vets:1}],sigrid:['西格麗德教大家怎麼守住左翼，就像她父親當年教她的一樣。',{vets:1}]}},
+  feast:{fav:{bragi:['布拉吉唱了一整晚。唱到每個人的名字時，那個人都跳起來大吼。',{loy:3}],ragnar:['拉格納喝到把桌子掀了，大家笑了一整個冬天。',{loy:2}],gudrun:['古德倫跟每一個人比腕力，一個都沒輸。',{loy:2}]}},
+  icefish:{fav:{thorfinn:['托爾芬坐在冰洞邊一整天，一動也不動。傍晚的時候，他的簍子是滿的。',{food:4}],una:['烏娜在冰上唸了幾句誰也聽不懂的話。那天，魚特別多。',{food:4}],bjorn:['比約恩穿著鎖子甲走上冰面，冰裂了一道縫。他退回岸上，換你去釣。',{food:2}]}},
+};
+function withMoment(aid,id){
+  const W=WITH[aid],f=W.fav[id],n=CHAMPS[id].name,fx=f?f[1]:{};
+  const b=f?10:6;bond(id,b);
+  if(fx.silver)S.silver+=fx.silver;if(fx.food)S.food+=fx.food;if(fx.loy)addLoyalty(fx.loy);if(fx.vets){const k=Math.min(fx.vets,S.men-(S.vets||0));if(k>0)S.vets=(S.vets||0)+k;}
+  const t=f?f[0]:`${n}一路都跟在你身邊。`;
+  const g=[fx.silver?`銀幣 +${fx.silver}`:'',fx.food?`糧食 +${fx.food}`:'',fx.loy?`忠誠 +${fx.loy}`:'',fx.vets?'一名戰士晉升老兵':'',`${n}好感 +${b}`].filter(Boolean).join('，');
+  return el=>resultView(el,`${n}同行`,`${t}\n<span class="good">${g}</span>`,'一起去',id);
+}
+function pickWith(a){
+  const L=sideList().filter(id=>hasC(id)&&!isAway(champ(id))&&!isJarlId(id));
+  if(!L.length){a.run();render();return;}
+  const W=WITH[a.id];
+  pushModal(el=>{
+    el.innerHTML=`<p class="eyebrow">${a.name}</p><h2>帶誰去？</h2><p class="story">一起去的人，好感會增加；最適合這件事的人，還會帶來別的收穫。</p>
+    <div class="choices">${L.map(id=>`<button class="choice withav" data-w="${id}">${avatar(id)}<b>帶${CHAMPS[id].name}去</b><small>${W.fav[id]?'他很適合這件事。':CHAMPS[id].ab}</small></button>`).join('')}
+    <button class="choice" data-w=""><b>自己去</b><small>不帶任何人。</small></button></div>`;
+    el.querySelectorAll('[data-w]').forEach(b=>b.onclick=()=>{const w=b.dataset.w;closeModal();a.run();render();if(w&&hasC(w))pushLater(withMoment(a.id,w));});
+  });
+}
+
 // 勇士的五格進度：陌生 → 信任 → 立誓 → 心事 → 覺醒（試玩版）
 const CSTAGE=['陌生','信任','立誓','心事','覺醒'];
 function cStage(c){const q=S.quest&&S.quest[c.id];return qd(c.id)?4:q&&q.st!=='done'?3:c.oath?2:c.bond>=50?1:0;}
@@ -6692,8 +6743,8 @@ function charHTML(){
   else if(ct==='tal') body=`<div class="sec-h">天賦樹 · 已學 ${S.talents.length}${S.talentPicks?` · <span class="good">還能選 ${S.talentPicks} 個</span>`:''}</div>
   ${treeHTML()}
   ${S.talents.some(t=>TALENTS[t].old)?`<div class="list">${S.talents.filter(t=>TALENTS[t].old).map(t=>`<div><b>${TALENTS[t].name}（舊版）</b><small>${TALENTS[t].desc}</small></div>`).join('')}</div>`:''}`;
-  else if(ct==='champ') body=S.champions.length?`<div class="sec-h">勇士 · ${S.champions.length}</div><div class="list">${S.champions.map(c=>`<div class="${hasArt(c.id)?'withav':''}">${avatar(c.id)}<b>${CHAMPS[c.id].name}${TRIAL?`${cPips(c)} <small style="display:inline" class="cstage">${CSTAGE[cStage(c)]}</small>`:`<span class="bond" title="好感 ${c.bond}"><i style="width:${c.bond}%"></i></span>`} <small style="display:inline">好感 ${c.bond}${TRIAL?'':c.oath?' · 已立誓':c.bond>=60?' · 可當代理人':''}${c.skill?` · 戰技 ${c.skill}`:''}</small></b>${TRIAL?`<small>${cNext(c)}</small>`:''}<small>${champAb(c.id)} · 戰力 +${champPow(c)}${c.bond>=60?'（好感加成）':''}</small>${isAway(c)?`<small class="bad">出任務中：${MS[c.ms]?MS[c.ms].n:''}（${c.away-S.turn} 季後回來）</small>`:''}${questNote(c.id)}</div>`).join('')}</div>
-  ${relHTML()}<div class="list"><small>${TRIAL?'每個勇士都會走過五步：陌生 → 信任 → 立誓 → 心事 → 覺醒。好感 60 起戰力 ×1.5、能當決鬥代理人；好感 80 立誓，教你一招；立誓之後，他才會把心事告訴你。':'好感 60：戰力 ×1.5、能當決鬥代理人，也可能找你幫忙完成心願。好感 80：立下誓約，教你一招。'}</small></div>`:'<div class="list"><small>還沒有勇士跟隨你。名聲越響，越多人會來投靠。</small></div>';
+  else if(ct==='champ') body=S.champions.length?`<div class="sec-h">勇士 · ${S.champions.length}</div><div class="list">${S.champions.map(c=>`<div class="${hasArt(c.id)?'withav':''}">${avatar(c.id)}<b>${CHAMPS[c.id].name}${TRIAL?`${cPips(c)} <small style="display:inline" class="cstage">${CSTAGE[cStage(c)]}</small>`:`<span class="bond" title="好感 ${c.bond}"><i style="width:${c.bond}%"></i></span>`} <small style="display:inline">好感 ${c.bond}${TRIAL?'':c.oath?' · 已立誓':c.bond>=60?' · 可當代理人':''}${c.skill?` · 戰技 ${c.skill}`:''}</small></b>${TRIAL?`<small>${cNext(c)}${onSide(c.id)?'':homeOf(c.id)?`　住在${homeOf(c.id)}`:HOME[c.id]?`　還沒有住處（蓋${B(HOME[c.id]).name}）`:''}</small><button class="ghost" data-side="${c.id}" style="padding:2px 0;font-size:13px">${onSide(c.id)?'★ 在你身邊（點一下讓他留在家）':'帶在身邊'}</button>`:''}<small>${champAb(c.id)} · 戰力 +${champPow(c)}${c.bond>=60?'（好感加成）':''}</small>${isAway(c)?`<small class="bad">出任務中：${MS[c.ms]?MS[c.ms].n:''}（${c.away-S.turn} 季後回來）</small>`:''}${questNote(c.id)}</div>`).join('')}</div>
+  ${relHTML()}<div class="list"><small>${TRIAL?'每個勇士都會走過五步：陌生 → 信任 → 立誓 → 心事 → 覺醒。身邊最多帶 ${SIDE_MAX} 個人，只有身邊的人能跟你一起去做事；其他人住在自己的建築裡，沒有住處又沒立誓的人，好感會慢慢下降。好感 60 起戰力 ×1.5、能當決鬥代理人；好感 80 立誓，教你一招；立誓之後，他才會把心事告訴你。':'好感 60：戰力 ×1.5、能當決鬥代理人，也可能找你幫忙完成心願。好感 80：立下誓約，教你一招。'}</small></div>`:'<div class="list"><small>還沒有勇士跟隨你。名聲越響，越多人會來投靠。</small></div>';
   else if(ct==='fam') body=famHTML();
   else if(ct==='gods') body=S.phase>=2||Object.values(S.favor||{}).some(v=>v>0)?godsHTML():'<div class="list"><small>眾神還沒有注意到你。</small></div>';
   else body=`<div class="sec-h">設定</div>
@@ -6859,7 +6910,8 @@ document.addEventListener('click',e=>{
   const d=t.dataset;
   if(d.ct){S.ctab=d.ct;render();return;}
   if(d.tab){S.tab=d.tab;render();if(d.tab==='tribe')tipCheck();return;}
-  if(d.a){const a=actions().find(x=>x.id===d.a);if(a&&!a.dis){a.run();render();}return;}
+  if(d.a){const a=actions().find(x=>x.id===d.a);if(a&&!a.dis){if(TRIAL&&WITH[a.id]&&S.phase>=2)pickWith(a);else{a.run();render();}}return;}
+  if(d.side){toggleSide(d.side);return;}
   if(d.r){S.sel=d.r;render();if(UX2()){const c=[...document.querySelectorAll('#pane .card')].find(x=>x.querySelector('.pill'));if(c){c.scrollIntoView({behavior:'smooth',block:'start'});c.classList.remove('flash');void c.offsetWidth;c.classList.add('flash');}}return;}
   if(d.o){S.osel=d.o;render();return;}
   if(d.oa){const a=osActs(O(S.osel)||OS[0]).A[+d.oa];if(a&&a.run&&!a.dis){a.run();render();}return;}
