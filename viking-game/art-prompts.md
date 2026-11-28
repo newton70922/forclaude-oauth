@@ -10,7 +10,7 @@
    - 我會自己縮圖、轉檔，你不用處理。
 4. 某張畫壞了（多手指、文字、現代物品），重畫那一張就好。還沒到的圖，遊戲裡會先用符文圖示代替，不影響遊玩。
 
-## 📋 待辦總表（重畫 1 張、還沒畫 73 張）
+## 📋 待辦總表（重畫 1 張、還沒畫 48 張）
 
 提示詞都在下面各組裡，用檔名搜尋就找得到；重畫的那幾張，提示詞已經改好了。像素單挑角色另外在 pixel-prompts.md。
 
@@ -20,13 +20,9 @@
 |---|---|---|
 | sc_dane_gift | 藍牙要的禮物 | 改畫開場：使者開口要禮（W11） |
 
-### 二、還沒畫（73 張）
+### 二、還沒畫（48 張）
 
-**W13 勇士搭檔與和好**（4 張）：sc_ev_pr_osric_bragi、sc_ev_pr_astrid_thorfinn、sc_ev_pr_knut_sven、sc_ev_pr_ragnar_bjorn
-
-**W14 補充：特寫第一頁、傳位、斯韋恩版**（18 張）：sc_rr_garm0、sc_rr_jormun0、sc_rr_surtr0、sc_rr_fenrir0、sc_abdicate_f、sc_abdicate_c_thorfinn、sc_abdicate_c_astrid、sc_abdicate_c_hakon、sc_abdicate_c_bragi、sc_abdicate_c_ragnar、sc_abdicate_c_sven、sc_abdicate_c_osric、sc_abdicate_c_knut、sc_abdicate_c_einar、sc_abdicate_c_gudrun、sc_abdicate_c_una、sc_dane_lastchance_m、sc_dane_taken_m
-
-**W15 勇士任務、洛基的來訪、長屋故事**（16 張）：sc_ms_board、sc_ms_envoy、sc_ms_mine、sc_ms_bandit、sc_ms_plague、sc_ms_trade、sc_ms_scout、sc_ms_drill、sc_ms_beast、sc_lk_1、sc_lk_2、sc_lk_3、sc_lk_4、sc_lt_raid、sc_lt_bear、sc_ev_vraid1
+**W15 勇士任務、洛基的來訪、長屋故事**（13 張）：sc_ms_bandit、sc_ms_plague、sc_ms_trade、sc_ms_scout、sc_ms_drill、sc_ms_beast、sc_lk_1、sc_lk_2、sc_lk_3、sc_lk_4、sc_lt_raid、sc_lt_bear、sc_ev_vraid1
 
 **W16 試玩回報補圖**（35 張）：c_athel_mk、sc_mk_cap_1、sc_mk_cap_2、sc_mk_cap_3、sc_mk_bully_1、sc_mk_bully_2、sc_mk_bully_3、sc_mk_map_1、sc_mk_map_2、sc_mk_map_3、sc_mk_pray_1、sc_mk_pray_2、sc_mk_pray_3、sc_mk_axe_1、sc_mk_axe_2、sc_mk_axe_3、sc_mk_trader_1、sc_mk_trader_2、sc_mk_trader_3、sc_ev_mission_1、sc_ev_mission_2、sc_ev_mission_3、sc_ev_mission_4、sc_ev_mission2_1、sc_ev_mission2_2、sc_duel_gyr、sc_duel_dock_w、sc_duel_dock_l、sc_duel_sven_flee、sc_duel_usurper、sc_duel_knut、sc_duel_egill、sc_duel_holm、sc_paris_haul、sc_paris_fire
 
@@ -2013,10 +2009,10 @@ Aethelstan, a young Anglo-Saxon former monk turned Viking warrior, short brown h
 | 5 | sc_ev_pr_bragi_hakon | 哈康的薩迦 （✅ 已收到） |
 | 6 | sc_ev_pr_einar_una | 雪地裡的藥草 （✅ 已收到） |
 | 7 | sc_ev_pr_gudrun_ragnar | 特大號的斧頭 （✅ 已收到） |
-| 8 | sc_ev_pr_osric_bragi | 宮廷裡的歌 |
-| 9 | sc_ev_pr_astrid_thorfinn | 兩個人的盾牆 |
-| 10 | sc_ev_pr_knut_sven | 骰子和一整船的貨 |
-| 11 | sc_ev_pr_ragnar_bjorn | 父子的比賽 |
+| 8 | sc_ev_pr_osric_bragi | 宮廷裡的歌 （✅ 已收到） |
+| 9 | sc_ev_pr_astrid_thorfinn | 兩個人的盾牆 （✅ 已收到） |
+| 10 | sc_ev_pr_knut_sven | 骰子和一整船的貨 （✅ 已收到） |
+| 11 | sc_ev_pr_ragnar_bjorn | 父子的比賽 （✅ 已收到） |
 
 **1. sc_ev_pr_ragnar_astrid（盾牆與狂戰士）**
 
@@ -2123,24 +2119,24 @@ Two red-bearded berserkers, father Ragnar and son Bjorn, each carrying a whole c
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_rr_garm0 | 加姆特寫・第 1 頁：鑽出來的黑影 |
-| 2 | sc_rr_jormun0 | 耶夢加得特寫・第 1 頁：撞破冰層 |
-| 3 | sc_rr_surtr0 | 蘇爾特特寫・第 1 頁：雪化成水 |
-| 4 | sc_rr_fenrir0 | 芬里爾特寫・第 1 頁：大地在晃 |
-| 5 | sc_abdicate_f | 傳位給女兒 |
-| 6 | sc_abdicate_c_thorfinn | 傳位給Thorfinn |
-| 7 | sc_abdicate_c_astrid | 傳位給Astrid |
-| 8 | sc_abdicate_c_hakon | 傳位給Hakon |
-| 9 | sc_abdicate_c_bragi | 傳位給Bragi |
-| 10 | sc_abdicate_c_ragnar | 傳位給Ragnar |
-| 11 | sc_abdicate_c_sven | 傳位給Hrolf |
-| 12 | sc_abdicate_c_osric | 傳位給Guthorm |
-| 13 | sc_abdicate_c_knut | 傳位給Knut |
-| 14 | sc_abdicate_c_einar | 傳位給Einar |
-| 15 | sc_abdicate_c_gudrun | 傳位給Gudrun |
-| 16 | sc_abdicate_c_una | 傳位給Una |
-| 17 | sc_dane_lastchance_m | 最後的機會（斯韋恩版） |
-| 18 | sc_dane_taken_m | 被帶走的人（斯韋恩版） |
+| 1 | sc_rr_garm0 | 加姆特寫・第 1 頁：鑽出來的黑影 （✅ 已收到） |
+| 2 | sc_rr_jormun0 | 耶夢加得特寫・第 1 頁：撞破冰層 （✅ 已收到） |
+| 3 | sc_rr_surtr0 | 蘇爾特特寫・第 1 頁：雪化成水 （✅ 已收到） |
+| 4 | sc_rr_fenrir0 | 芬里爾特寫・第 1 頁：大地在晃 （✅ 已收到） |
+| 5 | sc_abdicate_f | 傳位給女兒 （✅ 已收到） |
+| 6 | sc_abdicate_c_thorfinn | 傳位給Thorfinn （✅ 已收到） |
+| 7 | sc_abdicate_c_astrid | 傳位給Astrid （✅ 已收到） |
+| 8 | sc_abdicate_c_hakon | 傳位給Hakon （✅ 已收到） |
+| 9 | sc_abdicate_c_bragi | 傳位給Bragi （✅ 已收到） |
+| 10 | sc_abdicate_c_ragnar | 傳位給Ragnar （✅ 已收到） |
+| 11 | sc_abdicate_c_sven | 傳位給Hrolf （✅ 已收到） |
+| 12 | sc_abdicate_c_osric | 傳位給Guthorm （✅ 已收到） |
+| 13 | sc_abdicate_c_knut | 傳位給Knut （✅ 已收到） |
+| 14 | sc_abdicate_c_einar | 傳位給Einar （✅ 已收到） |
+| 15 | sc_abdicate_c_gudrun | 傳位給Gudrun （✅ 已收到） |
+| 16 | sc_abdicate_c_una | 傳位給Una （✅ 已收到） |
+| 17 | sc_dane_lastchance_m | 最後的機會（斯韋恩版） （✅ 已收到） |
+| 18 | sc_dane_taken_m | 被帶走的人（斯韋恩版） （✅ 已收到） |
 
 **1. sc_rr_garm0（加姆特寫・第 1 頁：鑽出來的黑影）**
 
@@ -2310,9 +2306,9 @@ Dawn at the harbor: Danish soldiers forcing Sweyn Forkbeard, a Danish prince in 
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_ms_board | 任務板 |
-| 2 | sc_ms_envoy | 出使南方 |
-| 3 | sc_ms_mine | 探勘礦山 |
+| 1 | sc_ms_board | 任務板 （✅ 已收到） |
+| 2 | sc_ms_envoy | 出使南方 （✅ 已收到） |
+| 3 | sc_ms_mine | 探勘礦山 （✅ 已收到） |
 | 4 | sc_ms_bandit | 追捕山賊 |
 | 5 | sc_ms_plague | 疫區行醫 |
 | 6 | sc_ms_trade | 跑一趟商路 |
