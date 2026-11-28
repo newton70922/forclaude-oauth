@@ -69,18 +69,18 @@
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_q_hakon_a | 哈康：最後一個首領的墳（開頭） （⚠ 需重畫：拿掉王冠） |
-| 2 | sc_q_hakon_b | 哈康：山谷裡的強盜 （⚠ 需重畫：拿掉王冠） |
-| 3 | sc_q_hakon_w | 哈康：在舊主的墳前 （⚠ 需重畫：拿掉王冠） |
+| 1 | sc_q_hakon_a | 哈康：最後一個首領的墳（開頭） （✅ 已收到） |
+| 2 | sc_q_hakon_b | 哈康：山谷裡的強盜 （✅ 已收到） |
+| 3 | sc_q_hakon_w | 哈康：在舊主的墳前 （✅ 已收到） |
 | 4 | sc_q_astrid_b | 阿斯特麗德：獨臂奧諾德 （✅ 已收到） |
-| 5 | sc_q_astrid_w | 阿斯特麗德：父親的盾 （⚠ 需重畫：拿掉王冠） |
-| 6 | sc_q_thorfinn_a | 托爾芬：沉默的理由（開頭） （⚠ 需重畫：拿掉王冠） |
+| 5 | sc_q_astrid_w | 阿斯特麗德：父親的盾 （✅ 已收到） |
+| 6 | sc_q_thorfinn_a | 托爾芬：沉默的理由（開頭） （✅ 已收到） |
 | 7 | sc_q_thorfinn_b | 托爾芬：海岬上的墳 （✅ 已收到） |
-| 8 | sc_q_thorfinn_w | 托爾芬：終於哭出來 （⚠ 需重畫：拿掉王冠） |
+| 8 | sc_q_thorfinn_w | 托爾芬：終於哭出來 （✅ 已收到） |
 | 9 | sc_q_sven_a | 赫羅爾夫：父親的船（開頭） （✅ 已收到） |
-| 10 | sc_q_sven_b | 赫羅爾夫：紅帆船 （⚠ 需重畫：拿掉王冠） |
-| 11 | sc_q_sven_w | 赫羅爾夫：奪回紅帆船 （⚠ 需重畫：拿掉王冠） |
-| 12 | sc_q_una_a | 烏娜：霧沼的女巫（開頭） （⚠ 需重畫：拿掉王冠） |
+| 10 | sc_q_sven_b | 赫羅爾夫：紅帆船 （✅ 已收到） |
+| 11 | sc_q_sven_w | 赫羅爾夫：奪回紅帆船 （✅ 已收到） |
+| 12 | sc_q_una_a | 烏娜：霧沼的女巫（開頭） （✅ 已收到） |
 | 13 | sc_q_una_b | 烏娜：解咒 （✅ 已收到） |
 | 14 | sc_q_una_w | 烏娜：霧沼變綠了 （✅ 已收到） |
 | 15 | sc_q_bragi_a | 布拉吉：失落的詩（開頭） （✅ 已收到） |
@@ -88,7 +88,7 @@
 | 17 | sc_q_bragi_w | 布拉吉：最好的一首歌 （✅ 已收到） |
 | 18 | sc_q_einar_a | 埃納：冬狼王（開頭） （✅ 已收到） |
 | 19 | sc_q_einar_b | 埃納：白色的狼王 （✅ 已收到） |
-| 20 | sc_q_einar_w | 埃納：狼王殺手 （⚠ 需重畫：拿掉王冠） |
+| 20 | sc_q_einar_w | 埃納：狼王殺手 （✅ 已收到） |
 | 21 | sc_q_gudrun_a | 古德倫：天上掉下來的鐵（開頭） （✅ 已收到） |
 | 22 | sc_q_gudrun_b | 古德倫：星鐵 （✅ 已收到） |
 | 23 | sc_q_gudrun_w | 古德倫：星鐵之斧 （✅ 已收到） |
@@ -99,7 +99,7 @@
 | 28 | sc_q_osric_b | 古托姆：骨灰 （✅ 已收到） |
 | 29 | sc_q_osric_w | 古托姆：帶舊主回家 （✅ 已收到） |
 | 30 | sc_q_bjorn_a | 比約恩：母親的墳（開頭） （✅ 已收到） |
-| 31 | sc_q_bjorn_b | 比約恩：海島上的墳 （⚠ 需重畫：拿掉王冠） |
+| 31 | sc_q_bjorn_b | 比約恩：海島上的墳 （✅ 已收到） |
 | 32 | sc_q_bjorn_w | 比約恩：父子在墳前 （✅ 已收到） |
 | 33 | sc_q_sigrid_a | 西格麗德：父親的官司（開頭） （✅ 已收到） |
 | 34 | sc_q_sigrid_b | 西格麗德：沒輸過的決鬥者 （✅ 已收到） |
@@ -592,7 +592,7 @@ Sitric Silkbeard, the Norse-Irish king of Dublin, a long silky well-groomed dark
 | 11 | sc_god_freyja_2 | 弗蕾亞・神恩第 2 階 （✅ 已收到） |
 | 12 | sc_god_freyja_3 | 弗蕾亞・神恩第 3 階 （✅ 已收到） |
 | 13 | sc_god_loki_1 | 洛基・神恩第 1 階 （✅ 已收到） |
-| 14 | sc_god_loki_2 | 洛基・神恩第 2 階 （⚠ 需重畫：拿掉王冠） |
+| 14 | sc_god_loki_2 | 洛基・神恩第 2 階 （✅ 已收到） |
 | 15 | sc_god_loki_3 | 洛基・神恩第 3 階 （✅ 已收到） |
 
 **1. sc_god_odin_1（奧丁・神恩第 1 階）**
@@ -1152,7 +1152,7 @@ A holmgang cloak on the ground: Ragnar, a huge bare-chested red-bearded berserke
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_age_35 | 35 歲 （⚠ 需重畫：拿掉王冠） |
+| 1 | sc_age_35 | 35 歲 （✅ 已收到） |
 | 2 | sc_age_40 | 40 歲 （✅ 已收到） |
 | 3 | sc_age_45 | 45 歲 （✅ 已收到） |
 | 4 | sc_age_50 | 50 歲 （✅ 已收到） |
@@ -1347,7 +1347,7 @@ Jarls whispering in the shadows of a royal hall while the crowned ruler sits alo
 | 29 | sc_dane_lastchance | 最後的機會 （✅ 已收到） |
 | 30 | sc_dane_taken | 被帶走的人 （✅ 已收到） |
 | 31 | sc_lh_story | 講故事之夜 （✅ 已收到） |
-| 32 | sc_mk_silent | 沉默的修士 （⚠ 需重畫：要穿修士袍，不是戰士） |
+| 32 | sc_mk_silent | 沉默的修士 （✅ 已收到） |
 
 **1. sc_ev_envoy（藍牙的使者）**
 
@@ -1827,7 +1827,7 @@ After the victory feast, the crowned ruler stands alone on a silent beach at nig
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_dane_sneak | 偷偷出海的人 |
+| 1 | sc_dane_sneak | 偷偷出海的人 （✅ 已收到） |
 | 2 | sc_dane_spy | 市集上的探子 |
 | 3 | sc_dane_exile | 逃來的丹麥雅爾 |
 | 4 | sc_dane_gift | 藍牙要的禮物 |
@@ -2506,11 +2506,11 @@ A dim fishing-village hut right after a Viking raid. In the foreground corner, a
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_ev_p_astrid | 阿斯特麗德的挑戰（重畫） |
-| 2 | sc_win_astrid2 | 阿斯特麗德輸了之後（重畫） |
-| 3 | sc_oath_astrid | 與阿斯特麗德立誓（重畫） |
-| 4 | sc_rv_dock | 碼頭上的老面孔（重畫） |
-| 5 | sc_dane_party2 | 被扛起來的國王（重畫） |
+| 1 | sc_ev_p_astrid | 阿斯特麗德的挑戰（重畫） （✅ 已收到） |
+| 2 | sc_win_astrid2 | 阿斯特麗德輸了之後（重畫） （✅ 已收到） |
+| 3 | sc_oath_astrid | 與阿斯特麗德立誓（重畫） （✅ 已收到） |
+| 4 | sc_rv_dock | 碼頭上的老面孔（重畫） （✅ 已收到） |
+| 5 | sc_dane_party2 | 被扛起來的國王（重畫） （✅ 已收到） |
 
 **1. sc_ev_p_astrid（阿斯特麗德的挑戰（重畫））**
 
@@ -2951,7 +2951,7 @@ Dawn on the river Seine at Paris: a Viking longship packed with burning hay drif
 | 3 | sc_rr_garm | 冥犬加姆衝破盾牆 （✅ 已收到） |
 | 4 | sc_rr_jormun | 世界巨蛇的毒霧 （✅ 已收到） |
 | 5 | sc_rr_surtr | 火巨人蘇爾特 （✅ 已收到） |
-| 6 | sc_rr_fenrir | 巨狼芬里爾張開大口 （⚠ 需重畫：芬里爾要在撲咬，不是張嘴站著） |
+| 6 | sc_rr_fenrir | 巨狼芬里爾張開大口 （✅ 已收到） |
 | 7 | sc_rr_step | 你走到最前面 （✅ 已收到） |
 
 **1. sc_rr_hrym（赫列姆從船上跳下來）**
@@ -3568,7 +3568,7 @@ A Danish messenger kneels in the king's hall presenting an open wooden box: insi
 
 | # | 檔名 | 內容 |
 |---|---|---|
-| 1 | sc_rv_dock | 碼頭上的老面孔 （✅ 已收到）|
+| 1 | sc_rv_dock | 碼頭上的老面孔 （✅ 已收到） |
 | 2 | sc_rv_raid1 | 紅帆來襲：赫羅爾夫在海灘叫罵 （✅ 已收到）|
 | 3 | sc_rv_raid2 | 紅帆再臨：帶著丹麥傭兵 （✅ 已收到）|
 | 4 | sc_rv_fire | 火船：最後一擊 （✅ 已收到）|
@@ -6061,11 +6061,11 @@ Morning at the settlement's simple wooden gate: newcomers arriving with their bu
 | 1 | c_athel | 艾瑟斯坦（勇士立繪） （✅ 已收到） |
 | 2 | sc_mk_ship | 船艙裡的修士 （✅ 已收到） |
 | 3 | sc_mk_bully | 被欺負的修士 （✅ 已收到） |
-| 4 | sc_mk_map | 樹皮上的航線 （⚠ 需重畫：拿掉王冠） |
+| 4 | sc_mk_map | 樹皮上的航線 （✅ 已收到） |
 | 5 | sc_mk_pray | 傷兵帳篷裡的禱詞 （✅ 已收到） |
-| 6 | sc_mk_axe | 練武場的斧頭 （⚠ 需重畫：拿掉王冠） |
-| 7 | sc_mk_join | 剃頭拿斧 （⚠ 需重畫：拿掉王冠） |
-| 8 | sc_mk_trader | 碼頭上的南方商人 （⚠ 需重畫：拿掉王冠） |
+| 6 | sc_mk_axe | 練武場的斧頭 （✅ 已收到） |
+| 7 | sc_mk_join | 剃頭拿斧 （✅ 已收到） |
+| 8 | sc_mk_trader | 碼頭上的南方商人 （✅ 已收到） |
 | 9 | sc_mk_betray | 碼頭上的影子 （✅ 已收到） |
 | 10 | sc_mk_letter | 留在桌上的信 （✅ 已收到） |
 
