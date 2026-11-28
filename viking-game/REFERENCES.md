@@ -1,7 +1,7 @@
 # 其他遊戲怎麼做（2026-11-28）
 
 挑了跟我們最像的遊戲：維京題材的，還有「角色驅動、選擇有後果」的熱門作品。
-依我們現有的功能分類，每類寫「它們怎麼做」和「我們可以怎麼用」。
+依我們現有的功能分類（第九類是戰鬥），每類寫「它們怎麼做」和「我們可以怎麼用」。
 資料多半來自攻略網站和評論，數字可能隨版本不同，看設計思路就好。
 
 ## 一、勇士的感情怎麼往前走
@@ -97,6 +97,48 @@
 **我們可以怎麼用**
 - 我們已經有出身、傳承、通關記號、檢查點，方向對了。
 - 少的是「一局短一點」：demo 的 20 分鐘一局，可以考慮做成正式版的一個獨立模式。
+
+## 九、戰鬥
+
+我們現在有三種戰鬥：部隊戰（三回合，擺三條戰線）、單挑（重擊／快攻／格擋，看對手的動作），還有十幾種小遊戲。
+
+| 遊戲 | 做法 |
+|---|---|
+| 旗幟傳說 | 遇到大軍時，先用文字選戰略，再決定要不要親自帶頭衝鋒。親自衝，就打一場小規模的戰術戰，傷亡比較少；只在後面下令，傷亡比較多。評論的缺點：戰鬥打久了會重複。 |
+| 殺戮尖塔 | 敵人下一招要做什麼，直接顯示在頭上（「意圖」）。分析文章的重點：預告一定要可靠；只要偶爾騙人，玩家就不再相信，改成每回合都防守。 |
+| 陷陣之志 | 敵人的攻擊位置全部預先顯示，整場戰鬥像一道解謎題。 |
+| 榮耀戰魂 | 單挑只有上、左、右三個架式。架式跟對方一樣就能擋下，重點是讀懂對方的架式，不是看動畫。 |
+| 王國風雲 3 | 會戰分階段：先比指揮官的優勢，再交戰，最後追擊。騎士（像我們的勇士）會加進戰力，也可能受傷或戰死。 |
+| 聖火降魔錄 | 有支援關係的兩個人站在一起，戰鬥時會互相加成；兵器相剋就是剪刀石頭布。 |
+| 北海之謎（Bad North） | 把幾隊兵放到島上的不同位置守房子。打過一場的隊伍會疲累，同一回合不能再用。 |
+
+**我們可以怎麼用**
+- **單挑：預告要可靠。** 現在單挑有「看穿對手的機率 X%」，看穿失敗時，玩家會覺得被騙。可以學殺戮尖塔：動作一律照實顯示，只保留少數幾招「固定會假裝的招式」。至於能不能識破，靠的是勇士在旁提醒、以前交手過，而不是擲骰子。demo 的赫羅爾夫就是這樣做的。
+- **部隊戰：情報靠準備，不靠運氣。** 現在每條戰線「看不看得清楚」是機率；可以改成派斥候、帶埃納、問出口供，才看得清楚。這跟陷陣之志「資訊公開，難在怎麼解」是同一個思路。
+- **勇士站在一起有加成。** 學聖火降魔錄：感情好的兩個勇士守同一條戰線，加一隊；有心結的兩個人放一起，反而扣一隊。這會把勇士之間的搭檔事件，直接接進戰鬥。
+- **親自上陣，換來一場單挑。** 學旗幟傳說：勾選「親自上陣」的話，會在中途遇到對方的勇士，打贏就少死人。現在攻打雅爾時有類似的設計，可以推廣到大戰。
+- **像素單挑可以學榮耀戰魂。** 用架式的像素動畫來表現對手的動作，比文字更直覺。
+
+### 戰鬥的資料來源
+- 旗幟傳說
+  - [Gamepressure：戰爭](https://gamepressure.com/thebannersaga/warfare/ze5d14)
+  - [Banner Saga Wiki：戰鬥](https://bannersaga.fandom.com/wiki/Combat)
+- 殺戮尖塔、陷陣之志
+  - [敵人意圖預告](https://saschb2b.github.io/game-mechanics/concepts/enemy-intent-telegraph)
+  - [LessWrong 評論](https://www.lesswrong.com/posts/MEimkSwwuRgiPaZaY/review-slay-the-spire)
+  - [Steemit：兩款遊戲比較](https://steemit.com/gamedesign/@poet/what-does-gloomhaven-pandemic-into-the-breach-and-slay-the-spire-have-in-common)
+- 榮耀戰魂
+  - [Ubisoft：戰鬥的藝術](https://www.ubisoft.com/en-us/game/for-honor/news-updates/3i9GE9e7XGWHqKQH2wUtZc/for-honor-the-art-of-battle)
+  - [Digital Trends：新手指南](https://www.digitaltrends.com/gaming/for-honor-beginners-guide/)
+- 王國風雲 3
+  - [PC Gamer：開發日誌談戰爭](https://www.pcgamer.com/crusader-kings-3-developer-diary-reveals-how-war-is-waged)
+  - [NA Guide：戰鬥](https://www.naguide.com/crusader-kings-iii-combat-guide/)
+- 聖火降魔錄
+  - [Fire Emblem Wiki：支援](https://fireemblemwiki.org/wiki/support)
+  - [Inverse：兵器相剋](https://www.inverse.com/gaming/fire-emblem-engage-weapon-triangle-combat-guide)
+- 北海之謎
+  - [PC Gamer 評測](https://pcgamer.com/bad-north-review)
+  - [TheSixthAxis 評測](https://www.thesixthaxis.com/2018/08/23/bad-north-review/)
 
 ## 建築和勇士的對應（建議，等你確認）
 
